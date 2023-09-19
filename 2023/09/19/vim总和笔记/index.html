@@ -22,19 +22,21 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"thinklive1.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.18.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"flat"},"fold":{"enable":false,"height":500},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="you are your dotfiles!帮助按f1或命令行输入help开启在线帮助&lt;Cw&gt;切换到另一个窗口q关闭窗口 编辑如之前所述，Vim最主要的编辑模式是Insert模式，想要修改文本，先将光标在Normal模式下移动到对应位置，然后再键入i进入Insert模式，在这个模式下添加或者删除文本。但是当我们需要修改的地方非常多时，每次都需要先移动光标再输入i就是一个相对麻烦的操作，">
+    <meta name="description" content="you are your dotfiles!帮助按f1或命令行输入help开启在线帮助&lt;Cw&gt;切换到另一个窗口q关闭窗口">
 <meta property="og:type" content="article">
 <meta property="og:title" content="基于北大前沿计算实践课和missing semester的vim笔记">
 <meta property="og:url" content="https://thinklive1.github.io/2023/09/19/vim%E6%80%BB%E5%92%8C%E7%AC%94%E8%AE%B0/index.html">
 <meta property="og:site_name" content="thinklive">
-<meta property="og:description" content="you are your dotfiles!帮助按f1或命令行输入help开启在线帮助&lt;Cw&gt;切换到另一个窗口q关闭窗口 编辑如之前所述，Vim最主要的编辑模式是Insert模式，想要修改文本，先将光标在Normal模式下移动到对应位置，然后再键入i进入Insert模式，在这个模式下添加或者删除文本。但是当我们需要修改的地方非常多时，每次都需要先移动光标再输入i就是一个相对麻烦的操作，">
+<meta property="og:description" content="you are your dotfiles!帮助按f1或命令行输入help开启在线帮助&lt;Cw&gt;切换到另一个窗口q关闭窗口">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://thinklive1.github.io/images/obsidian/vim-mode.jpg">
 <meta property="article:published_time" content="2023-09-19T10:55:11.090Z">
-<meta property="article:modified_time" content="2023-09-19T10:58:00.570Z">
+<meta property="article:modified_time" content="2023-09-19T11:03:41.550Z">
 <meta property="article:author" content="thinklive">
 <meta property="article:tag" content="课程笔记">
 <meta property="article:tag" content="vim">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://thinklive1.github.io/images/obsidian/vim-mode.jpg">
 
 
 <link rel="canonical" href="https://thinklive1.github.io/2023/09/19/vim%E6%80%BB%E5%92%8C%E7%AC%94%E8%AE%B0/">
@@ -182,13 +184,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-count">9</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -262,7 +264,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2023-09-19 18:55:11 / 修改时间：18:58:00" itemprop="dateCreated datePublished" datetime="2023-09-19T18:55:11+08:00">2023-09-19</time>
+      <time title="创建时间：2023-09-19 18:55:11 / 修改时间：19:03:41" itemprop="dateCreated datePublished" datetime="2023-09-19T18:55:11+08:00">2023-09-19</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -306,6 +308,7 @@
     
     
     <div class="post-body" itemprop="articleBody"><h1 id="you-are-your-dotfiles"><a href="#you-are-your-dotfiles" class="headerlink" title="you are your dotfiles!"></a>you are your dotfiles!</h1><h2 id="帮助"><a href="#帮助" class="headerlink" title="帮助"></a>帮助</h2><p>按f1或命令行输入help开启在线帮助<br>&lt;Cw&gt;切换到另一个窗口q关闭窗口</p>
+<span id="more"></span>
 <h2 id="编辑"><a href="#编辑" class="headerlink" title="编辑"></a>编辑</h2><p>如之前所述，Vim最主要的编辑模式是Insert模式，想要修改文本，先将光标在Normal模式下移动到对应位置，然后再键入<code>i</code>进入Insert模式，在这个模式下添加或者删除文本。但是当我们需要修改的地方非常多时，每次都需要先移动光标再输入<code>i</code>就是一个相对麻烦的操作，因而Vim提供了一些命令将移动光标和进入Insert模式合成一步：</p>
 <ul>
 <li><code>i</code>在当前位置输入（光标前），<code>I</code>在行首输入</li>
@@ -363,7 +366,8 @@
 </li>
 </ul>
 <p>这些基本命令可以和数字进行组合，输入任意数字（默认情况下显示在右下角），然后输入<code>j</code>就会向下移动对应行数，同理，如果是数字+<code>w</code>，就会移动对应单词数。另外，数字+<code>&lt;CR&gt;</code>等同于数字+<code>j</code>，数字+<code>G</code>会跳转到整个文件的第几行。  </p>
-<h2 id="模式"><a href="#模式" class="headerlink" title="模式"></a>模式</h2><p>Normal模式是最基本的模式，在这个模式下基本只能移动光标，不能直接输入文本，因为此时键入任何字符都会被当成是Vim的命令而非插入到文本中。想要输入文本需要切换到Insert模式，可以直接键入<code>i</code>进入Insert模式，此时输入任何字符都会插入到光标所在位置。想从输入模式中返回Normal模式，只需要键入<code>&lt;ESC&gt;</code>。事实上，在任何模式下键入<code>&lt;ESC&gt;</code>都 能回到Normal模式。Normal模式和Insert模式是Vim中最常用的两种模式，理论上我们只需要这两种模式就能完成修改文本的所有操作，其他 模式和命令都是用来更快地完成一些任务。默认情况下，所处模式会显示在Vim窗口的左下角，Normal模式没有显示，Insert模式会显示<code>--INSERT--</code>，Command-line模式会显示所输入的命令等等。在Normal模式下键入<code>R</code>进入Replace模式，用于替换当前光标处的文本，键入<code>v</code>进入Visual模式，用于选择文本。![[vim-mode.jpg]]</p>
+<h2 id="模式"><a href="#模式" class="headerlink" title="模式"></a>模式</h2><p>Normal模式是最基本的模式，在这个模式下基本只能移动光标，不能直接输入文本，因为此时键入任何字符都会被当成是Vim的命令而非插入到文本中。想要输入文本需要切换到Insert模式，可以直接键入<code>i</code>进入Insert模式，此时输入任何字符都会插入到光标所在位置。想从输入模式中返回Normal模式，只需要键入<code>&lt;ESC&gt;</code>。事实上，在任何模式下键入<code>&lt;ESC&gt;</code>都 能回到Normal模式。Normal模式和Insert模式是Vim中最常用的两种模式，理论上我们只需要这两种模式就能完成修改文本的所有操作，其他 模式和命令都是用来更快地完成一些任务。默认情况下，所处模式会显示在Vim窗口的左下角，Normal模式没有显示，Insert模式会显示<code>--INSERT--</code>，Command-line模式会显示所输入的命令等等。在Normal模式下键入<code>R</code>进入Replace模式，用于替换当前光标处的文本，键入<code>v</code>进入Visual模式，用于选择文本。</p>
+<p><img src="/images/obsidian/vim-mode.jpg" alt="图片" title="image"></p>
 <h2 id="进阶"><a href="#进阶" class="headerlink" title="进阶"></a>进阶</h2><p>.命令重复上一次命令，可用于简化操作</p>
 <ul>
 <li>C&#x3D;c$</li>
@@ -394,6 +398,9 @@
                 </a>
             </div>
             <div class="post-nav-item">
+                <a href="/2023/09/19/%E8%BF%AA%E7%91%9E%E5%85%8B%E6%8B%89%E4%B8%96%E7%95%8C%E8%A7%82/" rel="next" title="迪瑞克拉世界观设定集">
+                  迪瑞克拉世界观设定集 <i class="fa fa-angle-right"></i>
+                </a>
             </div>
           </div>
     </footer>
@@ -425,13 +432,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">61k</span>
+    <span title="站点总字数">64k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">55 分钟</span>
+    <span title="站点阅读时长">58 分钟</span>
   </span>
 </div>
 <div class="busuanzi-count">
