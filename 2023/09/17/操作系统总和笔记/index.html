@@ -29,18 +29,20 @@
 <meta property="og:site_name" content="thinklive">
 <meta property="og:description" content="12345678910111213计算机系统可以分为四个部分硬件(Hardware) – 提供基本的计算资源CPU, memory, I&#x2F;O devices操作系统(Operating System)控制和协调各用户的应用程序对硬件的使用应用程序(Application programs) – 规定了用户按何种方式使用系统资源字处理程序, 编译器, 网络浏览器, 数据库系统, 视频游戏用户(Use">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://thinklive1.github.io/images/obsidian/20230529221113.png">
 <meta property="og:image" content="https://thinklive1.github.io/images/obsidian/20230530184144.png">
 <meta property="og:image" content="https://thinklive1.github.io/images/obsidian/20230530184243.png">
 <meta property="og:image" content="https://thinklive1.github.io/images/obsidian/20230530185433.png">
+<meta property="og:image" content="https://thinklive1.github.io/images/obsidian/20230530200404.png">
 <meta property="og:image" content="https://thinklive1.github.io/images/obsidian/20230605104632.png">
 <meta property="og:image" content="https://thinklive1.github.io/images/obsidian/20230604203017.png">
 <meta property="og:image" content="https://thinklive1.github.io/images/obsidian/20230605190700.png">
 <meta property="article:published_time" content="2023-09-17T13:33:36.866Z">
-<meta property="article:modified_time" content="2023-09-19T08:10:45.498Z">
+<meta property="article:modified_time" content="2023-09-19T11:33:58.833Z">
 <meta property="article:author" content="thinklive">
 <meta property="article:tag" content="课程笔记">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://thinklive1.github.io/images/obsidian/20230530184144.png">
+<meta name="twitter:image" content="https://thinklive1.github.io/images/obsidian/20230529221113.png">
 
 
 <link rel="canonical" href="https://thinklive1.github.io/2023/09/17/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%80%BB%E5%92%8C%E7%AC%94%E8%AE%B0/">
@@ -274,7 +276,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-09-19 16:10:45" itemprop="dateModified" datetime="2023-09-19T16:10:45+08:00">2023-09-19</time>
+      <time title="修改时间：2023-09-19 19:33:58" itemprop="dateModified" datetime="2023-09-19T19:33:58+08:00">2023-09-19</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -350,8 +352,7 @@
 <p><code>层次结构</code>：操作系统划分为若干层，在低层上构建高层，底层（0层）为硬件，最高层（ N层）为用户层，每层只使用低层次的功能和服务<br>优点<br>简化了系统设计和实现，便于调试和升级维护<br>缺点<br>层定义困难，效率差<br><code>微内核</code>：<br>问题：内核越来越大，越来越难管理<br>内核微型化：核内移出尽可能多功能到用户空间<br>好处:<br>便于扩充，便于移植操作系统到新架构系统上，更稳定 (更少的代码运行在核心态)，更安全<br>坏处:<br>用户空间和内核空间通信的系统开销增加<br>解决方法：提出消息传递机制<br><code>模块化</code>：<br>大部分现代操作系统采用模块结构(Linux, Solaris)<br>使用面向对象方法<br>每个核心部件分开<br>每个与其他模块的会话被称为接口<br>每个模块在需要时被加载到内核<br>总体而言，类似于分层方法，但更灵活</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">一个程序可对应一个或多个进程，同样一个进程可对应一个或多个程序</span><br><span class="line">程序是进程的代码部分</span><br><span class="line">进程是活动(active)实体，程序静止（被动passive）实体</span><br><span class="line">进程在内存，程序在外存</span><br></pre></td></tr></table></figure>
 <figure class="highlight plaintext"><figcaption><span>Control Block)</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">PCB包含同进程有关的信息，包括：</span><br><span class="line">进程状态</span><br><span class="line">程序计数器</span><br><span class="line">CPU寄存器</span><br><span class="line">CPU调度信息</span><br><span class="line">内存管理信息</span><br><span class="line">计账信息</span><br><span class="line">I/O状态信息</span><br></pre></td></tr></table></figure>
-
-<p>![[Pasted image 20230529221113.png]]<br><code>进程调度队列</code>：<br>作业队列 - 在系统中的所有进程的集合<br>就绪队列 - 在主内存中的，就绪并等待执行的所有进程的集合<br>设备队列 - 等待某一I&#x2F;O设备的进程队列<br>在各种队列之间进程的迁移<br><code>进程终止</code>：</p>
+<p><img src="/images/obsidian/20230529221113.png" alt="图片" title="image"><br><code>进程调度队列</code>：<br>作业队列 - 在系统中的所有进程的集合<br>就绪队列 - 在主内存中的，就绪并等待执行的所有进程的集合<br>设备队列 - 等待某一I&#x2F;O设备的进程队列<br>在各种队列之间进程的迁移<br><code>进程终止</code>：</p>
 <ul>
 <li>进程执行最后一项并退出（exit）<br>从子进程向父进程输出数据（通过wait）<br>操作系统收回进程的资源<br>父进程可中止子进程的执行（ abort）</li>
 <li>子进程超量分配资源<br>赋予子进程的任务不再需要<br>若父进程终止，一些系统不允许子进程继续存在<br>所有子进程终止– 级联终止</li>
@@ -381,8 +382,7 @@
 <li>用户库（用户线程）<br>存在于用户空间<br>没有内核支持<br>调用线程库不会产生系统调用</li>
 <li>内核库（内核线程）<br>存在于内核<br>操作系统支持<br>调用线程库会产生系统调用<br><code>隐式线程</code>：在编译或者运行的时候由编译器或者运行库决定而不是编程者<br><code>线程池</code>：在池中创建一批线程，等待任务<br>优点：<br>利用线程池中的线程来响应请求比创建一个线程更加快速<br>允许一个应用程序中的线程数量达到线程池的上限<br><code>大中央调度</code>:<br>Apple 技术用于Mac OS X 和 iOS<br>扩展C, C++ languages, API, 和 run-time library<br>允许辨认可并行区段<br>管理线程的大多数细节<br>块格式“^{ }” -   ˆ{ printf(“I am a block”); }<br>块放置在调度队列中<br>在线程池中有可用的线程的时候离开队列<br><code>线程撤销</code>在完成前终止线程<br>要取消的线程称为目标线程 target thread<br>大体两种方法:<br>异步取消Asynchronous cancellation 立刻终止目标线程<br>延迟取消Deferred cancellation 允许目标线程周期性检查它是否应该被终止<br><code>调度程序激活</code></li>
 <li>通常用一种中间数据结构在用户和内核线程间 – 轻量级进程 lightweight process (LWP)<br>类似虚拟处理器<br>每个 LWP 和内核进行相连<br>一定数量的LWP</li>
-<li>调度器激活提供 upcalls – 一种线程库中内核使用upcall处理句柄 upcall handler 来告知特定事件</li>
-<li>![[Pasted image 20230530200404.png]]<br>这种通讯允许一个应用程序保持正确数目的内核线程</li>
+<li>调度器激活提供 upcalls – 一种线程库中内核使用upcall处理句柄 upcall handler 来告知特定事件<br><img src="/images/obsidian/20230530200404.png" alt="图片" title="image"><br>这种通讯允许一个应用程序保持正确数目的内核线程</li>
 </ul>
 <h1 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h1><p>&#96;需要调度的四种情况</p>
 <ul>
