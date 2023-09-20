@@ -5,8 +5,307 @@
     <url>/2023/09/17/thinklive%E7%9A%84%E8%BF%AA%E7%91%9E%E5%85%8B%E6%8B%89%E5%9B%BE%E4%B9%A6%E9%A6%86/</url>
     <content><![CDATA[<h1 id="欢迎来到迪瑞克拉"><a href="#欢迎来到迪瑞克拉" class="headerlink" title="欢迎来到迪瑞克拉"></a>欢迎来到迪瑞克拉</h1><p>这里是thinklive的个人博客，不定时地会发一些个人技术学习心得和生活体会<br>使用左侧的分类来定位内容</p>
 <h2 id="迪瑞克拉的由来"><a href="#迪瑞克拉的由来" class="headerlink" title="迪瑞克拉的由来"></a>迪瑞克拉的由来</h2><p><code>狄利克雷函数</code>（英语：<code>dirichlet function</code>）是一个定义在实数范围上、值域不连续的函数。<code>狄利克雷函数</code>的图像以Y轴为对称轴，是一个偶函数，它处处不连续，处处极限不存在，不可黎曼积分。这是一个处处不连续的可测函数。<br>在我看来它象征着混沌，不可知与无限的可能性，<code>狄利克雷</code>换一种方式音译就成了迪瑞克拉</p>
-<h2 id="更新日志"><a href="#更新日志" class="headerlink" title="更新日志"></a>更新日志</h2><p>2023&#x2F;9&#x2F;17<br>迪瑞克拉博客的生日，当天增加了背景音乐，搜索，相册，标签，目录，置顶等基础功能<br>2023&#x2F;9&#x2F;18<br>新增了评论，预估阅读时间，字数统计，网站访问统计,加载进度条功能,将背景音乐的歌曲改为歌单,为了方便使用，菜单切换成了中英双语<br>2023&#x2F;9&#x2F;19<br>新增了多级分类的特性，让返回顶部的进步条已读百分比，页面底部能看到阅读进度条了，新增了代码块复制功能，现在可以通过书签功能自动储存阅读进度，使退出后重进仍是当初的进度，也可以手动点击右上角书签图标实现相同效果,新增了彩带背景，并把背景色改成黑色<br>2023&#x2F;9&#x2F;20<br>替换一些页面ui文本，为一些页面ui文本加入了颜文字</p>
+<h2 id="更新日志"><a href="#更新日志" class="headerlink" title="更新日志"></a>更新日志</h2><span id="more"></span>
+<p>2023&#x2F;9&#x2F;17<br>迪瑞克拉博客的生日，当天增加了背景音乐，搜索，相册，标签，目录，置顶等基础功能</p>
+<p>2023&#x2F;9&#x2F;18<br>新增了评论，预估阅读时间，字数统计，网站访问统计,加载进度条功能,将背景音乐的歌曲改为歌单,为了方便使用，菜单切换成了中英双语</p>
+<p>2023&#x2F;9&#x2F;19<br>新增了多级分类的特性，让返回顶部的进步条已读百分比，页面底部能看到阅读进度条了，新增了代码块复制功能，现在可以通过书签功能自动储存阅读进度，使退出后重进仍是当初的进度，也可以手动点击右上角书签图标实现相同效果,新增了彩带背景，并把背景色改成黑色</p>
+<p>2023&#x2F;9&#x2F;20<br>替换一些页面ui文本，为一些页面ui文本加入了颜文字</p>
 ]]></content>
+  </entry>
+  <entry>
+    <title>基于伯克利cs61a的python笔记</title>
+    <url>/2023/09/20/61a%E6%80%BB%E5%92%8C/</url>
+    <content><![CDATA[<h2 id="python语言特性"><a href="#python语言特性" class="headerlink" title="python语言特性"></a>python语言特性</h2><h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><p>名称也可以与函数绑定。例如，名称 <code>max</code> 就和我们之前使用的 <code>max</code> 函数进行了绑定。与数字不同，函数很难以文本呈现，因此当询问一个函数时，Python 会打印一个标识来描述：</p>
+<span id="more"></span>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt; max</span><br><span class="line">&lt;built-in function max&gt;</span><br></pre></td></tr></table></figure>
+
+<p>赋值语句可以为现有函数赋予新名称。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt; f = max</span><br><span class="line">&gt;&gt;&gt; f</span><br><span class="line">&lt;built-in function max&gt;</span><br><span class="line">&gt;&gt;&gt; f(2, 3, 4)</span><br><span class="line">4</span><br></pre></td></tr></table></figure>
+
+<p>以下指南改编自 <a href="http://www.python.org/dev/peps/pep-0008">Python 代码风格指南</a>, 它可以作为所有（非叛逆的）Python 程序员的指南。这些共享的约定使开发者社区的成员之间的沟通能够顺利进行。作为遵循这些约定的副作用，你会发现你的代码在内部变得更加一致。</p>
+<ol>
+<li>函数名是小写的，单词之间用下划线分隔。鼓励使用描述性名称。</li>
+<li>函数名称通常反映解释器应用于参数的操作（例如， <code>print, add, square</code> ）或结果（例如， <code>max, abs, sum</code> ）。</li>
+<li>参数名称是小写的，单词之间用下划线分隔。首选单个词的名称。</li>
+<li>参数名称应该反映参数在函数中的作用，而不仅仅是允许的参数类型。</li>
+<li>当作用明确时，单字参数名称可以接受，但应避免使用 l（小写的 L）和 O（大写的 o）或 I（大写的 i）以避免与数字混淆。</li>
+</ol>
+<h3 id="函数设计原则"><a href="#函数设计原则" class="headerlink" title="函数设计原则"></a>函数设计原则</h3><ul>
+<li>每个函数应该只负责一个任务，且该任务要用一个简短的名称来识别，并在一行文本中进行描述。按顺序执行多个任务的函数应该分为多个函数。</li>
+<li>不要重复自己（Don’t repeat yourself）是软件工程的核心原则。这个所谓的 DRY 原则指出，多个代码片段不应该描述重复的逻辑。相反，逻辑应该只实现一次，为其指定一个名称后多次使用。如果你发现自己正在复制粘贴一段代码，那么你可能已经找到了进行函数抽象的机会。</li>
+<li>定义通用的函数。比如作为 <code>pow</code> 函数的一个特例的平方函数就不在 Python 库中，因为 <code>pow</code> 函数可以将数字计算为任意次方。<br>当你使用函数名称作为参数调用 <code>help</code> 时，你会看到它的文档字符串（键入 q 以退出 Python help）。<br>Python 中的注释可以附加到 <code>#</code> 号后的行尾。例如，上面代码中的注释 <code>玻尔兹曼常数</code> 描述了 <code>k</code> 变量的含义。这些注释不会出现在 Python 的 <code>help</code> 中，而且会被解释器忽略，它们只为人类而存在。</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt; help(pressure)</span><br></pre></td></tr></table></figure>
+
+<h2 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h2><h3 id="链表"><a href="#链表" class="headerlink" title="链表"></a>链表</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">class Link:</span><br><span class="line">        &quot;&quot;&quot;A linked list with a first element and the rest.&quot;&quot;&quot;</span><br><span class="line">        empty = ()</span><br><span class="line">        def __init__(self, first, rest=empty):</span><br><span class="line">            assert rest is Link.empty or isinstance(rest, Link)</span><br><span class="line">            self.first = first</span><br><span class="line">            self.rest = rest</span><br><span class="line">        def __getitem__(self, i):</span><br><span class="line">            if i == 0:</span><br><span class="line">                return self.first</span><br><span class="line">            else:</span><br><span class="line">                return self.rest[i-1]</span><br><span class="line">        def __len__(self):</span><br><span class="line">            return 1 + len(self.rest)</span><br></pre></td></tr></table></figure>
+
+<h3 id="抽象障碍"><a href="#抽象障碍" class="headerlink" title="抽象障碍"></a>抽象障碍</h3><p>每当程序的一部分可以使用更高级别的函数而不是使用较低级别的函数时，就会违反抽象障碍。例如，计算有理数平方的函数最好用 <code>mul_rational</code> 实现，它不对有理数的实现做任何假设。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt; def square_rational(x):</span><br><span class="line">        return mul_rational(x, x)</span><br></pre></td></tr></table></figure>
+
+<h3 id="序列"><a href="#序列" class="headerlink" title="序列"></a>序列</h3><pre><code>范围通常出现在 for 语句 header 中的表达式，以指定 `&lt;suite&gt;` 应执行的次数。如果 `&lt;name&gt;` 没有被用在 `&lt;suite&gt;`，一个惯用的使用方式是，使用下划线表示 `&lt;name&gt;`。
+</code></pre>
+<p>python</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt; for _ in range(3):</span><br><span class="line">        print(&#x27;Go Bears!&#x27;)</span><br><span class="line"></span><br><span class="line">Go Bears!</span><br><span class="line">Go Bears!</span><br><span class="line">Go Bears!</span><br></pre></td></tr></table></figure>
+
+<p>对解释器而言，下划线只是环境中的另一个名称，但对程序员具有约定俗成的含义，表示该名称不会出现在任何未来的表达式中。<br>列表推导式的一般形式是：</p>
+<p>python</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[&lt;map expression&gt; for &lt;name&gt; in &lt;sequence expression&gt; if &lt;filter expression&gt;</span><br></pre></td></tr></table></figure>
+
+<p>为了运算列表推导式，Python 首先评估 <code>&lt;sequence expression&gt;</code>，它必须返回一个 iterable 值。然后，每个元素依次绑定到 <code>&lt;name&gt;</code>，再运算 <code>&lt;filter expression&gt;</code>；如果产生一个真值，运算 <code>&lt;map expression&gt;</code>。最后 <code>&lt;map expression&gt;</code> 的值被收集到一个列表中</p>
+<p><code>reduce</code> 可用于将序列的所有元素相乘。使用 <code>mul</code> 作为 <code>reduce_fn</code>， 1 作为 <code>initial</code> 值， <code>reduce</code> 可用于将各数字相乘。</p>
+<p>python</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt; reduce(mul, [2, 4, 8], 1)</span><br><span class="line">64</span><br></pre></td></tr></table></figure>
+
+<p>**多行文字 (Multiline Literals)**。字符串不限于一行。跨越多行的字符串文字可以用三重引号括起。我们已经在文档字符串中广泛使用了这种三重引号。</p>
+<h3 id="迭代器"><a href="#迭代器" class="headerlink" title="迭代器"></a>迭代器</h3><p>迭代器的用处源自以下事实： 迭代器的一系列数据可能不会在内存中显式表示。 迭代器提供了一种考虑一系列值中的每一个的机制 轮，但所有这些元素不需要同时存储。 相反，当迭代器请求下一个元素时，该元素可能会 按需计算，而不是从现有内存中检索 来源。</p>
+<p>范围能够惰性地计算序列的元素，因为 表示的序列是统一的，并且任何元素都很容易从 范围的开始和结束边界。 迭代器允许延迟生成 更广泛的底层序列数据集类别，因为它们不需要 提供对底层系列的任意元素的访问。 反而， 迭代器只需要按顺序计算该系列的下一个元素， 每次请求另一个元素时。 虽然不像访问那样灵活 序列的任意元素（称为 <em>随机访问</em> ）、 <em>顺序访问</em> 顺序数据通常足以满足数据处理应用程序的需要。<br>函数 map 是惰性的：调用它并不执行计算 需要计算其结果的元素。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt; def double_and_print(x):</span><br><span class="line">        print(&#x27;***&#x27;, x, &#x27;=&gt;&#x27;, 2*x, &#x27;***&#x27;)</span><br><span class="line">        return 2*x</span><br><span class="line">&gt;&gt;&gt; s = range(3, 7)</span><br><span class="line">&gt;&gt;&gt; doubled = map(double_and_print, s)  # double_and_print not yet called</span><br><span class="line">&gt;&gt;&gt; next(doubled)                       # double_and_print called once</span><br><span class="line">*** 3 =&gt; 6 ***</span><br><span class="line">6</span><br><span class="line">&gt;&gt;&gt; next(doubled)                       # double_and_print called again</span><br><span class="line">*** 4 =&gt; 8 ***</span><br><span class="line">8</span><br><span class="line">&gt;&gt;&gt; list(doubled)                       # double_and_print called twice more</span><br><span class="line">*** 5 =&gt; 10 ***</span><br><span class="line">*** 6 =&gt; 12 ***</span><br><span class="line">[10, 12]</span><br></pre></td></tr></table></figure>
+
+<h2 id="迭代器-1"><a href="#迭代器-1" class="headerlink" title="迭代器"></a>迭代器</h2><p>可迭代的 Letters 实例 b_to_k 和 LetterIter 迭代器 实例 first_iterator 和 second_iterator的 不同之处在于 字母 实例不会改变，而迭代器实例会改变 每次调用 next （或等效地，每次调用 <strong>next</strong> ）。 迭代器通过顺序数据跟踪进度，而可迭代器 代表数据本身。</p>
+<p>Python 中的许多内置函数都采用可迭代参数并返回迭代器。 函数 map 例如， 接受一个函数和一个可迭代对象。 它返回 将函数参数应用于每个元素的结果的迭代器 在可迭代的参数中。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">&gt;&gt;&gt;  caps   =   map  (  lambda   x  :   x  .  upper  (),   b_to_k ) </span><br><span class="line"> &gt;&gt;&gt; next  (  caps ) </span><br><span class="line"> &#x27;B&#x27; </span><br><span class="line"> &gt;&gt;&gt; next  (  caps ) </span><br><span class="line"> &#x27;C&#x27;</span><br></pre></td></tr></table></figure>
+
+<h2 id="生成器"><a href="#生成器" class="headerlink" title="生成器"></a>生成器</h2><p>生成器函数是生成值而不是返回值的函数<br> 普通函数返回一次；  一个生成器函数可以产生多次<br> 生成器是通过调用生成器函数自动创建的迭代器<br> 当调用生成器函数时，它返回一个迭代其产量的生成器</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt; def plus_minus(x):</span><br><span class="line">... yield x</span><br><span class="line">... yield -x</span><br><span class="line">&gt;&gt;&gt; t = plus_minus(3)</span><br><span class="line">&gt;&gt;&gt; next(t)</span><br><span class="line">3</span><br><span class="line">&gt;&gt;&gt; next(t)</span><br><span class="line">-3</span><br><span class="line">&gt;&gt;&gt; t</span><br><span class="line">&lt;generator object plus_minus ...&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="高阶函数"><a href="#高阶函数" class="headerlink" title="高阶函数"></a>高阶函数</h2><h3 id="嵌套定义"><a href="#嵌套定义" class="headerlink" title="嵌套定义"></a>嵌套定义</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt; def sqrt(a):</span><br><span class="line">        def sqrt_update(x):</span><br><span class="line">            return average(x, a/x)</span><br><span class="line">        def sqrt_close(x):</span><br><span class="line">            return approx_eq(x * x, a)</span><br><span class="line">        return improve(sqrt_update, sqrt_close)</span><br></pre></td></tr></table></figure>
+
+<p>与局部赋值一样，局部 <code>def</code> 语句只影响当前局部帧。这些函数仅在求解 <code>sqrt</code> 时在作用域内。与求解过程一致，这些局部 <code>def</code> 语句在调用 <code>sqrt</code> 之前都不会被求解。</p>
+<p>词法作用域（Lexical scope）：局部定义的函数也可以访问定义作用域内的名称绑定。在此示例中， <code>sqrt_update</code> 引用名称 <code>a</code>，它是其封闭函数 <code>sqrt</code> 的形式参数。这种在嵌套定义之间共享名称的规则称为词法作用域。最重要的是，内部函数可以访问定义它们的环境中的名称（而不是它们被调用的位置）。</p>
+<p>我们需要对我们的环境模型实现两个扩展来启用词法作用域。</p>
+<ol>
+<li>每个用户定义的函数都有一个父环境：定义它的环境。</li>
+<li>调用用户定义的函数时，其局部帧会继承其父环境。<br> Python 中词法作用域的两个关键优势。</li>
+</ol>
+<ul>
+<li>局部函数的名称不会影响定义它的函数的外部名称，因为局部函数的名称将绑定在定义它的当前局部环境中，而不是全局环境中。</li>
+<li>局部函数可以访问外层函数的环境，这是因为局部函数的函数体的求值环境会继承定义它的求值环境。</li>
+</ul>
+<h3 id="lambda"><a href="#lambda" class="headerlink" title="lambda"></a>lambda</h3><p>不像  定义  语句、lambda 表达式可以用作运算符或<br>调用表达式的操作数。  这是因为它们只是一行<br>计算结果为函数的表达式</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt; what = lambda x : x + 5</span><br><span class="line">&gt;&gt;&gt; what</span><br><span class="line">&lt;function &lt;lambda&gt; at 0xf3f490&gt;</span><br><span class="line">&gt;&gt;&gt; (lambda y: y + 5)(4)</span><br><span class="line">9</span><br></pre></td></tr></table></figure>
+
+<h2 id="类"><a href="#类" class="headerlink" title="类"></a>类</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt; class Account:</span><br><span class="line">     def __init__(self, account_holder):</span><br><span class="line">            self.balance = 0</span><br><span class="line">            self.holder = account_holder</span><br><span class="line">            </span><br></pre></td></tr></table></figure>
+
+<p>内置函数 <code>getattr</code> 还按名称返回对象的属性。它是点表示法的函数等效物。使用 <code>getattr</code> ，我们可以使用字符串查找属性，就像我们对调度字典所做的那样。</p>
+<p>python</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt; getattr(spock_account, &#x27;balance&#x27;)</span><br><span class="line">10</span><br></pre></td></tr></table></figure>
+
+<p>我们还可以测试应该对象是否具有 <code>hassattr</code> 的名命属性。</p>
+<p>python</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt; hasattr(spock_account, &#x27;deposit&#x27;)</span><br><span class="line">True</span><br></pre></td></tr></table></figure>
+
+<p>我们可以通过对点表达式的返回值调用 <code>type</code> 来查看交互式解释器的差异。作为类的属性，方法只是一个函数，但作为实例的属性，它是一个绑定方法：</p>
+<p>python</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt; type(Account.deposit)</span><br><span class="line">&lt;class &#x27;Function&#x27;&gt;</span><br><span class="line">&gt;&gt;&gt; type(spock_account.deposit)</span><br><span class="line">&lt;class &#x27;method&#x27;&gt;</span><br></pre></td></tr></table></figure>
+
+<p>这两个结果的区别仅在于第一个是参数为 <code>self</code> 和 <code>amount</code> 的标准双参数函数。第二种是单参数方法，调用方法时，名称 <code>self</code> 将自动绑定到名为 <code>spock_account</code> 的对象，而参数 <code>amount</code> 将绑定到传递给方法的参数。这两个值（无论是函数值还是绑定方法值）都与相同的 <code>deposit</code> 函数体相关联。<br>在某些情况下，有一些实例变量和方法与对象的维护和一致性相关，我们不希望对象的用户看到或使用。它们不是类定义的抽象的一部分，而是实现的一部分。Python 的约定规定，如果属性名称以下划线开头，则只能在类本身的方法中访问它，而不是用户访问。</p>
+<p>计算点表达式：</p>
+<ol>
+<li>点表达式左侧的 <code>&lt;expression&gt;</code> ，生成点表达式的对象。</li>
+<li><code>&lt;name&gt;</code> 与该对象的实例属性匹配；如果存在具有该名称的属性，则返回属性值。</li>
+<li>如果实例属性中没有 <code>&lt;name&gt;</code> ，则在类中查找 <code>&lt;name&gt;</code>，生成类属性。</li>
+<li>除非它是函数，否则返回属性值。如果是函数，则返回该名称绑定的方法。</li>
+</ol>
+<h2 id="约束传递-Propagating-Constraints"><a href="#约束传递-Propagating-Constraints" class="headerlink" title="约束传递 (Propagating Constraints)"></a>约束传递 (Propagating Constraints)</h2><p>可变数据允许我们模拟具有变化的系统，也允许我们构建新的抽象类型。在这个扩展示例中，我们结合了非局部赋值、列表和字典来构建一个支持多方向计算的基于约束系统。将程序表示为约束是一种声明式编程，在这种编程中，程序员声明要解决的问题的结构，而不是抽象出问题解决方案的具体计算方式的细节。</p>
+<p>计算机程序传统上被组织为单向计算，它对预先指定的参数执行操作以产生所需的输出。另一方面，我们通常希望根据数量之间的关系对系统进行建模。例如，我们之前考虑过理想气体定律，它通过玻尔兹曼常数 (k) 将理想气体的压力 (p)、体积 (v)、数量 (n) 和温度 (t) 联系起来：</p>
+<p><code>p * v = n * k * t</code></p>
+<p>这样的方程不是单向的。给定任何四个量，我们可以使用这个方程来计算第五个。然而，将方程式翻译成传统的计算机语言会迫使我们选择一个量来根据其他四个量进行计算。因此，计算压力的函数不能用于计算温度，即使这两个量的计算来自同一个方程。</p>
+<p>在本节中，我们概述了线性关系的一般模型的设计。我们定义了在数量之间保持的原始约束，例如强制数学关系 a + b &#x3D; c 的 adder(a, b, c) 约束。</p>
+<p>我们还定义了一种组合方式，以便可以组合原始约束来表达更复杂的关系。这样，我们的程序就类似于一种编程语言。我们通过构建一个网络来组合约束，在该网络中约束由连接器 (connector) 连接。连接器是一个对象，它“持有”一个值并且可以参与一个或多个约束。</p>
+<p>例如，我们知道华氏温度和摄氏温度之间的关系是：</p>
+<p><code>9 * c = 5 * (f - 32)</code></p>
+<p>该等式是 c 和 f 之间的复杂约束。这样的约束可以被认为是一个由原始加法器 (adder) 、乘法器 (multiplier) 和常量 (constant) 约束组成的网络。</p>
+<p><img src="https://composingprograms.netlify.app/sicp/celsius_fahrenheit_constraint.png" alt="celsius_fahrenheit_constraint"></p>
+<p>在此图中，我们在左侧看到一个乘数框，其中包含三个端子，标记为 a 、b 和 c。这些将乘数连接到网络的其余部分，如下所示：终端连接到连接器 celsius，该连接器将保持摄氏温度。b 端子连接到连接器 w，该连接器链接到常量 9。乘数盒约束为 a 和 b 乘积的 c 端链接到另一个乘法盒的 c 端，其 b 连接到常量 5，其 a 连接到和约束中的项之一。</p>
+<p>这种网络的计算过程如下：当一个连接器被赋予一个值时（由用户或由它链接到的约束框），它会唤醒所有相关的约束（除了刚刚唤醒它的约束） 以告诉他们它有值。每个被唤醒的约束框之后轮流询问其连接器，以查看是否有足够的信息来确定连接器的值。如果有，该框设置该连接器，然后唤醒所有关联的约束，依此类推。例如，在摄氏度和华氏度之间的转换中， w、 x 和 y 立即被常量框分别设置为 9、 5 和 32。连接器唤醒乘法器和加法器，它们确定没有足够的信息继续进行。如果用户（或网络的其他部分）将摄氏连接器设置为一个值（比如 25），最左边的乘法器将被唤醒，它将 u 设置为 25 * 9 &#x3D; 225。然后你唤醒第二个乘法器，将 v 设置为 45，v 唤醒加法器，将 fahrenheit 连接器设置为 77。</p>
+<p>**使用约束系统 (Using the Constraint System)**。要使用约束系统执行上述温度计算，我们首先通过调用连接器构造函数创建两个命名连接器，摄氏度 celsius 和华氏度 fahrenheit。</p>
+<p>python</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt; celsius = connector(&#x27;Celsius&#x27;)</span><br><span class="line">&gt;&gt;&gt; fahrenheit = connector(&#x27;Fahrenheit&#x27;)</span><br></pre></td></tr></table></figure>
+
+<p>然后，我们将这些连接器链接到一个反映上图的网络中。函数转换器 (converter) 组装网络中的各种连接器和约束。</p>
+<p>python</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt; def converter(c, f):</span><br><span class="line">        &quot;&quot;&quot;用约束条件连接 c 到 f ，将摄氏度转换为华氏度.&quot;&quot;&quot;</span><br><span class="line">        u, v, w, x, y = [connector() for _ in range(5)]</span><br><span class="line">        multiplier(c, w, u)</span><br><span class="line">        multiplier(v, x, u)</span><br><span class="line">        adder(v, y, f)</span><br><span class="line">        constant(w, 9)</span><br><span class="line">        constant(x, 5)</span><br><span class="line">        constant(y, 32)</span><br></pre></td></tr></table></figure>
+
+<p>python</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt; converter(celsius, fahrenheit)</span><br></pre></td></tr></table></figure>
+
+<p>我们将使用消息传递系统来协调约束和连接器。约束是不包含局部状态本身的字典。它们对消息的响应是非纯函数，会更改它们约束的连接器。</p>
+<p>连接器是保存当前值并响应操纵该值的消息的字典。约束不会直接更改连接器的值，而是通过发送消息来更改，以便连接器可以通知其他约束以响应更改。这样，一个连接器既代表了一个数字，同时也封装了连接器的行为。</p>
+<p>我们可以发送给连接器的一条消息是设置它的值。在这里，我们（ “ user ” ）将 celsius 的值设置为 25。</p>
+<p>python</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt; celsius[&#x27;set_val&#x27;](&#x27;user&#x27;, 25)</span><br><span class="line">Celsius = 25</span><br><span class="line">Fahrenheit = 77.0</span><br></pre></td></tr></table></figure>
+
+<p>不仅 celsius 的值变为 25，而且它的值通过网络传播，因此 fahrenheit 的值也发生变化。打印这些更改是因为我们在构造它们时命名了这两个连接器。</p>
+<p>现在我们可以尝试将 fahrenheit 度设置为一个新值，比如 212。</p>
+<p>python</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt; fahrenheit[&#x27;set_val&#x27;](&#x27;user&#x27;, 212)</span><br><span class="line">Contradiction detected: 77.0 vs 212</span><br></pre></td></tr></table></figure>
+
+<p>连接器抱怨说它感觉到了一个矛盾：它的值为 77.0，而有人试图将它设置为 212。如果我们真的想用新值应用到网络，我们可以告诉 celsius 忘记它的旧值：</p>
+<p>python</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt; celsius[&#x27;forget&#x27;](&#x27;user&#x27;)</span><br><span class="line">Celsius is forgotten</span><br><span class="line">Fahrenheit is forgotten</span><br></pre></td></tr></table></figure>
+
+<p>连接器 celsius 发现最初设置其值的用户现在收回该值，因此 celsius 同意失去其值，并将这一事实通知网络的其余部分。这个信息最终传播到 fahrenheit，它现在发现它没有理由继续相信它自己的值是 77。因此，它也放弃了它的值。</p>
+<p>现在 fahrenheit 没有值，我们可以将其设置为 212：</p>
+<p>python</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt; fahrenheit[&#x27;set_val&#x27;](&#x27;user&#x27;, 212)</span><br><span class="line">Fahrenheit = 212</span><br><span class="line">Celsius = 100.0</span><br></pre></td></tr></table></figure>
+
+<p>这个新值在通过网络传播时会迫使 celsius 的值变为 100。我们使用了完全相同的网络来计算给定 celsius 的 fahrenheit 和给定 fahrenheit 的 celsius。这种计算的非方向性是基于约束的系统的显着特征。</p>
+<p>**实施约束系统 (Implementing the Constraint System)**。正如我们所见，连接器是将消息名称映射到函数和数据值的字典。我们将实施响应以下消息的连接器：</p>
+<p>python</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt; connector [&#x27;set_val&#x27;](source, value)  &quot;&quot;&quot;表示 source 在请求连接器将当前值设为 value&quot;&quot;&quot;</span><br><span class="line">&gt;&gt;&gt; connector [&#x27;has_val&#x27;]()  &quot;&quot;&quot;返回连接器是否已经具有值&quot;&quot;&quot;</span><br><span class="line">&gt;&gt;&gt; connector [&#x27;val&#x27;]  &quot;&quot;&quot;是连接器的当前值&quot;&quot;&quot;</span><br><span class="line">&gt;&gt;&gt; connector [&#x27;forget&#x27;](source)  &quot;&quot;&quot;告诉连接器 source 请求遗忘它的值&quot;&quot;&quot;</span><br><span class="line">&gt;&gt;&gt; connector [&#x27;connect&#x27;](source)  &quot;&quot;&quot;告诉连接器参与新的约束，即 source&quot;&quot;&quot;</span><br></pre></td></tr></table></figure>
+
+<p>约束也是字典，它通过两条消息从连接器接收信息：</p>
+<p>python</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt; constraint[\&#x27;new_val&#x27;]()  &quot;&quot;&quot;表示与约束相连的某个连接器具有新的值。&quot;&quot;&quot;</span><br><span class="line">&gt;&gt;&gt; constraint[\&#x27;forget&#x27;]()  &quot;&quot;&quot;表示与约束相连的某个连接器遗忘了值。&quot;&quot;&quot;</span><br></pre></td></tr></table></figure>
+
+<p>当约束收到这些消息时，它们会将消息传播到其他连接器。</p>
+<p>adder 函数在三个连接器上构造一个加法器约束，其中前两个必须与第三个相加：a + b &#x3D; c。为了支持多向约束传播，加法器还必须指定它从 c 中减去 a 得到 b，同样地从 c 中减去 b 得到 a。</p>
+<p>python</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt; from operator import add, sub</span><br><span class="line">&gt;&gt;&gt; def adder(a, b, c):</span><br><span class="line">        &quot;&quot;&quot;约束a+b=c&quot;&quot;&quot;</span><br><span class="line">        return make_ternary_constraint(a, b, c, add, sub, sub)</span><br></pre></td></tr></table></figure>
+
+<p>我们想实现一个通用的三元（三向）约束，它使用来自 adder 的三个连接器和三个函数来创建一个接受 new_val 和 forget 消息的约束。对消息的响应是局部函数，它们被放置在称为约束的字典中。</p>
+<p>python</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt; def make_ternary_constraint(a, b, c, ab, ca, cb):</span><br><span class="line">        &quot;&quot;&quot;约束ab(a,b)=c，ca(c,a)=b，cb(c,b)=a。&quot;&quot;&quot;</span><br><span class="line">        def new_value():</span><br><span class="line">            av, bv, cv = [connector[&#x27;has_val&#x27;]() for connector in (a, b, c)]</span><br><span class="line">            if av and bv:</span><br><span class="line">                c[&#x27;set_val&#x27;](constraint, ab(a[&#x27;val&#x27;], b[&#x27;val&#x27;]))</span><br><span class="line">            elif av and cv:</span><br><span class="line">                b[&#x27;set_val&#x27;](constraint, ca(c[&#x27;val&#x27;], a[&#x27;val&#x27;]))</span><br><span class="line">            elif bv and cv:</span><br><span class="line">                a[&#x27;set_val&#x27;](constraint, cb(c[&#x27;val&#x27;], b[&#x27;val&#x27;]))</span><br><span class="line">        def forget_value():</span><br><span class="line">            for connector in (a, b, c):</span><br><span class="line">                connector[&#x27;forget&#x27;](constraint)</span><br><span class="line">        constraint = &#123;&#x27;new_val&#x27;: new_value, &#x27;forget&#x27;: forget_value&#125;</span><br><span class="line">        for connector in (a, b, c):</span><br><span class="line">            connector[&#x27;connect&#x27;](constraint)</span><br><span class="line">        return constraint</span><br></pre></td></tr></table></figure>
+
+<p>称为约束的字典是一个调度字典，也是约束对象本身。它响应约束接收到的两条消息，但也作为调用其连接器的 source 参数传递。</p>
+<p>每当约束被告知其连接器之一具有值时，就会调用约束的局部函数 new_value。该函数首先检查 a 和 b 是否都有值。如果是，它告诉 c 将其值设置为函数 ab 的返回值，在加法器的情况下为 add。约束将自身（约束）作为连接器的 source 参数传递，该连接器是加法器对象。如果 a 和 b 不同时都有值，则约束检查 a 和 c，依此类推。</p>
+<p>如果约束被告知它的一个连接器遗忘了它的值，它会请求它的所有连接器遗忘它们的值。（实际上只有那些由此约束设置的值会丢失。）</p>
+<p>乘法器与加法器非常相似。</p>
+<p>python</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt; from operator import mul, truediv</span><br><span class="line">&gt;&gt;&gt; def multiplier(a, b, c):</span><br><span class="line">        &quot;&quot;&quot;约束a*b=c.&quot;&quot;&quot;</span><br><span class="line">        return make_ternary_constraint(a, b, c, mul, truediv, truediv)</span><br></pre></td></tr></table></figure>
+
+<p>常量也是一种约束，但它永远不会发送任何消息，因为它只涉及它在构造时设置的单个连接器。</p>
+<p>python</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt; def constant(connector, value):</span><br><span class="line">        &quot;&quot;&quot;常量赋值.&quot;&quot;&quot;</span><br><span class="line">        constraint = &#123;&#125;</span><br><span class="line">        connector[&#x27;set_val&#x27;](constraint, value)</span><br><span class="line">        return constraint</span><br></pre></td></tr></table></figure>
+
+<p>这三个约束足以实现我们的温度转换网络。</p>
+<p>**连接器表示 (Representing connectors)**。连接器表示为包含值的字典，也有具备局部状态的响应函数。连接器必须跟踪为其提供当前值的信息提供者，以及它参与的约束列表。</p>
+<p>构造函数连接器具有用于设置和遗忘值的局部函数，这些值是对来自约束的消息的响应。</p>
+<p>python</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt; def connector(name=None):</span><br><span class="line">        &quot;&quot;&quot;限制条件之间的连接器.&quot;&quot;&quot;</span><br><span class="line">        informant = None</span><br><span class="line">        constraints = []</span><br><span class="line">        def set_value(source, value):</span><br><span class="line">            nonlocal informant</span><br><span class="line">            val = connector[&#x27;val&#x27;]</span><br><span class="line">            if val is None:</span><br><span class="line">                informant, connector[&#x27;val&#x27;] = source, value</span><br><span class="line">                if name is not None:</span><br><span class="line">                    print(name, &#x27;=&#x27;, value)</span><br><span class="line">                inform_all_except(source, &#x27;new_val&#x27;, constraints)</span><br><span class="line">            else:</span><br><span class="line">                if val != value:</span><br><span class="line">                    print(&#x27;Contradiction detected:&#x27;, val, &#x27;vs&#x27;, value)</span><br><span class="line">        def forget_value(source):</span><br><span class="line">            nonlocal informant</span><br><span class="line">            if informant == source:</span><br><span class="line">                informant, connector[&#x27;val&#x27;] = None, None</span><br><span class="line">                if name is not None:</span><br><span class="line">                    print(name, &#x27;is forgotten&#x27;)</span><br><span class="line">                inform_all_except(source, &#x27;forget&#x27;, constraints)</span><br><span class="line">        connector = &#123;&#x27;val&#x27;: None,</span><br><span class="line">                     &#x27;set_val&#x27;: set_value,</span><br><span class="line">                     &#x27;forget&#x27;: forget_value,</span><br><span class="line">                     &#x27;has_val&#x27;: lambda: connector[&#x27;val&#x27;] is not None,</span><br><span class="line">                     &#x27;connect&#x27;: lambda source: constraints.append(source)&#125;</span><br><span class="line">        return connector</span><br></pre></td></tr></table></figure>
+
+<p>连接器也是约束用于与连接器通信的五个消息的调度字典。四个响应是函数，最后的响应是值本身。</p>
+<p>当有设置连接器值的请求时调用局部函数 set_value。如果连接器当前没有值，它将设置它的值并记住请求设置值的源约束作为信息提供者。然后连接器将通知它的所有参与约束，除了请求设置值的约束。这是使用以下迭代函数完成的。</p>
+<p>python</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt; def inform_all_except(source, message, constraints):</span><br><span class="line">        &quot;&quot;&quot;告知信息除了source外的所有约束条件，。&quot;&quot;&quot;</span><br><span class="line">        for c in constraints:</span><br><span class="line">            if c != source:</span><br><span class="line">                c[message]()</span><br></pre></td></tr></table></figure>
+
+<p>如果要求连接器遗忘其值，它会调用局部函数 forget-value，该函数首先检查以确保请求来自与最初设置值相同的约束。如果是这样，连接器会通知其关联的约束有关值的丢失。</p>
+<p>对消息 has_val 的响应表明连接器是否有值。 对消息连接的响应将源约束添加到约束列表中。</p>
+<p>我们设计的约束程序引入了许多将在面向对象编程中再次出现的思想。约束和连接器都是通过消息操作的抽象。当连接器的值发生变化时，它会通过一条消息进行更改，该消息不仅会更改值，还会验证它（检查源）并传播其效果（通知其他约束）。事实上，我们将在本章后面使用具有字符串值键和函数值的字典的类似架构来实现面向对象的系统</p>
+<h2 id="debug"><a href="#debug" class="headerlink" title="debug"></a>debug</h2><p>请注意，回溯中的行似乎是配对在一起的。 该对中的第一行具有以下格式：<br>文件“&lt;文件名&gt;”，第 &lt;编号&gt; 行，&lt;函数&gt;</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">File &quot;&lt;file name&gt;&quot;, line &lt;number&gt;, in &lt;function&gt;</span><br></pre></td></tr></table></figure>
+
+<p>该行为您提供以下信息： 文件名：包含问题的文件的名称。 Number：文件中引起问题的行号，或包含下一个函数调用的行号 函数：可以在其中找到该行的函数的名称。<br>回溯消息中的最后一行是错误语句。 错误语句具有以下格式： &lt;错误类型&gt;：&lt;错误消息&gt; 这一行为您提供了两条信息： 错误类型：引起的错误类型（例如SyntaxError，TypeError）。 这些通常具有足够的描述性，可以帮助您缩小错误原因的搜索范围。 错误消息：更详细地描述导致错误的原因。 不同的错误类型会产生不同的错误消息。</p>
+<h2 id="Running-doctests"><a href="#Running-doctests" class="headerlink" title="Running doctests"></a>Running doctests</h2><p>Python has a great way to quickly write tests for your code. These are called doctests, and look like this:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">def foo(x):</span><br><span class="line">    &quot;&quot;&quot;A random function.</span><br><span class="line"></span><br><span class="line">    &gt;&gt;&gt; foo(4)</span><br><span class="line">    4</span><br><span class="line">    &gt;&gt;&gt; foo(5)</span><br><span class="line">    5</span><br><span class="line">    &quot;&quot;&quot;</span><br></pre></td></tr></table></figure>
+
+<p>The lines in the docstring that look like interpreter outputs are the <strong>doctests</strong>. To run them, go to your terminal and type:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">python3 -m doctest file.py</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">python3 -m doctest file.py -v</span><br><span class="line">除了告诉你哪些文档测试失败之外，它还会 告诉您哪些文档测试通过了。</span><br></pre></td></tr></table></figure>
+
+<p>许多程序员喜欢研究他们的代码的一种方法是使用交互式 REPL。 也就是说，您可以在其中直接运行函数并检查其输出的终端。<br>通常，要完成此操作，您可以运行</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">python -i file.py</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用-assert声明"><a href="#使用-assert声明" class="headerlink" title="使用 assert声明"></a>使用 <code>assert</code>声明</h3><p>Python 有一个特性称为 <code>assert</code>语句，它可以让您测试条件是否为真，并打印错误 否则在一行中消息。 如果您知道某些条件在某些点需要为真，这会很有用 在你的程序中。 例如，如果您正在编写一个接受整数并将其加倍的函数，那么它可能会很有用 确保您的输入实际上是一个整数。 然后你可以编写以下代码</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">def double(x):</span><br><span class="line">    assert isinstance(x, int), &quot;The input to double(x) must be an integer&quot;</span><br><span class="line">    return 2 * x</span><br></pre></td></tr></table></figure>
+
+<p>请注意，我们并没有真正调试 <code>double</code>在这里，我们正在做的是确保任何拨打电话的人 <code>double</code>正在以正确的论点这样做。 例如，如果我们有一个函数 <code>g</code>接受一个字符串和一个数字 并将字符串的长度添加到数字的两倍，其实现如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">def g(x, y):</span><br><span class="line">    return double(x) + y # should be double(y) + len(x)</span><br></pre></td></tr></table></figure>
+
+<h3 id="SyntaxError"><a href="#SyntaxError" class="headerlink" title="SyntaxError"></a><code>SyntaxError</code></h3><ul>
+<li><p><strong>原因</strong> ：代码语法错误</p>
+</li>
+<li><p><strong>示例</strong> ：</p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">  File &quot;file name&quot;, line number</span><br><span class="line">    def incorrect(f)</span><br><span class="line">                    ^</span><br><span class="line">SyntaxError: invalid syntax</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>解决办法</strong> ： <code>^</code>符号指向包含的代码 无效的语法。 错误消息没有告诉你 <em>什么</em> 是 错了，但它确实告诉你 <em>在哪里</em> 。</p>
+</li>
+<li><p><strong>注意</strong> ：Python 将检查 <code>SyntaxErrors</code>执行之前 任何代码。 这与其他错误不同，其他错误仅 在运行时引发。</p>
+</li>
+</ul>
+<h3 id="IndentationError"><a href="#IndentationError" class="headerlink" title="IndentationError"></a><code>IndentationError</code></h3><ul>
+<li><p><strong>原因</strong> ：缩进不当</p>
+</li>
+<li><p><strong>示例</strong> ：</p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">  File &quot;file name&quot;, line number</span><br><span class="line">    print(&#x27;improper indentation&#x27;)</span><br><span class="line">IndentationError: unindent does not match any outer indentation level</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>解决方案</strong> ：显示缩进不正确的行。 只需重新缩进即可。</p>
+</li>
+<li><p><strong>注意</strong> ：如果制表符和空格不一致，Python 将提出其中之一。 确保使用空格！ （只是少了点 在 Python 中使用空格和所有 cs61a 内容通常令人头痛 使用空格）。</p>
+</li>
+</ul>
+<h3 id="TypeError"><a href="#TypeError" class="headerlink" title="TypeError"></a><code>TypeError</code></h3><ul>
+<li><p><strong>原因一</strong> ：</p>
+<ul>
+<li><p>原始运算符的操作数类型无效。 你是 可能尝试加&#x2F;减&#x2F;乘&#x2F;除不兼容 类型。</p>
+</li>
+<li><p><strong>示例</strong> ：</p>
+<pre><code><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">TypeError: unsupported operand type(s) for +: &#x27;function&#x27; and &#x27;int&#x27;</span><br></pre></td></tr></table></figure>
+</code></pre>
+</li>
+</ul>
+</li>
+<li><p><strong>原因2</strong> ：</p>
+<ul>
+<li><p>在函数调用中使用非函数对象。</p>
+</li>
+<li><p><strong>示例</strong> ：</p>
+<pre><code><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt; square = 3</span><br><span class="line">&gt;&gt;&gt; square(3)</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  ...</span><br><span class="line">TypeError: &#x27;int&#x27; object is not callable</span><br></pre></td></tr></table></figure>
+</code></pre>
+</li>
+</ul>
+</li>
+<li><p><strong>原因3</strong> ：</p>
+<ul>
+<li><p>向函数传递错误数量的参数。</p>
+</li>
+<li><p><strong>示例</strong> ：</p>
+<pre><code><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt; add(3)</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  ...</span><br><span class="line">TypeError: add expected 2 arguments, got 1</span><br></pre></td></tr></table></figure>
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="NameError"><a href="#NameError" class="headerlink" title="NameError"></a><code>NameError</code></h3><ul>
+<li><p><strong>原因</strong> ：变量没有分配给任何东西或者没有分配 存在。 这包括函数名称。</p>
+</li>
+<li><p><strong>示例</strong> ：</p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">File &quot;file name&quot;, line number</span><br><span class="line">  y = x + 3</span><br><span class="line">NameError: global name &#x27;x&#x27; is not defined</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>解决方案</strong> ：确保您正在初始化变量（即 在使用之前为变量分配一个值）。</p>
+</li>
+<li><p><strong>注意</strong> ：错误消息显示“全局名称”的原因是 因为Python将从a开始搜索变量 函数的本地框架。 如果在那里找不到该变量， Python将继续搜索父框架，直到到达 全球框架。 如果仍然找不到变量，Python 引发错误。</p>
+</li>
+</ul>
+<h3 id="IndexError"><a href="#IndexError" class="headerlink" title="IndexError"></a><code>IndexError</code></h3><ul>
+<li><p><strong>原因</strong> ：尝试索引序列（例如元组、列表、 string）的数字超过了序列的大小。</p>
+</li>
+<li><p><strong>示例</strong> ：</p>
+  <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">File &quot;file name&quot;, line number</span><br><span class="line">  x[100]</span><br><span class="line">IndexError: tuple index out of range</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>解决方案</strong> ：确保索引在范围内 顺序。 如果您使用变量作为索引（例如 <code>seq[x]</code>, 确保变量被分配给正确的索引。</p>
+</li>
+</ul>
+<h2 id="错题集"><a href="#错题集" class="headerlink" title="错题集"></a>错题集</h2><h3 id="递增子序列"><a href="#递增子序列" class="headerlink" title="递增子序列"></a>递增子序列</h3><figure class="highlight plaintext"><figcaption><span>inc_subseqs(s):</span></figcaption><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">    &quot;&quot;&quot;Assuming that S is a list, return a nested list of all subsequences</span><br><span class="line"></span><br><span class="line">    of S (a list of lists) for which the elements of the subsequence</span><br><span class="line"></span><br><span class="line">    are strictly nondecreasing. The subsequences can appear in any order.</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">    &gt;&gt;&gt; seqs = inc_subseqs([1, 3, 2])</span><br><span class="line"></span><br><span class="line">    &gt;&gt;&gt; sorted(seqs)</span><br><span class="line"></span><br><span class="line">    [[], [1], [1, 2], [1, 3], [2], [3]]</span><br><span class="line"></span><br><span class="line">    &gt;&gt;&gt; inc_subseqs([])</span><br><span class="line"></span><br><span class="line">    [[]]</span><br><span class="line"></span><br><span class="line">    &gt;&gt;&gt; seqs2 = inc_subseqs([1, 1, 2])</span><br><span class="line"></span><br><span class="line">    &gt;&gt;&gt; sorted(seqs2)</span><br><span class="line"></span><br><span class="line">    [[], [1], [1], [1, 1], [1, 1, 2], [1, 2], [1, 2], [2]]</span><br><span class="line"></span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line">    def subseq_helper(s, prev):</span><br><span class="line"></span><br><span class="line">        if not s:</span><br><span class="line"></span><br><span class="line">            return [[]]</span><br><span class="line"></span><br><span class="line">        elif s[0] &lt; prev:</span><br><span class="line"></span><br><span class="line">            return subseq_helper(s[1::],prev)</span><br><span class="line"></span><br><span class="line">        else:</span><br><span class="line"></span><br><span class="line">            a = subseq_helper(s[1::],s[0])</span><br><span class="line"></span><br><span class="line">            b = subseq_helper(s[1::],prev)</span><br><span class="line"></span><br><span class="line">            return insert_into_all(s[0], a) + b</span><br><span class="line"></span><br><span class="line">    return subseq_helper(s,0)</span><br><span class="line"></span><br><span class="line">seqs = inc_subseqs([1, 3, 2])</span><br></pre></td></tr></table></figure>
+
+<h3 id="反转奇数深度树的标签"><a href="#反转奇数深度树的标签" class="headerlink" title="反转奇数深度树的标签"></a>反转奇数深度树的标签</h3><figure class="highlight plaintext"><figcaption><span>t.is_leaf():</span></figcaption><table><tr><td class="code"><pre><span class="line">        return </span><br><span class="line">    label_list = []</span><br><span class="line">    for b in t.branches:</span><br><span class="line">        label_list.append(b.label)</span><br><span class="line">    for b, new_label in zip(t.branches, reversed(label_list)):</span><br><span class="line">        b.label = new_label</span><br><span class="line">        for bb in b.branches:</span><br><span class="line">            reverse_other(bb)</span><br><span class="line"></span><br><span class="line">我的解法：</span><br><span class="line">def helper(t,depth):</span><br><span class="line"></span><br><span class="line">        if depth%2==0:</span><br><span class="line"></span><br><span class="line">            if t.is_leaf():</span><br><span class="line"></span><br><span class="line">                return</span><br><span class="line"></span><br><span class="line">            else:</span><br><span class="line"></span><br><span class="line">                for branch in t.branches:</span><br><span class="line"></span><br><span class="line">                    helper(branch,depth+1)</span><br><span class="line"></span><br><span class="line">        else:</span><br><span class="line"></span><br><span class="line">            labels=[]</span><br><span class="line"></span><br><span class="line">            brans=t.branches</span><br><span class="line"></span><br><span class="line">            for branch in brans:</span><br><span class="line"></span><br><span class="line">                labels.insert(0,branch.label)</span><br><span class="line"></span><br><span class="line">            for new_label,new_branch in zip(labels,brans):</span><br><span class="line"></span><br><span class="line">                new_branch.label=new_label</span><br><span class="line"></span><br><span class="line">            for bran in brans:</span><br><span class="line"></span><br><span class="line">                helper(bran,depth+1)</span><br><span class="line"></span><br><span class="line">    helper(t,1)</span><br></pre></td></tr></table></figure>
+
+<h3 id="生成器的生成器"><a href="#生成器的生成器" class="headerlink" title="生成器的生成器"></a>生成器的生成器</h3><figure class="highlight plaintext"><figcaption><span>make_generators_generator(g):</span></figcaption><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">    &quot;&quot;&quot;Generates all the &quot;sub&quot;-generators of the generator returned by</span><br><span class="line"></span><br><span class="line">    the generator function g.</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">    &gt;&gt;&gt; def every_m_ints_to(n, m):</span><br><span class="line"></span><br><span class="line">    ...     i = 0</span><br><span class="line"></span><br><span class="line">    ...     while (i &lt;= n):</span><br><span class="line"></span><br><span class="line">    ...         yield i</span><br><span class="line"></span><br><span class="line">    ...         i += m</span><br><span class="line"></span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">    &gt;&gt;&gt; def every_3_ints_to_10():</span><br><span class="line"></span><br><span class="line">    ...     for item in every_m_ints_to(10, 3):</span><br><span class="line"></span><br><span class="line">    ...         yield item</span><br><span class="line"></span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">    &gt;&gt;&gt; for gen in make_generators_generator(every_3_ints_to_10):</span><br><span class="line"></span><br><span class="line">    ...     print(&quot;Next Generator:&quot;)</span><br><span class="line"></span><br><span class="line">    ...     for item in gen:</span><br><span class="line"></span><br><span class="line">    ...         print(item)</span><br><span class="line"></span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">    Next Generator:</span><br><span class="line"></span><br><span class="line">    0</span><br><span class="line"></span><br><span class="line">    Next Generator:</span><br><span class="line"></span><br><span class="line">    0</span><br><span class="line"></span><br><span class="line">    3</span><br><span class="line"></span><br><span class="line">    Next Generator:</span><br><span class="line"></span><br><span class="line">    0</span><br><span class="line"></span><br><span class="line">    3</span><br><span class="line"></span><br><span class="line">    6</span><br><span class="line"></span><br><span class="line">    Next Generator:</span><br><span class="line"></span><br><span class="line">    0</span><br><span class="line"></span><br><span class="line">    3</span><br><span class="line"></span><br><span class="line">    6</span><br><span class="line"></span><br><span class="line">    9</span><br><span class="line"></span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line">    &quot;*** YOUR CODE HERE ***&quot;</span><br><span class="line"></span><br><span class="line">    def gen_helper(lst):</span><br><span class="line"></span><br><span class="line">        yield from lst</span><br><span class="line"></span><br><span class="line">    yield_sofar = []</span><br><span class="line"></span><br><span class="line">    gg = g()</span><br><span class="line"></span><br><span class="line">    for x in gg:</span><br><span class="line"></span><br><span class="line">        yield_sofar.append(x)</span><br><span class="line"></span><br><span class="line">        yield gen_helper(yield_sofar.copy())</span><br><span class="line">  </span><br></pre></td></tr></table></figure>
+
+<h3 id="生成器生成树的搜索路径"><a href="#生成器生成树的搜索路径" class="headerlink" title="生成器生成树的搜索路径"></a>生成器生成树的搜索路径</h3><pre><code>if t.label == value:
+        yield [value]
+    for b in t.branches:
+        for path in path_yielder(b, value):
+            yield [t.label] + path
+</code></pre>
+]]></content>
+      <categories>
+        <category>课程笔记</category>
+      </categories>
+      <tags>
+        <tag>课程笔记</tag>
+      </tags>
   </entry>
   <entry>
     <title>迪瑞克拉世界观轶事集</title>
@@ -123,7 +422,7 @@
   <entry>
     <title>基于北大前沿计算实践课和missing semester的vim笔记</title>
     <url>/2023/09/19/vim%E6%80%BB%E5%92%8C%E7%AC%94%E8%AE%B0/</url>
-    <content><![CDATA[<h1 id="you-are-your-dotfiles"><a href="#you-are-your-dotfiles" class="headerlink" title="you are your dotfiles!"></a>you are your dotfiles!</h1><h2 id="帮助"><a href="#帮助" class="headerlink" title="帮助"></a>帮助</h2><p>按f1或命令行输入help开启在线帮助<br>&lt;Cw&gt;切换到另一个窗口q关闭窗口</p>
+    <content><![CDATA[<h1 id="you-are-your-dotfiles"><a href="#you-are-your-dotfiles" class="headerlink" title="you are your dotfiles"></a>you are your dotfiles</h1><h2 id="帮助"><a href="#帮助" class="headerlink" title="帮助"></a>帮助</h2><p>按f1或命令行输入help开启在线帮助<br>&lt;Cw&gt;切换到另一个窗口q关闭窗口</p>
 <span id="more"></span>
 <h2 id="编辑"><a href="#编辑" class="headerlink" title="编辑"></a>编辑</h2><p>如之前所述，Vim最主要的编辑模式是Insert模式，想要修改文本，先将光标在Normal模式下移动到对应位置，然后再键入<code>i</code>进入Insert模式，在这个模式下添加或者删除文本。但是当我们需要修改的地方非常多时，每次都需要先移动光标再输入<code>i</code>就是一个相对麻烦的操作，因而Vim提供了一些命令将移动光标和进入Insert模式合成一步：</p>
 <ul>
@@ -355,12 +654,16 @@
 <li>中断号：外部设备进行I&#x2F;O操作时产生的中断信号，发送给CPU</li>
 <li>中断向量：中断服务程序的入口地址</li>
 <li>中断服务程序：执行中断处理的代码</li>
-<li>陷阱(trap):是由于出错或用户请求引起的软件生成的中断<br>操作系统是中断驱动<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">在冯·诺依曼体系结构( von Neumann architecture)上执行时，一个典型的指令执行周期是，首先从内存中获取指令，并存到指令寄存器( instruction register)。接着，该指令被解码，也可能会从内存中获取操作数据并且存到内部寄存器。在指令完成对操作数据的执行后，结果也可存到内存。注意:内存单元只能看到内存地址的流，而并不知道它们如何产生(通过指令计数器、索引、间接、常量地址或其他方式)或它们是什么样（指令或数据）的地址。相应地，我们可以忽略程序如何产生内存地址，而只关注由程序运行所生成的地址序列。</span><br></pre></td></tr></table></figure></li>
+<li>陷阱(trap):是由于出错或用户请求引起的软件生成的中断<br>操作系统是中断驱动</li>
 </ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">在冯·诺依曼体系结构( von Neumann architecture)上执行时，一个典型的指令执行周期是，首先从内存中获取指令，并存到指令寄存器( instruction register)。接着，该指令被解码，也可能会从内存中获取操作数据并且存到内部寄存器。在指令完成对操作数据的执行后，结果也可存到内存。注意:内存单元只能看到内存地址的流，而并不知道它们如何产生(通过指令计数器、索引、间接、常量地址或其他方式)或它们是什么样（指令或数据）的地址。相应地，我们可以忽略程序如何产生内存地址，而只关注由程序运行所生成的地址序列。</span><br></pre></td></tr></table></figure>
+
 <h2 id="集群系统"><a href="#集群系统" class="headerlink" title="集群系统"></a>集群系统</h2><p>由两个或多个独立的系统耦合起来<br>共享数据 storage-area network (SAN)。<br>提供高可用性。<br>一定的冗余<br>非对称集群(Asymmetric Clustering)：一台机器运行应用程序，而其他机器处于热备份模式。<br>对称集群(Symmetric Clustering)：多个主机都运行应用程序<br>提供high-performance computing (HPC)<br>用专门的应用程序利用集群，并行计算parallelization</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">多道程序设计：在内存中同时存在多道作业，在管理程序控制下相互穿插运行</span><br><span class="line">通过作业调度(Job Scheduling)选中一个作业并运行</span><br><span class="line">当该作业必须等待时 (如等待I/O), 切换到另一个作业</span><br><span class="line">目的:提高CPU的利用率，充分发挥计算机系统部件的并行性</span><br></pre></td></tr></table></figure>
+
 <p>分时系统：控制响应时间较短，使计算机可交互，一般采用时间片轮转方式使一台计算机为多个用户服务<br>并行：两个或者多个作业在同一时刻运行<br>并发：两个或多个作业在同一时间间隔内依次运行<br>双重模式：允许OS保护自身和其他系统部件<br>用户模式(user mode)和内核模式(kernel mode)，由硬件提供模式位<br>特权指令：可能引起系统崩溃的指令，只能运行在内核模式</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">如果操作系统不能获得CPU控制权，就无法管理系统</span><br><span class="line">eg.用户程序死循环，用户程序不调用系统调用</span><br><span class="line">解决方法：定时器</span><br><span class="line">在一段时间后发生中断，CPU控制权返回操作系统</span><br><span class="line">固定时间和可变时间定时器</span><br><span class="line">利用时钟和计数器实现</span><br></pre></td></tr></table></figure>
+
 <p>I&#x2F;O保护<br>防止用户程序执行非法I&#x2F;O<br>解决方法：所有I&#x2F;O指令都是特权指令<br>用户程序通过系统调用进行I&#x2F;O操作<br>内存保护<br>防止内存非法访问<br>解决方法：存储保护机制<br>硬件支持<br>程序运行必须的存储设备<br>CPU只能直接访问寄存器、高速缓存和内存<br>处理前和处理后的所有数据都在内存<br>执行的指令都在内存<br>内存管理：提供内存的分配、回收、地址转换、共享和保护等功能<br>提高内存利用率<br>提高内存访问速度<br>从而提高计算机运行效率</p>
 <p>操作系统服务提供对用户很有用的函数:</p>
 <ul>
@@ -379,13 +682,17 @@
 </ul>
 <p><code>层次结构</code>：操作系统划分为若干层，在低层上构建高层，底层（0层）为硬件，最高层（ N层）为用户层，每层只使用低层次的功能和服务<br>优点<br>简化了系统设计和实现，便于调试和升级维护<br>缺点<br>层定义困难，效率差<br><code>微内核</code>：<br>问题：内核越来越大，越来越难管理<br>内核微型化：核内移出尽可能多功能到用户空间<br>好处:<br>便于扩充，便于移植操作系统到新架构系统上，更稳定 (更少的代码运行在核心态)，更安全<br>坏处:<br>用户空间和内核空间通信的系统开销增加<br>解决方法：提出消息传递机制<br><code>模块化</code>：<br>大部分现代操作系统采用模块结构(Linux, Solaris)<br>使用面向对象方法<br>每个核心部件分开<br>每个与其他模块的会话被称为接口<br>每个模块在需要时被加载到内核<br>总体而言，类似于分层方法，但更灵活</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">一个程序可对应一个或多个进程，同样一个进程可对应一个或多个程序</span><br><span class="line">程序是进程的代码部分</span><br><span class="line">进程是活动(active)实体，程序静止（被动passive）实体</span><br><span class="line">进程在内存，程序在外存</span><br></pre></td></tr></table></figure>
+
 <figure class="highlight plaintext"><figcaption><span>Control Block)</span></figcaption><table><tr><td class="code"><pre><span class="line">PCB包含同进程有关的信息，包括：</span><br><span class="line">进程状态</span><br><span class="line">程序计数器</span><br><span class="line">CPU寄存器</span><br><span class="line">CPU调度信息</span><br><span class="line">内存管理信息</span><br><span class="line">计账信息</span><br><span class="line">I/O状态信息</span><br></pre></td></tr></table></figure>
+
 <p><img src="/images/obsidian/20230529221113.png" alt="图片" title="image"><br><code>进程调度队列</code>：<br>作业队列 - 在系统中的所有进程的集合<br>就绪队列 - 在主内存中的，就绪并等待执行的所有进程的集合<br>设备队列 - 等待某一I&#x2F;O设备的进程队列<br>在各种队列之间进程的迁移<br><code>进程终止</code>：</p>
 <ul>
 <li>进程执行最后一项并退出（exit）<br>从子进程向父进程输出数据（通过wait）<br>操作系统收回进程的资源<br>父进程可中止子进程的执行（ abort）</li>
 <li>子进程超量分配资源<br>赋予子进程的任务不再需要<br>若父进程终止，一些系统不允许子进程继续存在<br>所有子进程终止– 级联终止</li>
-<li>父进程可以等子进程结束<br>调用wait()系统调用<br><code>进程通信</code><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">消息传递在微内核中的应用</span><br><span class="line">远程通信无法采用共享内存</span><br><span class="line">两个操作 :</span><br><span class="line">发送send(message) - 固定或可变大小消息</span><br><span class="line">接收receive(message)</span><br><span class="line">若P与Q要通信，需要:</span><br><span class="line">建立通信连接</span><br><span class="line">通过send/receive交换消息</span><br><span class="line">通信连接的实现</span><br><span class="line">物理的（如，共享存储，硬件总线）</span><br><span class="line">逻辑的（如，逻辑特性）</span><br><span class="line">消息传递可阻塞（blocking）或非阻塞（non-blocking）</span><br><span class="line">阻塞-同步</span><br><span class="line">阻塞send：发送进程阻塞，直到消息被接收</span><br><span class="line">阻塞receive：接受者进程阻塞，直到有消息可用</span><br><span class="line">非阻塞-异步</span><br><span class="line">非阻塞send：发送进程发送消息并继续操作</span><br><span class="line">非阻塞receive: 接收者收到一个有效消息或空消息</span><br><span class="line">如果通过信箱，则可分为直接和间接通信</span><br></pre></td></tr></table></figure></li>
+<li>父进程可以等子进程结束<br>调用wait()系统调用<br><code>进程通信</code></li>
 </ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">消息传递在微内核中的应用</span><br><span class="line">远程通信无法采用共享内存</span><br><span class="line">两个操作 :</span><br><span class="line">发送send(message) - 固定或可变大小消息</span><br><span class="line">接收receive(message)</span><br><span class="line">若P与Q要通信，需要:</span><br><span class="line">建立通信连接</span><br><span class="line">通过send/receive交换消息</span><br><span class="line">通信连接的实现</span><br><span class="line">物理的（如，共享存储，硬件总线）</span><br><span class="line">逻辑的（如，逻辑特性）</span><br><span class="line">消息传递可阻塞（blocking）或非阻塞（non-blocking）</span><br><span class="line">阻塞-同步</span><br><span class="line">阻塞send：发送进程阻塞，直到消息被接收</span><br><span class="line">阻塞receive：接受者进程阻塞，直到有消息可用</span><br><span class="line">非阻塞-异步</span><br><span class="line">非阻塞send：发送进程发送消息并继续操作</span><br><span class="line">非阻塞receive: 接收者收到一个有效消息或空消息</span><br><span class="line">如果通过信箱，则可分为直接和间接通信</span><br></pre></td></tr></table></figure>
+
 <p><code>线程</code>（轻型进程lightweight process, LWP ）是CPU使用的一个基本单元，包括</p>
 <ul>
 <li>线程ID</li>
@@ -400,6 +707,7 @@
 <li>可伸缩性：可在多处理核上并行运行</li>
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">调度</span><br><span class="line">线程是调度的基本单位，同一进程中的线程切换不会引起进程切换。</span><br><span class="line">并发</span><br><span class="line">线程可以提高系统的并发性。</span><br><span class="line">资源</span><br><span class="line">进程拥有资源，是资源分配的基本单位，而线程则不拥有资源，但它可以访问创建它的进程所拥有的资源</span><br><span class="line">上下文切换</span><br><span class="line">线程的上下文切换的代价比进程小。</span><br></pre></td></tr></table></figure>
+
 <p>可分为数据并行和任务并行<br><img src="/images/obsidian/20230530184144.png" alt="图片" title="图片"><br><img src="/images/obsidian/20230530184243.png" alt="图片" title="图片"><br><img src="/images/obsidian/20230530185433.png" alt="图片" title="图片"><br>&#x2F;&#x2F;S是应用程序的一部分，N是它在N个处理器上串行运行<br><code>线程的分类</code>：</p>
 <ul>
 <li>用户线程：由用户线程库进行管理的线程<br>内核看不到用户线程<br>用户线程的创建和调度在用户空间中，不需要内核的干预<br>应用于传统的只支持进程的操作系统</li>
@@ -455,9 +763,11 @@
 <ul>
 <li>多级队列：进程不能在不同队列间移动</li>
 <li>多级反馈队列：进程能在不同队列间移动</li>
-<li>多级反馈队列调度需要考虑以下问题：<br>队列数<br>每一队列的调度算法<br>决定进程升级（低级队列到高级队列）的方法<br>决定进程降级（高级队列到低级队列）的方法<br>决定新进程将进入哪个队列的方法<br>&#96;最常用的调度算法<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">eg.</span><br><span class="line">Q0-RR时间片8ms</span><br><span class="line">Q1-RR时间片16ms</span><br><span class="line">Q2-FCFS</span><br></pre></td></tr></table></figure>
-缺点：优先级一开始确定，无法调整</li>
+<li>多级反馈队列调度需要考虑以下问题：<br>队列数<br>每一队列的调度算法<br>决定进程升级（低级队列到高级队列）的方法<br>决定进程降级（高级队列到低级队列）的方法<br>决定新进程将进入哪个队列的方法<br>&#96;最常用的调度算法</li>
 </ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">eg.</span><br><span class="line">Q0-RR时间片8ms</span><br><span class="line">Q1-RR时间片16ms</span><br><span class="line">Q2-FCFS</span><br></pre></td></tr></table></figure>
+
+<p>缺点：优先级一开始确定，无法调整</p>
 <h1 id="线程调度"><a href="#线程调度" class="headerlink" title="线程调度"></a>线程调度</h1><p>区别用户层和内核层<br>调度线程而不是进程<br>多对多和多对一模型，线程库在可用的LWP上调度用户层线程<br>process-contention scope (PCS) 在进程中进行调度竞争<br>通常由程序员通过优先级设置<br>内核线程通过system-contention scope (SCS) 在CPU上调度– 系统中统一竞争<br>一对一模型仅使用SCS，如Windows， Linux</p>
 <h2 id="局部调度"><a href="#局部调度" class="headerlink" title="局部调度"></a>局部调度</h2><p>[[线程库]]决定哪个线程列入轻量级进程LWP</p>
 <h2 id="全局调度"><a href="#全局调度" class="headerlink" title="全局调度"></a>全局调度</h2><p>内核决定下一个运行的内核线程</p>
@@ -497,27 +807,39 @@
 <li><code>优先等待</code>：一个进程进入临界区时，其他进程进入<code>临界区</code>有次数限制</li>
 <li>进入区：互斥</li>
 <li>退出区：有空让进</li>
-<li>每个临界区不能过大：有限等待<br>空闲则入：其他进程均不处于临界区；<br>忙则等待：已有进程处于其临界区；<br>有限等待：等待进入临界区的进程不能”死等”；<br>让权等待：不能进入临界区的进程，应释放CPU（如转换到阻塞状态）<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Peterson算法</span><br><span class="line">do &#123;</span><br><span class="line"></span><br><span class="line">  flag [i]:= true;  </span><br><span class="line">  turn = j;  </span><br><span class="line">  while (flag [j] and turn == j) ;</span><br><span class="line"></span><br><span class="line">  critical section</span><br><span class="line"></span><br><span class="line">  flag [i] = false;</span><br><span class="line"></span><br><span class="line">  remainder section</span><br><span class="line"></span><br><span class="line">  &#125; while (1);</span><br></pre></td></tr></table></figure></li>
+<li>每个临界区不能过大：有限等待<br>空闲则入：其他进程均不处于临界区；<br>忙则等待：已有进程处于其临界区；<br>有限等待：等待进入临界区的进程不能”死等”；<br>让权等待：不能进入临界区的进程，应释放CPU（如转换到阻塞状态）</li>
 </ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Peterson算法</span><br><span class="line">do &#123;</span><br><span class="line"></span><br><span class="line">  flag [i]:= true;  </span><br><span class="line">  turn = j;  </span><br><span class="line">  while (flag [j] and turn == j) ;</span><br><span class="line"></span><br><span class="line">  critical section</span><br><span class="line"></span><br><span class="line">  flag [i] = false;</span><br><span class="line"></span><br><span class="line">  remainder section</span><br><span class="line"></span><br><span class="line">  &#125; while (1);</span><br></pre></td></tr></table></figure>
+
 <h2 id="锁"><a href="#锁" class="headerlink" title="锁"></a>锁</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">acquire() &#123;  </span><br><span class="line">       while (!available)</span><br><span class="line">          ; /* busy wait */</span><br><span class="line">       available = false;;</span><br><span class="line">    &#125;</span><br><span class="line">   release() &#123;</span><br><span class="line">       available = true;</span><br><span class="line">    &#125;</span><br><span class="line">   do &#123;</span><br><span class="line"></span><br><span class="line">    acquire lock</span><br><span class="line"></span><br><span class="line">       critical section</span><br><span class="line"></span><br><span class="line">    release lock</span><br><span class="line"></span><br><span class="line">      remainder section</span><br><span class="line"></span><br><span class="line"> &#125; while (true);</span><br></pre></td></tr></table></figure>
+
 <h3 id="互斥锁（自旋锁）"><a href="#互斥锁（自旋锁）" class="headerlink" title="互斥锁（自旋锁）"></a>互斥锁（自旋锁）</h3><p>原子执行acquire(),release()<br>acquire：while(!available) waiting;<br>available&#x3D;false<br>release:available&#x3D;false</p>
 <h3 id="面包店算法"><a href="#面包店算法" class="headerlink" title="面包店算法"></a>面包店算法</h3><ul>
 <li>在进入临界区前，每个进程接收一个号码。具有最小号码的进程进入临界区。</li>
 <li>如果进程Pi和Pj接收到同样的号码，如果i &lt; j ，则Pi先得到服务，否则Pj先得到服务。</li>
-<li>这种号码方案总是以递增序列产生号码；如： 1,2,3,3,3,3,4,5…<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">do &#123;</span><br><span class="line">  choosing[i] = true;</span><br><span class="line">  number[i] = max(number[0], number[1], …, number [n – 1])+1;</span><br><span class="line">  choosing[i] = false;</span><br><span class="line">  for (j = 0; j &lt; n; j++) &#123;</span><br><span class="line">  while (choosing[j]) ;</span><br><span class="line">  while ((number[j] != 0) &amp;&amp; (number[j,j] &lt; number[i,i])) ;</span><br><span class="line">  &#125;</span><br><span class="line">  critical section</span><br><span class="line">  number[i] = 0;</span><br><span class="line">  remainder section</span><br><span class="line">&#125; while (1);</span><br></pre></td></tr></table></figure></li>
+<li>这种号码方案总是以递增序列产生号码；如： 1,2,3,3,3,3,4,5…</li>
 </ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">do &#123;</span><br><span class="line">  choosing[i] = true;</span><br><span class="line">  number[i] = max(number[0], number[1], …, number [n – 1])+1;</span><br><span class="line">  choosing[i] = false;</span><br><span class="line">  for (j = 0; j &lt; n; j++) &#123;</span><br><span class="line">  while (choosing[j]) ;</span><br><span class="line">  while ((number[j] != 0) &amp;&amp; (number[j,j] &lt; number[i,i])) ;</span><br><span class="line">  &#125;</span><br><span class="line">  critical section</span><br><span class="line">  number[i] = 0;</span><br><span class="line">  remainder section</span><br><span class="line">&#125; while (1);</span><br></pre></td></tr></table></figure>
+
 <h2 id="信号量（软件解决方案）"><a href="#信号量（软件解决方案）" class="headerlink" title="信号量（软件解决方案）"></a>信号量（软件解决方案）</h2><ul>
 <li>保证多个代码段不被并发调用</li>
 <li>进入关键代码段前，进程必须获取信号量，否则不能运行</li>
 <li>执行完关键代码段，必须释放信号量</li>
-<li>信号量有值，说明空闲，为负说明忙碌<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">信号量S – 整型变量</span><br><span class="line">提供两个不可分割的[原子操作]访问信号量</span><br><span class="line">wait (S):</span><br><span class="line">     while S&lt;= 0 do no-op;  </span><br><span class="line">     S--;  </span><br><span class="line">signal(S):</span><br><span class="line">     S++;</span><br><span class="line">wait (S)又称为P(S)</span><br><span class="line">signal(S)又称为V(S)</span><br></pre></td></tr></table></figure>
-&#96;分类</li>
-<li>计数信号量：没有限制的整型值计数信号量&#x3D;同步信号量</li>
-<li>二值信号量：0 || 1 二值信号量&#x3D;互斥信号量<br>&#96;使用<br>必须取一次且仅有一次初值<br>初值不为负<br>除了初始化，只能通过执行P、V操作来访问S<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">例子：P1  和 P2 需要 C1 比C2先运行</span><br><span class="line">       semaphore s=0</span><br><span class="line">P1:</span><br><span class="line">   C1;</span><br><span class="line">   signal(s);</span><br><span class="line"></span><br><span class="line">P2:</span><br><span class="line">   wait(s);</span><br><span class="line">   C2;</span><br></pre></td></tr></table></figure>
-死锁 – 两个或多个进程无限期地等待一个事件的发生，而该事件正是由其中的一个等待进程引起的.<br>P0  P1<br>  P(S);  P(Q);<br>  P(Q);  P(S);<br>  V(S);  V(Q);<br>  V(Q)  V(S);<br>饥饿 – 无限期地阻塞。进程可能永远无法从它等待的信号量队列中移去.</li>
+<li>信号量有值，说明空闲，为负说明忙碌</li>
 </ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">信号量S – 整型变量</span><br><span class="line">提供两个不可分割的[原子操作]访问信号量</span><br><span class="line">wait (S):</span><br><span class="line">     while S&lt;= 0 do no-op;  </span><br><span class="line">     S--;  </span><br><span class="line">signal(S):</span><br><span class="line">     S++;</span><br><span class="line">wait (S)又称为P(S)</span><br><span class="line">signal(S)又称为V(S)</span><br></pre></td></tr></table></figure>
+
+<p>&#96;分类</p>
+<ul>
+<li>计数信号量：没有限制的整型值计数信号量&#x3D;同步信号量</li>
+<li>二值信号量：0 || 1 二值信号量&#x3D;互斥信号量<br>&#96;使用<br>必须取一次且仅有一次初值<br>初值不为负<br>除了初始化，只能通过执行P、V操作来访问S</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">例子：P1  和 P2 需要 C1 比C2先运行</span><br><span class="line">       semaphore s=0</span><br><span class="line">P1:</span><br><span class="line">   C1;</span><br><span class="line">   signal(s);</span><br><span class="line"></span><br><span class="line">P2:</span><br><span class="line">   wait(s);</span><br><span class="line">   C2;</span><br></pre></td></tr></table></figure>
+
+<p>死锁 – 两个或多个进程无限期地等待一个事件的发生，而该事件正是由其中的一个等待进程引起的.<br>P0  P1<br>  P(S);  P(Q);<br>  P(Q);  P(S);<br>  V(S);  V(Q);<br>  V(Q)  V(S);<br>饥饿 – 无限期地阻塞。进程可能永远无法从它等待的信号量队列中移去.</p>
 <h3 id="实例-1"><a href="#实例-1" class="headerlink" title="实例"></a>实例</h3><h4 id="生产者消费者问题"><a href="#生产者消费者问题" class="headerlink" title="生产者消费者问题"></a>生产者消费者问题</h4><p><code>生产者 把产品放入指定缓冲区 in:所有的生产者对in指针需要互斥 counter：所有生产者消费者进程对counter互斥 </code>消费者<br>从指定缓冲区取出产品<br>out:所有的消费者对out指针需要互斥<br>counter：所有生产者消费者进程对counter互斥</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">buffer[in] = nextProduced;</span><br><span class="line">in = (in + 1) % BUFFER_SIZE;</span><br><span class="line">counter++;</span><br><span class="line"></span><br><span class="line">nextConsumed = buffer[out];</span><br><span class="line">out = (out + 1) % BUFFER_SIZE;</span><br><span class="line">counter--;</span><br><span class="line"></span><br><span class="line">生产者：</span><br><span class="line"> &#123;</span><br><span class="line">  …</span><br><span class="line">  生产一个产品</span><br><span class="line">  …</span><br><span class="line">  wait(empty);</span><br><span class="line">  wait(m);</span><br><span class="line">   …</span><br><span class="line">  C1：把产品放入指定缓冲区</span><br><span class="line">   …</span><br><span class="line">  signal(m);</span><br><span class="line">  signal(full);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">消费者：</span><br><span class="line"> &#123;</span><br><span class="line">  …</span><br><span class="line">  wait(full)；</span><br><span class="line">  wait(m);</span><br><span class="line">   …</span><br><span class="line">  C2：从指定缓冲区取出产品</span><br><span class="line">   …</span><br><span class="line">  signal(m);</span><br><span class="line">  signal(empty);</span><br><span class="line">   …</span><br><span class="line">  消费取出的产品</span><br><span class="line">   …</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
 <p>&#96;同步分析</p>
 <ul>
 <li>找出需要同步的代码段</li>
@@ -539,19 +861,25 @@
 <li>有写者写，新读者等<br>&#96;写者</li>
 <li>无读者写者，新写者可写</li>
 <li>有读者读，写者等</li>
-<li>有其他写者，写者等待<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">增加一个读者计数器rc，设置初始值为0；</span><br><span class="line">读者：Repeat</span><br><span class="line">P(mutex);</span><br><span class="line">readcount:=readcount+1;</span><br><span class="line">if readcount=1</span><br><span class="line">then P (w);</span><br><span class="line">V(mutex);//mutex为互斥信号量，初始值为1</span><br><span class="line">读</span><br><span class="line">P(mutex);</span><br><span class="line">readcount:=readcount-1;</span><br><span class="line">if readcount=0</span><br><span class="line">then V(w);</span><br><span class="line">V(mutex);</span><br><span class="line">Until false</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Writers</span><br><span class="line">……</span><br><span class="line">P(W);</span><br><span class="line">写</span><br><span class="line">V(W);</span><br><span class="line">…...</span><br></pre></td></tr></table></figure>
-&#96;问题：写者可能饥饿</li>
+<li>有其他写者，写者等待</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">增加一个读者计数器rc，设置初始值为0；</span><br><span class="line">读者：Repeat</span><br><span class="line">P(mutex);</span><br><span class="line">readcount:=readcount+1;</span><br><span class="line">if readcount=1</span><br><span class="line">then P (w);</span><br><span class="line">V(mutex);//mutex为互斥信号量，初始值为1</span><br><span class="line">读</span><br><span class="line">P(mutex);</span><br><span class="line">readcount:=readcount-1;</span><br><span class="line">if readcount=0</span><br><span class="line">then V(w);</span><br><span class="line">V(mutex);</span><br><span class="line">Until false</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Writers</span><br><span class="line">……</span><br><span class="line">P(W);</span><br><span class="line">写</span><br><span class="line">V(W);</span><br><span class="line">…...</span><br></pre></td></tr></table></figure>
+
+<p>&#96;问题：写者可能饥饿</p>
+<ul>
 <li>读者写者互斥，写者直到读者count为0才进入进程</li>
 </ul>
 <h4 id="哲学家就餐问题"><a href="#哲学家就餐问题" class="headerlink" title="哲学家就餐问题"></a>哲学家就餐问题</h4><p>5个哲学家、5根筷子，每个哲学家左右各有一根筷子，每个哲学家只有拿起左右两个筷子才能吃饭<br>五个元素数组储存筷子，对每个哲学家有拿起左右筷子，放下左右筷子的函数<br>&#96;防止死锁</p>
 <h5 id="方法1"><a href="#方法1" class="headerlink" title="方法1"></a>方法1</h5><p>最多允许四个哲学家同时坐在桌子周围</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">semephore *chopstick[5];   //初始值为1</span><br><span class="line">semaphore *seat;  //初始值为4</span><br><span class="line">哲学家 i:</span><br><span class="line">  ……</span><br><span class="line">  P(seat);  //看看4个座位是否有空</span><br><span class="line">  P(chopStick[i]);  //拿左边筷子</span><br><span class="line">  P(chopStick[(i + 1) % 5]);  //拿右边筷子</span><br><span class="line">   吃饭</span><br><span class="line">   V(chopStick[i]);  //放下左边筷子</span><br><span class="line">   V(chopStick[(i + 1) % 5]);  //放下右边筷子</span><br><span class="line">   V(seat);  //释放占据的位置</span><br></pre></td></tr></table></figure>
+
 <ul>
 <li>左右筷子都可用时才拿起筷子</li>
 <li>非对称解决，单号哲学家优先拿左边筷子，双号优先拿右边</li>
 </ul>
 <h5 id="方法2"><a href="#方法2" class="headerlink" title="方法2"></a>方法2</h5><p>仅当一个哲学家左右两边筷子都可用时，才允许他拿筷子<br>哲学家分为三个状态thinking,hungry,eating<br>设置5个信号量代表所有哲学家，仅当自身hungry且左右都不在吃饭时才开始eating</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">void test(int i);</span><br><span class="line">    &#123;</span><br><span class="line">        if (state[i] == hungry) &amp;&amp;  //是否饿了</span><br><span class="line">          (state[(i+4)%5]!=eating) &amp;&amp; //左边哲学家是否在吃饭</span><br><span class="line">          (state[(i+1)%5]!=eating)  //右边哲学家是否在吃饭</span><br><span class="line">          &#123;</span><br><span class="line">                 state[i]=eating;  //设置哲学家状态为eating</span><br><span class="line">                 V(ph[i]);  //ph[i]设置为1</span><br><span class="line">           &#125;     </span><br><span class="line">     &#125;</span><br><span class="line">     state[i]=hungry；</span><br><span class="line">            P(m);</span><br><span class="line">            test(i);</span><br><span class="line">            V(m);</span><br><span class="line">            P(ph[i]);</span><br></pre></td></tr></table></figure>
+
 <h5 id="方法3"><a href="#方法3" class="headerlink" title="方法3"></a>方法3</h5><p>给所有哲学家编号，奇数号哲学家必须首先拿左边筷子，偶数号哲学家则反之</p>
 <h3 id="信号量总结"><a href="#信号量总结" class="headerlink" title="信号量总结"></a>信号量总结</h3><p>S&gt;0：有S个资源可用<br>S&#x3D;0：无资源可用<br>S&lt;0：则|S|表示S等待队列中的进程个数<br>P(S)：申请一个资源<br>V(S)：释放一个资源<br>互斥信号量初始值：一般为1<br>同步信号量初始值：0-N<br>&#96;P、V操作成对出现<br>互斥操作：P、V操作处于同一进程内<br>同步操作：P、V操作在不同进程内<br>两个一起的P操作的顺序至关重要<br>同步与互斥P操作一起时，同步P操作要在互斥P操作前<br>两个V操作的次序无关紧要</p>
 <p><code>缺点</code>：同步操作分散：信号量机制中，同步操作分散在各个进程中，使用不当就可能导致各进程死锁（如P、V操作的次序错误、重复或遗漏）<br>易读性差：要了解对于一组共享变量及信号量的操作是否正确，必须通读整个系统或者并发程序；<br>不利于修改和维护：各模块的独立性差，任一组变量或一段代码的修改都可能影响全局；<br>正确性难以保证：操作系统或并发程序通常很大，很难保证这样一个复杂的系统没有逻辑错误；</p>
@@ -575,6 +903,7 @@
 <h3 id="动态加载和链接"><a href="#动态加载和链接" class="headerlink" title="动态加载和链接"></a>动态加载和链接</h3><p><code>加载 例程在调用之前并不加载 更好的内存空间利用率 没有被使用的例程不被载入 当需大量代码来处理不经常使用的功能时非常有用 </code>链接<br>和各种库文件的链接被推迟到执行时期<br>需要动态装载技术支持<br>一小段代码 - 存根，用来定位合适的保留在内存中的库程序<br>存根用例程地址来替换自己，并开始执行例程<br>操作系统需要检查例程是否在进程的内存空间，所以需要操作系统支持</p>
 <h3 id="交换"><a href="#交换" class="headerlink" title="交换"></a>交换</h3><p>一个进程可以暂时被交换（swap）到内存外的一个备份区，随后可以被换回内存继续执行。<br><code>备份区</code>—是一个固定的足够大的可以容纳所有用户内存映像拷贝的快速磁盘；必须提供对这些内存映像的直接访问。</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">滚入，滚出(Roll out, roll in )—交换由于基于优先级的算法而不同，低优先级的进程被换出，这样高优先级的进程可以被装入和执行。</span><br><span class="line">交换时间的主要部分是转移时间，总的转移时间直接同交换的内存的数量成比例。</span><br><span class="line">在许多系统如：UNIX，Linux，Windows中，可以找到一些被修正过的交换措施。</span><br><span class="line">系统维持一个就绪队列，它包括在备份存储或在内存中准备运行的所有进程</span><br></pre></td></tr></table></figure>
+
 <h2 id="连续内存分配"><a href="#连续内存分配" class="headerlink" title="连续内存分配"></a>连续内存分配</h2><p>为一个用户程序分配一个连续的内存空间</p>
 <ul>
 <li>单一连续分配：单道程序环境下，仅装有一道用户程序，即整个内存的用户空间由该程序独占</li>
@@ -618,7 +947,7 @@
 <li>非抢占：一个资源只有当持有它的进程完成任务后，自由的释放</li>
 <li>循环等待：等待资源的进程之间存在环 {P0, P1, …, P0}</li>
 </ul>
-<h2 id="资源分配图"><a href="#资源分配图" class="headerlink" title="资源分配图"></a>资源分配图</h2><p>被分为两个部分<br>P &#x3D; {P1, P2, …, Pn}, 含有系统中全部的进程<br>R &#x3D; {R1, R2, …, Rm}, 含有系统中全部的资源<br>请求边：有向边Pi-&gt;Rj<br>分配边：有向边Ri-&gt;P </p>
+<h2 id="资源分配图"><a href="#资源分配图" class="headerlink" title="资源分配图"></a>资源分配图</h2><p>被分为两个部分<br>P &#x3D; {P1, P2, …, Pn}, 含有系统中全部的进程<br>R &#x3D; {R1, R2, …, Rm}, 含有系统中全部的资源<br>请求边：有向边Pi-&gt;Rj<br>分配边：有向边Ri-&gt;P</p>
 <ul>
 <li>如果图没有环，那么不会有死锁</li>
 <li>如果图有环<br>如果每一种资源类型只有一个实例，那么死锁发生<br>如果一种资源类型有多个实例，可能死锁<br><img src="/images/obsidian/20230604203017.png" alt="图片" title="image"></li>
@@ -653,12 +982,14 @@
 <li>多个实例</li>
 <li>每一个进程必须事先声明使用的最大量</li>
 <li>当一个进程请求资源，它可能要等待</li>
-<li>当一个进程得到所有的资源，它必须在有限的时间释放它们<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Available:  长度为 m的向量。 如果available[j]=k,那么资源Rj有k个实例有效</span><br><span class="line">Max: n x m 矩阵。 如果Max[i,j]=k,那么进程Pi最多可以请求k个资源Rj的实例</span><br><span class="line">Allocation:  n x m 矩阵。 如果Allocation[i,j]=k,那么进程Pj当前分配了k个资源Rj的实例</span><br><span class="line">Need:  n x m 矩阵。如果Need[,j]=k,那么进程Pj还需要k个资源Rj的实例</span><br><span class="line">Need [i,j] = Max[i,j] – Allocation [i,j].</span><br><span class="line">1.让Work和Finish作为长度为m和n的向量初始化：</span><br><span class="line">Work := Available</span><br><span class="line">Finish [i] = false for i - 1,2,3, …, n.</span><br><span class="line">2.  查找i</span><br><span class="line">(a) Finish [i] = false</span><br><span class="line">(b) Needi £ Work</span><br><span class="line">If no such i exists, go to step 4.</span><br><span class="line">3.  Work := Work + Allocationi  </span><br><span class="line">Finish[i] := true  </span><br><span class="line">go to step 2.</span><br><span class="line">4.  如果对所有i的 Finish [i] = true, 则系统处在安全状态。</span><br></pre></td></tr></table></figure>
-   Requesti &#x3D;进程 Pi 的资源请求向量.  如果Requesti [m] &#x3D; k 则进程 Pi 想要资源类型为Rjm的k个实例<br>1.  如果 Requesti £ Needi 转 step 2.  否则报错, 因为进程请求超出了其声明的最大值<br>2.  如果 Requesti £ Available, 转 step 3.  否则 Pi  必须等待, 因为资源不可用.<br>3.  假设通过修改下列状态来分配请求的资源给进程Pi :<br>  Available :&#x3D; Available - Requesti;<br>  Allocationi :&#x3D; Allocationi + Requesti;<br>  Needi :&#x3D; Needi – Requesti;;</li>
+<li>当一个进程得到所有的资源，它必须在有限的时间释放它们</li>
 </ul>
-<p> <br>•如果系统安全 Þ 将资源分配给 Pi.<br>•如果系统不安全 Þ Pi 必须等待，恢复原有的资源分配状态</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Available:  长度为 m的向量。 如果available[j]=k,那么资源Rj有k个实例有效</span><br><span class="line">Max: n x m 矩阵。 如果Max[i,j]=k,那么进程Pi最多可以请求k个资源Rj的实例</span><br><span class="line">Allocation:  n x m 矩阵。 如果Allocation[i,j]=k,那么进程Pj当前分配了k个资源Rj的实例</span><br><span class="line">Need:  n x m 矩阵。如果Need[,j]=k,那么进程Pj还需要k个资源Rj的实例</span><br><span class="line">Need [i,j] = Max[i,j] – Allocation [i,j].</span><br><span class="line">1.让Work和Finish作为长度为m和n的向量初始化：</span><br><span class="line">Work := Available</span><br><span class="line">Finish [i] = false for i - 1,2,3, …, n.</span><br><span class="line">2.  查找i</span><br><span class="line">(a) Finish [i] = false</span><br><span class="line">(b) Needi £ Work</span><br><span class="line">If no such i exists, go to step 4.</span><br><span class="line">3.  Work := Work + Allocationi  </span><br><span class="line">Finish[i] := true  </span><br><span class="line">go to step 2.</span><br><span class="line">4.  如果对所有i的 Finish [i] = true, 则系统处在安全状态。</span><br></pre></td></tr></table></figure>
+
+<p>   Requesti &#x3D;进程 Pi 的资源请求向量.  如果Requesti [m] &#x3D; k 则进程 Pi 想要资源类型为Rjm的k个实例<br>1.  如果 Requesti £ Needi 转 step 2.  否则报错, 因为进程请求超出了其声明的最大值<br>2.  如果 Requesti £ Available, 转 step 3.  否则 Pi  必须等待, 因为资源不可用.<br>3.  假设通过修改下列状态来分配请求的资源给进程Pi :<br>  Available :&#x3D; Available - Requesti;<br>  Allocationi :&#x3D; Allocationi + Requesti;<br>  Needi :&#x3D; Needi – Requesti;;<br> <br>•如果系统安全 Þ 将资源分配给 Pi.<br>•如果系统不安全 Þ Pi 必须等待，恢复原有的资源分配状态</p>
 <h3 id="死锁检测和恢复"><a href="#死锁检测和恢复" class="headerlink" title="死锁检测和恢复"></a>死锁检测和恢复</h3><p><code>每个资源类型有一个实例</code>：维护进程等待图<br><code>每个资源类型有多个实例</code>：用available和finished数组探查是否死锁<br>允许进入死锁状态并加以恢复<br>维护等待图<br>节点是进程<br>Pi-&gt;Pj表明Pi在等待Pj<br>定期调用算法来检查是否有环<br>一个检查图中是否有环的算法需要n^2的操作来进行，n为图中的节点数<br>Available ：一个长度为m的向量，表示每一种资源类型可用的实例数目<br>Allocation:  一个n x m 的矩阵，定义了当前分配的每一种资源类型的实例数目<br>Request: 一个n x m 的矩阵，表明了当前的进程请求。如果Request[i，j]&#x3D;k，那么进程Pi请求k个资源Rj的实例</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1.  让Work和Finish作为长度为m和n的向量初始化</span><br><span class="line">(a) Work = Available</span><br><span class="line">(b)  For i = 0,2, …, n-1, if Allocationi ¹ 0, thenFinish[i] = false;otherwise, Finish[i] = true.</span><br><span class="line"></span><br><span class="line">2.  找到满足下列条件的下标i</span><br><span class="line">(a)  Finish[i] = false</span><br><span class="line">(b)  Requesti &lt;= Work</span><br><span class="line">如果没有这样的i存在，转4</span><br><span class="line"></span><br><span class="line">3.  Work = Work + Allocationi  </span><br><span class="line">Finish[i] = true  </span><br><span class="line">转 2.</span><br><span class="line"></span><br><span class="line">4.如果有一些i (0 £ i &lt; n) , Finish[i] = false, 则系统处在死锁状态。而且， 如果 Finish[i] = false, 则进程 Pi 是死锁的。</span><br></pre></td></tr></table></figure>
+
 <p>&#96;算法需要m x n^2 次操作来判断是否系统处于死锁状态</p>
 <h4 id="恢复"><a href="#恢复" class="headerlink" title="恢复"></a>恢复</h4><p>可以一次中断所有进程排查，也可以一个一个终结进程<br>选择牺牲进程：最小化代价<br>回滚：返回到安全的状态，然后重新开始进程<br>饥饿：同样进程的可能总是被选中。在代价因素中加入回滚次数</p>
 <h2 id="虚拟内存概念"><a href="#虚拟内存概念" class="headerlink" title="虚拟内存概念"></a>虚拟内存概念</h2><p><code>局部性原理</code>：在一较短的时间内，程序的执行仅局限于某个部分；相应地，它所访问的存储空间也局限于某个区域<br>一个程序只要部分装入内存就可以运行<br>整个程序不是同一时间都要运行<br>&#96;程序部分装入技术优点<br>进程大小不再受到物理内存大小限制<br>每个进程需要的内存更小<br>更多进程可以并发运行<br>I&#x2F;O更少</p>
@@ -672,6 +1003,7 @@
 <h3 id="有效无效位"><a href="#有效无效位" class="headerlink" title="有效无效位"></a>有效无效位</h3><p>每一个页表的表项有一个有效- 无效位相关联：<br>1表示在内存，0表示不在内存<br>在所有的表项中，这个位被初始化为0<br>一个页表映象的例子</p>
 <h3 id="缺页中断的处理"><a href="#缺页中断的处理" class="headerlink" title="缺页中断的处理"></a>缺页中断的处理</h3><p>1.访问指令或数据<br>2.查看另一个表来决定:<br>无效引用 Þ 终止<br>仅仅不在内存<br>3.找到页在后备存储上的位置<br>4.得到空的页框，把页换入页框<br>5.重新设置页表，把有效位设为v<br>6.重启指令</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">极端情况：进程执行第一行代码时，内存内没有任何代码和数据</span><br><span class="line">进程创建时，没有为进程分配内存，仅建立PCB</span><br><span class="line">导致缺页中断</span><br><span class="line">纯请求分页（纯粹按需调页）</span><br><span class="line"></span><br><span class="line">一条指令可能导致多次缺页（涉及多个页面）</span><br><span class="line">幸运的是，程序具有局部性（locality of reference）</span><br><span class="line"></span><br><span class="line">请求调页需要硬件支持</span><br><span class="line">带有效无效位的页表</span><br><span class="line">交换空间</span><br><span class="line">指令重启</span><br><span class="line"></span><br><span class="line">缺页率（缺页的概率）：0 &lt;= p &lt;= 1.0</span><br><span class="line">如果 p = 0 ，没有缺页</span><br><span class="line">如果 p = 1， 每次访问都缺页</span><br><span class="line"></span><br><span class="line">有效访问时间（ EAT ）</span><br><span class="line">    EAT = (1 – p) x 内存访问时间+ p x 页错误时间</span><br><span class="line"></span><br><span class="line">页错误时间=处理缺页中断</span><br><span class="line">  + [页交换出去时间 ]</span><br><span class="line">  + 读入页时间</span><br><span class="line">  + 重启进程开销</span><br></pre></td></tr></table></figure>
+
 <p><code>性能优化</code>：<br>页面转换时采用交换空间，而不是文件系统<br>交换区的块大，比文件系统服务快速</p>
 <p>在进程装载时，把整个进程拷贝到交换区<br>基于交换区调页<br>早期的 BSD Unix</p>
 <p>利用文件系统进行交换<br>Solaris和当前的BSD<br>部分内容仍旧需要交换区（堆栈等）<br><code>写时复制</code>:允许父进程和子进程在初始化时共享页面<br>如果其中一个进程修改了一个共享页面，会产生副本<br>更加高效<br>应用在Windows，Linux，macOS等系统</p>
@@ -709,7 +1041,10 @@
 <ul>
 <li>当设备空闲时选择一个修改页面写到磁盘上，然后重置它的修改位</li>
 </ul>
-<p>3.<br>4. 另一种修改,保留一个空闲帧池，并且记着哪些页面在哪些帧内</p>
+<ol start="3">
+<li></li>
+<li>另一种修改,保留一个空闲帧池，并且记着哪些页面在哪些帧内</li>
+</ol>
 <ul>
 <li>如果在重用之前被再次需要，就不需要从磁盘上重新装载了</li>
 <li>降低因错误选择牺牲页面而引起的开销</li>
@@ -723,7 +1058,6 @@
 <h3 id="优先级分配"><a href="#优先级分配" class="headerlink" title="优先级分配"></a>优先级分配</h3><p>优先级分配:用优先级而不是大小来进行比例分配<br>如果进程 Pi 跑出页面错误,<br>从自己的帧里选择一个替代<br>从优先级较低的进程里选择一个替代</p>
 <h3 id="全局-vs-局部分配"><a href="#全局-vs-局部分配" class="headerlink" title="全局 vs. 局部分配"></a>全局 vs. 局部分配</h3><p>全局置换 Global replacement – 允许进程从所有帧的集合中选择一个置换帧；一个进程可以从另一个进程那里获取帧<br>但是进程执行时间可能变化很大，不能控制缺页错误率<br>有更好的系统吞吐量，更常用<br>局部置换 Local replacement – 每个进程只从它自己分配的帧中进行选择<br>对每个进程的表现更一致<br>但是可能内存低利用</p>
 <h4 id="非均匀内存访问（NUMA）"><a href="#非均匀内存访问（NUMA）" class="headerlink" title="非均匀内存访问（NUMA）"></a>非均匀内存访问（NUMA）</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">v以上假设所有内存可以被平等访问</span><br><span class="line"></span><br><span class="line">v很多系统如 NUMA – 内存访问速度变化的</span><br><span class="line"></span><br><span class="line">考虑CPU和内存在系统中通过总线互连</span><br><span class="line"></span><br><span class="line">v让分配的内存帧‘尽可能地靠近’运行进程的CPU</span><br><span class="line"></span><br><span class="line">通常意味着位于同一系统扳</span><br><span class="line"></span><br><span class="line">Solaris通过在内核中创建延迟组 lgroups</span><br><span class="line"></span><br><span class="line">v将相近的CPU和内存聚集在一起</span><br><span class="line"></span><br><span class="line">v在组内调度进程的所有线程，并分配它的所有内存</span><br><span class="line"></span><br><span class="line">v最大限度减少总体内存延迟，最大化CPU缓存命中率</span><br></pre></td></tr></table></figure>
-
 
 <h2 id="抖动"><a href="#抖动" class="headerlink" title="抖动"></a>抖动</h2><p>如果一个进程没有足够的页，那么缺页率将很高，这将导致:<br>CPU利用率低下.<br>操作系统认为需要增加多道程序的道数<br>系统中将加入一个新的进程<br>颠簸（抖动）&#x3D;一个进程的页面经常换入换出<br>原因：分配的帧数 &lt; 局部大小之和</p>
 <h3 id="工作集模型"><a href="#工作集模型" class="headerlink" title="工作集模型"></a>工作集模型</h3><p>工作集窗口 º 固定数目的页的引用<br>WSSi (进程Pi的工作集) &#x3D; 最近D中所有页的引用 (随时间变化)<br><img src="/images/obsidian/20230605190700.png" alt="图片" title="image"><br>vExample: D &#x3D; 10,000</p>
@@ -745,7 +1079,7 @@
 <ul>
 <li>顺序访问<br>最简单的访问方式<br>文件信息按照存放顺序，一个记录一个记录地依次访问<br>顺序文件<br>典型存储设备：磁带</li>
 <li>直接（随机）访问<br>可以直接定位到文件的某条记录进行访问<br>直接文件<br>典型设备：磁盘<br>v访问方式：直接（随机）访问<br>v直接通过计算得到需要读写记录的位置，直接跳转进行文件读写</li>
-<li>索引文件<br>v基本方法：为顺序文件建立索引表<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">记录平均长度：40B   索引表项大小：4B   1M条记录长度：44MB</span><br><span class="line"></span><br><span class="line">访问第1万条记录：</span><br><span class="line"></span><br><span class="line">       1）计算得到第1万条记录的索引项在索引表中首址：10000*4=40000</span><br><span class="line"></span><br><span class="line">       2）从索引表地址40000处读入4个字节，内容为第1万条记录在顺序文件中的首址P</span><br><span class="line"></span><br><span class="line">       3）从顺序文件地址P处读入40个字节（假如第1万条记录长度为40B）</span><br><span class="line"></span><br><span class="line">合计读入：4+40=44B</span><br></pre></td></tr></table></figure></li>
+<li>索引文件<br>v基本方法：为顺序文件建立索引表<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">记录平均长度：40B   索引表项大小：4B   1M条记录长度：44MB</span><br><span class="line"></span><br><span class="line">访问第1万条记录：</span><br><span class="line"></span><br><span class="line">       1）计算得到第1万条记录的索引项在索引表中首址：10000*4=40000</span><br><span class="line"></span><br><span class="line">       2）从索引表地址40000处读入4个字节，内容为第1万条记录在顺序文件中的首址P</span><br><span class="line"></span><br><span class="line">       3）从顺序文件地址P处读入40个字节（假如第1万条记录长度为40B）</span><br><span class="line"></span><br><span class="line">合计读入：4+40=44B</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
 </ul>
 <h2 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h2><h3 id="文件控制块（FCB）"><a href="#文件控制块（FCB）" class="headerlink" title="文件控制块（FCB）"></a>文件控制块（FCB）</h3><p>存放操控文件所需的各类文件属性信息<br>文件名<br>长度<br>创建时间<br>存放位置<br>访问控制权限<br>类似一个索引项<br>v目录项<br>存放一个文件的各类属性<br>有的系统等同于文件控制块<br>v目录<br>包含着所有文件信息的节点集合<br>根据文件名检索文件的桥梁<br>目录项的有序集合<br>v目录文件<br>目录组织形式<br>目录作为一个文件存在于文件系统<br>v每个目录项中存放了文件在存储设备的存放地址<br>v目录和文件都驻留在存储设备（如磁盘）</p>
 <h3 id="文件检索"><a href="#文件检索" class="headerlink" title="文件检索"></a>文件检索</h3><p>v文件检索是一个遍历目录项的过程<br>1.打开目录文件<br>2.从磁盘读入该目录文件的1个(物理)块，该块包含若干个目录项<br>3.根据文件名遍历内存中的该块，如找到则结束<br>4.判断该目录文件是否还有物理块没有读入，如果是转2；否则，结束。表示该目录中没有此文件名的文件<br>v目录项由于经常变化，一般不排序<br>v平均遍历目录项数：       （1+n）&#x2F;2<br>  不包括文件查不到的情况<br>  <br>  目录项大小&#x3D; ds bytes<br>目录中最多文件数 &#x3D; n<br>物理块大小 &#x3D; b<br>v那么<br>目录文件大小 &#x3D; ds*n bytes<br>目录文件需要的物理块数目 &#x3D; ds*n&#x2F;b<br>检索一个文件需要平均读入的块数&#x3D;(ds*n&#x2F;b+1)&#x2F;2</p>
