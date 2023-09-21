@@ -13,6 +13,52 @@
 ]]></content>
   </entry>
   <entry>
+    <title>基于斯坦福cs106l的c++编程规范笔记</title>
+    <url>/2023/09/21/cs106l%E6%80%BB%E5%92%8C%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[<h2 id="c-特性"><a href="#c-特性" class="headerlink" title="c++特性"></a>c++特性</h2><ul>
+<li>更好的C<br>C++支持<code>命令式编程</code>，一种编程风格，其中程序按顺序执行的命令序列。从这个意义上讲，C++ 可以看作是对C 编程语言，使日常命令式编程更加直观和更容易使用。课程阅读器的这一部分介绍了一些 C++ 最常用的库,包括标准模板库，并展示了如何使用这些库来构建命令程式。 此外，它探索了最初出现在 C++ 语言中的新原语。C 编程语言，即指针、C 字符串和预处理器。<span id="more"></span></li>
+<li>数据抽象</li>
+</ul>
+<p>C++与其兄弟C的最大区别在于_数据抽象_,程序执行的方式可以与程序执行的方式分开  程序员谈论那个程序。</p>
+<ul>
+<li>面向对象编程</li>
+</ul>
+<p>. 面向对象编程是一种完全不同的方式考虑程序设计，可以极大地简化复杂的软件系统。 钥匙  面向对象背后的概念很简单，但要真正体会到面向对象的力量  编程，您将需要一次又一次地看到它的运行情况。 这部分课程  读者探索了面向对象编程中的主要概念以及如何在 C++ 中实现它继承和多态。  </p>
+<ul>
+<li>泛型编程</li>
+</ul>
+<p>泛型编程是一种编程风格，旨在构建可以解决一系列远远超出最初设想的问题的软件<br>履行。 虽然泛型编程的完整处理远远超出了介绍性的范围C++ 编程课，泛型编程的许多思想都可以访问并且可以从根本上改变了您对 C++ 编程的看法。</p>
+<h2 id="const"><a href="#const" class="headerlink" title="const"></a>const</h2><p>Can’t declare non-const reference to const variable<br>Can’t declare non-const reference to const vari</p>
+<p><img src="/images/obsidian/20230215213916.png" alt="图片" title="image"><br><img src="/images/obsidian/20230215214023.png" alt="图片" title="image"></p>
+<h2 id="模板"><a href="#模板" class="headerlink" title="模板"></a>模板</h2><p><img src="/images/obsidian/20230215215043.png" alt="图片" title="image"><br>函数指针：将函数作为对象传递</p>
+<h2 id="stl"><a href="#stl" class="headerlink" title="stl"></a>stl</h2><p>sequence:线性，有顺序<br>associative:不一定线性，有索引机制(map)</p>
+<p>vector:有顺序的相同类型的数据集合，大小可控制<br>—子属性：<em>size:元素数量<br>—capacity</em>:单个元素大小<br><img src="/images/obsidian/20230214194657.png" alt="图片" title="image"><br>vector最常用，deque用于首部插入场合，list用于多种列表</p>
+<p>associative(关联数组):有顺序的需要有比较方法，无序的需要哈希函数（更快）<br>iterators（迭代器）：用于访问容器中的所有数据<br>–常用函数，begin(),end(),iter++,*(pointer),&#x3D;&#x3D; !&#x3D;,&#x3D;（赋值,复制）,<br><img src="/images/obsidian/20230214200501.png" alt="图片" title="image"><br><img src="/images/obsidian/20230214200805.png" alt="图片" title="image"><br><img src="/images/obsidian/20230214201819.png" alt="图片" title="image"></p>
+<h2 id="输入输出流"><a href="#输入输出流" class="headerlink" title="输入输出流"></a>输入输出流</h2><p>First call to std::cin &gt;&gt; creates a command line<br>prompt that allows the user to type until they hit enter  </p>
+<ul>
+<li>Each &gt;&gt; ONLY reads until the next whitespace  </li>
+<li>Whitespace &#x3D; tab, space, newline  </li>
+<li>Everything after the first whitespace gets saved and<br>used the next time std::cin &gt;&gt; is called  </li>
+<li>The place its saved is called a buffer<br><img src="/images/obsidian/20230213213832.png" alt="图片" title="image"><br><img src="/images/obsidian/20230213214430.png" alt="图片" title="image"><br><img src="/images/obsidian/20230213214751.png" alt="图片" title="image"><br><img src="/images/obsidian/20230214102508.png" alt="图片" title="image"><br><img src="/images/obsidian/20230214104421.png" alt="图片" title="image"><br><img src="/images/obsidian/20230214162731.png" alt="图片" title="image"><br><img src="/images/obsidian/20230214162820.png" alt="图片" title="image"></li>
+</ul>
+<h2 id="hashmap的c-实现"><a href="#hashmap的c-实现" class="headerlink" title="hashmap的c++实现"></a>hashmap的c++实现</h2><h3 id="相关函数"><a href="#相关函数" class="headerlink" title="相关函数"></a>相关函数</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">构造函数HashMap():</span><br><span class="line">接受参数count(值的个数),hash function(有默认值)</span><br><span class="line"></span><br><span class="line">参数(typename fitst,typename last,bucket_count,H)</span><br><span class="line">//用一个容器首尾指针初始化hashmap</span><br><span class="line">eg.</span><br><span class="line">hashmap&lt;k,m&gt; map&#123;vec.begin(),vec.end()&#125;</span><br><span class="line"></span><br><span class="line">参数(init_list init,bucket_count,H)</span><br><span class="line">//用容器直接初始化hashmap</span><br><span class="line">eg.</span><br><span class="line">HashMap&lt;char, int&gt; map&#123;&#123;&#x27;a&#x27;, 3&#125;, &#123;&#x27;b&#x27;, 5&#125;, &#123;&#x27;c&#x27;, 7&#125;&#125;;</span><br><span class="line"></span><br><span class="line">public:</span><br><span class="line">key-键</span><br><span class="line">mapped-被加密的值(int)</span><br><span class="line">H-哈希函数</span><br><span class="line">bucket_count(存储的键值对数组容量)</span><br><span class="line">load_factor(内联函数，返回size/bucket_count，即实际储存值的键值对)</span><br><span class="line">contains(参数const K&amp; key判断是否存在改键，返回bool值)</span><br><span class="line">at(参数k，返回mapped的引用)</span><br><span class="line">clear(清空键值对)</span><br><span class="line">insert(参数为键值对引用，返回一对pair&lt;iterator,bool&gt;,iter指向改键值对，无论是否已存在，bool表示是否成功添加，如为false则已存在该键值对)</span><br><span class="line">erase(key为参数，返回bool值)</span><br><span class="line">earse(iter为参数，返回该指针下一个位置)</span><br><span class="line">rehash(size_t为参数，重新哈希为给出的新的指针数组大小)</span><br><span class="line">begin(根据hashmap是否为const给出iter或const iter)</span><br><span class="line">end(返回伪指针)</span><br><span class="line">debug(打印所有哈希键值对以及哈希表所有参数，注意，必须基于重载&lt;&lt;运算符的基础)</span><br><span class="line"></span><br><span class="line">符号重载：</span><br><span class="line">M&amp; [](const key&amp; ,返回insert(key)的返回pair的first成员的second成员，即mapped值)</span><br><span class="line">//用于给key对应的value(mapped)赋值</span><br><span class="line"></span><br><span class="line">private:</span><br><span class="line">node(struct，包含next指针和value)</span><br><span class="line">nodepair(前后node的pair)</span><br><span class="line">findnode(参数key，返回指针对&lt;prev,curr&gt;)</span><br><span class="line">first_not_empty_bucket()</span><br><span class="line">make_iterator(参数node*curr)</span><br><span class="line">_bucket_array(vector&lt;node*&gt;,其中一个node*为ptr,则ptr-&gt;value为&lt;key ,mapped&gt;)</span><br><span class="line"></span><br><span class="line">//指针构造</span><br><span class="line"></span><br><span class="line">_bucket_array：由指针组成的数组,每个成员都是一个指针</span><br><span class="line">储存的值为next指针和一个pair&lt;key,mapped&gt;</span><br><span class="line">operator-&gt; is a bit of an odd-ball. When you write p-&gt;m, it is interpreted as (p.operator-&gt;())-&gt;m.</span><br><span class="line"></span><br><span class="line">- This means operator-&gt; should return a pointer to the object that has the field m.</span><br></pre></td></tr></table></figure>
+<h3 id="涉及的c-特性"><a href="#涉及的c-特性" class="headerlink" title="涉及的c++特性"></a>涉及的c++特性</h3><p>匿名函数<br>基本lambda语法<br>基本形式如下：<br>【capture】（parameters）-&gt;return-type {body}</p>
+<p>typename function()<br>return {x,y,z}<br>即用{}的参数初始化原函数返回的类型</p>
+<p>ptrdiff_t:用于储存两个指针的差</p>
+<p>conditional_t&lt;func,x,y&gt;如果func为true则x，为false则y</p>
+<p>forward_iterator_tag：单方向迭代器（可读写）<br>++iter，iter+&#x3D;1随后返回对自身的引用<br>iter++，先返回一个对自身的复制，随后iter+&#x3D;1</p>
+<p>std::move并不能移动任何东西，它唯一的功能是将一个左值强制转化为右值引用，继而可以通过右值引用使用该值，以用于移动语义。从实现上讲，std::move基本等同于一个类型转换：static_cast&lt;T&amp;&amp;&gt;(lvalue);</p>
+<p>ate：从文件尾部开始<br>strsub(start,length)<br>移动语义(c++11新特性)<br>clss(classname &amp;&amp;)<br>利用右值引用的部分数据直接初始化新的类，并在初始化之后将右值删除，可以通过std::move()强制转化左值为右值。</p>
+]]></content>
+      <categories>
+        <category>课程笔记</category>
+      </categories>
+      <tags>
+        <tag>课程笔记</tag>
+        <tag>c++</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>基于伯克利cs61a的python笔记</title>
     <url>/2023/09/20/61a%E6%80%BB%E5%92%8C/</url>
     <content><![CDATA[<h2 id="python语言特性"><a href="#python语言特性" class="headerlink" title="python语言特性"></a>python语言特性</h2><h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><p>名称也可以与函数绑定。例如，名称 <code>max</code> 就和我们之前使用的 <code>max</code> 函数进行了绑定。与数字不同，函数很难以文本呈现，因此当询问一个函数时，Python 会打印一个标识来描述：</p>
@@ -305,6 +351,8 @@
       </categories>
       <tags>
         <tag>课程笔记</tag>
+        <tag>python</tag>
+        <tag>数据结构与算法</tag>
       </tags>
   </entry>
   <entry>
@@ -498,6 +546,7 @@
       <tags>
         <tag>课程笔记</tag>
         <tag>vim</tag>
+        <tag>编程工具</tag>
       </tags>
   </entry>
   <entry>
@@ -595,6 +644,7 @@
       </categories>
       <tags>
         <tag>课程笔记</tag>
+        <tag>计算机组成</tag>
       </tags>
   </entry>
   <entry>
@@ -1095,6 +1145,7 @@
       </categories>
       <tags>
         <tag>课程笔记</tag>
+        <tag>操作系统</tag>
       </tags>
   </entry>
 </search>
