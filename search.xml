@@ -13,7 +13,7 @@
 ]]></content>
   </entry>
   <entry>
-    <title>基于斯坦福cs106l的c++数据结构笔记</title>
+    <title>基于斯坦福cs106b的c++数据结构笔记</title>
     <url>/2023/09/23/cs106b%E6%80%BB%E5%92%8C%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<h2 id="一些查找和排序算法"><a href="#一些查找和排序算法" class="headerlink" title="一些查找和排序算法"></a>一些查找和排序算法</h2><p>二分查找法<br><img src="/images/obsidian/20230226101843.png" alt="图片" title="image"><br>最坏情况：log2n</p>
 <span id="more"></span>
