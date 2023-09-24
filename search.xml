@@ -13,6 +13,93 @@
 ]]></content>
   </entry>
   <entry>
+    <title>基于伯克利ds100的数据科学笔记pandas部分</title>
+    <url>/2023/09/24/jupyter%20notebook/</url>
+    <content><![CDATA[<h2 id="notbook"><a href="#notbook" class="headerlink" title="notbook"></a>notbook</h2><ol>
+<li><code>Ctrl</code> + <code>Return</code>（或者 <code>Cmd</code> + <code>Return</code>在 Mac 上）： <em>评估当前单元格</em></li>
+<li><code>Shift</code> + <code>Return</code>： <em>评估当前单元格并移至下一个单元格</em></li>
+<li><code>ESC</code>： <em>命令模式</em> （在使用以下任何命令之前可能需要按）</li>
+<li><code>a</code>: <em>在上面创建一个单元格</em></li>
+<li><code>b</code>： <em>在下面创建一个单元格</em></li>
+<li><code>dd</code>: <em>删除一个单元格</em></li>
+<li><code>z</code>： <em>撤消上一次单元格操作</em></li>
+<li><code>m</code>： <em>将单元格转换为 Markdown</em></li>
+<li><code>y</code>： <em>将单元格转换为代码</em><span id="more"></span></li>
+</ol>
+<h2 id="pandas"><a href="#pandas" class="headerlink" title="pandas"></a>pandas</h2><h3 id="创建表格DataFrame"><a href="#创建表格DataFrame" class="headerlink" title="创建表格DataFrame"></a>创建表格DataFrame</h3><p>按列创建</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">fruit_info = pd.DataFrame(</span><br><span class="line">    data = &#123;&#x27;fruit&#x27;: [&#x27;apple&#x27;, &#x27;orange&#x27;, &#x27;banana&#x27;, &#x27;raspberry&#x27;],</span><br><span class="line">          &#x27;color&#x27;: [&#x27;red&#x27;, &#x27;orange&#x27;, &#x27;yellow&#x27;, &#x27;pink&#x27;],</span><br><span class="line">          &#x27;price&#x27;: [1.0, 0.75, 0.35, 0.05]</span><br><span class="line">          &#125;)</span><br><span class="line">fruit_info</span><br></pre></td></tr></table></figure>
+
+<p>按行创建</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">fruit_info2 = pd.DataFrame(</span><br><span class="line">    [(&quot;red&quot;, &quot;apple&quot;, 1.0), (&quot;orange&quot;, &quot;orange&quot;, 0.75), (&quot;yellow&quot;, &quot;banana&quot;, 0.35),</span><br><span class="line">     (&quot;pink&quot;, &quot;raspberry&quot;, 0.05)], </span><br><span class="line">    columns = [&quot;color&quot;, &quot;fruit&quot;, &quot;price&quot;])</span><br></pre></td></tr></table></figure>
+
+<h3 id="选择行和列"><a href="#选择行和列" class="headerlink" title="选择行和列"></a>选择行和列</h3><ul>
+<li>loc<br>两个详细运算符中的第一个是 <code>loc</code>，它需要两个参数。 第一个是一个或多个行 <strong>标签</strong> ，第二个是一个或多个列 <strong>标签</strong> 。</li>
+</ul>
+<p>所需的行或列可以单独提供、以切片表示法或作为列表提供。<br>单独提供会返回series<br>单独切片参数默认返回行</p>
+<p><img src="/assets/jupyter%20notbook/image-20230924084033386.png"><br><img src="/assets/jupyter%20notbook/image-20230924084006924.png"><br><img src="/assets/jupyter%20notbook/image-20230924084050655.png"><br>● loc selects items by label. First argument is rows, second argument is columns.<br>● iloc selects items by number. First argument is rows, second argument is columns.<br>● [] only takes one argument, which may be:<br>○ A slice of row numbers.<br>○ A list of column labels.<br>○ A single column label.<br>That is,[] is context sensitive.</p>
+<ul>
+<li>列名一般唯一，可以强制重复</li>
+<li>行名可以重复<br>pandas支持裸操作,但此时无法使用切片</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># Here we&#x27;re providing a list of fruits as single argument to []</span><br><span class="line">fruit_info[[&quot;fruit&quot;, &quot;color&quot;, &quot;price&quot;]]</span><br></pre></td></tr></table></figure>
+
+<h3 id="其他行列操作"><a href="#其他行列操作" class="headerlink" title="其他行列操作"></a>其他行列操作</h3><p>添加行和列</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">fruit_info[&#x27;rank1&#x27;] = [1,2,3,4]</span><br><span class="line">fruit_info.loc[:,&#x27;rank2&#x27;] = [1,2,3,4]</span><br></pre></td></tr></table></figure>
+
+<p>使用 <code>.drop()</code>方法来 <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.drop.html">删除</a> 这两个 <code>rank1</code>和 <code>rank2</code>您创建的列。 确保使用 <code>axis</code>参数正确。 注意 <code>drop</code>不会更改表，而是返回一个具有较少列或行的新表，除非您设置可选 <code>inplace</code>范围</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">fruit_info</span><br><span class="line">fruit_info_original = fruit_info.drop([&#x27;rank1&#x27;,&#x27;rank2&#x27;],axis=1)</span><br><span class="line">fruit_info_original</span><br></pre></td></tr></table></figure>
+
+<p>重命名</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">fruit_info_caps=fruit_info_original.rename(columns=&#123;&#x27;fruit&#x27;:&#x27;F&#x27;,&#x27;color&#x27;:&#x27;C&#x27;,&#x27;price&#x27;:&#x27;P&#x27;&#125;)</span><br><span class="line">fruit_info_caps</span><br></pre></td></tr></table></figure>
+
+<h3 id="布尔数组筛选和查询"><a href="#布尔数组筛选和查询" class="headerlink" title="布尔数组筛选和查询"></a>布尔数组筛选和查询</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">result = baby_names[(baby_names[&#x27;Year&#x27;]==2000) &amp; (baby_names[&#x27;Count&#x27;]&gt;3000)]</span><br><span class="line">result_using_query = baby_names.query(&#x27;Year==2000 &amp; Count&gt;3000&#x27;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="slides实例"><a href="#slides实例" class="headerlink" title="slides实例"></a>slides实例</h3><p>提取列数据：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">elections[&quot;Candidate&quot;].tail(5).to_frame()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>提取目录：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">For row labels, use DataFrame.index:</span><br><span class="line">For column labels, use DataFrame.columns:</span><br></pre></td></tr></table></figure>
+
+<p>支持布尔数组检索<br><img src="/assets/jupyter%20notbook/image-20230924090511103.png"></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">elections[elections[&quot;Party&quot;] == &quot;Independent&quot;]</span><br><span class="line">elections[(elections[&quot;Result&quot;] == &quot;win&quot;) &amp; (elections[&quot;%&quot;] &lt; 47)]</span><br></pre></td></tr></table></figure>
+
+<p>支持用其他数组检索</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">a_parties = [&quot;Anti-Masonic&quot;, &quot;American&quot;, &quot;Anti-Monopoly&quot;, &quot;American Independent&quot;]</span><br><span class="line">elections[elections[&quot;Party&quot;].isin(a_parties)]</span><br></pre></td></tr></table></figure>
+
+<p>查询类似sql</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">elections.query(&#x27;Result == &quot;win&quot; and Party not in @parties&#x27;)</span><br></pre></td></tr></table></figure>
+
+<p>匿名函数辅助查询</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">What if we wanted to find the longest names in California?</span><br><span class="line">babynames.query(&#x27;Sex == &quot;M&quot; and Year == 2020&#x27;)</span><br><span class="line">.sort_values(&quot;Name&quot;, key = lambda x: x.str.len(),</span><br><span class="line">ascending = False)</span><br></pre></td></tr></table></figure>
+
+<p>创建删除列</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">babyname_lengths = babynames[&quot;Name&quot;].str.len()</span><br><span class="line">#add that series to the dataframe as a column</span><br><span class="line">babynames[&quot;name_lengths&quot;] = babyname_lengths</span><br><span class="line">babynames = babynames.sort_values(by = &quot;name_lengths&quot;, ascending=False)</span><br><span class="line">babynames = babynames.drop(&quot;name_lengths&quot;, axis = &#x27;columns&#x27;)//删除列(默认为行)</span><br></pre></td></tr></table></figure>
+
+<p>map方法使用函数统计数据</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">def dr_ea_count(string):</span><br><span class="line">return string.count(&#x27;dr&#x27;) + string.count(&#x27;ea&#x27;)</span><br><span class="line">babynames[&quot;dr_ea_count&quot;] = babynames[&quot;Name&quot;].map(dr_ea_count)</span><br><span class="line">babynames = babynames.sort_values(by = &quot;dr_ea_count&quot;, ascending=False)</span><br></pre></td></tr></table></figure>
+
+<p>字典创建表格</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#build dictionary where each entry is the rtp for a given name</span><br><span class="line">#e.g. rtps[&quot;jennifer&quot;] should be 0.0231</span><br><span class="line">rtps = &#123;&#125;</span><br><span class="line">for name in babynames[&quot;Name&quot;].unique():</span><br><span class="line">counts_of_current_name = female_babynames[female_babynames[&quot;Name&quot;] == name][&quot;Count&quot;]</span><br><span class="line">rtps[name] = ratio_to_peak(counts_of_current_name)</span><br><span class="line">#convert to series</span><br><span class="line">rtps = pd.Series(rtps)</span><br></pre></td></tr></table></figure>
+
+<p>使用group建立新表格</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">female_babynames.groupby(&quot;Name&quot;).agg(ratio_to_peak)</span><br></pre></td></tr></table></figure>
+
+<p><img src="/assets/jupyter%20notbook/image-20230924092636108.png"><br>groupby的其他用法</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Given a DataFrameGroupBy object, can use various functions to generate DataFrames (or</span><br><span class="line">Series). agg is only one choice:</span><br><span class="line">● agg: Creates a new DataFrame with one aggregated row per subframe.</span><br><span class="line">● max: Creates a new DataFrame aggregated using the max function.</span><br><span class="line">● size: Creates a new Series with the size of each subframe.</span><br><span class="line">● filter: Creates a copy of the original DataFrame, but keeping only rows from subframes</span><br><span class="line">that obey the provided condition.</span><br></pre></td></tr></table></figure>
+
+<p>合并表格</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">merged = pd.merge(left = elections, right = male_2020_babynames,</span><br><span class="line">left_on = &quot;First Name&quot;, right_on = &quot;Name&quot;)</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>课程笔记</category>
+      </categories>
+      <tags>
+        <tag>课程笔记</tag>
+        <tag>pandas</tag>
+        <tag>ds100</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>基于北大前沿计算实践课和missing semester的linux等编程工具笔记</title>
     <url>/2023/09/23/linux%E6%80%BB%E5%92%8C%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p><a href="https://en.wikipedia.org/wiki/Linux">Linux</a>是一群<strong>开源</strong>的、基于<strong>Linux内核</strong>的<strong>类Unix操作系统</strong>集合。</p>
