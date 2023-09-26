@@ -2713,6 +2713,14 @@ header.header {
 .steam:hover {
   opacity: 1;
 }
+.thanks {
+  background-image: url("/images/感谢.svg");
+  background-size: 1em 1em;
+  background-position: 0.05rem 0.2rem;
+  background-repeat: no-repeat;
+  height: 1rem;
+  width: 1rem;
+}
 ::-webkit-scrollbar {
   width: 10px;
   height: 10px;
