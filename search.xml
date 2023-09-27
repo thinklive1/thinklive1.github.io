@@ -15,7 +15,33 @@
 <p>2023&#x2F;9&#x2F;20<br>替换一些页面ui文本，为一些页面ui文本加入了颜文字</p>
 <p>2023&#x2F;9&#x2F;26<br>在guestbook和首页嵌入了好友做的一个赛博朋克logo视频</p>
 <p>2023&#x2F;9&#x2F;27<br>开启了一些next的小功能，侧边栏加了一个thinklive的赛博朋克logo</p>
+<p>2023&#x2F;9&#x2F;28<br>新增了加密页面，由秘密这个目录名检索，密码不会向任何人透露，部分页面会有提示</p>
 ]]></content>
+  </entry>
+  <entry>
+    <title>hate</title>
+    <url>/2023/09/28/%E7%A7%98%E5%AF%861/</url>
+    <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="抱歉，这个密码看着不太对，请再试试。" data-whm="抱歉，这个文章不能被纠正，不过您还是能看看解密后的内容。">
+  <script id="hbeData" type="hbeData" data-hmacdigest="b880b7d31b2b49c2d1e177670d81885ee25e5fa92eb9653e5cb1ab63ed299a20">5c9f2c161c18225a1213c4fb8eed69605f71b5e706a2596abb349b07a2d0e59d06cd1da79a833bfa6f93404c48a998620110bfb9a1ca59188af69a5ea757606d</script>
+  <div class="hbe hbe-content">
+    <div class="hbe hbe-input hbe-input-wave">
+      <input class="hbe hbe-input-field hbe-input-field-wave" type="password" id="hbePass">
+      <label class="hbe hbe-input-label hbe-input-label-wave" for="hbePass">
+        <span class="hbe hbe-input-label-content hbe-input-label-content-wave">您好，这里需要密码。</span>
+      </label>
+      <svg class="hbe hbe-graphic hbe-graphic-wave" width="300%" height="100%" viewBox="0 0 1200 60" preserveAspectRatio="none">
+        <path d="M0,56.5c0,0,298.666,0,399.333,0C448.336,56.5,513.994,46,597,46c77.327,0,135,10.5,200.999,10.5c95.996,0,402.001,0,402.001,0"></path>
+      </svg>
+    </div>
+  </div>
+</div>
+<script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
+      <categories>
+        <category>秘密</category>
+      </categories>
+      <tags>
+        <tag>秘密</tag>
+      </tags>
   </entry>
   <entry>
     <title>基于伯克利ds100的数据科学笔记pandas部分</title>
