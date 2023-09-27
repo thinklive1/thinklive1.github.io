@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#4c4c4c"><meta name="generator" content="Hexo 6.3.0">
-
+<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -20,14 +20,14 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"thinklive1.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.18.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"flat"},"fold":{"enable":false,"height":500},"bookmark":{"enable":true,"color":"#369","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"thinklive1.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.18.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"flat"},"fold":{"enable":false,"height":500},"bookmark":{"enable":true,"color":"#369","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="notbook Ctrl + Return（或者 Cmd + Return在 Mac 上）： 评估当前单元格 Shift + Return： 评估当前单元格并移至下一个单元格 ESC： 命令模式 （在使用以下任何命令之前可能需要按） a: 在上面创建一个单元格 b： 在下面创建一个单元格 dd: 删除一个单元格 z： 撤消上一次单元格操作 m： 将单元格转换为 Markdown y： 将单元格转换">
+    <meta name="description" content="notebook Ctrl + Return（或者 Cmd + Return在 Mac 上）： 评估当前单元格 Shift + Return： 评估当前单元格并移至下一个单元格 ESC： 命令模式 （在使用以下任何命令之前可能需要按） a: 在上面创建一个单元格 b： 在下面创建一个单元格 dd: 删除一个单元格 z： 撤消上一次单元格操作 m： 将单元格转换为 Markdown y： 将单元格转">
 <meta property="og:type" content="article">
 <meta property="og:title" content="基于伯克利ds100的数据科学笔记pandas部分">
 <meta property="og:url" content="https://thinklive1.github.io/2023/09/24/jupyter%20notebook/index.html">
 <meta property="og:site_name" content="thinklive">
-<meta property="og:description" content="notbook Ctrl + Return（或者 Cmd + Return在 Mac 上）： 评估当前单元格 Shift + Return： 评估当前单元格并移至下一个单元格 ESC： 命令模式 （在使用以下任何命令之前可能需要按） a: 在上面创建一个单元格 b： 在下面创建一个单元格 dd: 删除一个单元格 z： 撤消上一次单元格操作 m： 将单元格转换为 Markdown y： 将单元格转换">
+<meta property="og:description" content="notebook Ctrl + Return（或者 Cmd + Return在 Mac 上）： 评估当前单元格 Shift + Return： 评估当前单元格并移至下一个单元格 ESC： 命令模式 （在使用以下任何命令之前可能需要按） a: 在上面创建一个单元格 b： 在下面创建一个单元格 dd: 删除一个单元格 z： 撤消上一次单元格操作 m： 将单元格转换为 Markdown y： 将单元格转">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://thinklive1.github.io/assets/jupyter%20notbook/image-20230924084033386.png">
 <meta property="og:image" content="https://thinklive1.github.io/assets/jupyter%20notbook/image-20230924084006924.png">
@@ -35,7 +35,7 @@
 <meta property="og:image" content="https://thinklive1.github.io/assets/jupyter%20notbook/image-20230924090511103.png">
 <meta property="og:image" content="https://thinklive1.github.io/assets/jupyter%20notbook/image-20230924092636108.png">
 <meta property="article:published_time" content="2023-09-24T03:01:55.821Z">
-<meta property="article:modified_time" content="2023-09-24T03:24:09.271Z">
+<meta property="article:modified_time" content="2023-09-26T08:07:30.351Z">
 <meta property="article:author" content="thinklive">
 <meta property="article:tag" content="课程笔记">
 <meta property="article:tag" content="数据科学">
@@ -138,6 +138,7 @@
         
   
   <aside class="sidebar">
+<img src="/images/thinklive_cyber.png" style="max-width: 100%; width: auto; height: auto;background-color: #fff;">
 <!--网易云音乐插件-->
 <!-- require APlayer -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
@@ -174,7 +175,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#notbook"><span class="nav-number">1.</span> <span class="nav-text">notbook</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pandas"><span class="nav-number">2.</span> <span class="nav-text">pandas</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E8%A1%A8%E6%A0%BCDataFrame"><span class="nav-number">2.1.</span> <span class="nav-text">创建表格DataFrame</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%89%E6%8B%A9%E8%A1%8C%E5%92%8C%E5%88%97"><span class="nav-number">2.2.</span> <span class="nav-text">选择行和列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E8%A1%8C%E5%88%97%E6%93%8D%E4%BD%9C"><span class="nav-number">2.3.</span> <span class="nav-text">其他行列操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%83%E5%B0%94%E6%95%B0%E7%BB%84%E7%AD%9B%E9%80%89%E5%92%8C%E6%9F%A5%E8%AF%A2"><span class="nav-number">2.4.</span> <span class="nav-text">布尔数组筛选和查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#slides%E5%AE%9E%E4%BE%8B"><span class="nav-number">2.5.</span> <span class="nav-text">slides实例</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#notebook"><span class="nav-number">1.</span> <span class="nav-text">notebook</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pandas"><span class="nav-number">2.</span> <span class="nav-text">pandas</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E8%A1%A8%E6%A0%BCDataFrame"><span class="nav-number">2.1.</span> <span class="nav-text">创建表格DataFrame</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%89%E6%8B%A9%E8%A1%8C%E5%92%8C%E5%88%97"><span class="nav-number">2.2.</span> <span class="nav-text">选择行和列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E8%A1%8C%E5%88%97%E6%93%8D%E4%BD%9C"><span class="nav-number">2.3.</span> <span class="nav-text">其他行列操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%83%E5%B0%94%E6%95%B0%E7%BB%84%E7%AD%9B%E9%80%89%E5%92%8C%E6%9F%A5%E8%AF%A2"><span class="nav-number">2.4.</span> <span class="nav-text">布尔数组筛选和查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#slides%E5%AE%9E%E4%BE%8B"><span class="nav-number">2.5.</span> <span class="nav-text">slides实例</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -270,9 +271,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2023-09-24 11:01:55 / 修改时间：11:24:09" itemprop="dateCreated datePublished" datetime="2023-09-24T11:01:55+08:00">2023-09-24</time>
+      <time title="创建时间：2023-09-24 11:01:55" itemprop="dateCreated datePublished" datetime="2023-09-24T11:01:55+08:00">2023-09-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-09-26 16:07:30" itemprop="dateModified" datetime="2023-09-26T16:07:30+08:00">2023-09-26</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -315,7 +322,7 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><h2 id="notbook"><a href="#notbook" class="headerlink" title="notbook"></a>notbook</h2><ol>
+    <div class="post-body" itemprop="articleBody"><h2 id="notebook"><a href="#notebook" class="headerlink" title="notebook"></a>notebook</h2><ol>
 <li><code>Ctrl</code> + <code>Return</code>（或者 <code>Cmd</code> + <code>Return</code>在 Mac 上）： <em>评估当前单元格</em></li>
 <li><code>Shift</code> + <code>Return</code>： <em>评估当前单元格并移至下一个单元格</em></li>
 <li><code>ESC</code>： <em>命令模式</em> （在使用以下任何命令之前可能需要按）</li>
@@ -449,7 +456,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">1:55</span>
+    <span title="站点阅读时长">1:56</span>
   </span>
 </div>
 <div class="busuanzi-count">
@@ -494,6 +501,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.20/fancybox/fancybox.umd.js" integrity="sha256-q8XkJ6dj5VwSvzI8+nATCHHQG+Xv/dAZBCgqmu93zOY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
 <script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script><script src="/js/pjax.js"></script>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
@@ -513,6 +521,9 @@
 
 
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/quicklink/2.3.0/quicklink.umd.js" integrity="sha256-yvJQOINiH9fWemHn0vCA5lsHWJaHs6/ZmO+1Ft04SvM=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://thinklive1.github.io/2023/09/24/jupyter%20notebook/"}</script>
+  <script src="/js/third-party/quicklink.js"></script>
 <script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"thinklive1/blog_comments","issue_term":"pathname","theme":"github-light"}</script>
 <script src="/js/third-party/comments/utterances.js"></script>
 
