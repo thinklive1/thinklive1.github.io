@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#4c4c4c"><meta name="generator" content="Hexo 6.3.0">
+<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#4c4c4c">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.20/fancybox/fancybox.css" integrity="sha256-RvRHGSuWAxZpXKV9lLDt2e+rZ+btzn48Wp4ueS3NZKs=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"thinklive1.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.18.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"flat"},"fold":{"enable":false,"height":500},"bookmark":{"enable":true,"color":"#369","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="python语言特性函数名称也可以与函数绑定。例如，名称 max 就和我们之前使用的 max 函数进行了绑定。与数字不同，函数很难以文本呈现，因此当询问一个函数时，Python 会打印一个标识来描述：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于伯克利cs61a的python笔记">
+<meta property="og:url" content="https://thinklive1.github.io/2023/09/29/61a%E6%80%BB%E5%92%8C/index.html">
+<meta property="og:site_name" content="thinklive">
+<meta property="og:description" content="python语言特性函数名称也可以与函数绑定。例如，名称 max 就和我们之前使用的 max 函数进行了绑定。与数字不同，函数很难以文本呈现，因此当询问一个函数时，Python 会打印一个标识来描述：">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://composingprograms.netlify.app/sicp/celsius_fahrenheit_constraint.png">
+<meta property="article:published_time" content="2023-09-29T02:18:45.993Z">
+<meta property="article:modified_time" content="2023-09-29T03:10:16.777Z">
+<meta property="article:author" content="thinklive">
+<meta property="article:tag" content="课程笔记">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="数据结构与算法">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://composingprograms.netlify.app/sicp/celsius_fahrenheit_constraint.png">
+
+
+<link rel="canonical" href="https://thinklive1.github.io/2023/09/29/61a%E6%80%BB%E5%92%8C/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://thinklive1.github.io/2023/09/29/61a%E6%80%BB%E5%92%8C/","path":"2023/09/29/61a总和/","title":"基于伯克利cs61a的python笔记"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>基于伯克利cs61a的python笔记 | thinklive</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+<!--pjax：防止跳转页面音乐暂停-->
+ <script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.js"></script>
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">thinklive</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">dirichlet labrary</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索 | search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-主页-|-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>主页 | home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-标签-|-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签 | tags</a></li><li class="menu-item menu-item-分类-|-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类 | categories</a></li><li class="menu-item menu-item-归档-|-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档 | archives</a></li><li class="menu-item menu-item-相册-|-photos"><a href="/photos/" rel="section"><i class="fa fa-camera fa-fw"></i>相册 | photos</a></li><li class="menu-item menu-item-留言-|-guestbook"><a href="/guestbook/" rel="section"><i class="fa fa-book fa-fw"></i>留言 | guestbook</a></li><li class="menu-item menu-item-感谢-|-thanks"><a href="/thanks/" rel="section"><i class="fa custom thanks fa-fw"></i>感谢 | thanks</a></li><li class="menu-item menu-item-sitemap"><a href="/webstack/" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索 | search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+<img src="/images/thinklive_cyber.png" style="max-width: 100%; width: auto; height: auto;background-color: #fff;">
+<!--网易云音乐插件-->
+<!-- require APlayer -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
+<script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
+<!-- require MetingJS-->
+<script src="https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"></script> 
+<!--网易云playlist外链地址-->   
+<meting-js
+    server="netease"
+    type="playlist" 
+    id="2762741085"
+    mini="false"
+    fixed="false"
+    list-folded="true"
+    autoplay="true"
+    volume="0.4"
+    theme="#4c4c4c"
+    order="random"
+    loop="all"
+    preload="auto"
+    lrc-type="2"
+    mutex="true">
+</meting-js>
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#python%E8%AF%AD%E8%A8%80%E7%89%B9%E6%80%A7"><span class="nav-number">1.</span> <span class="nav-text">python语言特性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BD%E6%95%B0"><span class="nav-number">1.1.</span> <span class="nav-text">函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99"><span class="nav-number">1.2.</span> <span class="nav-text">函数设计原则</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-number">2.</span> <span class="nav-text">数据结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%93%BE%E8%A1%A8"><span class="nav-number">2.1.</span> <span class="nav-text">链表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8A%BD%E8%B1%A1%E9%9A%9C%E7%A2%8D"><span class="nav-number">2.2.</span> <span class="nav-text">抽象障碍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BA%8F%E5%88%97"><span class="nav-number">2.3.</span> <span class="nav-text">序列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%AD%E4%BB%A3%E5%99%A8"><span class="nav-number">2.4.</span> <span class="nav-text">迭代器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%AD%E4%BB%A3%E5%99%A8-1"><span class="nav-number">3.</span> <span class="nav-text">迭代器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%9F%E6%88%90%E5%99%A8"><span class="nav-number">4.</span> <span class="nav-text">生成器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0"><span class="nav-number">5.</span> <span class="nav-text">高阶函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B5%8C%E5%A5%97%E5%AE%9A%E4%B9%89"><span class="nav-number">5.1.</span> <span class="nav-text">嵌套定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lambda"><span class="nav-number">5.2.</span> <span class="nav-text">lambda</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B1%BB"><span class="nav-number">6.</span> <span class="nav-text">类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%A6%E6%9D%9F%E4%BC%A0%E9%80%92-Propagating-Constraints"><span class="nav-number">7.</span> <span class="nav-text">约束传递 (Propagating Constraints)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#debug"><span class="nav-number">8.</span> <span class="nav-text">debug</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Running-doctests"><span class="nav-number">9.</span> <span class="nav-text">Running doctests</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-assert%E5%A3%B0%E6%98%8E"><span class="nav-number">9.1.</span> <span class="nav-text">使用 assert声明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SyntaxError"><span class="nav-number">9.2.</span> <span class="nav-text">SyntaxError</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IndentationError"><span class="nav-number">9.3.</span> <span class="nav-text">IndentationError</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TypeError"><span class="nav-number">9.4.</span> <span class="nav-text">TypeError</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NameError"><span class="nav-number">9.5.</span> <span class="nav-text">NameError</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IndexError"><span class="nav-number">9.6.</span> <span class="nav-text">IndexError</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#object"><span class="nav-number">10.</span> <span class="nav-text">object</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%94%99%E9%A2%98%E9%9B%86"><span class="nav-number">11.</span> <span class="nav-text">错题集</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%92%E5%A2%9E%E5%AD%90%E5%BA%8F%E5%88%97"><span class="nav-number">11.1.</span> <span class="nav-text">递增子序列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%8D%E8%BD%AC%E5%A5%87%E6%95%B0%E6%B7%B1%E5%BA%A6%E6%A0%91%E7%9A%84%E6%A0%87%E7%AD%BE"><span class="nav-number">11.2.</span> <span class="nav-text">反转奇数深度树的标签</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%9F%E6%88%90%E5%99%A8%E7%9A%84%E7%94%9F%E6%88%90%E5%99%A8"><span class="nav-number">11.3.</span> <span class="nav-text">生成器的生成器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%9F%E6%88%90%E5%99%A8%E7%94%9F%E6%88%90%E6%A0%91%E7%9A%84%E6%90%9C%E7%B4%A2%E8%B7%AF%E5%BE%84"><span class="nav-number">11.4.</span> <span class="nav-text">生成器生成树的搜索路径</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="thinklive"
+      src="/images/thive.png">
+  <p class="site-author-name" itemprop="name">thinklive</p>
+  <div class="site-description" itemprop="description">起初，世界是一团思索，它向所有的方向迈了一步，于是万物由此而生</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/thinklive1" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;thinklive1" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/xlithive@stu.suda.edu.cn" title="E-Mail → xlithive@stu.suda.edu.cn" rel="noopener me"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/38099250" title="bilibili → https:&#x2F;&#x2F;space.bilibili.com&#x2F;38099250" rel="noopener me" target="_blank"><i class="fa custom bilibili fa-fw"></i>bilibili</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://steamcommunity.com/id/thinklive" title="steam → https:&#x2F;&#x2F;steamcommunity.com&#x2F;id&#x2F;thinklive" rel="noopener me" target="_blank"><i class="fa custom steam fa-fw"></i>steam</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://thinklive1.github.io/2023/09/29/61a%E6%80%BB%E5%92%8C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/thive.png">
+      <meta itemprop="name" content="thinklive">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="thinklive">
+      <meta itemprop="description" content="起初，世界是一团思索，它向所有的方向迈了一步，于是万物由此而生">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="基于伯克利cs61a的python笔记 | thinklive">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          基于伯克利cs61a的python笔记
+        </h1>
+
+        <div class="post-meta-container">
+          
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-09-29 10:18:45 / 修改时间：11:10:16" itemprop="dateCreated datePublished" datetime="2023-09-29T10:18:45+08:00">2023-09-29</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">课程笔记</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>18k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>17 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="python语言特性"><a href="#python语言特性" class="headerlink" title="python语言特性"></a>python语言特性</h2><h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><p>名称也可以与函数绑定。例如，名称 <code>max</code> 就和我们之前使用的 <code>max</code> 函数进行了绑定。与数字不同，函数很难以文本呈现，因此当询问一个函数时，Python 会打印一个标识来描述：</p>
+<span id="more"></span>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; max</span><br><span class="line">&lt;built-in function max&gt;</span><br></pre></td></tr></table></figure>
+
+<p>赋值语句可以为现有函数赋予新名称。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; f = max</span><br><span class="line">&gt;&gt;&gt; f</span><br><span class="line">&lt;built-in function max&gt;</span><br><span class="line">&gt;&gt;&gt; f(2, 3, 4)</span><br><span class="line">4</span><br></pre></td></tr></table></figure>
+
+<p>以下指南改编自 <a target="_blank" rel="noopener" href="http://www.python.org/dev/peps/pep-0008">Python 代码风格指南</a>, 它可以作为所有（非叛逆的）Python 程序员的指南。这些共享的约定使开发者社区的成员之间的沟通能够顺利进行。作为遵循这些约定的副作用，你会发现你的代码在内部变得更加一致。</p>
+<ol>
+<li>函数名是小写的，单词之间用下划线分隔。鼓励使用描述性名称。</li>
+<li>函数名称通常反映解释器应用于参数的操作（例如， <code>print, add, square</code> ）或结果（例如， <code>max, abs, sum</code> ）。</li>
+<li>参数名称是小写的，单词之间用下划线分隔。首选单个词的名称。</li>
+<li>参数名称应该反映参数在函数中的作用，而不仅仅是允许的参数类型。</li>
+<li>当作用明确时，单字参数名称可以接受，但应避免使用 l（小写的 L）和 O（大写的 o）或 I（大写的 i）以避免与数字混淆。</li>
+</ol>
+<h3 id="函数设计原则"><a href="#函数设计原则" class="headerlink" title="函数设计原则"></a>函数设计原则</h3><ul>
+<li>每个函数应该只负责一个任务，且该任务要用一个简短的名称来识别，并在一行文本中进行描述。按顺序执行多个任务的函数应该分为多个函数。</li>
+<li>不要重复自己（Don’t repeat yourself）是软件工程的核心原则。这个所谓的 DRY 原则指出，多个代码片段不应该描述重复的逻辑。相反，逻辑应该只实现一次，为其指定一个名称后多次使用。如果你发现自己正在复制粘贴一段代码，那么你可能已经找到了进行函数抽象的机会。</li>
+<li>定义通用的函数。比如作为 <code>pow</code> 函数的一个特例的平方函数就不在 Python 库中，因为 <code>pow</code> 函数可以将数字计算为任意次方。<br>当你使用函数名称作为参数调用 <code>help</code> 时，你会看到它的文档字符串（键入 q 以退出 Python help）。<br>Python 中的注释可以附加到 <code>#</code> 号后的行尾。例如，上面代码中的注释 <code>玻尔兹曼常数</code> 描述了 <code>k</code> 变量的含义。这些注释不会出现在 Python 的 <code>help</code> 中，而且会被解释器忽略，它们只为人类而存在。</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; help(pressure)</span><br></pre></td></tr></table></figure>
+
+<h2 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h2><h3 id="链表"><a href="#链表" class="headerlink" title="链表"></a>链表</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">class Link:</span><br><span class="line">        &quot;&quot;&quot;A linked list with a first element and the rest.&quot;&quot;&quot;</span><br><span class="line">        empty = ()</span><br><span class="line">        def __init__(self, first, rest=empty):</span><br><span class="line">            assert rest is Link.empty or isinstance(rest, Link)</span><br><span class="line">            self.first = first</span><br><span class="line">            self.rest = rest</span><br><span class="line">        def __getitem__(self, i):</span><br><span class="line">            if i == 0:</span><br><span class="line">                return self.first</span><br><span class="line">            else:</span><br><span class="line">                return self.rest[i-1]</span><br><span class="line">        def __len__(self):</span><br><span class="line">            return 1 + len(self.rest)</span><br></pre></td></tr></table></figure>
+
+<h3 id="抽象障碍"><a href="#抽象障碍" class="headerlink" title="抽象障碍"></a>抽象障碍</h3><p>每当程序的一部分可以使用更高级别的函数而不是使用较低级别的函数时，就会违反抽象障碍。例如，计算有理数平方的函数最好用 <code>mul_rational</code> 实现，它不对有理数的实现做任何假设。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; def square_rational(x):</span><br><span class="line">        return mul_rational(x, x)</span><br></pre></td></tr></table></figure>
+
+<h3 id="序列"><a href="#序列" class="headerlink" title="序列"></a>序列</h3><pre><code>范围通常出现在 for 语句 header 中的表达式，以指定 `&lt;suite&gt;` 应执行的次数。如果 `&lt;name&gt;` 没有被用在 `&lt;suite&gt;`，一个惯用的使用方式是，使用下划线表示 `&lt;name&gt;`。
+</code></pre>
+<p>python</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; for _ in range(3):</span><br><span class="line">        print(&#x27;Go Bears!&#x27;)</span><br><span class="line"></span><br><span class="line">Go Bears!</span><br><span class="line">Go Bears!</span><br><span class="line">Go Bears!</span><br></pre></td></tr></table></figure>
+
+<p>对解释器而言，下划线只是环境中的另一个名称，但对程序员具有约定俗成的含义，表示该名称不会出现在任何未来的表达式中。<br>列表推导式的一般形式是：</p>
+<p>python</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[&lt;map expression&gt; for &lt;name&gt; in &lt;sequence expression&gt; if &lt;filter expression&gt;</span><br></pre></td></tr></table></figure>
+
+<p>为了运算列表推导式，Python 首先评估 <code>&lt;sequence expression&gt;</code>，它必须返回一个 iterable 值。然后，每个元素依次绑定到 <code>&lt;name&gt;</code>，再运算 <code>&lt;filter expression&gt;</code>；如果产生一个真值，运算 <code>&lt;map expression&gt;</code>。最后 <code>&lt;map expression&gt;</code> 的值被收集到一个列表中</p>
+<p><code>reduce</code> 可用于将序列的所有元素相乘。使用 <code>mul</code> 作为 <code>reduce_fn</code>， 1 作为 <code>initial</code> 值， <code>reduce</code> 可用于将各数字相乘。</p>
+<p>python</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; reduce(mul, [2, 4, 8], 1)</span><br><span class="line">64</span><br></pre></td></tr></table></figure>
+
+<p>**多行文字 (Multiline Literals)**。字符串不限于一行。跨越多行的字符串文字可以用三重引号括起。我们已经在文档字符串中广泛使用了这种三重引号。</p>
+<h3 id="迭代器"><a href="#迭代器" class="headerlink" title="迭代器"></a>迭代器</h3><p>迭代器的用处源自以下事实： 迭代器的一系列数据可能不会在内存中显式表示。 迭代器提供了一种考虑一系列值中的每一个的机制 轮，但所有这些元素不需要同时存储。 相反，当迭代器请求下一个元素时，该元素可能会 按需计算，而不是从现有内存中检索 来源。</p>
+<p>范围能够惰性地计算序列的元素，因为 表示的序列是统一的，并且任何元素都很容易从 范围的开始和结束边界。 迭代器允许延迟生成 更广泛的底层序列数据集类别，因为它们不需要 提供对底层系列的任意元素的访问。 反而， 迭代器只需要按顺序计算该系列的下一个元素， 每次请求另一个元素时。 虽然不像访问那样灵活 序列的任意元素（称为 <em>随机访问</em> ）、 <em>顺序访问</em> 顺序数据通常足以满足数据处理应用程序的需要。<br>函数 map 是惰性的：调用它并不执行计算 需要计算其结果的元素。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; def double_and_print(x):</span><br><span class="line">        print(&#x27;***&#x27;, x, &#x27;=&gt;&#x27;, 2*x, &#x27;***&#x27;)</span><br><span class="line">        return 2*x</span><br><span class="line">&gt;&gt;&gt; s = range(3, 7)</span><br><span class="line">&gt;&gt;&gt; doubled = map(double_and_print, s)  # double_and_print not yet called</span><br><span class="line">&gt;&gt;&gt; next(doubled)                       # double_and_print called once</span><br><span class="line">*** 3 =&gt; 6 ***</span><br><span class="line">6</span><br><span class="line">&gt;&gt;&gt; next(doubled)                       # double_and_print called again</span><br><span class="line">*** 4 =&gt; 8 ***</span><br><span class="line">8</span><br><span class="line">&gt;&gt;&gt; list(doubled)                       # double_and_print called twice more</span><br><span class="line">*** 5 =&gt; 10 ***</span><br><span class="line">*** 6 =&gt; 12 ***</span><br><span class="line">[10, 12]</span><br></pre></td></tr></table></figure>
+
+<h2 id="迭代器-1"><a href="#迭代器-1" class="headerlink" title="迭代器"></a>迭代器</h2><p>可迭代的 Letters 实例 b_to_k 和 LetterIter 迭代器 实例 first_iterator 和 second_iterator的 不同之处在于 字母 实例不会改变，而迭代器实例会改变 每次调用 next （或等效地，每次调用 <strong>next</strong> ）。 迭代器通过顺序数据跟踪进度，而可迭代器 代表数据本身。</p>
+<p>Python 中的许多内置函数都采用可迭代参数并返回迭代器。 函数 map 例如， 接受一个函数和一个可迭代对象。 它返回 将函数参数应用于每个元素的结果的迭代器 在可迭代的参数中。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&gt;&gt;&gt;  caps   =   map  (  lambda   x  :   x  .  upper  (),   b_to_k ) </span><br><span class="line"> &gt;&gt;&gt; next  (  caps ) </span><br><span class="line"> &#x27;B&#x27; </span><br><span class="line"> &gt;&gt;&gt; next  (  caps ) </span><br><span class="line"> &#x27;C&#x27;</span><br></pre></td></tr></table></figure>
+
+<h2 id="生成器"><a href="#生成器" class="headerlink" title="生成器"></a>生成器</h2><p>生成器函数是生成值而不是返回值的函数<br> 普通函数返回一次；  一个生成器函数可以产生多次<br> 生成器是通过调用生成器函数自动创建的迭代器<br> 当调用生成器函数时，它返回一个迭代其产量的生成器</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; def plus_minus(x):</span><br><span class="line">... yield x</span><br><span class="line">... yield -x</span><br><span class="line">&gt;&gt;&gt; t = plus_minus(3)</span><br><span class="line">&gt;&gt;&gt; next(t)</span><br><span class="line">3</span><br><span class="line">&gt;&gt;&gt; next(t)</span><br><span class="line">-3</span><br><span class="line">&gt;&gt;&gt; t</span><br><span class="line">&lt;generator object plus_minus ...&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="高阶函数"><a href="#高阶函数" class="headerlink" title="高阶函数"></a>高阶函数</h2><h3 id="嵌套定义"><a href="#嵌套定义" class="headerlink" title="嵌套定义"></a>嵌套定义</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; def sqrt(a):</span><br><span class="line">        def sqrt_update(x):</span><br><span class="line">            return average(x, a/x)</span><br><span class="line">        def sqrt_close(x):</span><br><span class="line">            return approx_eq(x * x, a)</span><br><span class="line">        return improve(sqrt_update, sqrt_close)</span><br></pre></td></tr></table></figure>
+
+<p>与局部赋值一样，局部 <code>def</code> 语句只影响当前局部帧。这些函数仅在求解 <code>sqrt</code> 时在作用域内。与求解过程一致，这些局部 <code>def</code> 语句在调用 <code>sqrt</code> 之前都不会被求解。</p>
+<p>词法作用域（Lexical scope）：局部定义的函数也可以访问定义作用域内的名称绑定。在此示例中， <code>sqrt_update</code> 引用名称 <code>a</code>，它是其封闭函数 <code>sqrt</code> 的形式参数。这种在嵌套定义之间共享名称的规则称为词法作用域。最重要的是，内部函数可以访问定义它们的环境中的名称（而不是它们被调用的位置）。</p>
+<p>我们需要对我们的环境模型实现两个扩展来启用词法作用域。</p>
+<ol>
+<li>每个用户定义的函数都有一个父环境：定义它的环境。</li>
+<li>调用用户定义的函数时，其局部帧会继承其父环境。<br> Python 中词法作用域的两个关键优势。</li>
+</ol>
+<ul>
+<li>局部函数的名称不会影响定义它的函数的外部名称，因为局部函数的名称将绑定在定义它的当前局部环境中，而不是全局环境中。</li>
+<li>局部函数可以访问外层函数的环境，这是因为局部函数的函数体的求值环境会继承定义它的求值环境。</li>
+</ul>
+<h3 id="lambda"><a href="#lambda" class="headerlink" title="lambda"></a>lambda</h3><p>不像  定义  语句、lambda 表达式可以用作运算符或<br>调用表达式的操作数。  这是因为它们只是一行<br>计算结果为函数的表达式</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; what = lambda x : x + 5</span><br><span class="line">&gt;&gt;&gt; what</span><br><span class="line">&lt;function &lt;lambda&gt; at 0xf3f490&gt;</span><br><span class="line">&gt;&gt;&gt; (lambda y: y + 5)(4)</span><br><span class="line">9</span><br></pre></td></tr></table></figure>
+
+<h2 id="类"><a href="#类" class="headerlink" title="类"></a>类</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; class Account:</span><br><span class="line">     def __init__(self, account_holder):</span><br><span class="line">            self.balance = 0</span><br><span class="line">            self.holder = account_holder</span><br><span class="line">            </span><br></pre></td></tr></table></figure>
+
+<p>内置函数 <code>getattr</code> 还按名称返回对象的属性。它是点表示法的函数等效物。使用 <code>getattr</code> ，我们可以使用字符串查找属性，就像我们对调度字典所做的那样。</p>
+<p>python</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; getattr(spock_account, &#x27;balance&#x27;)</span><br><span class="line">10</span><br></pre></td></tr></table></figure>
+
+<p>我们还可以测试应该对象是否具有 <code>hassattr</code> 的名命属性。</p>
+<p>python</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; hasattr(spock_account, &#x27;deposit&#x27;)</span><br><span class="line">True</span><br></pre></td></tr></table></figure>
+
+<p>我们可以通过对点表达式的返回值调用 <code>type</code> 来查看交互式解释器的差异。作为类的属性，方法只是一个函数，但作为实例的属性，它是一个绑定方法：</p>
+<p>python</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; type(Account.deposit)</span><br><span class="line">&lt;class &#x27;Function&#x27;&gt;</span><br><span class="line">&gt;&gt;&gt; type(spock_account.deposit)</span><br><span class="line">&lt;class &#x27;method&#x27;&gt;</span><br></pre></td></tr></table></figure>
+
+<p>这两个结果的区别仅在于第一个是参数为 <code>self</code> 和 <code>amount</code> 的标准双参数函数。第二种是单参数方法，调用方法时，名称 <code>self</code> 将自动绑定到名为 <code>spock_account</code> 的对象，而参数 <code>amount</code> 将绑定到传递给方法的参数。这两个值（无论是函数值还是绑定方法值）都与相同的 <code>deposit</code> 函数体相关联。<br>在某些情况下，有一些实例变量和方法与对象的维护和一致性相关，我们不希望对象的用户看到或使用。它们不是类定义的抽象的一部分，而是实现的一部分。Python 的约定规定，如果属性名称以下划线开头，则只能在类本身的方法中访问它，而不是用户访问。</p>
+<p>计算点表达式：</p>
+<ol>
+<li>点表达式左侧的 <code>&lt;expression&gt;</code> ，生成点表达式的对象。</li>
+<li><code>&lt;name&gt;</code> 与该对象的实例属性匹配；如果存在具有该名称的属性，则返回属性值。</li>
+<li>如果实例属性中没有 <code>&lt;name&gt;</code> ，则在类中查找 <code>&lt;name&gt;</code>，生成类属性。</li>
+<li>除非它是函数，否则返回属性值。如果是函数，则返回该名称绑定的方法。</li>
+</ol>
+<h2 id="约束传递-Propagating-Constraints"><a href="#约束传递-Propagating-Constraints" class="headerlink" title="约束传递 (Propagating Constraints)"></a>约束传递 (Propagating Constraints)</h2><p>可变数据允许我们模拟具有变化的系统，也允许我们构建新的抽象类型。在这个扩展示例中，我们结合了非局部赋值、列表和字典来构建一个支持多方向计算的基于约束系统。将程序表示为约束是一种声明式编程，在这种编程中，程序员声明要解决的问题的结构，而不是抽象出问题解决方案的具体计算方式的细节。</p>
+<p>计算机程序传统上被组织为单向计算，它对预先指定的参数执行操作以产生所需的输出。另一方面，我们通常希望根据数量之间的关系对系统进行建模。例如，我们之前考虑过理想气体定律，它通过玻尔兹曼常数 (k) 将理想气体的压力 (p)、体积 (v)、数量 (n) 和温度 (t) 联系起来：</p>
+<p><code>p * v = n * k * t</code></p>
+<p>这样的方程不是单向的。给定任何四个量，我们可以使用这个方程来计算第五个。然而，将方程式翻译成传统的计算机语言会迫使我们选择一个量来根据其他四个量进行计算。因此，计算压力的函数不能用于计算温度，即使这两个量的计算来自同一个方程。</p>
+<p>在本节中，我们概述了线性关系的一般模型的设计。我们定义了在数量之间保持的原始约束，例如强制数学关系 a + b &#x3D; c 的 adder(a, b, c) 约束。</p>
+<p>我们还定义了一种组合方式，以便可以组合原始约束来表达更复杂的关系。这样，我们的程序就类似于一种编程语言。我们通过构建一个网络来组合约束，在该网络中约束由连接器 (connector) 连接。连接器是一个对象，它“持有”一个值并且可以参与一个或多个约束。</p>
+<p>例如，我们知道华氏温度和摄氏温度之间的关系是：</p>
+<p><code>9 * c = 5 * (f - 32)</code></p>
+<p>该等式是 c 和 f 之间的复杂约束。这样的约束可以被认为是一个由原始加法器 (adder) 、乘法器 (multiplier) 和常量 (constant) 约束组成的网络。</p>
+<p><img src="https://composingprograms.netlify.app/sicp/celsius_fahrenheit_constraint.png" alt="celsius_fahrenheit_constraint"></p>
+<p>在此图中，我们在左侧看到一个乘数框，其中包含三个端子，标记为 a 、b 和 c。这些将乘数连接到网络的其余部分，如下所示：终端连接到连接器 celsius，该连接器将保持摄氏温度。b 端子连接到连接器 w，该连接器链接到常量 9。乘数盒约束为 a 和 b 乘积的 c 端链接到另一个乘法盒的 c 端，其 b 连接到常量 5，其 a 连接到和约束中的项之一。</p>
+<p>这种网络的计算过程如下：当一个连接器被赋予一个值时（由用户或由它链接到的约束框），它会唤醒所有相关的约束（除了刚刚唤醒它的约束） 以告诉他们它有值。每个被唤醒的约束框之后轮流询问其连接器，以查看是否有足够的信息来确定连接器的值。如果有，该框设置该连接器，然后唤醒所有关联的约束，依此类推。例如，在摄氏度和华氏度之间的转换中， w、 x 和 y 立即被常量框分别设置为 9、 5 和 32。连接器唤醒乘法器和加法器，它们确定没有足够的信息继续进行。如果用户（或网络的其他部分）将摄氏连接器设置为一个值（比如 25），最左边的乘法器将被唤醒，它将 u 设置为 25 * 9 &#x3D; 225。然后你唤醒第二个乘法器，将 v 设置为 45，v 唤醒加法器，将 fahrenheit 连接器设置为 77。</p>
+<p>**使用约束系统 (Using the Constraint System)**。要使用约束系统执行上述温度计算，我们首先通过调用连接器构造函数创建两个命名连接器，摄氏度 celsius 和华氏度 fahrenheit。</p>
+<p>python</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; celsius = connector(&#x27;Celsius&#x27;)</span><br><span class="line">&gt;&gt;&gt; fahrenheit = connector(&#x27;Fahrenheit&#x27;)</span><br></pre></td></tr></table></figure>
+
+<p>然后，我们将这些连接器链接到一个反映上图的网络中。函数转换器 (converter) 组装网络中的各种连接器和约束。</p>
+<p>python</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; def converter(c, f):</span><br><span class="line">        &quot;&quot;&quot;用约束条件连接 c 到 f ，将摄氏度转换为华氏度.&quot;&quot;&quot;</span><br><span class="line">        u, v, w, x, y = [connector() for _ in range(5)]</span><br><span class="line">        multiplier(c, w, u)</span><br><span class="line">        multiplier(v, x, u)</span><br><span class="line">        adder(v, y, f)</span><br><span class="line">        constant(w, 9)</span><br><span class="line">        constant(x, 5)</span><br><span class="line">        constant(y, 32)</span><br></pre></td></tr></table></figure>
+
+<p>python</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; converter(celsius, fahrenheit)</span><br></pre></td></tr></table></figure>
+
+<p>我们将使用消息传递系统来协调约束和连接器。约束是不包含局部状态本身的字典。它们对消息的响应是非纯函数，会更改它们约束的连接器。</p>
+<p>连接器是保存当前值并响应操纵该值的消息的字典。约束不会直接更改连接器的值，而是通过发送消息来更改，以便连接器可以通知其他约束以响应更改。这样，一个连接器既代表了一个数字，同时也封装了连接器的行为。</p>
+<p>我们可以发送给连接器的一条消息是设置它的值。在这里，我们（ “ user ” ）将 celsius 的值设置为 25。</p>
+<p>python</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; celsius[&#x27;set_val&#x27;](&#x27;user&#x27;, 25)</span><br><span class="line">Celsius = 25</span><br><span class="line">Fahrenheit = 77.0</span><br></pre></td></tr></table></figure>
+
+<p>不仅 celsius 的值变为 25，而且它的值通过网络传播，因此 fahrenheit 的值也发生变化。打印这些更改是因为我们在构造它们时命名了这两个连接器。</p>
+<p>现在我们可以尝试将 fahrenheit 度设置为一个新值，比如 212。</p>
+<p>python</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; fahrenheit[&#x27;set_val&#x27;](&#x27;user&#x27;, 212)</span><br><span class="line">Contradiction detected: 77.0 vs 212</span><br></pre></td></tr></table></figure>
+
+<p>连接器抱怨说它感觉到了一个矛盾：它的值为 77.0，而有人试图将它设置为 212。如果我们真的想用新值应用到网络，我们可以告诉 celsius 忘记它的旧值：</p>
+<p>python</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; celsius[&#x27;forget&#x27;](&#x27;user&#x27;)</span><br><span class="line">Celsius is forgotten</span><br><span class="line">Fahrenheit is forgotten</span><br></pre></td></tr></table></figure>
+
+<p>连接器 celsius 发现最初设置其值的用户现在收回该值，因此 celsius 同意失去其值，并将这一事实通知网络的其余部分。这个信息最终传播到 fahrenheit，它现在发现它没有理由继续相信它自己的值是 77。因此，它也放弃了它的值。</p>
+<p>现在 fahrenheit 没有值，我们可以将其设置为 212：</p>
+<p>python</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; fahrenheit[&#x27;set_val&#x27;](&#x27;user&#x27;, 212)</span><br><span class="line">Fahrenheit = 212</span><br><span class="line">Celsius = 100.0</span><br></pre></td></tr></table></figure>
+
+<p>这个新值在通过网络传播时会迫使 celsius 的值变为 100。我们使用了完全相同的网络来计算给定 celsius 的 fahrenheit 和给定 fahrenheit 的 celsius。这种计算的非方向性是基于约束的系统的显着特征。</p>
+<p>**实施约束系统 (Implementing the Constraint System)**。正如我们所见，连接器是将消息名称映射到函数和数据值的字典。我们将实施响应以下消息的连接器：</p>
+<p>python</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; connector [&#x27;set_val&#x27;](source, value)  &quot;&quot;&quot;表示 source 在请求连接器将当前值设为 value&quot;&quot;&quot;</span><br><span class="line">&gt;&gt;&gt; connector [&#x27;has_val&#x27;]()  &quot;&quot;&quot;返回连接器是否已经具有值&quot;&quot;&quot;</span><br><span class="line">&gt;&gt;&gt; connector [&#x27;val&#x27;]  &quot;&quot;&quot;是连接器的当前值&quot;&quot;&quot;</span><br><span class="line">&gt;&gt;&gt; connector [&#x27;forget&#x27;](source)  &quot;&quot;&quot;告诉连接器 source 请求遗忘它的值&quot;&quot;&quot;</span><br><span class="line">&gt;&gt;&gt; connector [&#x27;connect&#x27;](source)  &quot;&quot;&quot;告诉连接器参与新的约束，即 source&quot;&quot;&quot;</span><br></pre></td></tr></table></figure>
+
+<p>约束也是字典，它通过两条消息从连接器接收信息：</p>
+<p>python</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; constraint[\&#x27;new_val&#x27;]()  &quot;&quot;&quot;表示与约束相连的某个连接器具有新的值。&quot;&quot;&quot;</span><br><span class="line">&gt;&gt;&gt; constraint[\&#x27;forget&#x27;]()  &quot;&quot;&quot;表示与约束相连的某个连接器遗忘了值。&quot;&quot;&quot;</span><br></pre></td></tr></table></figure>
+
+<p>当约束收到这些消息时，它们会将消息传播到其他连接器。</p>
+<p>adder 函数在三个连接器上构造一个加法器约束，其中前两个必须与第三个相加：a + b &#x3D; c。为了支持多向约束传播，加法器还必须指定它从 c 中减去 a 得到 b，同样地从 c 中减去 b 得到 a。</p>
+<p>python</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; from operator import add, sub</span><br><span class="line">&gt;&gt;&gt; def adder(a, b, c):</span><br><span class="line">        &quot;&quot;&quot;约束a+b=c&quot;&quot;&quot;</span><br><span class="line">        return make_ternary_constraint(a, b, c, add, sub, sub)</span><br></pre></td></tr></table></figure>
+
+<p>我们想实现一个通用的三元（三向）约束，它使用来自 adder 的三个连接器和三个函数来创建一个接受 new_val 和 forget 消息的约束。对消息的响应是局部函数，它们被放置在称为约束的字典中。</p>
+<p>python</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; def make_ternary_constraint(a, b, c, ab, ca, cb):</span><br><span class="line">        &quot;&quot;&quot;约束ab(a,b)=c，ca(c,a)=b，cb(c,b)=a。&quot;&quot;&quot;</span><br><span class="line">        def new_value():</span><br><span class="line">            av, bv, cv = [connector[&#x27;has_val&#x27;]() for connector in (a, b, c)]</span><br><span class="line">            if av and bv:</span><br><span class="line">                c[&#x27;set_val&#x27;](constraint, ab(a[&#x27;val&#x27;], b[&#x27;val&#x27;]))</span><br><span class="line">            elif av and cv:</span><br><span class="line">                b[&#x27;set_val&#x27;](constraint, ca(c[&#x27;val&#x27;], a[&#x27;val&#x27;]))</span><br><span class="line">            elif bv and cv:</span><br><span class="line">                a[&#x27;set_val&#x27;](constraint, cb(c[&#x27;val&#x27;], b[&#x27;val&#x27;]))</span><br><span class="line">        def forget_value():</span><br><span class="line">            for connector in (a, b, c):</span><br><span class="line">                connector[&#x27;forget&#x27;](constraint)</span><br><span class="line">        constraint = &#123;&#x27;new_val&#x27;: new_value, &#x27;forget&#x27;: forget_value&#125;</span><br><span class="line">        for connector in (a, b, c):</span><br><span class="line">            connector[&#x27;connect&#x27;](constraint)</span><br><span class="line">        return constraint</span><br></pre></td></tr></table></figure>
+
+<p>称为约束的字典是一个调度字典，也是约束对象本身。它响应约束接收到的两条消息，但也作为调用其连接器的 source 参数传递。</p>
+<p>每当约束被告知其连接器之一具有值时，就会调用约束的局部函数 new_value。该函数首先检查 a 和 b 是否都有值。如果是，它告诉 c 将其值设置为函数 ab 的返回值，在加法器的情况下为 add。约束将自身（约束）作为连接器的 source 参数传递，该连接器是加法器对象。如果 a 和 b 不同时都有值，则约束检查 a 和 c，依此类推。</p>
+<p>如果约束被告知它的一个连接器遗忘了它的值，它会请求它的所有连接器遗忘它们的值。（实际上只有那些由此约束设置的值会丢失。）</p>
+<p>乘法器与加法器非常相似。</p>
+<p>python</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; from operator import mul, truediv</span><br><span class="line">&gt;&gt;&gt; def multiplier(a, b, c):</span><br><span class="line">        &quot;&quot;&quot;约束a*b=c.&quot;&quot;&quot;</span><br><span class="line">        return make_ternary_constraint(a, b, c, mul, truediv, truediv)</span><br></pre></td></tr></table></figure>
+
+<p>常量也是一种约束，但它永远不会发送任何消息，因为它只涉及它在构造时设置的单个连接器。</p>
+<p>python</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; def constant(connector, value):</span><br><span class="line">        &quot;&quot;&quot;常量赋值.&quot;&quot;&quot;</span><br><span class="line">        constraint = &#123;&#125;</span><br><span class="line">        connector[&#x27;set_val&#x27;](constraint, value)</span><br><span class="line">        return constraint</span><br></pre></td></tr></table></figure>
+
+<p>这三个约束足以实现我们的温度转换网络。</p>
+<p>**连接器表示 (Representing connectors)**。连接器表示为包含值的字典，也有具备局部状态的响应函数。连接器必须跟踪为其提供当前值的信息提供者，以及它参与的约束列表。</p>
+<p>构造函数连接器具有用于设置和遗忘值的局部函数，这些值是对来自约束的消息的响应。</p>
+<p>python</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; def connector(name=None):</span><br><span class="line">        &quot;&quot;&quot;限制条件之间的连接器.&quot;&quot;&quot;</span><br><span class="line">        informant = None</span><br><span class="line">        constraints = []</span><br><span class="line">        def set_value(source, value):</span><br><span class="line">            nonlocal informant</span><br><span class="line">            val = connector[&#x27;val&#x27;]</span><br><span class="line">            if val is None:</span><br><span class="line">                informant, connector[&#x27;val&#x27;] = source, value</span><br><span class="line">                if name is not None:</span><br><span class="line">                    print(name, &#x27;=&#x27;, value)</span><br><span class="line">                inform_all_except(source, &#x27;new_val&#x27;, constraints)</span><br><span class="line">            else:</span><br><span class="line">                if val != value:</span><br><span class="line">                    print(&#x27;Contradiction detected:&#x27;, val, &#x27;vs&#x27;, value)</span><br><span class="line">        def forget_value(source):</span><br><span class="line">            nonlocal informant</span><br><span class="line">            if informant == source:</span><br><span class="line">                informant, connector[&#x27;val&#x27;] = None, None</span><br><span class="line">                if name is not None:</span><br><span class="line">                    print(name, &#x27;is forgotten&#x27;)</span><br><span class="line">                inform_all_except(source, &#x27;forget&#x27;, constraints)</span><br><span class="line">        connector = &#123;&#x27;val&#x27;: None,</span><br><span class="line">                     &#x27;set_val&#x27;: set_value,</span><br><span class="line">                     &#x27;forget&#x27;: forget_value,</span><br><span class="line">                     &#x27;has_val&#x27;: lambda: connector[&#x27;val&#x27;] is not None,</span><br><span class="line">                     &#x27;connect&#x27;: lambda source: constraints.append(source)&#125;</span><br><span class="line">        return connector</span><br></pre></td></tr></table></figure>
+
+<p>连接器也是约束用于与连接器通信的五个消息的调度字典。四个响应是函数，最后的响应是值本身。</p>
+<p>当有设置连接器值的请求时调用局部函数 set_value。如果连接器当前没有值，它将设置它的值并记住请求设置值的源约束作为信息提供者。然后连接器将通知它的所有参与约束，除了请求设置值的约束。这是使用以下迭代函数完成的。</p>
+<p>python</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; def inform_all_except(source, message, constraints):</span><br><span class="line">        &quot;&quot;&quot;告知信息除了source外的所有约束条件，。&quot;&quot;&quot;</span><br><span class="line">        for c in constraints:</span><br><span class="line">            if c != source:</span><br><span class="line">                c[message]()</span><br></pre></td></tr></table></figure>
+
+<p>如果要求连接器遗忘其值，它会调用局部函数 forget-value，该函数首先检查以确保请求来自与最初设置值相同的约束。如果是这样，连接器会通知其关联的约束有关值的丢失。</p>
+<p>对消息 has_val 的响应表明连接器是否有值。 对消息连接的响应将源约束添加到约束列表中。</p>
+<p>我们设计的约束程序引入了许多将在面向对象编程中再次出现的思想。约束和连接器都是通过消息操作的抽象。当连接器的值发生变化时，它会通过一条消息进行更改，该消息不仅会更改值，还会验证它（检查源）并传播其效果（通知其他约束）。事实上，我们将在本章后面使用具有字符串值键和函数值的字典的类似架构来实现面向对象的系统</p>
+<h2 id="debug"><a href="#debug" class="headerlink" title="debug"></a>debug</h2><p>请注意，回溯中的行似乎是配对在一起的。 该对中的第一行具有以下格式：<br>文件“&lt;文件名&gt;”，第 &lt;编号&gt; 行，&lt;函数&gt;</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">File &quot;&lt;file name&gt;&quot;, line &lt;number&gt;, in &lt;function&gt;</span><br></pre></td></tr></table></figure>
+
+<p>该行为您提供以下信息： 文件名：包含问题的文件的名称。 Number：文件中引起问题的行号，或包含下一个函数调用的行号 函数：可以在其中找到该行的函数的名称。<br>回溯消息中的最后一行是错误语句。 错误语句具有以下格式： &lt;错误类型&gt;：&lt;错误消息&gt; 这一行为您提供了两条信息： 错误类型：引起的错误类型（例如SyntaxError，TypeError）。 这些通常具有足够的描述性，可以帮助您缩小错误原因的搜索范围。 错误消息：更详细地描述导致错误的原因。 不同的错误类型会产生不同的错误消息。</p>
+<h2 id="Running-doctests"><a href="#Running-doctests" class="headerlink" title="Running doctests"></a>Running doctests</h2><p>Python has a great way to quickly write tests for your code. These are called doctests, and look like this:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">def foo(x):</span><br><span class="line">    &quot;&quot;&quot;A random function.</span><br><span class="line"></span><br><span class="line">    &gt;&gt;&gt; foo(4)</span><br><span class="line">    4</span><br><span class="line">    &gt;&gt;&gt; foo(5)</span><br><span class="line">    5</span><br><span class="line">    &quot;&quot;&quot;</span><br></pre></td></tr></table></figure>
+
+<p>The lines in the docstring that look like interpreter outputs are the <strong>doctests</strong>. To run them, go to your terminal and type:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 -m doctest file.py</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">python3 -m doctest file.py -v</span><br><span class="line">除了告诉你哪些文档测试失败之外，它还会 告诉您哪些文档测试通过了。</span><br></pre></td></tr></table></figure>
+
+<p>许多程序员喜欢研究他们的代码的一种方法是使用交互式 REPL。 也就是说，您可以在其中直接运行函数并检查其输出的终端。<br>通常，要完成此操作，您可以运行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -i file.py</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用-assert声明"><a href="#使用-assert声明" class="headerlink" title="使用 assert声明"></a>使用 <code>assert</code>声明</h3><p>Python 有一个特性称为 <code>assert</code>语句，它可以让您测试条件是否为真，并打印错误 否则在一行中消息。 如果您知道某些条件在某些点需要为真，这会很有用 在你的程序中。 例如，如果您正在编写一个接受整数并将其加倍的函数，那么它可能会很有用 确保您的输入实际上是一个整数。 然后你可以编写以下代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">def double(x):</span><br><span class="line">    assert isinstance(x, int), &quot;The input to double(x) must be an integer&quot;</span><br><span class="line">    return 2 * x</span><br></pre></td></tr></table></figure>
+
+<p>请注意，我们并没有真正调试 <code>double</code>在这里，我们正在做的是确保任何拨打电话的人 <code>double</code>正在以正确的论点这样做。 例如，如果我们有一个函数 <code>g</code>接受一个字符串和一个数字 并将字符串的长度添加到数字的两倍，其实现如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">def g(x, y):</span><br><span class="line">    return double(x) + y # should be double(y) + len(x)</span><br></pre></td></tr></table></figure>
+
+<h3 id="SyntaxError"><a href="#SyntaxError" class="headerlink" title="SyntaxError"></a><code>SyntaxError</code></h3><ul>
+<li><p><strong>原因</strong> ：代码语法错误</p>
+</li>
+<li><p><strong>示例</strong> ：</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">  File &quot;file name&quot;, line number</span><br><span class="line">    def incorrect(f)</span><br><span class="line">                    ^</span><br><span class="line">SyntaxError: invalid syntax</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>解决办法</strong> ： <code>^</code>符号指向包含的代码 无效的语法。 错误消息没有告诉你 <em>什么</em> 是 错了，但它确实告诉你 <em>在哪里</em> 。</p>
+</li>
+<li><p><strong>注意</strong> ：Python 将检查 <code>SyntaxErrors</code>执行之前 任何代码。 这与其他错误不同，其他错误仅 在运行时引发。</p>
+</li>
+</ul>
+<h3 id="IndentationError"><a href="#IndentationError" class="headerlink" title="IndentationError"></a><code>IndentationError</code></h3><ul>
+<li><p><strong>原因</strong> ：缩进不当</p>
+</li>
+<li><p><strong>示例</strong> ：</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">  File &quot;file name&quot;, line number</span><br><span class="line">    print(&#x27;improper indentation&#x27;)</span><br><span class="line">IndentationError: unindent does not match any outer indentation level</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>解决方案</strong> ：显示缩进不正确的行。 只需重新缩进即可。</p>
+</li>
+<li><p><strong>注意</strong> ：如果制表符和空格不一致，Python 将提出其中之一。 确保使用空格！ （只是少了点 在 Python 中使用空格和所有 cs61a 内容通常令人头痛 使用空格）。</p>
+</li>
+</ul>
+<h3 id="TypeError"><a href="#TypeError" class="headerlink" title="TypeError"></a><code>TypeError</code></h3><ul>
+<li><p><strong>原因一</strong> ：</p>
+<ul>
+<li><p>原始运算符的操作数类型无效。 你是 可能尝试加&#x2F;减&#x2F;乘&#x2F;除不兼容 类型。</p>
+</li>
+<li><p><strong>示例</strong> ：</p>
+<pre><code><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">TypeError: unsupported operand type(s) for +: &#x27;function&#x27; and &#x27;int&#x27;</span><br></pre></td></tr></table></figure>
+</code></pre>
+</li>
+</ul>
+</li>
+<li><p><strong>原因2</strong> ：</p>
+<ul>
+<li><p>在函数调用中使用非函数对象。</p>
+</li>
+<li><p><strong>示例</strong> ：</p>
+<pre><code><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; square = 3</span><br><span class="line">&gt;&gt;&gt; square(3)</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  ...</span><br><span class="line">TypeError: &#x27;int&#x27; object is not callable</span><br></pre></td></tr></table></figure>
+</code></pre>
+</li>
+</ul>
+</li>
+<li><p><strong>原因3</strong> ：</p>
+<ul>
+<li><p>向函数传递错误数量的参数。</p>
+</li>
+<li><p><strong>示例</strong> ：</p>
+<pre><code><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; add(3)</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  ...</span><br><span class="line">TypeError: add expected 2 arguments, got 1</span><br></pre></td></tr></table></figure>
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="NameError"><a href="#NameError" class="headerlink" title="NameError"></a><code>NameError</code></h3><ul>
+<li><p><strong>原因</strong> ：变量没有分配给任何东西或者没有分配 存在。 这包括函数名称。</p>
+</li>
+<li><p><strong>示例</strong> ：</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">File &quot;file name&quot;, line number</span><br><span class="line">  y = x + 3</span><br><span class="line">NameError: global name &#x27;x&#x27; is not defined</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>解决方案</strong> ：确保您正在初始化变量（即 在使用之前为变量分配一个值）。</p>
+</li>
+<li><p><strong>注意</strong> ：错误消息显示“全局名称”的原因是 因为Python将从a开始搜索变量 函数的本地框架。 如果在那里找不到该变量， Python将继续搜索父框架，直到到达 全球框架。 如果仍然找不到变量，Python 引发错误。</p>
+</li>
+</ul>
+<h3 id="IndexError"><a href="#IndexError" class="headerlink" title="IndexError"></a><code>IndexError</code></h3><ul>
+<li><p><strong>原因</strong> ：尝试索引序列（例如元组、列表、 string）的数字超过了序列的大小。</p>
+</li>
+<li><p><strong>示例</strong> ：</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">File &quot;file name&quot;, line number</span><br><span class="line">  x[100]</span><br><span class="line">IndexError: tuple index out of range</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>解决方案</strong> ：确保索引在范围内 顺序。 如果您使用变量作为索引（例如 <code>seq[x]</code>, 确保变量被分配给正确的索引。</p>
+</li>
+</ul>
+<h2 id="object"><a href="#object" class="headerlink" title="object"></a>object</h2><p>因为两个列表可能内容相同，但实际上是不同的列表，所以我们需要一种方法来测试两个对象是否是同一个。Python 包括两个比较运算符，称为 is 和 is not，它们测试两个表达式实际上是否计算为相同的对象。如果两个对象的当前值相等，则它们是相同的，并且对一个对象的任何更改都将始终反映在另一个对象中。身份是比相等更强大的条件。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">suits is [&#x27;heart&#x27;, &#x27;diamond&#x27;, &#x27;spade&#x27;, &#x27;club&#x27;]</span><br><span class="line">False</span><br><span class="line">&gt;&gt;&gt; suits == [&#x27;heart&#x27;, &#x27;diamond&#x27;, &#x27;spade&#x27;, &#x27;club&#x27;]</span><br><span class="line">True</span><br></pre></td></tr></table></figure>
+<p>字典也确实有一些限制：</p>
+<ul>
+<li>字典的键不能是或包含可变值。</li>
+<li>对于给定的键，最多只能有一个对应的值。<br>非局部语句 (nonlocal statement)。当我们调用 make_withdraw 时，我们将 balance 绑定到初始金额。然后我们定义并返回一个局部函数 withdraw，它会在调用时更新并返回 balance 的值。</li>
+</ul>
+<p>python</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; def make_withdraw(balance):</span><br><span class="line">        &quot;&quot;&quot;返回一个每次调用都会减少余额的 withdraw 函数&quot;&quot;&quot;</span><br><span class="line">        def withdraw(amount):</span><br><span class="line">            nonlocal balance                 # 声明 balance 是非局部的</span><br><span class="line">            if amount &gt; balance:</span><br><span class="line">                return &#x27;Insufficient funds&#x27;</span><br><span class="line">            balance = balance - amount       # 重新绑定</span><br><span class="line">            return balance</span><br><span class="line">        return withdraw</span><br></pre></td></tr></table></figure>
+<p>非局部语句声明：每当我们更改 balance 的绑定时，绑定关系都会在已经绑定 balance 的第一帧中更改。回想一下，如果没有非局部语句，赋值语句将始终在当前环境的第一帧中绑定。非局部语句指示名称不会出现在第一个（局部）帧或最后一个（全局）帧，而是其他地方。</p>
+<h2 id="错题集"><a href="#错题集" class="headerlink" title="错题集"></a>错题集</h2><h3 id="递增子序列"><a href="#递增子序列" class="headerlink" title="递增子序列"></a>递增子序列</h3><figure class="highlight plaintext"><figcaption><span>inc_subseqs(s):</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">    &quot;&quot;&quot;Assuming that S is a list, return a nested list of all subsequences</span><br><span class="line"></span><br><span class="line">    of S (a list of lists) for which the elements of the subsequence</span><br><span class="line"></span><br><span class="line">    are strictly nondecreasing. The subsequences can appear in any order.</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">    &gt;&gt;&gt; seqs = inc_subseqs([1, 3, 2])</span><br><span class="line"></span><br><span class="line">    &gt;&gt;&gt; sorted(seqs)</span><br><span class="line"></span><br><span class="line">    [[], [1], [1, 2], [1, 3], [2], [3]]</span><br><span class="line"></span><br><span class="line">    &gt;&gt;&gt; inc_subseqs([])</span><br><span class="line"></span><br><span class="line">    [[]]</span><br><span class="line"></span><br><span class="line">    &gt;&gt;&gt; seqs2 = inc_subseqs([1, 1, 2])</span><br><span class="line"></span><br><span class="line">    &gt;&gt;&gt; sorted(seqs2)</span><br><span class="line"></span><br><span class="line">    [[], [1], [1], [1, 1], [1, 1, 2], [1, 2], [1, 2], [2]]</span><br><span class="line"></span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line">    def subseq_helper(s, prev):</span><br><span class="line"></span><br><span class="line">        if not s:</span><br><span class="line"></span><br><span class="line">            return [[]]</span><br><span class="line"></span><br><span class="line">        elif s[0] &lt; prev:</span><br><span class="line"></span><br><span class="line">            return subseq_helper(s[1::],prev)</span><br><span class="line"></span><br><span class="line">        else:</span><br><span class="line"></span><br><span class="line">            a = subseq_helper(s[1::],s[0])</span><br><span class="line"></span><br><span class="line">            b = subseq_helper(s[1::],prev)</span><br><span class="line"></span><br><span class="line">            return insert_into_all(s[0], a) + b</span><br><span class="line"></span><br><span class="line">    return subseq_helper(s,0)</span><br><span class="line"></span><br><span class="line">seqs = inc_subseqs([1, 3, 2])</span><br></pre></td></tr></table></figure>
+
+<h3 id="反转奇数深度树的标签"><a href="#反转奇数深度树的标签" class="headerlink" title="反转奇数深度树的标签"></a>反转奇数深度树的标签</h3><figure class="highlight plaintext"><figcaption><span>t.is_leaf():</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">        return </span><br><span class="line">    label_list = []</span><br><span class="line">    for b in t.branches:</span><br><span class="line">        label_list.append(b.label)</span><br><span class="line">    for b, new_label in zip(t.branches, reversed(label_list)):</span><br><span class="line">        b.label = new_label</span><br><span class="line">        for bb in b.branches:</span><br><span class="line">            reverse_other(bb)</span><br><span class="line"></span><br><span class="line">我的解法：</span><br><span class="line">def helper(t,depth):</span><br><span class="line"></span><br><span class="line">        if depth%2==0:</span><br><span class="line"></span><br><span class="line">            if t.is_leaf():</span><br><span class="line"></span><br><span class="line">                return</span><br><span class="line"></span><br><span class="line">            else:</span><br><span class="line"></span><br><span class="line">                for branch in t.branches:</span><br><span class="line"></span><br><span class="line">                    helper(branch,depth+1)</span><br><span class="line"></span><br><span class="line">        else:</span><br><span class="line"></span><br><span class="line">            labels=[]</span><br><span class="line"></span><br><span class="line">            brans=t.branches</span><br><span class="line"></span><br><span class="line">            for branch in brans:</span><br><span class="line"></span><br><span class="line">                labels.insert(0,branch.label)</span><br><span class="line"></span><br><span class="line">            for new_label,new_branch in zip(labels,brans):</span><br><span class="line"></span><br><span class="line">                new_branch.label=new_label</span><br><span class="line"></span><br><span class="line">            for bran in brans:</span><br><span class="line"></span><br><span class="line">                helper(bran,depth+1)</span><br><span class="line"></span><br><span class="line">    helper(t,1)</span><br></pre></td></tr></table></figure>
+
+<h3 id="生成器的生成器"><a href="#生成器的生成器" class="headerlink" title="生成器的生成器"></a>生成器的生成器</h3><figure class="highlight plaintext"><figcaption><span>make_generators_generator(g):</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">    &quot;&quot;&quot;Generates all the &quot;sub&quot;-generators of the generator returned by</span><br><span class="line"></span><br><span class="line">    the generator function g.</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">    &gt;&gt;&gt; def every_m_ints_to(n, m):</span><br><span class="line"></span><br><span class="line">    ...     i = 0</span><br><span class="line"></span><br><span class="line">    ...     while (i &lt;= n):</span><br><span class="line"></span><br><span class="line">    ...         yield i</span><br><span class="line"></span><br><span class="line">    ...         i += m</span><br><span class="line"></span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">    &gt;&gt;&gt; def every_3_ints_to_10():</span><br><span class="line"></span><br><span class="line">    ...     for item in every_m_ints_to(10, 3):</span><br><span class="line"></span><br><span class="line">    ...         yield item</span><br><span class="line"></span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">    &gt;&gt;&gt; for gen in make_generators_generator(every_3_ints_to_10):</span><br><span class="line"></span><br><span class="line">    ...     print(&quot;Next Generator:&quot;)</span><br><span class="line"></span><br><span class="line">    ...     for item in gen:</span><br><span class="line"></span><br><span class="line">    ...         print(item)</span><br><span class="line"></span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">    Next Generator:</span><br><span class="line"></span><br><span class="line">    0</span><br><span class="line"></span><br><span class="line">    Next Generator:</span><br><span class="line"></span><br><span class="line">    0</span><br><span class="line"></span><br><span class="line">    3</span><br><span class="line"></span><br><span class="line">    Next Generator:</span><br><span class="line"></span><br><span class="line">    0</span><br><span class="line"></span><br><span class="line">    3</span><br><span class="line"></span><br><span class="line">    6</span><br><span class="line"></span><br><span class="line">    Next Generator:</span><br><span class="line"></span><br><span class="line">    0</span><br><span class="line"></span><br><span class="line">    3</span><br><span class="line"></span><br><span class="line">    6</span><br><span class="line"></span><br><span class="line">    9</span><br><span class="line"></span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line">    &quot;*** YOUR CODE HERE ***&quot;</span><br><span class="line"></span><br><span class="line">    def gen_helper(lst):</span><br><span class="line"></span><br><span class="line">        yield from lst</span><br><span class="line"></span><br><span class="line">    yield_sofar = []</span><br><span class="line"></span><br><span class="line">    gg = g()</span><br><span class="line"></span><br><span class="line">    for x in gg:</span><br><span class="line"></span><br><span class="line">        yield_sofar.append(x)</span><br><span class="line"></span><br><span class="line">        yield gen_helper(yield_sofar.copy())</span><br><span class="line">  </span><br></pre></td></tr></table></figure>
+
+<h3 id="生成器生成树的搜索路径"><a href="#生成器生成树的搜索路径" class="headerlink" title="生成器生成树的搜索路径"></a>生成器生成树的搜索路径</h3><pre><code>if t.label == value:
+        yield [value]
+    for b in t.branches:
+        for path in path_yielder(b, value):
+            yield [t.label] + path
+</code></pre>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" rel="tag"># 课程笔记</a>
+              <a href="/tags/python/" rel="tag"># python</a>
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" rel="tag"># 数据结构与算法</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/09/29/linux%E6%80%BB%E5%92%8C%E7%AC%94%E8%AE%B0/" rel="prev" title="基于北大前沿计算实践课和missing semester的linux等编程工具笔记">
+                  <i class="fa fa-angle-left"></i> 基于北大前沿计算实践课和missing semester的linux等编程工具笔记
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/09/29/cs106b%E6%80%BB%E5%92%8C%E7%AC%94%E8%AE%B0/" rel="next" title="基于斯坦福cs106b的c++数据结构笔记">
+                  基于斯坦福cs106b的c++数据结构笔记 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">thinklive</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">127k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:56</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 技术支持
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script size="300" alpha="0.7" zIndex="-1" src="https://cdnjs.cloudflare.com/ajax/libs/ribbon.js/1.0.2/ribbon.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.20/fancybox/fancybox.umd.js" integrity="sha256-q8XkJ6dj5VwSvzI8+nATCHHQG+Xv/dAZBCgqmu93zOY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/quicklink/2.3.0/quicklink.umd.js" integrity="sha256-yvJQOINiH9fWemHn0vCA5lsHWJaHs6/ZmO+1Ft04SvM=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://thinklive1.github.io/2023/09/29/61a%E6%80%BB%E5%92%8C/"}</script>
+  <script src="/js/third-party/quicklink.js"></script>
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"thinklive1/blog_comments","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+</body>
+</html>

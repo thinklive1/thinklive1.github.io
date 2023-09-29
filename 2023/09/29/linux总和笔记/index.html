@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#4c4c4c"><meta name="generator" content="Hexo 6.3.0">
+<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#4c4c4c">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.20/fancybox/fancybox.css" integrity="sha256-RvRHGSuWAxZpXKV9lLDt2e+rZ+btzn48Wp4ueS3NZKs=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"thinklive1.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.18.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"flat"},"fold":{"enable":false,"height":500},"bookmark":{"enable":true,"color":"#369","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="简介Linux是一群开源的、基于Linux内核的类Unix操作系统集合。  操作系统(operating system)：管理计算机硬件和软件资源的程序，为用户程序提供硬件抽象和接口。 操作系统内核(operating system kernel)：操作系统最核心的部分，管理系统的进程、内存、设备驱动程序、文件和网络系统，一直在内存中，不包括图形界面、Shell等功能 Shell：内核的封装，为用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于北大前沿计算实践课和missing semester的linux等编程工具笔记">
+<meta property="og:url" content="https://thinklive1.github.io/2023/09/29/linux%E6%80%BB%E5%92%8C%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="thinklive">
+<meta property="og:description" content="简介Linux是一群开源的、基于Linux内核的类Unix操作系统集合。  操作系统(operating system)：管理计算机硬件和软件资源的程序，为用户程序提供硬件抽象和接口。 操作系统内核(operating system kernel)：操作系统最核心的部分，管理系统的进程、内存、设备驱动程序、文件和网络系统，一直在内存中，不包括图形界面、Shell等功能 Shell：内核的封装，为用">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.stack.imgur.com/a28N8.png">
+<meta property="og:image" content="https://i.stack.imgur.com/4iK3b.png">
+<meta property="article:published_time" content="2023-09-29T02:18:45.993Z">
+<meta property="article:modified_time" content="2023-09-23T08:11:27.786Z">
+<meta property="article:author" content="thinklive">
+<meta property="article:tag" content="课程笔记">
+<meta property="article:tag" content="编程工具">
+<meta property="article:tag" content="linux">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.stack.imgur.com/a28N8.png">
+
+
+<link rel="canonical" href="https://thinklive1.github.io/2023/09/29/linux%E6%80%BB%E5%92%8C%E7%AC%94%E8%AE%B0/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://thinklive1.github.io/2023/09/29/linux%E6%80%BB%E5%92%8C%E7%AC%94%E8%AE%B0/","path":"2023/09/29/linux总和笔记/","title":"基于北大前沿计算实践课和missing semester的linux等编程工具笔记"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>基于北大前沿计算实践课和missing semester的linux等编程工具笔记 | thinklive</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<!-- hexo injector head_end start --><script> let HEXO_MMEDIA_DATA = { js: [], css: [], aplayerData: [], metingData: [], artPlayerData: [], dplayerData: []}; </script><!-- hexo injector head_end end --></head>
+<!--pjax：防止跳转页面音乐暂停-->
+ <script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.js"></script>
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">thinklive</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">dirichlet labrary</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索 | search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-主页-|-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>主页 | home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-标签-|-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签 | tags</a></li><li class="menu-item menu-item-分类-|-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类 | categories</a></li><li class="menu-item menu-item-归档-|-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档 | archives</a></li><li class="menu-item menu-item-相册-|-photos"><a href="/photos/" rel="section"><i class="fa fa-camera fa-fw"></i>相册 | photos</a></li><li class="menu-item menu-item-留言-|-guestbook"><a href="/guestbook/" rel="section"><i class="fa fa-book fa-fw"></i>留言 | guestbook</a></li><li class="menu-item menu-item-感谢-|-thanks"><a href="/thanks/" rel="section"><i class="fa custom thanks fa-fw"></i>感谢 | thanks</a></li><li class="menu-item menu-item-sitemap"><a href="/webstack/" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索 | search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+<img src="/images/thinklive_cyber.png" style="max-width: 100%; width: auto; height: auto;background-color: #fff;">
+<!--网易云音乐插件-->
+<!-- require APlayer -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
+<script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
+<!-- require MetingJS-->
+<script src="https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"></script> 
+<!--网易云playlist外链地址-->   
+<meting-js
+    server="netease"
+    type="playlist" 
+    id="2762741085"
+    mini="false"
+    fixed="false"
+    list-folded="true"
+    autoplay="true"
+    volume="0.4"
+    theme="#4c4c4c"
+    order="random"
+    loop="all"
+    preload="auto"
+    lrc-type="2"
+    mutex="true">
+</meting-js>
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#shell%E7%9A%84%E9%85%8D%E7%BD%AE"><span class="nav-number">2.</span> <span class="nav-text">shell的配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8C%85%E7%AE%A1%E7%90%86"><span class="nav-number">3.</span> <span class="nav-text">包管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#shell%E8%84%9A%E6%9C%AC"><span class="nav-number">4.</span> <span class="nav-text">shell脚本</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B5%8B%E5%80%BC"><span class="nav-number">4.1.</span> <span class="nav-text">赋值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E6%95%B0"><span class="nav-number">4.2.</span> <span class="nav-text">参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%94%E5%9B%9E%E5%80%BC"><span class="nav-number">4.3.</span> <span class="nav-text">返回值</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E6%89%BE"><span class="nav-number">5.</span> <span class="nav-text">查找</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E6%89%BE%E6%96%87%E4%BB%B6"><span class="nav-number">5.1.</span> <span class="nav-text">查找文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E6%89%BE%E4%BB%A3%E7%A0%81"><span class="nav-number">5.2.</span> <span class="nav-text">查找代码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E5%BB%BA%E8%AE%AE"><span class="nav-number">6.</span> <span class="nav-text">使用建议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B%E5%88%AB%E5%90%8D"><span class="nav-number">6.1.</span> <span class="nav-text">建立别名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tips"><span class="nav-number">6.2.</span> <span class="nav-text">tips</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E8%A1%8C%E7%8E%AF%E5%A2%83"><span class="nav-number">7.</span> <span class="nav-text">命令行环境</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%BB%98%E8%AE%A4%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="nav-number">7.1.</span> <span class="nav-text">默认环境变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91"><span class="nav-number">7.2.</span> <span class="nav-text">端口转发</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%A1%E5%8F%B7%E6%9C%BA%E5%88%B6"><span class="nav-number">7.3.</span> <span class="nav-text">信号机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tmux%E5%A4%9A%E8%B7%AF%E7%BB%88%E7%AB%AF%E5%A4%8D%E7%94%A8"><span class="nav-number">7.4.</span> <span class="nav-text">tmux多路终端复用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ssh"><span class="nav-number">7.5.</span> <span class="nav-text">ssh</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E5%91%BD%E4%BB%A4"><span class="nav-number">7.5.1.</span> <span class="nav-text">执行命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SSH-%E5%AF%86%E9%92%A5"><span class="nav-number">7.5.2.</span> <span class="nav-text">SSH 密钥</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AF%86%E9%92%A5%E7%94%9F%E6%88%90"><span class="nav-number">7.5.3.</span> <span class="nav-text">密钥生成</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E5%AF%86%E9%92%A5%E7%9A%84%E8%AE%A4%E8%AF%81%E6%9C%BA%E5%88%B6"><span class="nav-number">7.5.4.</span> <span class="nav-text">基于密钥的认证机制</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#G-%E5%9F%BA%E4%BA%8E%E5%AF%86%E9%92%A5%E7%9A%84%E8%AE%A4%E8%AF%81%E6%9C%BA%E5%88%B6"><span class="nav-number">7.6.</span> <span class="nav-text">G# 基于密钥的认证机制</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E6%9C%AC%E5%8C%B9%E9%85%8D"><span class="nav-number">8.</span> <span class="nav-text">文本匹配</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-number">8.1.</span> <span class="nav-text">正则表达式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#awk"><span class="nav-number">8.2.</span> <span class="nav-text">awk</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%88%E6%8A%A4%E8%BF%9B%E7%A8%8B"><span class="nav-number">9.</span> <span class="nav-text">守护进程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%87%E4%BB%BD"><span class="nav-number">10.</span> <span class="nav-text">备份</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%A0%87%E5%BF%97%E5%8F%82%E6%95%B0%E5%8F%8A%E6%A8%A1%E5%BC%8F"><span class="nav-number">11.</span> <span class="nav-text">常见命令行标志参数及模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E8%B0%83%E8%AF%95"><span class="nav-number">12.</span> <span class="nav-text">代码调试</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6%E5%88%86%E6%9E%90"><span class="nav-number">12.1.</span> <span class="nav-text">事件分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B5%84%E6%BA%90%E7%9B%91%E6%8E%A7"><span class="nav-number">12.2.</span> <span class="nav-text">资源监控</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#QA"><span class="nav-number">13.</span> <span class="nav-text">QA</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#source-script-sh-%E5%92%8C-script-sh-%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB"><span class="nav-number">13.1.</span> <span class="nav-text">source script.sh 和 .&#x2F;script.sh 有什么区别?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%84%E7%A7%8D%E8%BD%AF%E4%BB%B6%E5%8C%85%E5%92%8C%E5%B7%A5%E5%85%B7%E5%AD%98%E5%82%A8%E5%9C%A8%E5%93%AA%E9%87%8C%EF%BC%9F%E5%BC%95%E7%94%A8%E8%BF%87%E7%A8%8B%E6%98%AF%E6%80%8E%E6%A0%B7%E7%9A%84-bin-%E6%88%96-lib-%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">13.2.</span> <span class="nav-text">各种软件包和工具存储在哪里？引用过程是怎样的? &#x2F;bin 或 &#x2F;lib 是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker%E5%92%8C%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB"><span class="nav-number">13.3.</span> <span class="nav-text">Docker和虚拟机有什么区别?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%98%E6%9C%89%E6%9B%B4%E5%A4%9A%E7%9A%84-Vim-%E5%B0%8F%E7%AA%8D%E9%97%A8%E5%90%97%EF%BC%9F"><span class="nav-number">13.4.</span> <span class="nav-text">还有更多的 Vim 小窍门吗？</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="thinklive"
+      src="/images/thive.png">
+  <p class="site-author-name" itemprop="name">thinklive</p>
+  <div class="site-description" itemprop="description">起初，世界是一团思索，它向所有的方向迈了一步，于是万物由此而生</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/thinklive1" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;thinklive1" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/xlithive@stu.suda.edu.cn" title="E-Mail → xlithive@stu.suda.edu.cn" rel="noopener me"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/38099250" title="bilibili → https:&#x2F;&#x2F;space.bilibili.com&#x2F;38099250" rel="noopener me" target="_blank"><i class="fa custom bilibili fa-fw"></i>bilibili</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://steamcommunity.com/id/thinklive" title="steam → https:&#x2F;&#x2F;steamcommunity.com&#x2F;id&#x2F;thinklive" rel="noopener me" target="_blank"><i class="fa custom steam fa-fw"></i>steam</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://thinklive1.github.io/2023/09/29/linux%E6%80%BB%E5%92%8C%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/thive.png">
+      <meta itemprop="name" content="thinklive">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="thinklive">
+      <meta itemprop="description" content="起初，世界是一团思索，它向所有的方向迈了一步，于是万物由此而生">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="基于北大前沿计算实践课和missing semester的linux等编程工具笔记 | thinklive">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          基于北大前沿计算实践课和missing semester的linux等编程工具笔记
+        </h1>
+
+        <div class="post-meta-container">
+          
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-09-29 10:18:45" itemprop="dateCreated datePublished" datetime="2023-09-29T10:18:45+08:00">2023-09-29</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-09-23 16:11:27" itemprop="dateModified" datetime="2023-09-23T16:11:27+08:00">2023-09-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">课程笔记</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>18k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>17 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Linux">Linux</a>是一群<strong>开源</strong>的、基于<strong>Linux内核</strong>的<strong>类Unix操作系统</strong>集合。</p>
+<ul>
+<li>操作系统(operating system)：管理计算机硬件和软件资源的程序，为用户程序提供硬件抽象和接口。</li>
+<li>操作系统内核(operating system kernel)：操作系统最核心的部分，管理系统的进程、内存、设备驱动程序、文件和网络系统，一直在内存中，不包括图形界面、Shell等功能</li>
+<li>Shell：内核的封装，为用户提供更高级的抽象，比如<code>echo</code>、<code>ls</code>、<code>cd</code>等命令，以及进程间通信功能（管道）<span id="more"></span></li>
+<li>Unix内核：最早形成规模，被广泛使用的操作系统，由肯•汤普森(Ken Thompson)和丹尼斯•里奇(Dennis Ritchie)发明，使用C编写，现在常用的基于UNIX内核的操作系统有<a target="_blank" rel="noopener" href="https://www.oracle.com/solaris/solaris11/">Solaris</a>、<a target="_blank" rel="noopener" href="https://www.freebsd.org/">FreeBSD</a></li>
+<li>Linux内核：由李纳斯•托瓦兹(Linus Torvalds)在赫尔辛基大学读书时出于个人爱好而编写的，当时他觉得教学用的迷你版UNIX操作系统Minix太难用了，于是决定自己开发一个操作系统。第1版本于1991年9月发布，当时仅有10000行代码。李纳斯•托瓦兹没有保留Linux源代码的版权，公开了代码，并邀请他人一起完善Linux。据估计，现在只有2%的Linux核心代码是由李纳斯•托瓦兹自己编写的，虽然他仍然拥有Linux内核（操作系统的核心部分），并且保留了选择新代码和需要合并的新方法的最终裁定权(Benevolent dictator for life, BDFL)。</li>
+</ul>
+<h2 id="shell的配置"><a href="#shell的配置" class="headerlink" title="shell的配置"></a>shell的配置</h2><p>很多程序的配置都是通过纯文本格式的被称作_点文件_的配置文件来完成的（之所以称为点文件，是因为它们的文件名以 <code>.</code> 开头，例如 <code>~/.vimrc</code>。也正因为此，它们默认是隐藏文件，<code>ls</code>并不会显示它们）。</p>
+<p>shell 的配置也是通过这类文件完成的。在启动时，您的 shell 程序会读取很多文件以加载其配置项。根据 shell 本身的不同，您从登录开始还是以交互的方式完成这一过程可能会有很大的不同。关于这一话题，<a target="_blank" rel="noopener" href="https://blog.flowblok.id.au/2013-02/shell-startup-scripts.html">这里</a> 有非常好的资源</p>
+<p>对于 <code>bash</code>来说，在大多数系统下，您可以通过编辑 <code>.bashrc</code> 或 <code>.bash_profile</code> 来进行配置。在文件中您可以添加需要在启动时执行的命令，例如上文我们讲到过的别名，或者是您的环境变量。</p>
+<p>实际上，很多程序都要求您在 shell 的配置文件中包含一行类似 <code>export PATH=&quot;$PATH:/path/to/program/bin&quot;</code> 的命令，这样才能确保这些程序能够被 shell 找到。</p>
+<p>还有一些其他的工具也可以通过_点文件_进行配置：</p>
+<ul>
+<li><code>bash</code> - <code>~/.bashrc</code>, <code>~/.bash_profile</code></li>
+<li><code>git</code> - <code>~/.gitconfig</code></li>
+<li><code>vim</code> - <code>~/.vimrc</code> 和 <code>~/.vim</code> 目录</li>
+<li><code>ssh</code> - <code>~/.ssh/config</code></li>
+<li><code>tmux</code> - <code>~/.tmux.conf</code></li>
+</ul>
+<p>我们应该如何管理这些配置文件呢，它们应该在它们的文件夹下，并使用版本控制系统进行管理，然后通过脚本将其 <strong>符号链接</strong> 到需要的地方。这么做有如下好处：</p>
+<ul>
+<li><strong>安装简单</strong>: 如果您登录了一台新的设备，在这台设备上应用您的配置只需要几分钟的时间；</li>
+<li><strong>可以执行</strong>: 您的工具在任何地方都以相同的配置工作</li>
+<li><strong>同步</strong>: 在一处更新配置文件，可以同步到其他所有地方</li>
+<li><strong>变更追踪</strong>: 您可能要在整个程序员生涯中持续维护这些配置文件，而对于长期项目而言，版本历史是非常重要的</li>
+<li>配置文件的一个常见的痛点是它可能并不能在多种设备上生效。例如，如果您在不同设备上使用的操作系统或者 shell 是不同的，则配置文件是无法生效的。或者，有时您仅希望特定的配置只在某些设备上生效。</li>
+</ul>
+<p>有一些技巧可以轻松达成这些目的。如果配置文件 if 语句，则您可以借助它针对不同的设备编写不同的配置。例如，您的 shell 可以这样做：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">if [[ &quot;$(uname)&quot; == &quot;Linux&quot; ]]; then &#123;do_something&#125;; fi</span><br><span class="line"></span><br><span class="line"># 使用和 shell 相关的配置时先检查当前 shell 类型</span><br><span class="line">if [[ &quot;$SHELL&quot; == &quot;zsh&quot; ]]; then &#123;do_something&#125;; fi</span><br><span class="line"></span><br><span class="line"># 您也可以针对特定的设备进行配置</span><br><span class="line">if [[ &quot;$(hostname)&quot; == &quot;myServer&quot; ]]; then &#123;do_something&#125;; fi</span><br></pre></td></tr></table></figure>
+
+<p>如果配置文件支持 include 功能，您也可以多加利用。例如：<code>~/.gitconfig</code> 可以这样编写：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[include]</span><br><span class="line">    path = ~/.gitconfig_local</span><br></pre></td></tr></table></figure>
+
+<p>然后我们可以在日常使用的设备上创建配置文件 <code>~/.gitconfig_local</code> 来包含与该设备相关的特定配置。您甚至应该创建一个单独的代码仓库来管理这些与设备相关的配置。</p>
+<p>如果您希望在不同的程序之间共享某些配置，该方法也适用。例如，如果您想要在 <code>bash</code> 和 <code>zsh</code> 中同时启用一些别名，您可以把它们写在 <code>.aliases</code> 里，然后在这两个 shell 里应用：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># Test if ~/.aliases exists and source it</span><br><span class="line">if [ -f ~/.aliases ]; then</span><br><span class="line">    source ~/.aliases</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+
+<h2 id="包管理"><a href="#包管理" class="headerlink" title="包管理"></a>包管理</h2><p>在Ubuntu下，我们也可以在网站上下载软件包，后缀为<code>.deb</code>，然后调用<code>dpkg</code>进行安装：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo dpkg -i xxx.deb</span><br></pre></td></tr></table></figure>
+
+<p><code>.deb</code>文件后缀是<a target="_blank" rel="noopener" href="https://www.debian.org/">Debian</a>系统的 软件包格式，Ubuntu基于Debian开发因此使用相同的软件包格式，里面包含了程序的二进制文件、配置文件、man&#x2F;info帮助页面等信息。用户 不同的任务依赖大量的软件支撑，不同的软件往往有着复杂的依赖关系，一个软件往往也有很多版本，为了管理这么多的软件，Ubuntu提供了统一的软件管理 机制，也就是<code>dpkg</code>和<code>ap![[download.gif]]t</code>。 <code>dpkg</code>的用法如上所示，<code>dpkg -l</code>可以列出所有的以安装软件，<code>dpkg -r</code>卸载软件，更多命令可以使用<code>dpkg --help</code>或者<code>man dpkg</code>。dpkg安装完成之后，默认文件存放位置如下：</p>
+<ul>
+<li>二进制文件：<code>/usr/bin</code></li>
+<li>库文件：<code>/usr/lib</code></li>
+<li>配置文件：<code>/etc</code></li>
+<li>使用手册和帮助文档：<code>/usr/share/doc</code></li>
+<li>man帮助页面：<code>/usr/share/man</code></li>
+</ul>
+<p>然而dpkg并不是万能的，当某个软件的依赖项没有安装时dpkg就会报错，需要用户手动安装依赖项。apt很好地解决了这一问题。首先开发者会将 编译后的二进制文件和软件信息存放在Ubuntu的源服务器上，当需要安装软件时，apt会自动从服务器上获取软件依赖信息，然后从服务器上下载依赖并安 装，然后再安装需要的软件。服务器的信息记录在本地的<code>/etc/apt/sources.list</code>中：</p>
+<h2 id="shell脚本"><a href="#shell脚本" class="headerlink" title="shell脚本"></a>shell脚本</h2><h3 id="赋值"><a href="#赋值" class="headerlink" title="赋值"></a>赋值</h3><p>在bash中为变量赋值的语法是<code>foo=bar</code>，访问变量中存储的数值，其语法为 <code>$foo</code>。 需要注意的是，<code>foo = bar</code> （使用空格隔开）是不能正确工作的，因为解释器会调用程序<code>foo</code> 并将 <code>=</code> 和 <code>bar</code>作为参数。 总的来说，在shell脚本中使用空格会起到分割参数的作用，有时候可能会造成混淆，请务必多加检查。</p>
+<p>Bash中的字符串通过<code>&#39;</code> 和 <code>&quot;</code>分隔符来定义，但是它们的含义并不相同。以<code>&#39;</code>定义的字符串为原义字符串，其中的变量不会被转义，而 <code>&quot;</code>定义的字符串会将变量值进行替换</p>
+<h3 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h3><ul>
+<li><code>$0</code> - 脚本名</li>
+<li><code>$1</code> 到 <code>$9</code> - 脚本的参数。 <code>$1</code> 是第一个参数，依此类推。</li>
+<li><code>$@</code> - 所有参数</li>
+<li><code>$#</code> - 参数个数</li>
+<li><code>$?</code> - 前一个命令的返回值</li>
+<li><code>$$</code> - 当前脚本的进程识别码</li>
+<li><code>!!</code> - 完整的上一条命令，包括参数。常见应用：当你因为权限不足执行命令失败时，可以使用 <code>sudo !!</code>再尝试一次。</li>
+<li><code>$_</code> - 上一条命令的最后一个参数。如果你正在使用的是交互式 shell，你可以通过按下 <code>Esc</code> 之后键入 . 来获取这个值。</li>
+</ul>
+<h3 id="返回值"><a href="#返回值" class="headerlink" title="返回值"></a>返回值</h3><p>当您通过 <code>$( CMD )</code> 这样的方式来执行<code>CMD</code> 这个命令时，它的输出结果会替换掉 <code>$( CMD )</code> 。例如，如果执行 <code>for file in $(ls)</code> ，shell首先将调用<code>ls</code> ，然后遍历得到的这些返回值。还有一个冷门的类似特性是 _进程替换_（_process substitution_）， <code>&lt;( CMD )</code> 会执行 <code>CMD</code> 并将结果输出到一个临时文件中，并将 <code>&lt;( CMD )</code> 替换成临时文件名。这在我们希望返回值通过文件而不是STDIN传递时很有用。例如， <code>diff &lt;(ls foo) &lt;(ls bar)</code> 会显示文件夹 <code>foo</code> 和 <code>bar</code> 中文件的区别</p>
+<h2 id="查找"><a href="#查找" class="headerlink" title="查找"></a>查找</h2><h3 id="查找文件"><a href="#查找文件" class="headerlink" title="查找文件"></a>查找文件</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 查找所有名称为src的文件夹</span><br><span class="line">find . -name src -type d</span><br><span class="line"># 查找所有文件夹路径中包含test的python文件</span><br><span class="line">find . -path &#x27;*/test/*.py&#x27; -type f</span><br><span class="line"># 查找前一天修改的所有文件</span><br><span class="line">find . -mtime -1</span><br><span class="line"># 查找所有大小在500k至10M的tar.gz文件</span><br><span class="line">find . -size +500k -size -10M -name &#x27;*.tar.gz&#x27;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 删除全部扩展名为.tmp 的文件</span><br><span class="line">find . -name &#x27;*.tmp&#x27; -exec rm &#123;&#125; \;</span><br><span class="line"># 查找全部的 PNG 文件并将其转换为 JPG</span><br><span class="line">find . -name &#x27;*.png&#x27; -exec convert &#123;&#125; &#123;&#125;.jpg \;</span><br></pre></td></tr></table></figure>
+
+<p>尽管 <code>find</code> 用途广泛，它的语法却比较难以记忆。例如，为了查找满足模式 <code>PATTERN</code> 的文件，您需要执行 <code>find -name &#39;*PATTERN*&#39;</code> (如果您希望模式匹配时是不区分大小写，可以使用<code>-iname</code>选项）</p>
+<p>您当然可以使用 alias 设置别名来简化上述操作，但 shell 的哲学之一便是寻找（更好用的）替代方案。 记住，shell 最好的特性就是您只是在调用程序，因此您只要找到合适的替代程序即可（甚至自己编写）。</p>
+<p>例如，<a target="_blank" rel="noopener" href="https://github.com/sharkdp/fd"><code>fd</code></a> 就是一个更简单、更快速、更友好的程序，它可以用来作为<code>find</code>的替代品。它有很多不错的默认设置，例如输出着色、默认支持正则匹配、支持unicode并且我认为它的语法更符合直觉。以模式<code>PATTERN</code> 搜索的语法是 <code>fd PATTERN</code>。</p>
+<p>大多数人都认为 <code>find</code> 和 <code>fd</code> 已经很好用了，但是有的人可能想知道，我们是不是可以有更高效的方法，例如不要每次都搜索文件而是通过编译索引或建立数据库的方式来实现更加快速地搜索。</p>
+<p>这就要靠 <a target="_blank" rel="noopener" href="https://man7.org/linux/man-pages/man1/locate.1.html"><code>locate</code></a> 了。 <code>locate</code> 使用一个由 <a target="_blank" rel="noopener" href="https://man7.org/linux/man-pages/man1/updatedb.1.html"><code>updatedb</code></a>负责更新的数据库，在大多数系统中 <code>updatedb</code> 都会通过 <a target="_blank" rel="noopener" href="https://man7.org/linux/man-pages/man8/cron.8.html"><code>cron</code></a> 每日更新。这便需要我们在速度和时效性之间作出权衡。而且，<code>find</code> 和类似的工具可以通过别的属性比如文件大小、修改时间或是权限来查找文件，<code>locate</code>则只能通过文件名。 <a target="_blank" rel="noopener" href="https://unix.stackexchange.com/questions/60205/locate-vs-find-usage-pros-and-cons-of-each-other">这里</a>有一个更详细的对比。</p>
+<h3 id="查找代码"><a href="#查找代码" class="headerlink" title="查找代码"></a>查找代码</h3><p><code>grep</code> 有很多选项，这也使它成为一个非常全能的工具。其中我经常使用的有 <code>-C</code> ：获取查找结果的上下文（Context）；<code>-v</code> 将对结果进行反选（Invert），也就是输出不匹配的结果。举例来说， <code>grep -C 5</code> 会输出匹配结果前后五行。当需要搜索大量文件的时候，使用 <code>-R</code> 会递归地进入子目录并搜索所有的文本文件。<br>它的替代品，包括 <a target="_blank" rel="noopener" href="https://beyondgrep.com/">ack</a>, <a target="_blank" rel="noopener" href="https://github.com/ggreer/the_silver_searcher">ag</a> 和 <a target="_blank" rel="noopener" href="https://github.com/BurntSushi/ripgrep">rg</a>。它们都特别好用，但是功能也都差不多，我比较常用的是 ripgrep (<code>rg</code>) ，因为它速度快，而且用法非常符合直觉。例子如下：****</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 查找所有使用了 requests 库的文件</span><br><span class="line">rg -t py &#x27;import requests&#x27;</span><br><span class="line"># 查找所有没有写 shebang 的文件（包含隐藏文件）</span><br><span class="line">rg -u --files-without-match &quot;^#!&quot;</span><br><span class="line"># 查找所有的foo字符串，并打印其之后的5行</span><br><span class="line">rg foo -A 5</span><br><span class="line"># 打印匹配的统计信息（匹配的行和文件的数量）</span><br><span class="line">rg --stats PATTERN</span><br></pre></td></tr></table></figure>
+
+<h2 id="使用建议"><a href="#使用建议" class="headerlink" title="使用建议"></a>使用建议</h2><h3 id="建立别名"><a href="#建立别名" class="headerlink" title="建立别名"></a>建立别名</h3><p>输入一长串包含许多选项的命令会非常麻烦。因此，大多数 shell 都支持设置别名。shell 的别名相当于一个长命令的缩写，shell 会自动将其替换成原本的命令。例如，bash 中的别名语法如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alias alias_name=&quot;command_to_alias arg1 arg2&quot;</span><br></pre></td></tr></table></figure>
+
+<p>注意， <code>=</code>两边是没有空格的，因为 <a target="_blank" rel="noopener" href="https://www.man7.org/linux/man-pages/man1/alias.1p.html"><code>alias</code></a> 是一个 shell 命令，它只接受一个参数。</p>
+<p>别名有许多很方便的特性:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"># 创建常用命令的缩写</span><br><span class="line">alias ll=&quot;ls -lh&quot;</span><br><span class="line"></span><br><span class="line"># 能够少输入很多</span><br><span class="line">alias gs=&quot;git status&quot;</span><br><span class="line">alias gc=&quot;git commit&quot;</span><br><span class="line">alias v=&quot;vim&quot;</span><br><span class="line"></span><br><span class="line"># 手误打错命令也没关系</span><br><span class="line">alias sl=ls</span><br><span class="line"></span><br><span class="line"># 重新定义一些命令行的默认行为</span><br><span class="line">alias mv=&quot;mv -i&quot;           # -i prompts before overwrite</span><br><span class="line">alias mkdir=&quot;mkdir -p&quot;     # -p make parent dirs as needed</span><br><span class="line">alias df=&quot;df -h&quot;           # -h prints human readable format</span><br><span class="line"></span><br><span class="line"># 别名可以组合使用</span><br><span class="line">alias la=&quot;ls -A&quot;</span><br><span class="line">alias lla=&quot;la -l&quot;</span><br><span class="line"></span><br><span class="line"># 在忽略某个别名</span><br><span class="line">\ls</span><br><span class="line"># 或者禁用别名</span><br><span class="line">unalias la</span><br><span class="line"></span><br><span class="line"># 获取别名的定义</span><br><span class="line">alias ll</span><br><span class="line"># 会打印 ll=&#x27;ls -lh&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>值得注意的是，在默认情况下 shell 并不会保存别名。为了让别名持续生效，您需要将配置放进 shell 的启动文件里，像是<code>.bashrc</code> 或 <code>.zshrc</code>，</p>
+<h3 id="tips"><a href="#tips" class="headerlink" title="tips"></a>tips</h3><p>右击边框开启设置菜单<br><code>history</code> 命令允许您以程序员的方式来访问shell中输入的历史命令。这个命令会在标准输出中打印shell中的里面命令。如果我们要搜索历史记录，则可以利用管道将输出结果传递给 <code>grep</code> 进行模式搜索。 <code>history | grep find</code> 会打印包含find子串的命令。</p>
+<p>对于大多数的shell来说，您可以使用 <code>Ctrl+R</code> 对命令历史记录进行回溯搜索。敲 <code>Ctrl+R</code> 后您可以输入子串来进行匹配，查找历史命令行。</p>
+<p>反复按下就会在所有搜索结果中循环。在 <a target="_blank" rel="noopener" href="https://github.com/zsh-users/zsh-history-substring-search">zsh</a> 中，使用方向键上或下也可以完成这项工作。</p>
+<p><code>Ctrl+R</code> 可以配合 <a target="_blank" rel="noopener" href="https://github.com/junegunn/fzf/wiki/Configuring-shell-key-bindings#ctrl-r">fzf</a> 使用。<code>fzf</code> 是一个通用对模糊查找工具，它可以和很多命令一起使用。这里我们可以对历史命令进行模糊查找并将结果以赏心悦目的格式输出。</p>
+<p>另外一个和历史命令相关的技巧我喜欢称之为<strong>基于历史的自动补全</strong>。 这一特性最初是由 <a target="_blank" rel="noopener" href="https://fishshell.com/">fish</a> shell 创建的，它可以根据您最近使用过的开头相同的命令，动态地对当前对shell命令进行补全。这一功能在 <a target="_blank" rel="noopener" href="https://github.com/zsh-users/zsh-autosuggestions">zsh</a> 中也可以使用，它可以极大的提高用户体验。</p>
+<p>你可以修改 shell history 的行为，例如，如果在命令的开头加上一个空格，它就不会被加进shell记录中。当你输入包含密码或是其他敏感信息的命令时会用到这一特性。 为此你需要在<code>.bashrc</code>中添加<code>HISTCONTROL=ignorespace</code>或者向<code>.zshrc</code> 添加 <code>setopt HIST_IGNORE_SPACE</code>。 如果你不小心忘了在前面加空格，可以通过编辑。<code>bash_history</code>或 <code>.zhistory</code> 来手动地从历史记录中移除那一项。<br><a target="_blank" rel="noopener" href="https://github.com/clvv/fasd"><code>fasd</code></a>和 <a target="_blank" rel="noopener" href="https://github.com/wting/autojump">autojump</a> 这两个工具来查找最常用或最近使用的文件和目录。</p>
+<p>Fasd 基于 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Mozilla/Tech/Places/Frecency_algorithm"><em>frecency</em></a> 对文件和文件排序，也就是说它会同时针对频率（_frequency_）和时效（_recency_）进行排序。默认情况下，<code>fasd</code>使用命令 <code>z</code> 帮助我们快速切换到最常访问的目录。例如， 如果您经常访问<code>/home/user/files/cool_project</code> 目录，那么可以直接使用 <code>z cool</code> 跳转到该目录。对于 autojump，则使用<code>j cool</code>代替即可。</p>
+<p>还有一些更复杂的工具可以用来概览目录结构，例如 <a target="_blank" rel="noopener" href="https://linux.die.net/man/1/tree"><code>tree</code></a>, <a target="_blank" rel="noopener" href="https://github.com/Canop/broot"><code>broot</code></a> 或更加完整的文件管理器，例如 <a target="_blank" rel="noopener" href="https://github.com/jarun/nnn"><code>nnn</code></a> 或 <a target="_blank" rel="noopener" href="https://github.com/ranger/ranger"><code>ranger</code></a>。</p>
+<h2 id="命令行环境"><a href="#命令行环境" class="headerlink" title="命令行环境"></a>命令行环境</h2><h3 id="默认环境变量"><a href="#默认环境变量" class="headerlink" title="默认环境变量"></a>默认环境变量</h3><p>因为Shell中定义的环境变量之后影响子进程，为了避免我们每次都需要在使用前定义环境变量，我们可以将这一设置写进<code>~/.bashrc</code>里，这个配置文件会在每次启动bash时执行。<code>~/.bashrc</code>中已经包含了很多配置，我们要做的就是在最后添加</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export HELLO=hello</span><br></pre></td></tr></table></figure>
+
+<p>然后执行<code>source ~/.bashrc</code>，这样就可以在每次打开Shell的时候定义这一环境变量。利用这个机制，假如我们想把自定义的命令加入<code>PATH</code>中时就可以在<code>~/.bashrc</code>中添加</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export PATH=/path/to/bin:$PATH</span><br></pre></td></tr></table></figure>
+
+<p>这样命令就会添加到Shell的搜索路径中。需要注意的一点是，如果使用的是zsh，需要修改的就不是<code>~/.bashrc</code>，而是<code>~/.zshrc</code></p>
+<h3 id="端口转发"><a href="#端口转发" class="headerlink" title="端口转发"></a>端口转发</h3><p>很多情况下我们都会遇到软件需要监听特定设备的端口。如果是在您的本机，可以使用 <code>localhost:PORT</code> 或 <code>127.0.0.1:PORT</code>。但是如果需要监听远程服务器的端口该如何操作呢？这种情况下远端的端口并不会直接通过网络暴露给您。</p>
+<p>此时就需要进行 _端口转发_。端口转发有两种，一种是本地端口转发和远程端口转发（参见下图，该图片引用自这篇<a target="_blank" rel="noopener" href="https://unix.stackexchange.com/questions/115897/whats-ssh-port-forwarding-and-whats-the-difference-between-ssh-local-and-remot">StackOverflow 文章</a>）中的图片。</p>
+<p><strong>本地端口转发</strong> <img src="https://i.stack.imgur.com/a28N8.png" alt="Local Port Forwarding" title="本地端口转发"></p>
+<p><strong>远程端口转发</strong> <img src="https://i.stack.imgur.com/4iK3b.png" alt="Remote Port Forwarding" title="远程端口转发"></p>
+<p>常见的情景是使用本地端口转发，即远端设备上的服务监听一个端口，而您希望在本地设备上的一个端口建立连接并转发到远程端口上。例如，我们在远端服务器上运行 Jupyter notebook 并监听 <code>8888</code> 端口。 然后，建立从本地端口 <code>9999</code> 的转发，使用 <code>ssh -L 9999:localhost:8888 foobar@remote_server</code> 。这样只需要访问本地的 <code>localhost:9999</code> 即可。</p>
+<h3 id="信号机制"><a href="#信号机制" class="headerlink" title="信号机制"></a>信号机制</h3><p>您的 shell 会使用 UNIX 提供的信号机制执行进程间通信。当一个进程接收到信号时，它会停止执行、处理该信号并基于信号传递的信息来改变其执行。就这一点而言，信号是一种_软件中断_。</p>
+<p>在上面的例子中，当我们输入 <code>Ctrl-C</code> 时，shell 会发送一个<code>SIGINT</code> 信号到进程。</p>
+<p>下面这个 Python 程序向您展示了捕获信号<code>SIGINT</code> 并忽略它的基本操作，它并不会让程序停止。为了停止这个程序，我们需要使用<code>SIGQUIT</code> 信号，通过输入<code>Ctrl-\</code>可以发送该信号。<br>尽管 <code>SIGINT</code> 和 <code>SIGQUIT</code> 都常常用来发出和终止程序相关的请求。<code>SIGTERM</code> 则是一个更加通用的、也更加优雅地退出信号。为了发出这个信号我们需要使用 <a target="_blank" rel="noopener" href="https://www.man7.org/linux/man-pages/man1/kill.1.html"><code>kill</code></a> 命令, 它的语法是： <code>kill -TERM &lt;PID&gt;</code>。<br>信号可以让进程做其他的事情，而不仅仅是终止它们。例如，<code>SIGSTOP</code> 会让进程暂停。在终端中，键入 <code>Ctrl-Z</code> 会让 shell 发送 <code>SIGTSTP</code> 信号，<code>SIGTSTP</code>是 Terminal Stop 的缩写（即<code>terminal</code>版本的SIGSTOP）。</p>
+<p>我们可以使用 <a target="_blank" rel="noopener" href="https://www.man7.org/linux/man-pages/man1/fg.1p.html"><code>fg</code></a> 或 <a target="_blank" rel="noopener" href="http://man7.org/linux/man-pages/man1/bg.1p.html"><code>bg</code></a> 命令恢复暂停的工作。它们分别表示在前台继续或在后台继续。</p>
+<p><a target="_blank" rel="noopener" href="http://man7.org/linux/man-pages/man1/jobs.1p.html"><code>jobs</code></a> 命令会列出当前终端会话中尚未完成的全部任务。您可以使用 pid 引用这些任务（也可以用 <a target="_blank" rel="noopener" href="https://www.man7.org/linux/man-pages/man1/pgrep.1.html"><code>pgrep</code></a> 找出 pid）。更加符合直觉的操作是您可以使用百分号 + 任务编号（<code>jobs</code> 会打印任务编号）来选取该任务。如果要选择最近的一个任务，可以使用 <code>$!</code> 这一特殊参数。</p>
+<p>还有一件事情需要掌握，那就是命令中的 <code>&amp;</code> 后缀可以让命令在直接在后台运行，这使得您可以直接在 shell 中继续做其他操作，不过它此时还是会使用 shell 的标准输出，这一点有时会比较恼人（这种情况可以使用 shell 重定向处理）。</p>
+<p>让已经在运行的进程转到后台运行，您可以键入<code>Ctrl-Z</code> ，然后紧接着再输入<code>bg</code>。注意，后台的进程仍然是您的终端进程的子进程，一旦您关闭终端（会发送另外一个信号<code>SIGHUP</code>），这些后台的进程也会终止。为了防止这种情况发生，您可以使用 <a target="_blank" rel="noopener" href="https://www.man7.org/linux/man-pages/man1/nohup.1.html"><code>nohup</code></a> (一个用来忽略 <code>SIGHUP</code> 的封装) 来运行程序。针对已经运行的程序，可以使用<code>disown</code> 。除此之外，您可以使用终端多路复用器来实现。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">$ sleep 1000</span><br><span class="line">^Z</span><br><span class="line">[1]  + 18653 suspended  sleep 1000</span><br><span class="line"></span><br><span class="line">$ nohup sleep 2000 &amp;</span><br><span class="line">[2] 18745</span><br><span class="line">appending output to nohup.out</span><br><span class="line"></span><br><span class="line">$ jobs</span><br><span class="line">[1]  + suspended  sleep 1000</span><br><span class="line">[2]  - running    nohup sleep 2000</span><br><span class="line"></span><br><span class="line">$ bg %1</span><br><span class="line">[1]  - 18653 continued  sleep 1000</span><br><span class="line"></span><br><span class="line">$ jobs</span><br><span class="line">[1]  - running    sleep 1000</span><br><span class="line">[2]  + running    nohup sleep 2000</span><br><span class="line"></span><br><span class="line">$ kill -STOP %1</span><br><span class="line">[1]  + 18653 suspended (signal)  sleep 1000</span><br><span class="line"></span><br><span class="line">$ jobs</span><br><span class="line">[1]  + suspended (signal)  sleep 1000</span><br><span class="line">[2]  - running    nohup sleep 2000</span><br><span class="line"></span><br><span class="line">$ kill -SIGHUP %1</span><br><span class="line">[1]  + 18653 hangup     sleep 1000</span><br><span class="line"></span><br><span class="line">$ jobs</span><br><span class="line">[2]  + running    nohup sleep 2000</span><br><span class="line"></span><br><span class="line">$ kill -SIGHUP %2</span><br><span class="line"></span><br><span class="line">$ jobs</span><br><span class="line">[2]  + running    nohup sleep 2000</span><br><span class="line"></span><br><span class="line">$ kill %2</span><br><span class="line">[2]  + 18745 terminated  nohup sleep 2000</span><br><span class="line"></span><br><span class="line">$ jobs</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><code>SIGKILL</code> 是一个特殊的信号，它不能被进程捕获并且它会马上结束该进程。不过这样做会有一些副作用，例如留下孤儿进程。</p>
+<h3 id="tmux多路终端复用"><a href="#tmux多路终端复用" class="headerlink" title="tmux多路终端复用"></a>tmux多路终端复用</h3><p>当您在使用命令行时，您通常会希望同时执行多个任务。举例来说，您可以想要同时运行您的编辑器，并在终端的另外一侧执行程序。尽管再打开一个新的终端窗口也能达到目的，使用终端多路复用器则是一种更好的办法。</p>
+<p>像 <a target="_blank" rel="noopener" href="https://www.man7.org/linux/man-pages/man1/tmux.1.html"><code>tmux</code></a> 这类的终端多路复用器可以允许我们基于面板和标签分割出多个终端窗口，这样您便可以同时与多个 shell 会话进行交互。</p>
+<p>不仅如此，终端多路复用使我们可以分离当前终端会话并在将来重新连接。</p>
+<p>这让您操作远端设备时的工作流大大改善，避免了 <code>nohup</code> 和其他类似技巧的使用。</p>
+<p>现在最流行的终端多路器是 <a target="_blank" rel="noopener" href="https://www.man7.org/linux/man-pages/man1/tmux.1.html"><code>tmux</code></a>。<code>tmux</code> 是一个高度可定制的工具，您可以使用相关快捷键创建多个标签页并在它们间导航。</p>
+<p><code>tmux</code> 的快捷键需要我们掌握，它们都是类似 <code>&lt;C-b&gt; x</code> 这样的组合，即需要先按下<code>Ctrl+b</code>，松开后再按下 <code>x</code>。<code>tmux</code> 中对象的继承结构如下：</p>
+<ul>
+<li><strong>会话</strong> - 每个会话都是一个独立的工作区，其中包含一个或多个窗口<ul>
+<li><code>tmux</code> 开始一个新的会话</li>
+<li><code>tmux new -s NAME</code> 以指定名称开始一个新的会话</li>
+<li><code>tmux ls</code> 列出当前所有会话</li>
+<li>在 <code>tmux</code> 中输入 <code>&lt;C-b&gt; d</code> ，将当前会话分离</li>
+<li><code>tmux a</code> 重新连接最后一个会话。您也可以通过 <code>-t</code> 来指定具体的会话</li>
+</ul>
+</li>
+<li><strong>窗口</strong> - 相当于编辑器或是浏览器中的标签页，从视觉上将一个会话分割为多个部分<ul>
+<li><code>&lt;C-b&gt; c</code> 创建一个新的窗口，使用 <code>&lt;C-d&gt;</code>关闭</li>
+<li><code>&lt;C-b&gt; N</code> 跳转到第 <em>N</em> 个窗口，注意每个窗口都是有编号的</li>
+<li><code>&lt;C-b&gt; p</code> 切换到前一个窗口</li>
+<li><code>&lt;C-b&gt; n</code> 切换到下一个窗口</li>
+<li><code>&lt;C-b&gt; ,</code> 重命名当前窗口</li>
+<li><code>&lt;C-b&gt; w</code> 列出当前所有窗口</li>
+</ul>
+</li>
+<li><strong>面板</strong> - 像 vim 中的分屏一样，面板使我们可以在一个屏幕里显示多个 shell<ul>
+<li><code>&lt;C-b&gt; &quot;</code> 水平分割</li>
+<li><code>&lt;C-b&gt; %</code> 垂直分割</li>
+<li><code>&lt;C-b&gt; &lt;方向&gt;</code> 切换到指定方向的面板，&lt;方向&gt; 指的是键盘上的方向键</li>
+<li><code>&lt;C-b&gt; z</code> 切换当前面板的缩放</li>
+<li><code>&lt;C-b&gt; [</code> 开始往回卷动屏幕。您可以按下空格键来开始选择，回车键复制选中的部分</li>
+<li><code>&lt;C-b&gt; &lt;空格&gt;</code> 在不同的面板排布间切换</li>
+</ul>
+</li>
+</ul>
+<h3 id="ssh"><a href="#ssh" class="headerlink" title="ssh"></a>ssh</h3><p>通过如下命令，您可以使用 <code>ssh</code> 连接到其他服务器：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh foo@bar.mit.edu</span><br></pre></td></tr></table></figure>
+
+<p>这里我们尝试以用户名 <code>foo</code> 登录服务器 <code>bar.mit.edu</code>。服务器可以通过 URL 指定（例如<code>bar.mit.edu</code>），也可以使用 IP 指定（例如<code>foobar@192.168.1.42</code>）。后面我们会介绍如何修改 ssh 配置文件使我们可以用类似 <code>ssh bar</code> 这样的命令来登录服务器。</p>
+<h4 id="执行命令"><a href="#执行命令" class="headerlink" title="执行命令"></a>执行命令</h4><p><code>ssh</code> 的一个经常被忽视的特性是它可以直接远程执行命令。 <code>ssh foobar@server ls</code> 可以直接在用foobar的命令下执行 <code>ls</code> 命令。 想要配合管道来使用也可以， <code>ssh foobar@server ls | grep PATTERN</code> 会在本地查询远端 <code>ls</code> 的输出而 <code>ls | ssh foobar@server grep PATTERN</code> 会在远端对本地 <code>ls</code> 输出的结果进行查询。</p>
+<h4 id="SSH-密钥"><a href="#SSH-密钥" class="headerlink" title="SSH 密钥"></a>SSH 密钥</h4><p>基于密钥的验证机制使用了密码学中的公钥，我们只需要向服务器证明客户端持有对应的私钥，而不需要公开其私钥。这样您就可以避免每次登录都输入密码的麻烦了秘密就可以登录。不过，私钥(通常是 <code>~/.ssh/id_rsa</code> 或者 <code>~/.ssh/id_ed25519</code>) 等效于您的密码，所以一定要好好保存它。</p>
+<h4 id="密钥生成"><a href="#密钥生成" class="headerlink" title="密钥生成"></a>密钥生成</h4><p>使用 <a target="_blank" rel="noopener" href="http://man7.org/linux/man-pages/man1/ssh-keygen.1.html"><code>ssh-keygen</code></a> 命令可以生成一对密钥：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -o -a 100 -t ed25519 -f ~/.ssh/id_ed25519</span><br></pre></td></tr></table></figure>
+
+<p>您可以为密钥设置密码，防止有人持有您的私钥并使用它访问您的服务器。您可以使用 <a target="_blank" rel="noopener" href="https://www.man7.org/linux/man-pages/man1/ssh-agent.1.html"><code>ssh-agent</code></a> 或 <a target="_blank" rel="noopener" href="https://linux.die.net/man/1/gpg-agent"><code>gpg-agent</code></a> ，这样就不需要每次都输入该密码了。</p>
+<p>如果您曾经配置过使用 SSH 密钥推送到 GitHub，那么可能您已经完成了<a target="_blank" rel="noopener" href="https://help.github.com/articles/connecting-to-github-with-ssh/">这里</a> 介绍的这些步骤，并且已经有了一个可用的密钥对。要检查您是否持有密码并验证它，您可以运行 <code>ssh-keygen -y -f /path/to/key</code>.</p>
+<h4 id="基于密钥的认证机制"><a href="#基于密钥的认证机制" class="headerlink" title="基于密钥的认证机制"></a>基于密钥的认证机制</h4><p>使用 <a target="_blank" rel="noopener" href="http://man7.org/linux/man-pages/man1/ssh-keygen.1.html"><code>ssh-keygen</code></a> 命令可以生成一对密钥：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -o -a 100 -t ed25519 -f ~/.ssh/id_ed25519</span><br></pre></td></tr></table></figure>
+
+<p>您可以为密钥设置密码，防止有人持有您的私钥并使用它访问您的服务器。您可以使用 <a target="_blank" rel="noopener" href="https://www.man7.org/linux/man-pages/man1/ssh-agent.1.html"><code>ssh-agent</code></a> 或 <a target="_blank" rel="noopener" href="https://linux.die.net/man/1/gpg-agent"><code>gpg-agent</code></a> ，这样就不需要每次都输入该密码了。</p>
+<p>如果您曾经配置过使用 SSH 密钥推送到 GitHub，那么可能您已经完成了<a target="_blank" rel="noopener" href="https://help.github.com/articles/connecting-to-github-with-ssh/">这里</a> 介绍的这些步骤，并且已经有了一个可用的密钥对。要检查您是否持有密码并验证它，您可以运行 <code>ssh-keygen -y -f /path/to/key</code>.</p>
+<h3 id="G-基于密钥的认证机制"><a href="#G-基于密钥的认证机制" class="headerlink" title="G# 基于密钥的认证机制"></a>G# 基于密钥的认证机制</h3><p><code>ssh</code> 会查询 <code>.ssh/authorized_keys</code> 来确认那些用户可以被允许登录。您可以通过下面的命令将一个公钥拷贝到这里：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat .ssh/id_ed25519 | ssh foobar@remote &#x27;cat &gt;&gt; ~/.ssh/authorized_keys&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>如果支持 <code>ssh-copy-id</code> 的话，可以使用下面这种更简单的解决方案：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-copy-id -i .ssh/id_ed25519.pub foobar@remote</span><br></pre></td></tr></table></figure>
+
+<h2 id="文本匹配"><a href="#文本匹配" class="headerlink" title="文本匹配"></a>文本匹配</h2><ul>
+<li>当你想要利用通配符进行匹配时，你可以分别使用 <code>?</code> 和 <code>*</code> 来匹配一个或任意个字符。例如，对于文件<code>foo</code>, <code>foo1</code>, <code>foo2</code>, <code>foo10</code> 和 <code>bar</code>, <code>rm foo?</code>这条命令会删除<code>foo1</code> 和 <code>foo2</code> ，而<code>rm foo*</code> 则会删除除了<code>bar</code>之外的所有文件。</li>
+<li>花括号<code>&#123;&#125;</code> - 当你有一系列的指令，其中包含一段公共子串时，可以用花括号来自动展开这些命令。这在批量移动或转换文件时非常方便。</li>
+<li>![[Pasted image 20230128155221.png]]</li>
+</ul>
+<h3 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h3><p>正则表达式通常以（尽管并不总是） <code>/</code>开始和结束。大多数的 ASCII 字符都表示它们本来的含义，但是有一些字符确实具有表示匹配行为的“特殊”含义。不同字符所表示的含义，根据正则表达式的实现方式不同，也会有所变化，这一点确实令人沮丧。常见的模式有：</p>
+<ul>
+<li><code>.</code> 除换行符之外的”任意单个字符”</li>
+<li><code>*</code> 匹配前面字符零次或多次</li>
+<li><code>+</code> 匹配前面字符一次或多次</li>
+<li><code>[abc]</code> 匹配 <code>a</code>, <code>b</code> 和 <code>c</code> 中的任意一个</li>
+<li><code>(RX1|RX2)</code> 任何能够匹配<code>RX1</code> 或 <code>RX2</code>的结果</li>
+<li><code>^</code> 行首</li>
+<li><code>$</code> 行尾</li>
+</ul>
+<h3 id="awk"><a href="#awk" class="headerlink" title="awk"></a>awk</h3><p>擅长文本处理的编程语言<br><code>&#123;print $2&#125;</code> 的作用是什么？ <code>awk</code> 程序接受一个模式串（可选），以及一个代码块，指定当模式匹配时应该做何种操作。默认当模式串即匹配所有行（上面命令中当用法）。 在代码块中，<code>$0</code> 表示整行的内容，<code>$1</code> 到 <code>$n</code> 为一行中的 n 个区域，区域的分割基于 <code>awk</code> 的域分隔符（默认是空格，可以通过<code>-F</code>来修改）。在这个例子中，我们的代码意思是：对于每一行文本，打印其第二个部分，也就是用户名<br>让我们统计一下所有以<code>c</code> 开头，以 <code>e</code> 结尾，并且仅尝试过一次登录的用户。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">| awk &#x27;$1 == 1 &amp;&amp; $2 ~ /^c[^ ]*e$/ &#123; print $2 &#125;&#x27; | wc -l</span><br></pre></td></tr></table></figure>
+
+<p>让我们好好分析一下。首先，注意这次我们为 <code>awk</code>指定了一个匹配模式串（也就是<code>&#123;...&#125;</code>前面的那部分内容）。该匹配要求文本的第一部分需要等于1（这部分刚好是<code>uniq -c</code>得到的计数值），然后其第二部分必须满足给定的一个正则表达式。代码块中的内容则表示打印用户名。然后我们使用 <code>wc -l</code> 统计输出结果的行数。</p>
+<p>不过，既然 <code>awk</code> 是一种编程语言，那么则可以这样：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">BEGIN &#123; rows = 0 &#125;</span><br><span class="line">$1 == 1 &amp;&amp; $2 ~ /^c[^ ]*e$/ &#123; rows += $1 &#125;</span><br><span class="line">END &#123; print rows &#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>BEGIN</code> 也是一种模式，它会匹配输入的开头（ <code>END</code> 则匹配结尾）。然后，对每一行第一个部分进行累加，最后将结果输出。</p>
+<h2 id="守护进程"><a href="#守护进程" class="headerlink" title="守护进程"></a>守护进程</h2><p>即便守护进程（daemon）这个词看上去有些陌生，你应该已经大约明白它的概念。大部分计算机都有一系列在后台保持运行，不需要用户手动运行或者交互的进程。这些进程就是守护进程。以守护进程运行的程序名一般以 <code>d</code> 结尾，比如 SSH 服务端 <code>sshd</code>，用来监听传入的 SSH 连接请求并对用户进行鉴权。</p>
+<p>Linux 中的 <code>systemd</code>（the system daemon）是最常用的配置和运行守护进程的方法。运行 <code>systemctl status</code> 命令可以看到正在运行的所有守护进程。这里面有很多可能你没有见过，但是掌管了系统的核心部分的进程：管理网络、DNS解析、显示系统的图形界面等等。用户使用 <code>systemctl</code> 命令和 <code>systemd</code> 交互来<code>enable</code>（启用）、<code>disable</code>（禁用）、<code>start</code>（启动）、<code>stop</code>（停止）、<code>restart</code>（重启）、或者<code>status</code>（检查）配置好的守护进程及系统服务。</p>
+<p><code>systemd</code> 提供了一个很方便的界面用于配置和启用新的守护进程或系统服务。下面的配置文件使用了守护进程来运行一个简单的 Python 程序。文件的内容非常直接所以我们不对它详细阐述。<code>systemd</code> 配置文件的详细指南可参见 <a target="_blank" rel="noopener" href="https://www.freedesktop.org/software/systemd/man/systemd.service.html">freedesktop.org</a>。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"># /etc/systemd/system/myapp.service</span><br><span class="line">[Unit]</span><br><span class="line"># 配置文件描述</span><br><span class="line">Description=My Custom App</span><br><span class="line"># 在网络服务启动后启动该进程</span><br><span class="line">After=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line"># 运行该进程的用户</span><br><span class="line">User=foo</span><br><span class="line"># 运行该进程的用户组</span><br><span class="line">Group=foo</span><br><span class="line"># 运行该进程的根目录</span><br><span class="line">WorkingDirectory=/home/foo/projects/mydaemon</span><br><span class="line"># 开始该进程的命令</span><br><span class="line">ExecStart=/usr/bin/local/python3.7 app.py</span><br><span class="line"># 在出现错误时重启该进程</span><br><span class="line">Restart=on-failure</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line"># 相当于Windows的开机启动。即使GUI没有启动，该进程也会加载并运行</span><br><span class="line">WantedBy=multi-user.target</span><br><span class="line"># 如果该进程仅需要在GUI活动时运行，这里应写作：</span><br><span class="line"># WantedBy=graphical.target</span><br><span class="line"># graphical.target在multi-user.target的基础上运行和GUI相关的服务</span><br></pre></td></tr></table></figure>
+
+<h2 id="备份"><a href="#备份" class="headerlink" title="备份"></a>备份</h2><p>任何没有备份的数据都可能在一个瞬间永远消失。复制数据很简单，但是可靠地备份数据很难。下面列举了一些关于备份的基础知识，以及一些常见做法容易掉进的陷阱。</p>
+<p>首先，复制存储在同一个磁盘上的数据不是备份，因为这个磁盘是一个单点故障（single point of failure）。这个磁盘一旦出现问题，所有的数据都可能丢失。放在家里的外置磁盘因为火灾、抢劫等原因可能会和源数据一起丢失，所以是一个弱备份。推荐的做法是将数据备份到不同的地点存储。</p>
+<p>同步方案也不是备份。即使方便如 Dropbox 或者 Google Drive，当数据在本地被抹除或者损坏，同步方案可能会把这些“更改”同步到云端。同理，像 RAID 这样的磁盘镜像方案也不是备份。它不能防止文件被意外删除、损坏、或者被勒索软件加密。</p>
+<p>有效备份方案的几个核心特性是：版本控制，删除重复数据，以及安全性。对备份的数据实施版本控制保证了用户可以从任何记录过的历史版本中恢复数据。在备份中检测并删除重复数据，使其仅备份增量变化可以减少存储开销。在安全性方面，作为用户，你应该考虑别人需要有什么信息或者工具才可以访问或者完全删除你的数据及备份。最后一点，不要盲目信任备份方案。用户应该经常检查备份是否可以用来恢复数据。</p>
+<p>备份不限制于备份在本地计算机上的文件。云端应用的重大发展使得我们很多的数据只存储在云端。当我们无法登录这些应用，在云端存储的网络邮件，社交网络上的照片，流媒体音乐播放列表，以及在线文档等等都会随之丢失。用户应该有这些数据的离线备份，而且已经有项目可以帮助下载并存储它们。</p>
+<h2 id="常见命令行标志参数及模式"><a href="#常见命令行标志参数及模式" class="headerlink" title="常见命令行标志参数及模式"></a>常见命令行标志参数及模式</h2><p>命令行工具的用法千差万别，阅读 <code>man</code> 页面可以帮助你理解每种工具的用法。即便如此，下面我们将介绍一下命令行工具一些常见的共同功能。</p>
+<ul>
+<li><p>大部分工具支持 <code>--help</code> 或者类似的标志参数（flag）来显示它们的简略用法。</p>
+</li>
+<li><p>会造成不可撤回操作的工具一般会提供“空运行”（dry run）标志参数，这样用户可以确认工具真实运行时会进行的操作。这些工具通常也会有“交互式”（interactive）标志参数，在执行每个不可撤回的操作前提示用户确认。</p>
+</li>
+<li><p><code>--version</code> 或者 <code>-V</code> 标志参数可以让工具显示它的版本信息（对于提交软件问题报告非常重要）。</p>
+</li>
+<li><p>基本所有的工具支持使用 <code>--verbose</code> 或者 <code>-v</code> 标志参数来输出详细的运行信息。多次使用这个标志参数，比如 <code>-vvv</code>，可以让工具输出更详细的信息（经常用于调试）。同样，很多工具支持 <code>--quiet</code> 标志参数来抑制除错误提示之外的其他输出。</p>
+</li>
+<li><p>大多数工具中，使用 <code>-</code> 代替输入或者输出文件名意味着工具将从标准输入（standard input）获取所需内容，或者向标准输出（standard output）输出结果。</p>
+</li>
+<li><p>会造成破坏性结果的工具一般默认进行非递归的操作，但是支持使用“递归”（recursive）标志函数（通常是 <code>-r</code>）。</p>
+</li>
+<li><p>有的时候你可能需要向工具传入一个 <em>看上去</em> 像标志参数的普通参数，比如：</p>
+<ul>
+<li><p>使用 <code>rm</code> 删除一个叫 <code>-r</code> 的文件；</p>
+</li>
+<li><p>在通过一个程序运行另一个程序的时候（<code>ssh machine foo</code>），向内层的程序（<code>foo</code>）传递一个标志参数。</p>
+<p>这时候你可以使用特殊参数 <code>--</code> 让某个程序 <em>停止处理</em> <code>--</code> 后面出现的标志参数以及选项（以 <code>-</code> 开头的内容）：</p>
+</li>
+<li><p><code>rm -- -r</code> 会让 <code>rm</code> 将 <code>-r</code> 当作文件名；</p>
+</li>
+<li><p><code>ssh machine --for-ssh -- foo --for-foo</code> 的 <code>--</code> 会让 <code>ssh</code> 知道 <code>--for-foo</code> 不是 <code>ssh</code> 的标志参数。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="代码调试"><a href="#代码调试" class="headerlink" title="代码调试"></a>代码调试</h2><h3 id="事件分析"><a href="#事件分析" class="headerlink" title="事件分析"></a>事件分析</h3><p>在我们使用<code>strace</code>调试代码的时候，您可能会希望忽略一些特殊的代码并希望在分析时将其当作黑盒处理。<a target="_blank" rel="noopener" href="http://man7.org/linux/man-pages/man1/perf.1.html"><code>perf</code></a> 命令将 CPU 的区别进行了抽象，它不会报告时间和内存的消耗，而是报告与您的程序相关的系统事件。</p>
+<p>例如，<code>perf</code> 可以报告不佳的缓存局部性（poor cache locality）、大量的页错误（page faults）或活锁（livelocks）。下面是关于常见命令的简介：</p>
+<ul>
+<li><code>perf list</code> - 列出可以被 pref 追踪的事件；</li>
+<li><code>perf stat COMMAND ARG1 ARG2</code> - 收集与某个进程或指令相关的事件；</li>
+<li><code>perf record COMMAND ARG1 ARG2</code> - 记录命令执行的采样信息并将统计数据储存在<code>perf.data</code>中；</li>
+<li><code>perf report</code> - 格式化并打印 <code>perf.data</code> 中的数据。</li>
+</ul>
+<h3 id="资源监控"><a href="#资源监控" class="headerlink" title="资源监控"></a>资源监控</h3><p>有时候，分析程序性能的第一步是搞清楚它所消耗的资源。程序变慢通常是因为它所需要的资源不够了。例如，没有足够的内存或者网络连接变慢的时候。</p>
+<p>有很多很多的工具可以被用来显示不同的系统资源，例如 CPU 占用、内存使用、网络、磁盘使用等。</p>
+<ul>
+<li><strong>通用监控</strong> - 最流行的工具要数 <a target="_blank" rel="noopener" href="https://htop.dev/"><code>htop</code></a>,了，它是 <a target="_blank" rel="noopener" href="http://man7.org/linux/man-pages/man1/top.1.html"><code>top</code></a>的改进版。<code>htop</code> 可以显示当前运行进程的多种统计信息。<code>htop</code> 有很多选项和快捷键，常见的有：<code>&lt;F6&gt;</code> 进程排序、 <code>t</code> 显示树状结构和 <code>h</code> 打开或折叠线程。 还可以留意一下 <a target="_blank" rel="noopener" href="https://nicolargo.github.io/glances/"><code>glances</code></a> ，它的实现类似但是用户界面更好。如果需要合并测量全部的进程， <a target="_blank" rel="noopener" href="http://dag.wiee.rs/home-made/dstat/"><code>dstat</code></a> 是也是一个非常好用的工具，它可以实时地计算不同子系统资源的度量数据，例如 I&#x2F;O、网络、 CPU 利用率、上下文切换等等；</li>
+<li><strong>I&#x2F;O 操作</strong> - <a target="_blank" rel="noopener" href="http://man7.org/linux/man-pages/man8/iotop.8.html"><code>iotop</code></a> 可以显示实时 I&#x2F;O 占用信息而且可以非常方便地检查某个进程是否正在执行大量的磁盘读写操作；</li>
+<li><strong>磁盘使用</strong> - <a target="_blank" rel="noopener" href="http://man7.org/linux/man-pages/man1/df.1.html"><code>df</code></a> 可以显示每个分区的信息，而 <a target="_blank" rel="noopener" href="http://man7.org/linux/man-pages/man1/du.1.html"><code>du</code></a> 则可以显示当前目录下每个文件的磁盘使用情况（ <strong>d</strong>isk <strong>u</strong>sage）。<code>-h</code> 选项可以使命令以对人类（<strong>h</strong>uman）更加友好的格式显示数据；<a target="_blank" rel="noopener" href="https://dev.yorhel.nl/ncdu"><code>ncdu</code></a>是一个交互性更好的 <code>du</code> ，它可以让您在不同目录下导航、删除文件和文件夹；</li>
+<li><strong>内存使用</strong> - <a target="_blank" rel="noopener" href="http://man7.org/linux/man-pages/man1/free.1.html"><code>free</code></a> 可以显示系统当前空闲的内存。内存也可以使用 <code>htop</code> 这样的工具来显示；</li>
+<li><strong>打开文件</strong> - <a target="_blank" rel="noopener" href="http://man7.org/linux/man-pages/man8/lsof.8.html"><code>lsof</code></a> 可以列出被进程打开的文件信息。 当我们需要查看某个文件是被哪个进程打开的时候，这个命令非常有用；</li>
+<li><strong>网络连接和配置</strong> - <a target="_blank" rel="noopener" href="http://man7.org/linux/man-pages/man8/ss.8.html"><code>ss</code></a> 能帮助我们监控网络包的收发情况以及网络接口的显示信息。<code>ss</code> 常见的一个使用场景是找到端口被进程占用的信息。如果要显示路由、网络设备和接口信息，您可以使用 <a target="_blank" rel="noopener" href="http://man7.org/linux/man-pages/man8/ip.8.html"><code>ip</code></a> 命令。注意，<code>netstat</code> 和 <code>ifconfig</code> 这两个命令已经被前面那些工具所代替了。</li>
+<li><strong>网络使用</strong> - <a target="_blank" rel="noopener" href="https://github.com/raboof/nethogs"><code>nethogs</code></a> 和 <a target="_blank" rel="noopener" href="http://www.ex-parrot.com/pdw/iftop/"><code>iftop</code></a> 是非常好的用于对网络占用进行监控的交互式命令行工具。</li>
+</ul>
+<p>如果您希望测试一下这些工具，您可以使用 <a target="_blank" rel="noopener" href="https://linux.die.net/man/1/stress"><code>stress</code></a> 命令来为系统人为地增加负载。</p>
+<h2 id="QA"><a href="#QA" class="headerlink" title="QA"></a>QA</h2><h3 id="source-script-sh-和-script-sh-有什么区别"><a href="#source-script-sh-和-script-sh-有什么区别" class="headerlink" title="source script.sh 和 ./script.sh 有什么区别?"></a><code>source script.sh</code> 和 <code>./script.sh</code> 有什么区别?</h3><p>这两种情况 <code>script.sh</code> 都会在bash会话中被读取和执行，不同点在于哪个会话执行这个命令。 对于 <code>source</code> 命令来说，命令是在当前的bash会话中执行的，因此当 <code>source</code> 执行完毕，对当前环境的任何更改（例如更改目录或是定义函数）都会留存在当前会话中。 单独运行 <code>./script.sh</code> 时，当前的bash会话将启动新的bash会话（实例），并在新实例中运行命令 <code>script.sh</code>。 因此，如果 <code>script.sh</code> 更改目录，新的bash会话（实例）会更改目录，但是一旦退出并将控制权返回给父bash会话，父会话仍然留在先前的位置（不会有目录的更改）。 同样，如果 <code>script.sh</code> 定义了要在终端中访问的函数，需要用 <code>source</code> 命令在当前bash会话中定义这个函数。否则，如果你运行 <code>./script.sh</code>，只有新的bash会话（进程）才能执行定义的函数，而当前的shell不能。</p>
+<h3 id="各种软件包和工具存储在哪里？引用过程是怎样的-bin-或-lib-是什么？"><a href="#各种软件包和工具存储在哪里？引用过程是怎样的-bin-或-lib-是什么？" class="headerlink" title="各种软件包和工具存储在哪里？引用过程是怎样的? /bin 或 /lib 是什么？"></a>各种软件包和工具存储在哪里？引用过程是怎样的? <code>/bin</code> 或 <code>/lib</code> 是什么？</h3><p>根据你在命令行中运行的程序，这些包和工具会全部在 <code>PATH</code> 环境变量所列出的目录中查找到， 你可以使用 <code>which</code> 命令(或是 <code>type</code> 命令)来检查你的shell在哪里发现了特定的程序。 一般来说，特定种类的文件存储有一定的规范，<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard">文件系统，层次结构标准（Filesystem, Hierarchy Standard）</a>可以查到我们讨论内容的详细列表。</p>
+<ul>
+<li><code>/bin</code> - 基本命令二进制文件</li>
+<li><code>/sbin</code> - 基本的系统二进制文件，通常是root运行的</li>
+<li><code>/dev</code> - 设备文件，通常是硬件设备接口文件</li>
+<li><code>/etc</code> - 主机特定的系统配置文件</li>
+<li><code>/home</code> - 系统用户的主目录</li>
+<li><code>/lib</code> - 系统软件通用库</li>
+<li><code>/opt</code> - 可选的应用软件</li>
+<li><code>/sys</code> - 包含系统的信息和配置(<a target="_blank" rel="noopener" href="https://missing-semester-cn.github.io/2020/course-shell/">第一堂课</a>介绍的)</li>
+<li><code>/tmp</code> - 临时文件( <code>/var/tmp</code> ) 通常重启时删除</li>
+<li><code>/usr/</code> - 只读的用户数据<ul>
+<li><code>/usr/bin</code> - 非必须的命令二进制文件</li>
+<li><code>/usr/sbin</code> - 非必须的系统二进制文件，通常是由root运行的</li>
+<li><code>/usr/local/bin</code> - 用户编译程序的二进制文件</li>
+</ul>
+</li>
+<li><code>/var</code> -变量文件 像日志或缓存</li>
+<li>## 我应该用 <code>apt-get install</code> 还是 <code>pip install</code> 去下载软件包呢?</li>
+</ul>
+<p>这个问题没有普遍的答案。这与使用系统程序包管理器还是特定语言的程序包管理器来安装软件这一更笼统的问题相关。需要考虑的几件事：</p>
+<ul>
+<li><p>常见的软件包都可以通过这两种方法获得，但是小众的软件包或较新的软件包可能不在系统程序包管理器中。在这种情况下，使用特定语言的程序包管理器是更好的选择。</p>
+</li>
+<li><p>同样，特定语言的程序包管理器相比系统程序包管理器有更多的最新版本的程序包。</p>
+</li>
+<li><p>当使用系统软件包管理器时，将在系统范围内安装库。如果出于开发目的需要不同版本的库，则系统软件包管理器可能不能满足你的需要。对于这种情况，大多数编程语言都提供了隔离或虚拟环境，因此你可以用特定语言的程序包管理器安装不同版本的库而不会发生冲突。对于 Python，可以使用 virtualenv，对于 Ruby，使用 RVM 。</p>
+</li>
+<li><p>根据操作系统和硬件架构，其中一些软件包可能会附带二进制文件或者软件包需要被编译。例如，在树莓派（Raspberry Pi）之类的ARM架构计算机中，在软件附带二进制文件和软件包需要被编译的情况下，使用系统包管理器比特定语言包管理器更好。这在很大程度上取决于你的特定设置。 你应该仅使用一种解决方案，而不同时使用两种方法，因为这可能会导致难以解决的冲突。我们的建议是尽可能使用特定语言的程序包管理器，并使用隔离的环境（例如 Python 的 virtualenv）以避免影响全局环境</p>
+</li>
+<li><h3 id="Docker和虚拟机有什么区别"><a href="#Docker和虚拟机有什么区别" class="headerlink" title="Docker和虚拟机有什么区别?"></a>Docker和虚拟机有什么区别?</h3></li>
+</ul>
+<p>Docker 基于容器这个更为概括的概念。关于容器和虚拟机之间最大的不同是，虚拟机会执行整个的 OS 栈，包括内核（即使这个内核和主机内核相同）。与虚拟机不同，容器避免运行其他内核实例，而是与主机分享内核。在Linux环境中，有LXC机制来实现，并且这能使一系列分离的主机像是在使用自己的硬件启动程序，而实际上是共享主机的硬件和内核。因此容器的开销小于完整的虚拟机。</p>
+<p>另一方面，容器的隔离性较弱而且只有在主机运行相同的内核时才能正常工作。例如，如果你在macOS 上运行 Docker，Docker 需要启动 Linux虚拟机去获取初始的 Linux内核，这样的开销仍然很大。最后，Docker 是容器的特定实现，它是为软件部署而定制的。基于这些，它有一些奇怪之处：例如，默认情况下，Docker 容器在重启之间不会有以任何形式的存储。</p>
+<h3 id="还有更多的-Vim-小窍门吗？"><a href="#还有更多的-Vim-小窍门吗？" class="headerlink" title="还有更多的 Vim 小窍门吗？"></a>还有更多的 Vim 小窍门吗？</h3><p>更多的窍门：</p>
+<ul>
+<li>插件 - 花时间去探索插件。有很多不错的插件修复了vim的缺陷或者增加了能够与现有vim工作流结合的新功能。关于这部分内容，资源是<a target="_blank" rel="noopener" href="https://vimawesome.com/">VimAwesome</a> 和其他程序员的dotfiles。</li>
+<li>标记 - 在vim里你可以使用 <code>m&lt;X&gt;</code> 为字母 <code>X</code> 做标记，之后你可以通过 <code>&#39;&lt;X&gt;</code> 回到标记位置。这可以让你快速定位到文件内或文件间的特定位置。</li>
+<li>导航 - <code>Ctrl+O</code> 和 <code>Ctrl+I</code> 命令可以使你在最近访问位置前后移动。</li>
+<li>撤销树 - vim 有不错的更改跟踪机制，不同于其他的编辑器，vim存储变更树，因此即使你撤销后做了一些修改，你仍然可以通过撤销树的导航回到初始状态。一些插件比如 <a target="_blank" rel="noopener" href="https://github.com/sjl/gundo.vim">gundo.vim</a> 和 <a target="_blank" rel="noopener" href="https://github.com/mbbill/undotree">undotree</a> 通过图形化来展示撤销树。</li>
+<li>时间撤销 - <code>:earlier</code> 和 <code>:later</code> 命令使得你可以用时间而非某一时刻的更改来定位文件。</li>
+<li><a target="_blank" rel="noopener" href="https://vim.fandom.com/wiki/Using_undo_branches#Persistent_undo">持续撤销</a> - 是一个默认未被开启的vim的内置功能，它在vim启动之间保存撤销历史，需要配置在 <code>.vimrc</code> 目录下的<code>undofile</code> 和 <code>undodir</code>，vim会保存每个文件的修改历史。</li>
+<li>热键（Leader Key） - 热键是一个用于用户自定义配置命令的特殊按键。这种模式通常是按下后释放这个按键（通常是空格键）并与其他的按键组合去实现一个特殊的命令。插件也会用这些按键增加它们的功能，例如，插件UndoTree使用 <code>&lt;Leader&gt; U</code> 去打开撤销树。</li>
+<li>高级文本对象 - 文本对象比如搜索也可以用vim命令构成。例如，<code>d/&lt;pattern&gt;</code> 会删除下一处匹配 pattern 的字符串，<code>cgn</code> 可以用于更改上次搜索的关键字。</li>
+<li></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" rel="tag"># 课程笔记</a>
+              <a href="/tags/%E7%BC%96%E7%A8%8B%E5%B7%A5%E5%85%B7/" rel="tag"># 编程工具</a>
+              <a href="/tags/linux/" rel="tag"># linux</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/09/29/%E7%A1%AC%E4%BB%B6%E6%80%BB%E5%92%8C%E7%AC%94%E8%AE%B0/" rel="prev" title="基于苏大ppt的计算机硬件笔记">
+                  <i class="fa fa-angle-left"></i> 基于苏大ppt的计算机硬件笔记
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/09/29/61a%E6%80%BB%E5%92%8C/" rel="next" title="基于伯克利cs61a的python笔记">
+                  基于伯克利cs61a的python笔记 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">thinklive</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">127k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:56</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 技术支持
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script size="300" alpha="0.7" zIndex="-1" src="https://cdnjs.cloudflare.com/ajax/libs/ribbon.js/1.0.2/ribbon.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.20/fancybox/fancybox.umd.js" integrity="sha256-q8XkJ6dj5VwSvzI8+nATCHHQG+Xv/dAZBCgqmu93zOY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/quicklink/2.3.0/quicklink.umd.js" integrity="sha256-yvJQOINiH9fWemHn0vCA5lsHWJaHs6/ZmO+1Ft04SvM=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://thinklive1.github.io/2023/09/29/linux%E6%80%BB%E5%92%8C%E7%AC%94%E8%AE%B0/"}</script>
+  <script src="/js/third-party/quicklink.js"></script>
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"thinklive1/blog_comments","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+<!-- hexo injector body_end start --><script src="/assets/mmedia/mmedia-loader.js"></script><!-- hexo injector body_end end --></body>
+</html>
