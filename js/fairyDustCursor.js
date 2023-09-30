@@ -5,21 +5,20 @@
   var height = window.innerHeight;
   var cursor = {x: width/2, y: width/2};
   var particles = [];
- 
+  let lastPosition = {x:0, y:0};
   function init() {
     bindEvents();
     loop();
   }
- 
+  
   // Bind events that are needed
   function bindEvents() {
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('touchmove', onTouchMove);
     document.addEventListener('touchstart', onTouchMove);
-   
+
     window.addEventListener('resize', onWindowResize);
   }
- 
   function onWindowResize(e) {
     width = window.innerWidth;
     height = window.innerHeight;
@@ -36,6 +35,8 @@
   function onMouseMove(e) {    
     cursor.x = e.clientX;
     cursor.y = e.clientY;
+    lastPosition.x = e.clientX;
+    lastPosition.y = e.clientY;
    
     addParticle( cursor.x, cursor.y, possibleColors[Math.floor(Math.random()*possibleColors.length)]);
   }
@@ -64,6 +65,9 @@
   function loop() {
     requestAnimationFrame(loop);
     updateParticles();
+    if(Math.random() > 0.9) {
+    addParticle(lastPosition.x, lastPosition.y); 
+  }
   }
  
   function Particle() {
