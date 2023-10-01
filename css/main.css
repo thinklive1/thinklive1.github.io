@@ -2839,3 +2839,22 @@ header.header {
 body {
   background-color: #000;
 }
+.main-inner {
+  z-index: 0;
+}
+.main-inner > .sub-menu,
+.main-inner > .tabs-comment,
+.main-inner > .comments,
+.main-inner > .pagination {
+  background: #f5f5f5;
+  z-index: 2;
+}
+.main-inner > .tabs,
+.main-inner > .post-nav,
+.main-inner > .post-content,
+.main-inner > .post-block {
+  z-index: 2;
+}
+.sidebar {
+  opacity: 1;
+}
