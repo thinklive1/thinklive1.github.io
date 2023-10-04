@@ -1,0 +1,231 @@
+{
+	"mouseover": [{
+		"selector": "#live2d",
+		"text": [ "对梅酱这么贫乏的少女也会涌起欲望吗，变态不死者先生","不行的哟", "Hentai！","贵安,不死者先生", "迪瑞克拉也是我中意的箱庭哦，总有一天会纳入手中的", "充满谜一样感觉的女孩子怎么样？呵呵……当然，是很帅气的吧？！"]
+	}, {
+		"selector": "#waifu-tool-hitokoto",
+		"text": ["猜猜我要说些什么？", "盘上对弈？那我很强呢。就算对上赤之女王我也能取得压倒性的胜利。呵呵呵呵……。"]
+	}, {
+		"selector": "#waifu-tool-asteroids",
+		"text": [ "这个按钮上写着「不要点击」。", "怎么，你想来和我对弈吗？"]
+	}, {
+		"selector": "#waifu-tool-switch-model",
+		"text": ["梅酱是个贫乏的女孩子呢，呜呜","果然，梅贝尔什么的没有魅力呢"]
+	}, {
+		"selector": "#waifu-tool-switch-texture",
+		"text": ["喜欢换装 PLAY 吗？", "贫乏的梅贝尔怎么换装也不会有魅力吧？"]
+	}, {
+		"selector": "#waifu-tool-photo",
+		"text": ["摄影？确实是你会喜欢的事呢，不死者先生", "保持微笑就好了～"]
+	}, {
+		"selector": "#waifu-tool-info",
+		"text": ["想要知道更多关于我的事么？", "这里记录着我搬家的历史呢。", "你想深入了解我什么呢？"]
+	}, {
+		"selector": "#waifu-tool-quit",
+		"text": ["到了要说再见的时候了吗？",  "还有多少次，我还要被背叛多少次…开玩笑的", "我们，还能再见面吗……", "迎来终焉虽然会有些寂寞，但并没有什么好怕的,该告别了"]
+	}, {
+		"selector": ".menu-item-home a",
+		"text": ["点击前往首页，想回到上一页可以使用浏览器的后退功能哦。", "点它就可以回到首页啦！", "回首页看看吧。"]
+	}, {
+		"selector": ".menu-item-about a",
+		"text": ["你想知道我家主人是谁吗？", "这里有一些关于我家主人的秘密哦，要不要看看呢？", "发现主人出没地点！"]
+	}, {
+		"selector": ".menu-item-tags a",
+		"text": ["点击就可以看文章的标签啦！", "点击来查看所有标签哦。"]
+	}, {
+		"selector": ".menu-item-categories a",
+		"text": ["文章都分类好啦～", "点击来查看文章分类哦。"]
+	}, {
+		"selector": ".menu-item-archives a",
+		"text": ["翻页比较麻烦吗，那就来看看文章归档吧。", "文章目录都整理在这里啦！"]
+	}, {
+		"selector": ".menu-item-friends a",
+		"text": ["这是我的朋友们哦ヾ(◍°∇°◍)ﾉﾞ", "要去大佬们的家看看吗？", "要去拜访一下我的朋友们吗？"]
+	}, {
+		"selector": ".menu-item-search a",
+		"text": ["找不到想看的内容？搜索看看吧！", "在找什么东西呢，需要帮忙吗？"]
+	}, {
+		"selector": ".menu-item a",
+		"text": ["快看看这里都有什么呢？"]
+	}, {
+		"selector": ".site-author",
+		"text": ["我家主人好看吗？", "这是我家主人(*´∇｀*)"]
+	}, {
+		"selector": ".site-state",
+		"text": ["这是文章的统计信息～", "要不要点进去看看？"]
+	}, {
+		"selector": ".feed-link a",
+		"text": ["这里可以使用 RSS 订阅呢！", "利用 feed 订阅器，就能快速知道博客有没有更新了呢。"]
+	}, {
+		"selector": ".cc-opacity, .post-copyright-author",
+		"text": ["要记得规范转载哦。", "所有文章均采用 CC BY-NC-SA 4.0 许可协议～", "转载前要先注意下文章的版权协议呢。"]
+	}, {
+		"selector": ".links-of-author",
+		"text": ["这里是主人的常驻地址哦。", "这里有主人的联系方式！"]
+	}, {
+		"selector": ".followme",
+		"text": ["手机扫一下就能继续看，很方便呢～", "扫一扫，打开新世界的大门！"]
+	}, {
+		"selector": ".fancybox img, img.medium-zoom-image",
+		"text": ["点击图片可以放大呢！"]
+	}, {
+		"selector": ".copy-btn",
+		"text": ["代码可以直接点击复制哟。"]
+	}, {
+		"selector": ".highlight .table-container, .gist",
+		"text": ["GitHub！我是新手！", "PHP 是最好的语言！"]
+	}, {
+		"selector": "a[href^='mailto']",
+		"text": ["邮件我会及时回复的！", "点击就可以发送邮件啦～"]
+	}, {
+		"selector": "a[href^='/tags/']",
+		"text": ["要去看看 <span>{text}</span> 标签么？", "点它可以查看此标签下的所有文章哟！"]
+	}, {
+		"selector": "a[href^='/categories/']",
+		"text": ["要去看看 <span>{text}</span> 分类么？", "点它可以查看此分类下的所有文章哟！"]
+	}, {
+		"selector": ".post-title-link",
+		"text": ["要看看 <span>{text}</span> 这篇文章吗？"]
+	}, {
+		"selector": "a[rel='contents']",
+		"text": ["点击来阅读全文哦。"]
+	}, {
+		"selector": "a[itemprop='discussionUrl']",
+		"text": ["要去看看评论吗？"]
+	}, {
+		"selector": ".beian a",
+		"text": ["我也是有户口的人哦。", "我的主人可是遵纪守法的好主人。"]
+	}, {
+		"selector": ".container a[href^='http'], .nav-link .nav-text",
+		"text": ["要去看看 <span>{text}</span> 么？", "去 <span>{text}</span> 逛逛吧。", "到 <span>{text}</span> 看看吧。"]
+	}, {
+		"selector": ".back-to-top",
+		"text": ["点它就可以回到顶部啦！", "又回到最初的起点～", "要回到开始的地方么？"]
+	}, {
+		"selector": ".reward-container",
+		"text": ["我是不是棒棒哒～快给我点赞吧！", "要打赏我嘛？好期待啊～", "主人最近在吃土呢，很辛苦的样子，给他一些钱钱吧～"]
+	}, {
+		"selector": "#wechat",
+		"text": ["这是我的微信二维码～"]
+	}, {
+		"selector": "#alipay",
+		"text": ["这是我的支付宝哦！"]
+	}, {
+		"selector": "#bitcoin",
+		"text": ["这是我的比特币账号！"]
+	}, {
+		"selector": "#needsharebutton-postbottom .btn",
+		"text": ["好东西要让更多人知道才行哦。", "觉得文章有帮助的话，可以分享给更多需要的朋友呢。"]
+	}, {
+		"selector": ".need-share-button_weibo",
+		"text": ["微博？来分享一波喵！"]
+	}, {
+		"selector": ".need-share-button_wechat",
+		"text": ["分享到微信吧！"]
+	}, {
+		"selector": ".need-share-button_douban",
+		"text": ["分享到豆瓣好像也不错！"]
+	}, {
+		"selector": ".need-share-button_qqzone",
+		"text": ["QQ 空间，一键转发，耶～"]
+	}, {
+		"selector": ".need-share-button_twitter",
+		"text": ["Twitter？好像是不存在的东西？"]
+	}, {
+		"selector": ".need-share-button_facebook",
+		"text": ["emmm…FB 好像也是不存在的东西？"]
+	}, {
+		"selector": ".post-nav-item a[rel='next']",
+		"text": ["来看看下一篇文章吧。", "点它可以看下一篇文章哦！", "要翻到下一篇文章吗？"]
+	}, {
+		"selector": ".post-nav-item a[rel='prev']",
+		"text": ["来看看上一篇文章吧。", "点它可以看上一篇文章哦！", "要翻到上一篇文章吗？"]
+	}, {
+		"selector": ".extend.next",
+		"text": ["去下一页看看吧。", "点它可以前进哦！", "要翻到下一页吗？"]
+	}, {
+		"selector": ".extend.prev",
+		"text": ["去上一页看看吧。", "点它可以后退哦！", "要翻到上一页吗？"]
+	}, {
+		"selector": "input.vnick",
+		"text": ["该怎么称呼你呢？", "留下你的尊姓大名！"]
+	}, {
+		"selector": ".vmail",
+		"text": ["留下你的邮箱，不然就是无头像人士了！", "记得设置好 Gravatar 头像哦！", "为了方便通知你最新消息，一定要留下邮箱！"]
+	}, {
+		"selector": ".vlink",
+		"text": ["快快告诉我你的家在哪里，好让我去参观参观！"]
+	}, {
+		"selector": ".veditor",
+		"text": ["想要去评论些什么吗？", "要说点什么吗？", "觉得博客不错？快来留言和主人交流吧！"]
+	}, {
+		"selector": ".vcontrol a",
+		"text": ["你会不会熟练使用 Markdown 呀？", "使用 Markdown 让评论更美观吧～"]
+	}, {
+		"selector": ".vemoji-btn",
+		"text": ["要插入一个萌萌哒的表情吗？", "要来一发表情吗？"]
+	}, {
+		"selector": ".vpreview-btn",
+		"text": ["要预览一下你的发言吗？", "快看看你的评论有多少负熵！"]
+	}, {
+		"selector": ".vsubmit",
+		"text": ["评论没有审核，要对自己的发言负责哦～", "要提交了吗，请耐心等待回复哦～"]
+	}, {
+		"selector": ".vcontent",
+		"text": ["哇，快看看这个精彩评论！", "如果有疑问，请尽快留言哦～"]
+	}],
+	"click": [{
+		"selector": "#live2d",
+		"text": ["创造一个箱庭可是需要相当的才能哦，不过你的话应该做得到吧，我很期待哦","我的钥匙，无论何样的门都能插进打开","贫乏的少女梅酱呢只是为了凸显爱丽丝而存在的角色呢！", "迪瑞克拉也是我中意的箱庭哦，总有一天我也会让她沉眠在我的宝石箱里", "无论过去现在未来，我这一存在，生活于全部的世界线之中",  "对梅酱这么贫乏的少女也会涌起欲望吗，变态不死者先生","不行的哟"]
+	}, {
+		"selector": ".veditor",
+		"text": ["要吐槽些什么呢？", "一定要认真填写喵～", "有什么想说的吗？"]
+	}, {
+		"selector": ".vsubmit",
+		"text": ["输入验证码就可以提交评论啦～"]
+	}],
+	"seasons": [{
+		"date": "01/01",
+		"text": "<span>元旦</span>了呢，新的轮回又开始了，诶，我说了什么吗"
+	}, {
+		"date": "02/14",
+		"text": "又是一年<span>情人节</span>，依然在寻找心爱的少女吗？在迪瑞克拉可找不到哦"
+	}, {
+		"date": "03/08",
+		"text": "今天是<span>国际妇女节</span>！可别忘了给那两位献上祝福哦，人家是少女就不需要啦,呵呵"
+	},  {
+		"date": "04/01",
+		"text": "悄悄告诉你一个秘密～<span>今天是愚人节，笨蛋不死者先生不要被骗了哦～</span>"
+	}],
+	"time": [{
+		"hour": "6-7",
+		"text": "早上好！今天也在这个充满狂气的箱庭游荡吗？"
+	}, {
+		"hour": "8-11",
+		"text": "上午好！在迪瑞克拉找到什么有趣的收藏品了吗？"
+	}, {
+		"hour": "12-13",
+		"text": "中午了，现在是午餐时间！听说某个箱庭有家不错的海龟餐厅，去尝尝吧"
+	}, {
+		"hour": "14-17",
+		"text": "午后很容易犯困呢，听说有个图书馆是睡觉的好地方，因为建在梦里嘛"
+	}, {
+		"hour": "18-19",
+		"text": "傍晚了！窗外夕阳的景色很美丽呢，不过比不上星空的深邃哦"
+	}, {
+		"hour": "20-21",
+		"text": "晚上好，在迪瑞克拉有收获吗？"
+	}, {
+		"hour": "22-23",
+		"text": ["已经是深夜了，一片漆黑中可找不到你心爱的少女哦，不死者先生"]
+	}, {
+		"hour": "0-5",
+		"text": "已经是深夜了，一片漆黑中可找不到你心爱的少女哦，不死者先生"
+	}],
+	"message": {
+		"default": ["贵安,不死者先生", "迪瑞克拉也是我中意的箱庭哦，总有一天我也会让她沉眠在我的宝石箱里", "充满谜一样感觉的女孩子怎么样？呵呵……当然，是很帅气的吧？！", "笨蛋！坏心眼！", "记得把迪瑞克拉加入收藏夹哦！"],
+		"console": "呵呵，打开了控制台，是想要看看我的星空吗？",
+		"copy": "你从迪瑞克拉复制了一些东西呢，不标明出处就转载的话，可是会被那些自称裁判的家伙盯上的",
+		"visibilitychange": "终于回来了,重新认识到梅贝尔的魅力了吗"
+	}
+}
