@@ -148,9 +148,9 @@
 <p>也可以并列</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">并列分类 </span><br><span class="line">类别：  </span><br><span class="line">- [Linux]  </span><br><span class="line">- [工具]</span><br><span class="line"></span><br><span class="line">并列+子分类</span><br><span class="line">类别：  </span><br><span class="line">- [Linux, Hexo]  </span><br><span class="line">- [工具，PHP]</span><br></pre></td></tr></table></figure>
 
-<h3 id="文章缩略"><a href="#文章缩略" class="headerlink" title="文章缩略"></a>文章缩略</h3><p>一般来说我们不会希望首页显示全文，而是开头的一小部分或者是摘要，文章的缩略基本也是由主题决定的，比如next现在就不支持自动缩进，你只能自己在觉得差不多的地方加上</p>
+<h3 id="文章缩略"><a href="#文章缩略" class="headerlink" title="文章缩略"></a>文章缩略</h3><p>一般来说我们不会希望首页显示全文，而是开头的一小部分或者是摘要，摘要可以在标头加上取代缩略，而文章的缩略可以由主题决定，也可以用hexo自己的方式，比如next现在就不支持自动缩进，你只能自己在觉得差不多的地方加上</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;!-- more --&gt;</span><br></pre></td></tr></table></figure>
-<p>每个主题怎么决定缩略基本也会在文档里写</p>
+<p>每个主题怎么决定缩略或者摘要基本也会在文档里写</p>
 <h2 id="主题说明"><a href="#主题说明" class="headerlink" title="主题说明"></a>主题说明</h2><p>既然大部分渲染由主题决定，那么自定义往往也会取决于主题，以下是我本人用过的主题的一些经验</p>
 <h3 id="next"><a href="#next" class="headerlink" title="next"></a>next</h3><p><code>next</code>是一款典型的黑白简约风主题，并且提供了丰富的自定义性，因此迪瑞克拉的主站就使用了自定义非常方便的next<br>next的文档比较易读，全部看一遍就知道设置里那些选项怎么用了<br>这里说说next的自定义<br>next的渲染由主题文件夹下”layout”目录中的njk文件控制（一些老版本是swig)，你也可以使用next提供的自定义文件，去掉注释符号就可以去_data文件新建自定义文件来控制渲染<br>比如说你想在所有页面加个js特效，就可以在主题文件夹下的layout&#x2F;_layout.njk文件新增一句</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;script src=&quot;/js/jsname.js&quot;&gt;&lt;/script&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
