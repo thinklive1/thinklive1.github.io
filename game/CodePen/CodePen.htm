@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta charset="UTF-8">
+  
+  <a href="/" id="back-button" style="display:inline-block; padding:10px 20px; background-color:#aaaaaa; color:#fff; text-decoration:none; border-radius:4px; font-size:16px; font-weight:bold; box-shadow: 0 2px 4px rgba(0,0,0,.3); transition: all .3s;">
+  回到主站</a>
+  <a href="/game/index.html" id="back-button" style="display:inline-block; padding:10px 20px; background-color:#aaaaaa; color:#fff; text-decoration:none; border-radius:4px; font-size:16px; font-weight:bold; box-shadow: 0 2px 4px rgba(0,0,0,.3); transition: all .3s;">
+  俄罗斯方块</a>
+    <link rel="apple-touch-icon" type="image/png" href="https://cpwebassets.codepen.io/assets/favicon/apple-touch-icon-5ae1a0698dcc2402e9712f7d01ed509a57814f994c660df9f7a952f3060705ee.png">
+
+    <meta name="apple-mobile-web-app-title" content="CodePen">
+
+    <link rel="shortcut icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico">
+
+    <link rel="mask-icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/logo-pin-b4b4269c16397ad2f0f7a01bcdf513a1994f4c94b8af2f191c09eb0d601762b1.svg" color="#111">
+  <title>CodePen - ThreeJS Toys - Particles Cursor</title>
+
+
+
+  
+    <script src="CodePen%20-%20ThreeJS%20Toys%20-%20Particles%20Cursor_files/stopExecutionOnTimeout-2c7831bb44f98c1391d6a4ffda0e1fd3025033.js"></script>
+
+
+
+    <link rel="canonical" href="https://codepen.io/soju22/pen/KKQaGrE">
+  
+  
+  <link rel="stylesheet" href="CodePen%20-%20ThreeJS%20Toys%20-%20Particles%20Cursor_files/css2.css">
+  
+<style>
+body, html, #app {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+}
+
+#app {
+  overflow: hidden;
+  touch-action: pan-up;
+  color: #ffffff;
+  font-family: 'Montserrat', sans-serif;
+  text-align: center;
+  text-shadow: 0 0 5px #ffffff, 0 0 20px #000, 0 0 30px #000;
+}
+
+#app h1 {
+  --fontSize: 60px;
+  --lineHeight: 80px;
+  width: auto;
+  height: calc(2 * var(--lineHeight));
+  line-height: var(--lineHeight);
+  margin: calc(50vh - var(--lineHeight)) auto 0;
+  font-size: var(--fontSize);
+}
+
+#app a {
+  margin-top: 10px;
+  display: inline-block;
+  text-decoration: none;
+  color: #fff;
+}
+
+#app canvas {
+  display: block;
+  position: fixed;
+  z-index: -1;
+  top: 0;
+}
+</style>
+
+  <script>
+  window.console = window.console || function(t) {};
+</script>
+
+  
+  
+</head>
+
+<body translate="no">
+  <div id="app">
+  <div id="hero">
+    <a target="_blank" href="https://github.com/klevron/threejs-toys"></a>
+  </div>
+<canvas data-engine="three.js r140" width="2560" height="1222" style="width: 2560px; height: 1222px;"></canvas></div>
+  
+      <script id="rendered-js" type="module">
+import { particlesCursor } from 'https://unpkg.com/threejs-toys@0.0.8/build/threejs-toys.module.cdn.min.js';
+
+const pc = particlesCursor({
+  el: document.getElementById('app'),
+  gpgpuSize: 512,
+  colors: [0x00ff00, 0x0000ff],
+  color: 0xff0000,
+  coordScale: 0.5,
+  noiseIntensity: 0.001,
+  noiseTimeCoef: 0.0001,
+  pointSize: 5,
+  pointDecay: 0.0025,
+  sleepRadiusX: 250,
+  sleepRadiusY: 250,
+  sleepTimeCoefX: 0.001,
+  sleepTimeCoefY: 0.002 });
+
+
+document.body.addEventListener('click', () => {
+  pc.uniforms.uColor.value.set(Math.random() * 0xffffff);
+  pc.uniforms.uCoordScale.value = 0.001 + Math.random() * 2;
+  pc.uniforms.uNoiseIntensity.value = 0.0001 + Math.random() * 0.001;
+  pc.uniforms.uPointSize.value = 1 + Math.random() * 10;
+});
+//# sourceURL=pen.js
+    </script>
+
+  
+
+
+
+</body></html>

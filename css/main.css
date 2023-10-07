@@ -2786,3 +2786,58 @@ header.header {
 body {
   background-color: #000;
 }
+.new-content {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.new-content .button {
+  width: 192px;
+  height: 73px;
+  line-height: 73px;
+  text-align: center;
+  color: #000;
+  background: url("/images/border__button.png") no-repeat;
+  background-size: 100% 100%;
+}
+.new-content .border__run {
+  position: relative;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  perspective: 1000;
+  -webkit-perspective: 1000;
+}
+.new-content .border__run::before,
+.new-content .border__run::after {
+  content: '';
+  position: absolute;
+  background-color: transparent;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  border: 4px solid #b85fff;
+  transition: all 2s;
+  animation: clippath 8s infinite linear;
+  transform: translate3d(0, 0, 0);
+  z-index: 0;
+}
+.new-content .border__run::after {
+  animation: clippath 8s infinite -4s linear;
+}
+@keyframes clippath {
+  0%, 100% {
+    clip-path: inset(0 0 98% 0);
+  }
+  25% {
+    clip-path: inset(0 98% 0 0);
+  }
+  50% {
+    clip-path: inset(98% 0 0 0);
+  }
+  75% {
+    clip-path: inset(0 0 0 98%);
+  }
+}
