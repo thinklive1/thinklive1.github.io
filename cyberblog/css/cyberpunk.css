@@ -421,7 +421,7 @@ pre {
   font-family: 'Roboto Mono', monospace, 'Microsoft YaHei';
 }
 body {
-  color: #cdcdcd;
+  color: #02d7f2;
   font-size: 1em;
   font-weight: 400;
   line-height: 1.5;
@@ -476,7 +476,7 @@ fieldset {
 pre {
   -webkit-overflow-scrolling: touch;
   background-color: #f5f5f5;
-  color: #cdcdcd;
+  color: #02d7f2;
   font-size: 0.875em;
   overflow-x: auto;
   padding: 1.25rem 1.5rem;
@@ -1514,7 +1514,7 @@ a.has-text-grey-lightest:focus {
 .card {
   background-color: transparent;
   box-shadow: none, 0 0 1px rgba(0,0,0,0.1);
-  color: #cdcdcd;
+  color: #02d7f2;
   max-width: 100%;
   position: relative;
 }
@@ -1607,7 +1607,7 @@ a.has-text-grey-lightest:focus {
   padding-top: 0.5rem;
 }
 .dropdown-item {
-  color: #cdcdcd;
+  color: #02d7f2;
   display: block;
   font-size: 0.875rem;
   line-height: 1.5;
@@ -1740,7 +1740,7 @@ button.dropdown-item.is-active {
   padding: 0.5em 1em;
 }
 .list-item:not(a) {
-  color: #cdcdcd;
+  color: #02d7f2;
 }
 .list-item:first-child {
   border-top-left-radius: 0;
@@ -1833,7 +1833,7 @@ a.list-item {
 }
 .menu-list a {
   border-radius: 0;
-  color: #cdcdcd;
+  color: #02d7f2;
   display: block;
   padding: 0.5em 0.75em;
 }
@@ -1846,7 +1846,7 @@ a.list-item {
   color: #000;
 }
 .menu-list li ul {
-  border-left: 1px solid #cdcdcd;
+  border-left: 1px solid #02d7f2;
   margin: 0.75em;
   padding-left: 0.75em;
 }
@@ -2001,7 +2001,7 @@ a.list-item {
 }
 .message-header {
   align-items: center;
-  background-color: #cdcdcd;
+  background-color: #02d7f2;
   border-radius: 0 0 0 0;
   color: rgba(0,0,0,0.7);
   display: flex;
@@ -2026,7 +2026,7 @@ a.list-item {
   border-radius: 0;
   border-style: solid;
   border-width: 0 0 0 4px;
-  color: #cdcdcd;
+  color: #02d7f2;
   padding: 1.25em 1.5em;
 }
 .message-body code,
@@ -3519,7 +3519,7 @@ a.navbar-item.is-active,
   color: #363636;
 }
 .panel-list a {
-  color: #cdcdcd;
+  color: #02d7f2;
 }
 .panel-list a:hover {
   color: #02d7f2;
@@ -3591,7 +3591,7 @@ label.panel-block:hover {
   border-bottom-color: #dbdbdb;
   border-bottom-style: solid;
   border-bottom-width: 1px;
-  color: #cdcdcd;
+  color: #02d7f2;
   display: flex;
   justify-content: center;
   margin-bottom: -1px;
@@ -3714,7 +3714,7 @@ label.panel-block:hover {
   background-color: #000;
   border-radius: 6px;
   box-shadow: 0 0.5em 1em -0.125em rgba(0,0,0,0.1), 0 0px 0 1px rgba(0,0,0,0.02);
-  color: #cdcdcd;
+  color: #02d7f2;
   display: block;
   padding: 1.25rem;
 }
@@ -3783,7 +3783,7 @@ a.box:active {
 .button.is-text {
   background-color: transparent;
   border-color: transparent;
-  color: #cdcdcd;
+  color: #02d7f2;
   text-decoration: underline;
 }
 .button.is-text:hover,
@@ -5640,13 +5640,13 @@ fieldset[disabled] .button {
   background-color: #ededed;
 }
 .progress::-webkit-progress-value {
-  background-color: #cdcdcd;
+  background-color: #02d7f2;
 }
 .progress::-moz-progress-bar {
-  background-color: #cdcdcd;
+  background-color: #02d7f2;
 }
 .progress::-ms-fill {
-  background-color: #cdcdcd;
+  background-color: #02d7f2;
   border: none;
 }
 .progress.is-white::-webkit-progress-value {
@@ -5787,7 +5787,7 @@ fieldset[disabled] .button {
   animation-name: moveIndeterminate;
   animation-timing-function: linear;
   background-color: #ededed;
-  background-image: linear-gradient(to right, #cdcdcd 30%, #ededed 30%);
+  background-image: linear-gradient(to right, #02d7f2 30%, #ededed 30%);
   background-position: top left;
   background-repeat: no-repeat;
   background-size: 150% 150%;
@@ -6264,7 +6264,7 @@ a.tag:hover {
   font-size: 0.85rem;
 }
 .subtitle {
-  color: #cdcdcd;
+  color: #02d7f2;
   font-size: 1.25rem;
   font-weight: 400;
   line-height: 1.25;
@@ -6334,27 +6334,27 @@ a.tag:hover {
   background-color: #000;
   border-color: #dbdbdb;
   border-radius: 0;
-  color: #cdcdcd;
+  color: #02d7f2;
 }
 .input::-moz-placeholder,
 .textarea::-moz-placeholder,
 .select select::-moz-placeholder {
-  color: rgba(205,205,205,0.8);
+  color: rgba(2,215,242,0.8);
 }
 .input::-webkit-input-placeholder,
 .textarea::-webkit-input-placeholder,
 .select select::-webkit-input-placeholder {
-  color: rgba(205,205,205,0.8);
+  color: rgba(2,215,242,0.8);
 }
 .input:-moz-placeholder,
 .textarea:-moz-placeholder,
 .select select:-moz-placeholder {
-  color: rgba(205,205,205,0.8);
+  color: rgba(2,215,242,0.8);
 }
 .input:-ms-input-placeholder,
 .textarea:-ms-input-placeholder,
 .select select:-ms-input-placeholder {
-  color: rgba(205,205,205,0.8);
+  color: rgba(2,215,242,0.8);
 }
 .input:hover,
 .textarea:hover,
@@ -7304,7 +7304,7 @@ fieldset[disabled] .select select:hover {
 }
 .file-cta {
   background-color: #f5f5f5;
-  color: #cdcdcd;
+  color: #02d7f2;
 }
 .file-name {
   border-color: #dbdbdb;
@@ -7565,7 +7565,7 @@ fieldset[disabled] .select select:hover {
 .control.has-icons-right .input:focus ~ .icon,
 .control.has-icons-left .select:focus ~ .icon,
 .control.has-icons-right .select:focus ~ .icon {
-  color: #cdcdcd;
+  color: #02d7f2;
 }
 .control.has-icons-left .input.is-small ~ .icon,
 .control.has-icons-right .input.is-small ~ .icon,
@@ -11604,7 +11604,7 @@ figure.highlight.foldable div.level-left {
   font-family: 'Oxanium', Ubuntu, Roboto, 'Open Sans', 'Microsoft YaHei', sans-serif !important;
 }
 .cc-window {
-  color: #cdcdcd !important;
+  color: #02d7f2 !important;
   background-color: #000 !important;
 }
 .cc-window.cc-floating {
@@ -11677,6 +11677,9 @@ figure.highlight.foldable div.level-left {
   .section {
     padding: 1.5rem 1rem;
   }
+}
+body {
+  color: #00f;
 }
 body {
   counter-reset: card;
