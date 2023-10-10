@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta charset="UTF-8">
+  <a href="/" id="back-button" style="display:inline-block; padding:10px 20px; background-color:#aaaaaa; color:#fff; text-decoration:none; border-radius:4px; font-size:16px; font-weight:bold; box-shadow: 0 2px 4px rgba(0,0,0,.3); transition: all .3s;">
+  回到主站</a>
+  <a href="/game/index.html" id="back-button" style="display:inline-block; padding:10px 20px; background-color:#aaaaaa; color:#fff; text-decoration:none; border-radius:4px; font-size:16px; font-weight:bold; box-shadow: 0 2px 4px rgba(0,0,0,.3); transition: all .3s;">
+  俄罗斯方块</a>
+  <a href="/game/threejs/triangles/index.html" id="back-button" style="display:inline-block; padding:10px 20px; background-color:#aaaaaa; color:#fff; text-decoration:none; border-radius:4px; font-size:16px; font-weight:bold; box-shadow: 0 2px 4px rgba(0,0,0,.3); transition: all .3s;">
+  下一个动态页面</a>
+
+    <link rel="apple-touch-icon" type="image/png" href="https://cpwebassets.codepen.io/assets/favicon/apple-touch-icon-5ae1a0698dcc2402e9712f7d01ed509a57814f994c660df9f7a952f3060705ee.png">
+
+    <meta name="apple-mobile-web-app-title" content="CodePen">
+
+    <link rel="shortcut icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico">
+
+    <link rel="mask-icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/logo-pin-b4b4269c16397ad2f0f7a01bcdf513a1994f4c94b8af2f191c09eb0d601762b1.svg" color="#111">
+
+
+
+  
+    <script src="CodePen%20-%20TroisJS%20TiltShift%20Example_files/stopExecutionOnTimeout-2c7831bb44f98c1391d6a4ffda0e1fd3025033.js"></script>
+
+
+  <title>CodePen - TroisJS TiltShift Example</title>
+
+    <link rel="canonical" href="https://codepen.io/soju22/pen/vYyaJNX">
+  
+  
+  
+  
+<style>
+body, html {
+  margin: 0;
+}
+canvas {
+  display: block;
+}
+</style>
+
+  <script>
+  window.console = window.console || function(t) {};
+</script>
+
+  
+  
+</head>
+
+<body translate="no">
+  <div id="app" data-v-app=""><canvas width="2560" height="1222"></canvas></div>
+  <script src="CodePen%20-%20TroisJS%20TiltShift%20Example_files/simplex-noise.min.js"></script>
+      <script id="rendered-js" type="module">
+// Made with TroisJS : https://github.com/troisjs/trois
+import { createApp } from 'https://unpkg.com/troisjs@0.2.3/build/trois.module.cdn.min.js';
+import { InstancedBufferAttribute, Object3D } from 'https://unpkg.com/three@0.127.0/build/three.module.js';
+
+const simplex = new SimplexNoise();
+
+createApp({
+  template: `
+    <Renderer ref="renderer" :pointer="{ onMove: updateTilt }" resize="window">
+      <Camera :position="{ y: -20, z: 10 }" :look-at="{ x: 0, y: 0, z: 0 }" />
+      <Scene background="#ffffff">
+        <AmbientLight />
+        <PointLight ref="light" :position="{ y: 0, z: 20 }" />
+        <InstancedMesh ref="imesh" :count="NUM_INSTANCES" :position="{ y: 20, z: 10 }">
+          <BoxGeometry :size="SIZE" />
+          <PhongMaterial vertex-colors />
+        </InstancedMesh>
+      </Scene>
+      <EffectComposer>
+        <RenderPass />
+        <FXAAPass />
+        <TiltShiftPass :blur-radius="10" :gradient-radius="tiltRadius" :start="{ x: 0, y: tiltY }" :end="{ x: 100, y: tiltY }" />
+      </EffectComposer>
+    </Renderer>
+  `,
+  setup() {
+    const SIZE = 1.6,NX = 25,NY = 25,PADDING = 1;
+    const SIZEP = SIZE + PADDING;
+    const W = NX * SIZEP - PADDING;
+    const H = NY * SIZEP - PADDING;
+    return {
+      SIZE, NX, NY, PADDING,
+      SIZEP, W, H,
+      NUM_INSTANCES: NX * NY };
+
+  },
+  data() {
+    return {
+      tiltRadius: 100,
+      tiltY: 100 };
+
+  },
+  mounted() {
+    this.renderer = this.$refs.renderer;
+    this.size = this.renderer.three.size;
+    this.pointer = this.renderer.three.pointer;
+    this.imesh = this.$refs.imesh.mesh;
+
+    // init color attribute
+    const colors = [];
+    for (let i = 0; i < this.NUM_INSTANCES; i++) {if (window.CP.shouldStopExecution(0)) break;
+      // const color = new Color(cscale(Math.random()).hex());
+      // colors.push(color.r, color.g, color.b);
+      const c = Math.random();
+      colors.push(c, c, c);
+    }window.CP.exitedLoop(0);
+    this.imesh.geometry.setAttribute('color', new InstancedBufferAttribute(new Float32Array(colors), 3));
+
+    this.tiltRadius = this.size.height / 3;
+    this.tiltY = this.size.height / 2;
+    this.renderer.onAfterResize(this.updateTilt);
+
+    this.dummy = new Object3D();
+    this.renderer.onBeforeRender(this.animate);
+  },
+  methods: {
+    animate() {
+      this.updateInstanceMatrix();
+    },
+    updateTilt() {
+      this.tiltRadius = this.size.height / 3;
+      this.tiltY = (this.pointer.positionN.y + 1) * 0.5 * this.size.height;
+    },
+    updateInstanceMatrix() {
+      const x0 = -this.W / 2 + this.PADDING;
+      const y0 = -this.H / 2 + this.PADDING;
+      const time = Date.now() * 0.0001;
+      const noise = 0.005;
+      let x, y, nx, ny, rx, ry;
+      for (let i = 0; i < this.NX; i++) {if (window.CP.shouldStopExecution(1)) break;
+        for (let j = 0; j < this.NY; j++) {if (window.CP.shouldStopExecution(2)) break;
+          x = x0 + i * this.SIZEP;
+          y = y0 + j * this.SIZEP;
+          nx = x * noise;
+          ny = y * noise;
+          rx = simplex.noise3D(nx, ny, time) * Math.PI;
+          ry = simplex.noise3D(ny, nx, time) * Math.PI;
+          this.dummy.position.set(x, y, -10);
+          this.dummy.rotation.set(rx, ry, 0);
+          this.dummy.updateMatrix();
+          this.imesh.setMatrixAt(i * this.NY + j, this.dummy.matrix);
+        }window.CP.exitedLoop(2);
+      }window.CP.exitedLoop(1);
+      this.imesh.instanceMatrix.needsUpdate = true;
+    } } }).
+
+mount('#app');
+//# sourceURL=pen.js
+    </script>
+
+  
+
+
+
+</body></html>

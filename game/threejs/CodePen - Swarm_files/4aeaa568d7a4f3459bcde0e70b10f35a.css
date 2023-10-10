@@ -1,0 +1,28 @@
+.collection {
+  width: auto;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  margin: 15px;
+  padding: 0;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+}
+
+.collection a {
+  display: inline-block;
+  background: #fff;
+  opacity: 0.4;
+  transition: opacity 0.7s;
+  margin-left: 5px;
+  padding: 5px;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: #000;
+}
+
+.collection a:hover {
+  text-decoration: none;
+  opacity: 0.9;
+}

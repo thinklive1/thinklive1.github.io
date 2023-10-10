@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta charset="UTF-8">
+  <a href="/game/threejs/CodePen - TroisJS TiltShift Example.htm" id="back-button" style="display:inline-block; position: absolute; top: 20px; left: 20px; padding:6px 15px; background-color:#aaaaaa; color:#fff; text-decoration:none; border-radius:4px; font-size:16px; font-weight:bold; box-shadow: 0 2px 4px rgba(0,0,0,.3); transition: all .3s;">
+  下一个动态页面</a>
+
+
+    <link rel="apple-touch-icon" type="image/png" href="https://cpwebassets.codepen.io/assets/favicon/apple-touch-icon-5ae1a0698dcc2402e9712f7d01ed509a57814f994c660df9f7a952f3060705ee.png">
+
+    <meta name="apple-mobile-web-app-title" content="CodePen">
+
+    <link rel="shortcut icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico">
+
+    <link rel="mask-icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/logo-pin-b4b4269c16397ad2f0f7a01bcdf513a1994f4c94b8af2f191c09eb0d601762b1.svg" color="#111">
+
+
+
+  
+    <script src="CodePen%20-%20TroisJS%20Starfield_files/stopExecutionOnTimeout-2c7831bb44f98c1391d6a4ffda0e1fd3025033.js"></script>
+
+
+  <title>CodePen - TroisJS Starfield</title>
+
+    <link rel="canonical" href="https://codepen.io/soju22/pen/JjEqebK">
+  
+  
+  <link rel="stylesheet" href="CodePen%20-%20TroisJS%20Starfield_files/css2.css">
+  
+<style>
+body, html {
+  margin: 0;
+}
+canvas {
+  display: block;
+}
+a {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 30px;
+  position: absolute;
+  top: calc(50% - 25px);
+  left: calc(50% - 150px);
+  width: 300px;
+  height: 50px;
+  line-height: 50px;
+  box-sizing: border-box;
+  text-align: center;
+  text-decoration: none;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  border: 1px solid #fff;
+  border-radius: 50px;
+}
+</style>
+
+  <script>
+  window.console = window.console || function(t) {};
+</script>
+
+  
+  
+</head>
+
+<body translate="no">
+  <div id="app" data-v-app=""><canvas width="2560" height="1222"></canvas><a href="#">Random Colors</a></div>
+  <script src="CodePen%20-%20TroisJS%20Starfield_files/40e576c3acef9d41be38338a5abfc3d4.js"></script>
+      <script id="rendered-js" type="module">
+// Made with TroisJS : https://github.com/troisjs/trois
+import { createApp } from 'https://unpkg.com/vue@3.0.11/dist/vue.esm-browser.prod.js';
+import { lerp, BufferGeometry, Camera, EffectComposer, Points, Renderer, RenderPass, Scene, ShaderMaterial, Texture, UnrealBloomPass, ZoomBlurPass } from 'https://unpkg.com/troisjs@0.3.0-beta.4/build/trois.module.cdn.min.js';
+import { Clock, Color, MathUtils, Vector3 } from 'https://unpkg.com/three@0.127.0/build/three.module.js';
+
+const { randFloat: rnd, randInt, randFloatSpread: rndFS } = MathUtils;
+
+const vertexShader = `
+  uniform float uTime;
+  attribute vec3 color;
+  attribute float size;
+  attribute float velocity;
+  varying vec4 vColor;
+  void main(){
+    vColor = vec4(color, 1.0);
+    vec3 p = vec3(position);
+    p.z = -150. + mod(position.z + uTime, 300.);
+    vec4 mvPosition = modelViewMatrix * vec4( p, 1.0 );
+    gl_PointSize = size * (-50.0 / mvPosition.z);
+    gl_Position = projectionMatrix * mvPosition;
+  }
+`;
+
+const fragmentShader = `
+  uniform sampler2D uTexture;
+  varying vec4 vColor;
+  void main() {
+    gl_FragColor = vColor * texture2D(uTexture, gl_PointCoord);
+  }
+`;
+
+createApp({
+  template: `
+    <Renderer ref="renderer" pointer resize="window">
+      <Camera :position="{ z: 0 }" :fov="50" />
+      <Scene>
+        <Points ref="points" :position="{ z: -150 }">
+          <BufferGeometry :attributes="attributes" />
+          <ShaderMaterial :blending="2" :depth-test="false" :uniforms="uniforms" :vertex-shader="vertexShader" :fragment-shader="fragmentShader">
+            <Texture src="https://assets.codepen.io/33787/sprite.png" uniform="uTexture" />
+          </ShaderMaterial>
+        </Points>
+      </Scene>
+      <EffectComposer>
+        <RenderPass />
+        <UnrealBloomPass :strength="2" :radius="0" :threshold="0" />
+        <ZoomBlurPass :strength="zoomStrength" />
+      </EffectComposer>
+    </Renderer>
+    <a href="#" @click="updateColors" @mouseenter="targetTimeCoef = 100" @mouseleave="targetTimeCoef = 1">Random Colors</a>
+  `,
+  components: { BufferGeometry, Camera, EffectComposer, Points, Renderer, RenderPass, Scene, ShaderMaterial, Texture, UnrealBloomPass, ZoomBlurPass },
+  setup() {
+    const POINTS_COUNT = 50000;
+
+    const palette = niceColors[83];
+
+    const positions = new Float32Array(POINTS_COUNT * 3);
+    const colors = new Float32Array(POINTS_COUNT * 3);
+    const sizes = new Float32Array(POINTS_COUNT);
+    const v3 = new Vector3(),color = new Color();
+    for (let i = 0; i < POINTS_COUNT; i++) {if (window.CP.shouldStopExecution(0)) break;
+      v3.set(rndFS(200), rndFS(200), rndFS(300));
+      v3.toArray(positions, i * 3);
+      color.set(palette[Math.floor(rnd(0, palette.length))]);
+      color.toArray(colors, i * 3);
+      sizes[i] = rnd(5, 20);
+    }window.CP.exitedLoop(0);
+
+    const attributes = [
+    { name: 'position', array: positions, itemSize: 3 },
+    { name: 'color', array: colors, itemSize: 3 },
+    { name: 'size', array: sizes, itemSize: 1 }];
+
+
+    const uniforms = { uTime: { value: 0 } };
+
+    const clock = new Clock();
+
+    const timeCoef = 1,targetTimeCoef = 1;
+
+    return {
+      POINTS_COUNT,
+      attributes, uniforms, vertexShader, fragmentShader,
+      clock, timeCoef, targetTimeCoef };
+
+  },
+  data() {
+    return {
+      zoomStrength: 0 };
+
+  },
+  mounted() {
+    const renderer = this.$refs.renderer;
+    const positionN = renderer.three.pointer.positionN;
+    const points = this.$refs.points.points;
+
+    renderer.onBeforeRender(() => {
+      this.timeCoef = lerp(this.timeCoef, this.targetTimeCoef, 0.02);
+      this.uniforms.uTime.value += this.clock.getDelta() * this.timeCoef * 4;
+      this.zoomStrength = this.timeCoef * 0.004;
+
+      const da = 0.05;
+      const tiltX = lerp(points.rotation.x, positionN.y * da, 0.02);
+      const tiltY = lerp(points.rotation.y, -positionN.x * da, 0.02);
+      points.rotation.set(tiltX, tiltY, 0);
+    });
+  },
+  methods: {
+    updateColors() {
+      const colorAttribute = this.$refs.points.geometry.attributes.color;
+      const ip = randInt(0, 99);const palette = niceColors[ip];console.log(ip);
+      const color = new Color();
+      for (let i = 0; i < this.POINTS_COUNT; i++) {if (window.CP.shouldStopExecution(1)) break;
+        color.set(palette[randInt(0, palette.length)]);
+        color.toArray(colorAttribute.array, i * 3);
+      }window.CP.exitedLoop(1);
+      colorAttribute.needsUpdate = true;
+    } } }).
+
+mount('#app');
+//# sourceURL=pen.js
+    </script>
+
+  
+
+
+
+</body></html>
