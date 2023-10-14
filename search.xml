@@ -24,6 +24,239 @@
 ]]></content>
   </entry>
   <entry>
+    <title>基于中科大郑烇老师授课的计算机网络笔记(待续)</title>
+    <url>/2023/10/14/%E8%AE%A1%E7%BD%91/</url>
+    <content><![CDATA[<h2 id="第一章——概论"><a href="#第一章——概论" class="headerlink" title="第一章——概论"></a>第一章——概论</h2><h3 id="互联网"><a href="#互联网" class="headerlink" title="互联网"></a>互联网</h3><p><code>链路层</code>相邻节点传输数据<br><code>网络层</code>提供源主机到目标主机之间(端到端end to end)的服务(没有保障)</p>
+<ol>
+<li>传统方式：IP协议，路由协议（路由器交换路由信息，根据算法算出路由表，由ip协议根据目标ip查询路由表确定找到合适端口，进行转发）</li>
+<li>SDN(数据平面：交换机，控制平面：网络操作系统)，控制平面中的网络应用根据信息算出有大量字段的流表给交换机，根据字段匹配相应表项<br><code>传输层</code>区分进程，为进程中多个应用提供服务<br><code>传输协议</code>:tcp提供可靠的数据传输，udp更强调实时性<br><code>tcp</code>：往返建立连接得到响应后再传输<br><code>udp</code>：不会先建立连接再传输<br><code>应用层协议</code>：客户端，服务器等应用之间如何交互来实现功能<br><code>网络</code>：节点和边的形成的拓扑结构<br><code>计算机网络</code>：</li>
+</ol>
+<ul>
+<li>节点：主机节点，数据交换节点（转发数据，交换机，路由器等等）</li>
+<li>边被称为链路：接入网链路（主机连接到互联网），主干链路（路由器之间）</li>
+<li>协议：网络设备的工作标准<br><code>互联网</code>：世界上最大的互联计算机网络，网络的网络<span id="more"></span></li>
+<li>节点：数以亿计的互联设备，主机(host&#x2F;end system),一般方节点是主机，圆节点是交换机</li>
+<li>通信链路(link)：光纤，卫星，无线电等，传输速率 &#x3D; 带宽(bps每秒传输的位)</li>
+<li>分组交换设备(packets):路由器和交换机</li>
+<li>协议和标准(tcp,ip,udp,)：不同实体之间通讯方式的规定(在RFC官网公布)<br>协议定义了发送信息的格式，次序，动作等</li>
+</ul>
+<p>从服务角度：应用层以下是基础设施，为其上的分布式应用提供通讯，两者一起组成了互联网<br>提供通讯使用操作系统提供的网络api(socket)和其他节点建立连接和通讯</p>
+<h3 id="网络边缘"><a href="#网络边缘" class="headerlink" title="网络边缘"></a>网络边缘</h3><p><img src="/assets/%E8%AE%A1%E7%BD%91/image-20231010191525639.png"><br>互联网的三个子系统</p>
+<ul>
+<li><code>网络边缘</code>：主机和应用程序</li>
+<li><code>网络核心</code>：实现大规模的数据交换，互联的路由器（网络的网络）</li>
+<li><code>网络的接入</code>:把边缘接入到核心</li>
+</ul>
+<p>边缘的模式</p>
+<ol>
+<li>C&#x2F;S模式(主从模式)，客户端-服务器(客户端发送请求，服务器响应请求，并把结果发送给客户端)<br>缺点：可扩展性较差，负载达到一定阈值，响应能力断崖式下降</li>
+<li>P2P模式(Peer to Peer)，对等模式，每个节点既是客户端又是服务器，分布式通信<br>可以在不同的节点上得到分段的资源</li>
+</ol>
+<p>通信方式</p>
+<ol>
+<li>面向连接的通讯方式，先建立连接(发送连接请求，响应请求，准备好缓冲区等)，再相互通讯<br>特点：连接状态仅仅是端系统维持<br>eg. tcp协议（流量控制）</li>
+<li>无连接通信，不建立连接<br>eg. udp协议（无流量控制）</li>
+</ol>
+<h3 id="网络核心"><a href="#网络核心" class="headerlink" title="网络核心"></a>网络核心</h3><p>路由器的网状网络<br><img src="/assets/%E8%AE%A1%E7%BD%91/image-20231013084440297.png"><br>网络资源可以被分成片，给每个呼叫分配片，如果没有数据交换，则可以不占用资源片（频分，波分等）<br>资源交换除了时间还有电磁波的传播延迟<br><img src="/assets/%E8%AE%A1%E7%BD%91/image-20231013103915204.png"><br>电路交换不适合计算机通信（计算机通信有突发性）</p>
+<p>分组交换(共享性)：交换节点存储数据包，并分组转发，从而实现通信，按需使用网络资源<br>由于中间节点的存在，延迟比线路交换更高<br>可能出现分组的排队，甚至丢失<br>路由：决定源主机到目标主机的路径<br>转发：把输入链路转移到输出链路<br><code>复用方式</code>：时分复用（时间片），统计多路复用(不固定)<br>问题：流媒体等需要速度保证的场景有更高的性能需求</p>
+<p>分组交换网络：</p>
+<ul>
+<li>数据报网络：两主机不需要建立连接，不需要维护通信状态，每个主机都有目标主机的地址，可以独立路由地运作，路由器根据分组的目标地址进行路由</li>
+<li>虚电路网络：两个主机通信前建立连接，每个分组有一个虚电路表，按照虚电路号标识进行存储转发，过程中虚电路号可能变化</li>
+</ul>
+]]></content>
+      <categories>
+        <category>课程笔记</category>
+      </categories>
+      <tags>
+        <tag>课程笔记</tag>
+        <tag>中科大</tag>
+        <tag>计算机网络</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>基于mit6.006的算法笔记(待续)</title>
+    <url>/2023/10/14/mit6.006%E6%80%BB%E5%92%8C%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[<h2 id="算法性质"><a href="#算法性质" class="headerlink" title="算法性质"></a>算法性质</h2><p><code>循环不变式</code>主要用来帮助我们理解算法的正确性。关千<code>循环不变式</code>，我们必须证明三条<br>性质：<br>初始化：循环的第一次迭代之前，它为真。<br>保持：如果循环的某次迭代之前它为真，那么下次迭代之前它仍为真。<br>终止：在循环终止时，不变式为我们提供一个有用的性质，该性质有助千证明算法是正<br>确的。</p>
+<span id="more"></span>
+<p><code>分治算法</code>运行时间的递归式来自基本模式的三个步骤。如前所述，我们假设 T(n) 是规模为n 的一个问题的运行时间。若问题规模足够小，如对某个常量 c, n~c, 则直接求解需要常量时间，我们将其写作 @(1) 。假设把原问题分解成 a 个子问题，每个子问题的规模是原问题的 l&#x2F;b （对归并排序， a 和 b 都为 2, 然而，我们将看到在许多分治算法中， a&#x3D;&#x2F;&#x3D;-b 。)为了求解一个规模为  n&#x2F;b 的子问题，需要 T(n&#x2F;b) 的时间，所以需要 aT(n&#x2F;b) 的时间来求解 a 个子问题。如果分解问题  成子问题需要时间 D(n), 合并子问题的解成原问题的解需要时间 C(n), 那么得到递归式：<br><img src="/images/obsidian/202305191420061.png" alt="图片" title="image"><br><img src="/images/obsidian/20230519142707.png" alt="图片" title="image"></p>
+<p>f(n) &#x3D; O(g(n)) 类似于 a&lt;&#x3D;b<br>f(n) &#x3D; Ω (g(n)) 类似于 a&gt;&#x3D;b<br>f(n) &#x3D; θ (g(n))  类似于 a&#x3D;b<br>f(n) &#x3D; o(g(n)) 类似于 a&lt;b<br>f(n) &#x3D; w(g(n)) 类似于 a&gt;b<br><img src="/images/obsidian/20230519150021.png" alt="图片" title="image"></p>
+<h1 id="分治与递归"><a href="#分治与递归" class="headerlink" title="分治与递归"></a>分治与递归</h1><h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><h3 id="归并排序"><a href="#归并排序" class="headerlink" title="归并排序"></a>归并排序</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">MERGE(A, p, q, r)</span><br><span class="line"></span><br><span class="line">n1 = q - p + 1 </span><br><span class="line">n2 = r - q  </span><br><span class="line"></span><br><span class="line">let L[1.. n1 + 1] and R[1.. n2 + 1] be new arrays</span><br><span class="line"></span><br><span class="line">for i = 1 to n1</span><br><span class="line">L[i] = A[p + i - 1] </span><br><span class="line"></span><br><span class="line">for j = 1 to n2 </span><br><span class="line">R[j] = A[q + j]</span><br><span class="line"></span><br><span class="line">L[n1+ 1] = ∞</span><br><span class="line">R[n2 + 1] = ∞</span><br><span class="line"></span><br><span class="line">i = 1</span><br><span class="line">j = 1</span><br><span class="line"></span><br><span class="line">for k = p to r</span><br><span class="line">if L[i] &lt;= R[j]</span><br><span class="line">A[k] = L[i]</span><br><span class="line">i = i + 1</span><br><span class="line">else </span><br><span class="line">A[k] = R[j] </span><br><span class="line">j = j + 1</span><br><span class="line"></span><br><span class="line">MERGE-SORT(A, p, r)</span><br><span class="line">1 if p&lt;r</span><br><span class="line">z q =  ⌊ (P+r)/2 ⌋</span><br><span class="line">3 MERGE-SORT(A, p, q)</span><br><span class="line">4 MERGE-SORT(A, q+1, r)</span><br><span class="line">5 MERGE(A, p, q, r)</span><br></pre></td></tr></table></figure>
+<h3 id="寻峰算法"><a href="#寻峰算法" class="headerlink" title="寻峰算法"></a>寻峰算法</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">• If a[n/2] &lt; a[n/2 − 1] then only look at left half 1 . . . n/2 − − − 1 to look for peak</span><br><span class="line">• Else if a[n/2] &lt; a[n/2 + 1] then only look at right half n/2 + 1 . . . n to look for peak</span><br><span class="line">• Else n/2 position is a peak: WHY?</span><br><span class="line">a[n/2] ≥ a[n/2 − 1]</span><br><span class="line">a[n/2] ≥ a[n/2 + 1]</span><br><span class="line">What is the complexity?</span><br><span class="line">T (n) = T (n/2) + Θ(1) = Θ(1) + . . . + Θ(1) (log2(n) times) = Θ(log2(n))</span><br></pre></td></tr></table></figure>
+<p>二维情况下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">• Pick middle column j = m/2</span><br><span class="line">• Find global maximum on column j at (i, j)</span><br><span class="line">• Compare (i, j − 1), (i, j), (i, j + 1)</span><br><span class="line">• Pick left columns of (i, j − 1) &gt; (i, j)</span><br><span class="line">• Similarly for right</span><br><span class="line">• (i, j) is a 2D-peak if neither condition holds</span><br><span class="line">• Solve the new problem with half the number of columns.</span><br><span class="line">• When you have a single column, find global maximum and you‘re done.</span><br><span class="line"></span><br><span class="line">T (n, m) = T (n, m/2) + Θ(n) (to find global maximum on a column — (n rows))</span><br><span class="line">T (n, m) = Θ(n) + . . . + Θ(n)</span><br><span class="line">&#x27; -v &quot;</span><br><span class="line">log m</span><br><span class="line">= Θ(n log m) = Θ(n log n) if m = n</span><br></pre></td></tr></table></figure>
+
+<h2 id="代入法求解递归式"><a href="#代入法求解递归式" class="headerlink" title="代入法求解递归式"></a>代入法求解递归式</h2><ol>
+<li>猜测解的形式。  </li>
+<li>用数学归纳法求出解中的常数，并证明解是正确的。<br>猜测T(n)的上界，将其带入递归式，求出一个上界，随后寻找一个N0证明对所有n&gt;&#x3D;n0，递归式T(n)成立<br><img src="/images/obsidian/20230522140116.png" alt="图片" title="image"><br><img src="/images/obsidian/20230522140235.png" alt="图片" title="image"></li>
+</ol>
+<h2 id="递归树法"><a href="#递归树法" class="headerlink" title="递归树法"></a>递归树法</h2><p>递归树是良好的猜测递归式时间复杂度的方法，但由于构建递归树经常伴随简化，所以用其证明的话则不够严谨<br>以递归式 T(n)&#x3D;3T(ln&#x2F;4 」) +S(n2) 为例，来看一下如何用递归树生成一个好的猜测<br><img src="/images/obsidian/202305232128551.png" alt="图片" title="image"><br>递归树有 log4n+l 层，<br><img src="/images/obsidian/20230523213613.png" alt="图片" title="image"><br><img src="/images/obsidian/202305232137541.png" alt="图片" title="image"><br>由于根结点对总代价的贡献为 cn^2, 所以根结点的代价占总代价的一个常数  比例。换句话说，根结点的代价支配了整棵树的总代价。</p>
+<h2 id="主方法求解递归式"><a href="#主方法求解递归式" class="headerlink" title="主方法求解递归式"></a>主方法求解递归式</h2><p>主方法为如下形式的递归式提供了一种”菜谱”式的求解方法<br>T(n) &#x3D; aT(n&#x2F;b) + f(n)<br>其中 a&gt;&#x3D;l1和 b&gt;&#x3D;1 是常数， f(n) 是渐近正函数。<br><img src="/images/obsidian/202305242150561.png" alt="图片" title="image"></p>
+<p>算法思路：<br>元素和最大的子数组有三种情况：在左半数组，右半数组，或者跨越中点，第一和第二种情况可以用递归遍历解决，第三种情况则分为两个半边数组的组合，只要从中点出发寻找最大子数组，然后组合就可以了<br><code>时间复杂度分析</code>：，其中线性时间为跨越中点的子数组，最终需要时间为O(NlogN)<br><img src="/images/obsidian/202305221035071.png" alt="图片" title="image"></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">FIND-MAXIMUM-SUBARRAYCA, low, high)  </span><br><span class="line">1 if high== low  </span><br><span class="line">2 return Clow, high, A[low])  </span><br><span class="line">3 else mid=L Clow 十 high)/2 」  </span><br><span class="line">4 Cleft-low, left-high, left-sum) =  </span><br><span class="line">// base case, only one element  </span><br><span class="line">FIND-MAXIMUM-SUBARRAY(A, low, mid)  </span><br><span class="line">5 (right-low, right-high, right-sum) =  </span><br><span class="line">FIND-MAXIMUM-SUBARRAY(A, mid+l. high)  </span><br><span class="line">6 (cross-low, cross-high, cross-sum) =  </span><br><span class="line">FIND-MAX-CROSSING-SUBARRAY(A, low, mid, high)  </span><br><span class="line">7 if left-sum~right-sum and left-sum~cross-sum  </span><br><span class="line">8 return (left-low, left-high, left-sum)  </span><br><span class="line">elseif rightr-sum;?, left-sum and right-sum;?, cross-sum  </span><br><span class="line">return (right-low, right-high, right-sum)  </span><br><span class="line">else return (cross-low, cross-high, cross-sum)</span><br><span class="line"></span><br><span class="line">FIND-MAX-CROSSING--SUBARRAY(A, low, mid, high)  </span><br><span class="line">1 left-sum = -oo  </span><br><span class="line">2 sum=O  </span><br><span class="line">3 for i = mid downto low  </span><br><span class="line">4 sum=sum+A[i]  </span><br><span class="line">5 if sum&gt; left-sum  </span><br><span class="line">6 left-sum = sum  </span><br><span class="line">7 max-left = i  </span><br><span class="line">8 right-sum= -oo  </span><br><span class="line">9 sum=O  </span><br><span class="line">10 for j = mid + 1 to high</span><br><span class="line">11 sum=sum + A[j]  </span><br><span class="line">12 if sum &gt; right-sum  </span><br><span class="line">13 right-sum = sum  </span><br><span class="line">14 max-right = j  </span><br><span class="line">15 return (max-left, max-right, left-sum + right-sum)</span><br></pre></td></tr></table></figure>
+
+<h1 id="比较排序"><a href="#比较排序" class="headerlink" title="比较排序"></a>比较排序</h1><h2 id="堆排序"><a href="#堆排序" class="headerlink" title="堆排序"></a>堆排序</h2><p><img src="/assets/mit6.006%E6%80%BB%E5%92%8C%E7%AC%94%E8%AE%B0/image-20231014112423645.png"><br>最大堆的生成</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">l = left(i)</span><br><span class="line">r = right(i)</span><br><span class="line">if (l &lt;= heap-size(A) and A[l] &gt; A[i])</span><br><span class="line">then largest = l else largest = i</span><br><span class="line">if (r &lt;= heap-size(A) and A[r] &gt; A[largest])</span><br><span class="line">then largest = r</span><br><span class="line">if largest = i</span><br><span class="line">then exchange A[i] and A[largest]</span><br><span class="line">Max_Heapify(A, largest)</span><br><span class="line"></span><br><span class="line">//Converts A[1…n] to a max heap</span><br><span class="line">Build_Max_Heap(A):</span><br><span class="line">for i=n/2 downto 1</span><br><span class="line">do Max_Heapify(A, i)</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line">Why start at n/2?</span><br><span class="line">Because elements A[n/2 + 1 … n] are all leaves of the tree</span><br><span class="line">*/</span><br></pre></td></tr></table></figure>
+<p>时间复杂度分析：</p>
+<p>Total amount of work in the for loop can be summed as:<br>n&#x2F;4 (1 c) + n&#x2F;8 (2 c) + n&#x2F;16 (3 c) + … + 1 (lg n c)<br>Setting n&#x2F;4 &#x3D; 2k and simplifying we get:<br>c 2k( 1&#x2F;20 + 2&#x2F;21 + 3&#x2F;22 + … (k+1)&#x2F;2k )<br>The term is brackets is bounded by a constant<br>This means that Build_Max_Heap is O(n)</p>
+<p>排序策略：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Sorting Strategy:</span><br><span class="line">1. Build Max Heap from unordered array;</span><br><span class="line">2. Find maximum element A[1];</span><br><span class="line">3. Swap elements A[n] and A[1]:</span><br><span class="line">now max element is at the end of the array!</span><br><span class="line">4. Discard node n from heap</span><br><span class="line">(by decrementing heap-size variable)</span><br><span class="line">5. New root may violate max heap property, but its</span><br><span class="line">children are max heaps. Run max_heapify to fix this.</span><br><span class="line">6. Go to Step 2 unless heap is empty</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>课程笔记</category>
+      </categories>
+      <tags>
+        <tag>课程笔记</tag>
+        <tag>麻省理工</tag>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>基于苏大ppt的linux笔记(待续)</title>
+    <url>/2023/10/14/%E8%8B%8F%E5%A4%A7linux_ppt/</url>
+    <content><![CDATA[<h2 id="文件系统"><a href="#文件系统" class="headerlink" title="文件系统"></a>文件系统</h2><h3 id="命名"><a href="#命名" class="headerlink" title="命名"></a>命名</h3><p>•除&#x2F;之外，所有的字符都合法</p>
+<p>•大小写敏感</p>
+<p>•有些字符最好不用，如空格符、制表符、退格符和字符：？, @ # $ &amp; () \ | ; ‘ ’ “ ” &lt; &gt;</p>
+<p>•避免使用＋、－或. 来作为普通文件名的第一个字符</p>
+<p>•可以使用长文件名或目录名（255个字符）</p>
+<span id="more"></span>
+<p>包括完整路径的文件名不超过4096字符</p>
+<h3 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h3><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>bin</td>
+<td>存放二进制的可执行程序</td>
+</tr>
+<tr>
+<td>boot</td>
+<td>存放用于系统引导时使用的各种文件</td>
+</tr>
+<tr>
+<td>dev</td>
+<td>存放设备文件，用户通过这些文件访问外部设备</td>
+</tr>
+<tr>
+<td>etc</td>
+<td>存放系统的配置文件</td>
+</tr>
+<tr>
+<td>home</td>
+<td>存放用户文件的目录，每个用户在该目录下有一个与该用户名对应的子目录</td>
+</tr>
+<tr>
+<td>root</td>
+<td>超级用户目录</td>
+</tr>
+<tr>
+<td>sbin</td>
+<td>类似于&#x2F;bin目录，存放二进制文件，只有root才能访问</td>
+</tr>
+<tr>
+<td>tmp</td>
+<td>用于放置各种临时文件</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>var</td>
+<td>用于存放需要随时改变的文件，如系统日志、脱机工作目录等</td>
+</tr>
+<tr>
+<td>mnt</td>
+<td>系统管理员安装临时文件系统的安装点</td>
+</tr>
+<tr>
+<td>opt</td>
+<td>一般情况下，该目录不属于系统的基本文件系统，是额外安装的应用程序包所放置的地方</td>
+</tr>
+<tr>
+<td>usr</td>
+<td>用于存放系统应用程序</td>
+</tr>
+<tr>
+<td>lib</td>
+<td>存放根文件系统中的程序运行所需要的共享库及内核模块</td>
+</tr>
+<tr>
+<td>proc</td>
+<td>是一个虚拟文件系统，存放当前内存的映射，主要用于在不重启机器的情况下管理内核</td>
+</tr>
+<tr>
+<td>lost+ found</td>
+<td>存放一些系统检查结果，发现不合法的文件或数据都存放在这里，通常此目录是空的，除非硬盘遭到损坏</td>
+</tr>
+</tbody></table>
+<h3 id="链接文件"><a href="#链接文件" class="headerlink" title="链接文件"></a>链接文件</h3><ul>
+<li><p>硬链接<br>将两个文件名指向硬盘上同一个存储空间（inode），对任何一个文件的修改都将影响到另一个文件。<br>特性：<br>文件有相同的 inode 及 data block；<br>只能对已存在的文件进行创建；<br>不能交叉文件系统进行硬链接的创建；<br>不能对目录进行创建，只可对文件创建；<br>删除一个硬链接文件并不影响其他有相同 inode 号的文件。</p>
+</li>
+<li><p>符号链接<br>又称软链接，是指将一个文件指向另外一个文件的文件名。<br>特性：<br>软链接有自己的文件属性及权限等；<br>软链接可对文件或目录创建；<br>可对不存在的文件或目录创建软链接；<br>软链接可交叉文件系统；<br>若被指向的原文件被删除，则相关软连接被称为死链接<br>删除软链接并不影响被指向的文件，若被指向路径文件被重新创建，死链接可恢复为正常的软链接</p>
+</li>
+</ul>
+<p><code>符号链接可以跨文件系统，即可以跨磁盘分区。硬链接不可以跨文件系统。它只能建立对文件的链接。</code><br>链接文件命令  ln</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ln file1 file2</td>
+<td>创建源文件file1的硬链接file2</td>
+</tr>
+<tr>
+<td>ln -s file1 file2</td>
+<td>创建源文件file1的软链接file2</td>
+</tr>
+</tbody></table>
+<p>符号链接可以跨文件系统，即可以跨磁盘分区。<br>硬链接不可以跨文件系统，只能建立对文件的链接。<br>硬链接删除只原文件或硬链接不影响文件内容<br>软连接删除源文件导致链接失效</p>
+<h3 id="MBR"><a href="#MBR" class="headerlink" title="MBR"></a>MBR</h3><p>硬盘的第一个扇区存有主引导记录(Master boot record, MBR)及分区表(partition table)</p>
+<ul>
+<li>MBR用于引导操作系统， 446 bytes ；</li>
+<li>partition table用于记录分区信息， 64 bytes ；<br>一个MBR分区表类型的硬盘最多存在4个主分区，每个分区项占用16个字节<br>如果分区超过4个，则需要使用扩展分区，即一个物理硬盘上最多有3个主分区和1个扩展分区。<br>扩展分区不能直接使用，必须分割成为逻辑分区，一个扩展分区中的逻辑分区可以任意多个。</li>
+</ul>
+<h3 id="GPT"><a href="#GPT" class="headerlink" title="GPT"></a>GPT</h3><p>全称全局唯一标识分区表<br>GUID Partition Table</p>
+<ul>
+<li>主分区数量任意（Win 128个）</li>
+<li>支持最大18EB（NTFS 256TB）<br>1EB&#x3D;1024PB&#x3D;1,048,576TB<br>可能需要EFI支持（Win、Mac）</li>
+</ul>
+<h3 id="ext2"><a href="#ext2" class="headerlink" title="ext2"></a>ext2</h3><p>磁盘分区完毕后还需要进行格式化(format)，不同操作系统默认的文件系统不同，所以需要格式化成不同格式的分区。<br>EXT2（second extended filesystem）是LINUX内核默认的文件系统。<br>EXT2中的主要构成：<br>•SuperBlock  记录此 filesystem 的整体信息，包括inode&#x2F;block的总量、使用量、剩余量， 以及文件系统的格式与相关信息等；<br>•Block   实际记录文件的内容，若文件较大，则占用多个 block。<br>•Inode   记录文件的属性，一个文件占用一个inode，同时记录此文件的数据所在的 block 号码</p>
+<h4 id="inode"><a href="#inode" class="headerlink" title="inode"></a>inode</h4><p>ext2 创建一个目录时，分配1个 inode 与至少1块 block 给目录<br>•inode 记录目录权限与属性，并记录分配到 block号码<br>•block 记录目录下文件名与该文件名占用的 inode</p>
+<p>inode 数量与大小在格式化时固定<br>特征：</p>
+<ul>
+<li>每个 inode 大小均固定为 128 bytes；</li>
+<li>每个文件仅占用一个 inode；</li>
+<li>文件系统能够创建的文件数量与 inode 的数量有关；</li>
+<li>系统读取文件时先找到 inode，分析 inode 所记录的权限与用户是否符合，若符合读取 block 的内容。<br><img src="/assets/%E8%8B%8F%E5%A4%A7linux_ppt/image-20231014145226727.png"></li>
+</ul>
+<h4 id="升级"><a href="#升级" class="headerlink" title="升级"></a>升级</h4><p><code>EXT2</code>文件系统高效稳定，但不提供日志<br><code>EXT3</code><br>提供日志模式：<br>data&#x3D;journal模式<br>对所有的文件数据及metadata（定义文件系统中数据的数据,即数据的数据）进行日志记录<br>data&#x3D;ordered或data&#x3D;writeback模式<br>只对metadata记录日志，而不对数据进行日志记录</p>
+<p><code>EXT4</code><br>EXT3的扩展升级，可以提供更佳的性能和可靠性，包括支持更大的分区和文件大小，更快的文件操作速度。</p>
+<h3 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h3><h4 id="fdisk"><a href="#fdisk" class="headerlink" title="fdisk"></a>fdisk</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">           fdisk      [-options]     &lt;disk&gt;</span><br><span class="line">选项：</span><br><span class="line">-l 列出分区信息表</span><br><span class="line">/dev/sda    对sda磁盘进行分区</span><br></pre></td></tr></table></figure>
+<p>中科大的xubuntu镜像</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ustc@ustclug-linux101:~/桌面$ sudo fdisk -l</span><br><span class="line">[sudo] ustc 的密码： </span><br><span class="line">Disk /dev/sda：5 GiB，5368709120 字节，10485760 个扇区</span><br><span class="line">Disk model: VMware Virtual S</span><br><span class="line">单元：扇区 / 1 * 512 = 512 字节</span><br><span class="line">扇区大小(逻辑/物理)：512 字节 / 512 字节</span><br><span class="line">I/O 大小(最小/最佳)：512 字节 / 512 字节</span><br><span class="line">磁盘标签类型：gpt</span><br><span class="line">磁盘标识符：12526913-E330-4CA7-A379-90A87EF858B0</span><br><span class="line"></span><br><span class="line">设备         起点     末尾    扇区  大小 类型</span><br><span class="line">/dev/sda1    2048   499711  497664  243M EFI 系统</span><br><span class="line">/dev/sda2  499712 10483711 9984000  4.8G Linux 文件系统</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>课程笔记</category>
+      </categories>
+      <tags>
+        <tag>课程笔记</tag>
+        <tag>苏州大学</tag>
+        <tag>linux</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>基于伯克利Sysadmin decal的linux笔记</title>
     <url>/2023/10/12/sysadmin/</url>
     <content><![CDATA[<h1 id="shell脚本"><a href="#shell脚本" class="headerlink" title="shell脚本"></a>shell脚本</h1><p>Shell 脚本通常以 shebang 行开头：#!path&#x2F;to&#x2F;interpreter。</p>
@@ -1271,8 +1504,8 @@
       </categories>
       <tags>
         <tag>课程笔记</tag>
-        <tag>北京大学</tag>
         <tag>麻省理工</tag>
+        <tag>北京大学</tag>
         <tag>vim</tag>
         <tag>编程工具</tag>
       </tags>
@@ -2149,8 +2382,8 @@
       </categories>
       <tags>
         <tag>课程笔记</tag>
-        <tag>北京大学</tag>
         <tag>麻省理工</tag>
+        <tag>北京大学</tag>
         <tag>编程工具</tag>
         <tag>linux</tag>
       </tags>
