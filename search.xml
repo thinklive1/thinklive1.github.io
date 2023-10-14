@@ -67,6 +67,7 @@
 ]]></content>
       <categories>
         <category>课程笔记</category>
+        <category>计算机网络</category>
       </categories>
       <tags>
         <tag>课程笔记</tag>
@@ -105,6 +106,7 @@
 ]]></content>
       <categories>
         <category>课程笔记</category>
+        <category>数据结构与算法</category>
       </categories>
       <tags>
         <tag>课程笔记</tag>
@@ -249,6 +251,7 @@
 ]]></content>
       <categories>
         <category>课程笔记</category>
+        <category>操作系统</category>
       </categories>
       <tags>
         <tag>课程笔记</tag>
@@ -717,6 +720,7 @@
 ]]></content>
       <categories>
         <category>课程笔记</category>
+        <category>操作系统</category>
       </categories>
       <tags>
         <tag>课程笔记</tag>
@@ -781,6 +785,7 @@
 ]]></content>
       <categories>
         <category>课程笔记</category>
+        <category>数据科学</category>
       </categories>
       <tags>
         <tag>课程笔记</tag>
@@ -911,11 +916,12 @@
 <p><img src="/assets/61b%E6%80%BB%E5%92%8C%E7%AC%94%E8%AE%B0/image-20231006224146653.png"></p>
 <h1 id="作业中的实现（待续）"><a href="#作业中的实现（待续）" class="headerlink" title="作业中的实现（待续）"></a>作业中的实现（待续）</h1>]]></content>
       <categories>
-        <category>伯克利</category>
         <category>课程笔记</category>
+        <category>数据结构与算法</category>
       </categories>
       <tags>
         <tag>课程笔记</tag>
+        <tag>伯克利</tag>
         <tag>JAVA</tag>
         <tag>数据结构与算法</tag>
       </tags>
@@ -994,7 +1000,8 @@
 <p>可以给匿名函数命名</p>
 ]]></content>
       <categories>
-        <category>读书笔记</category>
+        <category>课程笔记</category>
+        <category>其他</category>
       </categories>
       <tags>
         <tag>读书笔记</tag>
@@ -1174,6 +1181,7 @@
 ]]></content>
       <categories>
         <category>游戏杂谈</category>
+        <category>其他游戏</category>
       </categories>
       <tags>
         <tag>游戏杂谈</tag>
@@ -1192,6 +1200,7 @@
 ]]></content>
       <categories>
         <category>游戏杂谈</category>
+        <category>wrpg</category>
       </categories>
       <tags>
         <tag>游戏杂谈</tag>
@@ -1207,6 +1216,7 @@
 ]]></content>
       <categories>
         <category>游戏杂谈</category>
+        <category>wrpg</category>
       </categories>
       <tags>
         <tag>游戏杂谈</tag>
@@ -1222,6 +1232,7 @@
 ]]></content>
       <categories>
         <category>游戏杂谈</category>
+        <category>独立游戏</category>
       </categories>
       <tags>
         <tag>游戏杂谈</tag>
@@ -1237,6 +1248,7 @@
 ]]></content>
       <categories>
         <category>游戏杂谈</category>
+        <category>独立游戏</category>
       </categories>
       <tags>
         <tag>游戏杂谈</tag>
@@ -1254,6 +1266,7 @@
 ]]></content>
       <categories>
         <category>游戏杂谈</category>
+        <category>独立游戏</category>
       </categories>
       <tags>
         <tag>游戏杂谈</tag>
@@ -1269,6 +1282,7 @@
 ]]></content>
       <categories>
         <category>游戏杂谈</category>
+        <category>其他游戏</category>
       </categories>
       <tags>
         <tag>游戏杂谈</tag>
@@ -1331,6 +1345,7 @@
 ]]></content>
       <categories>
         <category>课程笔记</category>
+        <category>数据结构与算法</category>
       </categories>
       <tags>
         <tag>c++</tag>
@@ -1418,6 +1433,7 @@
 ]]></content>
       <categories>
         <category>课程笔记</category>
+        <category>数据科学</category>
       </categories>
       <tags>
         <tag>课程笔记</tag>
@@ -1501,6 +1517,7 @@
 ]]></content>
       <categories>
         <category>课程笔记</category>
+        <category>其他</category>
       </categories>
       <tags>
         <tag>课程笔记</tag>
@@ -1728,6 +1745,7 @@
 ]]></content>
       <categories>
         <category>课程笔记</category>
+        <category>数据结构与算法</category>
       </categories>
       <tags>
         <tag>c++</tag>
@@ -2035,12 +2053,13 @@
 </code></pre>
 ]]></content>
       <categories>
-        <category>伯克利</category>
         <category>课程笔记</category>
+        <category>数据结构与算法</category>
       </categories>
       <tags>
         <tag>课程笔记</tag>
         <tag>python</tag>
+        <tag>伯克利</tag>
         <tag>数据结构与算法</tag>
       </tags>
   </entry>
@@ -2379,6 +2398,7 @@
 ]]></content>
       <categories>
         <category>课程笔记</category>
+        <category>操作系统</category>
       </categories>
       <tags>
         <tag>课程笔记</tag>
@@ -2461,6 +2481,7 @@
 ]]></content>
       <categories>
         <category>课程笔记</category>
+        <category>计组</category>
       </categories>
       <tags>
         <tag>课程笔记</tag>
@@ -2917,6 +2938,7 @@
 ]]></content>
       <categories>
         <category>课程笔记</category>
+        <category>操作系统</category>
       </categories>
       <tags>
         <tag>课程笔记</tag>
