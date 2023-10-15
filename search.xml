@@ -24,6 +24,275 @@
 ]]></content>
   </entry>
   <entry>
+    <title>基于伯克利ds100的数据分析项目</title>
+    <url>/2023/10/15/houses/</url>
+    <content><![CDATA[<h2 id="数据集：美国伊利诺伊州库克县的住房数据集"><a href="#数据集：美国伊利诺伊州库克县的住房数据集" class="headerlink" title="数据集：美国伊利诺伊州库克县的住房数据集"></a>数据集：美国伊利诺伊州库克县的住房数据集</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#引入python库</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line">%matplotlib inline</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> warnings</span><br><span class="line">warnings.filterwarnings(<span class="string">&quot;ignore&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> zipfile</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line"><span class="comment"># Plot settings</span></span><br><span class="line">plt.rcParams[<span class="string">&#x27;figure.figsize&#x27;</span>] = (<span class="number">12</span>, <span class="number">9</span>)</span><br><span class="line">plt.rcParams[<span class="string">&#x27;font.size&#x27;</span>] = <span class="number">12</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>该数据集包含来自伊利诺伊州库克县（芝加哥所在县）的超过 500,000 条记录。<br>数据集共有61个特征； 第 62 个是销售价格, 每个变量的解释可以在 codebook.txt文件中找到<br>数据分为训练集和测试集，分别有 204,792 个和 68,264 个观测值，但我们将只处理项目这一部分的训练集。 </p>
+<span id="more"></span>
+
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#引入数据集</span></span><br><span class="line"><span class="keyword">with</span> zipfile.ZipFile(<span class="string">&#x27;cook_county_data.zip&#x27;</span>) <span class="keyword">as</span> item:</span><br><span class="line">    item.extractall()</span><br><span class="line">training_data = pd.read_csv(<span class="string">&quot;cook_county_train.csv&quot;</span>, index_col=<span class="string">&#x27;Unnamed: 0&#x27;</span>)</span><br><span class="line"><span class="comment"># 204,792 observations and 62 features in training data</span></span><br><span class="line"><span class="keyword">assert</span> training_data.shape == (<span class="number">204792</span>, <span class="number">62</span>)</span><br><span class="line"><span class="comment"># Sale Price is provided in the training data</span></span><br><span class="line"><span class="keyword">assert</span> <span class="string">&#x27;Sale Price&#x27;</span> <span class="keyword">in</span> training_data.columns.values</span><br><span class="line">training_data.columns.values</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>array([&#39;PIN&#39;, &#39;Property Class&#39;, &#39;Neighborhood Code&#39;, &#39;Land Square Feet&#39;,
+       &#39;Town Code&#39;, &#39;Apartments&#39;, &#39;Wall Material&#39;, &#39;Roof Material&#39;,
+       &#39;Basement&#39;, &#39;Basement Finish&#39;, &#39;Central Heating&#39;, &#39;Other Heating&#39;,
+       &#39;Central Air&#39;, &#39;Fireplaces&#39;, &#39;Attic Type&#39;, &#39;Attic Finish&#39;,
+       &#39;Design Plan&#39;, &#39;Cathedral Ceiling&#39;, &#39;Construction Quality&#39;,
+       &#39;Site Desirability&#39;, &#39;Garage 1 Size&#39;, &#39;Garage 1 Material&#39;,
+       &#39;Garage 1 Attachment&#39;, &#39;Garage 1 Area&#39;, &#39;Garage 2 Size&#39;,
+       &#39;Garage 2 Material&#39;, &#39;Garage 2 Attachment&#39;, &#39;Garage 2 Area&#39;,
+       &#39;Porch&#39;, &#39;Other Improvements&#39;, &#39;Building Square Feet&#39;,
+       &#39;Repair Condition&#39;, &#39;Multi Code&#39;, &#39;Number of Commercial Units&#39;,
+       &#39;Estimate (Land)&#39;, &#39;Estimate (Building)&#39;, &#39;Deed No.&#39;, &#39;Sale Price&#39;,
+       &#39;Longitude&#39;, &#39;Latitude&#39;, &#39;Census Tract&#39;,
+       &#39;Multi Property Indicator&#39;, &#39;Modeling Group&#39;, &#39;Age&#39;, &#39;Use&#39;,
+       &quot;O&#39;Hare Noise&quot;, &#39;Floodplain&#39;, &#39;Road Proximity&#39;, &#39;Sale Year&#39;,
+       &#39;Sale Quarter&#39;, &#39;Sale Half-Year&#39;, &#39;Sale Quarter of Year&#39;,
+       &#39;Sale Month of Year&#39;, &#39;Sale Half of Year&#39;, &#39;Most Recent Sale&#39;,
+       &#39;Age Decade&#39;, &#39;Pure Market Filter&#39;, &#39;Garage Indicator&#39;,
+       &#39;Neigborhood Code (mapping)&#39;, &#39;Town and Neighborhood&#39;,
+       &#39;Description&#39;, &#39;Lot Size&#39;], dtype=object)
+</code></pre>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">training_data[<span class="string">&#x27;Description&#x27;</span>][<span class="number">0</span>]</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>&#39;This property, sold on 09/14/2015, is a one-story houeshold located at 2950 S LYMAN ST.It has a total of 6 rooms, 3 of which are bedrooms, and 1.0 of which are bathrooms.&#39;
+</code></pre>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">training_data.head()</span><br></pre></td></tr></table></figure>
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+<pre><code>.dataframe tbody tr th &#123;
+    vertical-align: top;
+&#125;
+
+.dataframe thead th &#123;
+    text-align: right;
+&#125;
+</code></pre>
+<p></style></p>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>PIN</th>
+      <th>Property Class</th>
+      <th>Neighborhood Code</th>
+      <th>Land Square Feet</th>
+      <th>Town Code</th>
+      <th>Apartments</th>
+      <th>Wall Material</th>
+      <th>Roof Material</th>
+      <th>Basement</th>
+      <th>Basement Finish</th>
+      <th>...</th>
+      <th>Most Recent Sale</th>
+      <th>Age Decade</th>
+      <th>Pure Market Filter</th>
+      <th>Garage Indicator</th>
+      <th>Neigborhood Code (mapping)</th>
+      <th>Town and Neighborhood</th>
+      <th>Description</th>
+      <th>Lot Size</th>
+      <th>Log Sale Price</th>
+      <th>Log Building Square Feet</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>13272240180000</td>
+      <td>202</td>
+      <td>120</td>
+      <td>3780.0</td>
+      <td>71</td>
+      <td>0.0</td>
+      <td>2.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>...</td>
+      <td>1.0</td>
+      <td>9.6</td>
+      <td>1</td>
+      <td>1.0</td>
+      <td>120</td>
+      <td>71120</td>
+      <td>This property, sold on 05/23/2018, is a one-st...</td>
+      <td>3780.0</td>
+      <td>12.560244</td>
+      <td>6.904751</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>25221150230000</td>
+      <td>202</td>
+      <td>210</td>
+      <td>4375.0</td>
+      <td>70</td>
+      <td>0.0</td>
+      <td>2.0</td>
+      <td>1.0</td>
+      <td>2.0</td>
+      <td>3.0</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>11.2</td>
+      <td>1</td>
+      <td>1.0</td>
+      <td>210</td>
+      <td>70210</td>
+      <td>This property, sold on 02/18/2016, is a one-st...</td>
+      <td>4375.0</td>
+      <td>9.998798</td>
+      <td>6.810142</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>10251130030000</td>
+      <td>203</td>
+      <td>220</td>
+      <td>4375.0</td>
+      <td>17</td>
+      <td>0.0</td>
+      <td>3.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>3.0</td>
+      <td>...</td>
+      <td>1.0</td>
+      <td>6.3</td>
+      <td>1</td>
+      <td>1.0</td>
+      <td>220</td>
+      <td>17220</td>
+      <td>This property, sold on 07/23/2013, is a one-st...</td>
+      <td>4375.0</td>
+      <td>12.323856</td>
+      <td>7.068172</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>31361040550000</td>
+      <td>202</td>
+      <td>120</td>
+      <td>8400.0</td>
+      <td>32</td>
+      <td>0.0</td>
+      <td>3.0</td>
+      <td>1.0</td>
+      <td>2.0</td>
+      <td>3.0</td>
+      <td>...</td>
+      <td>0.0</td>
+      <td>6.3</td>
+      <td>1</td>
+      <td>1.0</td>
+      <td>120</td>
+      <td>32120</td>
+      <td>This property, sold on 06/10/2016, is a one-st...</td>
+      <td>8400.0</td>
+      <td>10.025705</td>
+      <td>6.855409</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>30314240080000</td>
+      <td>203</td>
+      <td>181</td>
+      <td>10890.0</td>
+      <td>37</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>3.0</td>
+      <td>...</td>
+      <td>1.0</td>
+      <td>10.9</td>
+      <td>1</td>
+      <td>1.0</td>
+      <td>181</td>
+      <td>37181</td>
+      <td>This property, sold on 10/26/2017, is a one-st...</td>
+      <td>10890.0</td>
+      <td>11.512925</td>
+      <td>7.458186</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 64 columns</p>
+</div>
+
+
+
+
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">## 过滤一些不合理数据</span></span><br><span class="line">销售价格理应大于<span class="number">100</span></span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">remove_outliers</span>(<span class="params">data, variable, lower=-np.inf, upper=np.inf</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    Input:</span></span><br><span class="line"><span class="string">      data (DataFrame): the table to be filtered</span></span><br><span class="line"><span class="string">      variable (string): the column with numerical outliers</span></span><br><span class="line"><span class="string">      lower (numeric): observations with values lower than or equal to this will be removed</span></span><br><span class="line"><span class="string">      upper (numeric): observations with values higher than this will be removed</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    Output:</span></span><br><span class="line"><span class="string">      a DataFrame with outliers removed</span></span><br><span class="line"><span class="string">      </span></span><br><span class="line"><span class="string">    Note: This function should not change mutate the contents of data.</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span>  </span><br><span class="line">    df = data.copy()</span><br><span class="line"></span><br><span class="line">  <span class="comment"># Filter out rows with outliers</span></span><br><span class="line">    df = df[df[variable] &gt; lower]</span><br><span class="line">    df = df[df[variable] &lt; upper]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> df</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">training_data = remove_outliers(training_data,<span class="string">&#x27;Sale Price&#x27;</span>,<span class="number">100</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="可视化销售价格数据"><a href="#可视化销售价格数据" class="headerlink" title="可视化销售价格数据"></a>可视化销售价格数据</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">plot_distribution</span>(<span class="params">data, label</span>):</span><br><span class="line">    fig, axs = plt.subplots(nrows=<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">    sns.distplot(</span><br><span class="line">        data[label], </span><br><span class="line">        ax=axs[<span class="number">0</span>]</span><br><span class="line">    )</span><br><span class="line">    sns.boxplot(</span><br><span class="line">        x=data[label],</span><br><span class="line">        width=<span class="number">0.3</span>, </span><br><span class="line">        ax=axs[<span class="number">1</span>],</span><br><span class="line">        showfliers=<span class="literal">False</span>,</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Align axes</span></span><br><span class="line">    spacer = np.<span class="built_in">max</span>(data[label]) * <span class="number">0.05</span></span><br><span class="line">    xmin = np.<span class="built_in">min</span>(data[label]) - spacer</span><br><span class="line">    xmax = np.<span class="built_in">max</span>(data[label]) + spacer</span><br><span class="line">    axs[<span class="number">0</span>].set_xlim((xmin, xmax))</span><br><span class="line">    axs[<span class="number">1</span>].set_xlim((xmin, xmax))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Remove some axis text</span></span><br><span class="line">    axs[<span class="number">0</span>].xaxis.set_visible(<span class="literal">False</span>)</span><br><span class="line">    axs[<span class="number">0</span>].yaxis.set_visible(<span class="literal">False</span>)</span><br><span class="line">    axs[<span class="number">1</span>].yaxis.set_visible(<span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Put the two plots together</span></span><br><span class="line">    plt.subplots_adjust(hspace=<span class="number">0</span>)</span><br><span class="line">    fig.suptitle(<span class="string">&quot;Distribution of &quot;</span> + label)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">training_data[<span class="string">&#x27;Log Sale Price&#x27;</span>] = np.log(training_data[<span class="string">&#x27;Sale Price&#x27;</span>])</span><br><span class="line">plot_distribution(training_data, label=<span class="string">&#x27;Log Sale Price&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+
+<p><img src="/assets/houses/output_11_0.png" alt="png"></p>
+<h2 id="可视化房屋面积数据"><a href="#可视化房屋面积数据" class="headerlink" title="可视化房屋面积数据"></a>可视化房屋面积数据</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">training_data[<span class="string">&#x27;Log Building Square Feet&#x27;</span>] = np.log(training_data[<span class="string">&#x27;Building Square Feet&#x27;</span>])</span><br><span class="line">plot_distribution(training_data, label=<span class="string">&#x27;Log Building Square Feet&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+
+<p><img src="/assets/houses/output_13_0.png" alt="png"></p>
+<h2 id="可视化销售价格与街区的关系"><a href="#可视化销售价格与街区的关系" class="headerlink" title="可视化销售价格与街区的关系"></a>可视化销售价格与街区的关系</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">plot_categorical</span>(<span class="params">neighborhoods</span>):</span><br><span class="line">    fig, axs = plt.subplots(nrows=<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">    sns.boxplot(</span><br><span class="line">        x=<span class="string">&#x27;Neighborhood Code&#x27;</span>,</span><br><span class="line">        y=<span class="string">&#x27;Log Sale Price&#x27;</span>,</span><br><span class="line">        data=neighborhoods,</span><br><span class="line">        ax=axs[<span class="number">0</span>],</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    sns.countplot(</span><br><span class="line">        x=<span class="string">&#x27;Neighborhood Code&#x27;</span>,</span><br><span class="line">        data=neighborhoods,</span><br><span class="line">        ax=axs[<span class="number">1</span>],</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Draw median price</span></span><br><span class="line">    axs[<span class="number">0</span>].axhline(</span><br><span class="line">        y=training_data[<span class="string">&#x27;Log Sale Price&#x27;</span>].median(), </span><br><span class="line">        color=<span class="string">&#x27;red&#x27;</span>,</span><br><span class="line">        linestyle=<span class="string">&#x27;dotted&#x27;</span></span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Label the bars with counts</span></span><br><span class="line">    <span class="keyword">for</span> patch <span class="keyword">in</span> axs[<span class="number">1</span>].patches:</span><br><span class="line">        x = patch.get_bbox().get_points()[:, <span class="number">0</span>]</span><br><span class="line">        y = patch.get_bbox().get_points()[<span class="number">1</span>, <span class="number">1</span>]</span><br><span class="line">        axs[<span class="number">1</span>].annotate(<span class="string">f&#x27;<span class="subst">&#123;<span class="built_in">int</span>(y)&#125;</span>&#x27;</span>, (x.mean(), y), ha=<span class="string">&#x27;center&#x27;</span>, va=<span class="string">&#x27;bottom&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Format x-axes</span></span><br><span class="line">    axs[<span class="number">1</span>].set_xticklabels(axs[<span class="number">1</span>].xaxis.get_majorticklabels(), rotation=<span class="number">90</span>)</span><br><span class="line">    axs[<span class="number">0</span>].xaxis.set_visible(<span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Narrow the gap between the plots</span></span><br><span class="line">    plt.subplots_adjust(hspace=<span class="number">0.01</span>)</span><br><span class="line">    </span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#算出销售数量最多的20个街区</span></span><br><span class="line">neighborhood_counts = training_data[<span class="string">&#x27;Neigborhood Code (mapping)&#x27;</span>].value_counts()</span><br><span class="line">top_neighborhoods = neighborhood_counts.nlargest(<span class="number">20</span>).index</span><br><span class="line">in_top_20_neighborhoods = training_data[training_data[<span class="string">&#x27;Neigborhood Code (mapping)&#x27;</span>].isin(top_neighborhoods)]</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">plot_categorical(neighborhoods=in_top_20_neighborhoods)</span><br></pre></td></tr></table></figure>
+
+
+<p><img src="/assets/houses/output_17_0.png" alt="png"></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#销售价格最高的街区代码</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">find_expensive_neighborhoods</span>(<span class="params">data, n=<span class="number">3</span>, metric=np.median</span>):</span><br><span class="line">    grouped = data.groupby(<span class="string">&#x27;Neighborhood Code&#x27;</span>)[<span class="string">&#x27;Log Sale Price&#x27;</span>].agg(metric)</span><br><span class="line">    neighborhoods = grouped.sort_values(ascending=<span class="literal">False</span>).head(n).index</span><br><span class="line">    <span class="keyword">return</span> [<span class="built_in">int</span>(code) <span class="keyword">for</span> code <span class="keyword">in</span> neighborhoods]</span><br><span class="line"></span><br><span class="line">expensive_neighborhoods = find_expensive_neighborhoods(training_data, <span class="number">5</span>, np.median)</span><br><span class="line">expensive_neighborhoods</span><br></pre></td></tr></table></figure>
+
+
+
+
+<pre><code>[44, 94, 93, 106, 580]
+</code></pre>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>课程笔记</category>
+        <category>数据科学</category>
+      </categories>
+      <tags>
+        <tag>课程笔记</tag>
+        <tag>伯克利</tag>
+        <tag>数据科学</tag>
+        <tag>pandas</tag>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>基于中科大郑烇老师授课的计算机网络笔记(待续)</title>
     <url>/2023/10/14/%E8%AE%A1%E7%BD%91/</url>
     <content><![CDATA[<h2 id="第一章——概论"><a href="#第一章——概论" class="headerlink" title="第一章——概论"></a>第一章——概论</h2><h3 id="互联网"><a href="#互联网" class="headerlink" title="互联网"></a>互联网</h3><p><code>链路层</code>相邻节点传输数据<br><code>网络层</code>提供源主机到目标主机之间(端到端end to end)的服务(没有保障)</p>
@@ -789,10 +1058,10 @@
       </categories>
       <tags>
         <tag>课程笔记</tag>
+        <tag>伯克利</tag>
         <tag>数据科学</tag>
         <tag>pandas</tag>
         <tag>python</tag>
-        <tag>伯克利</tag>
       </tags>
   </entry>
   <entry>
@@ -2058,8 +2327,8 @@
       </categories>
       <tags>
         <tag>课程笔记</tag>
-        <tag>python</tag>
         <tag>伯克利</tag>
+        <tag>python</tag>
         <tag>数据结构与算法</tag>
       </tags>
   </entry>
