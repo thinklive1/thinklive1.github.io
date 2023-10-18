@@ -391,6 +391,20 @@ Goal: Run this system efficiently in O(lg n) time<br>常见数据结构运行时
 BST的定义：<br>每个节点都有一个key,左节点的key小于等于父节点，右节点的key大于等于父节点<br>所有操作都是O(h)即O(lgn)<br>动态规划中需要找到比一个值大的值中的最小值<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">next-larger(x)</span><br><span class="line">if right child not NIL, return minimum(right)</span><br><span class="line">else y = parent(x)</span><br><span class="line">while y not NIL and x = right(y)</span><br><span class="line">x = y; y = parent(y)</span><br><span class="line">return(y);</span><br></pre></td></tr></table></figure>
 <code>子问题</code>：如何计算小于等于时间t内着陆的飞机数量<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1. Walk down tree to find desired time</span><br><span class="line">2. Add in nodes that are smaller</span><br><span class="line">3. Add in subtree sizes to the left</span><br></pre></td></tr></table></figure></li>
 </ol>
+<p><strong>可以使用set或者sequence两种数据结构</strong><br>set:遍历顺序由key的顺序决定<br>– Equivalent to BST Property: for every node, every key in left subtree ≤ node’s key ≤<br>every key in right subtree<br>sequence:数组索引就是遍历顺序</p>
+<p><img src="/assets/mit6.006%E6%80%BB%E5%92%8C%E7%AC%94%E8%AE%B0/image-20231017101953076.png"><br><strong>查找第i大的节点(sequence)</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">– Check the size nL of the left subtree and compare to i</span><br><span class="line">– If i &lt; nL, recurse on the left subtree</span><br><span class="line">– If i &gt; nL, recurse on the right subtree with i0 = i − nL − 1</span><br><span class="line">– Otherwise, i = nL, and you’ve reached the desired nod</span><br></pre></td></tr></table></figure>
+<ul>
+<li>可以对每个节点维护一个size属性</li>
+</ul>
+<h2 id="平衡二叉搜索树AVL"><a href="#平衡二叉搜索树AVL" class="headerlink" title="平衡二叉搜索树AVL"></a>平衡二叉搜索树AVL</h2><p><img src="/assets/mit6.006%E6%80%BB%E5%92%8C%E7%AC%94%E8%AE%B0/image-20231017102411122.png"><br>• 在动态操作下保持 O(log n) 高度的二叉树称为平衡二叉树<br>– 有许多平衡方案（红黑树、八字树、2-3 树……）<br>– 第一个提出的平衡方案是 AVL 树<br><strong>树的旋转</strong><br><img src="/assets/mit6.006%E6%80%BB%E5%92%8C%E7%AC%94%E8%AE%B0/image-20231017102819736.png"><br>• 定理：O(n) 次旋转可以将二叉树转换为具有相同遍历顺序的任何其他二叉树。<br>• 证明：按照遍历顺序重复执行最后可能的右旋转；<br>结果树是 规范链。 每次旋转都会使最后一个节点的深度增加 1。<br>最后一个节点的深度最多为 n − 1，因此最多执行 n − 1 次旋转，就可以将输入树旋转为目标树。</p>
+<p><strong>最坏情况</strong><br>Worst when every node differs by 1 — let Nh &#x3D; (min.) # nodes in height-h AVL tree</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">=⇒ Nh = Nh−1 + Nh−2 + 1 &gt; 2Nh−2</span><br><span class="line">=⇒ Nh &gt; 2h/2</span><br><span class="line">=⇒ h &lt; 2 lg Nh</span><br></pre></td></tr></table></figure>
+
+<p><strong>平衡</strong><br>AVL 树保持高度平衡（也称为 AVL 属性）<br>– 如果一个节点的左右子树的高度最多相差 1，则该节点是高度平衡的<br>– 节点的倾斜为其右子树的高度减去左子树的高度<br>– 如果节点的倾斜度为 −1、0 或 1，则该节点是高度平衡的</p>
+<p><strong>平衡的维持</strong><br>每次对树的修改最多导致左右子树高度相差2，如果相差2，一次旋转就可以重新平衡树<br><img src="/assets/mit6.006%E6%80%BB%E5%92%8C%E7%AC%94%E8%AE%B0/image-20231017105216748.png"></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">∗ Let h = height(&lt;A&gt;). Then height(&lt;G&gt;) = h while height(&lt;C&gt;) and height(&lt;E&gt;)</span><br><span class="line">are each either h or h − 1</span><br><span class="line">∗ After rotation:</span><br><span class="line">· the skew of &lt;B&gt; is either 0 or −1, so &lt;B&gt; is height balanced</span><br><span class="line">· the skew of &lt;F&gt; is either 0 or 1, so &lt;F&gt; is height balanced</span><br><span class="line">· the skew of &lt;D&gt; is 0, so D is height balanced</span><br><span class="line">· the height of &lt;B&gt; is h + 3 before, then after is h +</span><br><span class="line">Global Rebalance: Add or remove a leaf from height-balanced tree T to produce tree T 0 .</span><br><span class="line">Then T 0 can be transformed into a height-balanced tree T 00 using at most O(log n) rotations</span><br></pre></td></tr></table></figure>
+<p><strong>数据结构</strong><br>• Set AVL trees achieve O(lg n) time for all set operations,<br>except O(n log n) time for build and O(n) time for iter<br>• Sequence AVL trees achieve O(lg n) time for all sequence operations,<br>except O(n) time for build and iter</p>
 <h1 id="哈希"><a href="#哈希" class="headerlink" title="哈希"></a>哈希</h1><p>哈希有可能产生碰撞，需要特定处理或者数据结构，检索元素时间最后会由负载因数(n&#x2F;m)决定<br><img src="/assets/mit6.006%E6%80%BB%E5%92%8C%E7%AC%94%E8%AE%B0/image-20231016200400451.png"></p>
 <h1 id="线性时间排序"><a href="#线性时间排序" class="headerlink" title="线性时间排序"></a>线性时间排序</h1>]]></content>
       <categories>
@@ -873,7 +887,7 @@ BST的定义：<br>每个节点都有一个key,左节点的key小于等于父节
 <li>iPhone 的内部存储使用一组 AES 密钥进行加密，这些密钥存储在手机内部芯片上，并在工厂生成。</li>
 <li>这些密钥又使用您的 PIN 进行加密。 您的 PIN 码允许手机解锁密钥，从而解密文件系统的其余部分。</li>
 </ol>
-<p>与对称密钥加密不同，公钥加密中有 2 个密钥 ，密码系统由<strong>公钥</strong> 和 <strong>私钥</strong>组成 。 顾名思义， 公钥是公开共享的，这是其他人可以使用的方式 加密适合您的数据。 您使用您的私钥来解密此内容 数据。 只要没有人拥有你的私钥，任何人都可以使用你的公钥 加密数据并确保只有您可以解密它。 这是一个强大的 对称密钥范式的扩展，除了加密之外，它还允许 签名和不可否认性<br>公钥密码学与 <strong><a href="https://en.wikipedia.org/wiki/RSA_(cryptosystem)">RSA 算法</a></strong> 同义， 是最早经过验证的双密钥方案之一。<br>&#x3D;&#x3D;RSA 公钥加密工作原理的简要概述&#x3D;&#x3D;：</p>
+<p>与对称密钥加密不同，公钥加密中有 2 个密钥 ，密码系统由<strong>公钥</strong> 和 <strong>私钥</strong>组成 。 顾名思义， 公钥是公开共享的，这是其他人可以使用的方式 加密适合您的数据。 您使用您的私钥来解密此内容 数据。 只要没有人拥有你的私钥，任何人都可以使用你的公钥 加密数据并确保只有您可以解密它。 这是一个强大的 对称密钥范式的扩展，除了加密之外，它还允许 签名和不可否认性<br>公钥密码学与 <strong><a href="https://en.wikipedia.org/wiki/RSA_(cryptosystem)">RSA 算法</a></strong> 同义， 是最早经过验证的双密钥方案之一。<br><strong>RSA 公钥加密工作原理的简要概述</strong>：</p>
 <ol>
 <li>RSA算法，通过一些高等数学（涉及素数和模数） 算术），返回 3 个数字：一个公共指数（又名密钥），一个私有指数， 和一个模数。 两个密钥的工作方式使得用一个密钥加密的数据只能 可以用另一个密钥解密。</li>
 <li>为了加密数据，需要使用指数和模数之一对数据执行模幂运算。</li>
@@ -981,12 +995,66 @@ BST的定义：<br>每个节点都有一个key,左节点的key小于等于父节
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">`&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD`, `=======`, `&gt;&gt;&gt;&gt;&gt;&gt;&gt; dice`</span><br></pre></td></tr></table></figure>
 <p>，以及来自 master 的不需要的代码），然后保存并退出 文件。 Git 会将您保存的内容作为文件的确切形式 看起来像在变基结束时，所以你所做的本质上是修复 文件，以便代码正常运行。 这意味着如果您有多个 合并冲突，您决定混合保留基础分支中的一些行 还有一些来自您的功能分支，您需要确保代码确实有效 正确。</p>
 <p>现在您已经解决了合并冲突，请按照变基说明进行操作 暂存您的固定文件（ <code>git add rand.py</code>），然后运行 <code>git rebase --continue</code>。 如果 Git 发现其他文件有更多合并冲突，您将遵循相同的操作 程序如上。 然而，我们只有一个有冲突的文件，所以我们的变基是 完成的！ 跑步 <code>git log</code>查看我们 rebase 的结果。 你现在应该看到了 你想象中的队友 <code>&quot;dice rolling WIP&quot;</code>提交您分支的历史记录， 你的提交高于他们的提交。</p>
-<h1 id="docker"><a href="#docker" class="headerlink" title="docker"></a>docker</h1><p><a href="https://docs.docker.com/v17.09/engine/installation/linux/docker-ce/ubuntu/">安装 Docker</a></p>
-<p><code>虚拟机 </code><br>你的电脑里有一台电脑！<br>●  通过软件模拟抽象物理硬件<br>●  虚拟机管理程序运行多个虚拟机<br>●  隔离应用：更好的安全性、稳定性<br>●  一些开销：需要不同的客户操作系统和模拟<br>每个应用程序的虚拟硬件数量<br>●  需要一些时间来启动 </p>
-<p><code>容器</code><br>●  通常与虚拟机进行比较，但更像是捆绑的进程<br>环境<br>●  提供类似的隔离<br>○  然而，比虚拟机要少得多！  出于这个原因，我们仍然经常在虚拟机内运行容器（但是<br>每个虚拟机可以运行 &gt;1 个容器）<br>●  启动速度比虚拟机快得多<br>●  目标是通过共享代码提供轻量级隔离环境<br>●  轻松打包应用程序以实现一致的部署<br>●  常见的容器：Docker、rkt、LXC<br>●  很确定这是加州大学伯克利分校唯一使用的课程 </p>
-<p>| Command | Description |<br>|-|-| <br>| <code>docker search</code> | Search Docker Hub for pre-built images |<br>| <code>docker pull</code> | Pull an image or a repository from a registry |<br>| <code>docker images</code> | List images |<br>| <code>docker build</code> | Build an image from a Dockerfile |<br>| <code>docker run</code> | Run a command in a new container | <br>| <code>docker ps</code> | List containers |<br>| <code>docker start/stop/restart</code> | Start&#x2F;stop&#x2F;restart a container |<br>| <code>docker exec</code> | Run a command in a running container |<br>| <code>docker inspect</code> | Return low-level information on Docker objects |<br>| <code>docker rm</code> | Remove one or more containers |<br>| <code>docker rmi</code> | Remove one or more images |<br><code>docker</code><br>●  需要构建镜像<br>●  通常使用 Dockerfile 来指定<br>如何构建快照<br>●  快照是分层构建的<br>○  像洋葱一样<br>○  允许基于相同的快照层构建速度更快<br>●  保持每一层最少化资源 </p>
-<p>自动化配置管理工具<br>●  声明式：说出你想要什么，而不是如何做<br>○  应用程序弄清楚如何<br>●  可以定义要安装的应用程序、要包含的文件等<br>●  可以在不同“类别”的机器上安装不同的东西<br>（桌面与服务器）<br>●  常用工具：Puppet、Ansible、Chef </p>
-<h3 id="docker的使用"><a href="#docker的使用" class="headerlink" title="docker的使用"></a>docker的使用</h3><p><code>docker run hello-world</code></p>
+<h1 id="docker"><a href="#docker" class="headerlink" title="docker"></a>docker</h1><p><a href="https://docs.docker.com/v17.09/engine/installation/linux/docker-ce/ubuntu/">安装 Docker</a> wsl2不支持systemctl命令，而是支持systemed命令 所以需要执行如下命令启动docker</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">service docker <span class="keyword">start</span></span><br></pre></td></tr></table></figure>
+
+<p><code>虚拟机</code> 你的电脑里有一台电脑！<br>● 通过软件模拟抽象物理硬件<br>● 虚拟机管理程序运行多个虚拟机<br>● 隔离应用：更好的安全性、稳定性<br>● 一些开销：需要不同的客户操作系统和模拟 每个应用程序的虚拟硬件数量<br>● 需要一些时间来启动</p>
+<p><code>容器</code><br>● 通常与虚拟机进行比较，但更像是捆绑的进程 环境<br>● 提供类似的隔离<br>  ○ 然而，比虚拟机要少得多！ 出于这个原因，我们仍然经常在虚拟机内运行容器（但是 每个虚拟机可以运行 &gt;1 个容器）<br>● 启动速度比虚拟机快得多<br>● 目标是通过共享代码提供轻量级隔离环境<br>● 轻松打包应用程序以实现一致的部署<br>● 常见的容器：Docker、rkt、LXC<br>● 很确定这是加州大学伯克利分校唯一使用的课程</p>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>docker search</td>
+<td>Search Docker Hub for pre-built images</td>
+</tr>
+<tr>
+<td>docker pull</td>
+<td>Pull an image or a repository from a registry</td>
+</tr>
+<tr>
+<td>docker images</td>
+<td>List images</td>
+</tr>
+<tr>
+<td>docker build</td>
+<td>Build an image from a Dockerfile</td>
+</tr>
+<tr>
+<td>docker run</td>
+<td>Run a command in a new container</td>
+</tr>
+<tr>
+<td>docker ps</td>
+<td>List containers</td>
+</tr>
+<tr>
+<td>docker start&#x2F;stop&#x2F;restart</td>
+<td>Start&#x2F;stop&#x2F;restart a container</td>
+</tr>
+<tr>
+<td>docker exec</td>
+<td>Run a command in a running container</td>
+</tr>
+<tr>
+<td>docker inspect</td>
+<td>Return low-level information on Docker objects</td>
+</tr>
+<tr>
+<td>docker rm</td>
+<td>Remove one or more containers</td>
+</tr>
+<tr>
+<td>docker rmi</td>
+<td>Remove one or more images</td>
+</tr>
+</tbody></table>
+<p> <code>docker</code><br> ● 需要构建镜像<br> ● 通常使用 Dockerfile 来指定 如何构建快照<br> ● 快照是分层构建的<br>  ○ 像洋葱一样<br>  ○ 允许基于相同的快照层构建速度更快<br> ● 保持每一层最少化资源</p>
+<p>自动化配置管理工具 ● 声明式：说出你想要什么，而不是如何做 ○ 应用程序弄清楚如何 ● 可以定义要安装的应用程序、要包含的文件等 ● 可以在不同“类别”的机器上安装不同的东西 （桌面与服务器） ● 常用工具：Puppet、Ansible、Chef</p>
+<h2 id="docker的使用"><a href="#docker的使用" class="headerlink" title="docker的使用"></a>docker的使用</h2><p><code>docker run hello-world</code></p>
 <p>您应该看到一些友好的输出，如下所示：</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Unable to find image &#x27;hello-world:latest&#x27; locally</span><br><span class="line">latest: Pulling from library/hello-world</span><br><span class="line">1b930d010525: Pull complete </span><br><span class="line">Digest: sha256:c3b4ada4687bbaa170745b3e4dd8ac3f194ca95b2d0518b417fb47e5879d9b5f</span><br><span class="line">Status: Downloaded newer image for hello-world:latest</span><br><span class="line"></span><br><span class="line">Hello from Docker!</span><br><span class="line">This message shows that your installation appears to be working correctly.</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
 
@@ -995,12 +1063,44 @@ BST的定义：<br>每个节点都有一个key,左节点的key小于等于父节
 <li>Docker 客户端联系了 Docker 守护进程。</li>
 <li>Docker 守护进程从 Docker Hub 中提取“hello-world”镜像。</li>
 <li>Docker 守护进程从该映像创建了一个新容器，该容器运行生成您当前正在读取的输出的可执行文件。</li>
-<li>Docker 守护进程将该输出传输到 Docker 客户端，然后将其发送到您的终端。<br>在容器中默认以<code>root</code>用户身份登录。</li>
+<li>Docker 守护进程将该输出传输到 Docker 客户端，然后将其发送到您的终端。 在容器中默认以<code>root</code>用户身份登录。</li>
 </ol>
 <p>以交互方式运行容器。 如果您需要在裸系统上尝试和安装东西而不弄乱当前系统，那么这非常有用。 尝试运行以下命令：</p>
 <p><code>docker run -it ubuntu:latest</code></p>
 <p>这 <code>-i</code>flag 告诉 docker 保留 <code>STDIN</code>打开你的容器，然后 <code>-t</code>分配一个 <a href="https://en.wikipedia.org/wiki/Pseudoterminal">伪 TTY</a> flag为您 。 基本上，您需要两者才能在新启动的容器中拥有一个 shell。 尝试安装一些软件包 <code>apt</code>或者只是玩玩。 它看起来应该像一个裸露的 Linux 系统。</p>
-<p>使用 CTRL+D 退出容器。<br>自然的问题是，Docker 镜像是如何构建的？ Dockerfile <strong>。</strong> 就像镜像的源代码 相反，Dockerfile允许您通过指定手动键入创建镜像的所有命令来定义镜像。 然后 Docker 可以从指定Dockerfile 构建镜像。 这些 Dockerfile 可以放入版本控制中，并将镜像上传到在线存储库。</p>
+<p>使用 CTRL+D 退出容器。 自然的问题是，Docker 镜像是如何构建的？ Dockerfile <strong>。</strong> 就像镜像的源代码 相反，Dockerfile允许您通过指定手动键入创建镜像的所有命令来定义镜像。 然后 Docker 可以从指定Dockerfile 构建镜像。 这些 Dockerfile 可以放入版本控制中，并将镜像上传到在线存储库。</p>
+<p>Docker可以通过读取来自<code>Dockerfile</code>的指令来自动构建镜像 。 <code>Dockerfile</code>是一个文本文档，其中包含所有命令 用户可以在命令行上调用来构建镜像。 eg.下面是一个 <strong>Dockerfile</strong> ，通过将 Python 3 和软件包安装到基础 Fedora Linux 映像上</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># Specify Fedora Linux as base image</span><br><span class="line">FROM fedora:latest</span><br><span class="line"></span><br><span class="line"># Install Python with yum (Fedora&#x27;s Package Manager)</span><br><span class="line"># Install required Python packages</span><br><span class="line">RUN yum update -y &amp;&amp; yum install -y python3 python3-pip &amp;&amp; \</span><br><span class="line">    python3 -m pip install pyfiglet termcolor</span><br><span class="line"> </span><br><span class="line"># Add the missile.py file to the final image</span><br><span class="line">ADD missile.py /</span><br><span class="line"></span><br><span class="line"># Specify the command to be run on container creation</span><br><span class="line">CMD [&quot;/usr/bin/python3&quot;, &quot;missile.py&quot;]</span><br></pre></td></tr></table></figure>
+
+<p><code>docker build -t missile:latest .</code></p>
+<p>这告诉 Docker 在当前目录中查找 <code>Dockerfile</code>，并用该文件构建一个镜像。 这 <code>-t</code>flag 告诉 Docker 使用名称标记此构建 <code>missile:latest</code>。</p>
+<p>查看系统上正在运行的容器。 使用以下命令：</p>
+<p><code>docker ps</code></p>
+<p>由于您（可能）没有运行任何容器，因此您可能不会看到任何有趣的东西。 但是，如果您传入 <code>-a</code>标志，您还可以看到已停止的容器：</p>
+<p>要获取有关容器的更多信息，您可以使用 <code>docker logs</code>命令 获取容器的日志（无论它仍在运行还是已退出）：</p>
+<p><code>docker logs &lt;container_id_or_name&gt;</code></p>
+<p>在某些时候，您可能想要清理已退出且不打算再使用的容器：</p>
+<p><code>docker rm &lt;container_id_or_name&gt;</code></p>
+<p>将移除容器。</p>
+<p>查看已经下载的镜像: <code>docker images</code> 图像可能会占用计算机上相当多的空间，因此您可能需要清理不打算使用的图像 使用。 如果您收到有关计算机上没有足够磁盘空间的错误，这一点尤其重要：</p>
+<p><code>docker rmi &lt;image_id&gt;</code></p>
+<p>镜像文件以及容器的各种文件系统都存储在 <code>/var/lib/docker</code></p>
+<h3 id="分离容器"><a href="#分离容器" class="headerlink" title="分离容器"></a>分离容器</h3><p>容器可以以后台服务的形式运行，这适用于一些后台服务的场合，Docker 支持这种方式 以 <code>-d</code>标志，见 <a href="https://docs.docker.com/engine/reference/run/#detached--d">分离 方式启动容器 模式</a></p>
+<p>Docker 为容器创建一个单独的虚拟网络，因此您需要将主机端口转发到您的 容器的端口（这称为 <a href="https://en.wikipedia.org/wiki/Port_forwarding">端口转发</a> 或端口映射）。 容器正在侦听端口 80，因此让我们尝试将主机的端口 5050 转发到容器的端口 ：</p>
+<p><code>docker run -d -p=5050:80 httpd</code></p>
+<p><code>-p</code> 接受冒号分隔的一对 <code>HOST_PORT:CONTAINER_PORT</code></p>
+<p>您实际上可以“附加”到正在运行的容器并在其中运行更多命令，类似于 <code>docker run</code>作品。 使用 这 <code>docker exec</code>命令：</p>
+<p><code>docker exec &lt;container_id_or_name&gt; &lt;command&gt;</code></p>
+<p>要停止此容器，请使用 <code>docker stop &lt;container_id_or_name&gt;</code>.</p>
+<p>您可以使用以下命令重新启动容器 <code>docker restart &lt;container_id_or_name&gt;</code>.</p>
+<h3 id="关于-docker-compose"><a href="#关于-docker-compose" class="headerlink" title="关于 docker-compose"></a>关于 docker-compose</h3><p><code>docker-compose</code>允许您定义需要多个容器才能运行的应用程序。 例如，在网络上 应用程序，您可能希望实际的 Web 应用程序在单个容器内运行，并且数据库在其中运行 一个不同的容器。</p>
+<p>通常，您根据 <strong>服务</strong> 来定义应用程序。 同样，以 Web 应用程序为例，有 两个不同的服务：应用程序本身和支持它的数据库。 <code>docker-compose</code>让您定义不同的服务 在 <a href="https://en.wikipedia.org/wiki/YAML">YAML</a> 文件中并相应地运行服务。</p>
+<p>其中一件好事是 <code>docker-compose</code>是它会自动为您的容器设置一个网络，其中：</p>
+<ul>
+<li>服务的每个容器都位于网络上，并且可以从网络上的其他容器访问</li>
+<li>每个容器都可以通过其容器名称在网络上发现</li>
+</ul>
+<p>使用 <a href="https://docs.docker.com/compose/install/">Docker 官方网站上的说明安装 Docker Compose</a></p>
 <h1 id="一些小脚本"><a href="#一些小脚本" class="headerlink" title="一些小脚本"></a>一些小脚本</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">PHONEBOOK_ENTRIES=&quot;phonelist.txt&quot;</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">if [ &quot;$#&quot; -lt 1 ]; then</span><br><span class="line"></span><br><span class="line">    exit 1</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">elif [ &quot;$1&quot; = &quot;new&quot; ]; then</span><br><span class="line"></span><br><span class="line">    # YOUR CODE HERE #</span><br><span class="line"></span><br><span class="line">    echo $2 $3 &gt;&gt; phonelist.txt</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">elif [ &quot;$1&quot; = &quot;list&quot; ]; then</span><br><span class="line"></span><br><span class="line">    if [ ! -e $PHONEBOOK_ENTRIES ] || [ ! -s $PHONEBOOK_ENTRIES ]; then</span><br><span class="line"></span><br><span class="line">        echo &quot;phonebook is empty&quot;</span><br><span class="line"></span><br><span class="line">    else</span><br><span class="line"></span><br><span class="line">        # YOUR CODE HERE #</span><br><span class="line"></span><br><span class="line">        cat phonelist.txt</span><br><span class="line"></span><br><span class="line">    fi</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">elif [ &quot;$1&quot; = &quot;lookup&quot; ]; then</span><br><span class="line"></span><br><span class="line">    # YOUR CODE HERE #</span><br><span class="line"></span><br><span class="line">    grep $2 phonelist.txt</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">elif [ &quot;$1&quot; = &quot;remove&quot; ]; then</span><br><span class="line"></span><br><span class="line">    # YOUR CODE HERE #</span><br><span class="line"></span><br><span class="line">    sed -i &quot;s/$2//g&quot; phonelist.txt</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">elif [ &quot;$1&quot; = &quot;clear&quot; ]; then</span><br><span class="line"></span><br><span class="line">    # YOUR CODE HERE #</span><br><span class="line"></span><br><span class="line">    rm phonelist.txt</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">else</span><br><span class="line"></span><br><span class="line">     # YOUR CODE HERE #</span><br><span class="line"></span><br><span class="line">     echo nothing</span><br><span class="line"></span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
 
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line"></span><br><span class="line">host=$1</span><br><span class="line"></span><br><span class="line">ping -c 1 $host &gt;&gt; log.txt</span><br><span class="line"></span><br><span class="line">if [ $? -eq 0 ]; then</span><br><span class="line"></span><br><span class="line">    echo &quot;OK&quot;</span><br><span class="line"></span><br><span class="line">else</span><br><span class="line"></span><br><span class="line">    echo &quot;can&#x27;t access&quot;</span><br><span class="line"></span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
@@ -1810,8 +1910,8 @@ BST的定义：<br>每个节点都有一个key,左节点的key小于等于父节
       </categories>
       <tags>
         <tag>课程笔记</tag>
-        <tag>麻省理工</tag>
         <tag>北京大学</tag>
+        <tag>麻省理工</tag>
         <tag>vim</tag>
         <tag>编程工具</tag>
       </tags>
@@ -2691,8 +2791,8 @@ BST的定义：<br>每个节点都有一个key,左节点的key小于等于父节
       </categories>
       <tags>
         <tag>课程笔记</tag>
-        <tag>麻省理工</tag>
         <tag>北京大学</tag>
+        <tag>麻省理工</tag>
         <tag>编程工具</tag>
         <tag>linux</tag>
       </tags>
