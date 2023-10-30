@@ -36,7 +36,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://thinklive1.github.io/images/obsidian/vim-mode.jpg">
 <meta property="article:published_time" content="2023-09-29T02:18:45.993Z">
-<meta property="article:modified_time" content="2023-10-14T12:48:55.312Z">
+<meta property="article:modified_time" content="2023-10-30T07:47:14.614Z">
 <meta property="article:author" content="thinklive">
 <meta property="article:tag" content="课程笔记">
 <meta property="article:tag" content="麻省理工">
@@ -188,7 +188,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#you-are-your-dotfiles"><span class="nav-number">1.</span> <span class="nav-text">you are your dotfiles</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%AE%E5%8A%A9"><span class="nav-number">1.1.</span> <span class="nav-text">帮助</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%90%9C%E7%B4%A2"><span class="nav-number">1.2.</span> <span class="nav-text">搜索</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%89%E6%8B%A9"><span class="nav-number">1.3.</span> <span class="nav-text">选择</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A7%BB%E5%8A%A8"><span class="nav-number">1.4.</span> <span class="nav-text">移动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.5.</span> <span class="nav-text">模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E9%98%B6"><span class="nav-number">1.6.</span> <span class="nav-text">进阶</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#you-are-your-dotfiles"><span class="nav-number">1.</span> <span class="nav-text">you are your dotfiles</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%AE%E5%8A%A9"><span class="nav-number">1.1.</span> <span class="nav-text">帮助</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E8%BE%91"><span class="nav-number">1.2.</span> <span class="nav-text">编辑</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E8%A1%8C"><span class="nav-number">1.3.</span> <span class="nav-text">命令行</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%90%9C%E7%B4%A2"><span class="nav-number">1.4.</span> <span class="nav-text">搜索</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%89%E6%8B%A9"><span class="nav-number">1.5.</span> <span class="nav-text">选择</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A7%BB%E5%8A%A8"><span class="nav-number">1.6.</span> <span class="nav-text">移动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.7.</span> <span class="nav-text">模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E9%98%B6"><span class="nav-number">1.8.</span> <span class="nav-text">进阶</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -292,7 +292,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-10-14 20:48:55" itemprop="dateModified" datetime="2023-10-14T20:48:55+08:00">2023-10-14</time>
+      <time title="修改时间：2023-10-30 15:47:14" itemprop="dateModified" datetime="2023-10-30T15:47:14+08:00">2023-10-30</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -341,7 +341,8 @@
     
     <div class="post-body" itemprop="articleBody"><h1 id="you-are-your-dotfiles">you are your dotfiles</h1>
 <h2 id="帮助">帮助</h2>
-<p>按f1或命令行输入help开启在线帮助 &lt;Cw&gt;切换到另一个窗口q关闭窗口 <span id="more"></span> ## 编辑</p>
+<p>按f1或命令行输入help开启在线帮助 &lt;Cw&gt;切换到另一个窗口q关闭窗口 <span id="more"></span></p>
+<h2 id="编辑">编辑</h2>
 <p>如之前所述，Vim最主要的编辑模式是Insert模式，想要修改文本，先将光标在Normal模式下移动到对应位置，然后再键入<code>i</code>进入Insert模式，在这个模式下添加或者删除文本。但是当我们需要修改的地方非常多时，每次都需要先移动光标再输入<code>i</code>就是一个相对麻烦的操作，因而Vim提供了一些命令将移动光标和进入Insert模式合成一步：</p>
 <ul>
 <li><code>i</code>在当前位置输入（光标前），<code>I</code>在行首输入</li>
@@ -354,7 +355,8 @@
 </ul>
 <p>进入Insert模式之后，Vim也有一些奇奇怪怪的命令，比如<code>&lt;C-h&gt;</code>等同于删除键，会删除前一个字符，<code>&lt;C-j&gt;</code>等同于回车键，将光标后的文本移到下一行，但是否要这样做就全凭个人喜好了。<br />
 其实在Normal模式下也能进行一些删除操作，<code>x</code>会删除当前字符，<code>d</code>+光标移动命令会删除对应文本，与<code>s</code>以及<code>c</code>命令的区别仅仅在于<code>x</code>和<code>d</code>操作完之后依然处在Normal模式，所以<code>s</code>也等同于<code>xi</code>。此外，<code>r</code>的作用也是替换当前字符，键入<code>r</code>之后会提示输入一个字符，输入完成之后自动回到Normal模式，想要替换长文本就需要键入<code>R</code>进入Replace模式。因此如果想要替换一个字符成x，最快的方法是<code>r</code>+x，也可以<code>s</code>+x+<code>&lt;ESC&gt;</code>，也可以<code>xi</code>+x+<code>&lt;ESC&gt;</code>，也可以<code>cl</code>+x+<code>&lt;ESC&gt;</code>。<br />
-撤销和重做也是非常常用的编辑命令，在Vim中分别对应Normal模式下的<code>u</code>(undo)和<code>U</code>，同时<code>.</code>可以重复之前最后一个命令。 “U”（行撤销）。恢复整行的所有操作 &lt;C-r&gt;重做上一个 被撤销的命令 ## 命令行</p>
+撤销和重做也是非常常用的编辑命令，在Vim中分别对应Normal模式下的<code>u</code>(undo)和<code>U</code>，同时<code>.</code>可以重复之前最后一个命令。 “U”（行撤销）。恢复整行的所有操作 &lt;C-r&gt;重做上一个 被撤销的命令</p>
+<h2 id="命令行">命令行</h2>
 <p>在Normal模式下键入<code>:</code>就会进入命令行模式，此时光标已经移动到了最下面。命令行中可以输入的命令种类非常多：</p>
 <ul>
 <li><code>w</code>保存文件，但是不退出</li>
@@ -462,13 +464,13 @@ Vim还提供了列选择模式，在Normal模式下键入<code>&lt;C-V&gt;</code
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">271k</span>
+    <span title="站点总字数">279k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">4:07</span>
+    <span title="站点阅读时长">4:13</span>
   </span>
 </div>
 <div class="busuanzi-count">

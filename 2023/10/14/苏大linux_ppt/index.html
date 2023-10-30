@@ -27,16 +27,18 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"thinklive1.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.18.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"flat"},"fold":{"enable":false,"height":500},"bookmark":{"enable":true,"color":"#369","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="文件系统 命名 •除&#x2F;之外，所有的字符都合法 •大小写敏感 •有些字符最好不用，如空格符、制表符、退格符和字符：？, @ # $ &amp; ()  | ; ‘ ’ “ ” &lt; &gt; •避免使用＋、－或. 来作为普通文件名的第一个字符 •可以使用长文件名或目录名（255个字符）">
+    <meta name="description" content="苏大部分 文件系统 命名 •除&#x2F;之外，所有的字符都合法 •大小写敏感 •有些字符最好不用，如空格符、制表符、退格符和字符：？, @ # $ &amp; ()  | ; ‘ ’ “ ” &lt; &gt; •避免使用＋、－或. 来作为普通文件名的第一个字符 •可以使用长文件名或目录名（255个字符） 包括完整路径的文件名不超过4096字符">
 <meta property="og:type" content="article">
 <meta property="og:title" content="基于苏大ppt的linux笔记(待续)">
 <meta property="og:url" content="https://thinklive1.github.io/2023/10/14/%E8%8B%8F%E5%A4%A7linux_ppt/index.html">
 <meta property="og:site_name" content="thinklive">
-<meta property="og:description" content="文件系统 命名 •除&#x2F;之外，所有的字符都合法 •大小写敏感 •有些字符最好不用，如空格符、制表符、退格符和字符：？, @ # $ &amp; ()  | ; ‘ ’ “ ” &lt; &gt; •避免使用＋、－或. 来作为普通文件名的第一个字符 •可以使用长文件名或目录名（255个字符）">
+<meta property="og:description" content="苏大部分 文件系统 命名 •除&#x2F;之外，所有的字符都合法 •大小写敏感 •有些字符最好不用，如空格符、制表符、退格符和字符：？, @ # $ &amp; ()  | ; ‘ ’ “ ” &lt; &gt; •避免使用＋、－或. 来作为普通文件名的第一个字符 •可以使用长文件名或目录名（255个字符） 包括完整路径的文件名不超过4096字符">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://thinklive1.github.io/2023/10/14/%E8%8B%8F%E5%A4%A7linux_ppt/assets/%E8%8B%8F%E5%A4%A7linux_ppt/image-20231014145226727.png">
+<meta property="og:image" content="https://101.lug.ustc.edu.cn/Ch04/images/signal_slide.png">
+<meta property="og:image" content="https://101.lug.ustc.edu.cn/Ch04/images/bg.gif">
 <meta property="article:published_time" content="2023-10-14T12:27:26.442Z">
-<meta property="article:modified_time" content="2023-10-14T12:46:36.952Z">
+<meta property="article:modified_time" content="2023-10-30T07:41:38.474Z">
 <meta property="article:author" content="thinklive">
 <meta property="article:tag" content="课程笔记">
 <meta property="article:tag" content="linux">
@@ -186,7 +188,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="nav-number">1.</span> <span class="nav-text">文件系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%91%BD%E5%90%8D"><span class="nav-number">1.1.</span> <span class="nav-text">命名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%93%BE%E6%8E%A5%E6%96%87%E4%BB%B6"><span class="nav-number">1.2.</span> <span class="nav-text">链接文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gpt"><span class="nav-number">1.3.</span> <span class="nav-text">GPT</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B"><span class="nav-number">1.4.</span> <span class="nav-text">实例</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#fdisk"><span class="nav-number">1.4.1.</span> <span class="nav-text">fdisk</span></a></li></ol></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%8B%8F%E5%A4%A7%E9%83%A8%E5%88%86"><span class="nav-number">1.</span> <span class="nav-text">苏大部分</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="nav-number">1.1.</span> <span class="nav-text">文件系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%91%BD%E5%90%8D"><span class="nav-number">1.1.1.</span> <span class="nav-text">命名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%AE%E5%BD%95"><span class="nav-number">1.1.2.</span> <span class="nav-text">目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%93%BE%E6%8E%A5%E6%96%87%E4%BB%B6"><span class="nav-number">1.1.3.</span> <span class="nav-text">链接文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mbr"><span class="nav-number">1.1.4.</span> <span class="nav-text">MBR</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gpt"><span class="nav-number">1.1.5.</span> <span class="nav-text">GPT</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ext2"><span class="nav-number">1.1.6.</span> <span class="nav-text">ext2</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#inode"><span class="nav-number">1.1.6.1.</span> <span class="nav-text">inode</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8D%87%E7%BA%A7"><span class="nav-number">1.1.6.2.</span> <span class="nav-text">升级</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B"><span class="nav-number">1.1.7.</span> <span class="nav-text">实例</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#fdisk"><span class="nav-number">1.1.7.1.</span> <span class="nav-text">fdisk</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mkfs%E6%A0%BC%E5%BC%8F%E5%8C%96"><span class="nav-number">1.1.7.2.</span> <span class="nav-text">mkfs格式化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mount%E6%8C%82%E8%BD%BD"><span class="nav-number">1.1.7.3.</span> <span class="nav-text">mount挂载</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#shell"><span class="nav-number">1.2.</span> <span class="nav-text">shell</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8D%E5%AE%9A%E5%90%91"><span class="nav-number">1.2.1.</span> <span class="nav-text">重定向</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%A1%E9%81%93"><span class="nav-number">1.2.2.</span> <span class="nav-text">管道</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E6%9B%BF%E6%8D%A2"><span class="nav-number">1.2.3.</span> <span class="nav-text">命令替换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E8%81%9A%E5%90%88"><span class="nav-number">1.2.4.</span> <span class="nav-text">命令聚合</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#linux101"><span class="nav-number">2.</span> <span class="nav-text">linux101</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#apt"><span class="nav-number">2.1.</span> <span class="nav-text">apt</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="nav-number">2.2.</span> <span class="nav-text">环境变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E5%BC%8F%E5%8C%B9%E9%85%8D"><span class="nav-number">2.3.</span> <span class="nav-text">模式匹配</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B"><span class="nav-number">2.4.</span> <span class="nav-text">进程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#htop"><span class="nav-number">2.4.1.</span> <span class="nav-text">htop</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#linux%E5%AF%B9%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%88%86%E7%B1%BB"><span class="nav-number">2.4.1.1.</span> <span class="nav-text">linux对进程的分类</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ps"><span class="nav-number">2.4.2.</span> <span class="nav-text">ps</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%98%E5%85%88%E7%BA%A7%E4%B8%8E-nice-%E5%80%BC"><span class="nav-number">2.4.3.</span> <span class="nav-text">优先级与 nice 值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6"><span class="nav-number">2.4.4.</span> <span class="nav-text">用户进程控制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E5%90%8E%E5%8F%B0"><span class="nav-number">2.4.5.</span> <span class="nav-text">前后台</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%88%E6%AD%A2%E8%BF%9B%E7%A8%8B"><span class="nav-number">2.4.6.</span> <span class="nav-text">终止进程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E7%B1%BB-kill-%E5%91%BD%E4%BB%A4"><span class="nav-number">2.4.7.</span> <span class="nav-text">其他类 kill 命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%84%B1%E7%A6%BB%E7%BB%88%E7%AB%AF"><span class="nav-number">2.4.8.</span> <span class="nav-text">脱离终端</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#nohup"><span class="nav-number">2.4.8.1.</span> <span class="nav-text">nohup</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1"><span class="nav-number">2.5.</span> <span class="nav-text">服务</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -282,9 +284,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2023-10-14 20:27:26 / 修改时间：20:46:36" itemprop="dateCreated datePublished" datetime="2023-10-14T20:27:26+08:00">2023-10-14</time>
+      <time title="创建时间：2023-10-14 20:27:26" itemprop="dateCreated datePublished" datetime="2023-10-14T20:27:26+08:00">2023-10-14</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-10-30 15:41:38" itemprop="dateModified" datetime="2023-10-30T15:41:38+08:00">2023-10-30</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -314,14 +322,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>2.5k</span>
+      <span>7.9k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
+      <span>7 分钟</span>
     </span>
 </div>
 
@@ -331,13 +339,16 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><h2 id="文件系统">文件系统</h2>
+    <div class="post-body" itemprop="articleBody"><h1 id="苏大部分">苏大部分</h1>
+<h2 id="文件系统">文件系统</h2>
 <h3 id="命名">命名</h3>
 <p>•除/之外，所有的字符都合法</p>
 <p>•大小写敏感</p>
 <p>•有些字符最好不用，如空格符、制表符、退格符和字符：？, @ # $ &amp; ()  | ; ‘ ’ “ ” &lt; &gt;</p>
 <p>•避免使用＋、－或. 来作为普通文件名的第一个字符</p>
-<p>•可以使用长文件名或目录名（255个字符） <span id="more"></span> 包括完整路径的文件名不超过4096字符 ### 目录</p>
+<p>•可以使用长文件名或目录名（255个字符）</p>
+<p>包括完整路径的文件名不超过4096字符 <span id="more"></span></p>
+<h3 id="目录">目录</h3>
 <table>
 <tbody>
 <tr class="odd">
@@ -424,15 +435,203 @@
 </tr>
 </tbody>
 </table>
-<p>符号链接可以跨文件系统，即可以跨磁盘分区。 硬链接不可以跨文件系统，只能建立对文件的链接。 硬链接删除只原文件或硬链接不影响文件内容 软连接删除源文件导致链接失效 ### MBR 硬盘的第一个扇区存有主引导记录(Master boot record, MBR)及分区表(partition table) - MBR用于引导操作系统， 446 bytes ； - partition table用于记录分区信息， 64 bytes ； 一个MBR分区表类型的硬盘最多存在4个主分区，每个分区项占用16个字节 如果分区超过4个，则需要使用扩展分区，即一个物理硬盘上最多有3个主分区和1个扩展分区。 扩展分区不能直接使用，必须分割成为逻辑分区，一个扩展分区中的逻辑分区可以任意多个。</p>
+<p>符号链接可以跨文件系统，即可以跨磁盘分区。 硬链接不可以跨文件系统，只能建立对文件的链接。 硬链接删除只原文件或硬链接不影响文件内容 软连接删除源文件导致链接失效</p>
+<h3 id="mbr">MBR</h3>
+<p>硬盘的第一个扇区存有主引导记录(Master boot record, MBR)及分区表(partition table) - MBR用于引导操作系统， 446 bytes ； - partition table用于记录分区信息， 64 bytes ； 一个MBR分区表类型的硬盘最多存在4个主分区，每个分区项占用16个字节 如果分区超过4个，则需要使用扩展分区，即一个物理硬盘上最多有3个主分区和1个扩展分区。 扩展分区不能直接使用，必须分割成为逻辑分区，一个扩展分区中的逻辑分区可以任意多个。</p>
 <h3 id="gpt">GPT</h3>
-<p>全称全局唯一标识分区表 GUID Partition Table - 主分区数量任意（Win 128个） - 支持最大18EB（NTFS 256TB） 1EB=1024PB=1,048,576TB 可能需要EFI支持（Win、Mac） ### ext2 磁盘分区完毕后还需要进行格式化(format)，不同操作系统默认的文件系统不同，所以需要格式化成不同格式的分区。 EXT2（second extended filesystem）是LINUX内核默认的文件系统。 EXT2中的主要构成： •SuperBlock  记录此 filesystem 的整体信息，包括inode/block的总量、使用量、剩余量， 以及文件系统的格式与相关信息等； •Block   实际记录文件的内容，若文件较大，则占用多个 block。 •Inode   记录文件的属性，一个文件占用一个inode，同时记录此文件的数据所在的 block 号码 #### inode ext2 创建一个目录时，分配1个 inode 与至少1块 block 给目录 •inode 记录目录权限与属性，并记录分配到 block号码 •block 记录目录下文件名与该文件名占用的 inode</p>
-<p>inode 数量与大小在格式化时固定 特征： - 每个 inode 大小均固定为 128 bytes； - 每个文件仅占用一个 inode； - 文件系统能够创建的文件数量与 inode 的数量有关； - 系统读取文件时先找到 inode，分析 inode 所记录的权限与用户是否符合，若符合读取 block 的内容。 <img src="assets/苏大linux_ppt/image-20231014145226727.png" /> #### 升级 <code>EXT2</code>文件系统高效稳定，但不提供日志 <code>EXT3</code> 提供日志模式： data=journal模式 对所有的文件数据及metadata（定义文件系统中数据的数据,即数据的数据）进行日志记录 data=ordered或data=writeback模式 只对metadata记录日志，而不对数据进行日志记录</p>
+<p>全称全局唯一标识分区表 GUID Partition Table - 主分区数量任意（Win 128个） - 支持最大18EB（NTFS 256TB） 1EB=1024PB=1,048,576TB 可能需要EFI支持（Win、Mac）</p>
+<h3 id="ext2">ext2</h3>
+<p>磁盘分区完毕后还需要进行格式化(format)，不同操作系统默认的文件系统不同，所以需要格式化成不同格式的分区。 EXT2（second extended filesystem）是LINUX内核默认的文件系统。 EXT2中的主要构成： •SuperBlock  记录此 filesystem 的整体信息，包括inode/block的总量、使用量、剩余量， 以及文件系统的格式与相关信息等； •Block   实际记录文件的内容，若文件较大，则占用多个 block。 •Inode   记录文件的属性，一个文件占用一个inode，同时记录此文件的数据所在的 block 号码</p>
+<h4 id="inode">inode</h4>
+<p>ext2 创建一个目录时，分配1个 inode 与至少1块 block 给目录 •inode 记录目录权限与属性，并记录分配到 block号码 •block 记录目录下文件名与该文件名占用的 inode</p>
+<p>inode 数量与大小在格式化时固定 特征： - 每个 inode 大小均固定为 128 bytes； - 每个文件仅占用一个 inode； - 文件系统能够创建的文件数量与 inode 的数量有关； - 系统读取文件时先找到 inode，分析 inode 所记录的权限与用户是否符合，若符合读取 block 的内容。 <img src="assets/苏大linux_ppt/image-20231014145226727.png" /></p>
+<h4 id="升级">升级</h4>
+<p><code>EXT2</code>文件系统高效稳定，但不提供日志 <code>EXT3</code> 提供日志模式： data=journal模式 对所有的文件数据及metadata（定义文件系统中数据的数据,即数据的数据）进行日志记录 data=ordered或data=writeback模式 只对metadata记录日志，而不对数据进行日志记录</p>
 <p><code>EXT4</code> EXT3的扩展升级，可以提供更佳的性能和可靠性，包括支持更大的分区和文件大小，更快的文件操作速度。</p>
 <h3 id="实例">实例</h3>
 <h4 id="fdisk">fdisk</h4>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">           fdisk      [-options]     &lt;disk&gt;</span><br><span class="line">选项：</span><br><span class="line">-l 列出分区信息表</span><br><span class="line">/dev/sda    对sda磁盘进行分区</span><br></pre></td></tr></table></figure>
-<p>中科大的xubuntu镜像 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">ustc@ustclug-linux101:~/桌面$ sudo fdisk -l</span><br><span class="line">[sudo] ustc 的密码： </span><br><span class="line">Disk /dev/sda：5 GiB，5368709120 字节，10485760 个扇区</span><br><span class="line">Disk model: VMware Virtual S</span><br><span class="line">单元：扇区 / 1 * 512 = 512 字节</span><br><span class="line">扇区大小(逻辑/物理)：512 字节 / 512 字节</span><br><span class="line">I/O 大小(最小/最佳)：512 字节 / 512 字节</span><br><span class="line">磁盘标签类型：gpt</span><br><span class="line">磁盘标识符：12526913-E330-4CA7-A379-90A87EF858B0</span><br><span class="line"></span><br><span class="line">设备         起点     末尾    扇区  大小 类型</span><br><span class="line">/dev/sda1    2048   499711  497664  243M EFI 系统</span><br><span class="line">/dev/sda2  499712 10483711 9984000  4.8G Linux 文件系统</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
+<p>中科大的xubuntu镜像 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">ustc@ustclug-linux101:~/桌面$ sudo fdisk -l</span><br><span class="line">[sudo] ustc 的密码： </span><br><span class="line">Disk /dev/sda：5 GiB，5368709120 字节，10485760 个扇区</span><br><span class="line">Disk model: VMware Virtual S</span><br><span class="line">单元：扇区 / 1 * 512 = 512 字节</span><br><span class="line">扇区大小(逻辑/物理)：512 字节 / 512 字节</span><br><span class="line">I/O 大小(最小/最佳)：512 字节 / 512 字节</span><br><span class="line">磁盘标签类型：gpt</span><br><span class="line">磁盘标识符：12526913-E330-4CA7-A379-90A87EF858B0</span><br><span class="line"></span><br><span class="line">设备         起点     末尾    扇区  大小 类型</span><br><span class="line">/dev/sda1    2048   499711  497664  243M EFI 系统</span><br><span class="line">/dev/sda2  499712 10483711 9984000  4.8G Linux 文件系统</span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
+<h4 id="mkfs格式化">mkfs格式化</h4>
+<p>mkfs      [-t 磁盘格式名]     &lt;partition&gt; <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkfs  -t ext3  /dev/sdb1</span><br></pre></td></tr></table></figure></p>
+<h4 id="mount挂载">mount挂载</h4>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">mount [-t vfstype] [-o options]    device    <span class="built_in">dir</span></span><br><span class="line">mount                         显示所有挂载的信息</span><br><span class="line"></span><br><span class="line">mount –a                   将所有未挂载设备挂载</span><br><span class="line"></span><br><span class="line">mount   /dev/hda2   /mnt/myhd2    将hda2设备挂载到/mnt/myhd2</span><br><span class="line"></span><br><span class="line">mount -t iso9660 /dev/cdrom  /media/cdrom  挂载光驱</span><br><span class="line">umount [选项] <span class="built_in">dir</span></span><br><span class="line"></span><br><span class="line">选项：</span><br><span class="line"></span><br><span class="line">-f     强制卸载</span><br><span class="line"></span><br><span class="line">-all   卸载所有挂载</span><br><span class="line"></span><br><span class="line">例：</span><br><span class="line"></span><br><span class="line">umount  /media/cdrom     卸载刚才挂载的光驱</span><br></pre></td></tr></table></figure>
+<h2 id="shell">shell</h2>
+<h3 id="重定向">重定向</h3>
+<p>lLinux启动后，默认打开3个文件描述符 •标准输入：standard input   0 •标准输出：standard output  1 •错误输出：error output     2 每条shell命令执行，都会继承父进程的文件描述符。因此，所有运行的shell命令，都会有默认3个文件描述符。 <code>重定向</code> 是指不使用系统的标准输入，标准输出或标准错误端口，而重新指定输入输出。 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">输入重定向</span><br><span class="line"></span><br><span class="line">&lt;          输入重定向，从普通文件获取</span><br><span class="line"></span><br><span class="line">&lt;&lt;!...!    输入重定向， here文件，即从命令行获取</span><br><span class="line"></span><br><span class="line">输出重定向</span><br><span class="line"></span><br><span class="line">&gt;          输出重定向，覆盖模式</span><br><span class="line"></span><br><span class="line">&gt;&gt;         输出重定向，追加模式</span><br><span class="line"></span><br><span class="line">2&gt;         错误重定向，覆盖模式</span><br><span class="line"></span><br><span class="line">2&gt;&gt;        错误重定向，追加模式</span><br><span class="line"></span><br><span class="line">&amp;&gt;         同时实现输出重定向和错误重定向，覆盖模式</span><br><span class="line"></span><br><span class="line">&amp;&gt;&gt;        同时实现输出重定向和错误重定向，追加模式</span><br></pre></td></tr></table></figure></p>
+<h3 id="管道">管道</h3>
+<p>管道是一种两个进程间进行单向通信的机制 每个命令的输出作为下一条命令的输入，管道线中的命令从左到右顺序执行的，管道线是单向的 因为管道传递数据的单向性，管道又称为半双工管道 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls –l | wc -l</span><br></pre></td></tr></table></figure></p>
+<h3 id="命令替换">命令替换</h3>
+<p>Shell中的命令参数可以由另一个命令执行的结果来替代</p>
+<p>命令格式： <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$cmd1 `cmd2  arguments`</span><br><span class="line">或</span><br><span class="line">$cmd1 $(cmd2 arguments)</span><br></pre></td></tr></table></figure> 其中cmd2  arguments的输出作为cmd1的参数y</p>
+<h3 id="命令聚合">命令聚合</h3>
+<p>在一个命令行上使用若干shell元字符将若干命令聚合在一起运行。</p>
+<p>执行聚合的几种方式：</p>
+<p>•<code>cmd1;cmd2</code>   顺序执行若干命令 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pwd;date;ls</span><br></pre></td></tr></table></figure></p>
+<p>•<code>cmd1&amp;&amp;cmd2 </code> 当cmd1运行成功时才运行cmd2 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gzip mylargefile&amp;&amp;echo &quot;OK.&quot;</span><br></pre></td></tr></table></figure> •<code>cmd1||cmd2</code>   当cmd1运行失败时才运行cmd2 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gzip mylargefile||echo &quot;FALSE.&quot;</span><br></pre></td></tr></table></figure> •<code>(cmdlist)</code>   在子shell中执行命令序列，命令不影响当前shell <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(date;who|wc -l)&gt;~/login-users.log</span><br></pre></td></tr></table></figure></p>
+<h1 id="linux101">linux101</h1>
+<h2 id="apt">apt</h2>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ apt search firefox</span><br><span class="line">Sorting... Done</span><br><span class="line">Full Text Search... Done</span><br><span class="line">(Output omitted)</span><br><span class="line"></span><br><span class="line">firefox/bionic-updates,bionic-security,now 72.0.2+build1-0ubuntu0.18.04.1 amd64</span><br><span class="line">  Safe and easy web browser from Mozilla</span><br><span class="line"></span><br><span class="line">(Output omitted)</span><br></pre></td></tr></table></figure>
+<p>中间两行每个字段的含义：</p>
+<table>
+<thead>
+<tr class="header">
+<th>样例中的字段</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>firefox</code></td>
+<td>即为在软件仓库中的包名</td>
+</tr>
+<tr class="even">
+<td><code>bionic-updates,bionic-security,now</code></td>
+<td>为包含这个软件包的仓库源</td>
+</tr>
+<tr class="odd">
+<td><code>72.0.2+build1-0ubuntu0.18.04.1</code></td>
+<td>为软件包的版本</td>
+</tr>
+<tr class="even">
+<td><code>amd64</code></td>
+<td>软件包的架构；还可能为<code>i386</code>、<code>all</code>等</td>
+</tr>
+<tr class="odd">
+<td><code>Safe and easy web browser from Mozilla</code></td>
+<td>在软件仓库中对这个软件包的描述</td>
+</tr>
+</tbody>
+</table>
+<div class="note warning"><p>请避免直接使用 <code>dpkg -i</code> 安装 deb 包。 在绝大多数情况下，都应该使用 <code>apt</code> 来安装 deb 文件。 如果不小心执行了 <code>dpkg -i</code> 导致系统出现依赖问题，可以尝试通过如下的方式调用 <code>apt</code> 帮助修复依赖管理：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt -f install</span><br></pre></td></tr></table></figure>
+</div>
+<h2 id="环境变量">环境变量</h2>
+<p>我们不能每次在需要编译程序的时候输入如此长的路径找到 <code>clang</code> 和 <code>clang++</code>，而更希望的是能够像 <code>apt</code> 那样在任何地方都可以直接运行。</p>
+<p>我们可以这样做：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ # 将 clang+llvm-10.0.0-x86_64-linux-gnu-ubuntu-18.04 目录下的所有内容复制到 /usr/local/ 下</span><br><span class="line">$ sudo cp -R * /usr/local/</span><br></pre></td></tr></table></figure>
+<p>为什么是 <code>/usr/local</code> 呢？因为 <code>/usr/local/bin</code> 处在 PATH 环境变量下。当我们在终端输入命令时，终端会先判断是否为终端的内建命令，如果不是，则会在 $PATH 环境变量中包含的目录下进行查找。因此，只要我们将一个可执行文件放入了 $PATH 中的目录下面，我们就可以像 <code>apt</code> 一样，在任意地方调用我们的程序。 通过这个命令可以看到当前的 PATH 环境变量有哪些目录。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ echo $PATH</span><br><span class="line">/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin</span><br></pre></td></tr></table></figure>
+<p>在上面的复制过程中，源目录和目标目录的两个 <code>bin</code> 目录会相互合并，<code>clang</code> 和 <code>clang++</code> 两个可执行文件也就被复制到了 <code>/usr/local/bin/</code> 目录中。这样子也就达到了我们希望能够在任意地方调用我们的可执行文件的目的。此外，在复制的时候 lib、doc 等文件夹也会和 <code>/usr/local</code> 下的对应目录合并，将 clang 的库和文档加到系统当中。</p>
+<h2 id="模式匹配">模式匹配</h2>
+<p>许多现代的 shell 都支持一定程度的模式匹配。举个例子，bash 的匹配模式被称为 <a target="_blank" rel="noopener" href="https://mywiki.wooledge.org/glob">glob</a>，支持的操作如下：</p>
+<table>
+<thead>
+<tr class="header">
+<th>模式</th>
+<th>匹配的字串</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>*</code></td>
+<td>任意字串</td>
+</tr>
+<tr class="even">
+<td><code>foo*</code></td>
+<td>匹配 foo 开头的字串</td>
+</tr>
+<tr class="odd">
+<td><code>*x*</code></td>
+<td>匹配含 x 的字串</td>
+</tr>
+<tr class="even">
+<td><code>?</code></td>
+<td>一个字符</td>
+</tr>
+<tr class="odd">
+<td><code>a?b</code></td>
+<td><code>acb</code>、<code>a0b</code> 等，但不包含 <code>a00b</code></td>
+</tr>
+<tr class="even">
+<td><code>*.[ch]</code></td>
+<td>以 .c 或 .h 结尾的文件</td>
+</tr>
+</tbody>
+</table>
+<div class="note info no-icon"><p>除了上面提到的 glob，bash 还支持 <a target="_blank" rel="noopener" href="https://www.linuxjournal.com/content/bash-extended-globbing">extglob</a>，不过需要先用 <code>shopt -s extglob</code> 启用。</p>
+</div>
+<h2 id="进程">进程</h2>
+<h3 id="htop">htop</h3>
+<p>Htop 可以简单方便查看当前运行的所有进程，以及系统 CPU、内存占用情况与系统负载等信息。</p>
+<p>使用鼠标与键盘都可以操作 htop。Htop 界面的最下方是一些选项，使用鼠标点击或按键盘的 F1 至 F10 功能键可以选择这些功能，常用的功能例如搜索进程（F3, Search）、过滤进程（F4, Filter，使得界面中只有满足条件的进程）、切换树形结构/列表显示（F5, Tree/List）等等。</p>
+<p><strong>进程标识符</strong>（PID，Process Identifier（是一个数字，是进程的唯一标识。在 htop 中，最左侧一列即为 PID。当用户想挂起、继续或终止进程时可以使用 PID 作为索引。</p>
+<p>在 htop 中，直接单击绿色条内的 PID 栏，可以将进程顺序按照 PID 升序排列，再次点击为降序排列，同理可应用于其他列。</p>
+<div class="note info no-icon"><p>按照 PID 排序时，我们可以观察系统启动的过程。Linux 系统内核从引导程序接手控制权后，开始内核初始化，随后变为 <strong>init_task</strong>，初始化自己的 PID 为 0。随后创建出 1 号进程（init 程序，目前一般为 systemd）衍生出用户空间的所有进程，创建 2 号进程 kthreadd 衍生出所有内核线程。随后 0 号进程成为 idle 进程，1 号、2 号并非特意预留，而是产生进程的自然顺序使然。</p>
+<p>由于 kthreadd 运行于内核空间，故需按大写 K（Shift + k）键显示内核进程后才能看到。然而无论如何也不可能在 htop 中看到 0 号进程本体，只能发现 1 号和 2 号进程的 PPID 是 0。</p>
+</div>
+<h4 id="linux对进程的分类">linux对进程的分类</h4>
+<p><code>Status: R: running; S: sleeping; T: traced/stopped; Z: zombie; D: disk sleep</code> S 对应的 sleeping 又称 interruptible sleep，字面意思是「可以被中断」；而 D 对应的 disk sleep 又称 uninterruptible sleep，不可被中断，一般是因为阻塞在磁盘读写操作上。 Zombie 是僵尸进程，该状态下进程已经结束，只是仍然占用一个 PID，保存一个返回值。而 traced/stopped 状态正是下文使用 Ctrl + Z 导致的挂起状态（大写 T），或者是在使用 gdb 等调试（Debug）工具进行跟踪时的状态（小写 t）。</p>
+<table>
+<thead>
+<tr class="header">
+<th>状态</th>
+<th>缩写表示</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Running</td>
+<td>R</td>
+<td>正在运行/可以立刻运行</td>
+</tr>
+<tr class="even">
+<td>Sleeping</td>
+<td>S</td>
+<td>可以被中断的睡眠</td>
+</tr>
+<tr class="odd">
+<td>Disk Sleep</td>
+<td>D</td>
+<td>不可被中断的睡眠</td>
+</tr>
+<tr class="even">
+<td>Traced / Stopped</td>
+<td>T</td>
+<td>被跟踪/被挂起的进程</td>
+</tr>
+<tr class="odd">
+<td>Zombie</td>
+<td>Z</td>
+<td>僵尸进程</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ps">ps</h3>
+<p>ps（<strong>p</strong>rocess <strong>s</strong>tatus）是常用的输出进程状态的工具。直接调用 <code>ps</code> 仅会显示本终端中运行的相关进程。如果需要显示所有进程，对应的命令为 <code>ps aux</code>。</p>
+<h3 id="优先级与-nice-值">优先级与 nice 值</h3>
+<p>有了进程，谁先运行？谁给一点时间就够了，谁要占用大部分 CPU 时间？这又是如何决定的？这些问题之中体现着优先权的概念。如果说上面所介绍的的那些进程属性描述了进程的控制信息，那么<strong>优先级</strong>则反映操作系统调度进程的手段。在 htop 的显示中有两个与优先级有关的值：Priority（PRI）和 <strong>nice（NI）</strong>。以下主要介绍用户层使用的 nice 值。</p>
+<p>Nice 值越高代表一个进程对其它进程越 "nice"（友好），对应的优先级也就更低。Nice 值最高为 19，最低为 -20。通常，我们运行的程序的 nice 值为 0。我们可以打开 htop 观察与调整每个进程的 nice 值。</p>
+<p>用户可以使用 <code>nice</code> 命令在运行程序时指定优先级，而 <code>renice</code> 命令则可以重新指定优先级。当然，若想调低 nice 值，还需要 <code>sudo</code>（毕竟不能随便就把自己的优先级设置得更高，不然对其他的用户不公平）。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ nice -n 10 vim # 以 10 为 nice 值运行 vim</span><br><span class="line">$ renice -n 10 -p 12345 # 设置 PID 为 12345 的进程的 nice 值为 10</span><br></pre></td></tr></table></figure>
+<div class="note info no-icon"><p>如果你在 htop 中测试调整进程的 nice 值，可能会发现一个公式：<code>PRI = nice + 20</code>。这对于普通进程是成立的——普通进程的 PRI 会被映射到一个非负整数。</p>
+<p>但在正常运行的 Linux 系统中，我们可能会发现有些进程的 PRI 值是 RT，或者是负数。这表明对应的进程有更高的实时性要求（例如内核进程、音频相关进程等），采用了与普通进程不同的调度策略，优先级也相应更高。</p>
+</div>
+<h3 id="用户进程控制">用户进程控制</h3>
+<p><img src="https://101.lug.ustc.edu.cn/Ch04/images/signal_slide.png" /> 信号是 Unix 系列系统中进程之间相互通信的一种机制。发送信号的 Linux 命令叫作 <code>kill</code>。被称作 "kill" 的原因是：早期信号的作用就是关闭（杀死）进程。</p>
+<h3 id="前后台">前后台</h3>
+<p><img src="https://101.lug.ustc.edu.cn/Ch04/images/bg.gif" /> 默认情况下，在 shell 中运行的命令都在前台运行，如果需要在后台运行程序，需要在最后加上 <code>&amp;</code> 而如果需要将前台程序切换到后台，则需要按下 Ctrl + Z 发送 SIGTSTP 使进程挂起，控制权还给 shell 我们可以使用 <code>jobs</code> 命令，看到当前 shell 上所有相关的进程 任务前的代号在 fg，bg，乃至 kill 命令中发挥作用。使用时需要在前面加 <code>%</code>，如将 2 号进程放入后台，则使用 <code>bg %2</code> <div class="note info no-icon"><p>然而我们也许会关注一个细节，在图中显示的编号后面跟着的加号和减号是什么？</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[1]  - running    ./signal handle</span><br><span class="line">[2]  + suspended  ping localhost</span><br></pre></td></tr></table></figure>
+<p>这里的加号标记了 fg 和 bg 命令默认作用到的任务为 2，所以这里 <code>bg %2</code> 也可以直接简化为 <code>bg</code>。减号表示如果加号标记的进程退出了，它就会成为加号标记进程。我们也可以用 <code>%+</code> 和 <code>%-</code> 指代这两个任务。</p>
+</div></p>
+<h3 id="终止进程">终止进程</h3>
+<p>标准的终止进程信号是 SIGTERM，意味着一个进程的自然死亡 - htop 中自带向进程发送信号的功能。按下 K 键，在左侧提示栏中选择需要的信号，按下回车发送。同时可以使用空格对进程进行标记，被标记的进程将改变显示颜色。此时重复上述过程，可对被标记进程批量发送信号。 - 如果不加任何参数，只有 PID，<code>kill</code> 命令将自动使用 15（SIGTERM）作为信号参数。 - 在信号中，9 代表 SIGKILL，收到这个信号之后，程序会立刻退出。在使用时，直接 <code>kill -9 PID</code> 即可。</p>
+<h3 id="其他类-kill-命令">其他类 kill 命令</h3>
+<ul>
+<li><p><code>pgrep</code> / <code>pkill</code> 后面接模糊名称，实际上类似于对名称进行 <code>grep</code> 命令。<code>pgrep</code> 仅列出搜索到的进程名称符合用户输入的进程标识符，而 <code>pkill</code> 会根据用户的输入向进程发送信号。</p></li>
+<li><p><code>killall</code> 与 <code>pkill</code> 有一些类似，会向指定名字的进程发送信号。</p></li>
+<li><p><code>xkill</code> <code>xkill</code> 是针对窗口的 kill，运行该命令后，鼠标点击程序对应的窗口，就可以杀死该程序。</p></li>
+</ul>
+<h3 id="脱离终端">脱离终端</h3>
+<p>如果你使用过 SSH 连接到远程服务器执行任务，那么你会发现，你在 shell 中执行的程序在 SSH 断开之后会被关闭。这是因为终端一旦被关闭会向其中每个进程发送 SIGHUP（Signal hangup），而 SIGHUP 的默认动作即退出程序运行。</p>
+<h4 id="nohup">nohup</h4>
+<p>nohup，字面含义，就是「不要被 SIGHUP 影响」。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ nohup ping 101.ustclug.org &amp;</span><br><span class="line">[1] 19258</span><br><span class="line">nohup: ignoring input and appending output to &#x27;/home/ustc/nohup.out&#x27;</span><br></pre></td></tr></table></figure>
+<p>在需要屏蔽 SIGHUP 的程序前添加 nohup，则运行时的输出将被<a target="_blank" rel="noopener" href="https://101.lug.ustc.edu.cn/Ch06/#redirect">重定向</a>到 nohup.out，也可以通过重定向手段自定义输出的文件。</p>
+<h2 id="服务">服务</h2>
+<div class="note info no-icon">
+</div>
 
     </div>
 
@@ -490,13 +689,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">271k</span>
+    <span title="站点总字数">279k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">4:07</span>
+    <span title="站点阅读时长">4:13</span>
   </span>
 </div>
 <div class="busuanzi-count">
