@@ -28,6 +28,534 @@
 ]]></content>
   </entry>
   <entry>
+    <title>基于mit6.006的算法笔记</title>
+    <url>/2023/10/14/mit6.006%E6%80%BB%E5%92%8C%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[<h1 id="基础">基础</h1>
+<h2 id="数据结构">数据结构</h2>
+<p><img src="/assets/mit6.006总和笔记/image-20231016191822017.png" /></p>
+<h2 id="算法性质">算法性质</h2>
+<p><code>循环不变式</code>主要用来帮助我们理解算法的正确性。关千<code>循环不变式</code>，我们必须证明三条<br />
+性质：<br />
+初始化：循环的第一次迭代之前，它为真。<br />
+保持：如果循环的某次迭代之前它为真，那么下次迭代之前它仍为真。<br />
+终止：在循环终止时，不变式为我们提供一个有用的性质，该性质有助千证明算法是正<br />
+确的。 <span id="more"></span> <code>分治算法</code>运行时间的递归式来自基本模式的三个步骤。如前所述，我们假设 T(n) 是规模为n 的一个问题的运行时间。若问题规模足够小，如对某个常量 c, n~c, 则直接求解需要常量时间，我们将其写作 @(1) 。假设把原问题分解成 a 个子问题，每个子问题的规模是原问题的 l/b （对归并排序， a 和 b 都为 2, 然而，我们将看到在许多分治算法中， a=/=-b 。)为了求解一个规模为 n/b 的子问题，需要 T(n/b) 的时间，所以需要 aT(n/b) 的时间来求解 a 个子问题。如果分解问题 成子问题需要时间 D(n), 合并子问题的解成原问题的解需要时间 C(n), 那么得到递归式： <img src="/assets/mit6.006总和笔记/20230519142006.png" title="image" alt="图片" /> <img src="/assets/mit6.006总和笔记/20230519142707.png" title="image" alt="图片" /></p>
+<p>f(n) = O(g(n)) 类似于 a&lt;=b f(n) = Ω (g(n)) 类似于 a&gt;=b f(n) = θ (g(n)) 类似于 a=b f(n) = o(g(n)) 类似于 a&lt;b f(n) = w(g(n)) 类似于 a&gt;b <img src="/images/obsidian/20230519150021.png" title="image" alt="图片" /></p>
+<h2 id="分治法递归">分治法（递归）</h2>
+<h3 id="选择排序">选择排序</h3>
+<p>• Find a largest number in prefix A[:i + 1] and swap it to A[i] • Recursively sort prefix A[:i]</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">def selection_sort(A, i = None): # T(i)</span><br><span class="line">2 ’’’Sort A[:i + 1]’’’</span><br><span class="line">3 if i is None: i = len(A) - 1 # O(1)</span><br><span class="line">4 if i &gt; 0: # O(1)</span><br><span class="line">5 j = prefix_max(A, i) # S(i)</span><br><span class="line">6 A[i], A[j] = A[j], A[i] # O(1)</span><br><span class="line">7 selection_sort(A, i - 1) # T(i - 1)</span><br><span class="line">8</span><br><span class="line">9 def prefix_max(A, i): # S(i)</span><br><span class="line">10 ’’’Return index of maximum in A[:i + 1]’’’</span><br><span class="line">11 if i &gt; 0: # O(1)</span><br><span class="line">12 j = prefix_max(A, i - 1) # S(i - 1)</span><br><span class="line">13 if A[i] &lt; A[j]: # O(1)</span><br><span class="line">14 return j # O(1)</span><br><span class="line">15 return i # O(1)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">• prefix max analysis:</span><br><span class="line">– Base case: for i = 0, array has one element, so index of max is i</span><br><span class="line">– Induction: assume correct for i, maximum is either the maximum of A[:i] or A[i],</span><br><span class="line">returns correct index in either case</span><br><span class="line">• selection sort analysis:</span><br><span class="line">– Base case: for i = 0, array has one element so is sorted</span><br><span class="line">– Induction: assume correct for i, last number of a sorted output is a largest number of</span><br><span class="line">the array, and the algorithm puts one there; then A[:i] is sorted by inductio</span><br></pre></td></tr></table></figure>
+<h3 id="插入排序">插入排序</h3>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">def insertion_sort(A, i = None): # T(i)</span><br><span class="line">2 ’’’Sort A[:i + 1]’’’</span><br><span class="line">3 if i is None: i = len(A) - 1 # O(1)</span><br><span class="line">4 if i &gt; 0: # O(1)</span><br><span class="line">5 insertion_sort(A, i - 1) # T(i - 1)</span><br><span class="line">6 insert_last(A, i) # S(i)</span><br><span class="line">7</span><br><span class="line">8 def insert_last(A, i): # S(i)</span><br><span class="line">9 ’’’Sort A[:i + 1] assuming sorted A[:i]’’’</span><br><span class="line">10 if i &gt; 0 and A[i] &lt; A[i - 1]: # O(1)</span><br><span class="line">11 A[i], A[i - 1] = A[i - 1], A[i] # O(1)</span><br><span class="line">12 insert_last(A, i - 1) # S(i - 1)</span><br><span class="line">• insert last analysis:</span><br><span class="line">– Base case: for i = 0, array has one element so is sorted</span><br><span class="line">– Induction: assume correct for i, if A[i] &gt;= A[i - 1], array is sorted; otherwise,</span><br><span class="line">swapping last two elements allows us to sort A[:i] by induction</span><br><span class="line">• insertion sort analysis:</span><br><span class="line">– Base case: for i = 0, array has one element so is sorted</span><br><span class="line">– Induction: assume correct for i, algorithm sorts A[:i] by induction, and then</span><br><span class="line">insert last correctly sorts the rest as proved above</span><br></pre></td></tr></table></figure>
+<h3 id="归并排序">归并排序</h3>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">def merge_sort(A, a = 0, b = None): # T(b - a = n)</span><br><span class="line">2 ’’’Sort A[a:b]’’’</span><br><span class="line">3 if b is None: b = len(A) # O(1)</span><br><span class="line">4 if 1 &lt; b - a: # O(1)</span><br><span class="line">5 c = (a + b + 1) // 2 # O(1)</span><br><span class="line">6 merge_sort(A, a, c) # T(n / 2)</span><br><span class="line">7 merge_sort(A, c, b) # T(n / 2)</span><br><span class="line">8 L, R = A[a:c], A[c:b] # O(n)</span><br><span class="line">9 merge(L, R, A, len(L), len(R), a, b) # S(n)</span><br><span class="line">10</span><br><span class="line">11 def merge(L, R, A, i, j, a, b): # S(b - a = n)</span><br><span class="line">12 ’’’Merge sorted L[:i] and R[:j] into A[a:b]’’’</span><br><span class="line">13 if a &lt; b: # O(1)</span><br><span class="line">14 if (j &lt;= 0) or (i &gt; 0 and L[i - 1] &gt; R[j - 1]): # O(1)</span><br><span class="line">15 A[b - 1] = L[i - 1] # O(1)</span><br><span class="line">16 i = i - 1 # O(1)</span><br><span class="line">17 else: # O(1)</span><br><span class="line">18 A[b - 1] = R[j - 1] # O(1)</span><br><span class="line">19 j = j - 1 # O(1)</span><br><span class="line">20 merge(L, R, A, i, j, a, b - 1)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">• merge analysis:</span><br><span class="line">– Base case: for n = 0, arrays are empty, so vacuously correct</span><br><span class="line">– Induction: assume correct for n, item in A[r] must be a largest number from remaining</span><br><span class="line">prefixes of L and R, and since they are sorted, taking largest of last items suffices;</span><br><span class="line">remainder is merged by induction</span><br><span class="line"> merge sort analysis:</span><br><span class="line">– Base case: for n = 1, array has one element so is sorted</span><br><span class="line">– Induction: assume correct for k &lt; n, algorithm sorts smaller halves by induction, and then merge merges into a sorted array as proved above.</span><br></pre></td></tr></table></figure>
+<h3 id="寻峰算法">寻峰算法</h3>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">• If a[n/2] &lt; a[n/2 − 1] then only look at left half 1 . . . n/2 − − − 1 to look for peak</span><br><span class="line">• Else if a[n/2] &lt; a[n/2 + 1] then only look at right half n/2 + 1 . . . n to look for peak</span><br><span class="line">• Else n/2 position is a peak: WHY?</span><br><span class="line">a[n/2] ≥ a[n/2 − 1]</span><br><span class="line">a[n/2] ≥ a[n/2 + 1]</span><br><span class="line">What is the complexity?</span><br><span class="line">T (n) = T (n/2) + Θ(1) = Θ(1) + . . . + Θ(1) (log2(n) times) = Θ(log2(n))</span><br></pre></td></tr></table></figure>
+<p>二维情况下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">• Pick middle column j = m/2</span><br><span class="line">• Find global maximum on column j at (i, j)</span><br><span class="line">• Compare (i, j − 1), (i, j), (i, j + 1)</span><br><span class="line">• Pick left columns of (i, j − 1) &gt; (i, j)</span><br><span class="line">• Similarly for right</span><br><span class="line">• (i, j) is a 2D-peak if neither condition holds</span><br><span class="line">• Solve the new problem with half the number of columns.</span><br><span class="line">• When you have a single column, find global maximum and you‘re done.</span><br><span class="line"></span><br><span class="line">T (n, m) = T (n, m/2) + Θ(n) (to find global maximum on a column — (n rows))</span><br><span class="line">T (n, m) = Θ(n) + . . . + Θ(n)</span><br><span class="line">&#x27; -v &quot;</span><br><span class="line">log m</span><br><span class="line">= Θ(n log m) = Θ(n log n) if m = n</span><br></pre></td></tr></table></figure>
+<h3 id="最大子数组">最大子数组</h3>
+<p>算法思路： 元素和最大的子数组有三种情况：在左半数组，右半数组，或者跨越中点，第一和第二种情况可以用递归遍历解决，第三种情况则分为两个半边数组的组合，只要从中点出发寻找最大子数组，然后组合就可以了 <code>时间复杂度分析</code>：，其中线性时间为跨越中点的子数组，最终需要时间为O(NlogN) <img src="/images/obsidian/20230522103507.png" title="image" alt="图片" /></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">FIND-MAXIMUM-SUBARRAYCA, low, high)  </span><br><span class="line">if high== low  </span><br><span class="line">return Clow, high, A[low])  </span><br><span class="line">else mid=L Clow 十 high)/2 」  </span><br><span class="line">Cleft-low, left-high, left-sum) =  </span><br><span class="line">// base case, only one element  </span><br><span class="line">FIND-MAXIMUM-SUBARRAY(A, low, mid)  </span><br><span class="line">(right-low, right-high, right-sum) =  </span><br><span class="line">FIND-MAXIMUM-SUBARRAY(A, mid+l. high)  </span><br><span class="line">(cross-low, cross-high, cross-sum) =  </span><br><span class="line">FIND-MAX-CROSSING-SUBARRAY(A, low, mid, high)  </span><br><span class="line">if left-sum~right-sum and left-sum~cross-sum  </span><br><span class="line">return (left-low, left-high, left-sum)  </span><br><span class="line">elseif rightr-sum;?, left-sum and right-sum;?, cross-sum  </span><br><span class="line">return (right-low, right-high, right-sum)  </span><br><span class="line">else return (cross-low, cross-high, cross-sum)</span><br><span class="line"></span><br><span class="line">FIND-MAX-CROSSING--SUBARRAY(A, low, mid, high)  </span><br><span class="line"> left-sum = -oo  </span><br><span class="line"> sum=O  </span><br><span class="line"> for i = mid downto low  </span><br><span class="line"> sum=sum+A[i]  </span><br><span class="line"> if sum&gt; left-sum  </span><br><span class="line"> left-sum = sum  </span><br><span class="line"> max-left = i  </span><br><span class="line"> right-sum= -oo  </span><br><span class="line"> sum=O  </span><br><span class="line"> for j = mid + 1 to high</span><br><span class="line"> sum=sum + A[j]  </span><br><span class="line"> if sum &gt; right-sum  </span><br><span class="line"> right-sum = sum  </span><br><span class="line"> max-right = j  </span><br><span class="line"> return (max-left, max-right, left-sum + right-sum)</span><br></pre></td></tr></table></figure>
+<h2 id="代入法求解递归式">代入法求解递归式</h2>
+<ol type="1">
+<li>猜测解的形式。<br />
+</li>
+<li>用数学归纳法求出解中的常数，并证明解是正确的。 猜测T(n)的上界，将其带入递归式，求出一个上界，随后寻找一个N0证明对所有n&gt;=n0，递归式T(n)成立 <img src="/images/obsidian/20230522140116.png" title="image" alt="图片" /> <img src="/images/obsidian/20230522140235.png" title="image" alt="图片" /></li>
+</ol>
+<h2 id="递归树法">递归树法</h2>
+<p>递归树是良好的猜测递归式时间复杂度的方法，但由于构建递归树经常伴随简化，所以用其证明的话则不够严谨 以递归式 T(n)=3T(ln/4 」) +S(n2) 为例，来看一下如何用递归树生成一个好的猜测 <img src="/images/obsidian/202305232128551.png" title="image" alt="图片" /> 递归树有 log4n+l 层， <img src="/images/obsidian/20230523213613.png" title="image" alt="图片" /> <img src="/images/obsidian/202305232137541.png" title="image" alt="图片" /> 由于根结点对总代价的贡献为 cn^2, 所以根结点的代价占总代价的一个常数 比例。换句话说，根结点的代价支配了整棵树的总代价。</p>
+<h2 id="主方法求解递归式">主方法求解递归式</h2>
+<p>主方法为如下形式的递归式提供了一种”菜谱”式的求解方法<br />
+T(n) = aT(n/b) + f(n) 其中 a&gt;=l1和 b&gt;=1 是常数， f(n) 是渐近正函数。 <img src="/images/obsidian/202305242150561.png" title="image" alt="图片" /></p>
+<p>算法思路： 元素和最大的子数组有三种情况：在左半数组，右半数组，或者跨越中点，第一和第二种情况可以用递归遍历解决，第三种情况则分为两个半边数组的组合，只要从中点出发寻找最大子数组，然后组合就可以了 <code>时间复杂度分析</code>：，其中线性时间为跨越中点的子数组，最终需要时间为O(NlogN) <img src="/images/obsidian/202305221035071.png" title="image" alt="图片" /></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">FIND-MAXIMUM-SUBARRAYCA, low, high)  </span><br><span class="line">1 if high== low  </span><br><span class="line">2 return Clow, high, A[low])  </span><br><span class="line">3 else mid=L Clow 十 high)/2 」  </span><br><span class="line">4 Cleft-low, left-high, left-sum) =  </span><br><span class="line">// base case, only one element  </span><br><span class="line">FIND-MAXIMUM-SUBARRAY(A, low, mid)  </span><br><span class="line">5 (right-low, right-high, right-sum) =  </span><br><span class="line">FIND-MAXIMUM-SUBARRAY(A, mid+l. high)  </span><br><span class="line">6 (cross-low, cross-high, cross-sum) =  </span><br><span class="line">FIND-MAX-CROSSING-SUBARRAY(A, low, mid, high)  </span><br><span class="line">7 if left-sum~right-sum and left-sum~cross-sum  </span><br><span class="line">8 return (left-low, left-high, left-sum)  </span><br><span class="line">elseif rightr-sum;?, left-sum and right-sum;?, cross-sum  </span><br><span class="line">return (right-low, right-high, right-sum)  </span><br><span class="line">else return (cross-low, cross-high, cross-sum)</span><br><span class="line"></span><br><span class="line">FIND-MAX-CROSSING--SUBARRAY(A, low, mid, high)  </span><br><span class="line">1 left-sum = -oo  </span><br><span class="line">2 sum=O  </span><br><span class="line">3 for i = mid downto low  </span><br><span class="line">4 sum=sum+A[i]  </span><br><span class="line">5 if sum&gt; left-sum  </span><br><span class="line">6 left-sum = sum  </span><br><span class="line">7 max-left = i  </span><br><span class="line">8 right-sum= -oo  </span><br><span class="line">9 sum=O  </span><br><span class="line">10 for j = mid + 1 to high</span><br><span class="line">11 sum=sum + A[j]  </span><br><span class="line">12 if sum &gt; right-sum  </span><br><span class="line">13 right-sum = sum  </span><br><span class="line">14 max-right = j  </span><br><span class="line">15 return (max-left, max-right, left-sum + right-sum)</span><br></pre></td></tr></table></figure>
+<h1 id="比较排序">比较排序</h1>
+<p><img src="/assets/mit6.006总和笔记/image-20231016192215938.png" /></p>
+<h2 id="决策树">决策树</h2>
+<p>决策树 • 任何算法都可以被视为所执行操作的决策树 • 内部节点表示二进制比较，分支为 True 或 False • 对于比较算法，决策树是二元的 • 叶子代表算法终止，产生算法输出 • 根到叶路径表示算法在某些输入上的执行 • 每个算法输出至少需要一个叶子，因此搜索需要 ≥ n + 1 个叶子 • 高度 ≥ mod(lg(n + 1)) − 1 = Ω(log n)，因此任何比较排序的运行时间均为 Ω(log n)</p>
+<h2 id="堆排序">堆排序</h2>
+<p><img src="/assets/mit6.006总和笔记/image-20231017150534371.png" /> <strong>本质上是在序列数据结构（数组）之上实现集合数据结构</strong> 二叉堆：将数组解释为完全二叉树，深度 i 处最多有 2i 个节点，除了 在最大深度，所有节点均左对齐</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">left(i) = 2i + 1</span><br><span class="line">right(i) = 2i + 2</span><br><span class="line">parent(i) = mod(i-1/2)</span><br></pre></td></tr></table></figure>
+<p><img src="/assets/mit6.006总和笔记/image-20231014112423645.png" /> 最大堆的生成</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">l = left(i)</span><br><span class="line">r = right(i)</span><br><span class="line">if (l &lt;= heap-size(A) and A[l] &gt; A[i])</span><br><span class="line">then largest = l else largest = i</span><br><span class="line">if (r &lt;= heap-size(A) and A[r] &gt; A[largest])</span><br><span class="line">then largest = r</span><br><span class="line">if largest = i</span><br><span class="line">then exchange A[i] and A[largest]</span><br><span class="line">Max_Heapify(A, largest)</span><br><span class="line"></span><br><span class="line">//Converts A[1…n] to a max heap</span><br><span class="line">Build_Max_Heap(A):</span><br><span class="line">for i=n/2 downto 1</span><br><span class="line">do Max_Heapify(A, i)</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line">Why start at n/2?</span><br><span class="line">Because elements A[n/2 + 1 … n] are all leaves of the tree</span><br><span class="line">*/</span><br></pre></td></tr></table></figure>
+<p>时间复杂度分析：</p>
+<p>Total amount of work in the for loop can be summed as: n/4 (1 c) + n/8 (2 c) + n/16 (3 c) + … + 1 (lg n c) Setting n/4 = 2k and simplifying we get: c 2k( 1/20 + 2/21 + 3/22 + … (k+1)/2k ) The term is brackets is bounded by a constant This means that Build_Max_Heap is O(n)</p>
+<p>排序策略：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Sorting Strategy:</span><br><span class="line">1. Build Max Heap from unordered array;</span><br><span class="line">2. Find maximum element A[1];</span><br><span class="line">3. Swap elements A[n] and A[1]:</span><br><span class="line">now max element is at the end of the array!</span><br><span class="line">4. Discard node n from heap</span><br><span class="line">(by decrementing heap-size variable)</span><br><span class="line">5. New root may violate max heap property, but its</span><br><span class="line">children are max heaps. Run max_heapify to fix this.</span><br><span class="line">6. Go to Step 2 unless heap is empty</span><br></pre></td></tr></table></figure>
+<h2 id="动态规划和二分搜索树">动态规划和二分搜索树</h2>
+<p>实例——机场的动态规划：</p>
+<ol type="1">
+<li>机场维护一个跑道队列</li>
+<li>未来的着陆预定登记到队列</li>
+<li>一架飞机着陆后就出队</li>
+<li>有新的请求且需要着陆时间t时，如果k时间内没有其他需求，则需求t时间的请求入队(k可以实时改变)</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">init: R = [ ]</span><br><span class="line">req(t): if t &lt; now: return &quot;error&quot;</span><br><span class="line">for i in range (len(R)):</span><br><span class="line">if abs(t-R[i]) &lt; k: return &quot;error&quot;</span><br><span class="line">R.append(t)</span><br><span class="line">R = sorted(R)</span><br><span class="line">land: t = R[0]</span><br><span class="line">if (t != now) return error</span><br><span class="line">R = R[1: ] (drop R[0] from R)</span><br></pre></td></tr></table></figure>
+<p>Goal: Run this system efficiently in O(lg n) time 常见数据结构运行时间分析</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">• Sorted list: Appending and sorting takes Θ(n lg n) time. However, it is pos-</span><br><span class="line">sible to insert new time/plane rather than append and sort but insertion takes</span><br><span class="line">Θ(n) time. A k minute check can be done in O(1) once the insertion point is</span><br><span class="line">found.</span><br><span class="line">• Sorted array: It is possible to do binary search to find place to insert in</span><br><span class="line">O(lg n) time. Using binary search, we find the smallest i such that R[i] ≥ t,</span><br><span class="line">i.e., the next larger element. We then compare R[i] and R[i − 1] against t.</span><br><span class="line">Actual insertion however requires shifting elements which requires Θ(n) time.</span><br><span class="line">• Unsorted list/array: k minute check takes O(n) time.</span><br><span class="line">• Min-Heap: It is possible to insert in O(lg n) time. However, the k minute</span><br><span class="line">check will require O(n) time.</span><br><span class="line">• Dictionary or Python Set: Insertion is O(1) time. k minute check takes</span><br><span class="line">Ω(n) time</span><br></pre></td></tr></table></figure>
+<p>BST的定义： 每个节点都有一个key,左节点的key小于等于父节点，右节点的key大于等于父节点 所有操作都是O(h)即O(lgn) 动态规划中需要找到比一个值大的值中的最小值</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">next-larger(x)</span><br><span class="line">if right child not NIL, return minimum(right)</span><br><span class="line">else y = parent(x)</span><br><span class="line">while y not NIL and x = right(y)</span><br><span class="line">x = y; y = parent(y)</span><br><span class="line">return(y);</span><br></pre></td></tr></table></figure>
+<p><code>子问题</code>：如何计算小于等于时间t内着陆的飞机数量</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1. Walk down tree to find desired time</span><br><span class="line">2. Add in nodes that are smaller</span><br><span class="line">3. Add in subtree sizes to the left</span><br></pre></td></tr></table></figure>
+<p><strong>可以使用set或者sequence两种数据结构</strong> set:遍历顺序由key的顺序决定 – Equivalent to BST Property: for every node, every key in left subtree ≤ node’s key ≤ every key in right subtree sequence:数组索引就是遍历顺序</p>
+<p><img src="/assets/mit6.006总和笔记/image-20231017101953076.png" /> <strong>查找第i大的节点(sequence)</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">– Check the size nL of the left subtree and compare to i</span><br><span class="line">– If i &lt; nL, recurse on the left subtree</span><br><span class="line">– If i &gt; nL, recurse on the right subtree with i0 = i − nL − 1</span><br><span class="line">– Otherwise, i = nL, and you’ve reached the desired nod</span><br></pre></td></tr></table></figure>
+<ul>
+<li>可以对每个节点维护一个size属性</li>
+</ul>
+<h2 id="平衡二叉搜索树avl">平衡二叉搜索树AVL</h2>
+<p><img src="/assets/mit6.006总和笔记/image-20231017102411122.png" /> • 在动态操作下保持 O(log n) 高度的二叉树称为平衡二叉树 – 有许多平衡方案（红黑树、八字树、2-3 树……） – 第一个提出的平衡方案是 AVL 树 <strong>树的旋转</strong> <img src="/assets/mit6.006总和笔记/image-20231017102819736.png" /> • 定理：O(n) 次旋转可以将二叉树转换为具有相同遍历顺序的任何其他二叉树。 • 证明：按照遍历顺序重复执行最后可能的右旋转； 结果树是 规范链。 每次旋转都会使最后一个节点的深度增加 1。 最后一个节点的深度最多为 n − 1，因此最多执行 n − 1 次旋转，就可以将输入树旋转为目标树。</p>
+<p><strong>最坏情况</strong> Worst when every node differs by 1 — let Nh = (min.) # nodes in height-h AVL tree</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">=⇒ Nh = Nh−1 + Nh−2 + 1 &gt; 2Nh−2</span><br><span class="line">=⇒ Nh &gt; 2h/2</span><br><span class="line">=⇒ h &lt; 2 lg Nh</span><br></pre></td></tr></table></figure>
+<p><strong>数学证明</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Nh &gt; Fh (nth Fibonacci number)</span><br><span class="line">• In fact Nh = Fn+1 − 1 (simple induction)</span><br><span class="line">ϕ</span><br><span class="line">• h 1 + √5</span><br><span class="line">Fh = √ rounded to nearest integer where ϕ = ≈ 1.618 (golden ratio)</span><br><span class="line">5 2</span><br><span class="line">• =⇒ max. h ≈ logϕ n ≈ 1.440 lg n</span><br></pre></td></tr></table></figure>
+<p><strong>平衡</strong> AVL 树保持高度平衡（也称为 AVL 属性） – 如果一个节点的左右子树的高度最多相差 1，则该节点是高度平衡的 – 节点的倾斜为其右子树的高度减去左子树的高度 – 如果节点的倾斜度为 −1、0 或 1，则该节点是高度平衡的</p>
+<p><strong>平衡的维持</strong> 每次对树的修改最多导致左右子树高度相差2，如果相差2，一次旋转就可以重新平衡树 <img src="/assets/mit6.006总和笔记/image-20231017105216748.png" /> <img src="/assets/mit6.006总和笔记/image-20231018222936126.png" /> <img src="/assets/mit6.006总和笔记/image-20231018223015529.png" /> <img src="/assets/mit6.006总和笔记/image-20231018223211763.png" /></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">∗ Let h = height(&lt;A&gt;). Then height(&lt;G&gt;) = h while height(&lt;C&gt;) and height(&lt;E&gt;)</span><br><span class="line">are each either h or h − 1</span><br><span class="line">∗ After rotation:</span><br><span class="line">· the skew of &lt;B&gt; is either 0 or −1, so &lt;B&gt; is height balanced</span><br><span class="line">· the skew of &lt;F&gt; is either 0 or 1, so &lt;F&gt; is height balanced</span><br><span class="line">· the skew of &lt;D&gt; is 0, so D is height balanced</span><br><span class="line">· the height of &lt;B&gt; is h + 3 before, then after is h +</span><br><span class="line">Global Rebalance: Add or remove a leaf from height-balanced tree T to produce tree T 0 .</span><br><span class="line">Then T 0 can be transformed into a height-balanced tree T 00 using at most O(log n) rotations</span><br></pre></td></tr></table></figure>
+<p>AVL 树通过在每个节点存储额外的高度信息,并在每个节点做平衡操作来保持平衡。其平衡调整原则如下:</p>
+<ol type="1">
+<li>如果左右子树高度相差大于 1,进行旋转操作调整;</li>
+<li>进行左旋转的情况:左子树高度 - 右子树高度 &gt; 1,即左子树比右子树高(左重),需要右旋;</li>
+<li>进行右旋转的情况:右子树高度 - 左子树高度 &gt; 1,即右子树比左子树高(右重),需要左旋;</li>
+<li>旋转后更新节点的高度信息。</li>
+<li>每进行一次插入或删除节点后,从该节点开始向上遍历,如果发现任一节点的左右子树高度差大于 1,则在该节点进行旋转操作,调整树的平衡。 由于树的高度最高为lgn，所以logn时间内就可以完成增删节点的操作 <strong>高度属性的维护</strong> 必须确保每个节点的height属性可以通过输入为字数的height属性的一个O(1)操作完成，这样维护height就不会改变动态操作的复杂度</li>
+</ol>
+<p><strong>数据结构的选取</strong> • Set AVL trees achieve O(lg n) time for all set operations, except O(n log n) time for build and O(n) time for iter • Sequence AVL trees achieve O(lg n) time for all sequence operations, except O(n) time for build and iter</p>
+<h1 id="哈希">哈希</h1>
+<p>哈希有可能产生碰撞，需要特定处理或者数据结构，检索元素时间最后会由负载因数(n/m)决定 <img src="/assets/mit6.006总和笔记/image-20231016200400451.png" /> 一般有<strong>链表</strong>和<strong>开放寻址</strong>两种方式解决碰撞</p>
+<ul>
+<li>链表 期望的查找时间，θ(1+α)，1是哈希函数用时，阿尔法则是查找具体链表需要的时间（链表的期望长度）</li>
+<li>开放寻址</li>
+</ul>
+<h2 id="哈希函数">哈希函数</h2>
+<p>常见的哈希函数</p>
+<ol type="1">
+<li><code>h(k) = k mod m（m是素数，慢)</code></li>
+<li><code>h(k) = [(a · k) mod 2w] &gt;&gt; (w − r)</code>(where a is random, k is w bits, and m = 2r.且需要a处于2<sup>(w-1)和2</sup>w之间，且不靠近端点)</li>
+<li>h(k) = [(ak + b) mod p] mod m where a and b are random ∈ {0, 1, . . . p − 1}, and p is a large prime (&gt; |U|).(了解即可,6.046内容)</li>
+</ol>
+<h2 id="哈希的优化">哈希的优化</h2>
+<p><strong>rehash</strong> Θ(n + m) time = Θ(n) if m = Θ(n) <strong>shrink</strong> 当n到达m/4时，收缩到n/2</p>
+<h2 id="利用哈希的字符串匹配算法">利用哈希的字符串匹配算法</h2>
+<h3 id="karp-rabin-algorithm">Karp-Rabin Algorithm</h3>
+<p>Rabin-Karp算法是一种字符串匹配算法,利用滚动哈希技术实现。其基本思想是:</p>
+<ol type="1">
+<li>对文本和模式分别计算哈希值;</li>
+<li>滚动文本,每次比较文本窗口和模式的哈希值;</li>
+<li>如果哈希值相同,则进行字符匹配确认;</li>
+<li>如果不相同,则可以直接跳到下一位置。</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">• Compare h(s) == h(t[i : i + len(s)])</span><br><span class="line">• If hash values match, likely so do strings</span><br><span class="line">– can check s == t[i : i + len(s)] to be sure ∼ cost O(|s|)</span><br><span class="line">– if yes, found match — done</span><br><span class="line">– if no, happened with probability &lt; 1/|s|</span><br><span class="line">= expected cost is O(1) per i.</span><br><span class="line">⇒</span><br><span class="line">• need suitable hash function.</span><br><span class="line">• expected time = O(|s| + |t| · cost(h)).</span><br><span class="line">– naively h(x) costs |x|</span><br><span class="line">– we’ll achieve O(1)!</span><br><span class="line">– idea: t[i : i + len(s)] ≈ t[i + 1 : i + 1 + len(s)]</span><br></pre></td></tr></table></figure>
+<p><strong>rolling hash</strong> Rolling Hash ADT Maintain string x subject to • r(): reasonable hash function h(x) on string x • r.append(c): add letter c to end of string x • r.skip(c): remove front letter from string x, assuming it is 伪代码</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">for c in s: rs.append(c)</span><br><span class="line">for c in t[:len(s)]: rt.append(c)</span><br><span class="line">if rs() == rt(): ...</span><br><span class="line">//This first block of code is O( s )</span><br><span class="line">for i in range(len(s), len(t)):</span><br><span class="line">rt.skip(t[i-len(s)])</span><br><span class="line">rt.append(t[i])</span><br><span class="line">if rs() == rt(): ...</span><br><span class="line">//The second block of code is O(|t|) + O(# matches − |s|) to verify.</span><br></pre></td></tr></table></figure>
+<p><img src="/assets/mit6.006总和笔记/image-20231019194313076.png" /></p>
+<h2 id="开放寻址">开放寻址</h2>
+<p>哈希时需要引入哈希次数i，持续哈希直到找到空槽 <strong>插入</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">for i in xrange(m):</span><br><span class="line"> if T [h(k, i)] is None: #empty slot</span><br><span class="line">  T [h(k, i)] = (k, v) #store item</span><br><span class="line">  return</span><br><span class="line">raise ‘full&#x27;</span><br></pre></td></tr></table></figure>
+<p><strong>查找</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">for i in xrange(m):</span><br><span class="line"> if T [h(k, i)] is None: #empty slot?</span><br><span class="line">  return None #end of “chain”</span><br><span class="line"> elif T [h(k, i)][∅] == k: #matching key</span><br><span class="line"> return T [h(k, i)] #return item</span><br><span class="line"> return None ˙ #exhausted table</span><br></pre></td></tr></table></figure>
+<p><strong>删除</strong> 由于防止查找操作误判，需要特定的删除标志，把待删除函数设置为已删除，让插入视为None,查找视为存在 <img src="/assets/mit6.006总和笔记/image-20231019195835085.png" /></p>
+<h3 id="优化">优化</h3>
+<p>问题：可能出现<em>簇</em>现象，某些元素连续聚集于一处，导致查找操作耗时较高 eg.线性哈希h(k, i) = (h′(k) +i) 更好的解决方案：h(k, i) =(h1(k) +i·h2(k)) mod m where h1(k) and h2(k) are two ordinary hash func-tions.</p>
+<h3 id="性能">性能</h3>
+<p>第一次查找成功的概率p=m-n/m 第二次概率为m-n/m-1大于p 由此类推，成功概率至少为p 1/p=1/1-α 所以期望时间为O(1/(1 − α))</p>
+<h3 id="与链表的比较">与链表的比较</h3>
+<p>优点：更有效地利用空间，不需要储存指针 缺点：链表对哈希函数和负载值的要求更低，开放寻址高负载时性能大降，且无法有大于一的α</p>
+<h2 id="安全领域的哈希">安全领域的哈希</h2>
+<p>哈希在加密上应用广泛，例如：</p>
+<ol type="1">
+<li>加密密码，存储密码的哈希码来防止泄露的危害</li>
+<li>文件完整性校验，利用哈希来给出文件几乎唯一的哈希值来防止对文件的暗中篡改，也用于git之类的版本控制软件</li>
+<li>数字签名，用私钥加密数据，其他人可以用公钥检验，来确保发信者身份正规 <a href="https://thinklive1.github.io/2023/10/12/sysadmin/">详细可见Sysadmin decal笔记</a></li>
+</ol>
+<h1 id="线性时间排序">线性时间排序</h1>
+<h2 id="计数排序">计数排序</h2>
+<p>构建1-(k-1)的列表，随后遍历待排序数组，对每个数字，将其作为索引，列表该索引处值+1，O(n+k) <img src="/assets/mit6.006总和笔记/image-20231019110047558.png" /></p>
+<h2 id="基数排序">基数排序</h2>
+<p>开辟log base(决定进制)|k个桶， O((n+b)log b|k) b(base)=O(n)时时间复杂度最低 *k&lt;=cn时，为O(nc)，即范围较小时，为线性复杂度 <img src="/assets/mit6.006总和笔记/image-20231019110111354.png" /></p>
+<h1 id="数值运算">数值运算</h1>
+<h2 id="catalan-numbers">Catalan numbers</h2>
+<p>Set P of balanced parentheses strings(平衡括号字符串) are recursively defined as • λ ∈ P (λ is empty string) • If α, β ∈ P , then (α)β ∈ P Cn: number of balanced parentheses strings with exactly n pairs of parentheses 也等于n+1个叶节点构成满二叉树的形状个数 <img src="/assets/mit6.006总和笔记/image-20231020131123959.png" /></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 打印前 n 个卡特兰数</span></span><br><span class="line">ans, n = <span class="number">1</span>, <span class="number">20</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;1:&quot;</span> + <span class="built_in">str</span>(ans))</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>, n + <span class="number">1</span>):</span><br><span class="line">    ans = ans * (<span class="number">4</span> * i - <span class="number">2</span>) // (i + <span class="number">1</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">str</span>(i) + <span class="string">&quot;:&quot;</span> + <span class="built_in">str</span>(ans))</span><br></pre></td></tr></table></figure>
+<h2 id="newtons-method牛顿迭代法">Newton’s Method牛顿迭代法</h2>
+<p><span class="math display">\[
+x_{i+1} = x_{i} - \frac{f(x_{i})}{f&#39;(x_{i})}
+\]</span></p>
+<h3 id="高精度乘法">高精度乘法</h3>
+<p>Multiplying two n-digit numbers (radix r = 2, 10) 0 ≤ x, y &lt; rn x1 = high half;x0 = low half <span class="math display">\[
+x = x_{1} \cdot r^{\frac{n}{2}} + x_{0}
+\]</span> <span class="math display">\[
+y = y_{1} \cdot r^{\frac{n}{2}} + y_{0}
+\]</span> <span class="math display">\[
+z = x · y = x_1y_1 · r^n + (x_0 · y_1 + x_1 · y_0)r^{n/2} + x_0 · y_0
+\]</span></p>
+<p>θ(n^2) time</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Schönhage-Strassen算法是一种快速整数乘法算法,由Arnold Schönhage和Volker Strassen在1971年提出。它比传统的乘法算法要快得多,其时间复杂度为O(n log n log log n)。</span><br><span class="line">Schönhage-Strassen算法的基本思想是:</span><br><span class="line">1. 将两个n位数a和b拆分成大约n/2位数的块。例如,1234 = 12, 34;   2345 = 23, 45。</span><br><span class="line">2. 计算所有块之间的乘积,得到4个结果:a1b1, a1b2, a2b1, a2b2。这可以用递归方式计算。</span><br><span class="line">3. 根据分块的位数 Shift 加上进位,得到a1b1*(10^n), a1b2*10^n/2, a2b1*10^n/2, a2b2。</span><br><span class="line">4. 最后将4个结果相加,得到a*b。</span><br><span class="line">5. 例如,计算12345 * 6789:</span><br><span class="line">6. 分块:12, 34,   67, 892. 计算块间乘积:12 * 67 = 804,   12 * 89 = 1068, 34 * 67 = 2298, 34 * 89 = 3026 </span><br><span class="line">7. Shift并加进位:804 * 10000, 1068 * 5000, 2298 * 5000, 30264. </span><br><span class="line">8. 相加:8040000 + 5340000 + 11490000 + 15130000 = 123456791这种算法通过分块和递归减少每一步的计算量,在计算两个大整数的乘积时有很高的效率,尤其适用于超长整数的相乘。它在一定程度上简化了超长整数运算,是数论和计算机科学中很有价值的一种算法。</span><br></pre></td></tr></table></figure>
+<p><strong>优化</strong> <img src="/assets/mit6.006总和笔记/image-20231020135416200.png" /> <strong>误差分析</strong> <img src="/assets/mit6.006总和笔记/image-20231020140715299.png" /> <span class="math display">\[
+ε_{n+1} =  \frac{ε_n^2}{2*(1+ε_n)}
+\]</span></p>
+<h3 id="高精度除法">高精度除法</h3>
+<p>a/b -&gt; 1/b*a - &gt; mod(R/b) // R是一个容易除的较大值</p>
+<p><img src="/assets/mit6.006总和笔记/image-20231020141331913.png" /> <img src="/assets/mit6.006总和笔记/image-20231020141401286.png" /> 除法的复杂度等于乘法 To understand this, assume that the complexity of multiplication is Θ(nα) for n- digit numbers, with α ≥ 1. Division requires multiplication of different-sized numbers at each iteration. Initially the numbers are small, and then they grow to d digits.</p>
+<p>We apply a first level of Newton’s method to solve f (x) = x2 − a. Each iteration of this first level1 requires a division. If we set the precision to d digits right from the beginning, then convergence at the first level will require lg d iterations. This means the complexity of computing a square root will be Θ(dα lg d) if the complexity of multiplication is Θ(dα), given that we have shown that the complexity of division is the same as the complexity of multiplication. However, we can do better, if we recognize that the number of digits of precision we need at beginning of the first level of Newton’s method starts out small and then grows. If the complexity of a d-digit division is Θ(dα), then a similar summation to the one above tells us that the complexity of computing square roots is Θ(dα)</p>
+<h1 id="图论">图论</h1>
+<h2 id="概念">概念</h2>
+<p>图的表示：for each vertex u ∈ V, Adj[u] stores u’s neighbors, i.e., {v ∈ V | (u, v) ∈ E}. Adj 的大小为 θ(|V |)，而每个 Adj(u) 的大小为 θ(deg(u))</p>
+<h3 id="路径">路径</h3>
+<ul>
+<li>路径是顶点序列p=(v1,v2,...,vk),其中(vi,vi+1)∈E, 1≤i&lt;k<br />
+</li>
+<li>如果路径上没有重复顶点,则为简单路径<br />
+</li>
+<li>路径p的长度为路径上的边数<br />
+</li>
+<li>u到v的距离δ(u,v)为从u到v的最短路径长度 <strong>路径问题</strong>:<br />
+</li>
+<li>图中的多种路径问题:<br />
+  - 单源可达性:s是否可达t<br />
+  - 单源最短路径:返回δ(s,t)和s到t的最短路径<br />
+  - 单源最短路径:返回从s到所有v的δ(s,v)和最短路径树<br />
+</li>
+<li>如何对每个顶点返回从源s的最短路径?<br />
+</li>
+<li>返回所有路径需Ω(|V|^2)时间<br />
+</li>
+<li>只存储每个v的父节点P(v),s的父节点为空<br />
+</li>
+<li>父节点构成包含从s可达所有最短路径的最短路径树,大小为O(|V|)</li>
+</ul>
+<h2 id="bst">BST</h2>
+<p><strong>应用</strong> • 网络抓取（Google 如何查找页面） • 社交网络（Facebook 好友查找器） • 网络广播路由 • 垃圾收集 • 模型检查（有限状态机） • 检查数学猜想 • 解决谜题和游戏</p>
+<p>如何计算图中所有顶点v的δ(s,v)和P(v)?</p>
+<ul>
+<li>使用集合数据结构来存储每个顶点v对应的δ(s,v)距离和P(v)父节点。<br />
+</li>
+<li>如果从起点s到v没有路径,则不存储在P中,δ(s,v)设为无穷大。 <strong>基本思路</strong>:</li>
+<li>按照与起点s的距离依次增大的顺序探索图的节点。 <strong>目标</strong>:<br />
+</li>
+<li>计算所有与起点s距离为i的顶点的集合Li。结论:<br />
+</li>
+<li>Li中的任意顶点v必须与L_{i-1}中的某个顶点u相连。<br />
+</li>
+<li>不会有任何距离起点距离为j(j&lt;i)的顶点出现在Li中。 <strong>循环不变量:</strong><br />
+</li>
+<li>在计算到Li之前,δ(s,v)和P(v)对于所有Lj(j&lt;i)中的顶点v都已正确赋值。</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">BFS (V,Adj,s): See CLRS for queue-based implementation</span><br><span class="line">level = &#123; s: 0 &#125;</span><br><span class="line">parent = &#123;s : None &#125;</span><br><span class="line">i = 1</span><br><span class="line">frontier = [s] # previous level, i − 1</span><br><span class="line">while frontier:</span><br><span class="line">next = [ ] # next level, i</span><br><span class="line">for u in frontier:</span><br><span class="line">for v in Adj [u]:</span><br><span class="line">if v not in level: # not yet seen</span><br><span class="line">level[v] = i ] = level[u] + 1</span><br><span class="line">parent[v] = u</span><br><span class="line">next.append(v)</span><br><span class="line">frontier = next</span><br><span class="line">i + =1</span><br></pre></td></tr></table></figure>
+<p>基本情况(i=1):</p>
+<ul>
+<li>L0={s},δ(s,s)=0,P(s)=None归纳步骤:<br />
+</li>
+<li>计算Li时:<br />
+  - 对Li-1中的每个顶点u:<br />
+    - 对于任一不在Lj(j&lt;i)中的相邻顶点v:<br />
+      - 将v加入Li,设置δ(s,v)=i,P(v)=u重复计算:</li>
+<li>按i递增顺序重复计算Li,直到Li为空集<br />
+</li>
+<li>对任一不可达顶点v,设置δ(s,v)=∞因此通过归纳证明,广度优先搜索可以正确计算所有δ(s,v)和P(v)。 <strong>时间复杂度分析</strong>:<br />
+</li>
+<li>用支持快速遍历和插入的数据结构存储Li<br />
+</li>
+<li>通过检查P来判断一个顶点是否在Lj(j&lt;i)中<br />
+</li>
+<li>用支持O(1)操作的字典结构存储δ和P<br />
+</li>
+<li>每个顶点u最多加入一个Li,并对每个邻点v做O(1)操作<br />
+</li>
+<li>以上这些部分是O(|E|)</li>
+<li>最后处理不可达顶点需O(|V|)<br />
+</li>
+<li>所以总时间复杂度是O(|V|+|E|)</li>
+</ul>
+<p><span class="math display">\[
+level[v] = \begin{cases}
+           level &amp; \text{if } v \text{ assigned level} \\\\
+           \infty &amp; \text{else (no path)}
+\end{cases}
+\]</span></p>
+<h2 id="dst">DST</h2>
+<p>基本思想:</p>
+<ul>
+<li>递归访问出边邻接顶点,但不重复访问已访问过的顶点。<br />
+</li>
+<li>尽可能深入探索路径,直到无法继续,然后回溯找到未探索的路径。 执行步骤:</li>
+<li>初始化P(s)=None,执行visit(s)过程:<br />
+  - 对每个未在P中出现的邻接顶点v:设P(v)=u并递归调用visit(v)<br />
+  - 标记访问完顶点u(用于拓扑排序) 不用返回distance,因此时间是O(E)</li>
+</ul>
+<p>全BFS和全DFS:</p>
+<ul>
+<li>目标是探索整个图,而不仅仅是一个源点可达的部分。<br />
+</li>
+<li>重复在任一未访问顶点s上运行BFS或DFS,直到所有顶点都被访问。<br />
+</li>
+<li>时间复杂度都是O(|V| + |E|)</li>
+</ul>
+<p>连通分量:</p>
+<ul>
+<li>将无向图的顶点集分割成子集Vi,使每个Vi内部连通,Vi之间无边。连通性算法:<br />
+</li>
+<li>任意单源可达性算法A都可以求解连通分量。<br />
+</li>
+<li>重复运行全A,每次A访问的顶点集就是一个连通分量。</li>
+</ul>
+<p>连通性算法:</p>
+<ul>
+<li>任意单源可达性算法A都可以求解连通分量。<br />
+</li>
+<li>重复运行全A,每次A访问的顶点集就是一个连通分量。</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">parent = &#123;s: None&#125;</span><br><span class="line">DFS-visit (V, Adj, s):</span><br><span class="line"> for v in Adj [s]:</span><br><span class="line">  if v not in parent:</span><br><span class="line">  parent [v] = s</span><br><span class="line">DFS-visit (V, Adj, v)</span><br><span class="line">DFS (V, Adj)</span><br><span class="line"> parent = &#123; &#125;</span><br><span class="line"> for s in V:</span><br><span class="line">  if s not in parent:</span><br><span class="line">   parent [s] = None</span><br><span class="line">   DFS-visit (V, Adj, s)</span><br></pre></td></tr></table></figure>
+<p>O(V + E)</p>
+<p><strong>总结</strong>： • Single-Source Shortest Paths with BFS in O(|V | + |E|) time (return distance per vertex) • Single-Source Reachability with BFS or DFS in O(|E|) time (return only reachable vertices) • Connected components with Full-BFS or Full-DFS in O(|V | + |E|) time • Topological Sort of a DAG with Full-DFS in O(|V | + |E|) time</p>
+<h3 id="拓扑排序算法">拓扑排序算法</h3>
+<ul>
+<li>DFS访问每个顶点v时,记录DFS结束时间finish[v]<br />
+</li>
+<li>按finish[v]递减顺序输出顶点具体步骤:</li>
+</ul>
+<ol type="1">
+<li>通过DFS遍历图<br />
+</li>
+<li>将顶点按finish[v]时间降序插入order<br />
+</li>
+<li>将order反转 <strong>正确性证明</strong>:<br />
+对任意边(u,v)有u在v之前</li>
+</ol>
+<ul>
+<li>如果u先访问:<br />
+  - 在访问u结束前会访问v(直接或间接)<br />
+  - 因此v结束时间在u之前<br />
+</li>
+<li>如果v先访问:<br />
+  - 图无环<br />
+  - 无法从v访问u<br />
+  - 因此v结束时间在u之前因此DFS结束时间递减顺序即为拓扑排序顺序。</li>
+</ul>
+<h3 id="循环检测算法">循环检测算法</h3>
+<p><strong>利用全DFS检测环</strong>:</p>
+<ul>
+<li>如果无向图无环,全DFS的反序order就是拓扑排序。<br />
+</li>
+<li>对每条边 (u, v)，反序中如果v不在u前，就有环<br />
+</li>
+<li>可以在O(|E|)时间内检测反序是否有环（哈希或者数组的数据结构）</li>
+</ul>
+<p><strong>定位环的算法</strong>:</p>
+<ul>
+<li>在全DFS过程中维护当前顶点的祖先集合</li>
+<li>如果DFS遍历到一条从v到其祖先的边,则存在环。</li>
+</ul>
+<p><strong>正确性证明</strong>:</p>
+<ul>
+<li>设图包含环(v0,v1,...,vk,v0),假设v0首先被DFS访问。<br />
+</li>
+<li>对每个vi,在访问vi结束前会访问vi+1并结束。<br />
+</li>
+<li>最后在访问vk结束前会访问v0,此时v0是vk的祖先。</li>
+</ul>
+<h2 id="最短路径">最短路径</h2>
+<p><img src="/assets/mit6.006总和笔记/image-20231024194703867.png" /></p>
+<ul>
+<li>路径π的权重w(π)是路径上所有边权重之和<br />
+</li>
+<li>s到t的最短路径是从s到t权重最小的路径</li>
+<li>δ(s,t)表示从s到t的最短路径权重</li>
+<li>对一般权图,还不知道O(|V|+|E|)的最短路径算法<br />
+</li>
+<li>但对DAG可以在O(|V|+|E|)时间内求解</li>
+</ul>
+<h3 id="简单最短路径">简单最短路径</h3>
+<p>简单的最短路径 • 如果图表包含循环和负权重，则可能包含负权重循环 • 如果图形不包含负权环，则最短路径很简单！ • 主张 1：如果 δ(s, v) 是有限的，则存在一条到 v 的最短路径，该路径很简单 • 证明： 通过反证法： – 假设没有简单的最短路径； 设 π 为顶点最少的最短路径 – π 不简单，所以 π 中存在环 C； C 具有非负权重（或者 δ(s, v) = −∞） – 从 π 中删除 C 形成路径 π0，具有更少的顶点和权重 w(π0) ≤ w(π) • 由于简单路径不能重复顶点，因此有限最短路径最多包含 |V | − 1 条边</p>
+<h3 id="有权图基础">有权图基础</h3>
+<h4 id="最小生成树">最小生成树</h4>
+<p>If know δ(s, v) for all vertices v ∈ V , can construct shortest-path tree in O(|V | + |E|) time</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Initialize empty parent pointer P and set P(s) = NoneFor each vertex u ∈ V where δ(s, u) is finite:  </span><br><span class="line">  For each outgoing neighbor v ∈ Adj+(u):  </span><br><span class="line">    If P(v) is not assigned and δ(s, v) = δ(s, u) + w(u, v):  </span><br><span class="line">      There exists a shortest path through edge (u, v), so set P(v) = uParent pointers may traverse cycles of zero weight. Mark each vertex in such a cycle.For each unmarked vertex u ∈ V (including vertices later unmarked):  </span><br><span class="line">  For each v ∈ Adj+(u) where v is marked and δ(s, v) = δ(s, u) + w(u, v):  </span><br><span class="line">    Unmark vertices in cycle containing v by traversing parent pointers from v  </span><br><span class="line">    Set P(v) = u, breaking the cycle</span><br></pre></td></tr></table></figure>
+<ol type="1">
+<li>初始化父节点指针P，设置P(s)为空</li>
+<li>对u的每条出边通向的节点v</li>
+<li>如果P(v)为空且s-&gt;v最短路径是s-&gt;u-&gt;v,则P(v)=u</li>
+<li>父节点可能导致一个权值为0的循环，如果有环则标记出来</li>
+<li>对每个没有被标记的u(包括之后会被标记的)</li>
+<li>如果有标记的邻居v满足最短路径条件</li>
+<li>通过遍历v的父节点清除对它和它的父节点的标记</li>
+<li>设置P(v)=u，打破循环</li>
+</ol>
+<h4 id="dag松弛算法">DAG松弛算法:</h4>
+<ol type="1">
+<li><p>对每个顶点v维护一个距离估计d(s,v),初始化为无穷大,始终上界真实最短距离δ(s,v)</p></li>
+<li><p>当边(u,v)违反三角不等式时,通过松弛操作将d(s,v)降低为d(s,u)+w(u,v)</p></li>
+<li><p>松弛操作保证了d(s,v)始终是到v的某条路径的权重(或无穷大)</p></li>
+<li><p>算法流程:<br />
+  - 初始化d(s,v)=无穷大,d(s,s)=0<br />
+   - 按拓扑排序顺序遍历每个顶点u<br />
+     - 对每个出边(u,v),如果d(s,v) &gt; d(s,u)+w(u,v),执行松弛操作</p></li>
+<li><p>可以证明当算法结束时,d(s,v)=δ(s,v),即正确计算出最短距离</p></li>
+<li><p>时间复杂度为O(V+E),是线性时间算法</p></li>
+<li><p>主要思想是利用DAG没有环的特点,通过松弛操作逐步收紧距离上界,直到使其等于最短距离</p></li>
+<li><p>利用拓扑排序的顺序,保证每次松弛时通过的顶点u的d(s,u)已经是最短距离</p></li>
+</ol>
+<h3 id="generic-s.p.-algorithm通用最短路径算法">Generic S.P. Algorithm通用最短路径算法</h3>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">Initialize:            for v in V:</span><br><span class="line">                            d[v] ← ∞</span><br><span class="line">                            Π[v] ← NIL</span><br><span class="line">                        d[s] ← 0</span><br><span class="line"></span><br><span class="line">Main:                  Repeat</span><br><span class="line">                       select edge (u, v)</span><br><span class="line">Relax edge (u, v):         if d[v] &gt; d[u] + w(u, v):</span><br><span class="line">                               d[v] ← d[u] + w(u, v)</span><br><span class="line">                               Π[v] ← u</span><br><span class="line">                        until you can’t relax any more edges or you’re tired or . .</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>从 u 到 v 的最短路径权重是 δ(u, v)。 如果从 u 无法到达 v，则 δ(u, v) 为 Infini， 如果从 u 到 v 的某个路径上存在负循环，则未定义。 <img src="/assets/mit6.006总和笔记/image-20231023103416467.png" /> <img src="/assets/mit6.006总和笔记/image-20231023104514707.png" /> PATHological示例:设置n个节点,前3对节点的边权为2<sup>n/2,第二组节点边权为2</sup>(n/2)-1,以此类推。这样设置权重,从v0到vn-1的距离约为2<sup>n。算法可能每次只将距离减少1,需重复2</sup>n次,时间复杂度为O(2^n)。 因此最短路径算法的性能很大程度上取决于图的结构,存在PATHological情况时算法效率很低。需设计改进的算法,避免指数时间复杂度。</p>
+<h3 id="迪杰斯特拉无负数边的图">迪杰斯特拉（无负数边的图）</h3>
+<ol type="1">
+<li>初始化:对每个顶点v,设置d(s,v)=∞,d(s,s)=0。</li>
+<li>构建一个优先队列Q,每个顶点v以(v,d(s,v))为项加入Q。</li>
+<li>循环直到Q为空:<br />
+   - 出队Q中key最小的顶点u<br />
+   - 对每个出边(u,v):<br />
+      - 如果d(s,v) &gt; d(s,u) + w(u,v):<br />
+         - 进行松弛操作         -  降低Q中v的key值到新的d(s,v)</li>
+<li>时间复杂度O(E+VlogV),使用二叉堆可以达到O(E+VlogV)</li>
+</ol>
+<p><a href="https://www.cs.usfca.edu/~galles/visualization/Dijkstra.html">演示</a> 1. 对每个边(u,v),假设权重w(u,v)≥0,维护一个集合S,包含已确定最短路径权重的顶点。 2. 重复地从V-S中选择一个离源点最近的顶点u,将u加入S,松弛u的所有出边,即比较点u连通的其他节点，从点u出发的路径是否比距离表内的短 3. 伪代码: <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">Dijkstra (G, W, s) //uses priority queue Q</span><br><span class="line"> Initialize (G, s)</span><br><span class="line"> S ← φ</span><br><span class="line"> Q ← V [G] //Insert into Q</span><br><span class="line"> while Q != φ</span><br><span class="line">  do u ← EXTRACT-MIN(Q) //deletes u from Q</span><br><span class="line">  S = S ∪ &#123;u&#125;</span><br><span class="line">  for each vertex v ∈ Adj[u]</span><br><span class="line">   do RELAX (u, v, w) ← this is an implicit DECREASE KEY operation</span><br><span class="line"></span><br></pre></td></tr></table></figure> <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">RELAX(u, v, w)</span><br><span class="line"> if d[v] &gt; d[u] + w(u, v)</span><br><span class="line">  then d[v] ← d[u] + w(u, v)</span><br><span class="line">  Π[v] ← u</span><br><span class="line">放松是安全的</span><br><span class="line"> 引理：松弛算法对于所有的情况都保持 d[v] ≥ δ(s, v) 的不变量</span><br><span class="line"> v ∈ V 。</span><br><span class="line"> 证明：通过步数归纳。</span><br><span class="line"> 考虑 RELAX(u, v, w)。  通过归纳法 d[u] ≥ δ(s, u)。  通过三角形 -</span><br><span class="line"> 等式，δ(s, v) ≤ δ(s, u) + δ(u, v)。  这意味着 δ(s, v) ≤ d[u] + w(u, v)，因为</span><br><span class="line"> d[u] ≥ δ(s, u) 且 w(u, v) ≥ δ(u, v)。  因此设置 d[v] = d[u] + w(u, v) 是安全的。</span><br><span class="line"></span><br></pre></td></tr></table></figure> 4. 通过重复选择最近顶点,逐步确定最短路径,时间复杂度为O(|E|+|V|log|V|)。 <img src="/assets/mit6.006总和笔记/image-20231024112814756.png" /></p>
+<h4 id="证明">证明</h4>
+<p>归纳法证明当顶点v从Q中取出时,d(s,v) = δ(s,v)成立: 基础:s第一个取出,d(s,s)=0 = δ(s,s)成立 - 归纳假设:对前k-1个顶点成立 - 考虑第k个顶点v0:    - 取v0到s的最短路径π,w(π)=δ(s,v0)   - 设(x,y)是π中第一个y不在前k-1个顶点的边    - 当x取出时,d(s,x)=δ(s,x)(归纳假设)    - 所以取出x时松弛(x,y),d(s,y) ≤ δ(s,x) + w(x,y) = δ(s,y)   - 由于松弛操作的安全性,d(s,v0) ≤ δ(s,v0)    - 又因为v0是Q中key最小的,d(s,v0) ≥ δ(s,v0)    - 所以d(s,v0) = δ(s,v0)</p>
+<h4 id="时间复杂度">时间复杂度</h4>
+<div class="line-block">操作 | 时间复杂度 | 在Dijkstra中的出现次数|</div>
+<p>|-|-|-| <br />
+|Q.build(X) (n = |X|)| Bn | 1 |<br />
+|Q.delete min()| Mn | |V| |<br />
+|Q.decrease key(id, k)| Dn | |E| | 总计O(B|V | + |V | · M|V | + |E| · D|V |) 对一个对顶点所有节点可达的图（修建过）： <img src="/assets/mit6.006总和笔记/image-20231025202308176.png" /> 对不同稀疏密度的图,使用不同的数据结构实现Dijkstra算法可以得到不同的时间复杂度: - 如果图是密集的,即 |E| = Θ(|V|<sup>2),使用数组实现优先队列Q,时间复杂度为O(|V|</sup>2) - 如果图是稀疏的,即 |E| = Θ(|V|),使用二叉堆实现Q,时间复杂度为 O(|V|log|V|) - Fibonacci堆在理论上对任意图都很好,但是实践中不常用 - 在理论分析中,通常假设Dijkstra算法的时间复杂度为O(|E| + |V|log|V|) 总结 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">Dijkstra Complexity</span><br><span class="line"> Θ(v) inserts into priority queue</span><br><span class="line"> Θ(v) EXTRACT MIN operations</span><br><span class="line"> Θ(E) DECREASE KEY operations</span><br><span class="line">Array impl:</span><br><span class="line"> Θ(v) time for extra min</span><br><span class="line"> Θ(1) for decrease key</span><br><span class="line"> Total: Θ(V.V + E.1) = Θ(V 2 + E) = Θ(V 2)</span><br><span class="line">Binary min-heap:</span><br><span class="line"> Θ(lg V ) for extract min</span><br><span class="line"> Θ(lg V ) for decrease key</span><br><span class="line"> Total: Θ(V lg V + E lg V )</span><br><span class="line">Fibonacci heap (not covered in 6.006):</span><br><span class="line"> Θ(lg V ) for extract min</span><br><span class="line"> Θ(1) for decrease key</span><br><span class="line"> amortized cost</span><br><span class="line"> Total: Θ(V lg V + E)</span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
+<h4 id="优化双向搜索">优化——双向搜索</h4>
+<p>如果只需要s到t的最短路径，则只需要进行到t出队时结束算法 1. 双向搜索可以加速搜索,但不改变最坏时间复杂度,实际上可以减少访问的节点数。 2. 双向搜索同时进行:     - 从s节点进行正向搜索    - 从t节点进行反向搜索(沿边反向移动) 3. 正向搜索距离标记为df(u),反向为db(u) 4. 当一个节点w同时被两边搜索删除出队列时,搜索终止。 5. 终止后,找到df(x)+db(x)最小的节点x,x不一定是终止节点w。 6. 使用正向predecessor树Πf找到s到x的最短路径,使用反向树Πb找到t到x的最短路径。 7. 节点x一定已经被某一边搜索删除出队列。 <img src="/assets/mit6.006总和笔记/image-20231024193957638.png" /></p>
+<h4 id="a算法">A*算法</h4>
+<ol type="1">
+<li>A*通过势函数修改边权重指引搜索方向:w'(u,v) = w(u,v) - λ(u) + λ(v)</li>
+<li>选择势函数使修改后的权重保持最短路径不变,且权重非负,以适用于Dijkstra算法。</li>
+<li>设定目标势值为0,源点势值足够大,可以引导搜索方向。</li>
+<li>使用landmark技巧:预计算顶点到一些landmark节点的最短距离δ(u,l)。定义势函数λ(u)=δ(u,l)-δ(t,l),可以证明是可行的。</li>
+<li>对每个landmark l计算势函数λ,取最大值作为最终势函数,仍可行。</li>
+<li>A*相比普通搜索可以显著减少搜索范围,提高效率。但最坏情况时间复杂度未改变。</li>
+</ol>
+<p>Modify edge weights with potential function over vertices <span class="math display">\[
+\overline{w}(u, v) = w(u, v) - λ(u) + λ(v)
+\]</span></p>
+<p>So shortest paths are maintained in modified graph with w(overline) weights <span class="math display">\[
+\overline{w}(p) = w(p) - λ_t(u) + λ_t(t)
+\]</span> Small set of landmarks LCV . For all u ∈ V, l ∈ L, pre-compute δ(u, l). Potential <span class="math display">\[
+λ_t^{(l)}(u) = δ(u, l) − δ(t, l)
+\]</span> <img src="/assets/mit6.006总和笔记/image-20231024193915317.png" /></p>
+<h3 id="贝尔曼福特">贝尔曼福特</h3>
+<h4 id="负循环检测">负循环检测</h4>
+<ol type="1">
+<li>定义k边距离δk(s,v):从s到v的路径中最多包含k条边的最小路径权重。</li>
+<li>计算出δ|V|-1(s,v)和δ|V|(s,v),如果δ|V|(s,v)&lt;δ|V|-1(s,v),则v是一个负环见证人(witness)。</li>
+<li>任意有向图中，对每个v∈V，计算δ(s,v)和δ|V|-1(s,v):<br />
+   - 如果δ(s,v)&lt;δ|V|-1(s,v),则δ|V |(s, v) =- ∞，把v视为负循环见证人    - 如果δ(s,v)!=−∞,则δ(s,v)=δ|V|-1(s,v)(简单最短路径原理)    - 如果δ(s,v)=−∞,v可以从某个见证人出发而到达</li>
+<li>证明思路:<br />
+</li>
+</ol>
+<ul>
+<li>假设某个负环C可达且不包含见证人,则对C中任一顶点v有:<br />
+δ|V|(s,v) ≤ δ|V|-1(s,v的前驱)+w(v的前驱,v) &lt; δ|V|-1(s,v)<br />
+</li>
+<li>矛盾,所以C中必须存在见证人。</li>
+<li><img src="/assets/mit6.006总和笔记/image-20231025082230441.png" /></li>
+</ul>
+<h4 id="定义">定义</h4>
+<p><img src="/assets/mit6.006总和笔记/image-20231025092945965.png" /> 正确性： s到vk(k表示层数)的最短路径是每层可能的路径的最短者，贝尔曼福特算法穷举每一种可能，所以最后能得出最短的|V|-1层路径，从|V|-1到|V|则取决于图有没有负循环，如果有负循环，则s到见证人可达的结点路径为负无穷长 运行时间 1. 构建多层图G'需O(|V|(|V|+|E|)) 2. 在G'上运行DAG最短路径算法需O(|V|(|V|+|E|))，即G'大小的线性时间 3. 处理每个负环见证人需O(1),找到一个见证人的所有可达结点是O(|E|)见证人最多V个，找到所有见证人的可达性需O(|V||E|) 4. 如果把G修整成s开始的s可达子图，时间复杂度为O(|V||E|)</p>
+<p>扩展思考: <img src="/assets/mit6.006总和笔记/image-20231025093817635.png" /></p>
+<p><img src="/assets/mit6.006总和笔记/image-20231025080815803.png" /> • |V | + 1 levels: vertex vk in level k represents reaching vertex v from s using ≤ k edges • If edges only increase in level, resulting graph is a DAG • Construct new DAG G0 = (V 0, E0) from G = (V, E): – G' has |V |(|V | + 1) vertices v_k for all v ∈ V and k ∈ {0, . . . , |V |} – G' has |V |(|V | + |E|) edges: ∗ |V | edges (vk−1, vk) for k ∈ {1, . . . , |V |} of weight zero for each v ∈ V ∗ |V | edges (uk−1, vk) for k ∈ {1, . . . , |V |} of weight w(u, v) for each (u, v) ∈ <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">Bellman-Ford(G,W,s)</span><br><span class="line"> Initialize ()</span><br><span class="line"> for i = 1 to |V | − 1</span><br><span class="line">  for each edge (u, v) ∈ E:</span><br><span class="line">   Relax(u, v)</span><br><span class="line"> for each edge (u, v) ∈ E</span><br><span class="line">  do if d[v] &gt; d[u] + w(u, v)</span><br><span class="line">   then report a negative-weight cycle exists</span><br><span class="line">//At the end, d[v] = δ(s, v), if no negative-weight cycles</span><br><span class="line"></span><br></pre></td></tr></table></figure> 1. 初始化,进行|V|-1轮松弛操作,每轮对每个边(u,v)做relax操作，非负的图最多需要|V|-I次操作就可以松弛到任意点出发的任意路径都是最短路径 2. 如果第|V|轮还可以relax任意边,说明存在负权环。 3. 如果图中无负权环,Bellman-Ford执行结束后d[v]=δ(s,v)。 4. 推论:如果d[v]在|V|-1轮未收敛,说明存在从s可达的负权环。 5. Bellman-Ford时间复杂度为O(|V||E|),适合稠密图。</p>
+<h4 id="最长简单路径和最短简单路径">最长简单路径和最短简单路径</h4>
+<p>在具有非负边权重的图中找到最长的简单路径是一个 NP- hard问题，不存在已知的多项式时间算法。 假设一个 只需否定每个边权重并运行 Bellman-Ford 来计算最短 路径。 贝尔曼-福特不一定会计算原始路径中的最长路径 图，因为可能存在可从源到达的负权重循环，并且 算法将中止。 类似地，如果我们有一个具有负循环的图，并且我们希望找到最长的 从源 s 到顶点 v 的简单路径，我们不能使用 Bellman-Ford。 最短的 简单路径问题也是NP- hard问题</p>
+<h2 id="johnsons-algorithm">Johnson’s Algorithm</h2>
+<h3 id="all-pairs-shortest-paths-apsp">All-Pairs Shortest Paths (APSP)</h3>
+<ul>
+<li>输入:有向带权图G=(V,E),权值函数w:E→Z</li>
+<li>输出:对所有u,v∈V,求出δ(u,v),如果有负权回路则报错</li>
+<li>应用:理解整个网络,如交通、电路布线、供应链等</li>
+<li>直接运行|V|次单源算法时间复杂度:     - DAG松弛: |V|·O(|V|+|E|),无环<br />
+  - BFS: |V|·O(|V|+|E|),非负权值<br />
+  - Dijkstra: |V|·O(|V|log|V|+|E|),非负权值<br />
+  - Bellman-Ford: |V|·O(|V||E|),一般图</li>
+</ul>
+<p>思路：重构权值函数,使G变为G',其中G'没有负权边,且G的最短路径在G'上也是最短路径。如果成功,就可以在G'上运行Dijkstra 实现： 对每个顶点v:<br />
+- 从v出发的边权加上h<br />
+- 进入v的边权减去h<br />
+- 这样可以保证最短路径不变<br />
+- 证明:<br />
+  - 任意从v开始的路径权值改变了h<br />
+  - 任意到v结束的路径权值改变了-h<br />
+  - 通过v的路径权值局部不变</p>
+<p><img src="/assets/mit6.006总和笔记/image-20231025213904004.png" /></p>
+<h3 id="算法">算法</h3>
+<ul>
+<li>构造含新顶点x的图Gx,x到每个顶点v有权值为0的边</li>
+<li>对Gx运行Bellman-Ford算法计算δx(x,v)</li>
+<li>如果δx(x,v)为无穷大,说明G中有负权回路,报错退出</li>
+<li>否则,用δx重新调整每个边的权值构造G'</li>
+<li>对G'运行Dijkstra算法|V|次计算每个顶点的最短路径 </li>
+<li>从G'的最短路径恢复G的最短路径</li>
+</ul>
+<h3 id="时间复杂度-1">时间复杂度</h3>
+<ul>
+<li>构造Gx需O(|V|+|E|)</li>
+<li>Bellman-Ford需O(|V||E|)</li>
+<li>构造G'需O(|V|+|E|)</li>
+<li>|V|次Dijkstra需O(|V|(|V|log|V| + |E|))</li>
+<li>用G'恢复G的距离需O(|V|^2)</li>
+<li>总计O({|V|^2}log|V| + |V||E|)</li>
+</ul>
+<h1 id="概率">概率</h1>
+<p>雇佣问题 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">best = 0</span><br><span class="line">hired = null</span><br><span class="line">for i = 1 to n</span><br><span class="line">if candidates[i] &gt; best</span><br><span class="line"> best = candidates[i]</span><br><span class="line"> hired = i</span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
+<h2 id="指示器随机变量">指示器随机变量</h2>
+<p>指示器随机变量可以用于对随机输入的算法分析 <span class="math display">\[I(A) = \begin{cases}  
+           1 &amp; \text{event A occurs} \\  
+           0 &amp; \text{otherwise}  
+\end{cases}\]</span> 把期望转化成指示器期望的相加</p>
+<h2 id="随机算法">随机算法</h2>
+<p>在此基础上可以在算法中进行随机数处理，排除输入的影响 比如在雇佣问题中，对输入的候选者数组进行随机排序 随机排序： <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">n = A.length</span><br><span class="line">let P[1-n] be a new array</span><br><span class="line">for i=1 to n</span><br><span class="line"> P[i] = RANDOM(1,n^3)</span><br><span class="line">sort A,use P</span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
+<h1 id="递归和动态规划">递归和动态规划</h1>
+]]></content>
+      <categories>
+        <category>课程笔记</category>
+        <category>数据结构与算法</category>
+      </categories>
+      <tags>
+        <tag>课程笔记</tag>
+        <tag>麻省理工</tag>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>迪瑞克拉rpg设定集</title>
+    <url>/2023/09/29/%E8%BF%AA%E7%91%9E%E5%85%8B%E6%8B%89rpg%E8%AE%BE%E5%AE%9A%E9%9B%86/</url>
+    <content><![CDATA[<h1 id="队友">队友</h1>
+<h2 id="雷克">雷克</h2>
+<p>帝国法律系学生，成长于如今兄弟会的前身，幼时被走投无路的父母托付给了盗贼兄弟会，并经受了盗贼训练，随后由于帝国发展进程，盗贼兄弟会决定洗白自己，于是选拔了手下聪明的学徒接受高等教育并改名兄弟会，雷克就是其中的佼佼者。 <span id="more"></span> 然而比起兄弟会肮脏的勾当，接触帝国新兴教育的雷克逐渐有了叛逆之心，比起法律他对医学更有兴趣，一开始是偷一些新鲜死体进行解剖，随后甚至发展成了诛杀一些地痞流氓并进行各种实验和解剖的连环杀人犯，因为这些经历，雷克下手狠辣，反应敏捷，是个优秀的盗贼。 偷挖尸体时被无名氏发现，并且无名氏的强大气息让他不敢敌对，由于无名氏缺少一个熟悉帝国的向导，雷克就这样被要挟着加入了队伍 性格意外地开朗，似乎是个不错的朋友，但很难定论他的内心藏着多少黑暗 阵营守序中立</p>
+<h2 id="莉思">莉思</h2>
+<p>法师塔的高材生，学徒转正的试炼中，大法师们补下幻象，让她对决所有的同届学生，想让她意识到团结的力量，但聪明的她早就对所有人做了各种应对方案，在随机应变和一些运气下，莉思真的击败了所有对手，并且由于情况危急，她下了死手。 试炼完成后，在场的法师们不约而同地认识到她危险的性格是个定时炸弹，想要剥夺她的法师资格，绝望的莉思却听到了一个神秘的声音，随着声音的指引她发动了不可能成功的传送法术去到了帝国边境。 在那里她隐姓埋名，用几年时间成为了一位名气不小的实战派法师，随后遇到了无名氏。 “你身上有强大法术的气息，让我感到熟悉,我希望能与你同行” 阵营中立邪恶</p>
+<h2 id="默克">默克</h2>
+<p>因为违反规则，徘徊于主物质界的欲灵 欲灵必须满足驯服他们的人类的三个愿望，但如果另一个欲灵驯服了他呢？结果就是他被规则诅咒只能徘徊于主物质界。 有一个欲灵伪装成人类向他许愿，这个愿望则来自一个驯服他的人类，也就是无名氏，因此才出现了这种错误。 这个愿望是忘记一切过去，但不知为何空间也出现了扭曲，实现愿望后，无名氏和默克被传送到一座古墓，醒来的无名氏逮住了他，思考后默克决定与他行动，寻找那个肆意妄为的欲灵。 为了不引发好奇，设置了一个猫头鹰幻身 阵营混乱中立</p>
+<h2 id="欲灵女王">欲灵女王</h2>
+<p>传闻中她是一个强大的欲灵，因此能统率大批同类为其所用，但实际上她只是一个人类法师，因为善于倾听欲灵的烦恼并安抚它们，她曾让不少欲灵摆脱了由于灵魂不纯而徘徊物质界与元素界之间的痛苦，作为回报，欲灵们生前的回忆与知识有部分被她所理解，因此论阅历属于当世法师的佼佼者。 其自称自己的天赋一般，并对胜负毫不在意，所以，平常不会显露出多强的实力，但总感觉她留了一手 年龄未知，自称对玩弄无名氏的欲灵感兴趣而与他同行 阵营中立善良</p>
+<h1 id="npc">npc</h1>
+<h2 id="苦惨女士">苦惨女士</h2>
+<p>"去杀戮，去破坏，去抢夺吧，除此以外没有获得救赎的办法了，而我会在此，为您承担所有的罪孽"</p>
+<p>对七苦圣母的信仰，由于教规和神迹的苛刻，在几百年间逐渐地消失了，苦惨之女，数百年前经过血祭仪式得到圣母祝福之人，如今以及经过了她第七个，也是最后一个人生，苦恼着如何度过最后时日的她遇到了无名氏，在他身上纠缠着的痛苦命运让她深受感化。 “或许经历这样的痛苦才能有所领悟" 因此她向无名氏提出了请求，再次进行仪式，让她承担无名氏战斗时收到伤害的一半。 在伤害积累到一定程度后，她会死去，并在死后继续赋予无名氏减伤的祝福 如果拒绝她，或者积累的伤害不够，苦惨女士由于没有领悟到七苦之义，在之后的时日度过了平凡而幸福的一生。</p>
+<h2 id="笑脸人">笑脸人</h2>
+<blockquote>
+<p>"只要我想，我可以集中注意力施法一整天，但谁也不边笑边念咒语，是吧？"</p>
+</blockquote>
+<p>笑脸人的本名未知，他很小的时候就被带进法师塔作为实验品了，那些法师想寻找让法师长时间保持专注的方法，通过勤奋的实验和运气，他们成功了，笑脸人几乎没有感情，可以长时间保持专注，除了他过剩的幽默感，他越是专注，越会不由自主地笑出来，这让他无法念出大部分法术的咒语，不过据他所说还是用了几个小法术逃出了法师塔，法师们也懒得找一个失败的实验品。 于是笑脸人去了剧场，没有比他更敬业且称职的恐怖剧演员了 笑脸人会让无名氏去法师塔寻找那些改造他的法师，不是为了复仇，而是他永久不变的笑声开始让观众厌烦了，他想要控制自己的笑声，如此才能在演艺道路上更上一层楼</p>
+<h2 id="死者之王">死者之王</h2>
+<p>亡灵，那些对生前抱有强烈执念的人，回忆总会让他们痛苦，但正是回忆构成了他们存在的基石。 起初的亡灵多半是离散地在迪瑞克拉的各处游荡，随着时间发展，人类建立起了秩序，而相应的死者们也逐渐有了秩序的概念，于是亡灵们逐渐组织了起来，虽然成型的时间晚于人类帝国，但死者们在一些阴暗的角落也建立起了自己的国家。 一些暴戾的亡灵们逐渐组织了起来，想要对生者发动战争，似乎又一场战争在酝酿，但就在这时，一个神秘的亡灵异军突起，统一了亡灵的势力，它被称为死者之王，很少有人真正见过它。 出乎意料的是死者之王是个和平主义者，在为亡灵带来秩序的同时，它教导亡灵们思考与智慧，它们有近乎永恒的时间这么做，更何况，思考和学习能让它们暂时忘却痛苦的过往（彻底的忘却也意味着亡灵的死） 死者的国度变得沉默而睿智，甚至一些隐世的学者也慕名而去交流，寻访到死者的国度很难，并且也没有回来的人，至少在帝国的所知范围内没有。 无名氏需要睿智而博学的死者之王的解答，而相应的，死者之王提出了一个要求——到我的回忆中去一趟。</p>
+<h1 id="世界观">世界观</h1>
+<h2 id="无数之战">无数之战</h2>
+<p>这场战争战死了无数人，这样说是因为，大部分识数的人都死在了持续不断的战争和屠杀中，剩下的部队没有能力统计作战数据，这让后续的历史学家和战争学家痛苦不已，并且为很多学者的毕业论文提供了素材。 艰难的胜利后，指挥官，也就是日后王国的统治者决定在十年内把学校的数量增加到战前的十倍，这在日后造成了不少问题。</p>
+]]></content>
+      <categories>
+        <category>迪瑞克拉</category>
+      </categories>
+      <tags>
+        <tag>迪瑞克拉</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>基于伯克利ds100的数据科学笔记pandas部分</title>
     <url>/2023/09/29/jupyter%20notebook/</url>
     <content><![CDATA[<h2 id="notebook">notebook</h2>
@@ -982,500 +1510,6 @@
       </tags>
   </entry>
   <entry>
-    <title>基于mit6.006的算法笔记(待续)</title>
-    <url>/2023/10/14/mit6.006%E6%80%BB%E5%92%8C%E7%AC%94%E8%AE%B0/</url>
-    <content><![CDATA[<h1 id="基础">基础</h1>
-<h2 id="数据结构">数据结构</h2>
-<p><img src="/assets/mit6.006总和笔记/image-20231016191822017.png" /></p>
-<h2 id="算法性质">算法性质</h2>
-<p><code>循环不变式</code>主要用来帮助我们理解算法的正确性。关千<code>循环不变式</code>，我们必须证明三条<br />
-性质：<br />
-初始化：循环的第一次迭代之前，它为真。<br />
-保持：如果循环的某次迭代之前它为真，那么下次迭代之前它仍为真。<br />
-终止：在循环终止时，不变式为我们提供一个有用的性质，该性质有助千证明算法是正<br />
-确的。 <span id="more"></span> <code>分治算法</code>运行时间的递归式来自基本模式的三个步骤。如前所述，我们假设 T(n) 是规模为n 的一个问题的运行时间。若问题规模足够小，如对某个常量 c, n~c, 则直接求解需要常量时间，我们将其写作 @(1) 。假设把原问题分解成 a 个子问题，每个子问题的规模是原问题的 l/b （对归并排序， a 和 b 都为 2, 然而，我们将看到在许多分治算法中， a=/=-b 。)为了求解一个规模为 n/b 的子问题，需要 T(n/b) 的时间，所以需要 aT(n/b) 的时间来求解 a 个子问题。如果分解问题 成子问题需要时间 D(n), 合并子问题的解成原问题的解需要时间 C(n), 那么得到递归式： <img src="/assets/mit6.006总和笔记/20230519142006.png" title="image" alt="图片" /> <img src="/assets/mit6.006总和笔记/20230519142707.png" title="image" alt="图片" /></p>
-<p>f(n) = O(g(n)) 类似于 a&lt;=b f(n) = Ω (g(n)) 类似于 a&gt;=b f(n) = θ (g(n)) 类似于 a=b f(n) = o(g(n)) 类似于 a&lt;b f(n) = w(g(n)) 类似于 a&gt;b <img src="/images/obsidian/20230519150021.png" title="image" alt="图片" /></p>
-<h2 id="分治法递归">分治法（递归）</h2>
-<h3 id="选择排序">选择排序</h3>
-<p>• Find a largest number in prefix A[:i + 1] and swap it to A[i] • Recursively sort prefix A[:i]</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">def selection_sort(A, i = None): # T(i)</span><br><span class="line">2 ’’’Sort A[:i + 1]’’’</span><br><span class="line">3 if i is None: i = len(A) - 1 # O(1)</span><br><span class="line">4 if i &gt; 0: # O(1)</span><br><span class="line">5 j = prefix_max(A, i) # S(i)</span><br><span class="line">6 A[i], A[j] = A[j], A[i] # O(1)</span><br><span class="line">7 selection_sort(A, i - 1) # T(i - 1)</span><br><span class="line">8</span><br><span class="line">9 def prefix_max(A, i): # S(i)</span><br><span class="line">10 ’’’Return index of maximum in A[:i + 1]’’’</span><br><span class="line">11 if i &gt; 0: # O(1)</span><br><span class="line">12 j = prefix_max(A, i - 1) # S(i - 1)</span><br><span class="line">13 if A[i] &lt; A[j]: # O(1)</span><br><span class="line">14 return j # O(1)</span><br><span class="line">15 return i # O(1)</span><br></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">• prefix max analysis:</span><br><span class="line">– Base case: for i = 0, array has one element, so index of max is i</span><br><span class="line">– Induction: assume correct for i, maximum is either the maximum of A[:i] or A[i],</span><br><span class="line">returns correct index in either case</span><br><span class="line">• selection sort analysis:</span><br><span class="line">– Base case: for i = 0, array has one element so is sorted</span><br><span class="line">– Induction: assume correct for i, last number of a sorted output is a largest number of</span><br><span class="line">the array, and the algorithm puts one there; then A[:i] is sorted by inductio</span><br></pre></td></tr></table></figure>
-<h3 id="插入排序">插入排序</h3>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">def insertion_sort(A, i = None): # T(i)</span><br><span class="line">2 ’’’Sort A[:i + 1]’’’</span><br><span class="line">3 if i is None: i = len(A) - 1 # O(1)</span><br><span class="line">4 if i &gt; 0: # O(1)</span><br><span class="line">5 insertion_sort(A, i - 1) # T(i - 1)</span><br><span class="line">6 insert_last(A, i) # S(i)</span><br><span class="line">7</span><br><span class="line">8 def insert_last(A, i): # S(i)</span><br><span class="line">9 ’’’Sort A[:i + 1] assuming sorted A[:i]’’’</span><br><span class="line">10 if i &gt; 0 and A[i] &lt; A[i - 1]: # O(1)</span><br><span class="line">11 A[i], A[i - 1] = A[i - 1], A[i] # O(1)</span><br><span class="line">12 insert_last(A, i - 1) # S(i - 1)</span><br><span class="line">• insert last analysis:</span><br><span class="line">– Base case: for i = 0, array has one element so is sorted</span><br><span class="line">– Induction: assume correct for i, if A[i] &gt;= A[i - 1], array is sorted; otherwise,</span><br><span class="line">swapping last two elements allows us to sort A[:i] by induction</span><br><span class="line">• insertion sort analysis:</span><br><span class="line">– Base case: for i = 0, array has one element so is sorted</span><br><span class="line">– Induction: assume correct for i, algorithm sorts A[:i] by induction, and then</span><br><span class="line">insert last correctly sorts the rest as proved above</span><br></pre></td></tr></table></figure>
-<h3 id="归并排序">归并排序</h3>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">def merge_sort(A, a = 0, b = None): # T(b - a = n)</span><br><span class="line">2 ’’’Sort A[a:b]’’’</span><br><span class="line">3 if b is None: b = len(A) # O(1)</span><br><span class="line">4 if 1 &lt; b - a: # O(1)</span><br><span class="line">5 c = (a + b + 1) // 2 # O(1)</span><br><span class="line">6 merge_sort(A, a, c) # T(n / 2)</span><br><span class="line">7 merge_sort(A, c, b) # T(n / 2)</span><br><span class="line">8 L, R = A[a:c], A[c:b] # O(n)</span><br><span class="line">9 merge(L, R, A, len(L), len(R), a, b) # S(n)</span><br><span class="line">10</span><br><span class="line">11 def merge(L, R, A, i, j, a, b): # S(b - a = n)</span><br><span class="line">12 ’’’Merge sorted L[:i] and R[:j] into A[a:b]’’’</span><br><span class="line">13 if a &lt; b: # O(1)</span><br><span class="line">14 if (j &lt;= 0) or (i &gt; 0 and L[i - 1] &gt; R[j - 1]): # O(1)</span><br><span class="line">15 A[b - 1] = L[i - 1] # O(1)</span><br><span class="line">16 i = i - 1 # O(1)</span><br><span class="line">17 else: # O(1)</span><br><span class="line">18 A[b - 1] = R[j - 1] # O(1)</span><br><span class="line">19 j = j - 1 # O(1)</span><br><span class="line">20 merge(L, R, A, i, j, a, b - 1)</span><br></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">• merge analysis:</span><br><span class="line">– Base case: for n = 0, arrays are empty, so vacuously correct</span><br><span class="line">– Induction: assume correct for n, item in A[r] must be a largest number from remaining</span><br><span class="line">prefixes of L and R, and since they are sorted, taking largest of last items suffices;</span><br><span class="line">remainder is merged by induction</span><br><span class="line"> merge sort analysis:</span><br><span class="line">– Base case: for n = 1, array has one element so is sorted</span><br><span class="line">– Induction: assume correct for k &lt; n, algorithm sorts smaller halves by induction, and then merge merges into a sorted array as proved above.</span><br></pre></td></tr></table></figure>
-<h3 id="寻峰算法">寻峰算法</h3>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">• If a[n/2] &lt; a[n/2 − 1] then only look at left half 1 . . . n/2 − − − 1 to look for peak</span><br><span class="line">• Else if a[n/2] &lt; a[n/2 + 1] then only look at right half n/2 + 1 . . . n to look for peak</span><br><span class="line">• Else n/2 position is a peak: WHY?</span><br><span class="line">a[n/2] ≥ a[n/2 − 1]</span><br><span class="line">a[n/2] ≥ a[n/2 + 1]</span><br><span class="line">What is the complexity?</span><br><span class="line">T (n) = T (n/2) + Θ(1) = Θ(1) + . . . + Θ(1) (log2(n) times) = Θ(log2(n))</span><br></pre></td></tr></table></figure>
-<p>二维情况下：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">• Pick middle column j = m/2</span><br><span class="line">• Find global maximum on column j at (i, j)</span><br><span class="line">• Compare (i, j − 1), (i, j), (i, j + 1)</span><br><span class="line">• Pick left columns of (i, j − 1) &gt; (i, j)</span><br><span class="line">• Similarly for right</span><br><span class="line">• (i, j) is a 2D-peak if neither condition holds</span><br><span class="line">• Solve the new problem with half the number of columns.</span><br><span class="line">• When you have a single column, find global maximum and you‘re done.</span><br><span class="line"></span><br><span class="line">T (n, m) = T (n, m/2) + Θ(n) (to find global maximum on a column — (n rows))</span><br><span class="line">T (n, m) = Θ(n) + . . . + Θ(n)</span><br><span class="line">&#x27; -v &quot;</span><br><span class="line">log m</span><br><span class="line">= Θ(n log m) = Θ(n log n) if m = n</span><br></pre></td></tr></table></figure>
-<h3 id="最大子数组">最大子数组</h3>
-<p>算法思路： 元素和最大的子数组有三种情况：在左半数组，右半数组，或者跨越中点，第一和第二种情况可以用递归遍历解决，第三种情况则分为两个半边数组的组合，只要从中点出发寻找最大子数组，然后组合就可以了 <code>时间复杂度分析</code>：，其中线性时间为跨越中点的子数组，最终需要时间为O(NlogN) <img src="/images/obsidian/20230522103507.png" title="image" alt="图片" /></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">FIND-MAXIMUM-SUBARRAYCA, low, high)  </span><br><span class="line">if high== low  </span><br><span class="line">return Clow, high, A[low])  </span><br><span class="line">else mid=L Clow 十 high)/2 」  </span><br><span class="line">Cleft-low, left-high, left-sum) =  </span><br><span class="line">// base case, only one element  </span><br><span class="line">FIND-MAXIMUM-SUBARRAY(A, low, mid)  </span><br><span class="line">(right-low, right-high, right-sum) =  </span><br><span class="line">FIND-MAXIMUM-SUBARRAY(A, mid+l. high)  </span><br><span class="line">(cross-low, cross-high, cross-sum) =  </span><br><span class="line">FIND-MAX-CROSSING-SUBARRAY(A, low, mid, high)  </span><br><span class="line">if left-sum~right-sum and left-sum~cross-sum  </span><br><span class="line">return (left-low, left-high, left-sum)  </span><br><span class="line">elseif rightr-sum;?, left-sum and right-sum;?, cross-sum  </span><br><span class="line">return (right-low, right-high, right-sum)  </span><br><span class="line">else return (cross-low, cross-high, cross-sum)</span><br><span class="line"></span><br><span class="line">FIND-MAX-CROSSING--SUBARRAY(A, low, mid, high)  </span><br><span class="line"> left-sum = -oo  </span><br><span class="line"> sum=O  </span><br><span class="line"> for i = mid downto low  </span><br><span class="line"> sum=sum+A[i]  </span><br><span class="line"> if sum&gt; left-sum  </span><br><span class="line"> left-sum = sum  </span><br><span class="line"> max-left = i  </span><br><span class="line"> right-sum= -oo  </span><br><span class="line"> sum=O  </span><br><span class="line"> for j = mid + 1 to high</span><br><span class="line"> sum=sum + A[j]  </span><br><span class="line"> if sum &gt; right-sum  </span><br><span class="line"> right-sum = sum  </span><br><span class="line"> max-right = j  </span><br><span class="line"> return (max-left, max-right, left-sum + right-sum)</span><br></pre></td></tr></table></figure>
-<h2 id="代入法求解递归式">代入法求解递归式</h2>
-<ol type="1">
-<li>猜测解的形式。<br />
-</li>
-<li>用数学归纳法求出解中的常数，并证明解是正确的。 猜测T(n)的上界，将其带入递归式，求出一个上界，随后寻找一个N0证明对所有n&gt;=n0，递归式T(n)成立 <img src="/images/obsidian/20230522140116.png" title="image" alt="图片" /> <img src="/images/obsidian/20230522140235.png" title="image" alt="图片" /></li>
-</ol>
-<h2 id="递归树法">递归树法</h2>
-<p>递归树是良好的猜测递归式时间复杂度的方法，但由于构建递归树经常伴随简化，所以用其证明的话则不够严谨 以递归式 T(n)=3T(ln/4 」) +S(n2) 为例，来看一下如何用递归树生成一个好的猜测 <img src="/images/obsidian/202305232128551.png" title="image" alt="图片" /> 递归树有 log4n+l 层， <img src="/images/obsidian/20230523213613.png" title="image" alt="图片" /> <img src="/images/obsidian/202305232137541.png" title="image" alt="图片" /> 由于根结点对总代价的贡献为 cn^2, 所以根结点的代价占总代价的一个常数 比例。换句话说，根结点的代价支配了整棵树的总代价。</p>
-<h2 id="主方法求解递归式">主方法求解递归式</h2>
-<p>主方法为如下形式的递归式提供了一种”菜谱”式的求解方法<br />
-T(n) = aT(n/b) + f(n) 其中 a&gt;=l1和 b&gt;=1 是常数， f(n) 是渐近正函数。 <img src="/images/obsidian/202305242150561.png" title="image" alt="图片" /></p>
-<p>算法思路： 元素和最大的子数组有三种情况：在左半数组，右半数组，或者跨越中点，第一和第二种情况可以用递归遍历解决，第三种情况则分为两个半边数组的组合，只要从中点出发寻找最大子数组，然后组合就可以了 <code>时间复杂度分析</code>：，其中线性时间为跨越中点的子数组，最终需要时间为O(NlogN) <img src="/images/obsidian/202305221035071.png" title="image" alt="图片" /></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">FIND-MAXIMUM-SUBARRAYCA, low, high)  </span><br><span class="line">1 if high== low  </span><br><span class="line">2 return Clow, high, A[low])  </span><br><span class="line">3 else mid=L Clow 十 high)/2 」  </span><br><span class="line">4 Cleft-low, left-high, left-sum) =  </span><br><span class="line">// base case, only one element  </span><br><span class="line">FIND-MAXIMUM-SUBARRAY(A, low, mid)  </span><br><span class="line">5 (right-low, right-high, right-sum) =  </span><br><span class="line">FIND-MAXIMUM-SUBARRAY(A, mid+l. high)  </span><br><span class="line">6 (cross-low, cross-high, cross-sum) =  </span><br><span class="line">FIND-MAX-CROSSING-SUBARRAY(A, low, mid, high)  </span><br><span class="line">7 if left-sum~right-sum and left-sum~cross-sum  </span><br><span class="line">8 return (left-low, left-high, left-sum)  </span><br><span class="line">elseif rightr-sum;?, left-sum and right-sum;?, cross-sum  </span><br><span class="line">return (right-low, right-high, right-sum)  </span><br><span class="line">else return (cross-low, cross-high, cross-sum)</span><br><span class="line"></span><br><span class="line">FIND-MAX-CROSSING--SUBARRAY(A, low, mid, high)  </span><br><span class="line">1 left-sum = -oo  </span><br><span class="line">2 sum=O  </span><br><span class="line">3 for i = mid downto low  </span><br><span class="line">4 sum=sum+A[i]  </span><br><span class="line">5 if sum&gt; left-sum  </span><br><span class="line">6 left-sum = sum  </span><br><span class="line">7 max-left = i  </span><br><span class="line">8 right-sum= -oo  </span><br><span class="line">9 sum=O  </span><br><span class="line">10 for j = mid + 1 to high</span><br><span class="line">11 sum=sum + A[j]  </span><br><span class="line">12 if sum &gt; right-sum  </span><br><span class="line">13 right-sum = sum  </span><br><span class="line">14 max-right = j  </span><br><span class="line">15 return (max-left, max-right, left-sum + right-sum)</span><br></pre></td></tr></table></figure>
-<h1 id="比较排序">比较排序</h1>
-<p><img src="/assets/mit6.006总和笔记/image-20231016192215938.png" /></p>
-<h2 id="决策树">决策树</h2>
-<p>决策树 • 任何算法都可以被视为所执行操作的决策树 • 内部节点表示二进制比较，分支为 True 或 False • 对于比较算法，决策树是二元的 • 叶子代表算法终止，产生算法输出 • 根到叶路径表示算法在某些输入上的执行 • 每个算法输出至少需要一个叶子，因此搜索需要 ≥ n + 1 个叶子 • 高度 ≥ mod(lg(n + 1)) − 1 = Ω(log n)，因此任何比较排序的运行时间均为 Ω(log n)</p>
-<h2 id="堆排序">堆排序</h2>
-<p><img src="/assets/mit6.006总和笔记/image-20231017150534371.png" /> <strong>本质上是在序列数据结构（数组）之上实现集合数据结构</strong> 二叉堆：将数组解释为完全二叉树，深度 i 处最多有 2i 个节点，除了 在最大深度，所有节点均左对齐</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">left(i) = 2i + 1</span><br><span class="line">right(i) = 2i + 2</span><br><span class="line">parent(i) = mod(i-1/2)</span><br></pre></td></tr></table></figure>
-<p><img src="/assets/mit6.006总和笔记/image-20231014112423645.png" /> 最大堆的生成</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">l = left(i)</span><br><span class="line">r = right(i)</span><br><span class="line">if (l &lt;= heap-size(A) and A[l] &gt; A[i])</span><br><span class="line">then largest = l else largest = i</span><br><span class="line">if (r &lt;= heap-size(A) and A[r] &gt; A[largest])</span><br><span class="line">then largest = r</span><br><span class="line">if largest = i</span><br><span class="line">then exchange A[i] and A[largest]</span><br><span class="line">Max_Heapify(A, largest)</span><br><span class="line"></span><br><span class="line">//Converts A[1…n] to a max heap</span><br><span class="line">Build_Max_Heap(A):</span><br><span class="line">for i=n/2 downto 1</span><br><span class="line">do Max_Heapify(A, i)</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line">Why start at n/2?</span><br><span class="line">Because elements A[n/2 + 1 … n] are all leaves of the tree</span><br><span class="line">*/</span><br></pre></td></tr></table></figure>
-<p>时间复杂度分析：</p>
-<p>Total amount of work in the for loop can be summed as: n/4 (1 c) + n/8 (2 c) + n/16 (3 c) + … + 1 (lg n c) Setting n/4 = 2k and simplifying we get: c 2k( 1/20 + 2/21 + 3/22 + … (k+1)/2k ) The term is brackets is bounded by a constant This means that Build_Max_Heap is O(n)</p>
-<p>排序策略：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Sorting Strategy:</span><br><span class="line">1. Build Max Heap from unordered array;</span><br><span class="line">2. Find maximum element A[1];</span><br><span class="line">3. Swap elements A[n] and A[1]:</span><br><span class="line">now max element is at the end of the array!</span><br><span class="line">4. Discard node n from heap</span><br><span class="line">(by decrementing heap-size variable)</span><br><span class="line">5. New root may violate max heap property, but its</span><br><span class="line">children are max heaps. Run max_heapify to fix this.</span><br><span class="line">6. Go to Step 2 unless heap is empty</span><br></pre></td></tr></table></figure>
-<h2 id="动态规划和二分搜索树">动态规划和二分搜索树</h2>
-<p>实例——机场的动态规划：</p>
-<ol type="1">
-<li>机场维护一个跑道队列</li>
-<li>未来的着陆预定登记到队列</li>
-<li>一架飞机着陆后就出队</li>
-<li>有新的请求且需要着陆时间t时，如果k时间内没有其他需求，则需求t时间的请求入队(k可以实时改变)</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">init: R = [ ]</span><br><span class="line">req(t): if t &lt; now: return &quot;error&quot;</span><br><span class="line">for i in range (len(R)):</span><br><span class="line">if abs(t-R[i]) &lt; k: return &quot;error&quot;</span><br><span class="line">R.append(t)</span><br><span class="line">R = sorted(R)</span><br><span class="line">land: t = R[0]</span><br><span class="line">if (t != now) return error</span><br><span class="line">R = R[1: ] (drop R[0] from R)</span><br></pre></td></tr></table></figure>
-<p>Goal: Run this system efficiently in O(lg n) time 常见数据结构运行时间分析</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">• Sorted list: Appending and sorting takes Θ(n lg n) time. However, it is pos-</span><br><span class="line">sible to insert new time/plane rather than append and sort but insertion takes</span><br><span class="line">Θ(n) time. A k minute check can be done in O(1) once the insertion point is</span><br><span class="line">found.</span><br><span class="line">• Sorted array: It is possible to do binary search to find place to insert in</span><br><span class="line">O(lg n) time. Using binary search, we find the smallest i such that R[i] ≥ t,</span><br><span class="line">i.e., the next larger element. We then compare R[i] and R[i − 1] against t.</span><br><span class="line">Actual insertion however requires shifting elements which requires Θ(n) time.</span><br><span class="line">• Unsorted list/array: k minute check takes O(n) time.</span><br><span class="line">• Min-Heap: It is possible to insert in O(lg n) time. However, the k minute</span><br><span class="line">check will require O(n) time.</span><br><span class="line">• Dictionary or Python Set: Insertion is O(1) time. k minute check takes</span><br><span class="line">Ω(n) time</span><br></pre></td></tr></table></figure>
-<p>BST的定义： 每个节点都有一个key,左节点的key小于等于父节点，右节点的key大于等于父节点 所有操作都是O(h)即O(lgn) 动态规划中需要找到比一个值大的值中的最小值</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">next-larger(x)</span><br><span class="line">if right child not NIL, return minimum(right)</span><br><span class="line">else y = parent(x)</span><br><span class="line">while y not NIL and x = right(y)</span><br><span class="line">x = y; y = parent(y)</span><br><span class="line">return(y);</span><br></pre></td></tr></table></figure>
-<p><code>子问题</code>：如何计算小于等于时间t内着陆的飞机数量</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1. Walk down tree to find desired time</span><br><span class="line">2. Add in nodes that are smaller</span><br><span class="line">3. Add in subtree sizes to the left</span><br></pre></td></tr></table></figure>
-<p><strong>可以使用set或者sequence两种数据结构</strong> set:遍历顺序由key的顺序决定 – Equivalent to BST Property: for every node, every key in left subtree ≤ node’s key ≤ every key in right subtree sequence:数组索引就是遍历顺序</p>
-<p><img src="/assets/mit6.006总和笔记/image-20231017101953076.png" /> <strong>查找第i大的节点(sequence)</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">– Check the size nL of the left subtree and compare to i</span><br><span class="line">– If i &lt; nL, recurse on the left subtree</span><br><span class="line">– If i &gt; nL, recurse on the right subtree with i0 = i − nL − 1</span><br><span class="line">– Otherwise, i = nL, and you’ve reached the desired nod</span><br></pre></td></tr></table></figure>
-<ul>
-<li>可以对每个节点维护一个size属性</li>
-</ul>
-<h2 id="平衡二叉搜索树avl">平衡二叉搜索树AVL</h2>
-<p><img src="/assets/mit6.006总和笔记/image-20231017102411122.png" /> • 在动态操作下保持 O(log n) 高度的二叉树称为平衡二叉树 – 有许多平衡方案（红黑树、八字树、2-3 树……） – 第一个提出的平衡方案是 AVL 树 <strong>树的旋转</strong> <img src="/assets/mit6.006总和笔记/image-20231017102819736.png" /> • 定理：O(n) 次旋转可以将二叉树转换为具有相同遍历顺序的任何其他二叉树。 • 证明：按照遍历顺序重复执行最后可能的右旋转； 结果树是 规范链。 每次旋转都会使最后一个节点的深度增加 1。 最后一个节点的深度最多为 n − 1，因此最多执行 n − 1 次旋转，就可以将输入树旋转为目标树。</p>
-<p><strong>最坏情况</strong> Worst when every node differs by 1 — let Nh = (min.) # nodes in height-h AVL tree</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">=⇒ Nh = Nh−1 + Nh−2 + 1 &gt; 2Nh−2</span><br><span class="line">=⇒ Nh &gt; 2h/2</span><br><span class="line">=⇒ h &lt; 2 lg Nh</span><br></pre></td></tr></table></figure>
-<p><strong>数学证明</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Nh &gt; Fh (nth Fibonacci number)</span><br><span class="line">• In fact Nh = Fn+1 − 1 (simple induction)</span><br><span class="line">ϕ</span><br><span class="line">• h 1 + √5</span><br><span class="line">Fh = √ rounded to nearest integer where ϕ = ≈ 1.618 (golden ratio)</span><br><span class="line">5 2</span><br><span class="line">• =⇒ max. h ≈ logϕ n ≈ 1.440 lg n</span><br></pre></td></tr></table></figure>
-<p><strong>平衡</strong> AVL 树保持高度平衡（也称为 AVL 属性） – 如果一个节点的左右子树的高度最多相差 1，则该节点是高度平衡的 – 节点的倾斜为其右子树的高度减去左子树的高度 – 如果节点的倾斜度为 −1、0 或 1，则该节点是高度平衡的</p>
-<p><strong>平衡的维持</strong> 每次对树的修改最多导致左右子树高度相差2，如果相差2，一次旋转就可以重新平衡树 <img src="/assets/mit6.006总和笔记/image-20231017105216748.png" /> <img src="/assets/mit6.006总和笔记/image-20231018222936126.png" /> <img src="/assets/mit6.006总和笔记/image-20231018223015529.png" /> <img src="/assets/mit6.006总和笔记/image-20231018223211763.png" /></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">∗ Let h = height(&lt;A&gt;). Then height(&lt;G&gt;) = h while height(&lt;C&gt;) and height(&lt;E&gt;)</span><br><span class="line">are each either h or h − 1</span><br><span class="line">∗ After rotation:</span><br><span class="line">· the skew of &lt;B&gt; is either 0 or −1, so &lt;B&gt; is height balanced</span><br><span class="line">· the skew of &lt;F&gt; is either 0 or 1, so &lt;F&gt; is height balanced</span><br><span class="line">· the skew of &lt;D&gt; is 0, so D is height balanced</span><br><span class="line">· the height of &lt;B&gt; is h + 3 before, then after is h +</span><br><span class="line">Global Rebalance: Add or remove a leaf from height-balanced tree T to produce tree T 0 .</span><br><span class="line">Then T 0 can be transformed into a height-balanced tree T 00 using at most O(log n) rotations</span><br></pre></td></tr></table></figure>
-<p>AVL 树通过在每个节点存储额外的高度信息,并在每个节点做平衡操作来保持平衡。其平衡调整原则如下:</p>
-<ol type="1">
-<li>如果左右子树高度相差大于 1,进行旋转操作调整;</li>
-<li>进行左旋转的情况:左子树高度 - 右子树高度 &gt; 1,即左子树比右子树高(左重),需要右旋;</li>
-<li>进行右旋转的情况:右子树高度 - 左子树高度 &gt; 1,即右子树比左子树高(右重),需要左旋;</li>
-<li>旋转后更新节点的高度信息。</li>
-<li>每进行一次插入或删除节点后,从该节点开始向上遍历,如果发现任一节点的左右子树高度差大于 1,则在该节点进行旋转操作,调整树的平衡。 由于树的高度最高为lgn，所以logn时间内就可以完成增删节点的操作 <strong>高度属性的维护</strong> 必须确保每个节点的height属性可以通过输入为字数的height属性的一个O(1)操作完成，这样维护height就不会改变动态操作的复杂度</li>
-</ol>
-<p><strong>数据结构的选取</strong> • Set AVL trees achieve O(lg n) time for all set operations, except O(n log n) time for build and O(n) time for iter • Sequence AVL trees achieve O(lg n) time for all sequence operations, except O(n) time for build and iter</p>
-<h1 id="哈希">哈希</h1>
-<p>哈希有可能产生碰撞，需要特定处理或者数据结构，检索元素时间最后会由负载因数(n/m)决定 <img src="/assets/mit6.006总和笔记/image-20231016200400451.png" /> 一般有<strong>链表</strong>和<strong>开放寻址</strong>两种方式解决碰撞</p>
-<ul>
-<li>链表 期望的查找时间，θ(1+α)，1是哈希函数用时，阿尔法则是查找具体链表需要的时间（链表的期望长度）</li>
-<li>开放寻址</li>
-</ul>
-<h2 id="哈希函数">哈希函数</h2>
-<p>常见的哈希函数</p>
-<ol type="1">
-<li><code>h(k) = k mod m（m是素数，慢)</code></li>
-<li><code>h(k) = [(a · k) mod 2w] &gt;&gt; (w − r)</code>(where a is random, k is w bits, and m = 2r.且需要a处于2<sup>(w-1)和2</sup>w之间，且不靠近端点)</li>
-<li>h(k) = [(ak + b) mod p] mod m where a and b are random ∈ {0, 1, . . . p − 1}, and p is a large prime (&gt; |U|).(了解即可,6.046内容)</li>
-</ol>
-<h2 id="哈希的优化">哈希的优化</h2>
-<p><strong>rehash</strong> Θ(n + m) time = Θ(n) if m = Θ(n) <strong>shrink</strong> 当n到达m/4时，收缩到n/2</p>
-<h2 id="利用哈希的字符串匹配算法">利用哈希的字符串匹配算法</h2>
-<h3 id="karp-rabin-algorithm">Karp-Rabin Algorithm</h3>
-<p>Rabin-Karp算法是一种字符串匹配算法,利用滚动哈希技术实现。其基本思想是:</p>
-<ol type="1">
-<li>对文本和模式分别计算哈希值;</li>
-<li>滚动文本,每次比较文本窗口和模式的哈希值;</li>
-<li>如果哈希值相同,则进行字符匹配确认;</li>
-<li>如果不相同,则可以直接跳到下一位置。</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">• Compare h(s) == h(t[i : i + len(s)])</span><br><span class="line">• If hash values match, likely so do strings</span><br><span class="line">– can check s == t[i : i + len(s)] to be sure ∼ cost O(|s|)</span><br><span class="line">– if yes, found match — done</span><br><span class="line">– if no, happened with probability &lt; 1/|s|</span><br><span class="line">= expected cost is O(1) per i.</span><br><span class="line">⇒</span><br><span class="line">• need suitable hash function.</span><br><span class="line">• expected time = O(|s| + |t| · cost(h)).</span><br><span class="line">– naively h(x) costs |x|</span><br><span class="line">– we’ll achieve O(1)!</span><br><span class="line">– idea: t[i : i + len(s)] ≈ t[i + 1 : i + 1 + len(s)]</span><br></pre></td></tr></table></figure>
-<p><strong>rolling hash</strong> Rolling Hash ADT Maintain string x subject to • r(): reasonable hash function h(x) on string x • r.append(c): add letter c to end of string x • r.skip(c): remove front letter from string x, assuming it is 伪代码</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">for c in s: rs.append(c)</span><br><span class="line">for c in t[:len(s)]: rt.append(c)</span><br><span class="line">if rs() == rt(): ...</span><br><span class="line">//This first block of code is O( s )</span><br><span class="line">for i in range(len(s), len(t)):</span><br><span class="line">rt.skip(t[i-len(s)])</span><br><span class="line">rt.append(t[i])</span><br><span class="line">if rs() == rt(): ...</span><br><span class="line">//The second block of code is O(|t|) + O(# matches − |s|) to verify.</span><br></pre></td></tr></table></figure>
-<p><img src="/assets/mit6.006总和笔记/image-20231019194313076.png" /></p>
-<h2 id="开放寻址">开放寻址</h2>
-<p>哈希时需要引入哈希次数i，持续哈希直到找到空槽 <strong>插入</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">for i in xrange(m):</span><br><span class="line"> if T [h(k, i)] is None: #empty slot</span><br><span class="line">  T [h(k, i)] = (k, v) #store item</span><br><span class="line">  return</span><br><span class="line">raise ‘full&#x27;</span><br></pre></td></tr></table></figure>
-<p><strong>查找</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">for i in xrange(m):</span><br><span class="line"> if T [h(k, i)] is None: #empty slot?</span><br><span class="line">  return None #end of “chain”</span><br><span class="line"> elif T [h(k, i)][∅] == k: #matching key</span><br><span class="line"> return T [h(k, i)] #return item</span><br><span class="line"> return None ˙ #exhausted table</span><br></pre></td></tr></table></figure>
-<p><strong>删除</strong> 由于防止查找操作误判，需要特定的删除标志，把待删除函数设置为已删除，让插入视为None,查找视为存在 <img src="/assets/mit6.006总和笔记/image-20231019195835085.png" /></p>
-<h3 id="优化">优化</h3>
-<p>问题：可能出现<em>簇</em>现象，某些元素连续聚集于一处，导致查找操作耗时较高 eg.线性哈希h(k, i) = (h′(k) +i) 更好的解决方案：h(k, i) =(h1(k) +i·h2(k)) mod m where h1(k) and h2(k) are two ordinary hash func-tions.</p>
-<h3 id="性能">性能</h3>
-<p>第一次查找成功的概率p=m-n/m 第二次概率为m-n/m-1大于p 由此类推，成功概率至少为p 1/p=1/1-α 所以期望时间为O(1/(1 − α))</p>
-<h3 id="与链表的比较">与链表的比较</h3>
-<p>优点：更有效地利用空间，不需要储存指针 缺点：链表对哈希函数和负载值的要求更低，开放寻址高负载时性能大降，且无法有大于一的α</p>
-<h2 id="安全领域的哈希">安全领域的哈希</h2>
-<p>哈希在加密上应用广泛，例如：</p>
-<ol type="1">
-<li>加密密码，存储密码的哈希码来防止泄露的危害</li>
-<li>文件完整性校验，利用哈希来给出文件几乎唯一的哈希值来防止对文件的暗中篡改，也用于git之类的版本控制软件</li>
-<li>数字签名，用私钥加密数据，其他人可以用公钥检验，来确保发信者身份正规 <a href="https://thinklive1.github.io/2023/10/12/sysadmin/">详细可见Sysadmin decal笔记</a></li>
-</ol>
-<h1 id="线性时间排序">线性时间排序</h1>
-<h2 id="计数排序">计数排序</h2>
-<p>构建1-(k-1)的列表，随后遍历待排序数组，对每个数字，将其作为索引，列表该索引处值+1，O(n+k) <img src="/assets/mit6.006总和笔记/image-20231019110047558.png" /></p>
-<h2 id="基数排序">基数排序</h2>
-<p>开辟log base(决定进制)|k个桶， O((n+b)log b|k) b(base)=O(n)时时间复杂度最低 *k&lt;=cn时，为O(nc)，即范围较小时，为线性复杂度 <img src="/assets/mit6.006总和笔记/image-20231019110111354.png" /></p>
-<h1 id="数值运算">数值运算</h1>
-<h2 id="catalan-numbers">Catalan numbers</h2>
-<p>Set P of balanced parentheses strings(平衡括号字符串) are recursively defined as • λ ∈ P (λ is empty string) • If α, β ∈ P , then (α)β ∈ P Cn: number of balanced parentheses strings with exactly n pairs of parentheses 也等于n+1个叶节点构成满二叉树的形状个数 <img src="/assets/mit6.006总和笔记/image-20231020131123959.png" /></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 打印前 n 个卡特兰数</span></span><br><span class="line">ans, n = <span class="number">1</span>, <span class="number">20</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;1:&quot;</span> + <span class="built_in">str</span>(ans))</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>, n + <span class="number">1</span>):</span><br><span class="line">    ans = ans * (<span class="number">4</span> * i - <span class="number">2</span>) // (i + <span class="number">1</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="built_in">str</span>(i) + <span class="string">&quot;:&quot;</span> + <span class="built_in">str</span>(ans))</span><br></pre></td></tr></table></figure>
-<h2 id="newtons-method牛顿迭代法">Newton’s Method牛顿迭代法</h2>
-<p><span class="math display">\[
-x_{i+1} = x_{i} - \frac{f(x_{i})}{f&#39;(x_{i})}
-\]</span></p>
-<h3 id="高精度乘法">高精度乘法</h3>
-<p>Multiplying two n-digit numbers (radix r = 2, 10) 0 ≤ x, y &lt; rn x1 = high half;x0 = low half <span class="math display">\[
-x = x_{1} \cdot r^{\frac{n}{2}} + x_{0}
-\]</span> <span class="math display">\[
-y = y_{1} \cdot r^{\frac{n}{2}} + y_{0}
-\]</span> <span class="math display">\[
-z = x · y = x_1y_1 · r^n + (x_0 · y_1 + x_1 · y_0)r^{n/2} + x_0 · y_0
-\]</span></p>
-<p>θ(n^2) time</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Schönhage-Strassen算法是一种快速整数乘法算法,由Arnold Schönhage和Volker Strassen在1971年提出。它比传统的乘法算法要快得多,其时间复杂度为O(n log n log log n)。</span><br><span class="line">Schönhage-Strassen算法的基本思想是:</span><br><span class="line">1. 将两个n位数a和b拆分成大约n/2位数的块。例如,1234 = 12, 34;   2345 = 23, 45。</span><br><span class="line">2. 计算所有块之间的乘积,得到4个结果:a1b1, a1b2, a2b1, a2b2。这可以用递归方式计算。</span><br><span class="line">3. 根据分块的位数 Shift 加上进位,得到a1b1*(10^n), a1b2*10^n/2, a2b1*10^n/2, a2b2。</span><br><span class="line">4. 最后将4个结果相加,得到a*b。</span><br><span class="line">5. 例如,计算12345 * 6789:</span><br><span class="line">6. 分块:12, 34,   67, 892. 计算块间乘积:12 * 67 = 804,   12 * 89 = 1068, 34 * 67 = 2298, 34 * 89 = 3026 </span><br><span class="line">7. Shift并加进位:804 * 10000, 1068 * 5000, 2298 * 5000, 30264. </span><br><span class="line">8. 相加:8040000 + 5340000 + 11490000 + 15130000 = 123456791这种算法通过分块和递归减少每一步的计算量,在计算两个大整数的乘积时有很高的效率,尤其适用于超长整数的相乘。它在一定程度上简化了超长整数运算,是数论和计算机科学中很有价值的一种算法。</span><br></pre></td></tr></table></figure>
-<p><strong>优化</strong> <img src="/assets/mit6.006总和笔记/image-20231020135416200.png" /> <strong>误差分析</strong> <img src="/assets/mit6.006总和笔记/image-20231020140715299.png" /> <span class="math display">\[
-ε_{n+1} =  \frac{ε_n^2}{2*(1+ε_n)}
-\]</span></p>
-<h3 id="高精度除法">高精度除法</h3>
-<p>a/b -&gt; 1/b*a - &gt; mod(R/b) // R是一个容易除的较大值</p>
-<p><img src="/assets/mit6.006总和笔记/image-20231020141331913.png" /> <img src="/assets/mit6.006总和笔记/image-20231020141401286.png" /> 除法的复杂度等于乘法 To understand this, assume that the complexity of multiplication is Θ(nα) for n- digit numbers, with α ≥ 1. Division requires multiplication of different-sized numbers at each iteration. Initially the numbers are small, and then they grow to d digits.</p>
-<p>We apply a first level of Newton’s method to solve f (x) = x2 − a. Each iteration of this first level1 requires a division. If we set the precision to d digits right from the beginning, then convergence at the first level will require lg d iterations. This means the complexity of computing a square root will be Θ(dα lg d) if the complexity of multiplication is Θ(dα), given that we have shown that the complexity of division is the same as the complexity of multiplication. However, we can do better, if we recognize that the number of digits of precision we need at beginning of the first level of Newton’s method starts out small and then grows. If the complexity of a d-digit division is Θ(dα), then a similar summation to the one above tells us that the complexity of computing square roots is Θ(dα)</p>
-<h1 id="图论">图论</h1>
-<h2 id="概念">概念</h2>
-<p>图的表示：for each vertex u ∈ V, Adj[u] stores u’s neighbors, i.e., {v ∈ V | (u, v) ∈ E}. Adj 的大小为 θ(|V |)，而每个 Adj(u) 的大小为 θ(deg(u))</p>
-<h3 id="路径">路径</h3>
-<ul>
-<li>路径是顶点序列p=(v1,v2,...,vk),其中(vi,vi+1)∈E, 1≤i&lt;k<br />
-</li>
-<li>如果路径上没有重复顶点,则为简单路径<br />
-</li>
-<li>路径p的长度为路径上的边数<br />
-</li>
-<li>u到v的距离δ(u,v)为从u到v的最短路径长度 <strong>路径问题</strong>:<br />
-</li>
-<li>图中的多种路径问题:<br />
-  - 单源可达性:s是否可达t<br />
-  - 单源最短路径:返回δ(s,t)和s到t的最短路径<br />
-  - 单源最短路径:返回从s到所有v的δ(s,v)和最短路径树<br />
-</li>
-<li>如何对每个顶点返回从源s的最短路径?<br />
-</li>
-<li>返回所有路径需Ω(|V|^2)时间<br />
-</li>
-<li>只存储每个v的父节点P(v),s的父节点为空<br />
-</li>
-<li>父节点构成包含从s可达所有最短路径的最短路径树,大小为O(|V|)</li>
-</ul>
-<h2 id="bst">BST</h2>
-<p><strong>应用</strong> • 网络抓取（Google 如何查找页面） • 社交网络（Facebook 好友查找器） • 网络广播路由 • 垃圾收集 • 模型检查（有限状态机） • 检查数学猜想 • 解决谜题和游戏</p>
-<p>如何计算图中所有顶点v的δ(s,v)和P(v)?</p>
-<ul>
-<li>使用集合数据结构来存储每个顶点v对应的δ(s,v)距离和P(v)父节点。<br />
-</li>
-<li>如果从起点s到v没有路径,则不存储在P中,δ(s,v)设为无穷大。 <strong>基本思路</strong>:</li>
-<li>按照与起点s的距离依次增大的顺序探索图的节点。 <strong>目标</strong>:<br />
-</li>
-<li>计算所有与起点s距离为i的顶点的集合Li。结论:<br />
-</li>
-<li>Li中的任意顶点v必须与L_{i-1}中的某个顶点u相连。<br />
-</li>
-<li>不会有任何距离起点距离为j(j&lt;i)的顶点出现在Li中。 <strong>循环不变量:</strong><br />
-</li>
-<li>在计算到Li之前,δ(s,v)和P(v)对于所有Lj(j&lt;i)中的顶点v都已正确赋值。</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">BFS (V,Adj,s): See CLRS for queue-based implementation</span><br><span class="line">level = &#123; s: 0 &#125;</span><br><span class="line">parent = &#123;s : None &#125;</span><br><span class="line">i = 1</span><br><span class="line">frontier = [s] # previous level, i − 1</span><br><span class="line">while frontier:</span><br><span class="line">next = [ ] # next level, i</span><br><span class="line">for u in frontier:</span><br><span class="line">for v in Adj [u]:</span><br><span class="line">if v not in level: # not yet seen</span><br><span class="line">level[v] = i ] = level[u] + 1</span><br><span class="line">parent[v] = u</span><br><span class="line">next.append(v)</span><br><span class="line">frontier = next</span><br><span class="line">i + =1</span><br></pre></td></tr></table></figure>
-<p>基本情况(i=1):</p>
-<ul>
-<li>L0={s},δ(s,s)=0,P(s)=None归纳步骤:<br />
-</li>
-<li>计算Li时:<br />
-  - 对Li-1中的每个顶点u:<br />
-    - 对于任一不在Lj(j&lt;i)中的相邻顶点v:<br />
-      - 将v加入Li,设置δ(s,v)=i,P(v)=u重复计算:</li>
-<li>按i递增顺序重复计算Li,直到Li为空集<br />
-</li>
-<li>对任一不可达顶点v,设置δ(s,v)=∞因此通过归纳证明,广度优先搜索可以正确计算所有δ(s,v)和P(v)。 <strong>时间复杂度分析</strong>:<br />
-</li>
-<li>用支持快速遍历和插入的数据结构存储Li<br />
-</li>
-<li>通过检查P来判断一个顶点是否在Lj(j&lt;i)中<br />
-</li>
-<li>用支持O(1)操作的字典结构存储δ和P<br />
-</li>
-<li>每个顶点u最多加入一个Li,并对每个邻点v做O(1)操作<br />
-</li>
-<li>以上这些部分是O(|E|)</li>
-<li>最后处理不可达顶点需O(|V|)<br />
-</li>
-<li>所以总时间复杂度是O(|V|+|E|)</li>
-</ul>
-<p><span class="math display">\[
-level[v] = \begin{cases}
-           level &amp; \text{if } v \text{ assigned level} \\\\
-           \infty &amp; \text{else (no path)}
-\end{cases}
-\]</span></p>
-<h2 id="dst">DST</h2>
-<p>基本思想:</p>
-<ul>
-<li>递归访问出边邻接顶点,但不重复访问已访问过的顶点。<br />
-</li>
-<li>尽可能深入探索路径,直到无法继续,然后回溯找到未探索的路径。 执行步骤:</li>
-<li>初始化P(s)=None,执行visit(s)过程:<br />
-  - 对每个未在P中出现的邻接顶点v:设P(v)=u并递归调用visit(v)<br />
-  - 标记访问完顶点u(用于拓扑排序) 不用返回distance,因此时间是O(E)</li>
-</ul>
-<p>全BFS和全DFS:</p>
-<ul>
-<li>目标是探索整个图,而不仅仅是一个源点可达的部分。<br />
-</li>
-<li>重复在任一未访问顶点s上运行BFS或DFS,直到所有顶点都被访问。<br />
-</li>
-<li>时间复杂度都是O(|V| + |E|)</li>
-</ul>
-<p>连通分量:</p>
-<ul>
-<li>将无向图的顶点集分割成子集Vi,使每个Vi内部连通,Vi之间无边。连通性算法:<br />
-</li>
-<li>任意单源可达性算法A都可以求解连通分量。<br />
-</li>
-<li>重复运行全A,每次A访问的顶点集就是一个连通分量。</li>
-</ul>
-<p>连通性算法:</p>
-<ul>
-<li>任意单源可达性算法A都可以求解连通分量。<br />
-</li>
-<li>重复运行全A,每次A访问的顶点集就是一个连通分量。</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">parent = &#123;s: None&#125;</span><br><span class="line">DFS-visit (V, Adj, s):</span><br><span class="line"> for v in Adj [s]:</span><br><span class="line">  if v not in parent:</span><br><span class="line">  parent [v] = s</span><br><span class="line">DFS-visit (V, Adj, v)</span><br><span class="line">DFS (V, Adj)</span><br><span class="line"> parent = &#123; &#125;</span><br><span class="line"> for s in V:</span><br><span class="line">  if s not in parent:</span><br><span class="line">   parent [s] = None</span><br><span class="line">   DFS-visit (V, Adj, s)</span><br></pre></td></tr></table></figure>
-<p>O(V + E)</p>
-<p><strong>总结</strong>： • Single-Source Shortest Paths with BFS in O(|V | + |E|) time (return distance per vertex) • Single-Source Reachability with BFS or DFS in O(|E|) time (return only reachable vertices) • Connected components with Full-BFS or Full-DFS in O(|V | + |E|) time • Topological Sort of a DAG with Full-DFS in O(|V | + |E|) time</p>
-<h3 id="拓扑排序算法">拓扑排序算法</h3>
-<ul>
-<li>DFS访问每个顶点v时,记录DFS结束时间finish[v]<br />
-</li>
-<li>按finish[v]递减顺序输出顶点具体步骤:</li>
-</ul>
-<ol type="1">
-<li>通过DFS遍历图<br />
-</li>
-<li>将顶点按finish[v]时间降序插入order<br />
-</li>
-<li>将order反转 <strong>正确性证明</strong>:<br />
-对任意边(u,v)有u在v之前</li>
-</ol>
-<ul>
-<li>如果u先访问:<br />
-  - 在访问u结束前会访问v(直接或间接)<br />
-  - 因此v结束时间在u之前<br />
-</li>
-<li>如果v先访问:<br />
-  - 图无环<br />
-  - 无法从v访问u<br />
-  - 因此v结束时间在u之前因此DFS结束时间递减顺序即为拓扑排序顺序。</li>
-</ul>
-<h3 id="循环检测算法">循环检测算法</h3>
-<p><strong>利用全DFS检测环</strong>:</p>
-<ul>
-<li>如果无向图无环,全DFS的反序order就是拓扑排序。<br />
-</li>
-<li>对每条边 (u, v)，反序中如果v不在u前，就有环<br />
-</li>
-<li>可以在O(|E|)时间内检测反序是否有环（哈希或者数组的数据结构）</li>
-</ul>
-<p><strong>定位环的算法</strong>:</p>
-<ul>
-<li>在全DFS过程中维护当前顶点的祖先集合</li>
-<li>如果DFS遍历到一条从v到其祖先的边,则存在环。</li>
-</ul>
-<p><strong>正确性证明</strong>:</p>
-<ul>
-<li>设图包含环(v0,v1,...,vk,v0),假设v0首先被DFS访问。<br />
-</li>
-<li>对每个vi,在访问vi结束前会访问vi+1并结束。<br />
-</li>
-<li>最后在访问vk结束前会访问v0,此时v0是vk的祖先。</li>
-</ul>
-<h2 id="最短路径">最短路径</h2>
-<p><img src="/assets/mit6.006总和笔记/image-20231024194703867.png" /></p>
-<ul>
-<li>路径π的权重w(π)是路径上所有边权重之和<br />
-</li>
-<li>s到t的最短路径是从s到t权重最小的路径</li>
-<li>δ(s,t)表示从s到t的最短路径权重</li>
-<li>对一般权图,还不知道O(|V|+|E|)的最短路径算法<br />
-</li>
-<li>但对DAG可以在O(|V|+|E|)时间内求解</li>
-</ul>
-<h3 id="简单最短路径">简单最短路径</h3>
-<p>简单的最短路径 • 如果图表包含循环和负权重，则可能包含负权重循环 • 如果图形不包含负权环，则最短路径很简单！ • 主张 1：如果 δ(s, v) 是有限的，则存在一条到 v 的最短路径，该路径很简单 • 证明： 通过反证法： – 假设没有简单的最短路径； 设 π 为顶点最少的最短路径 – π 不简单，所以 π 中存在环 C； C 具有非负权重（或者 δ(s, v) = −∞） – 从 π 中删除 C 形成路径 π0，具有更少的顶点和权重 w(π0) ≤ w(π) • 由于简单路径不能重复顶点，因此有限最短路径最多包含 |V | − 1 条边</p>
-<h3 id="有权图基础">有权图基础</h3>
-<h4 id="最小生成树">最小生成树</h4>
-<p>If know δ(s, v) for all vertices v ∈ V , can construct shortest-path tree in O(|V | + |E|) time</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Initialize empty parent pointer P and set P(s) = NoneFor each vertex u ∈ V where δ(s, u) is finite:  </span><br><span class="line">  For each outgoing neighbor v ∈ Adj+(u):  </span><br><span class="line">    If P(v) is not assigned and δ(s, v) = δ(s, u) + w(u, v):  </span><br><span class="line">      There exists a shortest path through edge (u, v), so set P(v) = uParent pointers may traverse cycles of zero weight. Mark each vertex in such a cycle.For each unmarked vertex u ∈ V (including vertices later unmarked):  </span><br><span class="line">  For each v ∈ Adj+(u) where v is marked and δ(s, v) = δ(s, u) + w(u, v):  </span><br><span class="line">    Unmark vertices in cycle containing v by traversing parent pointers from v  </span><br><span class="line">    Set P(v) = u, breaking the cycle</span><br></pre></td></tr></table></figure>
-<ol type="1">
-<li>初始化父节点指针P，设置P(s)为空</li>
-<li>对u的每条出边通向的节点v</li>
-<li>如果P(v)为空且s-&gt;v最短路径是s-&gt;u-&gt;v,则P(v)=u</li>
-<li>父节点可能导致一个权值为0的循环，如果有环则标记出来</li>
-<li>对每个没有被标记的u(包括之后会被标记的)</li>
-<li>如果有标记的邻居v满足最短路径条件</li>
-<li>通过遍历v的父节点清除对它和它的父节点的标记</li>
-<li>设置P(v)=u，打破循环</li>
-</ol>
-<h4 id="dag松弛算法">DAG松弛算法:</h4>
-<ol type="1">
-<li><p>对每个顶点v维护一个距离估计d(s,v),初始化为无穷大,始终上界真实最短距离δ(s,v)</p></li>
-<li><p>当边(u,v)违反三角不等式时,通过松弛操作将d(s,v)降低为d(s,u)+w(u,v)</p></li>
-<li><p>松弛操作保证了d(s,v)始终是到v的某条路径的权重(或无穷大)</p></li>
-<li><p>算法流程:<br />
-  - 初始化d(s,v)=无穷大,d(s,s)=0<br />
-   - 按拓扑排序顺序遍历每个顶点u<br />
-     - 对每个出边(u,v),如果d(s,v) &gt; d(s,u)+w(u,v),执行松弛操作</p></li>
-<li><p>可以证明当算法结束时,d(s,v)=δ(s,v),即正确计算出最短距离</p></li>
-<li><p>时间复杂度为O(V+E),是线性时间算法</p></li>
-<li><p>主要思想是利用DAG没有环的特点,通过松弛操作逐步收紧距离上界,直到使其等于最短距离</p></li>
-<li><p>利用拓扑排序的顺序,保证每次松弛时通过的顶点u的d(s,u)已经是最短距离</p></li>
-</ol>
-<h3 id="generic-s.p.-algorithm通用最短路径算法">Generic S.P. Algorithm通用最短路径算法</h3>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">Initialize:            for v in V:</span><br><span class="line">                            d[v] ← ∞</span><br><span class="line">                            Π[v] ← NIL</span><br><span class="line">                        d[s] ← 0</span><br><span class="line"></span><br><span class="line">Main:                  Repeat</span><br><span class="line">                       select edge (u, v)</span><br><span class="line">Relax edge (u, v):         if d[v] &gt; d[u] + w(u, v):</span><br><span class="line">                               d[v] ← d[u] + w(u, v)</span><br><span class="line">                               Π[v] ← u</span><br><span class="line">                        until you can’t relax any more edges or you’re tired or . .</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>从 u 到 v 的最短路径权重是 δ(u, v)。 如果从 u 无法到达 v，则 δ(u, v) 为 Infini， 如果从 u 到 v 的某个路径上存在负循环，则未定义。 <img src="/assets/mit6.006总和笔记/image-20231023103416467.png" /> <img src="/assets/mit6.006总和笔记/image-20231023104514707.png" /> PATHological示例:设置n个节点,前3对节点的边权为2<sup>n/2,第二组节点边权为2</sup>(n/2)-1,以此类推。这样设置权重,从v0到vn-1的距离约为2<sup>n。算法可能每次只将距离减少1,需重复2</sup>n次,时间复杂度为O(2^n)。 因此最短路径算法的性能很大程度上取决于图的结构,存在PATHological情况时算法效率很低。需设计改进的算法,避免指数时间复杂度。</p>
-<h3 id="迪杰斯特拉无负数边的图">迪杰斯特拉（无负数边的图）</h3>
-<ol type="1">
-<li>初始化:对每个顶点v,设置d(s,v)=∞,d(s,s)=0。</li>
-<li>构建一个优先队列Q,每个顶点v以(v,d(s,v))为项加入Q。</li>
-<li>循环直到Q为空:<br />
-   - 出队Q中key最小的顶点u<br />
-   - 对每个出边(u,v):<br />
-      - 如果d(s,v) &gt; d(s,u) + w(u,v):<br />
-         - 进行松弛操作         -  降低Q中v的key值到新的d(s,v)</li>
-<li>时间复杂度O(E+VlogV),使用二叉堆可以达到O(E+VlogV)</li>
-</ol>
-<p><a href="https://www.cs.usfca.edu/~galles/visualization/Dijkstra.html">演示</a> 1. 对每个边(u,v),假设权重w(u,v)≥0,维护一个集合S,包含已确定最短路径权重的顶点。 2. 重复地从V-S中选择一个离源点最近的顶点u,将u加入S,松弛u的所有出边,即比较点u连通的其他节点，从点u出发的路径是否比距离表内的短 3. 伪代码: <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">Dijkstra (G, W, s) //uses priority queue Q</span><br><span class="line"> Initialize (G, s)</span><br><span class="line"> S ← φ</span><br><span class="line"> Q ← V [G] //Insert into Q</span><br><span class="line"> while Q != φ</span><br><span class="line">  do u ← EXTRACT-MIN(Q) //deletes u from Q</span><br><span class="line">  S = S ∪ &#123;u&#125;</span><br><span class="line">  for each vertex v ∈ Adj[u]</span><br><span class="line">   do RELAX (u, v, w) ← this is an implicit DECREASE KEY operation</span><br><span class="line"></span><br></pre></td></tr></table></figure> <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">RELAX(u, v, w)</span><br><span class="line"> if d[v] &gt; d[u] + w(u, v)</span><br><span class="line">  then d[v] ← d[u] + w(u, v)</span><br><span class="line">  Π[v] ← u</span><br><span class="line">放松是安全的</span><br><span class="line"> 引理：松弛算法对于所有的情况都保持 d[v] ≥ δ(s, v) 的不变量</span><br><span class="line"> v ∈ V 。</span><br><span class="line"> 证明：通过步数归纳。</span><br><span class="line"> 考虑 RELAX(u, v, w)。  通过归纳法 d[u] ≥ δ(s, u)。  通过三角形 -</span><br><span class="line"> 等式，δ(s, v) ≤ δ(s, u) + δ(u, v)。  这意味着 δ(s, v) ≤ d[u] + w(u, v)，因为</span><br><span class="line"> d[u] ≥ δ(s, u) 且 w(u, v) ≥ δ(u, v)。  因此设置 d[v] = d[u] + w(u, v) 是安全的。</span><br><span class="line"></span><br></pre></td></tr></table></figure> 4. 通过重复选择最近顶点,逐步确定最短路径,时间复杂度为O(|E|+|V|log|V|)。 <img src="/assets/mit6.006总和笔记/image-20231024112814756.png" /></p>
-<h4 id="证明">证明</h4>
-<p>归纳法证明当顶点v从Q中取出时,d(s,v) = δ(s,v)成立: 基础:s第一个取出,d(s,s)=0 = δ(s,s)成立 - 归纳假设:对前k-1个顶点成立 - 考虑第k个顶点v0:    - 取v0到s的最短路径π,w(π)=δ(s,v0)   - 设(x,y)是π中第一个y不在前k-1个顶点的边    - 当x取出时,d(s,x)=δ(s,x)(归纳假设)    - 所以取出x时松弛(x,y),d(s,y) ≤ δ(s,x) + w(x,y) = δ(s,y)   - 由于松弛操作的安全性,d(s,v0) ≤ δ(s,v0)    - 又因为v0是Q中key最小的,d(s,v0) ≥ δ(s,v0)    - 所以d(s,v0) = δ(s,v0)</p>
-<h4 id="时间复杂度">时间复杂度</h4>
-<div class="line-block">操作 | 时间复杂度 | 在Dijkstra中的出现次数|</div>
-<p>|-|-|-| <br />
-|Q.build(X) (n = |X|)| Bn | 1 |<br />
-|Q.delete min()| Mn | |V| |<br />
-|Q.decrease key(id, k)| Dn | |E| | 总计O(B|V | + |V | · M|V | + |E| · D|V |) 对一个对顶点所有节点可达的图（修建过）： <img src="/assets/mit6.006总和笔记/image-20231025202308176.png" /> 对不同稀疏密度的图,使用不同的数据结构实现Dijkstra算法可以得到不同的时间复杂度: - 如果图是密集的,即 |E| = Θ(|V|<sup>2),使用数组实现优先队列Q,时间复杂度为O(|V|</sup>2) - 如果图是稀疏的,即 |E| = Θ(|V|),使用二叉堆实现Q,时间复杂度为 O(|V|log|V|) - Fibonacci堆在理论上对任意图都很好,但是实践中不常用 - 在理论分析中,通常假设Dijkstra算法的时间复杂度为O(|E| + |V|log|V|) 总结 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">Dijkstra Complexity</span><br><span class="line"> Θ(v) inserts into priority queue</span><br><span class="line"> Θ(v) EXTRACT MIN operations</span><br><span class="line"> Θ(E) DECREASE KEY operations</span><br><span class="line">Array impl:</span><br><span class="line"> Θ(v) time for extra min</span><br><span class="line"> Θ(1) for decrease key</span><br><span class="line"> Total: Θ(V.V + E.1) = Θ(V 2 + E) = Θ(V 2)</span><br><span class="line">Binary min-heap:</span><br><span class="line"> Θ(lg V ) for extract min</span><br><span class="line"> Θ(lg V ) for decrease key</span><br><span class="line"> Total: Θ(V lg V + E lg V )</span><br><span class="line">Fibonacci heap (not covered in 6.006):</span><br><span class="line"> Θ(lg V ) for extract min</span><br><span class="line"> Θ(1) for decrease key</span><br><span class="line"> amortized cost</span><br><span class="line"> Total: Θ(V lg V + E)</span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
-<h4 id="优化双向搜索">优化——双向搜索</h4>
-<p>如果只需要s到t的最短路径，则只需要进行到t出队时结束算法 1. 双向搜索可以加速搜索,但不改变最坏时间复杂度,实际上可以减少访问的节点数。 2. 双向搜索同时进行:     - 从s节点进行正向搜索    - 从t节点进行反向搜索(沿边反向移动) 3. 正向搜索距离标记为df(u),反向为db(u) 4. 当一个节点w同时被两边搜索删除出队列时,搜索终止。 5. 终止后,找到df(x)+db(x)最小的节点x,x不一定是终止节点w。 6. 使用正向predecessor树Πf找到s到x的最短路径,使用反向树Πb找到t到x的最短路径。 7. 节点x一定已经被某一边搜索删除出队列。 <img src="/assets/mit6.006总和笔记/image-20231024193957638.png" /></p>
-<h4 id="a算法">A*算法</h4>
-<ol type="1">
-<li>A*通过势函数修改边权重指引搜索方向:w'(u,v) = w(u,v) - λ(u) + λ(v)</li>
-<li>选择势函数使修改后的权重保持最短路径不变,且权重非负,以适用于Dijkstra算法。</li>
-<li>设定目标势值为0,源点势值足够大,可以引导搜索方向。</li>
-<li>使用landmark技巧:预计算顶点到一些landmark节点的最短距离δ(u,l)。定义势函数λ(u)=δ(u,l)-δ(t,l),可以证明是可行的。</li>
-<li>对每个landmark l计算势函数λ,取最大值作为最终势函数,仍可行。</li>
-<li>A*相比普通搜索可以显著减少搜索范围,提高效率。但最坏情况时间复杂度未改变。</li>
-</ol>
-<p>Modify edge weights with potential function over vertices <span class="math display">\[
-\overline{w}(u, v) = w(u, v) - λ(u) + λ(v)
-\]</span></p>
-<p>So shortest paths are maintained in modified graph with w(overline) weights <span class="math display">\[
-\overline{w}(p) = w(p) - λ_t(u) + λ_t(t)
-\]</span> Small set of landmarks LCV . For all u ∈ V, l ∈ L, pre-compute δ(u, l). Potential <span class="math display">\[
-λ_t^{(l)}(u) = δ(u, l) − δ(t, l)
-\]</span> <img src="/assets/mit6.006总和笔记/image-20231024193915317.png" /></p>
-<h3 id="贝尔曼福特">贝尔曼福特</h3>
-<h4 id="负循环检测">负循环检测</h4>
-<ol type="1">
-<li>定义k边距离δk(s,v):从s到v的路径中最多包含k条边的最小路径权重。</li>
-<li>计算出δ|V|-1(s,v)和δ|V|(s,v),如果δ|V|(s,v)&lt;δ|V|-1(s,v),则v是一个负环见证人(witness)。</li>
-<li>任意有向图中，对每个v∈V，计算δ(s,v)和δ|V|-1(s,v):<br />
-   - 如果δ(s,v)&lt;δ|V|-1(s,v),则δ|V |(s, v) =- ∞，把v视为负循环见证人    - 如果δ(s,v)!=−∞,则δ(s,v)=δ|V|-1(s,v)(简单最短路径原理)    - 如果δ(s,v)=−∞,v可以从某个见证人出发而到达</li>
-<li>证明思路:<br />
-</li>
-</ol>
-<ul>
-<li>假设某个负环C可达且不包含见证人,则对C中任一顶点v有:<br />
-δ|V|(s,v) ≤ δ|V|-1(s,v的前驱)+w(v的前驱,v) &lt; δ|V|-1(s,v)<br />
-</li>
-<li>矛盾,所以C中必须存在见证人。</li>
-<li><img src="/assets/mit6.006总和笔记/image-20231025082230441.png" /></li>
-</ul>
-<h4 id="定义">定义</h4>
-<p><img src="/assets/mit6.006总和笔记/image-20231025092945965.png" /> 正确性： s到vk(k表示层数)的最短路径是每层可能的路径的最短者，贝尔曼福特算法穷举每一种可能，所以最后能得出最短的|V|-1层路径，从|V|-1到|V|则取决于图有没有负循环，如果有负循环，则s到见证人可达的结点路径为负无穷长 运行时间 1. 构建多层图G'需O(|V|(|V|+|E|)) 2. 在G'上运行DAG最短路径算法需O(|V|(|V|+|E|))，即G'大小的线性时间 3. 处理每个负环见证人需O(1),找到一个见证人的所有可达结点是O(|E|)见证人最多V个，找到所有见证人的可达性需O(|V||E|) 4. 如果把G修整成s开始的s可达子图，时间复杂度为O(|V||E|)</p>
-<p>扩展思考: <img src="/assets/mit6.006总和笔记/image-20231025093817635.png" /></p>
-<p><img src="/assets/mit6.006总和笔记/image-20231025080815803.png" /> • |V | + 1 levels: vertex vk in level k represents reaching vertex v from s using ≤ k edges • If edges only increase in level, resulting graph is a DAG • Construct new DAG G0 = (V 0, E0) from G = (V, E): – G' has |V |(|V | + 1) vertices v_k for all v ∈ V and k ∈ {0, . . . , |V |} – G' has |V |(|V | + |E|) edges: ∗ |V | edges (vk−1, vk) for k ∈ {1, . . . , |V |} of weight zero for each v ∈ V ∗ |V | edges (uk−1, vk) for k ∈ {1, . . . , |V |} of weight w(u, v) for each (u, v) ∈ <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">Bellman-Ford(G,W,s)</span><br><span class="line"> Initialize ()</span><br><span class="line"> for i = 1 to |V | − 1</span><br><span class="line">  for each edge (u, v) ∈ E:</span><br><span class="line">   Relax(u, v)</span><br><span class="line"> for each edge (u, v) ∈ E</span><br><span class="line">  do if d[v] &gt; d[u] + w(u, v)</span><br><span class="line">   then report a negative-weight cycle exists</span><br><span class="line">//At the end, d[v] = δ(s, v), if no negative-weight cycles</span><br><span class="line"></span><br></pre></td></tr></table></figure> 1. 初始化,进行|V|-1轮松弛操作,每轮对每个边(u,v)做relax操作，非负的图最多需要|V|-I次操作就可以松弛到任意点出发的任意路径都是最短路径 2. 如果第|V|轮还可以relax任意边,说明存在负权环。 3. 如果图中无负权环,Bellman-Ford执行结束后d[v]=δ(s,v)。 4. 推论:如果d[v]在|V|-1轮未收敛,说明存在从s可达的负权环。 5. Bellman-Ford时间复杂度为O(|V||E|),适合稠密图。</p>
-<h4 id="最长简单路径和最短简单路径">最长简单路径和最短简单路径</h4>
-<p>在具有非负边权重的图中找到最长的简单路径是一个 NP- hard问题，不存在已知的多项式时间算法。 假设一个 只需否定每个边权重并运行 Bellman-Ford 来计算最短 路径。 贝尔曼-福特不一定会计算原始路径中的最长路径 图，因为可能存在可从源到达的负权重循环，并且 算法将中止。 类似地，如果我们有一个具有负循环的图，并且我们希望找到最长的 从源 s 到顶点 v 的简单路径，我们不能使用 Bellman-Ford。 最短的 简单路径问题也是NP- hard问题</p>
-<h2 id="johnsons-algorithm">Johnson’s Algorithm</h2>
-<h3 id="all-pairs-shortest-paths-apsp">All-Pairs Shortest Paths (APSP)</h3>
-<ul>
-<li>输入:有向带权图G=(V,E),权值函数w:E→Z</li>
-<li>输出:对所有u,v∈V,求出δ(u,v),如果有负权回路则报错</li>
-<li>应用:理解整个网络,如交通、电路布线、供应链等</li>
-<li>直接运行|V|次单源算法时间复杂度:     - DAG松弛: |V|·O(|V|+|E|),无环<br />
-  - BFS: |V|·O(|V|+|E|),非负权值<br />
-  - Dijkstra: |V|·O(|V|log|V|+|E|),非负权值<br />
-  - Bellman-Ford: |V|·O(|V||E|),一般图</li>
-</ul>
-<p>思路：重构权值函数,使G变为G',其中G'没有负权边,且G的最短路径在G'上也是最短路径。如果成功,就可以在G'上运行Dijkstra 实现： 对每个顶点v:<br />
-- 从v出发的边权加上h<br />
-- 进入v的边权减去h<br />
-- 这样可以保证最短路径不变<br />
-- 证明:<br />
-  - 任意从v开始的路径权值改变了h<br />
-  - 任意到v结束的路径权值改变了-h<br />
-  - 通过v的路径权值局部不变</p>
-<p><img src="/assets/mit6.006总和笔记/image-20231025213904004.png" /></p>
-<h3 id="算法">算法</h3>
-<ul>
-<li>构造含新顶点x的图Gx,x到每个顶点v有权值为0的边</li>
-<li>对Gx运行Bellman-Ford算法计算δx(x,v)</li>
-<li>如果δx(x,v)为无穷大,说明G中有负权回路,报错退出</li>
-<li>否则,用δx重新调整每个边的权值构造G'</li>
-<li>对G'运行Dijkstra算法|V|次计算每个顶点的最短路径 </li>
-<li>从G'的最短路径恢复G的最短路径</li>
-</ul>
-<h3 id="时间复杂度-1">时间复杂度</h3>
-<ul>
-<li>构造Gx需O(|V|+|E|)</li>
-<li>Bellman-Ford需O(|V||E|)</li>
-<li>构造G'需O(|V|+|E|)</li>
-<li>|V|次Dijkstra需O(|V|(|V|log|V| + |E|))</li>
-<li>用G'恢复G的距离需O(|V|^2)</li>
-<li>总计O({|V|^2}log|V| + |V||E|)</li>
-</ul>
-<h1 id="概率">概率</h1>
-<p>雇佣问题 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">best = 0</span><br><span class="line">hired = null</span><br><span class="line">for i = 1 to n</span><br><span class="line">if candidates[i] &gt; best</span><br><span class="line"> best = candidates[i]</span><br><span class="line"> hired = i</span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
-<h2 id="指示器随机变量">指示器随机变量</h2>
-<p>指示器随机变量可以用于对随机输入的算法分析 <span class="math display">\[I(A) = \begin{cases}  
-           1 &amp; \text{event A occurs} \\  
-           0 &amp; \text{otherwise}  
-\end{cases}\]</span> 把期望转化成指示器期望的相加</p>
-<h2 id="随机算法">随机算法</h2>
-<p>在此基础上可以在算法中进行随机数处理，排除输入的影响 比如在雇佣问题中，对输入的候选者数组进行随机排序 随机排序： <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">n = A.length</span><br><span class="line">let P[1-n] be a new array</span><br><span class="line">for i=1 to n</span><br><span class="line"> P[i] = RANDOM(1,n^3)</span><br><span class="line">sort A,use P</span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
-<h1 id="递归和动态规划">递归和动态规划</h1>
-]]></content>
-      <categories>
-        <category>课程笔记</category>
-        <category>数据结构与算法</category>
-      </categories>
-      <tags>
-        <tag>课程笔记</tag>
-        <tag>麻省理工</tag>
-        <tag>算法</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>基于伯克利cs61a的python笔记</title>
     <url>/2023/09/29/61a%E6%80%BB%E5%92%8C/</url>
     <content><![CDATA[<h2 id="python语言特性">python语言特性</h2>
@@ -1853,30 +1887,6 @@ level[v] = \begin{cases}
       </tags>
   </entry>
   <entry>
-    <title>迪瑞克拉rpg设定集</title>
-    <url>/2023/09/29/%E8%BF%AA%E7%91%9E%E5%85%8B%E6%8B%89rpg%E8%AE%BE%E5%AE%9A%E9%9B%86/</url>
-    <content><![CDATA[<h1 id="队友">队友</h1>
-<h2 id="雷克">雷克</h2>
-<p>帝国法律系学生，成长于如今兄弟会的前身，幼时被走投无路的父母托付给了盗贼兄弟会，并经受了盗贼训练，随后由于帝国发展进程，盗贼兄弟会决定洗白自己，于是选拔了手下聪明的学徒接受高等教育并改名兄弟会，雷克就是其中的佼佼者。 <span id="more"></span> 然而比起兄弟会肮脏的勾当，接触帝国新兴教育的雷克逐渐有了叛逆之心，比起法律他对医学更有兴趣，一开始是偷一些新鲜死体进行解剖，随后甚至发展成了诛杀一些地痞流氓并进行各种实验和解剖的连环杀人犯，因为这些经历，雷克下手狠辣，反应敏捷，是个优秀的盗贼。 偷挖尸体时被无名氏发现，并且无名氏的强大气息让他不敢敌对，由于无名氏缺少一个熟悉帝国的向导，雷克就这样被要挟着加入了队伍 性格意外地开朗，似乎是个不错的朋友，但很难定论他的内心藏着多少黑暗 阵营守序中立</p>
-<h2 id="莉思">莉思</h2>
-<p>法师塔的高材生，学徒转正的试炼中，大法师们补下幻象，让她对决所有的同届学生，想让她意识到团结的力量，但聪明的她早就对所有人做了各种应对方案，在随机应变和一些运气下，莉思真的击败了所有对手，并且由于情况危急，她下了死手。 试炼完成后，在场的法师们不约而同地认识到她危险的性格是个定时炸弹，想要剥夺她的法师资格，绝望的莉思却听到了一个神秘的声音，随着声音的指引她发动了不可能成功的传送法术去到了帝国边境。 在那里她隐姓埋名，用几年时间成为了一位名气不小的实战派法师，随后遇到了无名氏。 “你身上有强大法术的气息，让我感到熟悉,我希望能与你同行” 阵营中立邪恶</p>
-<h2 id="默克">默克</h2>
-<p>因为违反规则，徘徊于主物质界的欲灵 欲灵必须满足驯服他们的人类的三个愿望，但如果另一个欲灵驯服了他呢？结果就是他被规则诅咒只能徘徊于主物质界。 有一个欲灵伪装成人类向他许愿，这个愿望则来自一个驯服他的人类，也就是无名氏，因此才出现了这种错误。 这个愿望是忘记一切过去，但不知为何空间也出现了扭曲，实现愿望后，无名氏和默克被传送到一座古墓，醒来的无名氏逮住了他，思考后默克决定与他行动，寻找那个肆意妄为的欲灵。 为了不引发好奇，设置了一个猫头鹰幻身 阵营混乱中立</p>
-<h2 id="欲灵女王">欲灵女王</h2>
-<p>传闻中她是一个强大的欲灵，因此能统率大批同类为其所用，但实际上她只是一个人类法师，因为善于倾听欲灵的烦恼并安抚它们，她曾让不少欲灵摆脱了由于灵魂不纯而徘徊物质界与元素界之间的痛苦，作为回报，欲灵们生前的回忆与知识有部分被她所理解，因此论阅历属于当世法师的佼佼者。 其自称自己的天赋一般，并对胜负毫不在意，所以，平常不会显露出多强的实力，但总感觉她留了一手 年龄未知，自称对玩弄无名氏的欲灵感兴趣而与他同行 阵营中立善良</p>
-<h1 id="npc">npc</h1>
-<h2 id="苦惨女士">苦惨女士</h2>
-<p>"去杀戮，去破坏，去抢夺吧，除此以外没有获得救赎的办法了，而我会在此，为您承担所有的罪孽"</p>
-<p>对七苦圣母的信仰，由于教规和神迹的苛刻，在几百年间逐渐地消失了，苦惨之女，数百年前经过血祭仪式得到圣母祝福之人，如今以及经过了她第七个，也是最后一个人生，苦恼着如何度过最后时日的她遇到了无名氏，在他身上纠缠着的痛苦命运让她深受感化。 “或许经历这样的痛苦才能有所领悟" 因此她向无名氏提出了请求，再次进行仪式，让她承担无名氏战斗时收到伤害的一半。 在伤害积累到一定程度后，她会死去，并在死后继续赋予无名氏减伤的祝福 如果拒绝她，或者积累的伤害不够，苦惨女士由于没有领悟到七苦之义，在之后的时日度过了平凡而幸福的一生。</p>
-]]></content>
-      <categories>
-        <category>迪瑞克拉</category>
-      </categories>
-      <tags>
-        <tag>迪瑞克拉</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>基于中科大郑烇老师授课的计算机网络笔记(待续)</title>
     <url>/2023/10/14/%E8%AE%A1%E7%BD%91/</url>
     <content><![CDATA[<h2 id="第一章概论">第一章——概论</h2>
@@ -2020,8 +2030,8 @@ level[v] = \begin{cases}
       <tags>
         <tag>课程笔记</tag>
         <tag>数据结构与算法</tag>
-        <tag>c++</tag>
         <tag>斯坦福</tag>
+        <tag>c++</tag>
       </tags>
   </entry>
   <entry>
@@ -2394,8 +2404,8 @@ used the next time std::cin &gt;&gt; is called<br />
       </categories>
       <tags>
         <tag>课程笔记</tag>
-        <tag>c++</tag>
         <tag>斯坦福</tag>
+        <tag>c++</tag>
       </tags>
   </entry>
   <entry>
@@ -5775,8 +5785,8 @@ Inexpensive Disk）由美国加州大学伯克利分校提出。<br />
         <category>其他</category>
       </categories>
       <tags>
-        <tag>读书笔记</tag>
         <tag>c++</tag>
+        <tag>读书笔记</tag>
       </tags>
   </entry>
   <entry>
