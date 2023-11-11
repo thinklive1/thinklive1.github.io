@@ -2270,8 +2270,8 @@ level[v] = \begin{cases}
       <tags>
         <tag>伯克利</tag>
         <tag>课程笔记</tag>
-        <tag>数据结构与算法</tag>
         <tag>python</tag>
+        <tag>数据结构与算法</tag>
       </tags>
   </entry>
   <entry>
@@ -2532,8 +2532,8 @@ level[v] = \begin{cases}
       <tags>
         <tag>课程笔记</tag>
         <tag>数据结构与算法</tag>
-        <tag>斯坦福</tag>
         <tag>c++</tag>
+        <tag>斯坦福</tag>
       </tags>
   </entry>
   <entry>
@@ -2906,8 +2906,8 @@ used the next time std::cin &gt;&gt; is called<br />
       </categories>
       <tags>
         <tag>课程笔记</tag>
-        <tag>斯坦福</tag>
         <tag>c++</tag>
+        <tag>斯坦福</tag>
       </tags>
   </entry>
   <entry>
@@ -6174,8 +6174,8 @@ Inexpensive Disk）由美国加州大学伯克利分校提出。<br />
       <tags>
         <tag>伯克利</tag>
         <tag>课程笔记</tag>
-        <tag>JAVA</tag>
         <tag>数据结构与算法</tag>
+        <tag>JAVA</tag>
       </tags>
   </entry>
   <entry>
@@ -6287,8 +6287,8 @@ Inexpensive Disk）由美国加州大学伯克利分校提出。<br />
         <category>其他</category>
       </categories>
       <tags>
-        <tag>c++</tag>
         <tag>读书笔记</tag>
+        <tag>c++</tag>
       </tags>
   </entry>
   <entry>
