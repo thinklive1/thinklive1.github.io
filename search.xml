@@ -483,7 +483,7 @@
 <li>从左至右，按左括号的出现顺序分配，第一个为 1，第二个为 2，以此类推</li>
 <li>扫描两遍，第一次只分配未命名的组，第二次只分配命名的组。即任意命名组的组号都大于未命名的组号</li>
 </ul>
-<h4 id="后向引用">### 后向引用</h4>
+<h4 id="后向引用">后向引用</h4>
 <div class="note info no-icon"><p>示例</p>
 <p><code>\b(\w+)\b\s+\1\b</code> 可以用来匹配用空白字符分割的两个重复的单词（例如 <code>linux linux</code>），其中 <code>\1</code> 是对组号为 1 的组 <code>(\w+)</code> 的引用。</p>
 <p><code>\b(?'Word'\w+)\b\s+\k'Word'\b</code> 也可以起到同样的效果，其中 <code>?'Word'</code> 用于命名组，<code>\k'Word'</code> 用于引用组。</p>
