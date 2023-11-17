@@ -28,6 +28,1603 @@
 ]]></content>
   </entry>
   <entry>
+    <title>对加州房地产数据集的数据分析项目</title>
+    <url>/2023/11/17/houses/</url>
+    <content><![CDATA[<h1 id="加利福尼亚房价数据集">加利福尼亚房价数据集</h1>
+<h2 id="内容">内容</h2>
+<p>这些数据涉及在加州某个地区的街区以及基于 1990 年人口普查数据的一些汇总统计数据：</p>
+<ol type="1">
+<li>房屋中位价值：一个街区内家庭的房屋中位价值（以美元计算）</li>
+<li>收入中位数：一栋房屋内的家庭收入中位数（以万美元衡量）</li>
+<li>中位年龄：街区内房屋的中位年龄； 数字较小的是较新的建筑</li>
+<li>房间总数：一个街区内的房间总数</li>
+<li>卧室总数：一个街区内的卧室总数</li>
+<li>人口：居住在一个街区内的总人数</li>
+<li>家庭：一个街区的家庭总数</li>
+<li>纬度：衡量房屋向北有多远的指标； 值越高越北 [°]</li>
+<li>经度：衡量房屋向西有多远的量度； 数值越高，越西 [°]</li>
+<li>距离海岸：到最近海岸点的距离[m]</li>
+<li>到洛杉矶的距离：到洛杉矶市中心的距离[m]</li>
+<li>到圣地亚哥的距离：到圣地亚哥中心的距离[m]</li>
+<li>到圣何塞的距离: 到圣何塞中心的距离 [m]</li>
+<li>到旧金山的距离：到旧金山市中心的距离[m] <span id="more"></span></li>
+</ol>
+<ol type="1">
+<li>Median House Value: Median house value for households within a block (measured in US Dollars)</li>
+<li>Median Income: Median income for households within a block of houses (measured in tens of thousands of US Dollars)</li>
+<li>Median Age: Median age of a house within a block; a lower number is a newer building [years]</li>
+<li>Total Rooms: Total number of rooms within a block</li>
+<li>Total Bedrooms: Total number of bedrooms within a block</li>
+<li>Population: Total number of people residing within a block</li>
+<li>Households: Total number of households, a group of people residing within a home unit, for a block</li>
+<li>Latitude: A measure of how far north a house is; a higher value is farther north [°]</li>
+<li>Longitude: A measure of how far west a house is; a higher value is farther west [°]</li>
+<li>Distance to coast: Distance to the nearest coast point [m]</li>
+<li>Distance to Los Angeles: Distance to the centre of Los Angeles [m]</li>
+<li>Distance to San Diego: Distance to the centre of San Diego [m]</li>
+<li>Distance to San Jose: Distance to the centre of San Jose [m]</li>
+<li>Distance to San Francisco: Distance to the centre of San Francisco [m]</li>
+</ol>
+<h2 id="导入python库">导入python库</h2>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#引入python库</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line">%matplotlib inline</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">training_data = pd.read_csv(<span class="string">&#x27;California_Houses.csv&#x27;</span>)</span><br><span class="line">training_data.head()</span><br></pre></td></tr></table></figure>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+Median_House_Value
+</th>
+<th>
+Median_Income
+</th>
+<th>
+Median_Age
+</th>
+<th>
+Tot_Rooms
+</th>
+<th>
+Tot_Bedrooms
+</th>
+<th>
+Population
+</th>
+<th>
+Households
+</th>
+<th>
+Latitude
+</th>
+<th>
+Longitude
+</th>
+<th>
+Distance_to_coast
+</th>
+<th>
+Distance_to_LA
+</th>
+<th>
+Distance_to_SanDiego
+</th>
+<th>
+Distance_to_SanJose
+</th>
+<th>
+Distance_to_SanFrancisco
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+0
+</th>
+<td>
+452600.0
+</td>
+<td>
+8.3252
+</td>
+<td>
+41
+</td>
+<td>
+880
+</td>
+<td>
+129
+</td>
+<td>
+322
+</td>
+<td>
+126
+</td>
+<td>
+37.88
+</td>
+<td>
+-122.23
+</td>
+<td>
+9263.040773
+</td>
+<td>
+556529.158342
+</td>
+<td>
+735501.806984
+</td>
+<td>
+67432.517001
+</td>
+<td>
+21250.213767
+</td>
+</tr>
+<tr>
+<th>
+1
+</th>
+<td>
+358500.0
+</td>
+<td>
+8.3014
+</td>
+<td>
+21
+</td>
+<td>
+7099
+</td>
+<td>
+1106
+</td>
+<td>
+2401
+</td>
+<td>
+1138
+</td>
+<td>
+37.86
+</td>
+<td>
+-122.22
+</td>
+<td>
+10225.733072
+</td>
+<td>
+554279.850069
+</td>
+<td>
+733236.884360
+</td>
+<td>
+65049.908574
+</td>
+<td>
+20880.600400
+</td>
+</tr>
+<tr>
+<th>
+2
+</th>
+<td>
+352100.0
+</td>
+<td>
+7.2574
+</td>
+<td>
+52
+</td>
+<td>
+1467
+</td>
+<td>
+190
+</td>
+<td>
+496
+</td>
+<td>
+177
+</td>
+<td>
+37.85
+</td>
+<td>
+-122.24
+</td>
+<td>
+8259.085109
+</td>
+<td>
+554610.717069
+</td>
+<td>
+733525.682937
+</td>
+<td>
+64867.289833
+</td>
+<td>
+18811.487450
+</td>
+</tr>
+<tr>
+<th>
+3
+</th>
+<td>
+341300.0
+</td>
+<td>
+5.6431
+</td>
+<td>
+52
+</td>
+<td>
+1274
+</td>
+<td>
+235
+</td>
+<td>
+558
+</td>
+<td>
+219
+</td>
+<td>
+37.85
+</td>
+<td>
+-122.25
+</td>
+<td>
+7768.086571
+</td>
+<td>
+555194.266086
+</td>
+<td>
+734095.290744
+</td>
+<td>
+65287.138412
+</td>
+<td>
+18031.047568
+</td>
+</tr>
+<tr>
+<th>
+4
+</th>
+<td>
+342200.0
+</td>
+<td>
+3.8462
+</td>
+<td>
+52
+</td>
+<td>
+1627
+</td>
+<td>
+280
+</td>
+<td>
+565
+</td>
+<td>
+259
+</td>
+<td>
+37.85
+</td>
+<td>
+-122.25
+</td>
+<td>
+7768.086571
+</td>
+<td>
+555194.266086
+</td>
+<td>
+734095.290744
+</td>
+<td>
+65287.138412
+</td>
+<td>
+18031.047568
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">training_data.columns.values</span><br></pre></td></tr></table></figure>
+<pre><code>array([&#39;Median_House_Value&#39;, &#39;Median_Income&#39;, &#39;Median_Age&#39;, &#39;Tot_Rooms&#39;,
+       &#39;Tot_Bedrooms&#39;, &#39;Population&#39;, &#39;Households&#39;, &#39;Latitude&#39;,
+       &#39;Longitude&#39;, &#39;Distance_to_coast&#39;, &#39;Distance_to_LA&#39;,
+       &#39;Distance_to_SanDiego&#39;, &#39;Distance_to_SanJose&#39;,
+       &#39;Distance_to_SanFrancisco&#39;], dtype=object)</code></pre>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">training_data.describe()</span><br></pre></td></tr></table></figure>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+Median_House_Value
+</th>
+<th>
+Median_Income
+</th>
+<th>
+Median_Age
+</th>
+<th>
+Tot_Rooms
+</th>
+<th>
+Tot_Bedrooms
+</th>
+<th>
+Population
+</th>
+<th>
+Households
+</th>
+<th>
+Latitude
+</th>
+<th>
+Longitude
+</th>
+<th>
+Distance_to_coast
+</th>
+<th>
+Distance_to_LA
+</th>
+<th>
+Distance_to_SanDiego
+</th>
+<th>
+Distance_to_SanJose
+</th>
+<th>
+Distance_to_SanFrancisco
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+count
+</th>
+<td>
+20640.000000
+</td>
+<td>
+20640.000000
+</td>
+<td>
+20640.000000
+</td>
+<td>
+20640.000000
+</td>
+<td>
+20640.000000
+</td>
+<td>
+20640.000000
+</td>
+<td>
+20640.000000
+</td>
+<td>
+20640.000000
+</td>
+<td>
+20640.000000
+</td>
+<td>
+20640.000000
+</td>
+<td>
+2.064000e+04
+</td>
+<td>
+2.064000e+04
+</td>
+<td>
+20640.000000
+</td>
+<td>
+20640.000000
+</td>
+</tr>
+<tr>
+<th>
+mean
+</th>
+<td>
+206855.816909
+</td>
+<td>
+3.870671
+</td>
+<td>
+28.639486
+</td>
+<td>
+2635.763081
+</td>
+<td>
+537.898014
+</td>
+<td>
+1425.476744
+</td>
+<td>
+499.539680
+</td>
+<td>
+35.631861
+</td>
+<td>
+-119.569704
+</td>
+<td>
+40509.264883
+</td>
+<td>
+2.694220e+05
+</td>
+<td>
+3.981649e+05
+</td>
+<td>
+349187.551219
+</td>
+<td>
+386688.422291
+</td>
+</tr>
+<tr>
+<th>
+std
+</th>
+<td>
+115395.615874
+</td>
+<td>
+1.899822
+</td>
+<td>
+12.585558
+</td>
+<td>
+2181.615252
+</td>
+<td>
+421.247906
+</td>
+<td>
+1132.462122
+</td>
+<td>
+382.329753
+</td>
+<td>
+2.135952
+</td>
+<td>
+2.003532
+</td>
+<td>
+49140.039160
+</td>
+<td>
+2.477324e+05
+</td>
+<td>
+2.894006e+05
+</td>
+<td>
+217149.875026
+</td>
+<td>
+250122.192316
+</td>
+</tr>
+<tr>
+<th>
+min
+</th>
+<td>
+14999.000000
+</td>
+<td>
+0.499900
+</td>
+<td>
+1.000000
+</td>
+<td>
+2.000000
+</td>
+<td>
+1.000000
+</td>
+<td>
+3.000000
+</td>
+<td>
+1.000000
+</td>
+<td>
+32.540000
+</td>
+<td>
+-124.350000
+</td>
+<td>
+120.676447
+</td>
+<td>
+4.205891e+02
+</td>
+<td>
+4.849180e+02
+</td>
+<td>
+569.448118
+</td>
+<td>
+456.141313
+</td>
+</tr>
+<tr>
+<th>
+25%
+</th>
+<td>
+119600.000000
+</td>
+<td>
+2.563400
+</td>
+<td>
+18.000000
+</td>
+<td>
+1447.750000
+</td>
+<td>
+295.000000
+</td>
+<td>
+787.000000
+</td>
+<td>
+280.000000
+</td>
+<td>
+33.930000
+</td>
+<td>
+-121.800000
+</td>
+<td>
+9079.756762
+</td>
+<td>
+3.211125e+04
+</td>
+<td>
+1.594264e+05
+</td>
+<td>
+113119.928682
+</td>
+<td>
+117395.477505
+</td>
+</tr>
+<tr>
+<th>
+50%
+</th>
+<td>
+179700.000000
+</td>
+<td>
+3.534800
+</td>
+<td>
+29.000000
+</td>
+<td>
+2127.000000
+</td>
+<td>
+435.000000
+</td>
+<td>
+1166.000000
+</td>
+<td>
+409.000000
+</td>
+<td>
+34.260000
+</td>
+<td>
+-118.490000
+</td>
+<td>
+20522.019101
+</td>
+<td>
+1.736675e+05
+</td>
+<td>
+2.147398e+05
+</td>
+<td>
+459758.877000
+</td>
+<td>
+526546.661701
+</td>
+</tr>
+<tr>
+<th>
+75%
+</th>
+<td>
+264725.000000
+</td>
+<td>
+4.743250
+</td>
+<td>
+37.000000
+</td>
+<td>
+3148.000000
+</td>
+<td>
+647.000000
+</td>
+<td>
+1725.000000
+</td>
+<td>
+605.000000
+</td>
+<td>
+37.710000
+</td>
+<td>
+-118.010000
+</td>
+<td>
+49830.414479
+</td>
+<td>
+5.271562e+05
+</td>
+<td>
+7.057954e+05
+</td>
+<td>
+516946.490963
+</td>
+<td>
+584552.007907
+</td>
+</tr>
+<tr>
+<th>
+max
+</th>
+<td>
+500001.000000
+</td>
+<td>
+15.000100
+</td>
+<td>
+52.000000
+</td>
+<td>
+39320.000000
+</td>
+<td>
+6445.000000
+</td>
+<td>
+35682.000000
+</td>
+<td>
+6082.000000
+</td>
+<td>
+41.950000
+</td>
+<td>
+-114.310000
+</td>
+<td>
+333804.686371
+</td>
+<td>
+1.018260e+06
+</td>
+<td>
+1.196919e+06
+</td>
+<td>
+836762.678210
+</td>
+<td>
+903627.663298
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="数据过滤">数据过滤</h2>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">plot_distribution</span>(<span class="params">data, label</span>):</span><br><span class="line">    fig, axs = plt.subplots(nrows=<span class="number">2</span>)</span><br><span class="line">    sns.histplot(</span><br><span class="line">        data[label], </span><br><span class="line">        ax=axs[<span class="number">0</span>]</span><br><span class="line">    )</span><br><span class="line">    sns.boxplot(</span><br><span class="line">        x=data[label],</span><br><span class="line">        width=<span class="number">0.3</span>, </span><br><span class="line">        ax=axs[<span class="number">1</span>],</span><br><span class="line">        showfliers=<span class="literal">False</span>,</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    spacer = np.<span class="built_in">max</span>(data[label]) * <span class="number">0.05</span></span><br><span class="line">    xmin = np.<span class="built_in">min</span>(data[label]) - spacer</span><br><span class="line">    xmax = np.<span class="built_in">max</span>(data[label]) + spacer</span><br><span class="line">    axs[<span class="number">0</span>].set_xlim((xmin, xmax))</span><br><span class="line">    axs[<span class="number">1</span>].set_xlim((xmin, xmax))</span><br><span class="line"></span><br><span class="line">    plt.subplots_adjust(hspace=<span class="number">0</span>)</span><br><span class="line">    fig.suptitle(<span class="string">&quot;Distribution of &quot;</span> + label)</span><br><span class="line">    </span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#观察数据分布</span></span><br><span class="line">plot_distribution(training_data, label=<span class="string">&#x27;Median_House_Value&#x27;</span>)</span><br><span class="line">plot_distribution(training_data, label=<span class="string">&#x27;Median_Age&#x27;</span>);</span><br><span class="line">plot_distribution(training_data, label=<span class="string">&#x27;Median_Income&#x27;</span>);</span><br></pre></td></tr></table></figure>
+<figure>
+<img src="/assets/houses/output_8_0.png" alt="" /><figcaption>png</figcaption>
+</figure>
+<figure>
+<img src="/assets/houses/output_8_1.png" alt="" /><figcaption>png</figcaption>
+</figure>
+<figure>
+<img src="/assets/houses/output_8_2.png" alt="" /><figcaption>png</figcaption>
+</figure>
+<p>可以看到收入和售价数据的右侧末端比较不合理，应该过滤</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#数据清洗函数</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">remove_outliers</span>(<span class="params">data, variable, lower=-np.inf, upper=np.inf</span>):</span><br><span class="line">    df = data.copy()</span><br><span class="line">    df = df[df[variable] &gt; lower]</span><br><span class="line">    df = df[df[variable] &lt; upper]</span><br><span class="line">    <span class="keyword">return</span> df</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">training_data=remove_outliers(training_data,<span class="string">&#x27;Median_Income&#x27;</span>,<span class="number">0</span>,<span class="number">8</span>)</span><br><span class="line">training_data=remove_outliers(training_data,<span class="string">&#x27;Median_House_Value&#x27;</span>,<span class="number">0</span>,<span class="number">400000</span>)</span><br><span class="line">training_data=remove_outliers(training_data,<span class="string">&#x27;Distance_to_coast&#x27;</span>,<span class="number">0</span>,<span class="number">70000</span>)</span><br><span class="line">training_data=remove_outliers(training_data,<span class="string">&#x27;Households&#x27;</span>,<span class="number">0</span>,<span class="number">1500</span>)</span><br><span class="line">plot_distribution(training_data, label=<span class="string">&#x27;Median_House_Value&#x27;</span>)</span><br><span class="line">plot_distribution(training_data, label=<span class="string">&#x27;Median_Age&#x27;</span>);</span><br><span class="line">plot_distribution(training_data, label=<span class="string">&#x27;Median_Income&#x27;</span>);</span><br></pre></td></tr></table></figure>
+<figure>
+<img src="/assets/houses/output_11_0.png" alt="" /><figcaption>png</figcaption>
+</figure>
+<figure>
+<img src="/assets/houses/output_11_1.png" alt="" /><figcaption>png</figcaption>
+</figure>
+<figure>
+<img src="/assets/houses/output_11_2.png" alt="" /><figcaption>png</figcaption>
+</figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">training_data.describe()</span><br></pre></td></tr></table></figure>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+Median_House_Value
+</th>
+<th>
+Median_Income
+</th>
+<th>
+Median_Age
+</th>
+<th>
+Tot_Rooms
+</th>
+<th>
+Tot_Bedrooms
+</th>
+<th>
+Population
+</th>
+<th>
+Households
+</th>
+<th>
+Latitude
+</th>
+<th>
+Longitude
+</th>
+<th>
+Distance_to_coast
+</th>
+<th>
+Distance_to_LA
+</th>
+<th>
+Distance_to_SanDiego
+</th>
+<th>
+Distance_to_SanJose
+</th>
+<th>
+Distance_to_SanFrancisco
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+count
+</th>
+<td>
+14651.000000
+</td>
+<td>
+14651.000000
+</td>
+<td>
+14651.000000
+</td>
+<td>
+14651.000000
+</td>
+<td>
+14651.000000
+</td>
+<td>
+14651.000000
+</td>
+<td>
+14651.000000
+</td>
+<td>
+14651.000000
+</td>
+<td>
+14651.000000
+</td>
+<td>
+14651.000000
+</td>
+<td>
+1.465100e+04
+</td>
+<td>
+1.465100e+04
+</td>
+<td>
+14651.000000
+</td>
+<td>
+14651.000000
+</td>
+</tr>
+<tr>
+<th>
+mean
+</th>
+<td>
+199561.517917
+</td>
+<td>
+3.696580
+</td>
+<td>
+29.953996
+</td>
+<td>
+2356.678657
+</td>
+<td>
+496.034742
+</td>
+<td>
+1367.255341
+</td>
+<td>
+468.929561
+</td>
+<td>
+35.372597
+</td>
+<td>
+-119.555017
+</td>
+<td>
+21259.751408
+</td>
+<td>
+2.490542e+05
+</td>
+<td>
+3.721187e+05
+</td>
+<td>
+359123.874456
+</td>
+<td>
+397236.235539
+</td>
+</tr>
+<tr>
+<th>
+std
+</th>
+<td>
+79310.711796
+</td>
+<td>
+1.419884
+</td>
+<td>
+12.191439
+</td>
+<td>
+1425.953928
+</td>
+<td>
+287.919292
+</td>
+<td>
+814.994880
+</td>
+<td>
+266.065608
+</td>
+<td>
+2.077014
+</td>
+<td>
+2.063217
+</td>
+<td>
+16562.862059
+</td>
+<td>
+2.475190e+05
+</td>
+<td>
+2.905277e+05
+</td>
+<td>
+226985.441402
+</td>
+<td>
+262135.238533
+</td>
+</tr>
+<tr>
+<th>
+min
+</th>
+<td>
+14999.000000
+</td>
+<td>
+0.499900
+</td>
+<td>
+1.000000
+</td>
+<td>
+11.000000
+</td>
+<td>
+3.000000
+</td>
+<td>
+3.000000
+</td>
+<td>
+3.000000
+</td>
+<td>
+32.540000
+</td>
+<td>
+-124.350000
+</td>
+<td>
+120.676447
+</td>
+<td>
+4.205891e+02
+</td>
+<td>
+4.849180e+02
+</td>
+<td>
+569.448118
+</td>
+<td>
+456.141313
+</td>
+</tr>
+<tr>
+<th>
+25%
+</th>
+<td>
+140600.000000
+</td>
+<td>
+2.625000
+</td>
+<td>
+20.000000
+</td>
+<td>
+1410.000000
+</td>
+<td>
+296.000000
+</td>
+<td>
+816.000000
+</td>
+<td>
+286.000000
+</td>
+<td>
+33.880000
+</td>
+<td>
+-121.890000
+</td>
+<td>
+8077.199272
+</td>
+<td>
+2.631262e+04
+</td>
+<td>
+1.550810e+05
+</td>
+<td>
+88700.495102
+</td>
+<td>
+92070.783507
+</td>
+</tr>
+<tr>
+<th>
+50%
+</th>
+<td>
+187500.000000
+</td>
+<td>
+3.551100
+</td>
+<td>
+31.000000
+</td>
+<td>
+2053.000000
+</td>
+<td>
+431.000000
+</td>
+<td>
+1190.000000
+</td>
+<td>
+412.000000
+</td>
+<td>
+34.140000
+</td>
+<td>
+-118.360000
+</td>
+<td>
+17596.867293
+</td>
+<td>
+1.385490e+05
+</td>
+<td>
+1.872540e+05
+</td>
+<td>
+484362.783196
+</td>
+<td>
+552023.712780
+</td>
+</tr>
+<tr>
+<th>
+75%
+</th>
+<td>
+252000.000000
+</td>
+<td>
+4.625000
+</td>
+<td>
+38.000000
+</td>
+<td>
+2968.000000
+</td>
+<td>
+631.000000
+</td>
+<td>
+1725.000000
+</td>
+<td>
+595.000000
+</td>
+<td>
+37.690000
+</td>
+<td>
+-117.980000
+</td>
+<td>
+28063.195081
+</td>
+<td>
+5.221622e+05
+</td>
+<td>
+7.009827e+05
+</td>
+<td>
+519935.107297
+</td>
+<td>
+587792.558476
+</td>
+</tr>
+<tr>
+<th>
+max
+</th>
+<td>
+399400.000000
+</td>
+<td>
+7.988700
+</td>
+<td>
+52.000000
+</td>
+<td>
+12837.000000
+</td>
+<td>
+2219.000000
+</td>
+<td>
+8733.000000
+</td>
+<td>
+1499.000000
+</td>
+<td>
+41.950000
+</td>
+<td>
+-114.550000
+</td>
+<td>
+69995.382339
+</td>
+<td>
+1.018260e+06
+</td>
+<td>
+1.196919e+06
+</td>
+<td>
+836762.678210
+</td>
+<td>
+903627.663298
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="数据处理">数据处理</h2>
+<p>对一些数值过大的数据进行log处理</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">log_transform</span>(<span class="params">data, col</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;Add the log transformation of a column to the data frame&quot;&quot;&quot;</span></span><br><span class="line">    data[<span class="string">&#x27;Log &#x27;</span> + col] = np.log(data[col])</span><br><span class="line">    <span class="keyword">return</span> data</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">training_data=log_transform(training_data,<span class="string">&#x27;Median_House_Value&#x27;</span>)</span><br><span class="line">training_data=log_transform(training_data,<span class="string">&#x27;Distance_to_coast&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">plot_distribution(training_data, label=<span class="string">&#x27;Log Median_House_Value&#x27;</span>);</span><br></pre></td></tr></table></figure>
+<figure>
+<img src="/assets/houses/output_16_0.png" alt="" /><figcaption>png</figcaption>
+</figure>
+<h2 id="数据分析寻找与房屋价格有线性关系的列">数据分析——寻找与房屋价格有线性关系的列</h2>
+<h3 id="可视化房屋价格与距离远近的关系">可视化房屋价格与距离远近的关系</h3>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">places=[<span class="string">&#x27;Distance_to_coast&#x27;</span>, <span class="string">&#x27;Distance_to_LA&#x27;</span>,</span><br><span class="line">       <span class="string">&#x27;Distance_to_SanDiego&#x27;</span>, <span class="string">&#x27;Distance_to_SanJose&#x27;</span>,</span><br><span class="line">       <span class="string">&#x27;Distance_to_SanFrancisco&#x27;</span>]</span><br><span class="line">training_data[places].describe()</span><br></pre></td></tr></table></figure>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+</th>
+<th>
+Distance_to_coast
+</th>
+<th>
+Distance_to_LA
+</th>
+<th>
+Distance_to_SanDiego
+</th>
+<th>
+Distance_to_SanJose
+</th>
+<th>
+Distance_to_SanFrancisco
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>
+count
+</th>
+<td>
+14651.000000
+</td>
+<td>
+1.465100e+04
+</td>
+<td>
+1.465100e+04
+</td>
+<td>
+14651.000000
+</td>
+<td>
+14651.000000
+</td>
+</tr>
+<tr>
+<th>
+mean
+</th>
+<td>
+21259.751408
+</td>
+<td>
+2.490542e+05
+</td>
+<td>
+3.721187e+05
+</td>
+<td>
+359123.874456
+</td>
+<td>
+397236.235539
+</td>
+</tr>
+<tr>
+<th>
+std
+</th>
+<td>
+16562.862059
+</td>
+<td>
+2.475190e+05
+</td>
+<td>
+2.905277e+05
+</td>
+<td>
+226985.441402
+</td>
+<td>
+262135.238533
+</td>
+</tr>
+<tr>
+<th>
+min
+</th>
+<td>
+120.676447
+</td>
+<td>
+4.205891e+02
+</td>
+<td>
+4.849180e+02
+</td>
+<td>
+569.448118
+</td>
+<td>
+456.141313
+</td>
+</tr>
+<tr>
+<th>
+25%
+</th>
+<td>
+8077.199272
+</td>
+<td>
+2.631262e+04
+</td>
+<td>
+1.550810e+05
+</td>
+<td>
+88700.495102
+</td>
+<td>
+92070.783507
+</td>
+</tr>
+<tr>
+<th>
+50%
+</th>
+<td>
+17596.867293
+</td>
+<td>
+1.385490e+05
+</td>
+<td>
+1.872540e+05
+</td>
+<td>
+484362.783196
+</td>
+<td>
+552023.712780
+</td>
+</tr>
+<tr>
+<th>
+75%
+</th>
+<td>
+28063.195081
+</td>
+<td>
+5.221622e+05
+</td>
+<td>
+7.009827e+05
+</td>
+<td>
+519935.107297
+</td>
+<td>
+587792.558476
+</td>
+</tr>
+<tr>
+<th>
+max
+</th>
+<td>
+69995.382339
+</td>
+<td>
+1.018260e+06
+</td>
+<td>
+1.196919e+06
+</td>
+<td>
+836762.678210
+</td>
+<td>
+903627.663298
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sns.jointplot(data = training_data, x = <span class="string">&quot;Distance_to_coast&quot;</span>, \</span><br><span class="line">              y = <span class="string">&quot;Log Median_House_Value&quot;</span>, \</span><br><span class="line">              kind = <span class="string">&quot;hex&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># plt.suptitle allows us to shift the title up so it does not overlap with the histogram</span></span><br><span class="line">plt.suptitle(<span class="string">&quot;coast distance agginst value&quot;</span>)</span><br><span class="line">plt.subplots_adjust(top=<span class="number">0.9</span>);</span><br></pre></td></tr></table></figure>
+<figure>
+<img src="/assets/houses/output_20_0.png" alt="" /><figcaption>png</figcaption>
+</figure>
+<p>可以看出距海岸线距离似乎与房价有关系</p>
+<h3 id="用折线图表示平均房价与海岸线与城市距离关系">用折线图表示平均房价与海岸线与城市距离关系</h3>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">draw_mean_lineplot</span>(<span class="params">dis,val,df=training_data,thisbins=<span class="number">200</span></span>):</span><br><span class="line">    categories = pd.cut(df[dis], bins=thisbins)</span><br><span class="line">    mids = [c.mid <span class="keyword">for</span> c <span class="keyword">in</span> categories]  </span><br><span class="line">    df[<span class="string">&#x27;distance_bin&#x27;</span>] = mids</span><br><span class="line">    mean_price = df.groupby(<span class="string">&#x27;distance_bin&#x27;</span>)[val].mean()</span><br><span class="line">    newdf=pd.DataFrame()</span><br><span class="line">    newdf[<span class="string">&#x27;mean_price&#x27;</span>]=mean_price</span><br><span class="line">    newdf[<span class="string">&#x27;distance_bin&#x27;</span>]=mean_price.index</span><br><span class="line">    sns.lineplot(x=<span class="string">&#x27;distance_bin&#x27;</span>,y=<span class="string">&#x27;mean_price&#x27;</span>,data=newdf)</span><br><span class="line">    plt.title(<span class="string">&quot;mean house price with the same &quot;</span>+dis)</span><br><span class="line">    plt.show()</span><br><span class="line"><span class="keyword">for</span> pla <span class="keyword">in</span> places:</span><br><span class="line">    draw_mean_lineplot(dis=pla,val=<span class="string">&#x27;Median_House_Value&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<figure>
+<img src="/assets/houses/output_23_0.png" alt="" /><figcaption>png</figcaption>
+</figure>
+<figure>
+<img src="/assets/houses/output_23_1.png" alt="" /><figcaption>png</figcaption>
+</figure>
+<figure>
+<img src="/assets/houses/output_23_2.png" alt="" /><figcaption>png</figcaption>
+</figure>
+<figure>
+<img src="/assets/houses/output_23_3.png" alt="" /><figcaption>png</figcaption>
+</figure>
+<figure>
+<img src="/assets/houses/output_23_4.png" alt="" /><figcaption>png</figcaption>
+</figure>
+<p>根据可视化发现，只有海岸线距离与房价有类似线性关系</p>
+<h3 id="房屋数和卧室数与房价是否相关">房屋数和卧室数与房价是否相关</h3>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">draw_mean_lineplot(dis=<span class="string">&#x27;Tot_Rooms&#x27;</span>,val=<span class="string">&#x27;Median_House_Value&#x27;</span>,thisbins=<span class="number">50</span>)</span><br><span class="line">draw_mean_lineplot(dis=<span class="string">&#x27;Tot_Bedrooms&#x27;</span>,val=<span class="string">&#x27;Median_House_Value&#x27;</span>,thisbins=<span class="number">50</span>)</span><br></pre></td></tr></table></figure>
+<figure>
+<img src="/assets/houses/output_26_0.png" alt="" /><figcaption>png</figcaption>
+</figure>
+<figure>
+<img src="/assets/houses/output_26_1.png" alt="" /><figcaption>png</figcaption>
+</figure>
+<p>可以看出单独两列和房价都无明显关系</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">training_data[<span class="string">&#x27;bedroom_proportion&#x27;</span>] =training_data[<span class="string">&#x27;Tot_Bedrooms&#x27;</span>] / training_data[<span class="string">&#x27;Tot_Rooms&#x27;</span>]</span><br><span class="line">training_data=remove_outliers(training_data,<span class="string">&#x27;bedroom_proportion&#x27;</span>,<span class="number">0</span>,<span class="number">0.25</span>)</span><br><span class="line"></span><br><span class="line">sns.lmplot(data = training_data, x = <span class="string">&quot;bedroom_proportion&quot;</span>, \</span><br><span class="line">           y = <span class="string">&quot;Median_House_Value&quot;</span>,x_bins=<span class="number">100</span>,x_ci=<span class="number">1</span>)</span><br><span class="line">plt.title(<span class="string">&quot;proportion of bedroom against house value&quot;</span>);</span><br></pre></td></tr></table></figure>
+<pre><code>C:\Users\thive\anaconda3\Lib\site-packages\seaborn\axisgrid.py:118: UserWarning: The figure layout has changed to tight
+  self._figure.tight_layout(*args, **kwargs)</code></pre>
+<figure>
+<img src="/assets/houses/output_28_1.png" alt="" /><figcaption>png</figcaption>
+</figure>
+<p>两者比例和房价近似线性有关</p>
+<h3 id="和房屋年龄关系">和房屋年龄关系</h3>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">draw_mean_lineplot(dis=<span class="string">&#x27;Median_Age&#x27;</span>,val=<span class="string">&#x27;Median_House_Value&#x27;</span>,thisbins=<span class="number">500</span>)</span><br></pre></td></tr></table></figure>
+<figure>
+<img src="/assets/houses/output_31_0.png" alt="" /><figcaption>png</figcaption>
+</figure>
+<p>可以看出和年龄没有明显关系</p>
+<h3 id="和家庭平均人口数的关系">和家庭平均人口数的关系</h3>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">training_data[<span class="string">&#x27;people_house_proportion&#x27;</span>] =training_data[<span class="string">&#x27;Population&#x27;</span>] / training_data[<span class="string">&#x27;Households&#x27;</span>]</span><br><span class="line">training_data=remove_outliers(training_data,<span class="string">&#x27;people_house_proportion&#x27;</span>,<span class="number">0</span>,<span class="number">3.5</span>)</span><br><span class="line">sns.lmplot(data = training_data, x = <span class="string">&quot;people_house_proportion&quot;</span>, \</span><br><span class="line">           y = <span class="string">&quot;Median_House_Value&quot;</span>,x_bins=<span class="number">50</span>,x_ci=<span class="number">1</span>)</span><br><span class="line">plt.title(<span class="string">&quot;proportion of people in house against house value&quot;</span>);</span><br></pre></td></tr></table></figure>
+<pre><code>C:\Users\thive\anaconda3\Lib\site-packages\seaborn\axisgrid.py:118: UserWarning: The figure layout has changed to tight
+  self._figure.tight_layout(*args, **kwargs)</code></pre>
+<figure>
+<img src="/assets/houses/output_34_1.png" alt="" /><figcaption>png</figcaption>
+</figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">training_data[<span class="string">&#x27;people_house_proportion&#x27;</span>].describe()</span><br></pre></td></tr></table></figure>
+<pre><code>count    9213.000000
+mean        2.722022
+std         0.422372
+min         1.060606
+25%         2.432647
+50%         2.740845
+75%         3.044444
+max         3.499266
+Name: people_house_proportion, dtype: float64</code></pre>
+<p>可以看出和家庭平均人数有线性关系</p>
+<h3 id="与中位数收入的关系">与中位数收入的关系</h3>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sns.lmplot(data = training_data, x = <span class="string">&quot;Median_Income&quot;</span>, \</span><br><span class="line">           y = <span class="string">&quot;Median_House_Value&quot;</span>,x_bins=<span class="number">50</span>)</span><br><span class="line">plt.title(<span class="string">&quot;median income against house value&quot;</span>);</span><br></pre></td></tr></table></figure>
+<pre><code>C:\Users\thive\anaconda3\Lib\site-packages\seaborn\axisgrid.py:118: UserWarning: The figure layout has changed to tight
+  self._figure.tight_layout(*args, **kwargs)</code></pre>
+<figure>
+<img src="/assets/houses/output_38_1.png" alt="" /><figcaption>png</figcaption>
+</figure>
+<p>可以看出和中位数收入线性有关</p>
+<h3 id="验证相关性可视化">验证——相关性可视化</h3>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">correlation = training_data.corr()[<span class="string">&#x27;Median_House_Value&#x27;</span>].sort_values(ascending = <span class="literal">False</span>).to_frame()</span><br><span class="line">sns.heatmap(correlation, annot = <span class="literal">True</span>, cmap = <span class="string">&#x27;Blues&#x27;</span>, fmt = <span class="string">&#x27;.2f&#x27;</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<pre><code>&lt;Axes: &gt;</code></pre>
+<figure>
+<img src="/assets/houses/output_41_1.png" alt="" /><figcaption>png</figcaption>
+</figure>
+<h2 id="建立模型">建立模型</h2>
+<h3 id="拆分数据">拆分数据</h3>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">train_val_split</span>(<span class="params">data, train_pct=<span class="number">0.8</span></span>):</span><br><span class="line">    data_len = data.shape[<span class="number">0</span>]</span><br><span class="line">    shuffled_indices = np.random.permutation(data_len)</span><br><span class="line">    </span><br><span class="line">    split_index = <span class="built_in">int</span>(<span class="number">0.8</span> * data_len)</span><br><span class="line">    train_indices = shuffled_indices[:split_index]</span><br><span class="line">    val_indices = shuffled_indices[split_index:]</span><br><span class="line">    </span><br><span class="line">    train = data.iloc[train_indices]</span><br><span class="line">    validation = data.iloc[val_indices]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> train, validation</span><br><span class="line"></span><br><span class="line">train_m1, valid_m1 = train_val_split(training_data)</span><br><span class="line">train_m2, valid_m2 = train_val_split(training_data)</span><br><span class="line">features=[<span class="string">&#x27;Median_Income&#x27;</span>,<span class="string">&#x27;Distance_to_coast&#x27;</span>,<span class="string">&#x27;bedroom_proportion&#x27;</span>,<span class="string">&#x27;people_house_proportion&#x27;</span>]</span><br><span class="line"><span class="comment">#模型1</span></span><br><span class="line">X_train_m1 = train_m1[[<span class="string">&#x27;Median_Income&#x27;</span>]]</span><br><span class="line">y_train_m1 = train_m1[[<span class="string">&#x27;Median_House_Value&#x27;</span>]]</span><br><span class="line">X_valid_m1 = valid_m1[[<span class="string">&#x27;Median_Income&#x27;</span>]]</span><br><span class="line">y_valid_m1 = valid_m1[[<span class="string">&#x27;Median_House_Value&#x27;</span>]]</span><br><span class="line"><span class="comment">#模型2</span></span><br><span class="line">X_train_m2 = train_m2[features]</span><br><span class="line">y_train_m2 = train_m2[[<span class="string">&#x27;Median_House_Value&#x27;</span>]]</span><br><span class="line">X_valid_m2 = valid_m2[features]</span><br><span class="line">y_valid_m2 = valid_m2[[<span class="string">&#x27;Median_House_Value&#x27;</span>]]</span><br></pre></td></tr></table></figure>
+<h3 id="建立线性模型">建立线性模型</h3>
+<p><span class="math display">\[
+\hat{y}_i = \theta_0 + \theta_1 x_i
+\]</span></p>
+<p>建立线性回归模型，并可视化预测值的分布与实际分布比较</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> linear_model <span class="keyword">as</span> lm</span><br><span class="line">linear_model_m1 = lm.LinearRegression()</span><br><span class="line">linear_model_m2 = lm.LinearRegression()</span><br><span class="line"><span class="comment"># Fit the 1st model</span></span><br><span class="line">linear_model_m1.fit(X_train_m1, y_train_m1)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Compute the fitted and predicted values for 1st model</span></span><br><span class="line">y_fitted_m1 = linear_model_m1.predict(X_train_m1)</span><br><span class="line">y_predicted_m1 = linear_model_m1.predict(X_valid_m1)</span><br><span class="line">predictions_series = pd.Series(y_predicted_m1[:,<span class="number">0</span>])</span><br><span class="line">predictions_df = predictions_series.to_frame()</span><br><span class="line">predictions_df=predictions_df.rename(columns=&#123;<span class="number">0</span>: <span class="string">&#x27;house value&#x27;</span>&#125;)</span><br><span class="line">plot_distribution(predictions_df,<span class="string">&#x27;house value&#x27;</span>)</span><br><span class="line">plot_distribution(valid_m1,<span class="string">&#x27;Median_House_Value&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<figure>
+<img src="/assets/houses/output_46_0.png" alt="" /><figcaption>png</figcaption>
+</figure>
+<figure>
+<img src="/assets/houses/output_46_1.png" alt="" /><figcaption>png</figcaption>
+</figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">linear_model_m2.fit(X_train_m2, y_train_m2)</span><br><span class="line">y_fitted_m2 = linear_model_m2.predict(X_train_m2)</span><br><span class="line">y_predicted_m2 = linear_model_m2.predict(X_valid_m2)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">linear_model_m1.score(X_train_m1, y_train_m1)</span><br></pre></td></tr></table></figure>
+<pre><code>0.4072930993173016</code></pre>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">linear_model_m2.score(X_train_m2, y_train_m2)</span><br></pre></td></tr></table></figure>
+<pre><code>0.5179760889801486</code></pre>
+<p>可以看出使用更多特征列的模型二有更好的性能</p>
+<h3 id="误差评估">误差评估</h3>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Calculate residuals </span></span><br><span class="line">residuals = y_valid_m1 - y_predicted_m1</span><br><span class="line"></span><br><span class="line"><span class="comment"># Create scatter plot</span></span><br><span class="line">plt.scatter(y_valid_m1, residuals, alpha=<span class="number">0.5</span>, s=<span class="number">3</span>)</span><br><span class="line"><span class="comment"># Label axes</span></span><br><span class="line">plt.xlabel(<span class="string">&#x27;Log Sale Price&#x27;</span>) </span><br><span class="line">plt.ylabel(<span class="string">&#x27;Residuals&#x27;</span>)</span><br><span class="line"><span class="comment"># Set plot title</span></span><br><span class="line">plt.title(<span class="string">&#x27;Residuals vs. Sale Price for Model 1&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Show plot</span></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<figure>
+<img src="/assets/houses/output_52_0.png" alt="" /><figcaption>png</figcaption>
+</figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Calculate residuals </span></span><br><span class="line">residuals = y_valid_m2 - y_predicted_m2</span><br><span class="line"></span><br><span class="line"><span class="comment"># Create scatter plot</span></span><br><span class="line">plt.scatter(y_valid_m2, residuals, alpha=<span class="number">0.5</span>, s=<span class="number">3</span>)</span><br><span class="line"><span class="comment"># Label axes</span></span><br><span class="line">plt.xlabel(<span class="string">&#x27;Log Sale Price&#x27;</span>) </span><br><span class="line">plt.ylabel(<span class="string">&#x27;Residuals&#x27;</span>)</span><br><span class="line"><span class="comment"># Set plot title</span></span><br><span class="line">plt.title(<span class="string">&#x27;Residuals vs. Sale Price for Model 2&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Show plot</span></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<figure>
+<img src="/assets/houses/output_53_0.png" alt="" /><figcaption>png</figcaption>
+</figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">rmse</span>(<span class="params">predicted, actual</span>):</span><br><span class="line">    <span class="keyword">return</span> np.sqrt(np.mean((actual - predicted)**<span class="number">2</span>))</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">rmse_m1 = rmse(y_predicted_m1, y_valid_m1)</span><br><span class="line">rmse_m2 = rmse(y_predicted_m2, y_valid_m2)</span><br><span class="line">plt.bar([<span class="string">&#x27;Model 1&#x27;</span>, <span class="string">&#x27;Model 2&#x27;</span>], [rmse_m1, rmse_m2])</span><br><span class="line">plt.ylabel(<span class="string">&#x27;RMSE&#x27;</span>)</span><br><span class="line">plt.title(<span class="string">&#x27;Model Comparison on RMSE&#x27;</span>)</span><br><span class="line"></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<figure>
+<img src="/assets/houses/output_55_0.png" alt="" /><figcaption>png</figcaption>
+</figure>
+<p>to_do:交叉验证，正则化，主成分分析，逻辑回归</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>课程笔记</category>
+        <category>数据科学</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+        <tag>数据科学</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>基于苏大ppt的linux笔记(待续)</title>
     <url>/2023/10/14/%E8%8B%8F%E5%A4%A7linux_ppt/</url>
     <content><![CDATA[<h1 id="苏大部分">苏大部分</h1>
@@ -2908,1338 +4505,6 @@ used the next time std::cin &gt;&gt; is called<br />
         <tag>课程笔记</tag>
         <tag>c++</tag>
         <tag>斯坦福</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>基于ds100美国房地产数据集的数据分析实战项目</title>
-    <url>/2023/10/22/houses/</url>
-    <content><![CDATA[<h2 id="数据集美国伊利诺伊州库克县的住房数据集">数据集：美国伊利诺伊州库克县的住房数据集</h2>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#引入python库</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line">%matplotlib inline</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> warnings</span><br><span class="line">warnings.filterwarnings(<span class="string">&quot;ignore&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> zipfile</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line"><span class="comment"># Plot settings</span></span><br><span class="line">plt.rcParams[<span class="string">&#x27;figure.figsize&#x27;</span>] = (<span class="number">12</span>, <span class="number">9</span>)</span><br><span class="line">plt.rcParams[<span class="string">&#x27;font.size&#x27;</span>] = <span class="number">12</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>该数据集包含来自伊利诺伊州库克县（芝加哥）的超过 500,000 条记录。 数据集共有62列， 包括销售价格,平面面积等，每个变量的解释可以在 codebook.txt文件中找到。</p>
-<span id="more"></span>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#引入数据集</span></span><br><span class="line"><span class="keyword">with</span> zipfile.ZipFile(<span class="string">&#x27;cook_county_data.zip&#x27;</span>) <span class="keyword">as</span> item:</span><br><span class="line">    item.extractall()</span><br><span class="line">training_data = pd.read_csv(<span class="string">&quot;cook_county_train.csv&quot;</span>, index_col=<span class="string">&#x27;Unnamed: 0&#x27;</span>)</span><br><span class="line"><span class="comment"># 204,792 observations and 62 features in training data</span></span><br><span class="line"><span class="keyword">assert</span> training_data.shape == (<span class="number">204792</span>, <span class="number">62</span>)</span><br><span class="line"><span class="comment"># Sale Price is provided in the training data</span></span><br><span class="line"><span class="keyword">assert</span> <span class="string">&#x27;Sale Price&#x27;</span> <span class="keyword">in</span> training_data.columns.values</span><br><span class="line">training_data.columns.values</span><br><span class="line">training_data[<span class="string">&#x27;Neigborhood Code&#x27;</span>] = training_data[<span class="string">&#x27;Neigborhood Code (mapping)&#x27;</span>]</span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">training_data[<span class="string">&#x27;Description&#x27;</span>][<span class="number">0</span>]</span><br></pre></td></tr></table></figure>
-<pre><code>&#39;This property, sold on 09/14/2015, is a one-story houeshold located at 2950 S LYMAN ST.It has a total of 6 rooms, 3 of which are bedrooms, and 1.0 of which are bathrooms.&#39;</code></pre>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">training_data.head()</span><br></pre></td></tr></table></figure>
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-<thead>
-<tr style="text-align: right;">
-<th>
-</th>
-<th>
-PIN
-</th>
-<th>
-Property Class
-</th>
-<th>
-Neighborhood Code
-</th>
-<th>
-Land Square Feet
-</th>
-<th>
-Town Code
-</th>
-<th>
-Apartments
-</th>
-<th>
-Wall Material
-</th>
-<th>
-Roof Material
-</th>
-<th>
-Basement
-</th>
-<th>
-Basement Finish
-</th>
-<th>
-...
-</th>
-<th>
-Sale Half of Year
-</th>
-<th>
-Most Recent Sale
-</th>
-<th>
-Age Decade
-</th>
-<th>
-Pure Market Filter
-</th>
-<th>
-Garage Indicator
-</th>
-<th>
-Neigborhood Code (mapping)
-</th>
-<th>
-Town and Neighborhood
-</th>
-<th>
-Description
-</th>
-<th>
-Lot Size
-</th>
-<th>
-Neigborhood Code
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<th>
-0
-</th>
-<td>
-17294100610000
-</td>
-<td>
-203
-</td>
-<td>
-50
-</td>
-<td>
-2500.0
-</td>
-<td>
-76
-</td>
-<td>
-0.0
-</td>
-<td>
-2.0
-</td>
-<td>
-1.0
-</td>
-<td>
-1.0
-</td>
-<td>
-3.0
-</td>
-<td>
-...
-</td>
-<td>
-2
-</td>
-<td>
-1.0
-</td>
-<td>
-13.2
-</td>
-<td>
-0
-</td>
-<td>
-0.0
-</td>
-<td>
-50
-</td>
-<td>
-7650
-</td>
-<td>
-This property, sold on 09/14/2015, is a one-st...
-</td>
-<td>
-2500.0
-</td>
-<td>
-50
-</td>
-</tr>
-<tr>
-<th>
-1
-</th>
-<td>
-13272240180000
-</td>
-<td>
-202
-</td>
-<td>
-120
-</td>
-<td>
-3780.0
-</td>
-<td>
-71
-</td>
-<td>
-0.0
-</td>
-<td>
-2.0
-</td>
-<td>
-1.0
-</td>
-<td>
-1.0
-</td>
-<td>
-1.0
-</td>
-<td>
-...
-</td>
-<td>
-1
-</td>
-<td>
-1.0
-</td>
-<td>
-9.6
-</td>
-<td>
-1
-</td>
-<td>
-1.0
-</td>
-<td>
-120
-</td>
-<td>
-71120
-</td>
-<td>
-This property, sold on 05/23/2018, is a one-st...
-</td>
-<td>
-3780.0
-</td>
-<td>
-120
-</td>
-</tr>
-<tr>
-<th>
-2
-</th>
-<td>
-25221150230000
-</td>
-<td>
-202
-</td>
-<td>
-210
-</td>
-<td>
-4375.0
-</td>
-<td>
-70
-</td>
-<td>
-0.0
-</td>
-<td>
-2.0
-</td>
-<td>
-1.0
-</td>
-<td>
-2.0
-</td>
-<td>
-3.0
-</td>
-<td>
-...
-</td>
-<td>
-1
-</td>
-<td>
-0.0
-</td>
-<td>
-11.2
-</td>
-<td>
-1
-</td>
-<td>
-1.0
-</td>
-<td>
-210
-</td>
-<td>
-70210
-</td>
-<td>
-This property, sold on 02/18/2016, is a one-st...
-</td>
-<td>
-4375.0
-</td>
-<td>
-210
-</td>
-</tr>
-<tr>
-<th>
-3
-</th>
-<td>
-10251130030000
-</td>
-<td>
-203
-</td>
-<td>
-220
-</td>
-<td>
-4375.0
-</td>
-<td>
-17
-</td>
-<td>
-0.0
-</td>
-<td>
-3.0
-</td>
-<td>
-1.0
-</td>
-<td>
-1.0
-</td>
-<td>
-3.0
-</td>
-<td>
-...
-</td>
-<td>
-2
-</td>
-<td>
-1.0
-</td>
-<td>
-6.3
-</td>
-<td>
-1
-</td>
-<td>
-1.0
-</td>
-<td>
-220
-</td>
-<td>
-17220
-</td>
-<td>
-This property, sold on 07/23/2013, is a one-st...
-</td>
-<td>
-4375.0
-</td>
-<td>
-220
-</td>
-</tr>
-<tr>
-<th>
-4
-</th>
-<td>
-31361040550000
-</td>
-<td>
-202
-</td>
-<td>
-120
-</td>
-<td>
-8400.0
-</td>
-<td>
-32
-</td>
-<td>
-0.0
-</td>
-<td>
-3.0
-</td>
-<td>
-1.0
-</td>
-<td>
-2.0
-</td>
-<td>
-3.0
-</td>
-<td>
-...
-</td>
-<td>
-1
-</td>
-<td>
-0.0
-</td>
-<td>
-6.3
-</td>
-<td>
-1
-</td>
-<td>
-1.0
-</td>
-<td>
-120
-</td>
-<td>
-32120
-</td>
-<td>
-This property, sold on 06/10/2016, is a one-st...
-</td>
-<td>
-8400.0
-</td>
-<td>
-120
-</td>
-</tr>
-</tbody>
-</table>
-<p>
-5 rows × 63 columns
-</p>
-</div>
-<h2 id="过滤一些不合理数据">过滤一些不合理数据</h2>
-<p>销售价格理应大于100(所谓的一元房屋没有参考价值)</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">remove_outliers</span>(<span class="params">data, variable, lower=-np.inf, upper=np.inf</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    Input:</span></span><br><span class="line"><span class="string">      data (DataFrame): the table to be filtered</span></span><br><span class="line"><span class="string">      variable (string): the column with numerical outliers</span></span><br><span class="line"><span class="string">      lower (numeric): observations with values lower than or equal to this will be removed</span></span><br><span class="line"><span class="string">      upper (numeric): observations with values higher than this will be removed</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    Output:</span></span><br><span class="line"><span class="string">      a DataFrame with outliers removed</span></span><br><span class="line"><span class="string">      </span></span><br><span class="line"><span class="string">    Note: This function should not change mutate the contents of data.</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span>  </span><br><span class="line">    df = data.copy()</span><br><span class="line"></span><br><span class="line">  <span class="comment"># Filter out rows with outliers</span></span><br><span class="line">    df = df[df[variable] &gt; lower]</span><br><span class="line">    df = df[df[variable] &lt; upper]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> df</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">training_data = remove_outliers(training_data,<span class="string">&#x27;Sale Price&#x27;</span>,<span class="number">100</span>)</span><br></pre></td></tr></table></figure>
-<h2 id="可视化销售价格数据">可视化销售价格数据</h2>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">plot_distribution</span>(<span class="params">data, label</span>):</span><br><span class="line">    fig, axs = plt.subplots(nrows=<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">    sns.distplot(</span><br><span class="line">        data[label], </span><br><span class="line">        ax=axs[<span class="number">0</span>]</span><br><span class="line">    )</span><br><span class="line">    sns.boxplot(</span><br><span class="line">        x=data[label],</span><br><span class="line">        width=<span class="number">0.3</span>, </span><br><span class="line">        ax=axs[<span class="number">1</span>],</span><br><span class="line">        showfliers=<span class="literal">False</span>,</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Align axes</span></span><br><span class="line">    spacer = np.<span class="built_in">max</span>(data[label]) * <span class="number">0.05</span></span><br><span class="line">    xmin = np.<span class="built_in">min</span>(data[label]) - spacer</span><br><span class="line">    xmax = np.<span class="built_in">max</span>(data[label]) + spacer</span><br><span class="line">    axs[<span class="number">0</span>].set_xlim((xmin, xmax))</span><br><span class="line">    axs[<span class="number">1</span>].set_xlim((xmin, xmax))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Remove some axis text</span></span><br><span class="line">    axs[<span class="number">0</span>].xaxis.set_visible(<span class="literal">False</span>)</span><br><span class="line">    axs[<span class="number">0</span>].yaxis.set_visible(<span class="literal">False</span>)</span><br><span class="line">    axs[<span class="number">1</span>].yaxis.set_visible(<span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Put the two plots together</span></span><br><span class="line">    plt.subplots_adjust(hspace=<span class="number">0</span>)</span><br><span class="line">    fig.suptitle(<span class="string">&quot;Distribution of &quot;</span> + label)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">training_data[<span class="string">&#x27;Log Sale Price&#x27;</span>] = np.log(training_data[<span class="string">&#x27;Sale Price&#x27;</span>])</span><br><span class="line">plot_distribution(training_data, label=<span class="string">&#x27;Log Sale Price&#x27;</span>);</span><br></pre></td></tr></table></figure>
-<figure>
-<img src="assets/houses/output_11_0.png" alt="" /><figcaption>png</figcaption>
-</figure>
-<h2 id="可视化房屋面积数据">可视化房屋面积数据</h2>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">training_data[<span class="string">&#x27;Log Building Square Feet&#x27;</span>] = np.log(training_data[<span class="string">&#x27;Building Square Feet&#x27;</span>])</span><br><span class="line">plot_distribution(training_data, label=<span class="string">&#x27;Log Building Square Feet&#x27;</span>)</span><br></pre></td></tr></table></figure>
-<figure>
-<img src="assets/houses/output_13_0.png" alt="" /><figcaption>png</figcaption>
-</figure>
-<h2 id="可视化销售价格与街区的关系">可视化销售价格与街区的关系</h2>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">plot_categorical</span>(<span class="params">neighborhoods</span>):</span><br><span class="line">    fig, axs = plt.subplots(nrows=<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">    sns.boxplot(</span><br><span class="line">        x=<span class="string">&#x27;Neighborhood Code&#x27;</span>,</span><br><span class="line">        y=<span class="string">&#x27;Log Sale Price&#x27;</span>,</span><br><span class="line">        data=neighborhoods,</span><br><span class="line">        ax=axs[<span class="number">0</span>],</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    sns.countplot(</span><br><span class="line">        x=<span class="string">&#x27;Neighborhood Code&#x27;</span>,</span><br><span class="line">        data=neighborhoods,</span><br><span class="line">        ax=axs[<span class="number">1</span>],</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Draw median price</span></span><br><span class="line">    axs[<span class="number">0</span>].axhline(</span><br><span class="line">        y=training_data[<span class="string">&#x27;Log Sale Price&#x27;</span>].median(), </span><br><span class="line">        color=<span class="string">&#x27;red&#x27;</span>,</span><br><span class="line">        linestyle=<span class="string">&#x27;dotted&#x27;</span></span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Label the bars with counts</span></span><br><span class="line">    <span class="keyword">for</span> patch <span class="keyword">in</span> axs[<span class="number">1</span>].patches:</span><br><span class="line">        x = patch.get_bbox().get_points()[:, <span class="number">0</span>]</span><br><span class="line">        y = patch.get_bbox().get_points()[<span class="number">1</span>, <span class="number">1</span>]</span><br><span class="line">        axs[<span class="number">1</span>].annotate(<span class="string">f&#x27;<span class="subst">&#123;<span class="built_in">int</span>(y)&#125;</span>&#x27;</span>, (x.mean(), y), ha=<span class="string">&#x27;center&#x27;</span>, va=<span class="string">&#x27;bottom&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Format x-axes</span></span><br><span class="line">    axs[<span class="number">1</span>].set_xticklabels(axs[<span class="number">1</span>].xaxis.get_majorticklabels(), rotation=<span class="number">90</span>)</span><br><span class="line">    axs[<span class="number">0</span>].xaxis.set_visible(<span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Narrow the gap between the plots</span></span><br><span class="line">    plt.subplots_adjust(hspace=<span class="number">0.01</span>)</span><br><span class="line">    </span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#算出销售数量最多的20个街区</span></span><br><span class="line">neighborhood_counts = training_data[<span class="string">&#x27;Neigborhood Code&#x27;</span>].value_counts()</span><br><span class="line">top_neighborhoods = neighborhood_counts.nlargest(<span class="number">20</span>).index</span><br><span class="line">in_top_20_neighborhoods = training_data[training_data[<span class="string">&#x27;Neigborhood Code&#x27;</span>].isin(top_neighborhoods)]</span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">plot_categorical(neighborhoods=in_top_20_neighborhoods)</span><br></pre></td></tr></table></figure>
-<figure>
-<img src="assets/houses/output_17_0.png" alt="" /><figcaption>png</figcaption>
-</figure>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#销售价格最高的街区代码</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">find_expensive_neighborhoods</span>(<span class="params">data, n=<span class="number">3</span>, metric=np.median</span>):</span><br><span class="line">    grouped = data.groupby(<span class="string">&#x27;Neighborhood Code&#x27;</span>)[<span class="string">&#x27;Log Sale Price&#x27;</span>].agg(metric)</span><br><span class="line">    neighborhoods = grouped.sort_values(ascending=<span class="literal">False</span>).head(n).index</span><br><span class="line">    <span class="keyword">return</span> [<span class="built_in">int</span>(code) <span class="keyword">for</span> code <span class="keyword">in</span> neighborhoods]</span><br><span class="line"></span><br><span class="line">expensive_neighborhoods = find_expensive_neighborhoods(training_data, <span class="number">5</span>, np.median)</span><br><span class="line">expensive_neighborhoods</span><br></pre></td></tr></table></figure>
-<pre><code>[44, 94, 93, 106, 580]</code></pre>
-<h2 id="新建一列表示售价中位数最高的街区">新建一列表示售价中位数最高的街区</h2>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">add_in_expensive_neighborhood</span>(<span class="params">data, expensive_neighborhoods</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    Input:</span></span><br><span class="line"><span class="string">      data (DataFrame): a DataFrame containing a &#x27;Neighborhood Code&#x27; column with values</span></span><br><span class="line"><span class="string">        found in the codebook</span></span><br><span class="line"><span class="string">      neighborhoods (list of strings): strings should be the names of neighborhoods</span></span><br><span class="line"><span class="string">        pre-identified as expensive</span></span><br><span class="line"><span class="string">    Output:</span></span><br><span class="line"><span class="string">      DataFrame identical to the input with the addition of a binary</span></span><br><span class="line"><span class="string">      in_expensive_neighborhood column</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    data[<span class="string">&#x27;in_expensive_neighborhood&#x27;</span>] = data[<span class="string">&#x27;Neighborhood Code&#x27;</span>].keys().isin(expensive_neighborhoods)</span><br><span class="line">    data[<span class="string">&#x27;in_expensive_neighborhood&#x27;</span>] = data[<span class="string">&#x27;in_expensive_neighborhood&#x27;</span>].astype(<span class="built_in">int</span>)</span><br><span class="line">    <span class="keyword">return</span> data</span><br><span class="line"></span><br><span class="line">expensive_neighborhoods = find_expensive_neighborhoods(training_data, <span class="number">5</span>, np.median)</span><br><span class="line">training_data = add_in_expensive_neighborhood(training_data, expensive_neighborhoods)</span><br><span class="line">training_data.query(<span class="string">&#x27;in_expensive_neighborhood==1&#x27;</span>)</span><br></pre></td></tr></table></figure>
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-<thead>
-<tr style="text-align: right;">
-<th>
-</th>
-<th>
-PIN
-</th>
-<th>
-Property Class
-</th>
-<th>
-Neighborhood Code
-</th>
-<th>
-Land Square Feet
-</th>
-<th>
-Town Code
-</th>
-<th>
-Apartments
-</th>
-<th>
-Wall Material
-</th>
-<th>
-Roof Material
-</th>
-<th>
-Basement
-</th>
-<th>
-Basement Finish
-</th>
-<th>
-...
-</th>
-<th>
-Pure Market Filter
-</th>
-<th>
-Garage Indicator
-</th>
-<th>
-Neigborhood Code (mapping)
-</th>
-<th>
-Town and Neighborhood
-</th>
-<th>
-Description
-</th>
-<th>
-Lot Size
-</th>
-<th>
-Neigborhood Code
-</th>
-<th>
-Log Sale Price
-</th>
-<th>
-Log Building Square Feet
-</th>
-<th>
-in_expensive_neighborhood
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<th>
-44
-</th>
-<td>
-13344150070000
-</td>
-<td>
-203
-</td>
-<td>
-520
-</td>
-<td>
-3175.0
-</td>
-<td>
-71
-</td>
-<td>
-0.0
-</td>
-<td>
-1.0
-</td>
-<td>
-1.0
-</td>
-<td>
-2.0
-</td>
-<td>
-3.0
-</td>
-<td>
-...
-</td>
-<td>
-1
-</td>
-<td>
-1.0
-</td>
-<td>
-520
-</td>
-<td>
-71520
-</td>
-<td>
-This property, sold on 02/24/2015, is a one-st...
-</td>
-<td>
-3175.0
-</td>
-<td>
-520
-</td>
-<td>
-11.775290
-</td>
-<td>
-6.962243
-</td>
-<td>
-1
-</td>
-</tr>
-<tr>
-<th>
-93
-</th>
-<td>
-10222050360000
-</td>
-<td>
-205
-</td>
-<td>
-81
-</td>
-<td>
-4913.0
-</td>
-<td>
-24
-</td>
-<td>
-0.0
-</td>
-<td>
-3.0
-</td>
-<td>
-1.0
-</td>
-<td>
-1.0
-</td>
-<td>
-3.0
-</td>
-<td>
-...
-</td>
-<td>
-1
-</td>
-<td>
-1.0
-</td>
-<td>
-81
-</td>
-<td>
-2481
-</td>
-<td>
-This property, sold on 12/21/2016, is a two-st...
-</td>
-<td>
-4913.0
-</td>
-<td>
-81
-</td>
-<td>
-12.594731
-</td>
-<td>
-7.307873
-</td>
-<td>
-1
-</td>
-</tr>
-<tr>
-<th>
-94
-</th>
-<td>
-4284070020000
-</td>
-<td>
-208
-</td>
-<td>
-11
-</td>
-<td>
-11250.0
-</td>
-<td>
-25
-</td>
-<td>
-0.0
-</td>
-<td>
-2.0
-</td>
-<td>
-1.0
-</td>
-<td>
-1.0
-</td>
-<td>
-3.0
-</td>
-<td>
-...
-</td>
-<td>
-1
-</td>
-<td>
-1.0
-</td>
-<td>
-11
-</td>
-<td>
-2511
-</td>
-<td>
-This property, sold on 01/27/2018, is a two-st...
-</td>
-<td>
-11250.0
-</td>
-<td>
-11
-</td>
-<td>
-13.790577
-</td>
-<td>
-8.246434
-</td>
-<td>
-1
-</td>
-</tr>
-<tr>
-<th>
-106
-</th>
-<td>
-25082130740000
-</td>
-<td>
-202
-</td>
-<td>
-282
-</td>
-<td>
-3750.0
-</td>
-<td>
-72
-</td>
-<td>
-0.0
-</td>
-<td>
-2.0
-</td>
-<td>
-1.0
-</td>
-<td>
-1.0
-</td>
-<td>
-3.0
-</td>
-<td>
-...
-</td>
-<td>
-1
-</td>
-<td>
-1.0
-</td>
-<td>
-282
-</td>
-<td>
-72282
-</td>
-<td>
-This property, sold on 09/20/2016, is a one-st...
-</td>
-<td>
-3750.0
-</td>
-<td>
-282
-</td>
-<td>
-11.911702
-</td>
-<td>
-6.866933
-</td>
-<td>
-1
-</td>
-</tr>
-<tr>
-<th>
-580
-</th>
-<td>
-25172280010000
-</td>
-<td>
-202
-</td>
-<td>
-321
-</td>
-<td>
-4410.0
-</td>
-<td>
-72
-</td>
-<td>
-0.0
-</td>
-<td>
-1.0
-</td>
-<td>
-1.0
-</td>
-<td>
-2.0
-</td>
-<td>
-3.0
-</td>
-<td>
-...
-</td>
-<td>
-1
-</td>
-<td>
-1.0
-</td>
-<td>
-321
-</td>
-<td>
-72321
-</td>
-<td>
-This property, sold on 03/12/2015, is a one-st...
-</td>
-<td>
-4410.0
-</td>
-<td>
-321
-</td>
-<td>
-12.128111
-</td>
-<td>
-6.719013
-</td>
-<td>
-1
-</td>
-</tr>
-</tbody>
-</table>
-<p>
-5 rows × 66 columns
-</p>
-</div>
-<h2 id="拆分测试集和训练集">拆分测试集和训练集</h2>
-<p>数据分为训练集和测试集，分别有 163833 个和 40959 个值。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">train_val_split</span>(<span class="params">data, train_pct=<span class="number">0.8</span></span>):</span><br><span class="line">    data_len = data.shape[<span class="number">0</span>]</span><br><span class="line">    shuffled_indices = np.random.permutation(data_len)</span><br><span class="line">    </span><br><span class="line">    split_index = <span class="built_in">int</span>(<span class="number">0.8</span> * data_len)</span><br><span class="line">    train_indices = shuffled_indices[:split_index]</span><br><span class="line">    val_indices = shuffled_indices[split_index:]</span><br><span class="line">    </span><br><span class="line">    train = data.iloc[train_indices]</span><br><span class="line">    validation = data.iloc[val_indices]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> train, validation</span><br><span class="line">train, validation = train_val_split(training_data)</span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Train rows:&quot;</span>, train.shape[<span class="number">0</span>]) </span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Validation rows:&quot;</span>, validation.shape[<span class="number">0</span>]) </span><br></pre></td></tr></table></figure>
-<pre><code>Train rows: 135156
-Validation rows: 33790</code></pre>
-<p>使用普通最小二乘估计器来拟合线性回归模型。</p>
-<p>第一个线性模型的以下表达式，其中包含一个列：</p>
-<p>Log Sale Price=𝜃0+𝜃1⋅(Bedrooms)</p>
-<p>包含两列的第二个模型：</p>
-<p>Log Sale Price=𝜃0+𝜃1⋅(Bedrooms)+𝜃2⋅(Log Building Square Feet)</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#定义工具函数</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">add_total_bedrooms</span>(<span class="params">data</span>):</span><br><span class="line">    with_rooms = data.copy()</span><br><span class="line">    rooms_regex = <span class="string">r&#x27;(\d+) of which are bedrooms&#x27;</span></span><br><span class="line">    rooms = with_rooms[<span class="string">&#x27;Description&#x27;</span>].<span class="built_in">str</span>.extract(rooms_regex).astype(<span class="built_in">int</span>)</span><br><span class="line">    with_rooms[<span class="string">&#x27;Bedrooms&#x27;</span>] = rooms</span><br><span class="line">    <span class="keyword">return</span> with_rooms</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">substitute_roof_material</span>(<span class="params">data</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    Input:</span></span><br><span class="line"><span class="string">      data (data frame): a data frame containing a &#x27;Roof Material&#x27; column.  Its values</span></span><br><span class="line"><span class="string">                         should be limited to those found in the codebook</span></span><br><span class="line"><span class="string">    Output:</span></span><br><span class="line"><span class="string">      data frame identical to the input except with a refactored &#x27;Roof Material&#x27; column</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    replacements = &#123;</span><br><span class="line">        <span class="string">&#x27;Roof Material&#x27;</span>: &#123;</span><br><span class="line">            <span class="number">1</span>: <span class="string">&#x27;Shingle/Asphalt&#x27;</span>,</span><br><span class="line">            <span class="number">2</span>: <span class="string">&#x27;Tar&amp;Gravel&#x27;</span>,</span><br><span class="line">            <span class="number">3</span>: <span class="string">&#x27;Slate&#x27;</span>,</span><br><span class="line">            <span class="number">4</span>: <span class="string">&#x27;Shake&#x27;</span>,</span><br><span class="line">            <span class="number">5</span>: <span class="string">&#x27;Tile&#x27;</span>,</span><br><span class="line">            <span class="number">6</span>: <span class="string">&#x27;Other&#x27;</span>,</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    data = data.replace(replacements)</span><br><span class="line">    <span class="keyword">return</span> data</span><br><span class="line"><span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> OneHotEncoder</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">ohe_roof_material</span>(<span class="params">data</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    One-hot-encodes roof material.  New columns are of the form x0_MATERIAL.</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    oh_enc = OneHotEncoder()</span><br><span class="line">    oh_enc.fit(data[[<span class="string">&#x27;Roof Material&#x27;</span>]])</span><br><span class="line">    dummies = pd.DataFrame(oh_enc.transform(data[[<span class="string">&#x27;Roof Material&#x27;</span>]]).todense(),</span><br><span class="line">                           columns=oh_enc.get_feature_names_out(),</span><br><span class="line">                           index = data.index)</span><br><span class="line">    <span class="keyword">return</span> data.join(dummies)</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">select_columns</span>(<span class="params">data, *columns</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;Select only columns passed as arguments.&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">return</span> data.loc[:, columns]</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">log_transform</span>(<span class="params">data, col</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;Add the log transformation of a column to the data frame&quot;&quot;&quot;</span></span><br><span class="line">    data[<span class="string">&#x27;Log &#x27;</span> + col] = np.log(data[col])</span><br><span class="line">    <span class="keyword">return</span> data</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">process_data_simple</span>(<span class="params">data</span>):</span><br><span class="line">    <span class="comment"># Remove outliers</span></span><br><span class="line">    data = remove_outliers(data, <span class="string">&#x27;Sale Price&#x27;</span>, lower=<span class="number">499</span>)</span><br><span class="line">    <span class="comment"># Create Log Sale Price column</span></span><br><span class="line">    data = log_transform(data, <span class="string">&#x27;Sale Price&#x27;</span>)</span><br><span class="line">    <span class="comment"># Create Bedrooms column</span></span><br><span class="line">    data = add_total_bedrooms(data)</span><br><span class="line">    <span class="comment"># Select X and y from the full data</span></span><br><span class="line">    X = data[[<span class="string">&#x27;Bedrooms&#x27;</span>]]</span><br><span class="line">    y = data[<span class="string">&#x27;Log Sale Price&#x27;</span>]</span><br><span class="line">    <span class="keyword">return</span> X, y</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">process_data_pipe</span>(<span class="params">data, pipeline_functions, prediction_col</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;Process the data for a guided model.&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">for</span> function, arguments, keyword_arguments <span class="keyword">in</span> pipeline_functions:</span><br><span class="line">        <span class="keyword">if</span> keyword_arguments <span class="keyword">and</span> (<span class="keyword">not</span> arguments):</span><br><span class="line">            data = data.pipe(function, **keyword_arguments)</span><br><span class="line">        <span class="keyword">elif</span> (<span class="keyword">not</span> keyword_arguments) <span class="keyword">and</span> (arguments):</span><br><span class="line">            data = data.pipe(function, *arguments)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            data = data.pipe(function)</span><br><span class="line">    X = data.drop(columns=[prediction_col])</span><br><span class="line">    y = data.loc[:, prediction_col]</span><br><span class="line">    <span class="keyword">return</span> X, y</span><br></pre></td></tr></table></figure>
-<h3 id="对数据进行简单预处理">对数据进行简单预处理</h3>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">full_data = pd.read_csv(<span class="string">&quot;cook_county_train.csv&quot;</span>)</span><br><span class="line"></span><br><span class="line">train_m1, valid_m1 = train_val_split(full_data)</span><br><span class="line">X_train_m1_simple, y_train_m1_simple = process_data_simple(train_m1)</span><br><span class="line">X_valid_m1_simple, y_valid_m1_simple = process_data_simple(valid_m1)</span><br><span class="line"></span><br><span class="line">display(X_train_m1_simple.head())</span><br><span class="line">display(y_train_m1_simple.head())</span><br></pre></td></tr></table></figure>
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-<thead>
-<tr style="text-align: right;">
-<th>
-</th>
-<th>
-Bedrooms
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<th>
-174636
-</th>
-<td>
-2
-</td>
-</tr>
-<tr>
-<th>
-51120
-</th>
-<td>
-3
-</td>
-</tr>
-<tr>
-<th>
-77558
-</th>
-<td>
-5
-</td>
-</tr>
-<tr>
-<th>
-143032
-</th>
-<td>
-2
-</td>
-</tr>
-<tr>
-<th>
-35130
-</th>
-<td>
-3
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-<pre><code>174636    12.240474
-51120     12.278393
-77558     13.560618
-143032    10.936672
-35130     12.676076
-Name: Log Sale Price, dtype: float64</code></pre>
-<h3 id="使用管道来预处理数据">使用管道来预处理数据</h3>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Process the data using the pipeline for the first model</span></span><br><span class="line">np.random.seed(<span class="number">1337</span>)</span><br><span class="line">train_m1, valid_m1 = train_val_split(full_data)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Pipelines, a list of tuples</span></span><br><span class="line">m1_pipelines = [</span><br><span class="line">    (remove_outliers, <span class="literal">None</span>, &#123;</span><br><span class="line">        <span class="string">&#x27;variable&#x27;</span>: <span class="string">&#x27;Sale Price&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;lower&#x27;</span>: <span class="number">499</span>,</span><br><span class="line">    &#125;),</span><br><span class="line">    (log_transform, <span class="literal">None</span>, &#123;<span class="string">&#x27;col&#x27;</span>: <span class="string">&#x27;Sale Price&#x27;</span>&#125;),</span><br><span class="line">    (add_total_bedrooms, <span class="literal">None</span>, <span class="literal">None</span>),</span><br><span class="line">    (select_columns, [<span class="string">&#x27;Log Sale Price&#x27;</span>, <span class="string">&#x27;Bedrooms&#x27;</span>], <span class="literal">None</span>)</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">X_train_m1, y_train_m1 = process_data_pipe(train_m1, m1_pipelines, <span class="string">&#x27;Log Sale Price&#x27;</span>)</span><br><span class="line">X_valid_m1, y_valid_m1 = process_data_pipe(valid_m1, m1_pipelines, <span class="string">&#x27;Log Sale Price&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Take a look at the result</span></span><br><span class="line"><span class="comment"># It should be the same above as the result returned by process_data_simple</span></span><br><span class="line">display(X_train_m1.head())</span><br><span class="line">display(y_train_m1.head())</span><br></pre></td></tr></table></figure>
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-<thead>
-<tr style="text-align: right;">
-<th>
-</th>
-<th>
-Bedrooms
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<th>
-130829
-</th>
-<td>
-4
-</td>
-</tr>
-<tr>
-<th>
-193890
-</th>
-<td>
-2
-</td>
-</tr>
-<tr>
-<th>
-30507
-</th>
-<td>
-2
-</td>
-</tr>
-<tr>
-<th>
-91308
-</th>
-<td>
-2
-</td>
-</tr>
-<tr>
-<th>
-131132
-</th>
-<td>
-3
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-<pre><code>130829    12.994530
-193890    11.848683
-30507     11.813030
-91308     13.060488
-131132    12.516861
-Name: Log Sale Price, dtype: float64</code></pre>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Process the data using the pipeline for the second model</span></span><br><span class="line">train_m2, valid_m2 = train_val_split(full_data, <span class="number">0.2</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Pipelines for 2nd model</span></span><br><span class="line">m2_pipelines = [</span><br><span class="line">    (remove_outliers, <span class="literal">None</span>, &#123;<span class="string">&#x27;variable&#x27;</span>: <span class="string">&#x27;Sale Price&#x27;</span>, <span class="string">&#x27;lower&#x27;</span>: <span class="number">499</span>&#125;),</span><br><span class="line">    (log_transform, <span class="literal">None</span>, &#123;<span class="string">&#x27;col&#x27;</span>: <span class="string">&#x27;Sale Price&#x27;</span>&#125;),</span><br><span class="line">    (log_transform, <span class="literal">None</span>, &#123;<span class="string">&#x27;col&#x27;</span>: <span class="string">&#x27;Building Square Feet&#x27;</span>&#125;),</span><br><span class="line">    (add_total_bedrooms, <span class="literal">None</span>, <span class="literal">None</span>), </span><br><span class="line">    (select_columns, [<span class="string">&#x27;Log Sale Price&#x27;</span>, <span class="string">&#x27;Bedrooms&#x27;</span>, <span class="string">&#x27;Log Building Square Feet&#x27;</span>], <span class="literal">None</span>)  </span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">X_train_m2, y_train_m2 = process_data_pipe(train_m2, m2_pipelines, <span class="string">&#x27;Log Sale Price&#x27;</span>)</span><br><span class="line">X_valid_m2, y_valid_m2 = process_data_pipe(valid_m2, m2_pipelines, <span class="string">&#x27;Log Sale Price&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Take a look at the result  </span></span><br><span class="line">display(X_train_m2.head())</span><br><span class="line">display(y_train_m2.head())</span><br></pre></td></tr></table></figure>
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-<thead>
-<tr style="text-align: right;">
-<th>
-</th>
-<th>
-Bedrooms
-</th>
-<th>
-Log Building Square Feet
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<th>
-113088
-</th>
-<td>
-2
-</td>
-<td>
-6.981006
-</td>
-</tr>
-<tr>
-<th>
-195626
-</th>
-<td>
-2
-</td>
-<td>
-6.726233
-</td>
-</tr>
-<tr>
-<th>
-59930
-</th>
-<td>
-3
-</td>
-<td>
-6.864848
-</td>
-</tr>
-<tr>
-<th>
-141106
-</th>
-<td>
-3
-</td>
-<td>
-6.929517
-</td>
-</tr>
-<tr>
-<th>
-16647
-</th>
-<td>
-4
-</td>
-<td>
-7.728856
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-<pre><code>113088    11.686879
-195626    12.100056
-59930     12.367341
-141106    11.314475
-16647     12.628067
-Name: Log Sale Price, dtype: float64</code></pre>
-<h2 id="建立线性回归模型">建立线性回归模型</h2>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> linear_model <span class="keyword">as</span> lm</span><br><span class="line">linear_model_m1 = lm.LinearRegression(fit_intercept=<span class="literal">True</span>)</span><br><span class="line">linear_model_m2 = lm.LinearRegression(fit_intercept=<span class="literal">True</span>)</span><br><span class="line"><span class="comment"># Fit the 1st model</span></span><br><span class="line">linear_model_m1.fit(X_train_m1, y_train_m1)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Compute the fitted and predicted values for 1st model</span></span><br><span class="line">y_fitted_m1 = linear_model_m1.predict(X_train_m1)</span><br><span class="line">y_predicted_m1 = linear_model_m1.predict(X_valid_m1)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Fit the 2nd model </span></span><br><span class="line">linear_model_m2.fit(X_train_m2, y_train_m2)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Compute the fitted and predicted values for 2nd model</span></span><br><span class="line">y_fitted_m2 = linear_model_m2.predict(X_train_m2)  </span><br><span class="line">y_predicted_m2 = linear_model_m2.predict(X_valid_m2)</span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">rmse</span>(<span class="params">predicted, actual</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    Calculates RMSE from actual and predicted values</span></span><br><span class="line"><span class="string">    Input:</span></span><br><span class="line"><span class="string">      predicted (1D array): vector of predicted/fitted values</span></span><br><span class="line"><span class="string">      actual (1D array): vector of actual values</span></span><br><span class="line"><span class="string">    Output:</span></span><br><span class="line"><span class="string">      a float, the root-mean square error</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">return</span> np.sqrt(np.mean((actual - predicted)**<span class="number">2</span>))</span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Calculate residuals </span></span><br><span class="line">residuals = y_valid_m1 - y_predicted_m1</span><br><span class="line"></span><br><span class="line"><span class="comment"># Create scatter plot</span></span><br><span class="line">plt.scatter(y_valid_m1, residuals, alpha=<span class="number">0.5</span>, s=<span class="number">3</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Label axes</span></span><br><span class="line">plt.xlabel(<span class="string">&#x27;Log Sale Price&#x27;</span>) </span><br><span class="line">plt.ylabel(<span class="string">&#x27;Residuals&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Set plot title</span></span><br><span class="line">plt.title(<span class="string">&#x27;Residuals vs. Log Sale Price for Model 1&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Show plot</span></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-<figure>
-<img src="assets/houses/output_34_0.png" alt="" /><figcaption>png</figcaption>
-</figure>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Calculate residuals </span></span><br><span class="line">residuals = y_valid_m2 - y_predicted_m2</span><br><span class="line"></span><br><span class="line"><span class="comment"># Create scatter plot</span></span><br><span class="line">plt.scatter(y_valid_m2, residuals, alpha=<span class="number">0.5</span>, s=<span class="number">3</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Label axes</span></span><br><span class="line">plt.xlabel(<span class="string">&#x27;Log Sale Price&#x27;</span>) </span><br><span class="line">plt.ylabel(<span class="string">&#x27;Residuals&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Set plot title</span></span><br><span class="line">plt.title(<span class="string">&#x27;Residuals vs. Log Sale Price for Model 2&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Show plot</span></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-<figure>
-<img src="assets/houses/output_35_0.png" alt="" /><figcaption>png</figcaption>
-</figure>
-<h2 id="优化模型">优化模型</h2>
-<p>引入更多列</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">train_m3, valid_m3 = train_val_split(full_data, <span class="number">0.2</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Pipelines for 2nd model</span></span><br><span class="line">m3_pipelines = [</span><br><span class="line">    (remove_outliers, <span class="literal">None</span>, &#123;<span class="string">&#x27;variable&#x27;</span>: <span class="string">&#x27;Sale Price&#x27;</span>, <span class="string">&#x27;lower&#x27;</span>: <span class="number">499</span>&#125;),</span><br><span class="line">    (log_transform, <span class="literal">None</span>, &#123;<span class="string">&#x27;col&#x27;</span>: <span class="string">&#x27;Sale Price&#x27;</span>&#125;),</span><br><span class="line">    (log_transform, <span class="literal">None</span>, &#123;<span class="string">&#x27;col&#x27;</span>: <span class="string">&#x27;Building Square Feet&#x27;</span>&#125;),</span><br><span class="line">    (log_transform, <span class="literal">None</span>, &#123;<span class="string">&#x27;col&#x27;</span>: <span class="string">&#x27;Age&#x27;</span>&#125;),</span><br><span class="line">    (add_total_bedrooms, <span class="literal">None</span>, <span class="literal">None</span>), </span><br><span class="line">    (select_columns, [<span class="string">&#x27;Log Age&#x27;</span>,<span class="string">&#x27;Construction Quality&#x27;</span>,<span class="string">&#x27;Log Sale Price&#x27;</span>, <span class="string">&#x27;Bedrooms&#x27;</span>, <span class="string">&#x27;Log Building Square Feet&#x27;</span>], <span class="literal">None</span>)  </span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">X_train_m3, y_train_m3 = process_data_pipe(train_m3, m3_pipelines, <span class="string">&#x27;Log Sale Price&#x27;</span>)</span><br><span class="line">X_valid_m3, y_valid_m3 = process_data_pipe(valid_m3, m3_pipelines, <span class="string">&#x27;Log Sale Price&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Take a look at the result  </span></span><br><span class="line">display(X_train_m3.head())</span><br><span class="line">display(y_train_m3.head())</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-<thead>
-<tr style="text-align: right;">
-<th>
-</th>
-<th>
-Log Age
-</th>
-<th>
-Construction Quality
-</th>
-<th>
-Bedrooms
-</th>
-<th>
-Log Building Square Feet
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<th>
-123962
-</th>
-<td>
-3.784190
-</td>
-<td>
-2.0
-</td>
-<td>
-4
-</td>
-<td>
-7.411556
-</td>
-</tr>
-<tr>
-<th>
-175556
-</th>
-<td>
-4.174387
-</td>
-<td>
-2.0
-</td>
-<td>
-3
-</td>
-<td>
-7.625595
-</td>
-</tr>
-<tr>
-<th>
-75083
-</th>
-<td>
-4.521789
-</td>
-<td>
-2.0
-</td>
-<td>
-2
-</td>
-<td>
-6.950815
-</td>
-</tr>
-<tr>
-<th>
-164700
-</th>
-<td>
-4.094345
-</td>
-<td>
-2.0
-</td>
-<td>
-3
-</td>
-<td>
-7.172425
-</td>
-</tr>
-<tr>
-<th>
-195211
-</th>
-<td>
-4.543295
-</td>
-<td>
-2.0
-</td>
-<td>
-3
-</td>
-<td>
-7.105786
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-<pre><code>123962    12.586220
-175556    12.971540
-75083     12.185870
-164700    12.367341
-195211    10.498884
-Name: Log Sale Price, dtype: float64</code></pre>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">linear_model_m3 = lm.LinearRegression(fit_intercept=<span class="literal">True</span>)</span><br><span class="line"><span class="comment"># Fit the 1st model</span></span><br><span class="line">linear_model_m3.fit(X_train_m3, y_train_m3)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Compute the fitted and predicted values for 1st model</span></span><br><span class="line">y_fitted_m3 = linear_model_m3.predict(X_train_m3)</span><br><span class="line">y_predicted_m3 = linear_model_m3.predict(X_valid_m3)</span><br><span class="line">residuals = y_valid_m3 - y_predicted_m3</span><br><span class="line"></span><br><span class="line"><span class="comment"># Create scatter plot</span></span><br><span class="line">plt.scatter(y_valid_m3, residuals, alpha=<span class="number">0.5</span>, s=<span class="number">3</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Label axes</span></span><br><span class="line">plt.xlabel(<span class="string">&#x27;Log Sale Price&#x27;</span>) </span><br><span class="line">plt.ylabel(<span class="string">&#x27;Residuals&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Set plot title</span></span><br><span class="line">plt.title(<span class="string">&#x27;Residuals vs. Log Sale Price for Model 3&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Show plot</span></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-<figure>
-<img src="assets/houses/output_38_0.png" alt="" /><figcaption>png</figcaption>
-</figure>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">y_pred_m1 = linear_model_m1.predict(X_valid_m1)</span><br><span class="line">test_pred_df1 = pd.DataFrame(&#123;<span class="string">&#x27;Predicted Price of m1&#x27;</span>: np.log(y_pred_m1)&#125;) </span><br><span class="line"></span><br><span class="line">y_pred_m2 = linear_model_m2.predict(X_valid_m2)</span><br><span class="line">test_pred_df2 = pd.DataFrame(&#123;<span class="string">&#x27;Predicted Price of m2&#x27;</span>: np.log(y_pred_m2)&#125;) </span><br><span class="line"></span><br><span class="line">y_pred_m3 = linear_model_m3.predict(X_valid_m3)</span><br><span class="line">test_pred_df3 = pd.DataFrame(&#123;<span class="string">&#x27;Predicted Price of m3&#x27;</span>: np.log(y_pred_m3)&#125;) </span><br><span class="line"></span><br><span class="line"><span class="comment"># 绘制分布图</span></span><br><span class="line">plot_distribution(test_pred_df1, <span class="string">&#x27;Predicted Price of m1&#x27;</span>)</span><br><span class="line">plot_distribution(test_pred_df2, <span class="string">&#x27;Predicted Price of m2&#x27;</span>)</span><br><span class="line">plot_distribution(test_pred_df3, <span class="string">&#x27;Predicted Price of m3&#x27;</span>)</span><br></pre></td></tr></table></figure>
-<figure>
-<img src="assets/houses/output_39_0.png" alt="" /><figcaption>png</figcaption>
-</figure>
-<figure>
-<img src="assets/houses/output_39_1.png" alt="" /><figcaption>png</figcaption>
-</figure>
-<figure>
-<img src="assets/houses/output_39_2.png" alt="" /><figcaption>png</figcaption>
-</figure>
-<h3 id="模型之间的误差比较">模型之间的误差比较</h3>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Model 1 </span></span><br><span class="line">y_pred_m1 = linear_model_m1.predict(X_valid_m1)</span><br><span class="line"><span class="comment"># Model 2</span></span><br><span class="line">y_pred_m2 = linear_model_m2.predict(X_valid_m2)</span><br><span class="line"><span class="comment"># Model 3</span></span><br><span class="line">y_pred_m3 = linear_model_m3.predict(X_valid_m3)</span><br><span class="line">rmse_m1 = rmse(y_pred_m1, y_valid_m1)</span><br><span class="line">rmse_m2 = rmse(y_pred_m2, y_valid_m2)</span><br><span class="line">rmse_m3 = rmse(y_pred_m3, y_valid_m3)</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line">plt.bar([<span class="number">1</span>, <span class="number">2</span>,<span class="number">3</span>], [rmse_m1, rmse_m2, rmse_m3])</span><br><span class="line">plt.xticks([<span class="number">1</span>, <span class="number">2</span>,<span class="number">3</span>], [<span class="string">&#x27;Model 1&#x27;</span>, <span class="string">&#x27;Model 2&#x27;</span>,<span class="string">&#x27;Model 3&#x27;</span>]) </span><br><span class="line">plt.ylabel(<span class="string">&#x27;RMSE&#x27;</span>)</span><br><span class="line">plt.title(<span class="string">&#x27;Model Comparison on Validation Set&#x27;</span>)</span><br><span class="line"></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-<figure>
-<img src="assets/houses/output_41_0.png" alt="" /><figcaption>png</figcaption>
-</figure>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>课程笔记</category>
-        <category>数据科学</category>
-      </categories>
-      <tags>
-        <tag>伯克利</tag>
-        <tag>课程笔记</tag>
-        <tag>python</tag>
-        <tag>数据科学</tag>
-        <tag>pandas</tag>
       </tags>
   </entry>
   <entry>
