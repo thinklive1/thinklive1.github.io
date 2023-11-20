@@ -29,6 +29,136 @@
 ]]></content>
   </entry>
   <entry>
+    <title>基于mit6.006的作业解析</title>
+    <url>/2023/11/20/mit6.006%E4%BD%9C%E4%B8%9A%E8%A7%A3%E6%9E%90/</url>
+    <content><![CDATA[<h1 id="hw1">hw1</h1>
+<h2 id="时间复杂度分析">时间复杂度分析</h2>
+<p>对这种形式的函数可以这样比较</p>
+<p><span class="math display">\[f_1=n^{\sqrt{n}}=(2^{lgn})^{\sqrt{n}}\]</span> <span class="math display">\[f_2=n^{10}.2^{n/2}=2^{lg(10n)+n/2}\]</span></p>
+<h2 id="复杂度计算">复杂度计算</h2>
+<p>对于T(n,n): T (x, y) = Θ(x + y) + T (x/2, y/2). 化成 <img src="assets/mit6.006作业解析/image-20231120213425020.png" /> 得到θ(n) <span id="more"></span></p>
+<p>T (x, y) = Θ(x) + T (x, y/2). 等于lgy个θ(x) 即，θ(nlgn)</p>
+<p>T (x, y) = Θ(x) + S(x, y/2), S(x, y) = Θ(y) + T (x/2, y).</p>
+<p>化成T (x, y) = Θ(x) + Θ(y/2) + T (x/2, y/2). 与第一个例子相似，θ(n)</p>
+<h2 id="寻峰算法">寻峰算法</h2>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">algorithm1</span>(<span class="params">problem, trace = <span class="literal">None</span></span>):</span><br><span class="line">    <span class="comment"># if it&#x27;s empty, we&#x27;re done</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> problem.numRow &lt;= <span class="number">0</span> <span class="keyword">or</span> problem.numCol &lt;= <span class="number">0</span>:</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">    <span class="comment"># the recursive subproblem will involve half the number of columns</span></span><br><span class="line"></span><br><span class="line">    mid = problem.numCol // <span class="number">2</span></span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">    <span class="comment"># information about the two subproblems</span></span><br><span class="line"></span><br><span class="line">    (subStartR, subNumR) = (<span class="number">0</span>, problem.numRow)</span><br><span class="line"></span><br><span class="line">    (subStartC1, subNumC1) = (<span class="number">0</span>, mid)</span><br><span class="line"></span><br><span class="line">    (subStartC2, subNumC2) = (mid + <span class="number">1</span>, problem.numCol - (mid + <span class="number">1</span>))</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">    subproblems = []</span><br><span class="line"></span><br><span class="line">    subproblems.append((subStartR, subStartC1, subNumR, subNumC1))</span><br><span class="line"></span><br><span class="line">    subproblems.append((subStartR, subStartC2, subNumR, subNumC2))</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">    <span class="comment"># get a list of all locations in the dividing column</span></span><br><span class="line"></span><br><span class="line">    divider = crossProduct(<span class="built_in">range</span>(problem.numRow), [mid])</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">    <span class="comment"># find the maximum in the dividing column</span></span><br><span class="line"></span><br><span class="line">    bestLoc = problem.getMaximum(divider, trace)</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">    <span class="comment"># see if the maximum value we found on the dividing line has a better</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># neighbor (which cannot be on the dividing line, because we know that</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># this location is the best on the dividing line)</span></span><br><span class="line"></span><br><span class="line">    neighbor = problem.getBetterNeighbor(bestLoc, trace)</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">    <span class="comment"># this is a peak, so return it</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> neighbor == bestLoc:</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> trace <span class="keyword">is</span> <span class="literal">None</span>: trace.foundPeak(bestLoc)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> bestLoc</span><br><span class="line"></span><br><span class="line">    <span class="comment"># otherwise, figure out which subproblem contains the neighbor, and</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># recurse in that half</span></span><br><span class="line"></span><br><span class="line">    sub = problem.getSubproblemContaining(subproblems, neighbor)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> trace <span class="keyword">is</span> <span class="literal">None</span>: trace.setProblemDimensions(sub)</span><br><span class="line"></span><br><span class="line">    result = algorithm1(sub, trace)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> problem.getLocationInSelf(sub, result)</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">algorithm2</span>(<span class="params">problem, location = (<span class="params"><span class="number">0</span>, <span class="number">0</span></span>), trace = <span class="literal">None</span></span>):</span><br><span class="line"></span><br><span class="line">    <span class="comment"># if it&#x27;s empty, we&#x27;re done</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> problem.numRow &lt;= <span class="number">0</span> <span class="keyword">or</span> problem.numCol &lt;= <span class="number">0</span>:</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">    nextLocation = problem.getBetterNeighbor(location, trace)</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> nextLocation == location:</span><br><span class="line"></span><br><span class="line">        <span class="comment"># there is no better neighbor, so return this peak</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> trace <span class="keyword">is</span> <span class="literal">None</span>: trace.foundPeak(location)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> location</span><br><span class="line"></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line"></span><br><span class="line">        <span class="comment"># there is a better neighbor, so move to the neighbor and recurse</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> algorithm2(problem, nextLocation, trace)</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">algorithm3</span>(<span class="params">problem, bestSeen = <span class="literal">None</span>, trace = <span class="literal">None</span></span>):</span><br><span class="line"></span><br><span class="line">    <span class="comment"># if it&#x27;s empty, we&#x27;re done</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> problem.numRow &lt;= <span class="number">0</span> <span class="keyword">or</span> problem.numCol &lt;= <span class="number">0</span>:</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">    midRow = problem.numRow // <span class="number">2</span></span><br><span class="line"></span><br><span class="line">    midCol = problem.numCol // <span class="number">2</span></span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">    <span class="comment"># first, get the list of all subproblems</span></span><br><span class="line"></span><br><span class="line">    subproblems = []</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">    (subStartR1, subNumR1) = (<span class="number">0</span>, midRow)</span><br><span class="line"></span><br><span class="line">    (subStartR2, subNumR2) = (midRow + <span class="number">1</span>, problem.numRow - (midRow + <span class="number">1</span>))</span><br><span class="line"></span><br><span class="line">    (subStartC1, subNumC1) = (<span class="number">0</span>, midCol)</span><br><span class="line"></span><br><span class="line">    (subStartC2, subNumC2) = (midCol + <span class="number">1</span>, problem.numCol - (midCol + <span class="number">1</span>))</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">    subproblems.append((subStartR1, subStartC1, subNumR1, subNumC1))</span><br><span class="line"></span><br><span class="line">    subproblems.append((subStartR1, subStartC2, subNumR1, subNumC2))</span><br><span class="line"></span><br><span class="line">    subproblems.append((subStartR2, subStartC1, subNumR2, subNumC1))</span><br><span class="line"></span><br><span class="line">    subproblems.append((subStartR2, subStartC2, subNumR2, subNumC2))</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">    <span class="comment"># find the best location on the cross (the middle row combined with the</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># middle column)</span></span><br><span class="line"></span><br><span class="line">    cross = []</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">    cross.extend(crossProduct([midRow], <span class="built_in">range</span>(problem.numCol)))</span><br><span class="line"></span><br><span class="line">    cross.extend(crossProduct(<span class="built_in">range</span>(problem.numRow), [midCol]))</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">    crossLoc = problem.getMaximum(cross, trace)</span><br><span class="line"></span><br><span class="line">    neighbor = problem.getBetterNeighbor(crossLoc, trace)</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">    <span class="comment"># update the best we&#x27;ve seen so far based on this new maximum</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> bestSeen <span class="keyword">is</span> <span class="literal">None</span> <span class="keyword">or</span> problem.get(neighbor) &gt; problem.get(bestSeen):</span><br><span class="line"></span><br><span class="line">        bestSeen = neighbor</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> trace <span class="keyword">is</span> <span class="literal">None</span>: trace.setBestSeen(bestSeen)</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">    <span class="comment"># return if we can&#x27;t see any better neighbors</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> neighbor == crossLoc:</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> trace <span class="keyword">is</span> <span class="literal">None</span>: trace.foundPeak(crossLoc)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> crossLoc</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">    <span class="comment"># figure out which subproblem contains the largest number we&#x27;ve seen so</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># far, and recurse</span></span><br><span class="line"></span><br><span class="line">    sub = problem.getSubproblemContaining(subproblems, bestSeen)</span><br><span class="line"></span><br><span class="line">    newBest = sub.getLocationInSelf(problem, bestSeen)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> trace <span class="keyword">is</span> <span class="literal">None</span>: trace.setProblemDimensions(sub)</span><br><span class="line"></span><br><span class="line">    result = algorithm3(sub, newBest, trace)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> problem.getLocationInSelf(sub, result)</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">algorithm4</span>(<span class="params">problem, bestSeen = <span class="literal">None</span>, rowSplit = <span class="literal">True</span>, trace = <span class="literal">None</span></span>):</span><br><span class="line"></span><br><span class="line">    <span class="comment"># if it&#x27;s empty, we&#x27;re done</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> problem.numRow &lt;= <span class="number">0</span> <span class="keyword">or</span> problem.numCol &lt;= <span class="number">0</span>:</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">    subproblems = []</span><br><span class="line"></span><br><span class="line">    divider = []</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> rowSplit:</span><br><span class="line"></span><br><span class="line">        <span class="comment"># the recursive subproblem will involve half the number of rows</span></span><br><span class="line"></span><br><span class="line">        mid = problem.numRow // <span class="number">2</span></span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">        <span class="comment"># information about the two subproblems</span></span><br><span class="line"></span><br><span class="line">        (subStartR1, subNumR1) = (<span class="number">0</span>, mid)</span><br><span class="line"></span><br><span class="line">        (subStartR2, subNumR2) = (mid + <span class="number">1</span>, problem.numRow - (mid + <span class="number">1</span>))</span><br><span class="line"></span><br><span class="line">        (subStartC, subNumC) = (<span class="number">0</span>, problem.numCol)</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">        subproblems.append((subStartR1, subStartC, subNumR1, subNumC))</span><br><span class="line"></span><br><span class="line">        subproblems.append((subStartR2, subStartC, subNumR2, subNumC))</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">        <span class="comment"># get a list of all locations in the dividing column</span></span><br><span class="line"></span><br><span class="line">        divider = crossProduct([mid], <span class="built_in">range</span>(problem.numCol))</span><br><span class="line"></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line"></span><br><span class="line">        <span class="comment"># the recursive subproblem will involve half the number of columns</span></span><br><span class="line"></span><br><span class="line">        mid = problem.numCol // <span class="number">2</span></span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">        <span class="comment"># information about the two subproblems</span></span><br><span class="line"></span><br><span class="line">        (subStartR, subNumR) = (<span class="number">0</span>, problem.numRow)</span><br><span class="line"></span><br><span class="line">        (subStartC1, subNumC1) = (<span class="number">0</span>, mid)</span><br><span class="line"></span><br><span class="line">        (subStartC2, subNumC2) = (mid + <span class="number">1</span>, problem.numCol - (mid + <span class="number">1</span>))</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">        subproblems.append((subStartR, subStartC1, subNumR, subNumC1))</span><br><span class="line"></span><br><span class="line">        subproblems.append((subStartR, subStartC2, subNumR, subNumC2))</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">        <span class="comment"># get a list of all locations in the dividing column</span></span><br><span class="line"></span><br><span class="line">        divider = crossProduct(<span class="built_in">range</span>(problem.numRow), [mid])</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">    <span class="comment"># find the maximum in the dividing row or column</span></span><br><span class="line"></span><br><span class="line">    bestLoc = problem.getMaximum(divider, trace)</span><br><span class="line"></span><br><span class="line">    neighbor = problem.getBetterNeighbor(bestLoc, trace)</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">    <span class="comment"># update the best we&#x27;ve seen so far based on this new maximum</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> bestSeen <span class="keyword">is</span> <span class="literal">None</span> <span class="keyword">or</span> problem.get(neighbor) &gt; problem.get(bestSeen):</span><br><span class="line"></span><br><span class="line">        bestSeen = neighbor</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> trace <span class="keyword">is</span> <span class="literal">None</span>: trace.setBestSeen(bestSeen)</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">    <span class="comment"># return when we know we&#x27;ve found a peak</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> neighbor == bestLoc <span class="keyword">and</span> problem.get(bestLoc) &gt;= problem.get(bestSeen):</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> trace <span class="keyword">is</span> <span class="literal">None</span>: trace.foundPeak(bestLoc)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> bestLoc</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">    <span class="comment"># figure out which subproblem contains the largest number we&#x27;ve seen so</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># far, and recurse, alternating between splitting on rows and splitting</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># on columns</span></span><br><span class="line"></span><br><span class="line">    sub = problem.getSubproblemContaining(subproblems, bestSeen)</span><br><span class="line"></span><br><span class="line">    newBest = sub.getLocationInSelf(problem, bestSeen)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> trace <span class="keyword">is</span> <span class="literal">None</span>: trace.setProblemDimensions(sub)</span><br><span class="line"></span><br><span class="line">    result = algorithm4(sub, newBest, <span class="keyword">not</span> rowSplit, trace)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> problem.getLocationInSelf(sub, result)</span><br></pre></td></tr></table></figure>
+<p>算法一二如课程笔记所述，均是正确的，以下是证明</p>
+<ul>
+<li>algo1</li>
+</ul>
+<ol type="1">
+<li>证明算法不可能返回一个空值，首先算法不可能得到一个负索引的子数组（在只有一列的时候必然会得到结果而不是继续划分），在最小问题的情况下，如果此时子问题有一列，那么必然返回一个峰值，如果有两列，不管目前讨论的列是不是最大值，都会递归成最小为1为列的子问题，不会返回空值</li>
+<li>证明返回的位置确实是峰值位置，如果算法1返回一个位置（r1，c1），则该位置必须具有列c1中的最大值，并且必须是某个递归子问题中的峰值。为了推导矛盾，假设（r1，c1）不是原始问题中的峰值。在某个子问题中，位置（r1，c1）与列c2相邻（|c1 - c2| = 1），并且值必须满足不等式val（r1，c1）&lt; val（r1，c2）。<br />
+让（r2，c2）是算法1在c2列中找到的最大值的位置。因此，必定有val（r1，c2）≤ val（r2，c2）。因为c2是分割线，且算法选择在包含（r1，c1）的一半上进行递归，所以我们知道val（r2，c2）&lt; val（r2，c1）。因此，我们有以下不等式链：<br />
+val（r1，c1）&lt; val（r1，c2）≤ val（r2，c2）&lt; val（r2，c1）<br />
+但是，为了使算法1将（r1，c1）作为峰值返回，（r1，c1）处的值必须是其列中的最大值，即val（r1，c1）≥ val（r2，c1）。因此，我们得到了一个矛盾。</li>
+</ol>
+<ul>
+<li>algo3是错误的</li>
+</ul>
+<p>时间复杂度是θ(n)，情况类似复杂度题目的第一个情况，1+1/2+1/4……</p>
+<p><strong>反例</strong></p>
+<p>如图所示的反例会选择返回一个在当前子问题中看起来像一个峰值，但是与子问题外部的某个更大值相邻的位置</p>
+<table>
+<thead>
+<tr class="header">
+<th>0</th>
+<th>0</th>
+<th>9</th>
+<th>8</th>
+<th>0</th>
+<th>0</th>
+<th>0</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>0</td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>对算法四的证明</p>
+<ul>
+<li>algo4</li>
+</ul>
+<p>时间复杂度是θ(n),类似算法3</p>
+<p>算法四交叉进行行和列的最大值寻找</p>
+<ol type="1">
+<li>如果峰值问题不为空，则算法将始终返回一个位置。在算法中，根据是在行还是列上分割，递归子问题的维度会相应地减少。所以算法要么在某个时刻停止并返回一个位置，要么最终检查一个行数或列数为非正的子问题。但是，问题的行数或列数变为严格负数的唯一方式是在某个时刻m=0或n=0。因此，如果算法没有返回位置，它必定最终检查一个空的子问题。然而，证明假设该情况不会发生。</li>
+<li>如果算法返回一个位置，则该位置将是原始问题中的一个峰值。如果算法返回一个位置(r1, c1)，那么该位置必定是某个递归子问题中的峰值。另外，如果(r2, c2)是算法执行过程中的最佳位置（存储在bestSeen变量中的位置），那么必定满足val(r1, c1) ≥ val(r2, c2)。证明假设(r1, c1)不是原始问题的峰值。那么当位置(r1, c1)通过递归调用链向上传递时，它必定在某个级别停止是不是峰值。因此，必定存在一个包含位置(r1, c1)的子问题，在该级别中，该子问题的某个邻居(r3, c3)的值满足val(r1, c1) &lt; val(r3, c3)。对于(r3, c3)既是递归子问题的邻居又不包含在子问题中，它必定在算法的执行过程中被检查过。因此，必定满足val(r3, c3) ≤ val(r2, c2)。因此，我们得到以下不等式链：val(r1, c1) &lt; val(r3, c3) ≤ val(r2, c2) ≤ val(r1, c1)。这导致了矛盾。</li>
+</ol>
+]]></content>
+      <categories>
+        <category>课程笔记</category>
+        <category>数据结构与算法</category>
+      </categories>
+      <tags>
+        <tag>课程笔记</tag>
+        <tag>数据结构与算法</tag>
+        <tag>麻省理工</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>基于mit6.006的算法笔记</title>
     <url>/2023/10/14/mit6.006%E6%80%BB%E5%92%8C%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<h1 id="基础">基础</h1>
@@ -517,134 +647,6 @@ level[v] = \begin{cases}
 <h2 id="随机算法">随机算法</h2>
 <p>在此基础上可以在算法中进行随机数处理，排除输入的影响 比如在雇佣问题中，对输入的候选者数组进行随机排序 随机排序： <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">n = A.length</span><br><span class="line">let P[1-n] be a new array</span><br><span class="line">for i=1 to n</span><br><span class="line"> P[i] = RANDOM(1,n^3)</span><br><span class="line">sort A,use P</span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
 <h1 id="递归和动态规划">递归和动态规划</h1>
-]]></content>
-      <categories>
-        <category>课程笔记</category>
-        <category>数据结构与算法</category>
-      </categories>
-      <tags>
-        <tag>课程笔记</tag>
-        <tag>数据结构与算法</tag>
-        <tag>麻省理工</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>基于mit6.006的作业解析</title>
-    <url>/2023/11/20/mit6.006%E4%BD%9C%E4%B8%9A%E8%A7%A3%E6%9E%90/</url>
-    <content><![CDATA[<h1 id="hw1">hw1</h1>
-<h2 id="时间复杂度分析">时间复杂度分析</h2>
-<p>对这种形式的函数可以这样比较</p>
-<p><span class="math display">\[f_1=n^{\sqrt{n}}=(2^{lgn})^{\sqrt{n}}\]</span> <span class="math display">\[f_2=n^{10}.2^{n/2}=2^{lg(10n)+n/2}\]</span></p>
-<h2 id="复杂度计算">复杂度计算</h2>
-<p>对于T(n,n): T (x, y) = Θ(x + y) + T (x/2, y/2). 化成 <img src="assets/mit6.006作业解析/image-20231120213425020.png" /> 得到θ(n) <span id="more"></span></p>
-<p>T (x, y) = Θ(x) + T (x, y/2). 等于lgy个θ(x) 即，θ(nlgn)</p>
-<p>T (x, y) = Θ(x) + S(x, y/2), S(x, y) = Θ(y) + T (x/2, y).</p>
-<p>化成T (x, y) = Θ(x) + Θ(y/2) + T (x/2, y/2). 与第一个例子相似，θ(n)</p>
-<h2 id="寻峰算法">寻峰算法</h2>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">algorithm1</span>(<span class="params">problem, trace = <span class="literal">None</span></span>):</span><br><span class="line">    <span class="comment"># if it&#x27;s empty, we&#x27;re done</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> problem.numRow &lt;= <span class="number">0</span> <span class="keyword">or</span> problem.numCol &lt;= <span class="number">0</span>:</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">    <span class="comment"># the recursive subproblem will involve half the number of columns</span></span><br><span class="line"></span><br><span class="line">    mid = problem.numCol // <span class="number">2</span></span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">    <span class="comment"># information about the two subproblems</span></span><br><span class="line"></span><br><span class="line">    (subStartR, subNumR) = (<span class="number">0</span>, problem.numRow)</span><br><span class="line"></span><br><span class="line">    (subStartC1, subNumC1) = (<span class="number">0</span>, mid)</span><br><span class="line"></span><br><span class="line">    (subStartC2, subNumC2) = (mid + <span class="number">1</span>, problem.numCol - (mid + <span class="number">1</span>))</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">    subproblems = []</span><br><span class="line"></span><br><span class="line">    subproblems.append((subStartR, subStartC1, subNumR, subNumC1))</span><br><span class="line"></span><br><span class="line">    subproblems.append((subStartR, subStartC2, subNumR, subNumC2))</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">    <span class="comment"># get a list of all locations in the dividing column</span></span><br><span class="line"></span><br><span class="line">    divider = crossProduct(<span class="built_in">range</span>(problem.numRow), [mid])</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">    <span class="comment"># find the maximum in the dividing column</span></span><br><span class="line"></span><br><span class="line">    bestLoc = problem.getMaximum(divider, trace)</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">    <span class="comment"># see if the maximum value we found on the dividing line has a better</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># neighbor (which cannot be on the dividing line, because we know that</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># this location is the best on the dividing line)</span></span><br><span class="line"></span><br><span class="line">    neighbor = problem.getBetterNeighbor(bestLoc, trace)</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">    <span class="comment"># this is a peak, so return it</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> neighbor == bestLoc:</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> trace <span class="keyword">is</span> <span class="literal">None</span>: trace.foundPeak(bestLoc)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> bestLoc</span><br><span class="line"></span><br><span class="line">    <span class="comment"># otherwise, figure out which subproblem contains the neighbor, and</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># recurse in that half</span></span><br><span class="line"></span><br><span class="line">    sub = problem.getSubproblemContaining(subproblems, neighbor)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> trace <span class="keyword">is</span> <span class="literal">None</span>: trace.setProblemDimensions(sub)</span><br><span class="line"></span><br><span class="line">    result = algorithm1(sub, trace)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> problem.getLocationInSelf(sub, result)</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">algorithm2</span>(<span class="params">problem, location = (<span class="params"><span class="number">0</span>, <span class="number">0</span></span>), trace = <span class="literal">None</span></span>):</span><br><span class="line"></span><br><span class="line">    <span class="comment"># if it&#x27;s empty, we&#x27;re done</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> problem.numRow &lt;= <span class="number">0</span> <span class="keyword">or</span> problem.numCol &lt;= <span class="number">0</span>:</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">    nextLocation = problem.getBetterNeighbor(location, trace)</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> nextLocation == location:</span><br><span class="line"></span><br><span class="line">        <span class="comment"># there is no better neighbor, so return this peak</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> trace <span class="keyword">is</span> <span class="literal">None</span>: trace.foundPeak(location)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> location</span><br><span class="line"></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line"></span><br><span class="line">        <span class="comment"># there is a better neighbor, so move to the neighbor and recurse</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> algorithm2(problem, nextLocation, trace)</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">algorithm3</span>(<span class="params">problem, bestSeen = <span class="literal">None</span>, trace = <span class="literal">None</span></span>):</span><br><span class="line"></span><br><span class="line">    <span class="comment"># if it&#x27;s empty, we&#x27;re done</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> problem.numRow &lt;= <span class="number">0</span> <span class="keyword">or</span> problem.numCol &lt;= <span class="number">0</span>:</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">    midRow = problem.numRow // <span class="number">2</span></span><br><span class="line"></span><br><span class="line">    midCol = problem.numCol // <span class="number">2</span></span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">    <span class="comment"># first, get the list of all subproblems</span></span><br><span class="line"></span><br><span class="line">    subproblems = []</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">    (subStartR1, subNumR1) = (<span class="number">0</span>, midRow)</span><br><span class="line"></span><br><span class="line">    (subStartR2, subNumR2) = (midRow + <span class="number">1</span>, problem.numRow - (midRow + <span class="number">1</span>))</span><br><span class="line"></span><br><span class="line">    (subStartC1, subNumC1) = (<span class="number">0</span>, midCol)</span><br><span class="line"></span><br><span class="line">    (subStartC2, subNumC2) = (midCol + <span class="number">1</span>, problem.numCol - (midCol + <span class="number">1</span>))</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">    subproblems.append((subStartR1, subStartC1, subNumR1, subNumC1))</span><br><span class="line"></span><br><span class="line">    subproblems.append((subStartR1, subStartC2, subNumR1, subNumC2))</span><br><span class="line"></span><br><span class="line">    subproblems.append((subStartR2, subStartC1, subNumR2, subNumC1))</span><br><span class="line"></span><br><span class="line">    subproblems.append((subStartR2, subStartC2, subNumR2, subNumC2))</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">    <span class="comment"># find the best location on the cross (the middle row combined with the</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># middle column)</span></span><br><span class="line"></span><br><span class="line">    cross = []</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">    cross.extend(crossProduct([midRow], <span class="built_in">range</span>(problem.numCol)))</span><br><span class="line"></span><br><span class="line">    cross.extend(crossProduct(<span class="built_in">range</span>(problem.numRow), [midCol]))</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">    crossLoc = problem.getMaximum(cross, trace)</span><br><span class="line"></span><br><span class="line">    neighbor = problem.getBetterNeighbor(crossLoc, trace)</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">    <span class="comment"># update the best we&#x27;ve seen so far based on this new maximum</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> bestSeen <span class="keyword">is</span> <span class="literal">None</span> <span class="keyword">or</span> problem.get(neighbor) &gt; problem.get(bestSeen):</span><br><span class="line"></span><br><span class="line">        bestSeen = neighbor</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> trace <span class="keyword">is</span> <span class="literal">None</span>: trace.setBestSeen(bestSeen)</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">    <span class="comment"># return if we can&#x27;t see any better neighbors</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> neighbor == crossLoc:</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> trace <span class="keyword">is</span> <span class="literal">None</span>: trace.foundPeak(crossLoc)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> crossLoc</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">    <span class="comment"># figure out which subproblem contains the largest number we&#x27;ve seen so</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># far, and recurse</span></span><br><span class="line"></span><br><span class="line">    sub = problem.getSubproblemContaining(subproblems, bestSeen)</span><br><span class="line"></span><br><span class="line">    newBest = sub.getLocationInSelf(problem, bestSeen)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> trace <span class="keyword">is</span> <span class="literal">None</span>: trace.setProblemDimensions(sub)</span><br><span class="line"></span><br><span class="line">    result = algorithm3(sub, newBest, trace)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> problem.getLocationInSelf(sub, result)</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">algorithm4</span>(<span class="params">problem, bestSeen = <span class="literal">None</span>, rowSplit = <span class="literal">True</span>, trace = <span class="literal">None</span></span>):</span><br><span class="line"></span><br><span class="line">    <span class="comment"># if it&#x27;s empty, we&#x27;re done</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> problem.numRow &lt;= <span class="number">0</span> <span class="keyword">or</span> problem.numCol &lt;= <span class="number">0</span>:</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">    subproblems = []</span><br><span class="line"></span><br><span class="line">    divider = []</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> rowSplit:</span><br><span class="line"></span><br><span class="line">        <span class="comment"># the recursive subproblem will involve half the number of rows</span></span><br><span class="line"></span><br><span class="line">        mid = problem.numRow // <span class="number">2</span></span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">        <span class="comment"># information about the two subproblems</span></span><br><span class="line"></span><br><span class="line">        (subStartR1, subNumR1) = (<span class="number">0</span>, mid)</span><br><span class="line"></span><br><span class="line">        (subStartR2, subNumR2) = (mid + <span class="number">1</span>, problem.numRow - (mid + <span class="number">1</span>))</span><br><span class="line"></span><br><span class="line">        (subStartC, subNumC) = (<span class="number">0</span>, problem.numCol)</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">        subproblems.append((subStartR1, subStartC, subNumR1, subNumC))</span><br><span class="line"></span><br><span class="line">        subproblems.append((subStartR2, subStartC, subNumR2, subNumC))</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">        <span class="comment"># get a list of all locations in the dividing column</span></span><br><span class="line"></span><br><span class="line">        divider = crossProduct([mid], <span class="built_in">range</span>(problem.numCol))</span><br><span class="line"></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line"></span><br><span class="line">        <span class="comment"># the recursive subproblem will involve half the number of columns</span></span><br><span class="line"></span><br><span class="line">        mid = problem.numCol // <span class="number">2</span></span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">        <span class="comment"># information about the two subproblems</span></span><br><span class="line"></span><br><span class="line">        (subStartR, subNumR) = (<span class="number">0</span>, problem.numRow)</span><br><span class="line"></span><br><span class="line">        (subStartC1, subNumC1) = (<span class="number">0</span>, mid)</span><br><span class="line"></span><br><span class="line">        (subStartC2, subNumC2) = (mid + <span class="number">1</span>, problem.numCol - (mid + <span class="number">1</span>))</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">        subproblems.append((subStartR, subStartC1, subNumR, subNumC1))</span><br><span class="line"></span><br><span class="line">        subproblems.append((subStartR, subStartC2, subNumR, subNumC2))</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">        <span class="comment"># get a list of all locations in the dividing column</span></span><br><span class="line"></span><br><span class="line">        divider = crossProduct(<span class="built_in">range</span>(problem.numRow), [mid])</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">    <span class="comment"># find the maximum in the dividing row or column</span></span><br><span class="line"></span><br><span class="line">    bestLoc = problem.getMaximum(divider, trace)</span><br><span class="line"></span><br><span class="line">    neighbor = problem.getBetterNeighbor(bestLoc, trace)</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">    <span class="comment"># update the best we&#x27;ve seen so far based on this new maximum</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> bestSeen <span class="keyword">is</span> <span class="literal">None</span> <span class="keyword">or</span> problem.get(neighbor) &gt; problem.get(bestSeen):</span><br><span class="line"></span><br><span class="line">        bestSeen = neighbor</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> trace <span class="keyword">is</span> <span class="literal">None</span>: trace.setBestSeen(bestSeen)</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">    <span class="comment"># return when we know we&#x27;ve found a peak</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> neighbor == bestLoc <span class="keyword">and</span> problem.get(bestLoc) &gt;= problem.get(bestSeen):</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> trace <span class="keyword">is</span> <span class="literal">None</span>: trace.foundPeak(bestLoc)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> bestLoc</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">    <span class="comment"># figure out which subproblem contains the largest number we&#x27;ve seen so</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># far, and recurse, alternating between splitting on rows and splitting</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># on columns</span></span><br><span class="line"></span><br><span class="line">    sub = problem.getSubproblemContaining(subproblems, bestSeen)</span><br><span class="line"></span><br><span class="line">    newBest = sub.getLocationInSelf(problem, bestSeen)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> trace <span class="keyword">is</span> <span class="literal">None</span>: trace.setProblemDimensions(sub)</span><br><span class="line"></span><br><span class="line">    result = algorithm4(sub, newBest, <span class="keyword">not</span> rowSplit, trace)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> problem.getLocationInSelf(sub, result)</span><br></pre></td></tr></table></figure>
-<p>算法一二如课程笔记所述，均是正确的，以下是证明</p>
-<ul>
-<li>algo1</li>
-</ul>
-<ol type="1">
-<li>证明算法不可能返回一个空值，首先算法不可能得到一个负索引的子数组（在只有一列的时候必然会得到结果而不是继续划分），在最小问题的情况下，如果此时子问题有一列，那么必然返回一个峰值，如果有两列，不管目前讨论的列是不是最大值，都会递归成最小为1为列的子问题，不会返回空值</li>
-<li>证明返回的位置确实是峰值位置，如果算法1返回一个位置（r1，c1），则该位置必须具有列c1中的最大值，并且必须是某个递归子问题中的峰值。为了推导矛盾，假设（r1，c1）不是原始问题中的峰值。在某个子问题中，位置（r1，c1）与列c2相邻（|c1 - c2| = 1），并且值必须满足不等式val（r1，c1）&lt; val（r1，c2）。<br />
-让（r2，c2）是算法1在c2列中找到的最大值的位置。因此，必定有val（r1，c2）≤ val（r2，c2）。因为c2是分割线，且算法选择在包含（r1，c1）的一半上进行递归，所以我们知道val（r2，c2）&lt; val（r2，c1）。因此，我们有以下不等式链：<br />
-val（r1，c1）&lt; val（r1，c2）≤ val（r2，c2）&lt; val（r2，c1）<br />
-但是，为了使算法1将（r1，c1）作为峰值返回，（r1，c1）处的值必须是其列中的最大值，即val（r1，c1）≥ val（r2，c1）。因此，我们得到了一个矛盾。</li>
-</ol>
-<ul>
-<li>algo3是错误的</li>
-</ul>
-<p><strong>反例</strong></p>
-<p>如图所示的反例会选择返回一个在当前子问题中看起来像一个峰值，但是与子问题外部的某个更大值相邻的位置</p>
-<table>
-<thead>
-<tr class="header">
-<th>0</th>
-<th>0</th>
-<th>9</th>
-<th>8</th>
-<th>0</th>
-<th>0</th>
-<th>0</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr class="even">
-<td>0</td>
-<td>1</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr class="odd">
-<td>0</td>
-<td>2</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr class="even">
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr class="odd">
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr class="even">
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr class="odd">
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-</tr>
-</tbody>
-</table>
-<p>对算法四的证明</p>
-<ul>
-<li>algo4</li>
-</ul>
-<p>算法四交叉进行行和列的最大值寻找</p>
-<ol type="1">
-<li>如果峰值问题不为空，则算法将始终返回一个位置。在算法中，根据是在行还是列上分割，递归子问题的维度会相应地减少。所以算法要么在某个时刻停止并返回一个位置，要么最终检查一个行数或列数为非正的子问题。但是，问题的行数或列数变为严格负数的唯一方式是在某个时刻m=0或n=0。因此，如果算法没有返回位置，它必定最终检查一个空的子问题。然而，证明假设该情况不会发生。</li>
-<li>如果算法返回一个位置，则该位置将是原始问题中的一个峰值。如果算法返回一个位置(r1, c1)，那么该位置必定是某个递归子问题中的峰值。另外，如果(r2, c2)是算法执行过程中的最佳位置（存储在bestSeen变量中的位置），那么必定满足val(r1, c1) ≥ val(r2, c2)。证明假设(r1, c1)不是原始问题的峰值。那么当位置(r1, c1)通过递归调用链向上传递时，它必定在某个级别停止是不是峰值。因此，必定存在一个包含位置(r1, c1)的子问题，在该级别中，该子问题的某个邻居(r3, c3)的值满足val(r1, c1) &lt; val(r3, c3)。对于(r3, c3)既是递归子问题的邻居又不包含在子问题中，它必定在算法的执行过程中被检查过。因此，必定满足val(r3, c3) ≤ val(r2, c2)。因此，我们得到以下不等式链：val(r1, c1) &lt; val(r3, c3) ≤ val(r2, c2) ≤ val(r1, c1)。这导致了矛盾。</li>
-</ol>
 ]]></content>
       <categories>
         <category>课程笔记</category>
