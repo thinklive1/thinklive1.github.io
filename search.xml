@@ -29,7 +29,7 @@
 ]]></content>
   </entry>
   <entry>
-    <title>基于mit6.006的算法笔记</title>
+    <title>基于mit6.006和hello-algo的算法笔记</title>
     <url>/2023/10/14/mit6.006%E6%80%BB%E5%92%8C%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<h1 id="基础">基础</h1>
 <h2 id="数据结构">数据结构</h2>
@@ -248,7 +248,8 @@ z = x · y = x_1y_1 · r^n + (x_0 · y_1 + x_1 · y_0)r^{n/2} + x_0 · y_0
 <p>We apply a first level of Newton’s method to solve f (x) = x2 − a. Each iteration of this first level1 requires a division. If we set the precision to d digits right from the beginning, then convergence at the first level will require lg d iterations. This means the complexity of computing a square root will be Θ(dα lg d) if the complexity of multiplication is Θ(dα), given that we have shown that the complexity of division is the same as the complexity of multiplication. However, we can do better, if we recognize that the number of digits of precision we need at beginning of the first level of Newton’s method starts out small and then grows. If the complexity of a d-digit division is Θ(dα), then a similar summation to the one above tells us that the complexity of computing square roots is Θ(dα)</p>
 <h1 id="图论">图论</h1>
 <h2 id="概念">概念</h2>
-<p>图的表示：for each vertex u ∈ V, Adj[u] stores u’s neighbors, i.e., {v ∈ V | (u, v) ∈ E}. Adj 的大小为 θ(|V |)，而每个 Adj(u) 的大小为 θ(deg(u))</p>
+<p>图：for each vertex u ∈ V, Adj[u] stores u’s neighbors, i.e., {v ∈ V | (u, v) ∈ E}. Adj 的大小为 θ(|V |)，而每个 Adj(u) 的大小为 θ(deg(u))</p>
+<p>表示分为邻接表和邻接矩阵 <img src="https://www.hello-algo.com/chapter_graph/graph.assets/adjacency_matrix.png" /> <img src="https://www.hello-algo.com/chapter_graph/graph.assets/adjacency_list.png" /> <img src="/assets/mit6.006总和笔记/QQ图片20231121160100.png" /></p>
 <h3 id="路径">路径</h3>
 <ul>
 <li>路径是顶点序列p=(v1,v2,...,vk),其中(vi,vi+1)∈E, 1≤i&lt;k<br />
@@ -257,8 +258,10 @@ z = x · y = x_1y_1 · r^n + (x_0 · y_1 + x_1 · y_0)r^{n/2} + x_0 · y_0
 </li>
 <li>路径p的长度为路径上的边数<br />
 </li>
-<li>u到v的距离δ(u,v)为从u到v的最短路径长度 <strong>路径问题</strong>:<br />
-</li>
+<li>u到v的距离δ(u,v)为从u到v的最短路径长度</li>
+</ul>
+<p><strong>路径问题</strong>:</p>
+<ul>
 <li>图中的多种路径问题:<br />
   - 单源可达性:s是否可达t<br />
   - 单源最短路径:返回δ(s,t)和s到t的最短路径<br />
@@ -273,35 +276,44 @@ z = x · y = x_1y_1 · r^n + (x_0 · y_1 + x_1 · y_0)r^{n/2} + x_0 · y_0
 <li>父节点构成包含从s可达所有最短路径的最短路径树,大小为O(|V|)</li>
 </ul>
 <h2 id="bst">BST</h2>
-<p><strong>应用</strong> • 网络抓取（Google 如何查找页面） • 社交网络（Facebook 好友查找器） • 网络广播路由 • 垃圾收集 • 模型检查（有限状态机） • 检查数学猜想 • 解决谜题和游戏</p>
+<p><strong>应用</strong></p>
+<ul>
+<li>网络抓取（Google 如何查找页面）</li>
+<li>社交网络（Facebook 好友查找器）</li>
+<li>网络广播路由</li>
+<li>垃圾收集</li>
+<li>模型检查（有限状态机）</li>
+<li>检查数学猜想</li>
+<li>解决谜题和游戏</li>
+</ul>
 <p>如何计算图中所有顶点v的δ(s,v)和P(v)?</p>
 <ul>
 <li>使用集合数据结构来存储每个顶点v对应的δ(s,v)距离和P(v)父节点。<br />
 </li>
-<li>如果从起点s到v没有路径,则不存储在P中,δ(s,v)设为无穷大。 <strong>基本思路</strong>:</li>
-<li>按照与起点s的距离依次增大的顺序探索图的节点。 <strong>目标</strong>:<br />
-</li>
-<li>计算所有与起点s距离为i的顶点的集合Li。结论:<br />
-</li>
-<li>Li中的任意顶点v必须与L_{i-1}中的某个顶点u相连。<br />
-</li>
-<li>不会有任何距离起点距离为j(j&lt;i)的顶点出现在Li中。 <strong>循环不变量:</strong><br />
-</li>
-<li>在计算到Li之前,δ(s,v)和P(v)对于所有Lj(j&lt;i)中的顶点v都已正确赋值。</li>
+<li>如果从起点s到v没有路径,则不存储在P中,δ(s,v)设为无穷大。</li>
 </ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">BFS (V,Adj,s): See CLRS for queue-based implementation</span><br><span class="line">level = &#123; s: 0 &#125;</span><br><span class="line">parent = &#123;s : None &#125;</span><br><span class="line">i = 1</span><br><span class="line">frontier = [s] # previous level, i − 1</span><br><span class="line">while frontier:</span><br><span class="line">next = [ ] # next level, i</span><br><span class="line">for u in frontier:</span><br><span class="line">for v in Adj [u]:</span><br><span class="line">if v not in level: # not yet seen</span><br><span class="line">level[v] = i ] = level[u] + 1</span><br><span class="line">parent[v] = u</span><br><span class="line">next.append(v)</span><br><span class="line">frontier = next</span><br><span class="line">i + =1</span><br></pre></td></tr></table></figure>
+<p><strong>基本思路</strong>: - 按照与起点s的距离依次增大的顺序探索图的节点。</p>
+<p><strong>目标</strong>:<br />
+- 计算所有与起点s距离为i的顶点的集合Li。结论:<br />
+- Li中的任意顶点v必须与L_{i-1}中的某个顶点u相连。<br />
+- 不会有任何距离起点距离为j(j&lt;i)的顶点出现在Li中。</p>
+<p><strong>循环不变量:</strong><br />
+- 在计算到Li之前,δ(s,v)和P(v)对于所有Lj(j&lt;i)中的顶点v都已正确赋值。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">BFS (V,Adj,s): See CLRS for queue-based implementation</span><br><span class="line">level = &#123; s: 0 &#125;</span><br><span class="line">parent = &#123;s : None &#125;</span><br><span class="line">i = 1</span><br><span class="line">frontier = [s] # previous level, i − 1</span><br><span class="line">while frontier:</span><br><span class="line">  next = [ ] # next level, i</span><br><span class="line">  for u in frontier:</span><br><span class="line">    for v in Adj [u]:</span><br><span class="line">      if v not in level: # not yet seen</span><br><span class="line">        level[v] = i # = level[u] + 1</span><br><span class="line">        parent[v] = u</span><br><span class="line">        next.append(v)</span><br><span class="line">  frontier = next</span><br><span class="line">  i + =1</span><br></pre></td></tr></table></figure>
 <p>基本情况(i=1):</p>
 <ul>
-<li>L0={s},δ(s,s)=0,P(s)=None归纳步骤:<br />
-</li>
+<li>L0={s},δ(s,s)=0,P(s)=None归纳步骤: (L表示level)</li>
 <li>计算Li时:<br />
   - 对Li-1中的每个顶点u:<br />
     - 对于任一不在Lj(j&lt;i)中的相邻顶点v:<br />
       - 将v加入Li,设置δ(s,v)=i,P(v)=u重复计算:</li>
 <li>按i递增顺序重复计算Li,直到Li为空集<br />
 </li>
-<li>对任一不可达顶点v,设置δ(s,v)=∞因此通过归纳证明,广度优先搜索可以正确计算所有δ(s,v)和P(v)。 <strong>时间复杂度分析</strong>:<br />
-</li>
+<li>对任一不可达顶点v,设置δ(s,v)=∞</li>
+<li>因此通过归纳证明,广度优先搜索可以正确计算所有δ(s,v)和P(v)。</li>
+</ul>
+<p><strong>时间复杂度分析</strong>:</p>
+<ul>
 <li>用支持快速遍历和插入的数据结构存储Li<br />
 </li>
 <li>通过检查P来判断一个顶点是否在Lj(j&lt;i)中<br />
@@ -4315,8 +4327,8 @@ Name: people_house_proportion, dtype: float64</code></pre>
       <tags>
         <tag>课程笔记</tag>
         <tag>数据结构与算法</tag>
-        <tag>斯坦福</tag>
         <tag>c++</tag>
+        <tag>斯坦福</tag>
       </tags>
   </entry>
   <entry>
@@ -4689,8 +4701,8 @@ used the next time std::cin &gt;&gt; is called<br />
       </categories>
       <tags>
         <tag>课程笔记</tag>
-        <tag>斯坦福</tag>
         <tag>c++</tag>
+        <tag>斯坦福</tag>
       </tags>
   </entry>
   <entry>
@@ -6738,8 +6750,8 @@ Inexpensive Disk）由美国加州大学伯克利分校提出。<br />
         <category>其他</category>
       </categories>
       <tags>
-        <tag>c++</tag>
         <tag>读书笔记</tag>
+        <tag>c++</tag>
       </tags>
   </entry>
   <entry>
