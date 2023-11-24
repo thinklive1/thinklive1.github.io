@@ -30,9 +30,488 @@
 ]]></content>
   </entry>
   <entry>
+    <title>基于苏大ppt的linux笔记(待续)</title>
+    <url>/2023/10/14/%E8%8B%8F%E5%A4%A7linux_ppt/</url>
+    <content><![CDATA[<h1 id="苏大部分">苏大部分</h1>
+<h2 id="文件系统">文件系统</h2>
+<h3 id="命名">命名</h3>
+<p>•除/之外，所有的字符都合法</p>
+<p>•大小写敏感</p>
+<p>•有些字符最好不用，如空格符、制表符、退格符和字符：？, @ # $ &amp; ()  | ; ‘ ’ “ ” &lt; &gt;</p>
+<p>•避免使用＋、－或. 来作为普通文件名的第一个字符</p>
+<p>•可以使用长文件名或目录名（255个字符）</p>
+<p>包括完整路径的文件名不超过4096字符 <span id="more"></span></p>
+<h3 id="目录">目录</h3>
+<table>
+<tbody>
+<tr class="odd">
+<td>bin</td>
+<td>存放二进制的可执行程序</td>
+</tr>
+<tr class="even">
+<td>boot</td>
+<td>存放用于系统引导时使用的各种文件</td>
+</tr>
+<tr class="odd">
+<td>dev</td>
+<td>存放设备文件，用户通过这些文件访问外部设备</td>
+</tr>
+<tr class="even">
+<td>etc</td>
+<td>存放系统的配置文件</td>
+</tr>
+<tr class="odd">
+<td>home</td>
+<td>存放用户文件的目录，每个用户在该目录下有一个与该用户名对应的子目录</td>
+</tr>
+<tr class="even">
+<td>root</td>
+<td>超级用户目录</td>
+</tr>
+<tr class="odd">
+<td>sbin</td>
+<td>类似于/bin目录，存放二进制文件，只有root才能访问</td>
+</tr>
+<tr class="even">
+<td>tmp</td>
+<td>用于放置各种临时文件</td>
+</tr>
+</tbody>
+</table>
+<table>
+<tbody>
+<tr class="odd">
+<td>var</td>
+<td>用于存放需要随时改变的文件，如系统日志、脱机工作目录等</td>
+</tr>
+<tr class="even">
+<td>mnt</td>
+<td>系统管理员安装临时文件系统的安装点</td>
+</tr>
+<tr class="odd">
+<td>opt</td>
+<td>一般情况下，该目录不属于系统的基本文件系统，是额外安装的应用程序包所放置的地方</td>
+</tr>
+<tr class="even">
+<td>usr</td>
+<td>用于存放系统应用程序</td>
+</tr>
+<tr class="odd">
+<td>lib</td>
+<td>存放根文件系统中的程序运行所需要的共享库及内核模块</td>
+</tr>
+<tr class="even">
+<td>proc</td>
+<td>是一个虚拟文件系统，存放当前内存的映射，主要用于在不重启机器的情况下管理内核</td>
+</tr>
+<tr class="odd">
+<td>lost+ found</td>
+<td>存放一些系统检查结果，发现不合法的文件或数据都存放在这里，通常此目录是空的，除非硬盘遭到损坏</td>
+</tr>
+</tbody>
+</table>
+<h3 id="链接文件">链接文件</h3>
+<ul>
+<li><p>硬链接 将两个文件名指向硬盘上同一个存储空间（inode），对任何一个文件的修改都将影响到另一个文件。 特性： 文件有相同的 inode 及 data block； 只能对已存在的文件进行创建； 不能交叉文件系统进行硬链接的创建； 不能对目录进行创建，只可对文件创建； 删除一个硬链接文件并不影响其他有相同 inode 号的文件。</p></li>
+<li><p>符号链接 又称软链接，是指将一个文件指向另外一个文件的文件名。 特性： 软链接有自己的文件属性及权限等； 软链接可对文件或目录创建； 可对不存在的文件或目录创建软链接； 软链接可交叉文件系统； 若被指向的原文件被删除，则相关软连接被称为死链接 删除软链接并不影响被指向的文件，若被指向路径文件被重新创建，死链接可恢复为正常的软链接</p></li>
+</ul>
+<p><code>符号链接可以跨文件系统，即可以跨磁盘分区。硬链接不可以跨文件系统。它只能建立对文件的链接。</code> 链接文件命令  ln</p>
+<table>
+<tbody>
+<tr class="odd">
+<td>ln file1 file2</td>
+<td>创建源文件file1的硬链接file2</td>
+</tr>
+<tr class="even">
+<td>ln -s file1 file2</td>
+<td>创建源文件file1的软链接file2</td>
+</tr>
+</tbody>
+</table>
+<p>符号链接可以跨文件系统，即可以跨磁盘分区。 硬链接不可以跨文件系统，只能建立对文件的链接。 硬链接删除只原文件或硬链接不影响文件内容 软连接删除源文件导致链接失效</p>
+<h3 id="mbr">MBR</h3>
+<p>硬盘的第一个扇区存有主引导记录(Master boot record, MBR)及分区表(partition table)</p>
+<ul>
+<li>MBR用于引导操作系统， 446 bytes ；</li>
+<li>partition table用于记录分区信息， 64 bytes ； 一个MBR分区表类型的硬盘最多存在4个主分区，每个分区项占用16个字节 如果分区超过4个，则需要使用扩展分区，即一个物理硬盘上最多有3个主分区和1个扩展分区。 扩展分区不能直接使用，必须分割成为逻辑分区，一个扩展分区中的逻辑分区可以任意多个。</li>
+</ul>
+<h3 id="gpt">GPT</h3>
+<p>全称全局唯一标识分区表 GUID Partition Table</p>
+<ul>
+<li>主分区数量任意（Win 128个）</li>
+<li>支持最大18EB（NTFS 256TB） 1EB=1024PB=1,048,576TB 可能需要EFI支持（Win、Mac）</li>
+</ul>
+<h3 id="ext2">ext2</h3>
+<p>磁盘分区完毕后还需要进行格式化(format)，不同操作系统默认的文件系统不同，所以需要格式化成不同格式的分区。 EXT2（second extended filesystem）是LINUX内核默认的文件系统。 EXT2中的主要构成： •SuperBlock  记录此 filesystem 的整体信息，包括inode/block的总量、使用量、剩余量， 以及文件系统的格式与相关信息等； •Block   实际记录文件的内容，若文件较大，则占用多个 block。 •Inode   记录文件的属性，一个文件占用一个inode，同时记录此文件的数据所在的 block 号码</p>
+<h4 id="inode">inode</h4>
+<p>ext2 创建一个目录时，分配1个 inode 与至少1块 block 给目录 •inode 记录目录权限与属性，并记录分配到 block号码 •block 记录目录下文件名与该文件名占用的 inode</p>
+<p>inode 数量与大小在格式化时固定 特征：</p>
+<ul>
+<li>每个 inode 大小均固定为 128 bytes；</li>
+<li>每个文件仅占用一个 inode；</li>
+<li>文件系统能够创建的文件数量与 inode 的数量有关；</li>
+<li>系统读取文件时先找到 inode，分析 inode 所记录的权限与用户是否符合，若符合读取 block 的内容。 <img src="assets/苏大linux_ppt/image-20231014145226727.png" /></li>
+</ul>
+<h4 id="升级">升级</h4>
+<p><code>EXT2</code>文件系统高效稳定，但不提供日志 <code>EXT3</code> 提供日志模式： data=journal模式 对所有的文件数据及metadata（定义文件系统中数据的数据,即数据的数据）进行日志记录 data=ordered或data=writeback模式 只对metadata记录日志，而不对数据进行日志记录</p>
+<p><code>EXT4</code> EXT3的扩展升级，可以提供更佳的性能和可靠性，包括支持更大的分区和文件大小，更快的文件操作速度。</p>
+<h3 id="实例">实例</h3>
+<h4 id="fdisk">fdisk</h4>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">           fdisk      [-options]     &lt;disk&gt;</span><br><span class="line">选项：</span><br><span class="line">-l 列出分区信息表</span><br><span class="line">/dev/sda    对sda磁盘进行分区</span><br></pre></td></tr></table></figure>
+<p>中科大的xubuntu镜像</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ustc@ustclug-linux101:~/桌面$ sudo fdisk -l</span><br><span class="line">[sudo] ustc 的密码： </span><br><span class="line">Disk /dev/sda：5 GiB，5368709120 字节，10485760 个扇区</span><br><span class="line">Disk model: VMware Virtual S</span><br><span class="line">单元：扇区 / 1 * 512 = 512 字节</span><br><span class="line">扇区大小(逻辑/物理)：512 字节 / 512 字节</span><br><span class="line">I/O 大小(最小/最佳)：512 字节 / 512 字节</span><br><span class="line">磁盘标签类型：gpt</span><br><span class="line">磁盘标识符：12526913-E330-4CA7-A379-90A87EF858B0</span><br><span class="line"></span><br><span class="line">设备         起点     末尾    扇区  大小 类型</span><br><span class="line">/dev/sda1    2048   499711  497664  243M EFI 系统</span><br><span class="line">/dev/sda2  499712 10483711 9984000  4.8G Linux 文件系统</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h4 id="mkfs格式化">mkfs格式化</h4>
+<p>mkfs      [-t 磁盘格式名]     &lt;partition&gt;</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mkfs  -t ext3  /dev/sdb1</span><br></pre></td></tr></table></figure>
+<h4 id="mount挂载">mount挂载</h4>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mount [-t vfstype] [-o options]    device    <span class="built_in">dir</span></span><br><span class="line">mount                         显示所有挂载的信息</span><br><span class="line"></span><br><span class="line">mount –a                   将所有未挂载设备挂载</span><br><span class="line"></span><br><span class="line">mount   /dev/hda2   /mnt/myhd2    将hda2设备挂载到/mnt/myhd2</span><br><span class="line"></span><br><span class="line">mount -t iso9660 /dev/cdrom  /media/cdrom  挂载光驱</span><br><span class="line">umount [选项] <span class="built_in">dir</span></span><br><span class="line"></span><br><span class="line">选项：</span><br><span class="line"></span><br><span class="line">-f     强制卸载</span><br><span class="line"></span><br><span class="line">-all   卸载所有挂载</span><br><span class="line"></span><br><span class="line">例：</span><br><span class="line"></span><br><span class="line">umount  /media/cdrom     卸载刚才挂载的光驱</span><br></pre></td></tr></table></figure>
+<h2 id="shell">shell</h2>
+<h3 id="重定向">重定向</h3>
+<p>lLinux启动后，默认打开3个文件描述符 •标准输入：standard input   0 •标准输出：standard output  1 •错误输出：error output     2 每条shell命令执行，都会继承父进程的文件描述符。因此，所有运行的shell命令，都会有默认3个文件描述符。 <code>重定向</code> 是指不使用系统的标准输入，标准输出或标准错误端口，而重新指定输入输出。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入重定向</span><br><span class="line"></span><br><span class="line">&lt;          输入重定向，从普通文件获取</span><br><span class="line"></span><br><span class="line">&lt;&lt;!...!    输入重定向， here文件，即从命令行获取</span><br><span class="line"></span><br><span class="line">输出重定向</span><br><span class="line"></span><br><span class="line">&gt;          输出重定向，覆盖模式</span><br><span class="line"></span><br><span class="line">&gt;&gt;         输出重定向，追加模式</span><br><span class="line"></span><br><span class="line">2&gt;         错误重定向，覆盖模式</span><br><span class="line"></span><br><span class="line">2&gt;&gt;        错误重定向，追加模式</span><br><span class="line"></span><br><span class="line">&amp;&gt;         同时实现输出重定向和错误重定向，覆盖模式</span><br><span class="line"></span><br><span class="line">&amp;&gt;&gt;        同时实现输出重定向和错误重定向，追加模式</span><br></pre></td></tr></table></figure>
+<h3 id="管道">管道</h3>
+<p>管道是一种两个进程间进行单向通信的机制 每个命令的输出作为下一条命令的输入，管道线中的命令从左到右顺序执行的，管道线是单向的 因为管道传递数据的单向性，管道又称为半双工管道</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ls –l | wc -l</span><br></pre></td></tr></table></figure>
+<h3 id="命令替换">命令替换</h3>
+<p>Shell中的命令参数可以由另一个命令执行的结果来替代</p>
+<p>命令格式：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$cmd1 `cmd2  arguments`</span><br><span class="line">或</span><br><span class="line">$cmd1 $(cmd2 arguments)</span><br></pre></td></tr></table></figure>
+<p>其中cmd2  arguments的输出作为cmd1的参数y</p>
+<h3 id="命令聚合">命令聚合</h3>
+<p>在一个命令行上使用若干shell元字符将若干命令聚合在一起运行。</p>
+<p>执行聚合的几种方式：</p>
+<p>•<code>cmd1;cmd2</code>   顺序执行若干命令</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">pwd;date;ls</span><br></pre></td></tr></table></figure>
+<p>•<code>cmd1&amp;&amp;cmd2</code> 当cmd1运行成功时才运行cmd2</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">gzip mylargefile&amp;&amp;echo &quot;OK.&quot;</span><br></pre></td></tr></table></figure>
+<p>•<code>cmd1||cmd2</code>   当cmd1运行失败时才运行cmd2</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">gzip mylargefile||echo &quot;FALSE.&quot;</span><br></pre></td></tr></table></figure>
+<p>•<code>(cmdlist)</code>   在子shell中执行命令序列，命令不影响当前shell</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">(date;who|wc -l)&gt;~/login-users.log</span><br></pre></td></tr></table></figure>
+<h1 id="linux101">linux101</h1>
+<p><img src="/assets/苏大linux_ppt/clitool.png" /> ## apt</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ apt search firefox</span><br><span class="line">Sorting... Done</span><br><span class="line">Full Text Search... Done</span><br><span class="line">(Output omitted)</span><br><span class="line"></span><br><span class="line">firefox/bionic-updates,bionic-security,now 72.0.2+build1-0ubuntu0.18.04.1 amd64</span><br><span class="line">  Safe and easy web browser from Mozilla</span><br><span class="line"></span><br><span class="line">(Output omitted)</span><br></pre></td></tr></table></figure>
+<p>中间两行每个字段的含义：</p>
+<table>
+<thead>
+<tr class="header">
+<th>样例中的字段</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>firefox</code></td>
+<td>即为在软件仓库中的包名</td>
+</tr>
+<tr class="even">
+<td><code>bionic-updates,bionic-security,now</code></td>
+<td>为包含这个软件包的仓库源</td>
+</tr>
+<tr class="odd">
+<td><code>72.0.2+build1-0ubuntu0.18.04.1</code></td>
+<td>为软件包的版本</td>
+</tr>
+<tr class="even">
+<td><code>amd64</code></td>
+<td>软件包的架构；还可能为<code>i386</code>、<code>all</code>等</td>
+</tr>
+<tr class="odd">
+<td><code>Safe and easy web browser from Mozilla</code></td>
+<td>在软件仓库中对这个软件包的描述</td>
+</tr>
+</tbody>
+</table>
+<div class="note warning"><p>请避免直接使用 <code>dpkg -i</code> 安装 deb 包。 在绝大多数情况下，都应该使用 <code>apt</code> 来安装 deb 文件。 如果不小心执行了 <code>dpkg -i</code> 导致系统出现依赖问题，可以尝试通过如下的方式调用 <code>apt</code> 帮助修复依赖管理：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo apt -f install</span><br></pre></td></tr></table></figure>
+</div>
+<h2 id="环境变量">环境变量</h2>
+<p>我们不能每次在需要编译程序的时候输入如此长的路径找到 <code>clang</code> 和 <code>clang++</code>，而更希望的是能够像 <code>apt</code> 那样在任何地方都可以直接运行。</p>
+<p>我们可以这样做：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 将 clang+llvm-10.0.0-x86_64-linux-gnu-ubuntu-18.04 目录下的所有内容复制到 /usr/local/ 下</span><br><span class="line">sudo cp -R * /usr/local/</span><br></pre></td></tr></table></figure>
+<p>为什么是 <code>/usr/local</code> 呢？因为 <code>/usr/local/bin</code> 处在 PATH 环境变量下。当我们在终端输入命令时，终端会先判断是否为终端的内建命令，如果不是，则会在 $PATH 环境变量中包含的目录下进行查找。因此，只要我们将一个可执行文件放入了 $PATH 中的目录下面，我们就可以像 <code>apt</code> 一样，在任意地方调用我们的程序。 通过这个命令可以看到当前的 PATH 环境变量有哪些目录。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ echo $PATH</span><br><span class="line">/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin</span><br></pre></td></tr></table></figure>
+<p>在上面的复制过程中，源目录和目标目录的两个 <code>bin</code> 目录会相互合并，<code>clang</code> 和 <code>clang++</code> 两个可执行文件也就被复制到了 <code>/usr/local/bin/</code> 目录中。这样子也就达到了我们希望能够在任意地方调用我们的可执行文件的目的。此外，在复制的时候 lib、doc 等文件夹也会和 <code>/usr/local</code> 下的对应目录合并，将 clang 的库和文档加到系统当中。</p>
+<h2 id="模式匹配">模式匹配</h2>
+<p>许多现代的 shell 都支持一定程度的模式匹配。举个例子，bash 的匹配模式被称为 <a href="https://mywiki.wooledge.org/glob">glob</a>，支持的操作如下：</p>
+<table>
+<thead>
+<tr class="header">
+<th>模式</th>
+<th>匹配的字串</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>*</code></td>
+<td>任意字串</td>
+</tr>
+<tr class="even">
+<td><code>foo*</code></td>
+<td>匹配 foo 开头的字串</td>
+</tr>
+<tr class="odd">
+<td><code>*x*</code></td>
+<td>匹配含 x 的字串</td>
+</tr>
+<tr class="even">
+<td><code>?</code></td>
+<td>一个字符</td>
+</tr>
+<tr class="odd">
+<td><code>a?b</code></td>
+<td><code>acb</code>、<code>a0b</code> 等，但不包含 <code>a00b</code></td>
+</tr>
+<tr class="even">
+<td><code>*.[ch]</code></td>
+<td>以 .c 或 .h 结尾的文件</td>
+</tr>
+</tbody>
+</table>
+<div class="note info no-icon"><p>除了上面提到的 glob，bash 还支持 <a href="https://www.linuxjournal.com/content/bash-extended-globbing">extglob</a>，不过需要先用 <code>shopt -s extglob</code> 启用。</p>
+</div>
+<h2 id="进程">进程</h2>
+<h3 id="htop">htop</h3>
+<p>Htop 可以简单方便查看当前运行的所有进程，以及系统 CPU、内存占用情况与系统负载等信息。</p>
+<p>使用鼠标与键盘都可以操作 htop。Htop 界面的最下方是一些选项，使用鼠标点击或按键盘的 F1 至 F10 功能键可以选择这些功能，常用的功能例如搜索进程（F3, Search）、过滤进程（F4, Filter，使得界面中只有满足条件的进程）、切换树形结构/列表显示（F5, Tree/List）等等。</p>
+<p><strong>进程标识符</strong>（PID，Process Identifier（是一个数字，是进程的唯一标识。在 htop 中，最左侧一列即为 PID。当用户想挂起、继续或终止进程时可以使用 PID 作为索引。</p>
+<p>在 htop 中，直接单击绿色条内的 PID 栏，可以将进程顺序按照 PID 升序排列，再次点击为降序排列，同理可应用于其他列。</p>
+<div class="note info no-icon"><p>按照 PID 排序时，我们可以观察系统启动的过程。Linux 系统内核从引导程序接手控制权后，开始内核初始化，随后变为 <strong>init_task</strong>，初始化自己的 PID 为 0。随后创建出 1 号进程（init 程序，目前一般为 systemd）衍生出用户空间的所有进程，创建 2 号进程 kthreadd 衍生出所有内核线程。随后 0 号进程成为 idle 进程，1 号、2 号并非特意预留，而是产生进程的自然顺序使然。</p>
+<p>由于 kthreadd 运行于内核空间，故需按大写 K（Shift + k）键显示内核进程后才能看到。然而无论如何也不可能在 htop 中看到 0 号进程本体，只能发现 1 号和 2 号进程的 PPID 是 0。</p>
+</div>
+<h4 id="linux对进程的分类">linux对进程的分类</h4>
+<p><code>Status: R: running; S: sleeping; T: traced/stopped; Z: zombie; D: disk sleep</code> S 对应的 sleeping 又称 interruptible sleep，字面意思是「可以被中断」；而 D 对应的 disk sleep 又称 uninterruptible sleep，不可被中断，一般是因为阻塞在磁盘读写操作上。 Zombie 是僵尸进程，该状态下进程已经结束，只是仍然占用一个 PID，保存一个返回值。而 traced/stopped 状态正是下文使用 Ctrl + Z 导致的挂起状态（大写 T），或者是在使用 gdb 等调试（Debug）工具进行跟踪时的状态（小写 t）。</p>
+<table>
+<thead>
+<tr class="header">
+<th>状态</th>
+<th>缩写表示</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Running</td>
+<td>R</td>
+<td>正在运行/可以立刻运行</td>
+</tr>
+<tr class="even">
+<td>Sleeping</td>
+<td>S</td>
+<td>可以被中断的睡眠</td>
+</tr>
+<tr class="odd">
+<td>Disk Sleep</td>
+<td>D</td>
+<td>不可被中断的睡眠</td>
+</tr>
+<tr class="even">
+<td>Traced / Stopped</td>
+<td>T</td>
+<td>被跟踪/被挂起的进程</td>
+</tr>
+<tr class="odd">
+<td>Zombie</td>
+<td>Z</td>
+<td>僵尸进程</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ps">ps</h3>
+<p>ps（<strong>p</strong>rocess <strong>s</strong>tatus）是常用的输出进程状态的工具。直接调用 <code>ps</code> 仅会显示本终端中运行的相关进程。如果需要显示所有进程，对应的命令为 <code>ps aux</code>。</p>
+<h3 id="优先级与-nice-值">优先级与 nice 值</h3>
+<p>有了进程，谁先运行？谁给一点时间就够了，谁要占用大部分 CPU 时间？这又是如何决定的？这些问题之中体现着优先权的概念。如果说上面所介绍的的那些进程属性描述了进程的控制信息，那么<strong>优先级</strong>则反映操作系统调度进程的手段。在 htop 的显示中有两个与优先级有关的值：Priority（PRI）和 <strong>nice（NI）</strong>。以下主要介绍用户层使用的 nice 值。</p>
+<p>Nice 值越高代表一个进程对其它进程越 "nice"（友好），对应的优先级也就更低。Nice 值最高为 19，最低为 -20。通常，我们运行的程序的 nice 值为 0。我们可以打开 htop 观察与调整每个进程的 nice 值。</p>
+<p>用户可以使用 <code>nice</code> 命令在运行程序时指定优先级，而 <code>renice</code> 命令则可以重新指定优先级。当然，若想调低 nice 值，还需要 <code>sudo</code>（毕竟不能随便就把自己的优先级设置得更高，不然对其他的用户不公平）。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">nice -n 10 vim # 以 10 为 nice 值运行 vim</span><br><span class="line">renice -n 10 -p 12345 # 设置 PID 为 12345 的进程的 nice 值为 10</span><br></pre></td></tr></table></figure>
+<div class="note info no-icon"><p>如果你在 htop 中测试调整进程的 nice 值，可能会发现一个公式：<code>PRI = nice + 20</code>。这对于普通进程是成立的——普通进程的 PRI 会被映射到一个非负整数。</p>
+<p>但在正常运行的 Linux 系统中，我们可能会发现有些进程的 PRI 值是 RT，或者是负数。这表明对应的进程有更高的实时性要求（例如内核进程、音频相关进程等），采用了与普通进程不同的调度策略，优先级也相应更高。</p>
+</div>
+<h3 id="用户进程控制">用户进程控制</h3>
+<p><img src="https://101.lug.ustc.edu.cn/Ch04/images/signal_slide.png" /> 信号是 Unix 系列系统中进程之间相互通信的一种机制。发送信号的 Linux 命令叫作 <code>kill</code>。被称作 "kill" 的原因是：早期信号的作用就是关闭（杀死）进程。</p>
+<h3 id="前后台">前后台</h3>
+<p><img src="https://101.lug.ustc.edu.cn/Ch04/images/bg.gif" /> 默认情况下，在 shell 中运行的命令都在前台运行，如果需要在后台运行程序，需要在最后加上 <code>&amp;</code> 而如果需要将前台程序切换到后台，则需要按下 Ctrl + Z 发送 SIGTSTP 使进程挂起，控制权还给 shell 我们可以使用 <code>jobs</code> 命令，看到当前 shell 上所有相关的进程 任务前的代号在 fg，bg，乃至 kill 命令中发挥作用。使用时需要在前面加 <code>%</code>，如将 2 号进程放入后台，则使用 <code>bg %2</code> <div class="note info no-icon"><p>然而我们也许会关注一个细节，在图中显示的编号后面跟着的加号和减号是什么？</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[1]  - running    ./signal handle</span><br><span class="line">[2]  + suspended  ping localhost</span><br></pre></td></tr></table></figure>
+<p>这里的加号标记了 fg 和 bg 命令默认作用到的任务为 2，所以这里 <code>bg %2</code> 也可以直接简化为 <code>bg</code>。减号表示如果加号标记的进程退出了，它就会成为加号标记进程。我们也可以用 <code>%+</code> 和 <code>%-</code> 指代这两个任务。</p>
+</div></p>
+<h3 id="终止进程">终止进程</h3>
+<p>标准的终止进程信号是 SIGTERM，意味着一个进程的自然死亡</p>
+<ul>
+<li>htop 中自带向进程发送信号的功能。按下 K 键，在左侧提示栏中选择需要的信号，按下回车发送。同时可以使用空格对进程进行标记，被标记的进程将改变显示颜色。此时重复上述过程，可对被标记进程批量发送信号。</li>
+<li>如果不加任何参数，只有 PID，<code>kill</code> 命令将自动使用 15（SIGTERM）作为信号参数。</li>
+<li>在信号中，9 代表 SIGKILL，收到这个信号之后，程序会立刻退出。在使用时，直接 <code>kill -9 PID</code> 即可。</li>
+</ul>
+<h3 id="其他类-kill-命令">其他类 kill 命令</h3>
+<ul>
+<li><p><code>pgrep</code> / <code>pkill</code> 后面接模糊名称，实际上类似于对名称进行 <code>grep</code> 命令。<code>pgrep</code> 仅列出搜索到的进程名称符合用户输入的进程标识符，而 <code>pkill</code> 会根据用户的输入向进程发送信号。</p></li>
+<li><p><code>killall</code> 与 <code>pkill</code> 有一些类似，会向指定名字的进程发送信号。</p></li>
+<li><p><code>xkill</code> <code>xkill</code> 是针对窗口的 kill，运行该命令后，鼠标点击程序对应的窗口，就可以杀死该程序。</p></li>
+</ul>
+<h3 id="脱离终端">脱离终端</h3>
+<p>如果你使用过 SSH 连接到远程服务器执行任务，那么你会发现，你在 shell 中执行的程序在 SSH 断开之后会被关闭。这是因为终端一旦被关闭会向其中每个进程发送 SIGHUP（Signal hangup），而 SIGHUP 的默认动作即退出程序运行。</p>
+<h4 id="nohup">nohup</h4>
+<p>nohup，字面含义，就是「不要被 SIGHUP 影响」。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ nohup ping 101.ustclug.org &amp;</span><br><span class="line">[1] 19258</span><br><span class="line">nohup: ignoring input and appending output to &#x27;/home/ustc/nohup.out&#x27;</span><br></pre></td></tr></table></figure>
+<p>在需要屏蔽 SIGHUP 的程序前添加 nohup，则运行时的输出将被<a href="https://101.lug.ustc.edu.cn/Ch06/#redirect">重定向</a>到 nohup.out，也可以通过重定向手段自定义输出的文件。</p>
+<h2 id="服务">服务</h2>
+<h3 id="服务管理">服务管理</h3>
+<p>目前绝大多数 Linux 发行版的 init 方案都是 systemd，其管理系统服务的命令是 <code>systemctl</code>。</p>
+<p>若想了解全部服务内容，可以运行 <code>systemctl list-units</code> 来查看。该命令将显示所有 systemd 管理的单元，同时右面还会附上一句注释来表明该服务的任务。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ tldr systemctl</span><br><span class="line">systemctl</span><br><span class="line">Control the systemd system and service manager.</span><br><span class="line"></span><br><span class="line">    - List failed units:  # 列出运行失败的服务</span><br><span class="line">    systemctl --failed</span><br><span class="line"></span><br><span class="line">    - Start/Stop/Restart/Reload a service:  # 开启/关闭/重启/重载服务。Reload 代表重载配置文件而不重启进程。</span><br><span class="line">    systemctl start/stop/restart/reload &#123;&#123;unit&#125;&#125;</span><br><span class="line"></span><br><span class="line">    - Show the status of a unit:  # 显示服务状态</span><br><span class="line">    systemctl status &#123;&#123;unit&#125;&#125;</span><br><span class="line"></span><br><span class="line">    - Enable/Disable a unit to be started on bootup:  # 设置（Enable）/取消（Disable）服务开机自启</span><br><span class="line">    systemctl enable/disable &#123;&#123;unit&#125;&#125;</span><br><span class="line"></span><br><span class="line">    - Mask/Unmask a unit, prevent it to be started on bootup:  # 阻止/取消阻止服务被 enable</span><br><span class="line">    systemctl mask/unmask &#123;&#123;unit&#125;&#125;</span><br><span class="line"></span><br><span class="line">    - Reload systemd, scanning for new or changed units:  # 重载 systemd，需要在创建或修改服务文件后执行</span><br><span class="line">    systemctl daemon-reload</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<div class="note info no-icon"><p>wsl默认不支持systemctl,可以使用传统的service</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ tldr service</span><br><span class="line">service</span><br><span class="line">Manage services by running init scripts.</span><br><span class="line">The full script path should be omitted (/etc/init.d/ is assumed).</span><br><span class="line"></span><br><span class="line"> - Start/Stop/Restart/Reload service (start/stop should always be available):</span><br><span class="line">   service &#123;&#123;init_script&#125;&#125; &#123;&#123;start|stop|restart|reload&#125;&#125;</span><br><span class="line"></span><br><span class="line"> - Do a full restart (runs script twice with start and stop):</span><br><span class="line">   service &#123;&#123;init_script&#125;&#125; --full-restart</span><br><span class="line"></span><br><span class="line"> - Show the current status of a service:</span><br><span class="line">   service &#123;&#123;init_script&#125;&#125; status</span><br><span class="line"></span><br><span class="line"> - List the status of all services:</span><br><span class="line">   service --status-all</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>或者手动打开</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo vim /etc/wsl.conf</span><br></pre></td></tr></table></figure>
+<p>输入：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[boot]</span><br><span class="line">systemd=true</span><br></pre></td></tr></table></figure>
+<p>然后在windows终端wsl --shutdown再重启</p>
+</div>
+<div class="note info no-icon"><p><strong>编写 .service 文件并运行（以 Jupyter Notebook 为例）</strong></p>
+<p>Jupyter Notebook 是基于浏览器的交互式编程平台，在数据科学领域非常常用。</p>
+<p>首先使用文本编辑器在 <code>/etc/systemd/system</code> 目录下创建一个名为 <code>jupyter.service</code> 的文件。并填入以下内容：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=Jupyter Notebook    # 该服务的简要描述</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">PIDFile=/run/jupyter.pid        # 用来存放 PID 的文件</span><br><span class="line">ExecStart=/usr/local/bin/jupyter-notebook --allow-root</span><br><span class="line">                                # 使用绝对路径标明的命令及命令行参数</span><br><span class="line">WorkingDirectory=/root          # 服务启动时的工作目录</span><br><span class="line">Restart=always                  # 重启模式，这里是无论因何退出都重启</span><br><span class="line">RestartSec=10                   # 退出后多少秒重启</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target      # 依赖目标，这里指进入多用户模式后再启动该服务</span><br></pre></td></tr></table></figure>
+<p>将写好的配置文件保存为 <code>/etc/systemd/system/jupyter.service</code>，然后运行 <code>systemctl daemon-reload</code>，就可以使用 <code>systemctl</code> 命令来管理这个服务了，例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">systemctl start jupyter</span><br><span class="line">systemctl stop jupyter</span><br><span class="line">systemctl enable jupyter  # enable 表示标记服务的开机自动启动</span><br><span class="line">systemctl disable jupyter # 取消自启</span><br></pre></td></tr></table></figure>
+</div>
+<h3 id="例行性任务">例行性任务</h3>
+<p>可以用at，crontab等工具创建例行性任务 详见<a href="https://101.lug.ustc.edu.cn/Ch04/#crontab">linux101</a></p>
+<div class="note info no-icon">
+</div>
+<h2 id="用户权限和文件系统">用户权限和文件系统</h2>
+<p>可以查看 <code>/etc/passwd</code> 文件，来得到系统中用户的配置信息。 普通用户的文件存储于位于 <code>/home/username/</code>路径</p>
+<div class="note info no-icon"><p>你是否常常忘记敲 <code>sudo</code>，结果还要把后面的整条命令重新敲一遍？在发现权限不足之后有一个方便的「补救方案」：<code>sudo !!</code>，效果如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ apt update</span><br><span class="line">Reading package lists... Done</span><br><span class="line">E: Could not open lock file /var/lib/apt/lists/lock - open (13: Permission denied)</span><br><span class="line">E: Unable to lock directory /var/lib/apt/lists/</span><br><span class="line">W: Problem unlinking the file /var/cache/apt/pkgcache.bin - RemoveCaches (13: Permission denied)</span><br><span class="line">W: Problem unlinking the file /var/cache/apt/srcpkgcache.bin - RemoveCaches (13: Permission denied)</span><br><span class="line">$ sudo !!</span><br><span class="line">sudo apt update</span><br><span class="line">[sudo] password for ustc:</span><br><span class="line">Hit:1 http://mirrors.ustc.edu.cn/ubuntu bionic InRelease</span><br><span class="line">（以下内容省略）</span><br></pre></td></tr></table></figure>
+<p>其实，在 Shell 中，<code>!!</code> 即代表上一条命令，可以和其他的命令结合使用。</p>
+</div>
+<p>以 <code>root</code> 之外的用户的身份执行命令：加上 <code>-u 用户名</code> 的参数即可。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ sudo -u nobody id</span><br><span class="line">uid=65534(nobody) gid=65534(nogroup) groups=65534(nogroup)</span><br></pre></td></tr></table></figure>
+<h3 id="用户组">用户组</h3>
+<p>用户组是用户的集合。通过用户组机制，可以为一批用户设置权限。可以使用 <code>groups</code> 命令，查看自己所属的用户组。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ groups</span><br><span class="line">ustc adm cdrom sudo dip plugdev lxd</span><br></pre></td></tr></table></figure>
+<p>用户组和用户一样，也有编号：GID (Group ID)。 <div class="note info no-icon"><p><code>adduser</code> 是 Debian 及其衍生发行版中附带的一个方便的用户管理脚本。它可以用来向系统添加用户、添加组，以及将用户加入组。输入：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo adduser 用户名</span><br></pre></td></tr></table></figure>
+<p>即可添加此用户。而输入</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo adduser --group 组名</span><br></pre></td></tr></table></figure>
+<p>即可添加此用户组。将用户加入指定用户组也非常简单：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo adduser 用户名 组名</span><br></pre></td></tr></table></figure>
+<p>在通过 <code>adduser</code> 创建了新的用户后，直接使用 <code>sudo</code> 以 <code>root</code> 身份运行程序可能会得到：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ sudo apt update</span><br><span class="line">[sudo] password for ustc:</span><br><span class="line">ustc is not in the sudoers file.  This incident will be reported.</span><br></pre></td></tr></table></figure>
+<p>除了可以通过 <code>visudo</code> 命令编辑 <code>sudoers</code> 文件外，还可以直接通过将新的用户加入到 <code>sudo</code> 用户组，以能够使用 <code>sudo</code> 命令。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo adduser ustc sudo</span><br></pre></td></tr></table></figure>
+<p>再次切换到新的用户即可看到使用 sudo 的提示：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">To run a command as administrator (user &quot;root&quot;), use &quot;sudo &lt;command&gt;&quot;.</span><br><span class="line">See &quot;man sudo_root&quot; for details.</span><br></pre></td></tr></table></figure>
+</div></p>
+<h2 id="文本处理">文本处理</h2>
+<h3 id="正则表达式">正则表达式</h3>
+<p><a href="https://regex101.com/">在线编辑正则表达式</a> 正则表达式（regular expression）描述了一种字符串匹配的模式，可以用来检查一个串是否含有某种子串、将匹配的子串做替换或者从某个串中取出符合某个条件的子串等。</p>
+<p>特殊字符表：</p>
+<table>
+<thead>
+<tr class="header">
+<th>特殊字符</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>[]</code></td>
+<td>方括号表达式，表示匹配的字符集合，例如 <code>[0-9]</code>、<code>[abcde]</code></td>
+</tr>
+<tr class="even">
+<td><code>()</code></td>
+<td>标记子表达式起止位置</td>
+</tr>
+<tr class="odd">
+<td><code>*</code></td>
+<td>匹配前面的子表达式零或多次</td>
+</tr>
+<tr class="even">
+<td><code>+</code></td>
+<td>匹配前面的子表达式一或多次</td>
+</tr>
+<tr class="odd">
+<td><code>?</code></td>
+<td>匹配前面的子表达式零或一次</td>
+</tr>
+<tr class="even">
+<td><code>\</code></td>
+<td>转义字符，除了常用转义外，还有：<code>\b</code> 匹配单词边界；<code>\B</code> 匹配非单词边界等</td>
+</tr>
+<tr class="odd">
+<td><code>.</code></td>
+<td>匹配除 <code>\n</code>（换行）外的任意单个字符</td>
+</tr>
+<tr class="even">
+<td><code>&#123;&#125;</code></td>
+<td>标记限定符表达式的起止。例如 <code>&#123;n&#125;</code> 表示匹配前一子表达式 n 次；<code>&#123;n,&#125;</code> 匹配至少 n 次；<code>&#123;n,m&#125;</code> 匹配 n 至 m 次</td>
+</tr>
+<tr class="odd">
+<td><code>\|</code></td>
+<td>表明前后两项二选一</td>
+</tr>
+<tr class="even">
+<td><code>$</code></td>
+<td>匹配字符串的结尾</td>
+</tr>
+<tr class="odd">
+<td><code>^</code></td>
+<td>匹配字符串的开头，在方括号表达式中表示不接受该方括号表达式中的字符集合</td>
+</tr>
+</tbody>
+</table>
+<p>若是想要匹配特殊字符本身，需要在之前加上转义字符 <code>\</code>。 <div class="note info no-icon"><p>匹配正整数：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[1-9][0-9]*</span><br></pre></td></tr></table></figure>
+<p>匹配仅由 26 个英文字母组成的字符串：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">^[A-Za-z]+$</span><br></pre></td></tr></table></figure>
+<p>匹配 Chapter 1-99 或 Section 1-99</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">^(Chapter|Section) [1-9][0-9]&#123;0,1&#125;$</span><br></pre></td></tr></table></figure>
+<p>匹配“ter”结尾的单词：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ter\b</span><br></pre></td></tr></table></figure>
+<p>匹配rgb代码</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">^#([0-9]&#123;6&#125;$|([0-9]|[A-F])&#123;3&#125;$)</span><br></pre></td></tr></table></figure>
+</div></p>
+<h4 id="基本扩展正则表达式">基本/扩展正则表达式</h4>
+<p>基本正则表达式（Basic Regular Expressions, BRE）和扩展正则表达式（Extended Regular Expressions, ERE）是两种 POSIX 正则表达式风格。</p>
+<p>BRE 可能是如今最老的正则风格了，对于部分特殊字符（如 <code>+</code>, <code>?</code>, <code>|</code>, <code>&#123;</code>）需要加上转义符 <code>\</code> 才能表达其特殊含义。</p>
+<p>ERE 与如今的现代正则风格较为一致，相比 BRE，上述特殊字符默认发挥特殊作用，加上 <code>\</code> 之后表达普通含义。</p>
+<h4 id="懒惰和贪婪">懒惰和贪婪</h4>
+<p>使用 <code>*</code> <code>+</code> 的时候默认是贪婪模式，即尽可能匹配更多的子表达式。在 <code>*</code> <code>+</code> 之后加上 <code>?</code> 变为懒惰模式，即尽可能匹配更少的子表达式。</p>
+<p>例如：<code>123456456</code></p>
+<p>贪婪：<code>1.+6</code> -&gt; <code>123456456</code></p>
+<p>懒惰：<code>1.+?6</code> -&gt; <code>123456</code> 后向引用可以将之前匹配到的具体内容再次利用。在正则表达式中，<code>()</code> 以及它们包含的内容为一个分组，每个分组默认拥有一个组号。</p>
+<p>组号分配规则：</p>
+<ul>
+<li>0 代表整个表达式</li>
+<li>从左至右，按左括号的出现顺序分配，第一个为 1，第二个为 2，以此类推</li>
+<li>扫描两遍，第一次只分配未命名的组，第二次只分配命名的组。即任意命名组的组号都大于未命名的组号</li>
+</ul>
+<h4 id="后向引用">后向引用</h4>
+<div class="note info no-icon"><p>示例</p>
+<p><code>\b(\w+)\b\s+\1\b</code> 可以用来匹配用空白字符分割的两个重复的单词（例如 <code>linux linux</code>），其中 <code>\1</code> 是对组号为 1 的组 <code>(\w+)</code> 的引用。</p>
+<p><code>\b(?'Word'\w+)\b\s+\k'Word'\b</code> 也可以起到同样的效果，其中 <code>?'Word'</code> 用于命名组，<code>\k'Word'</code> 用于引用组。</p>
+</div>
+<h4 id="零宽断言">零宽断言</h4>
+<p>零宽断言用于查找某些内容进行定位，但内容并不放入匹配结果，就像 <code>\b</code> <code>^</code> <code>$</code> 的定位一样。<code>(?=exp)</code> 用于匹配表达式 <code>exp</code> 前面的位置，<code>(?&lt;=exp)</code> 用于匹配后面的位置。</p>
+<h4 id="拓展阅读">拓展阅读</h4>
+<p><a href="https://zhuanlan.zhihu.com/p/46294360">乱用正则引发的惨案</a></p>
+]]></content>
+      <categories>
+        <category>课程笔记</category>
+        <category>操作系统</category>
+      </categories>
+      <tags>
+        <tag>课程笔记</tag>
+        <tag>linux</tag>
+        <tag>苏州大学</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>基于mit6.006和hello-algo的算法笔记</title>
     <url>/2023/10/14/mit6.006%E6%80%BB%E5%92%8C%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<h1 id="基础">基础</h1>
+<figure>
+<img src="/assets/mit6.006总和笔记/algo.png" alt="" /><figcaption>算法合订本</figcaption>
+</figure>
 <h2 id="数据结构">数据结构</h2>
 <p><img src="/assets/mit6.006总和笔记/image-20231016191822017.png" /></p>
 <h2 id="算法性质">算法性质</h2>
@@ -595,12 +1074,14 @@ level[v] = \begin{cases}
 <p>对这种形式的函数可以这样比较</p>
 <p><span class="math display">\[f_1=n^{\sqrt{n}}=(2^{lgn})^{\sqrt{n}}\]</span> <span class="math display">\[f_2=n^{10}.2^{n/2}=2^{lg(10n)+n/2}\]</span></p>
 <h2 id="复杂度计算">复杂度计算</h2>
-<p>对于T(n,n): T (x, y) = Θ(x + y) + T (x/2, y/2). 化成 <img src="assets/mit6.006作业解析/image-20231120213425020.png" /> 得到θ(n) <span id="more"></span></p>
+<p>对于T(n,n): T (x, y) = Θ(x + y) + T (x/2, y/2). 化成</p>
+<p><img src="assets/mit6.006作业解析/image-20231120213425020.png" /></p>
+<p>得到θ(n) <span id="more"></span></p>
 <p>T (x, y) = Θ(x) + T (x, y/2). 等于lgy个θ(x) 即，θ(nlgn)</p>
 <p>T (x, y) = Θ(x) + S(x, y/2), S(x, y) = Θ(y) + T (x/2, y).</p>
 <p>化成T (x, y) = Θ(x) + Θ(y/2) + T (x/2, y/2). 与第一个例子相似，θ(n)</p>
 <h2 id="寻峰算法">寻峰算法</h2>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">algorithm1</span>(<span class="params">problem, trace = <span class="literal">None</span></span>):</span><br><span class="line">    <span class="comment"># if it&#x27;s empty, we&#x27;re done</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> problem.numRow &lt;= <span class="number">0</span> <span class="keyword">or</span> problem.numCol &lt;= <span class="number">0</span>:</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">    <span class="comment"># the recursive subproblem will involve half the number of columns</span></span><br><span class="line"></span><br><span class="line">    mid = problem.numCol // <span class="number">2</span></span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">    <span class="comment"># information about the two subproblems</span></span><br><span class="line"></span><br><span class="line">    (subStartR, subNumR) = (<span class="number">0</span>, problem.numRow)</span><br><span class="line"></span><br><span class="line">    (subStartC1, subNumC1) = (<span class="number">0</span>, mid)</span><br><span class="line"></span><br><span class="line">    (subStartC2, subNumC2) = (mid + <span class="number">1</span>, problem.numCol - (mid + <span class="number">1</span>))</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">    subproblems = []</span><br><span class="line"></span><br><span class="line">    subproblems.append((subStartR, subStartC1, subNumR, subNumC1))</span><br><span class="line"></span><br><span class="line">    subproblems.append((subStartR, subStartC2, subNumR, subNumC2))</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">    <span class="comment"># get a list of all locations in the dividing column</span></span><br><span class="line"></span><br><span class="line">    divider = crossProduct(<span class="built_in">range</span>(problem.numRow), [mid])</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">    <span class="comment"># find the maximum in the dividing column</span></span><br><span class="line"></span><br><span class="line">    bestLoc = problem.getMaximum(divider, trace)</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">    <span class="comment"># see if the maximum value we found on the dividing line has a better</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># neighbor (which cannot be on the dividing line, because we know that</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># this location is the best on the dividing line)</span></span><br><span class="line"></span><br><span class="line">    neighbor = problem.getBetterNeighbor(bestLoc, trace)</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">    <span class="comment"># this is a peak, so return it</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> neighbor == bestLoc:</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> trace <span class="keyword">is</span> <span class="literal">None</span>: trace.foundPeak(bestLoc)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> bestLoc</span><br><span class="line"></span><br><span class="line">    <span class="comment"># otherwise, figure out which subproblem contains the neighbor, and</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># recurse in that half</span></span><br><span class="line"></span><br><span class="line">    sub = problem.getSubproblemContaining(subproblems, neighbor)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> trace <span class="keyword">is</span> <span class="literal">None</span>: trace.setProblemDimensions(sub)</span><br><span class="line"></span><br><span class="line">    result = algorithm1(sub, trace)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> problem.getLocationInSelf(sub, result)</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">algorithm2</span>(<span class="params">problem, location = (<span class="params"><span class="number">0</span>, <span class="number">0</span></span>), trace = <span class="literal">None</span></span>):</span><br><span class="line"></span><br><span class="line">    <span class="comment"># if it&#x27;s empty, we&#x27;re done</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> problem.numRow &lt;= <span class="number">0</span> <span class="keyword">or</span> problem.numCol &lt;= <span class="number">0</span>:</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">    nextLocation = problem.getBetterNeighbor(location, trace)</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> nextLocation == location:</span><br><span class="line"></span><br><span class="line">        <span class="comment"># there is no better neighbor, so return this peak</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> trace <span class="keyword">is</span> <span class="literal">None</span>: trace.foundPeak(location)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> location</span><br><span class="line"></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line"></span><br><span class="line">        <span class="comment"># there is a better neighbor, so move to the neighbor and recurse</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> algorithm2(problem, nextLocation, trace)</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">algorithm3</span>(<span class="params">problem, bestSeen = <span class="literal">None</span>, trace = <span class="literal">None</span></span>):</span><br><span class="line"></span><br><span class="line">    <span class="comment"># if it&#x27;s empty, we&#x27;re done</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> problem.numRow &lt;= <span class="number">0</span> <span class="keyword">or</span> problem.numCol &lt;= <span class="number">0</span>:</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">    midRow = problem.numRow // <span class="number">2</span></span><br><span class="line"></span><br><span class="line">    midCol = problem.numCol // <span class="number">2</span></span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">    <span class="comment"># first, get the list of all subproblems</span></span><br><span class="line"></span><br><span class="line">    subproblems = []</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">    (subStartR1, subNumR1) = (<span class="number">0</span>, midRow)</span><br><span class="line"></span><br><span class="line">    (subStartR2, subNumR2) = (midRow + <span class="number">1</span>, problem.numRow - (midRow + <span class="number">1</span>))</span><br><span class="line"></span><br><span class="line">    (subStartC1, subNumC1) = (<span class="number">0</span>, midCol)</span><br><span class="line"></span><br><span class="line">    (subStartC2, subNumC2) = (midCol + <span class="number">1</span>, problem.numCol - (midCol + <span class="number">1</span>))</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">    subproblems.append((subStartR1, subStartC1, subNumR1, subNumC1))</span><br><span class="line"></span><br><span class="line">    subproblems.append((subStartR1, subStartC2, subNumR1, subNumC2))</span><br><span class="line"></span><br><span class="line">    subproblems.append((subStartR2, subStartC1, subNumR2, subNumC1))</span><br><span class="line"></span><br><span class="line">    subproblems.append((subStartR2, subStartC2, subNumR2, subNumC2))</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">    <span class="comment"># find the best location on the cross (the middle row combined with the</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># middle column)</span></span><br><span class="line"></span><br><span class="line">    cross = []</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">    cross.extend(crossProduct([midRow], <span class="built_in">range</span>(problem.numCol)))</span><br><span class="line"></span><br><span class="line">    cross.extend(crossProduct(<span class="built_in">range</span>(problem.numRow), [midCol]))</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">    crossLoc = problem.getMaximum(cross, trace)</span><br><span class="line"></span><br><span class="line">    neighbor = problem.getBetterNeighbor(crossLoc, trace)</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">    <span class="comment"># update the best we&#x27;ve seen so far based on this new maximum</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> bestSeen <span class="keyword">is</span> <span class="literal">None</span> <span class="keyword">or</span> problem.get(neighbor) &gt; problem.get(bestSeen):</span><br><span class="line"></span><br><span class="line">        bestSeen = neighbor</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> trace <span class="keyword">is</span> <span class="literal">None</span>: trace.setBestSeen(bestSeen)</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">    <span class="comment"># return if we can&#x27;t see any better neighbors</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> neighbor == crossLoc:</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> trace <span class="keyword">is</span> <span class="literal">None</span>: trace.foundPeak(crossLoc)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> crossLoc</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">    <span class="comment"># figure out which subproblem contains the largest number we&#x27;ve seen so</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># far, and recurse</span></span><br><span class="line"></span><br><span class="line">    sub = problem.getSubproblemContaining(subproblems, bestSeen)</span><br><span class="line"></span><br><span class="line">    newBest = sub.getLocationInSelf(problem, bestSeen)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> trace <span class="keyword">is</span> <span class="literal">None</span>: trace.setProblemDimensions(sub)</span><br><span class="line"></span><br><span class="line">    result = algorithm3(sub, newBest, trace)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> problem.getLocationInSelf(sub, result)</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">algorithm4</span>(<span class="params">problem, bestSeen = <span class="literal">None</span>, rowSplit = <span class="literal">True</span>, trace = <span class="literal">None</span></span>):</span><br><span class="line"></span><br><span class="line">    <span class="comment"># if it&#x27;s empty, we&#x27;re done</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> problem.numRow &lt;= <span class="number">0</span> <span class="keyword">or</span> problem.numCol &lt;= <span class="number">0</span>:</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">    subproblems = []</span><br><span class="line"></span><br><span class="line">    divider = []</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> rowSplit:</span><br><span class="line"></span><br><span class="line">        <span class="comment"># the recursive subproblem will involve half the number of rows</span></span><br><span class="line"></span><br><span class="line">        mid = problem.numRow // <span class="number">2</span></span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">        <span class="comment"># information about the two subproblems</span></span><br><span class="line"></span><br><span class="line">        (subStartR1, subNumR1) = (<span class="number">0</span>, mid)</span><br><span class="line"></span><br><span class="line">        (subStartR2, subNumR2) = (mid + <span class="number">1</span>, problem.numRow - (mid + <span class="number">1</span>))</span><br><span class="line"></span><br><span class="line">        (subStartC, subNumC) = (<span class="number">0</span>, problem.numCol)</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">        subproblems.append((subStartR1, subStartC, subNumR1, subNumC))</span><br><span class="line"></span><br><span class="line">        subproblems.append((subStartR2, subStartC, subNumR2, subNumC))</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">        <span class="comment"># get a list of all locations in the dividing column</span></span><br><span class="line"></span><br><span class="line">        divider = crossProduct([mid], <span class="built_in">range</span>(problem.numCol))</span><br><span class="line"></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line"></span><br><span class="line">        <span class="comment"># the recursive subproblem will involve half the number of columns</span></span><br><span class="line"></span><br><span class="line">        mid = problem.numCol // <span class="number">2</span></span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">        <span class="comment"># information about the two subproblems</span></span><br><span class="line"></span><br><span class="line">        (subStartR, subNumR) = (<span class="number">0</span>, problem.numRow)</span><br><span class="line"></span><br><span class="line">        (subStartC1, subNumC1) = (<span class="number">0</span>, mid)</span><br><span class="line"></span><br><span class="line">        (subStartC2, subNumC2) = (mid + <span class="number">1</span>, problem.numCol - (mid + <span class="number">1</span>))</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">        subproblems.append((subStartR, subStartC1, subNumR, subNumC1))</span><br><span class="line"></span><br><span class="line">        subproblems.append((subStartR, subStartC2, subNumR, subNumC2))</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">        <span class="comment"># get a list of all locations in the dividing column</span></span><br><span class="line"></span><br><span class="line">        divider = crossProduct(<span class="built_in">range</span>(problem.numRow), [mid])</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">    <span class="comment"># find the maximum in the dividing row or column</span></span><br><span class="line"></span><br><span class="line">    bestLoc = problem.getMaximum(divider, trace)</span><br><span class="line"></span><br><span class="line">    neighbor = problem.getBetterNeighbor(bestLoc, trace)</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">    <span class="comment"># update the best we&#x27;ve seen so far based on this new maximum</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> bestSeen <span class="keyword">is</span> <span class="literal">None</span> <span class="keyword">or</span> problem.get(neighbor) &gt; problem.get(bestSeen):</span><br><span class="line"></span><br><span class="line">        bestSeen = neighbor</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> trace <span class="keyword">is</span> <span class="literal">None</span>: trace.setBestSeen(bestSeen)</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">    <span class="comment"># return when we know we&#x27;ve found a peak</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> neighbor == bestLoc <span class="keyword">and</span> problem.get(bestLoc) &gt;= problem.get(bestSeen):</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> trace <span class="keyword">is</span> <span class="literal">None</span>: trace.foundPeak(bestLoc)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> bestLoc</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">    <span class="comment"># figure out which subproblem contains the largest number we&#x27;ve seen so</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># far, and recurse, alternating between splitting on rows and splitting</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># on columns</span></span><br><span class="line"></span><br><span class="line">    sub = problem.getSubproblemContaining(subproblems, bestSeen)</span><br><span class="line"></span><br><span class="line">    newBest = sub.getLocationInSelf(problem, bestSeen)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> trace <span class="keyword">is</span> <span class="literal">None</span>: trace.setProblemDimensions(sub)</span><br><span class="line"></span><br><span class="line">    result = algorithm4(sub, newBest, <span class="keyword">not</span> rowSplit, trace)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> problem.getLocationInSelf(sub, result)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">algorithm1</span>(<span class="params">problem, trace = <span class="literal">None</span></span>):</span><br><span class="line">    <span class="comment"># if it&#x27;s empty, we&#x27;re done</span></span><br><span class="line">    <span class="keyword">if</span> problem.numRow &lt;= <span class="number">0</span> <span class="keyword">or</span> problem.numCol &lt;= <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">    <span class="comment"># the recursive subproblem will involve half the number of columns</span></span><br><span class="line">    mid = problem.numCol // <span class="number">2</span></span><br><span class="line">    <span class="comment"># information about the two subproblems</span></span><br><span class="line">    (subStartR, subNumR) = (<span class="number">0</span>, problem.numRow)</span><br><span class="line">    (subStartC1, subNumC1) = (<span class="number">0</span>, mid)</span><br><span class="line">    (subStartC2, subNumC2) = (mid + <span class="number">1</span>, problem.numCol - (mid + <span class="number">1</span>))</span><br><span class="line">    subproblems = []</span><br><span class="line">    subproblems.append((subStartR, subStartC1, subNumR, subNumC1))</span><br><span class="line">    subproblems.append((subStartR, subStartC2, subNumR, subNumC2))</span><br><span class="line">    <span class="comment"># get a list of all locations in the dividing column</span></span><br><span class="line">    divider = crossProduct(<span class="built_in">range</span>(problem.numRow), [mid])</span><br><span class="line">    <span class="comment"># find the maximum in the dividing column</span></span><br><span class="line">    bestLoc = problem.getMaximum(divider, trace)</span><br><span class="line">    <span class="comment"># see if the maximum value we found on the dividing line has a better</span></span><br><span class="line">    <span class="comment"># neighbor (which cannot be on the dividing line, because we know that</span></span><br><span class="line">    <span class="comment"># this location is the best on the dividing line)</span></span><br><span class="line">    neighbor = problem.getBetterNeighbor(bestLoc, trace)</span><br><span class="line">    <span class="comment"># this is a peak, so return it</span></span><br><span class="line">    <span class="keyword">if</span> neighbor == bestLoc:</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> trace <span class="keyword">is</span> <span class="literal">None</span>: trace.foundPeak(bestLoc)</span><br><span class="line">        <span class="keyword">return</span> bestLoc</span><br><span class="line">    <span class="comment"># otherwise, figure out which subproblem contains the neighbor, and</span></span><br><span class="line">    <span class="comment"># recurse in that half</span></span><br><span class="line">    sub = problem.getSubproblemContaining(subproblems, neighbor)</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> trace <span class="keyword">is</span> <span class="literal">None</span>: trace.setProblemDimensions(sub)</span><br><span class="line">    result = algorithm1(sub, trace)</span><br><span class="line">    <span class="keyword">return</span> problem.getLocationInSelf(sub, result)</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">algorithm2</span>(<span class="params">problem, location = (<span class="params"><span class="number">0</span>, <span class="number">0</span></span>), trace = <span class="literal">None</span></span>):</span><br><span class="line">    <span class="comment"># if it&#x27;s empty, we&#x27;re done</span></span><br><span class="line">    <span class="keyword">if</span> problem.numRow &lt;= <span class="number">0</span> <span class="keyword">or</span> problem.numCol &lt;= <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">    nextLocation = problem.getBetterNeighbor(location, trace)</span><br><span class="line">    <span class="keyword">if</span> nextLocation == location:</span><br><span class="line">        <span class="comment"># there is no better neighbor, so return this peak</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> trace <span class="keyword">is</span> <span class="literal">None</span>: trace.foundPeak(location)</span><br><span class="line">        <span class="keyword">return</span> location</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="comment"># there is a better neighbor, so move to the neighbor and recurse</span></span><br><span class="line">        <span class="keyword">return</span> algorithm2(problem, nextLocation, trace)</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">algorithm3</span>(<span class="params">problem, bestSeen = <span class="literal">None</span>, trace = <span class="literal">None</span></span>):</span><br><span class="line">    <span class="comment"># if it&#x27;s empty, we&#x27;re done</span></span><br><span class="line">    <span class="keyword">if</span> problem.numRow &lt;= <span class="number">0</span> <span class="keyword">or</span> problem.numCol &lt;= <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">    midRow = problem.numRow // <span class="number">2</span></span><br><span class="line">    midCol = problem.numCol // <span class="number">2</span></span><br><span class="line">    <span class="comment"># first, get the list of all subproblems</span></span><br><span class="line">    subproblems = []</span><br><span class="line">    (subStartR1, subNumR1) = (<span class="number">0</span>, midRow)</span><br><span class="line">    (subStartR2, subNumR2) = (midRow + <span class="number">1</span>, problem.numRow - (midRow + <span class="number">1</span>))</span><br><span class="line">    (subStartC1, subNumC1) = (<span class="number">0</span>, midCol)</span><br><span class="line">    (subStartC2, subNumC2) = (midCol + <span class="number">1</span>, problem.numCol - (midCol + <span class="number">1</span>))</span><br><span class="line">    subproblems.append((subStartR1, subStartC1, subNumR1, subNumC1))</span><br><span class="line">    subproblems.append((subStartR1, subStartC2, subNumR1, subNumC2))</span><br><span class="line">    subproblems.append((subStartR2, subStartC1, subNumR2, subNumC1))</span><br><span class="line">    subproblems.append((subStartR2, subStartC2, subNumR2, subNumC2))</span><br><span class="line">    <span class="comment"># find the best location on the cross (the middle row combined with the</span></span><br><span class="line">    <span class="comment"># middle column)</span></span><br><span class="line">    cross = []</span><br><span class="line">    cross.extend(crossProduct([midRow], <span class="built_in">range</span>(problem.numCol)))</span><br><span class="line">    cross.extend(crossProduct(<span class="built_in">range</span>(problem.numRow), [midCol]))</span><br><span class="line">    crossLoc = problem.getMaximum(cross, trace)</span><br><span class="line">    neighbor = problem.getBetterNeighbor(crossLoc, trace)</span><br><span class="line">    <span class="comment"># update the best we&#x27;ve seen so far based on this new maximum</span></span><br><span class="line">    <span class="keyword">if</span> bestSeen <span class="keyword">is</span> <span class="literal">None</span> <span class="keyword">or</span> problem.get(neighbor) &gt; problem.get(bestSeen):</span><br><span class="line">        bestSeen = neighbor</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> trace <span class="keyword">is</span> <span class="literal">None</span>: trace.setBestSeen(bestSeen)</span><br><span class="line">    <span class="comment"># return if we can&#x27;t see any better neighbors</span></span><br><span class="line">    <span class="keyword">if</span> neighbor == crossLoc:</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> trace <span class="keyword">is</span> <span class="literal">None</span>: trace.foundPeak(crossLoc)</span><br><span class="line">        <span class="keyword">return</span> crossLoc</span><br><span class="line">    <span class="comment"># figure out which subproblem contains the largest number we&#x27;ve seen so</span></span><br><span class="line">    <span class="comment"># far, and recurse</span></span><br><span class="line">    sub = problem.getSubproblemContaining(subproblems, bestSeen)</span><br><span class="line">    newBest = sub.getLocationInSelf(problem, bestSeen)</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> trace <span class="keyword">is</span> <span class="literal">None</span>: trace.setProblemDimensions(sub)</span><br><span class="line">    result = algorithm3(sub, newBest, trace)</span><br><span class="line">    <span class="keyword">return</span> problem.getLocationInSelf(sub, result)</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">algorithm4</span>(<span class="params">problem, bestSeen = <span class="literal">None</span>, rowSplit = <span class="literal">True</span>, trace = <span class="literal">None</span></span>):</span><br><span class="line">    <span class="comment"># if it&#x27;s empty, we&#x27;re done</span></span><br><span class="line">    <span class="keyword">if</span> problem.numRow &lt;= <span class="number">0</span> <span class="keyword">or</span> problem.numCol &lt;= <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">    subproblems = []</span><br><span class="line">    divider = []</span><br><span class="line">  </span><br><span class="line">    <span class="keyword">if</span> rowSplit:</span><br><span class="line">        <span class="comment"># the recursive subproblem will involve half the number of rows</span></span><br><span class="line">        mid = problem.numRow // <span class="number">2</span></span><br><span class="line">  </span><br><span class="line">        <span class="comment"># information about the two subproblems</span></span><br><span class="line">        (subStartR1, subNumR1) = (<span class="number">0</span>, mid)</span><br><span class="line">        (subStartR2, subNumR2) = (mid + <span class="number">1</span>, problem.numRow - (mid + <span class="number">1</span>))</span><br><span class="line">        (subStartC, subNumC) = (<span class="number">0</span>, problem.numCol)</span><br><span class="line">  </span><br><span class="line">        subproblems.append((subStartR1, subStartC, subNumR1, subNumC))</span><br><span class="line">        subproblems.append((subStartR2, subStartC, subNumR2, subNumC))</span><br><span class="line">  </span><br><span class="line">        <span class="comment"># get a list of all locations in the dividing column</span></span><br><span class="line">        divider = crossProduct([mid], <span class="built_in">range</span>(problem.numCol))</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="comment"># the recursive subproblem will involve half the number of columns</span></span><br><span class="line">        mid = problem.numCol // <span class="number">2</span></span><br><span class="line">  </span><br><span class="line">        <span class="comment"># information about the two subproblems</span></span><br><span class="line">        (subStartR, subNumR) = (<span class="number">0</span>, problem.numRow)</span><br><span class="line">        (subStartC1, subNumC1) = (<span class="number">0</span>, mid)</span><br><span class="line">        (subStartC2, subNumC2) = (mid + <span class="number">1</span>, problem.numCol - (mid + <span class="number">1</span>))</span><br><span class="line">  </span><br><span class="line">        subproblems.append((subStartR, subStartC1, subNumR, subNumC1))</span><br><span class="line">        subproblems.append((subStartR, subStartC2, subNumR, subNumC2))</span><br><span class="line">  </span><br><span class="line">        <span class="comment"># get a list of all locations in the dividing column</span></span><br><span class="line">        divider = crossProduct(<span class="built_in">range</span>(problem.numRow), [mid])</span><br><span class="line">  </span><br><span class="line">    <span class="comment"># find the maximum in the dividing row or column</span></span><br><span class="line">    bestLoc = problem.getMaximum(divider, trace)</span><br><span class="line">    neighbor = problem.getBetterNeighbor(bestLoc, trace)</span><br><span class="line">  </span><br><span class="line">    <span class="comment"># update the best we&#x27;ve seen so far based on this new maximum</span></span><br><span class="line">    <span class="keyword">if</span> bestSeen <span class="keyword">is</span> <span class="literal">None</span> <span class="keyword">or</span> problem.get(neighbor) &gt; problem.get(bestSeen):</span><br><span class="line">        bestSeen = neighbor</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> trace <span class="keyword">is</span> <span class="literal">None</span>: trace.setBestSeen(bestSeen)</span><br><span class="line">  </span><br><span class="line">    <span class="comment"># return when we know we&#x27;ve found a peak</span></span><br><span class="line">    <span class="keyword">if</span> neighbor == bestLoc <span class="keyword">and</span> problem.get(bestLoc) &gt;= problem.get(bestSeen):</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> trace <span class="keyword">is</span> <span class="literal">None</span>: trace.foundPeak(bestLoc)</span><br><span class="line">        <span class="keyword">return</span> bestLoc</span><br><span class="line">  </span><br><span class="line">    <span class="comment"># figure out which subproblem contains the largest number we&#x27;ve seen so</span></span><br><span class="line">    <span class="comment"># far, and recurse, alternating between splitting on rows and splitting</span></span><br><span class="line">    <span class="comment"># on columns</span></span><br><span class="line">    sub = problem.getSubproblemContaining(subproblems, bestSeen)</span><br><span class="line">    newBest = sub.getLocationInSelf(problem, bestSeen)</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> trace <span class="keyword">is</span> <span class="literal">None</span>: trace.setProblemDimensions(sub)</span><br><span class="line">    result = algorithm4(sub, newBest, <span class="keyword">not</span> rowSplit, trace)</span><br><span class="line">    <span class="keyword">return</span> problem.getLocationInSelf(sub, result)</span><br></pre></td></tr></table></figure>
 <p>算法一二如课程笔记所述，均是正确的，以下是证明</p>
 <ul>
 <li>algo1</li>
@@ -706,6 +1187,40 @@ val（r1，c1）&lt; val（r1，c2）≤ val（r2，c2）&lt; val（r2，c1）<b
 <li>如果峰值问题不为空，则算法将始终返回一个位置。在算法中，根据是在行还是列上分割，递归子问题的维度会相应地减少。所以算法要么在某个时刻停止并返回一个位置，要么最终检查一个行数或列数为非正的子问题。但是，问题的行数或列数变为严格负数的唯一方式是在某个时刻m=0或n=0。因此，如果算法没有返回位置，它必定最终检查一个空的子问题。然而，证明假设该情况不会发生。</li>
 <li>如果算法返回一个位置，则该位置将是原始问题中的一个峰值。如果算法返回一个位置(r1, c1)，那么该位置必定是某个递归子问题中的峰值。另外，如果(r2, c2)是算法执行过程中的最佳位置（存储在bestSeen变量中的位置），那么必定满足val(r1, c1) ≥ val(r2, c2)。证明假设(r1, c1)不是原始问题的峰值。那么当位置(r1, c1)通过递归调用链向上传递时，它必定在某个级别停止是不是峰值。因此，必定存在一个包含位置(r1, c1)的子问题，在该级别中，该子问题的某个邻居(r3, c3)的值满足val(r1, c1) &lt; val(r3, c3)。对于(r3, c3)既是递归子问题的邻居又不包含在子问题中，它必定在算法的执行过程中被检查过。因此，必定满足val(r3, c3) ≤ val(r2, c2)。因此，我们得到以下不等式链：val(r1, c1) &lt; val(r3, c3) ≤ val(r2, c2) ≤ val(r1, c1)。这导致了矛盾。</li>
 </ol>
+<h1 id="hw2">hw2</h1>
+<h2 id="科赫雪花">科赫雪花</h2>
+<figure>
+<embed src="/game/fractal.html" /><figcaption>简单的演示</figcaption>
+</figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">SNOWFLAKE(n)</span><br><span class="line"> e1, e2, e3 = edges of an equilateral triangle with side length 1</span><br><span class="line"> SNOWFLAKE-EDGE(e1, n)</span><br><span class="line"> SNOWFLAKE-EDGE(e2, n)</span><br><span class="line"> SNOWFLAKE-EDGE(e3, n)</span><br><span class="line">SNOWFLAKE-EDGE(edge, n)</span><br><span class="line"> if n = = 0</span><br><span class="line">  edge is an edge on the snowflake</span><br><span class="line"> else</span><br><span class="line">  e1, e2, e3 = split edge in 3 equal parts</span><br><span class="line"> SNOWFLAKE-EDGE(e1, n − 1)</span><br><span class="line"> f2, g2 = edges of an equilateral triangle whose 3rd edge is e2, pointing outside the snowflake</span><br><span class="line"> ∆(f2, g2, e2) is a triangle on the snowflake’s surface</span><br><span class="line"> SNOWFLAKE-EDGE(f2, n − 1)</span><br><span class="line"> SNOWFLAKE-EDGE(g2, n − 1)</span><br><span class="line"> SNOWFLAKE-EDGE(e3, n − 1)</span><br></pre></td></tr></table></figure>
+<p>从主函数（层数视为-1)开始对每条边进行处理，这一层有三个节点。 而对边处理的函数则遵从这样的流程</p>
+<ol type="1">
+<li>把边等分成三个部分e1,e2,e3</li>
+<li>对e1进行递归</li>
+<li>以e2为一条边向外侧生成一个等边三角形，f2,g2是这个三角形的另外两条边</li>
+<li>以此对f2,g2,e3进行递归 函数实际上把一条边拓展出了一个三角形 因此第i层的节点数是:<span class="math display">\[3*4^i\]</span> <img src="assets/mit6.006作业解析/image-20231122203735331.png" /></li>
+</ol>
+<h3 id="d-硬件加速渲染">3D 硬件加速渲染</h3>
+<p>在这种渲染方式中，cpu计算分解出的三角形顶点的集合，发给gpu进行绘制，因此cpu的执行时间只取决于分解出的三角形数量，也就是θ(4^n)</p>
+<h3 id="d-硬件加速渲染-1">2D 硬件加速渲染</h3>
+<p>在这种渲染方式中，cpu实际上只计算不断分割出的线段集合，在本题中就是计算最外侧的轮廓的顶点的集合，计算结束后发给gpu绘制 时间复杂度依旧是θ(4^n)，但需要注意的是由于计算完了才开始渲染，因此递归树的中间节点不会对渲染产生时间消耗</p>
+<h3 id="软件渲染">软件渲染</h3>
+<p>在没有硬件加速器的2D渲染（也称为软件渲染）中，CPU 像上一部分一样，为每个路径编译一个线段列表，但它也负责 用于“光栅化”每个线段。 光栅化获取线段端点的坐标 并计算位于线段上的所有像素的坐标。 用这些像素在显示器上绘制线段。光栅化算法在时间上的消耗与线段的长度成正比，线段上的像素数量与线段的长度成正比。 在整个问题中，假设所有线段的长度至少为一个像素，因此 光栅化的成本大于编译线段的成本。 需要注意的是：</p>
+<ol type="1">
+<li>中间节点依旧对渲染无影响</li>
+<li>由于每次对边处理实际上增加了该边1/3的像素点，所以最后一层产生的代价是<span class="math display">\[θ({(1/3)}^n)\]</span></li>
+<li>同理，总渲染代价和cpu处理（只处理像素点）的时间复杂度都是<span class="math display">\[θ({(4/3)}^n)\]</span></li>
+</ol>
+<h3 id="没有硬件加速的-3d-渲染">没有硬件加速的 3D 渲染</h3>
+<p>在这种情况下， CPU 编译三角形列表，然后光栅化每个三角形。 我们知道一种算法 栅格化一个三角形，其运行时间与三角形的表面积成正比。三角形内的像素数量与三角形的面积成正比。可以假设边长为 l 的三角形的面积为 θ(l^2)。 顺着递归树进行分析，首层只增加了三个节点，每个新节点对应一个边长是原边长1/3的新三角形，增加了1/3的面积，之后的每一层都有4^i个节点，对应4/9的面积增长，即每层的增长是 <span class="math display">\[\frac{1}{3}.\frac{4}{9}^i\]</span> 可以用等比数列的求和算出答案，但时间复杂度必然是θ(1)</p>
+<h2 id="电路模拟">电路模拟</h2>
+<p><img src="assets/mit6.006作业解析/image-20231124185516359.png" /> 如图是对一个异或门的模拟，两个输入端AB产生的信号会在2ns的延迟后在输出端产生一个结果，除此以外没有延迟 按照题意运行<code>python -m cProfile -s time circuit.py &lt; tests/5devadas13.in</code> 得到如下结果（不完全），可以看到消耗最多时间的是lt(lower than)和find_min两个函数</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">   ncalls  tottime  percall  cumtime  percall filename:lineno(function)</span><br><span class="line">625762426  319.980    0.000  319.980    0.000 circuit.py:286(__lt__)</span><br><span class="line">   259964  315.431    0.001  635.431    0.002 circuit.py:381(_find_min)</span><br><span class="line">    64400    1.371    0.000  639.636    0.010 circuit.py:423(step)</span><br><span class="line">828793/634381    0.463    0.000    0.612    0.000 &#123;built-in method builtins.len&#125;</span><br><span class="line">   194381    0.421    0.000  635.865    0.003 circuit.py:361(min)</span><br><span class="line">    32768    0.352    0.000    0.352    0.000 &#123;method &#x27;write&#x27; of &#x27;_io.TextIOWrapper&#x27; objects&#125;</span><br><span class="line">    65554    0.309    0.000    0.723    0.000 circuit.py:163(transition_output)</span><br><span class="line">        1    0.290    0.290  640.116  640.116 circuit.py:456(run)</span><br></pre></td></tr></table></figure>
+<p>随后题意要求基于原来的api实现一个优先队列(最小堆)</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">PriorityQueue</span>:</span><br><span class="line">    <span class="string">&quot;&quot;&quot;Array-based priority queue implementation.&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;Initially empty priority queue.&quot;&quot;&quot;</span></span><br><span class="line">        self.queue = []</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">leftchid</span>(<span class="params">self,key</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="number">2</span>*key+<span class="number">1</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">rightchild</span>(<span class="params">self,key</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="number">2</span>*key+<span class="number">2</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">parent</span>(<span class="params">self,key</span>):</span><br><span class="line">        <span class="keyword">return</span> (key-<span class="number">1</span>)//<span class="number">2</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">swap</span>(<span class="params">self,key1,key2</span>):</span><br><span class="line">        temp=self.queue[key2]</span><br><span class="line">        self.queue[key2]=self.queue[key1]</span><br><span class="line">        self.queue[key1]=temp</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__len__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="comment"># Number of elements in the queue.</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">len</span>(self.queue)</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">sift_up</span>(<span class="params">self,key</span>):</span><br><span class="line">        <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">            p=self.parent(key)</span><br><span class="line">            <span class="keyword">if</span> (p&lt;<span class="number">0</span> <span class="keyword">or</span> self.queue[p]&lt;=self.queue[key]):</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                self.swap(p,key)</span><br><span class="line">                key=p</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">append</span>(<span class="params">self, key</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;Inserts an element in the priority queue.&quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">if</span> key <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">raise</span> ValueError(<span class="string">&#x27;Cannot insert None in the queue&#x27;</span>)</span><br><span class="line">        self.queue.append(key)</span><br><span class="line">        self.sift_up(self.__len__()-<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">min</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;The smallest element in the queue.&quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(self.queue) == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">        <span class="keyword">return</span> self.queue[<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">sift_down</span>(<span class="params">self,key</span>):</span><br><span class="line">        <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">            lft,rht = self.leftchid(key),self.rightchild(key)</span><br><span class="line">            min_key=key</span><br><span class="line">            <span class="keyword">if</span> (lft&lt;self.__len__() <span class="keyword">and</span> self.queue[lft]&lt;self.queue[key]):</span><br><span class="line">                min_key=lft</span><br><span class="line">            <span class="keyword">if</span> (rht&lt;self.__len__() <span class="keyword">and</span> self.queue[rht]&lt;self.queue[min_key]):</span><br><span class="line">                min_key=rht</span><br><span class="line">            <span class="keyword">if</span> (min_key==key): <span class="keyword">break</span></span><br><span class="line">            self.swap(min_key,key)</span><br><span class="line">            key =min_key</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">pop</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;Removes the minimum element in the queue.</span></span><br><span class="line"><span class="string">        Returns:</span></span><br><span class="line"><span class="string">            The value of the removed element.</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(self.queue) == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">        self.swap(<span class="number">0</span>,self.__len__()-<span class="number">1</span>)</span><br><span class="line">        min_val=self.queue.pop(self.__len__()-<span class="number">1</span>)</span><br><span class="line">        self.sift_down(<span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> min_val</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">_find_min</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="comment"># Computes the index of the minimum element in the queue.</span></span><br><span class="line">        <span class="comment"># This method may crash if called when the queue is empty.</span></span><br><span class="line">        <span class="keyword">if</span> self.__len__==<span class="number">0</span>:</span><br><span class="line">            <span class="keyword">raise</span> ValueError(<span class="string">&#x27;cannot find min of empty queue&#x27;</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br></pre></td></tr></table></figure>
+<p>python3可以运行所有测试，但无法运行可视化程序，不过也无所谓了，优化后再次运行一开始的输入</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ncalls  tottime  percall  cumtime  percall filename:lineno(function)</span><br><span class="line">    65583    2.826    0.000    5.321    0.000 circuit.py:389(sift_down)</span><br><span class="line">    65583    1.006    0.000    1.901    0.000 circuit.py:366(sift_up)</span><br><span class="line">  1930321    0.807    0.000    1.109    0.000 circuit.py:362(__len__)</span><br><span class="line">  1349048    0.772    0.000    0.772    0.000 circuit.py:357(swap)</span><br><span class="line">  1432334    0.719    0.000    0.719    0.000 circuit.py:286(__lt__)</span><br><span class="line">    64400    0.698    0.000    9.608    0.000 circuit.py:451(step)</span><br><span class="line">2450781/2256369    0.473    0.000    0.567    0.000 &#123;built-in method builtins.len&#125;</span><br></pre></td></tr></table></figure>
+<p>问题解决了,amdtel的offer什么时候发？</p>
 ]]></content>
       <categories>
         <category>课程笔记</category>
@@ -2382,482 +2897,6 @@ Name: people_house_proportion, dtype: float64</code></pre>
       <tags>
         <tag>python</tag>
         <tag>数据科学</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>基于苏大ppt的linux笔记(待续)</title>
-    <url>/2023/10/14/%E8%8B%8F%E5%A4%A7linux_ppt/</url>
-    <content><![CDATA[<h1 id="苏大部分">苏大部分</h1>
-<h2 id="文件系统">文件系统</h2>
-<h3 id="命名">命名</h3>
-<p>•除/之外，所有的字符都合法</p>
-<p>•大小写敏感</p>
-<p>•有些字符最好不用，如空格符、制表符、退格符和字符：？, @ # $ &amp; ()  | ; ‘ ’ “ ” &lt; &gt;</p>
-<p>•避免使用＋、－或. 来作为普通文件名的第一个字符</p>
-<p>•可以使用长文件名或目录名（255个字符）</p>
-<p>包括完整路径的文件名不超过4096字符 <span id="more"></span></p>
-<h3 id="目录">目录</h3>
-<table>
-<tbody>
-<tr class="odd">
-<td>bin</td>
-<td>存放二进制的可执行程序</td>
-</tr>
-<tr class="even">
-<td>boot</td>
-<td>存放用于系统引导时使用的各种文件</td>
-</tr>
-<tr class="odd">
-<td>dev</td>
-<td>存放设备文件，用户通过这些文件访问外部设备</td>
-</tr>
-<tr class="even">
-<td>etc</td>
-<td>存放系统的配置文件</td>
-</tr>
-<tr class="odd">
-<td>home</td>
-<td>存放用户文件的目录，每个用户在该目录下有一个与该用户名对应的子目录</td>
-</tr>
-<tr class="even">
-<td>root</td>
-<td>超级用户目录</td>
-</tr>
-<tr class="odd">
-<td>sbin</td>
-<td>类似于/bin目录，存放二进制文件，只有root才能访问</td>
-</tr>
-<tr class="even">
-<td>tmp</td>
-<td>用于放置各种临时文件</td>
-</tr>
-</tbody>
-</table>
-<table>
-<tbody>
-<tr class="odd">
-<td>var</td>
-<td>用于存放需要随时改变的文件，如系统日志、脱机工作目录等</td>
-</tr>
-<tr class="even">
-<td>mnt</td>
-<td>系统管理员安装临时文件系统的安装点</td>
-</tr>
-<tr class="odd">
-<td>opt</td>
-<td>一般情况下，该目录不属于系统的基本文件系统，是额外安装的应用程序包所放置的地方</td>
-</tr>
-<tr class="even">
-<td>usr</td>
-<td>用于存放系统应用程序</td>
-</tr>
-<tr class="odd">
-<td>lib</td>
-<td>存放根文件系统中的程序运行所需要的共享库及内核模块</td>
-</tr>
-<tr class="even">
-<td>proc</td>
-<td>是一个虚拟文件系统，存放当前内存的映射，主要用于在不重启机器的情况下管理内核</td>
-</tr>
-<tr class="odd">
-<td>lost+ found</td>
-<td>存放一些系统检查结果，发现不合法的文件或数据都存放在这里，通常此目录是空的，除非硬盘遭到损坏</td>
-</tr>
-</tbody>
-</table>
-<h3 id="链接文件">链接文件</h3>
-<ul>
-<li><p>硬链接 将两个文件名指向硬盘上同一个存储空间（inode），对任何一个文件的修改都将影响到另一个文件。 特性： 文件有相同的 inode 及 data block； 只能对已存在的文件进行创建； 不能交叉文件系统进行硬链接的创建； 不能对目录进行创建，只可对文件创建； 删除一个硬链接文件并不影响其他有相同 inode 号的文件。</p></li>
-<li><p>符号链接 又称软链接，是指将一个文件指向另外一个文件的文件名。 特性： 软链接有自己的文件属性及权限等； 软链接可对文件或目录创建； 可对不存在的文件或目录创建软链接； 软链接可交叉文件系统； 若被指向的原文件被删除，则相关软连接被称为死链接 删除软链接并不影响被指向的文件，若被指向路径文件被重新创建，死链接可恢复为正常的软链接</p></li>
-</ul>
-<p><code>符号链接可以跨文件系统，即可以跨磁盘分区。硬链接不可以跨文件系统。它只能建立对文件的链接。</code> 链接文件命令  ln</p>
-<table>
-<tbody>
-<tr class="odd">
-<td>ln file1 file2</td>
-<td>创建源文件file1的硬链接file2</td>
-</tr>
-<tr class="even">
-<td>ln -s file1 file2</td>
-<td>创建源文件file1的软链接file2</td>
-</tr>
-</tbody>
-</table>
-<p>符号链接可以跨文件系统，即可以跨磁盘分区。 硬链接不可以跨文件系统，只能建立对文件的链接。 硬链接删除只原文件或硬链接不影响文件内容 软连接删除源文件导致链接失效</p>
-<h3 id="mbr">MBR</h3>
-<p>硬盘的第一个扇区存有主引导记录(Master boot record, MBR)及分区表(partition table)</p>
-<ul>
-<li>MBR用于引导操作系统， 446 bytes ；</li>
-<li>partition table用于记录分区信息， 64 bytes ； 一个MBR分区表类型的硬盘最多存在4个主分区，每个分区项占用16个字节 如果分区超过4个，则需要使用扩展分区，即一个物理硬盘上最多有3个主分区和1个扩展分区。 扩展分区不能直接使用，必须分割成为逻辑分区，一个扩展分区中的逻辑分区可以任意多个。</li>
-</ul>
-<h3 id="gpt">GPT</h3>
-<p>全称全局唯一标识分区表 GUID Partition Table</p>
-<ul>
-<li>主分区数量任意（Win 128个）</li>
-<li>支持最大18EB（NTFS 256TB） 1EB=1024PB=1,048,576TB 可能需要EFI支持（Win、Mac）</li>
-</ul>
-<h3 id="ext2">ext2</h3>
-<p>磁盘分区完毕后还需要进行格式化(format)，不同操作系统默认的文件系统不同，所以需要格式化成不同格式的分区。 EXT2（second extended filesystem）是LINUX内核默认的文件系统。 EXT2中的主要构成： •SuperBlock  记录此 filesystem 的整体信息，包括inode/block的总量、使用量、剩余量， 以及文件系统的格式与相关信息等； •Block   实际记录文件的内容，若文件较大，则占用多个 block。 •Inode   记录文件的属性，一个文件占用一个inode，同时记录此文件的数据所在的 block 号码</p>
-<h4 id="inode">inode</h4>
-<p>ext2 创建一个目录时，分配1个 inode 与至少1块 block 给目录 •inode 记录目录权限与属性，并记录分配到 block号码 •block 记录目录下文件名与该文件名占用的 inode</p>
-<p>inode 数量与大小在格式化时固定 特征：</p>
-<ul>
-<li>每个 inode 大小均固定为 128 bytes；</li>
-<li>每个文件仅占用一个 inode；</li>
-<li>文件系统能够创建的文件数量与 inode 的数量有关；</li>
-<li>系统读取文件时先找到 inode，分析 inode 所记录的权限与用户是否符合，若符合读取 block 的内容。 <img src="assets/苏大linux_ppt/image-20231014145226727.png" /></li>
-</ul>
-<h4 id="升级">升级</h4>
-<p><code>EXT2</code>文件系统高效稳定，但不提供日志 <code>EXT3</code> 提供日志模式： data=journal模式 对所有的文件数据及metadata（定义文件系统中数据的数据,即数据的数据）进行日志记录 data=ordered或data=writeback模式 只对metadata记录日志，而不对数据进行日志记录</p>
-<p><code>EXT4</code> EXT3的扩展升级，可以提供更佳的性能和可靠性，包括支持更大的分区和文件大小，更快的文件操作速度。</p>
-<h3 id="实例">实例</h3>
-<h4 id="fdisk">fdisk</h4>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">           fdisk      [-options]     &lt;disk&gt;</span><br><span class="line">选项：</span><br><span class="line">-l 列出分区信息表</span><br><span class="line">/dev/sda    对sda磁盘进行分区</span><br></pre></td></tr></table></figure>
-<p>中科大的xubuntu镜像</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ustc@ustclug-linux101:~/桌面$ sudo fdisk -l</span><br><span class="line">[sudo] ustc 的密码： </span><br><span class="line">Disk /dev/sda：5 GiB，5368709120 字节，10485760 个扇区</span><br><span class="line">Disk model: VMware Virtual S</span><br><span class="line">单元：扇区 / 1 * 512 = 512 字节</span><br><span class="line">扇区大小(逻辑/物理)：512 字节 / 512 字节</span><br><span class="line">I/O 大小(最小/最佳)：512 字节 / 512 字节</span><br><span class="line">磁盘标签类型：gpt</span><br><span class="line">磁盘标识符：12526913-E330-4CA7-A379-90A87EF858B0</span><br><span class="line"></span><br><span class="line">设备         起点     末尾    扇区  大小 类型</span><br><span class="line">/dev/sda1    2048   499711  497664  243M EFI 系统</span><br><span class="line">/dev/sda2  499712 10483711 9984000  4.8G Linux 文件系统</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h4 id="mkfs格式化">mkfs格式化</h4>
-<p>mkfs      [-t 磁盘格式名]     &lt;partition&gt;</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mkfs  -t ext3  /dev/sdb1</span><br></pre></td></tr></table></figure>
-<h4 id="mount挂载">mount挂载</h4>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mount [-t vfstype] [-o options]    device    <span class="built_in">dir</span></span><br><span class="line">mount                         显示所有挂载的信息</span><br><span class="line"></span><br><span class="line">mount –a                   将所有未挂载设备挂载</span><br><span class="line"></span><br><span class="line">mount   /dev/hda2   /mnt/myhd2    将hda2设备挂载到/mnt/myhd2</span><br><span class="line"></span><br><span class="line">mount -t iso9660 /dev/cdrom  /media/cdrom  挂载光驱</span><br><span class="line">umount [选项] <span class="built_in">dir</span></span><br><span class="line"></span><br><span class="line">选项：</span><br><span class="line"></span><br><span class="line">-f     强制卸载</span><br><span class="line"></span><br><span class="line">-all   卸载所有挂载</span><br><span class="line"></span><br><span class="line">例：</span><br><span class="line"></span><br><span class="line">umount  /media/cdrom     卸载刚才挂载的光驱</span><br></pre></td></tr></table></figure>
-<h2 id="shell">shell</h2>
-<h3 id="重定向">重定向</h3>
-<p>lLinux启动后，默认打开3个文件描述符 •标准输入：standard input   0 •标准输出：standard output  1 •错误输出：error output     2 每条shell命令执行，都会继承父进程的文件描述符。因此，所有运行的shell命令，都会有默认3个文件描述符。 <code>重定向</code> 是指不使用系统的标准输入，标准输出或标准错误端口，而重新指定输入输出。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入重定向</span><br><span class="line"></span><br><span class="line">&lt;          输入重定向，从普通文件获取</span><br><span class="line"></span><br><span class="line">&lt;&lt;!...!    输入重定向， here文件，即从命令行获取</span><br><span class="line"></span><br><span class="line">输出重定向</span><br><span class="line"></span><br><span class="line">&gt;          输出重定向，覆盖模式</span><br><span class="line"></span><br><span class="line">&gt;&gt;         输出重定向，追加模式</span><br><span class="line"></span><br><span class="line">2&gt;         错误重定向，覆盖模式</span><br><span class="line"></span><br><span class="line">2&gt;&gt;        错误重定向，追加模式</span><br><span class="line"></span><br><span class="line">&amp;&gt;         同时实现输出重定向和错误重定向，覆盖模式</span><br><span class="line"></span><br><span class="line">&amp;&gt;&gt;        同时实现输出重定向和错误重定向，追加模式</span><br></pre></td></tr></table></figure>
-<h3 id="管道">管道</h3>
-<p>管道是一种两个进程间进行单向通信的机制 每个命令的输出作为下一条命令的输入，管道线中的命令从左到右顺序执行的，管道线是单向的 因为管道传递数据的单向性，管道又称为半双工管道</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ls –l | wc -l</span><br></pre></td></tr></table></figure>
-<h3 id="命令替换">命令替换</h3>
-<p>Shell中的命令参数可以由另一个命令执行的结果来替代</p>
-<p>命令格式：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$cmd1 `cmd2  arguments`</span><br><span class="line">或</span><br><span class="line">$cmd1 $(cmd2 arguments)</span><br></pre></td></tr></table></figure>
-<p>其中cmd2  arguments的输出作为cmd1的参数y</p>
-<h3 id="命令聚合">命令聚合</h3>
-<p>在一个命令行上使用若干shell元字符将若干命令聚合在一起运行。</p>
-<p>执行聚合的几种方式：</p>
-<p>•<code>cmd1;cmd2</code>   顺序执行若干命令</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">pwd;date;ls</span><br></pre></td></tr></table></figure>
-<p>•<code>cmd1&amp;&amp;cmd2</code> 当cmd1运行成功时才运行cmd2</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">gzip mylargefile&amp;&amp;echo &quot;OK.&quot;</span><br></pre></td></tr></table></figure>
-<p>•<code>cmd1||cmd2</code>   当cmd1运行失败时才运行cmd2</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">gzip mylargefile||echo &quot;FALSE.&quot;</span><br></pre></td></tr></table></figure>
-<p>•<code>(cmdlist)</code>   在子shell中执行命令序列，命令不影响当前shell</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">(date;who|wc -l)&gt;~/login-users.log</span><br></pre></td></tr></table></figure>
-<h1 id="linux101">linux101</h1>
-<h2 id="apt">apt</h2>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ apt search firefox</span><br><span class="line">Sorting... Done</span><br><span class="line">Full Text Search... Done</span><br><span class="line">(Output omitted)</span><br><span class="line"></span><br><span class="line">firefox/bionic-updates,bionic-security,now 72.0.2+build1-0ubuntu0.18.04.1 amd64</span><br><span class="line">  Safe and easy web browser from Mozilla</span><br><span class="line"></span><br><span class="line">(Output omitted)</span><br></pre></td></tr></table></figure>
-<p>中间两行每个字段的含义：</p>
-<table>
-<thead>
-<tr class="header">
-<th>样例中的字段</th>
-<th>含义</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>firefox</code></td>
-<td>即为在软件仓库中的包名</td>
-</tr>
-<tr class="even">
-<td><code>bionic-updates,bionic-security,now</code></td>
-<td>为包含这个软件包的仓库源</td>
-</tr>
-<tr class="odd">
-<td><code>72.0.2+build1-0ubuntu0.18.04.1</code></td>
-<td>为软件包的版本</td>
-</tr>
-<tr class="even">
-<td><code>amd64</code></td>
-<td>软件包的架构；还可能为<code>i386</code>、<code>all</code>等</td>
-</tr>
-<tr class="odd">
-<td><code>Safe and easy web browser from Mozilla</code></td>
-<td>在软件仓库中对这个软件包的描述</td>
-</tr>
-</tbody>
-</table>
-<div class="note warning"><p>请避免直接使用 <code>dpkg -i</code> 安装 deb 包。 在绝大多数情况下，都应该使用 <code>apt</code> 来安装 deb 文件。 如果不小心执行了 <code>dpkg -i</code> 导致系统出现依赖问题，可以尝试通过如下的方式调用 <code>apt</code> 帮助修复依赖管理：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo apt -f install</span><br></pre></td></tr></table></figure>
-</div>
-<h2 id="环境变量">环境变量</h2>
-<p>我们不能每次在需要编译程序的时候输入如此长的路径找到 <code>clang</code> 和 <code>clang++</code>，而更希望的是能够像 <code>apt</code> 那样在任何地方都可以直接运行。</p>
-<p>我们可以这样做：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 将 clang+llvm-10.0.0-x86_64-linux-gnu-ubuntu-18.04 目录下的所有内容复制到 /usr/local/ 下</span><br><span class="line">sudo cp -R * /usr/local/</span><br></pre></td></tr></table></figure>
-<p>为什么是 <code>/usr/local</code> 呢？因为 <code>/usr/local/bin</code> 处在 PATH 环境变量下。当我们在终端输入命令时，终端会先判断是否为终端的内建命令，如果不是，则会在 $PATH 环境变量中包含的目录下进行查找。因此，只要我们将一个可执行文件放入了 $PATH 中的目录下面，我们就可以像 <code>apt</code> 一样，在任意地方调用我们的程序。 通过这个命令可以看到当前的 PATH 环境变量有哪些目录。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ echo $PATH</span><br><span class="line">/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin</span><br></pre></td></tr></table></figure>
-<p>在上面的复制过程中，源目录和目标目录的两个 <code>bin</code> 目录会相互合并，<code>clang</code> 和 <code>clang++</code> 两个可执行文件也就被复制到了 <code>/usr/local/bin/</code> 目录中。这样子也就达到了我们希望能够在任意地方调用我们的可执行文件的目的。此外，在复制的时候 lib、doc 等文件夹也会和 <code>/usr/local</code> 下的对应目录合并，将 clang 的库和文档加到系统当中。</p>
-<h2 id="模式匹配">模式匹配</h2>
-<p>许多现代的 shell 都支持一定程度的模式匹配。举个例子，bash 的匹配模式被称为 <a href="https://mywiki.wooledge.org/glob">glob</a>，支持的操作如下：</p>
-<table>
-<thead>
-<tr class="header">
-<th>模式</th>
-<th>匹配的字串</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>*</code></td>
-<td>任意字串</td>
-</tr>
-<tr class="even">
-<td><code>foo*</code></td>
-<td>匹配 foo 开头的字串</td>
-</tr>
-<tr class="odd">
-<td><code>*x*</code></td>
-<td>匹配含 x 的字串</td>
-</tr>
-<tr class="even">
-<td><code>?</code></td>
-<td>一个字符</td>
-</tr>
-<tr class="odd">
-<td><code>a?b</code></td>
-<td><code>acb</code>、<code>a0b</code> 等，但不包含 <code>a00b</code></td>
-</tr>
-<tr class="even">
-<td><code>*.[ch]</code></td>
-<td>以 .c 或 .h 结尾的文件</td>
-</tr>
-</tbody>
-</table>
-<div class="note info no-icon"><p>除了上面提到的 glob，bash 还支持 <a href="https://www.linuxjournal.com/content/bash-extended-globbing">extglob</a>，不过需要先用 <code>shopt -s extglob</code> 启用。</p>
-</div>
-<h2 id="进程">进程</h2>
-<h3 id="htop">htop</h3>
-<p>Htop 可以简单方便查看当前运行的所有进程，以及系统 CPU、内存占用情况与系统负载等信息。</p>
-<p>使用鼠标与键盘都可以操作 htop。Htop 界面的最下方是一些选项，使用鼠标点击或按键盘的 F1 至 F10 功能键可以选择这些功能，常用的功能例如搜索进程（F3, Search）、过滤进程（F4, Filter，使得界面中只有满足条件的进程）、切换树形结构/列表显示（F5, Tree/List）等等。</p>
-<p><strong>进程标识符</strong>（PID，Process Identifier（是一个数字，是进程的唯一标识。在 htop 中，最左侧一列即为 PID。当用户想挂起、继续或终止进程时可以使用 PID 作为索引。</p>
-<p>在 htop 中，直接单击绿色条内的 PID 栏，可以将进程顺序按照 PID 升序排列，再次点击为降序排列，同理可应用于其他列。</p>
-<div class="note info no-icon"><p>按照 PID 排序时，我们可以观察系统启动的过程。Linux 系统内核从引导程序接手控制权后，开始内核初始化，随后变为 <strong>init_task</strong>，初始化自己的 PID 为 0。随后创建出 1 号进程（init 程序，目前一般为 systemd）衍生出用户空间的所有进程，创建 2 号进程 kthreadd 衍生出所有内核线程。随后 0 号进程成为 idle 进程，1 号、2 号并非特意预留，而是产生进程的自然顺序使然。</p>
-<p>由于 kthreadd 运行于内核空间，故需按大写 K（Shift + k）键显示内核进程后才能看到。然而无论如何也不可能在 htop 中看到 0 号进程本体，只能发现 1 号和 2 号进程的 PPID 是 0。</p>
-</div>
-<h4 id="linux对进程的分类">linux对进程的分类</h4>
-<p><code>Status: R: running; S: sleeping; T: traced/stopped; Z: zombie; D: disk sleep</code> S 对应的 sleeping 又称 interruptible sleep，字面意思是「可以被中断」；而 D 对应的 disk sleep 又称 uninterruptible sleep，不可被中断，一般是因为阻塞在磁盘读写操作上。 Zombie 是僵尸进程，该状态下进程已经结束，只是仍然占用一个 PID，保存一个返回值。而 traced/stopped 状态正是下文使用 Ctrl + Z 导致的挂起状态（大写 T），或者是在使用 gdb 等调试（Debug）工具进行跟踪时的状态（小写 t）。</p>
-<table>
-<thead>
-<tr class="header">
-<th>状态</th>
-<th>缩写表示</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Running</td>
-<td>R</td>
-<td>正在运行/可以立刻运行</td>
-</tr>
-<tr class="even">
-<td>Sleeping</td>
-<td>S</td>
-<td>可以被中断的睡眠</td>
-</tr>
-<tr class="odd">
-<td>Disk Sleep</td>
-<td>D</td>
-<td>不可被中断的睡眠</td>
-</tr>
-<tr class="even">
-<td>Traced / Stopped</td>
-<td>T</td>
-<td>被跟踪/被挂起的进程</td>
-</tr>
-<tr class="odd">
-<td>Zombie</td>
-<td>Z</td>
-<td>僵尸进程</td>
-</tr>
-</tbody>
-</table>
-<h3 id="ps">ps</h3>
-<p>ps（<strong>p</strong>rocess <strong>s</strong>tatus）是常用的输出进程状态的工具。直接调用 <code>ps</code> 仅会显示本终端中运行的相关进程。如果需要显示所有进程，对应的命令为 <code>ps aux</code>。</p>
-<h3 id="优先级与-nice-值">优先级与 nice 值</h3>
-<p>有了进程，谁先运行？谁给一点时间就够了，谁要占用大部分 CPU 时间？这又是如何决定的？这些问题之中体现着优先权的概念。如果说上面所介绍的的那些进程属性描述了进程的控制信息，那么<strong>优先级</strong>则反映操作系统调度进程的手段。在 htop 的显示中有两个与优先级有关的值：Priority（PRI）和 <strong>nice（NI）</strong>。以下主要介绍用户层使用的 nice 值。</p>
-<p>Nice 值越高代表一个进程对其它进程越 "nice"（友好），对应的优先级也就更低。Nice 值最高为 19，最低为 -20。通常，我们运行的程序的 nice 值为 0。我们可以打开 htop 观察与调整每个进程的 nice 值。</p>
-<p>用户可以使用 <code>nice</code> 命令在运行程序时指定优先级，而 <code>renice</code> 命令则可以重新指定优先级。当然，若想调低 nice 值，还需要 <code>sudo</code>（毕竟不能随便就把自己的优先级设置得更高，不然对其他的用户不公平）。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">nice -n 10 vim # 以 10 为 nice 值运行 vim</span><br><span class="line">renice -n 10 -p 12345 # 设置 PID 为 12345 的进程的 nice 值为 10</span><br></pre></td></tr></table></figure>
-<div class="note info no-icon"><p>如果你在 htop 中测试调整进程的 nice 值，可能会发现一个公式：<code>PRI = nice + 20</code>。这对于普通进程是成立的——普通进程的 PRI 会被映射到一个非负整数。</p>
-<p>但在正常运行的 Linux 系统中，我们可能会发现有些进程的 PRI 值是 RT，或者是负数。这表明对应的进程有更高的实时性要求（例如内核进程、音频相关进程等），采用了与普通进程不同的调度策略，优先级也相应更高。</p>
-</div>
-<h3 id="用户进程控制">用户进程控制</h3>
-<p><img src="https://101.lug.ustc.edu.cn/Ch04/images/signal_slide.png" /> 信号是 Unix 系列系统中进程之间相互通信的一种机制。发送信号的 Linux 命令叫作 <code>kill</code>。被称作 "kill" 的原因是：早期信号的作用就是关闭（杀死）进程。</p>
-<h3 id="前后台">前后台</h3>
-<p><img src="https://101.lug.ustc.edu.cn/Ch04/images/bg.gif" /> 默认情况下，在 shell 中运行的命令都在前台运行，如果需要在后台运行程序，需要在最后加上 <code>&amp;</code> 而如果需要将前台程序切换到后台，则需要按下 Ctrl + Z 发送 SIGTSTP 使进程挂起，控制权还给 shell 我们可以使用 <code>jobs</code> 命令，看到当前 shell 上所有相关的进程 任务前的代号在 fg，bg，乃至 kill 命令中发挥作用。使用时需要在前面加 <code>%</code>，如将 2 号进程放入后台，则使用 <code>bg %2</code> <div class="note info no-icon"><p>然而我们也许会关注一个细节，在图中显示的编号后面跟着的加号和减号是什么？</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[1]  - running    ./signal handle</span><br><span class="line">[2]  + suspended  ping localhost</span><br></pre></td></tr></table></figure>
-<p>这里的加号标记了 fg 和 bg 命令默认作用到的任务为 2，所以这里 <code>bg %2</code> 也可以直接简化为 <code>bg</code>。减号表示如果加号标记的进程退出了，它就会成为加号标记进程。我们也可以用 <code>%+</code> 和 <code>%-</code> 指代这两个任务。</p>
-</div></p>
-<h3 id="终止进程">终止进程</h3>
-<p>标准的终止进程信号是 SIGTERM，意味着一个进程的自然死亡</p>
-<ul>
-<li>htop 中自带向进程发送信号的功能。按下 K 键，在左侧提示栏中选择需要的信号，按下回车发送。同时可以使用空格对进程进行标记，被标记的进程将改变显示颜色。此时重复上述过程，可对被标记进程批量发送信号。</li>
-<li>如果不加任何参数，只有 PID，<code>kill</code> 命令将自动使用 15（SIGTERM）作为信号参数。</li>
-<li>在信号中，9 代表 SIGKILL，收到这个信号之后，程序会立刻退出。在使用时，直接 <code>kill -9 PID</code> 即可。</li>
-</ul>
-<h3 id="其他类-kill-命令">其他类 kill 命令</h3>
-<ul>
-<li><p><code>pgrep</code> / <code>pkill</code> 后面接模糊名称，实际上类似于对名称进行 <code>grep</code> 命令。<code>pgrep</code> 仅列出搜索到的进程名称符合用户输入的进程标识符，而 <code>pkill</code> 会根据用户的输入向进程发送信号。</p></li>
-<li><p><code>killall</code> 与 <code>pkill</code> 有一些类似，会向指定名字的进程发送信号。</p></li>
-<li><p><code>xkill</code> <code>xkill</code> 是针对窗口的 kill，运行该命令后，鼠标点击程序对应的窗口，就可以杀死该程序。</p></li>
-</ul>
-<h3 id="脱离终端">脱离终端</h3>
-<p>如果你使用过 SSH 连接到远程服务器执行任务，那么你会发现，你在 shell 中执行的程序在 SSH 断开之后会被关闭。这是因为终端一旦被关闭会向其中每个进程发送 SIGHUP（Signal hangup），而 SIGHUP 的默认动作即退出程序运行。</p>
-<h4 id="nohup">nohup</h4>
-<p>nohup，字面含义，就是「不要被 SIGHUP 影响」。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ nohup ping 101.ustclug.org &amp;</span><br><span class="line">[1] 19258</span><br><span class="line">nohup: ignoring input and appending output to &#x27;/home/ustc/nohup.out&#x27;</span><br></pre></td></tr></table></figure>
-<p>在需要屏蔽 SIGHUP 的程序前添加 nohup，则运行时的输出将被<a href="https://101.lug.ustc.edu.cn/Ch06/#redirect">重定向</a>到 nohup.out，也可以通过重定向手段自定义输出的文件。</p>
-<h2 id="服务">服务</h2>
-<h3 id="服务管理">服务管理</h3>
-<p>目前绝大多数 Linux 发行版的 init 方案都是 systemd，其管理系统服务的命令是 <code>systemctl</code>。</p>
-<p>若想了解全部服务内容，可以运行 <code>systemctl list-units</code> 来查看。该命令将显示所有 systemd 管理的单元，同时右面还会附上一句注释来表明该服务的任务。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ tldr systemctl</span><br><span class="line">systemctl</span><br><span class="line">Control the systemd system and service manager.</span><br><span class="line"></span><br><span class="line">    - List failed units:  # 列出运行失败的服务</span><br><span class="line">    systemctl --failed</span><br><span class="line"></span><br><span class="line">    - Start/Stop/Restart/Reload a service:  # 开启/关闭/重启/重载服务。Reload 代表重载配置文件而不重启进程。</span><br><span class="line">    systemctl start/stop/restart/reload &#123;&#123;unit&#125;&#125;</span><br><span class="line"></span><br><span class="line">    - Show the status of a unit:  # 显示服务状态</span><br><span class="line">    systemctl status &#123;&#123;unit&#125;&#125;</span><br><span class="line"></span><br><span class="line">    - Enable/Disable a unit to be started on bootup:  # 设置（Enable）/取消（Disable）服务开机自启</span><br><span class="line">    systemctl enable/disable &#123;&#123;unit&#125;&#125;</span><br><span class="line"></span><br><span class="line">    - Mask/Unmask a unit, prevent it to be started on bootup:  # 阻止/取消阻止服务被 enable</span><br><span class="line">    systemctl mask/unmask &#123;&#123;unit&#125;&#125;</span><br><span class="line"></span><br><span class="line">    - Reload systemd, scanning for new or changed units:  # 重载 systemd，需要在创建或修改服务文件后执行</span><br><span class="line">    systemctl daemon-reload</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<div class="note info no-icon"><p>wsl默认不支持systemctl,可以使用传统的service</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ tldr service</span><br><span class="line">service</span><br><span class="line">Manage services by running init scripts.</span><br><span class="line">The full script path should be omitted (/etc/init.d/ is assumed).</span><br><span class="line"></span><br><span class="line"> - Start/Stop/Restart/Reload service (start/stop should always be available):</span><br><span class="line">   service &#123;&#123;init_script&#125;&#125; &#123;&#123;start|stop|restart|reload&#125;&#125;</span><br><span class="line"></span><br><span class="line"> - Do a full restart (runs script twice with start and stop):</span><br><span class="line">   service &#123;&#123;init_script&#125;&#125; --full-restart</span><br><span class="line"></span><br><span class="line"> - Show the current status of a service:</span><br><span class="line">   service &#123;&#123;init_script&#125;&#125; status</span><br><span class="line"></span><br><span class="line"> - List the status of all services:</span><br><span class="line">   service --status-all</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>或者手动打开</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo vim /etc/wsl.conf</span><br></pre></td></tr></table></figure>
-<p>输入：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[boot]</span><br><span class="line">systemd=true</span><br></pre></td></tr></table></figure>
-<p>然后在windows终端wsl --shutdown再重启</p>
-</div>
-<div class="note info no-icon"><p><strong>编写 .service 文件并运行（以 Jupyter Notebook 为例）</strong></p>
-<p>Jupyter Notebook 是基于浏览器的交互式编程平台，在数据科学领域非常常用。</p>
-<p>首先使用文本编辑器在 <code>/etc/systemd/system</code> 目录下创建一个名为 <code>jupyter.service</code> 的文件。并填入以下内容：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=Jupyter Notebook    # 该服务的简要描述</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">PIDFile=/run/jupyter.pid        # 用来存放 PID 的文件</span><br><span class="line">ExecStart=/usr/local/bin/jupyter-notebook --allow-root</span><br><span class="line">                                # 使用绝对路径标明的命令及命令行参数</span><br><span class="line">WorkingDirectory=/root          # 服务启动时的工作目录</span><br><span class="line">Restart=always                  # 重启模式，这里是无论因何退出都重启</span><br><span class="line">RestartSec=10                   # 退出后多少秒重启</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target      # 依赖目标，这里指进入多用户模式后再启动该服务</span><br></pre></td></tr></table></figure>
-<p>将写好的配置文件保存为 <code>/etc/systemd/system/jupyter.service</code>，然后运行 <code>systemctl daemon-reload</code>，就可以使用 <code>systemctl</code> 命令来管理这个服务了，例如：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">systemctl start jupyter</span><br><span class="line">systemctl stop jupyter</span><br><span class="line">systemctl enable jupyter  # enable 表示标记服务的开机自动启动</span><br><span class="line">systemctl disable jupyter # 取消自启</span><br></pre></td></tr></table></figure>
-</div>
-<h3 id="例行性任务">例行性任务</h3>
-<p>可以用at，crontab等工具创建例行性任务 详见<a href="https://101.lug.ustc.edu.cn/Ch04/#crontab">linux101</a></p>
-<div class="note info no-icon">
-</div>
-<h2 id="用户权限和文件系统">用户权限和文件系统</h2>
-<p>可以查看 <code>/etc/passwd</code> 文件，来得到系统中用户的配置信息。 普通用户的文件存储于位于 <code>/home/username/</code>路径</p>
-<div class="note info no-icon"><p>你是否常常忘记敲 <code>sudo</code>，结果还要把后面的整条命令重新敲一遍？在发现权限不足之后有一个方便的「补救方案」：<code>sudo !!</code>，效果如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ apt update</span><br><span class="line">Reading package lists... Done</span><br><span class="line">E: Could not open lock file /var/lib/apt/lists/lock - open (13: Permission denied)</span><br><span class="line">E: Unable to lock directory /var/lib/apt/lists/</span><br><span class="line">W: Problem unlinking the file /var/cache/apt/pkgcache.bin - RemoveCaches (13: Permission denied)</span><br><span class="line">W: Problem unlinking the file /var/cache/apt/srcpkgcache.bin - RemoveCaches (13: Permission denied)</span><br><span class="line">$ sudo !!</span><br><span class="line">sudo apt update</span><br><span class="line">[sudo] password for ustc:</span><br><span class="line">Hit:1 http://mirrors.ustc.edu.cn/ubuntu bionic InRelease</span><br><span class="line">（以下内容省略）</span><br></pre></td></tr></table></figure>
-<p>其实，在 Shell 中，<code>!!</code> 即代表上一条命令，可以和其他的命令结合使用。</p>
-</div>
-<p>以 <code>root</code> 之外的用户的身份执行命令：加上 <code>-u 用户名</code> 的参数即可。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ sudo -u nobody id</span><br><span class="line">uid=65534(nobody) gid=65534(nogroup) groups=65534(nogroup)</span><br></pre></td></tr></table></figure>
-<h3 id="用户组">用户组</h3>
-<p>用户组是用户的集合。通过用户组机制，可以为一批用户设置权限。可以使用 <code>groups</code> 命令，查看自己所属的用户组。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ groups</span><br><span class="line">ustc adm cdrom sudo dip plugdev lxd</span><br></pre></td></tr></table></figure>
-<p>用户组和用户一样，也有编号：GID (Group ID)。 <div class="note info no-icon"><p><code>adduser</code> 是 Debian 及其衍生发行版中附带的一个方便的用户管理脚本。它可以用来向系统添加用户、添加组，以及将用户加入组。输入：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo adduser 用户名</span><br></pre></td></tr></table></figure>
-<p>即可添加此用户。而输入</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo adduser --group 组名</span><br></pre></td></tr></table></figure>
-<p>即可添加此用户组。将用户加入指定用户组也非常简单：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo adduser 用户名 组名</span><br></pre></td></tr></table></figure>
-<p>在通过 <code>adduser</code> 创建了新的用户后，直接使用 <code>sudo</code> 以 <code>root</code> 身份运行程序可能会得到：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ sudo apt update</span><br><span class="line">[sudo] password for ustc:</span><br><span class="line">ustc is not in the sudoers file.  This incident will be reported.</span><br></pre></td></tr></table></figure>
-<p>除了可以通过 <code>visudo</code> 命令编辑 <code>sudoers</code> 文件外，还可以直接通过将新的用户加入到 <code>sudo</code> 用户组，以能够使用 <code>sudo</code> 命令。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo adduser ustc sudo</span><br></pre></td></tr></table></figure>
-<p>再次切换到新的用户即可看到使用 sudo 的提示：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">To run a command as administrator (user &quot;root&quot;), use &quot;sudo &lt;command&gt;&quot;.</span><br><span class="line">See &quot;man sudo_root&quot; for details.</span><br></pre></td></tr></table></figure>
-</div></p>
-<h2 id="文本处理">文本处理</h2>
-<h3 id="正则表达式">正则表达式</h3>
-<p><a href="https://regex101.com/">在线编辑正则表达式</a> 正则表达式（regular expression）描述了一种字符串匹配的模式，可以用来检查一个串是否含有某种子串、将匹配的子串做替换或者从某个串中取出符合某个条件的子串等。</p>
-<p>特殊字符表：</p>
-<table>
-<thead>
-<tr class="header">
-<th>特殊字符</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>[]</code></td>
-<td>方括号表达式，表示匹配的字符集合，例如 <code>[0-9]</code>、<code>[abcde]</code></td>
-</tr>
-<tr class="even">
-<td><code>()</code></td>
-<td>标记子表达式起止位置</td>
-</tr>
-<tr class="odd">
-<td><code>*</code></td>
-<td>匹配前面的子表达式零或多次</td>
-</tr>
-<tr class="even">
-<td><code>+</code></td>
-<td>匹配前面的子表达式一或多次</td>
-</tr>
-<tr class="odd">
-<td><code>?</code></td>
-<td>匹配前面的子表达式零或一次</td>
-</tr>
-<tr class="even">
-<td><code>\</code></td>
-<td>转义字符，除了常用转义外，还有：<code>\b</code> 匹配单词边界；<code>\B</code> 匹配非单词边界等</td>
-</tr>
-<tr class="odd">
-<td><code>.</code></td>
-<td>匹配除 <code>\n</code>（换行）外的任意单个字符</td>
-</tr>
-<tr class="even">
-<td><code>&#123;&#125;</code></td>
-<td>标记限定符表达式的起止。例如 <code>&#123;n&#125;</code> 表示匹配前一子表达式 n 次；<code>&#123;n,&#125;</code> 匹配至少 n 次；<code>&#123;n,m&#125;</code> 匹配 n 至 m 次</td>
-</tr>
-<tr class="odd">
-<td><code>\|</code></td>
-<td>表明前后两项二选一</td>
-</tr>
-<tr class="even">
-<td><code>$</code></td>
-<td>匹配字符串的结尾</td>
-</tr>
-<tr class="odd">
-<td><code>^</code></td>
-<td>匹配字符串的开头，在方括号表达式中表示不接受该方括号表达式中的字符集合</td>
-</tr>
-</tbody>
-</table>
-<p>若是想要匹配特殊字符本身，需要在之前加上转义字符 <code>\</code>。 <div class="note info no-icon"><p>匹配正整数：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[1-9][0-9]*</span><br></pre></td></tr></table></figure>
-<p>匹配仅由 26 个英文字母组成的字符串：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">^[A-Za-z]+$</span><br></pre></td></tr></table></figure>
-<p>匹配 Chapter 1-99 或 Section 1-99</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">^(Chapter|Section) [1-9][0-9]&#123;0,1&#125;$</span><br></pre></td></tr></table></figure>
-<p>匹配“ter”结尾的单词：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ter\b</span><br></pre></td></tr></table></figure>
-<p>匹配rgb代码</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">^#([0-9]&#123;6&#125;$|([0-9]|[A-F])&#123;3&#125;$)</span><br></pre></td></tr></table></figure>
-</div></p>
-<h4 id="基本扩展正则表达式">基本/扩展正则表达式</h4>
-<p>基本正则表达式（Basic Regular Expressions, BRE）和扩展正则表达式（Extended Regular Expressions, ERE）是两种 POSIX 正则表达式风格。</p>
-<p>BRE 可能是如今最老的正则风格了，对于部分特殊字符（如 <code>+</code>, <code>?</code>, <code>|</code>, <code>&#123;</code>）需要加上转义符 <code>\</code> 才能表达其特殊含义。</p>
-<p>ERE 与如今的现代正则风格较为一致，相比 BRE，上述特殊字符默认发挥特殊作用，加上 <code>\</code> 之后表达普通含义。</p>
-<h4 id="懒惰和贪婪">懒惰和贪婪</h4>
-<p>使用 <code>*</code> <code>+</code> 的时候默认是贪婪模式，即尽可能匹配更多的子表达式。在 <code>*</code> <code>+</code> 之后加上 <code>?</code> 变为懒惰模式，即尽可能匹配更少的子表达式。</p>
-<p>例如：<code>123456456</code></p>
-<p>贪婪：<code>1.+6</code> -&gt; <code>123456456</code></p>
-<p>懒惰：<code>1.+?6</code> -&gt; <code>123456</code> 后向引用可以将之前匹配到的具体内容再次利用。在正则表达式中，<code>()</code> 以及它们包含的内容为一个分组，每个分组默认拥有一个组号。</p>
-<p>组号分配规则：</p>
-<ul>
-<li>0 代表整个表达式</li>
-<li>从左至右，按左括号的出现顺序分配，第一个为 1，第二个为 2，以此类推</li>
-<li>扫描两遍，第一次只分配未命名的组，第二次只分配命名的组。即任意命名组的组号都大于未命名的组号</li>
-</ul>
-<h4 id="后向引用">后向引用</h4>
-<div class="note info no-icon"><p>示例</p>
-<p><code>\b(\w+)\b\s+\1\b</code> 可以用来匹配用空白字符分割的两个重复的单词（例如 <code>linux linux</code>），其中 <code>\1</code> 是对组号为 1 的组 <code>(\w+)</code> 的引用。</p>
-<p><code>\b(?'Word'\w+)\b\s+\k'Word'\b</code> 也可以起到同样的效果，其中 <code>?'Word'</code> 用于命名组，<code>\k'Word'</code> 用于引用组。</p>
-</div>
-<h4 id="零宽断言">零宽断言</h4>
-<p>零宽断言用于查找某些内容进行定位，但内容并不放入匹配结果，就像 <code>\b</code> <code>^</code> <code>$</code> 的定位一样。<code>(?=exp)</code> 用于匹配表达式 <code>exp</code> 前面的位置，<code>(?&lt;=exp)</code> 用于匹配后面的位置。</p>
-<h4 id="拓展阅读">拓展阅读</h4>
-<p><a href="https://zhuanlan.zhihu.com/p/46294360">乱用正则引发的惨案</a></p>
-]]></content>
-      <categories>
-        <category>课程笔记</category>
-        <category>操作系统</category>
-      </categories>
-      <tags>
-        <tag>课程笔记</tag>
-        <tag>linux</tag>
-        <tag>苏州大学</tag>
       </tags>
   </entry>
   <entry>
