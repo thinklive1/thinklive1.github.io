@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://thinklive1.github.io/2023/09/17/thinklive%E7%9A%84%E8%BF%AA%E7%91%9E%E5%85%8B%E6%8B%89%E5%9B%BE%E4%B9%A6%E9%A6%86/</loc>
+    
+    <lastmod>2023-11-25</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://thinklive1.github.io/2023/10/14/%E8%8B%8F%E5%A4%A7linux_ppt/</loc>
     
     <lastmod>2023-11-25</lastmod>
@@ -14,15 +23,6 @@
     <loc>https://thinklive1.github.io/2023/10/14/mit6.006%E6%80%BB%E5%92%8C%E7%AC%94%E8%AE%B0/</loc>
     
     <lastmod>2023-11-25</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://thinklive1.github.io/2023/09/17/thinklive%E7%9A%84%E8%BF%AA%E7%91%9E%E5%85%8B%E6%8B%89%E5%9B%BE%E4%B9%A6%E9%A6%86/</loc>
-    
-    <lastmod>2023-11-24</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -502,6 +502,13 @@
   </url>
   
   <url>
+    <loc>https://thinklive1.github.io/tags/%E5%BD%B1%E5%AD%90%E5%B7%A5%E5%8E%82/</loc>
+    <lastmod>2023-11-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://thinklive1.github.io/tags/hexo/</loc>
     <lastmod>2023-11-25</lastmod>
     <changefreq>weekly</changefreq>
@@ -524,13 +531,6 @@
   
   <url>
     <loc>https://thinklive1.github.io/tags/icarus/</loc>
-    <lastmod>2023-11-25</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://thinklive1.github.io/tags/%E5%BD%B1%E5%AD%90%E5%B7%A5%E5%8E%82/</loc>
     <lastmod>2023-11-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -572,14 +572,14 @@
   </url>
   
   <url>
-    <loc>https://thinklive1.github.io/tags/%E4%B8%AD%E5%9B%BD%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E5%A4%A7%E5%AD%A6/</loc>
+    <loc>https://thinklive1.github.io/tags/%E7%A7%98%E5%AF%86/</loc>
     <lastmod>2023-11-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://thinklive1.github.io/tags/%E7%A7%98%E5%AF%86/</loc>
+    <loc>https://thinklive1.github.io/tags/%E4%B8%AD%E5%9B%BD%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E5%A4%A7%E5%AD%A6/</loc>
     <lastmod>2023-11-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
