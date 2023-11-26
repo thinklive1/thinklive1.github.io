@@ -1,6 +1,6 @@
+https://thinklive1.github.io/2023/10/14/mit6.006%E6%80%BB%E5%92%8C%E7%AC%94%E8%AE%B0/
 https://thinklive1.github.io/2023/09/17/thinklive%E7%9A%84%E8%BF%AA%E7%91%9E%E5%85%8B%E6%8B%89%E5%9B%BE%E4%B9%A6%E9%A6%86/
 https://thinklive1.github.io/2023/10/14/%E8%8B%8F%E5%A4%A7linux_ppt/
-https://thinklive1.github.io/2023/10/14/mit6.006%E6%80%BB%E5%92%8C%E7%AC%94%E8%AE%B0/
 https://thinklive1.github.io/2023/11/20/mit6.006%E4%BD%9C%E4%B8%9A%E8%A7%A3%E6%9E%90/
 https://thinklive1.github.io/2023/09/29/%E8%BF%AA%E7%91%9E%E5%85%8B%E6%8B%89rpg%E8%AE%BE%E5%AE%9A%E9%9B%86/
 https://thinklive1.github.io/2023/11/17/houses/
@@ -45,15 +45,15 @@ https://thinklive1.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%
 https://thinklive1.github.io/tags/JAVA/
 https://thinklive1.github.io/tags/%E6%B8%B8%E6%88%8F%E6%9D%82%E8%B0%88/
 https://thinklive1.github.io/tags/black-souls/
-https://thinklive1.github.io/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/
-https://thinklive1.github.io/tags/c/
 https://thinklive1.github.io/tags/%E6%96%AF%E5%9D%A6%E7%A6%8F/
+https://thinklive1.github.io/tags/c/
+https://thinklive1.github.io/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/
 https://thinklive1.github.io/tags/%E6%95%B0%E6%8D%AE%E7%A7%91%E5%AD%A6/
+https://thinklive1.github.io/tags/pandas/
 https://thinklive1.github.io/tags/%E9%BA%BB%E7%9C%81%E7%90%86%E5%B7%A5/
 https://thinklive1.github.io/tags/%E5%8C%97%E4%BA%AC%E5%A4%A7%E5%AD%A6/
 https://thinklive1.github.io/tags/linux/
 https://thinklive1.github.io/tags/%E7%BC%96%E7%A8%8B%E5%B7%A5%E5%85%B7/
-https://thinklive1.github.io/tags/pandas/
 https://thinklive1.github.io/tags/%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86/
 https://thinklive1.github.io/tags/vim/
 https://thinklive1.github.io/tags/not-for-broadcast/
@@ -68,8 +68,8 @@ https://thinklive1.github.io/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/
 https://thinklive1.github.io/tags/hitman/
 https://thinklive1.github.io/tags/%E6%AD%A5%E8%A1%8C%E6%A8%A1%E6%8B%9F%E5%99%A8/
 https://thinklive1.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/
-https://thinklive1.github.io/tags/%E7%A7%98%E5%AF%86/
 https://thinklive1.github.io/tags/%E4%B8%AD%E5%9B%BD%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E5%A4%A7%E5%AD%A6/
+https://thinklive1.github.io/tags/%E7%A7%98%E5%AF%86/
 https://thinklive1.github.io/tags/%E8%BF%AA%E7%91%9E%E5%85%8B%E6%8B%89/
 https://thinklive1.github.io/tags/%E4%B8%AD%E7%A7%91%E5%A4%A7/
 https://thinklive1.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/
