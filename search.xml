@@ -117,6 +117,16 @@
 <li>查找最左一个 <code>target</code> ：可以转化为查找 <code>target - 0.5</code> ，并返回指针<code>i</code></li>
 <li>查找最右一个 <code>target</code> ：可以转化为查找 <code>target + 0.5</code> ，并返回指针<code>j</code></li>
 </ul>
+<h2 id="哈希查找">哈希查找</h2>
+<p>Q:给定一个整数数组 <code>nums</code> 和一个目标元素 <code>target</code> ，请在数组中搜索“和”为 <code>target</code> 的两个元素，并返回它们的数组索引。返回任意一个解即可。</p>
+<p>借助一个哈希表，键值对分别为数组元素和元素索引。循环遍历数组</p>
+<ol type="1">
+<li>判断数字 <code>target - nums[i]</code> 是否在哈希表中，若是则直接返回这两个元素的索引。</li>
+<li>将键值对 <code>nums[i]</code> 和索引 <code>i</code> 添加进哈希表。</li>
+</ol>
+<p><img src="https://www.hello-algo.com/chapter_searching/replace_linear_by_hashing.assets/two_sum_brute_force.png" /></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">two_sum_hash_table</span>(<span class="params">nums: <span class="built_in">list</span>[<span class="built_in">int</span>], target: <span class="built_in">int</span></span>) -&gt; <span class="built_in">list</span>[<span class="built_in">int</span>]:</span><br><span class="line">    <span class="string">&quot;&quot;&quot;方法二：辅助哈希表&quot;&quot;&quot;</span></span><br><span class="line">    <span class="comment"># 辅助哈希表，空间复杂度 O(n)</span></span><br><span class="line">    dic = &#123;&#125;</span><br><span class="line">    <span class="comment"># 单层循环，时间复杂度 O(n)</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(nums)):</span><br><span class="line">        <span class="keyword">if</span> target - nums[i] <span class="keyword">in</span> dic:</span><br><span class="line">            <span class="keyword">return</span> [dic[target - nums[i]], i]</span><br><span class="line">        dic[nums[i]] = i</span><br><span class="line">    <span class="keyword">return</span> []</span><br></pre></td></tr></table></figure>
+<p>时间复杂度O(n),由于需要维护一个额外的哈希表，因此空间复杂度为O(n)</p>
 <h2 id="随机查找">随机查找</h2>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">RANDOMIZED-SELECT (A, p, r, i)</span><br><span class="line">    if p==r</span><br><span class="line">        return A[p]</span><br><span class="line">    q = RANDOMlZED-PARTITION(A, p, r)</span><br><span class="line">    k = q-p+I</span><br><span class="line">    if i == k // the pivot value is the answer</span><br><span class="line">        return A[q]</span><br><span class="line">    else if i&lt;k</span><br><span class="line">        return RANOOMIZED-SELECT(A, p, q-1, i)</span><br><span class="line">    else return RANOOMIZED-SELECT(A, q+l, r, i-k</span><br></pre></td></tr></table></figure>
 <h1 id="比较排序">比较排序</h1>
@@ -191,22 +201,57 @@ T(h) &amp; = 2 \frac{1 - 2^h}{1 - 2} - h \newline
 </ul>
 <h2 id="平衡二叉搜索树avl">平衡二叉搜索树AVL</h2>
 <p><img src="/assets/mit6.006总和笔记/image-20231017102411122.png" /> • 在动态操作下保持 O(log n) 高度的二叉树称为平衡二叉树 – 有许多平衡方案（红黑树、八字树、2-3 树……） – 第一个提出的平衡方案是 AVL 树 <strong>树的旋转</strong> <img src="/assets/mit6.006总和笔记/image-20231017102819736.png" /> • 定理：O(n) 次旋转可以将二叉树转换为具有相同遍历顺序的任何其他二叉树。 • 证明：按照遍历顺序重复执行最后可能的右旋转； 结果树是 规范链。 每次旋转都会使最后一个节点的深度增加 1。 最后一个节点的深度最多为 n − 1，因此最多执行 n − 1 次旋转，就可以将输入树旋转为目标树。</p>
-<p><strong>最坏情况</strong> Worst when every node differs by 1 — let Nh = (min.) # nodes in height-h AVL tree</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">=⇒ Nh = Nh−1 + Nh−2 + 1 &gt; 2Nh−2</span><br><span class="line">=⇒ Nh &gt; 2h/2</span><br><span class="line">=⇒ h &lt; 2 lg Nh</span><br></pre></td></tr></table></figure>
-<p><strong>数学证明</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Nh &gt; Fh (nth Fibonacci number)</span><br><span class="line">• In fact Nh = Fn+1 − 1 (simple induction)</span><br><span class="line">ϕ</span><br><span class="line">• h 1 + √5</span><br><span class="line">Fh = √ rounded to nearest integer where ϕ = ≈ 1.618 (golden ratio)</span><br><span class="line">5 2</span><br><span class="line">• =⇒ max. h ≈ logϕ n ≈ 1.440 lg n</span><br></pre></td></tr></table></figure>
-<p><strong>平衡</strong> AVL 树保持高度平衡（也称为 AVL 属性） – 如果一个节点的左右子树的高度最多相差 1，则该节点是高度平衡的 – 节点的倾斜为其右子树的高度减去左子树的高度 – 如果节点的倾斜度为 −1、0 或 1，则该节点是高度平衡的</p>
+<p><strong>平衡</strong> AVL 树保持高度平衡（也称为 AVL 属性）</p>
+<ul>
+<li>如果一个节点的左右子树的高度最多相差 1，则该节点是高度平衡的</li>
+<li>节点的倾斜为其右子树的高度减去左子树的高度</li>
+<li>如果节点的倾斜度为 −1、0 或 1，则该节点是高度平衡的</li>
+</ul>
 <p><strong>平衡的维持</strong> 每次对树的修改最多导致左右子树高度相差2，如果相差2，一次旋转就可以重新平衡树 <img src="/assets/mit6.006总和笔记/image-20231017105216748.png" /> <img src="/assets/mit6.006总和笔记/image-20231018222936126.png" /> <img src="/assets/mit6.006总和笔记/image-20231018223015529.png" /> <img src="/assets/mit6.006总和笔记/image-20231018223211763.png" /></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">∗ Let h = height(&lt;A&gt;). Then height(&lt;G&gt;) = h while height(&lt;C&gt;) and height(&lt;E&gt;)</span><br><span class="line">are each either h or h − 1</span><br><span class="line">∗ After rotation:</span><br><span class="line">· the skew of &lt;B&gt; is either 0 or −1, so &lt;B&gt; is height balanced</span><br><span class="line">· the skew of &lt;F&gt; is either 0 or 1, so &lt;F&gt; is height balanced</span><br><span class="line">· the skew of &lt;D&gt; is 0, so D is height balanced</span><br><span class="line">· the height of &lt;B&gt; is h + 3 before, then after is h +</span><br><span class="line">Global Rebalance: Add or remove a leaf from height-balanced tree T to produce tree T 0 .</span><br><span class="line">Then T 0 can be transformed into a height-balanced tree T 00 using at most O(log n) rotations</span><br></pre></td></tr></table></figure>
 <p>AVL 树通过在每个节点存储额外的高度信息,并在每个节点做平衡操作来保持平衡。其平衡调整原则如下:</p>
 <ol type="1">
 <li>如果左右子树高度相差大于 1,进行旋转操作调整;</li>
 <li>进行左旋转的情况:左子树高度 - 右子树高度 &gt; 1,即左子树比右子树高(左重),需要右旋;</li>
 <li>进行右旋转的情况:右子树高度 - 左子树高度 &gt; 1,即右子树比左子树高(右重),需要左旋;</li>
 <li>旋转后更新节点的高度信息。</li>
-<li>每进行一次插入或删除节点后,从该节点开始向上遍历,如果发现任一节点的左右子树高度差大于 1,则在该节点进行旋转操作,调整树的平衡。 由于树的高度最高为lgn，所以logn时间内就可以完成增删节点的操作 <strong>高度属性的维护</strong> 必须确保每个节点的height属性可以通过输入为字数的height属性的一个O(1)操作完成，这样维护height就不会改变动态操作的复杂度</li>
+<li>每进行一次插入或删除节点后,从该节点开始向上遍历,如果发现任一节点的左右子树高度差大于 1,则在该节点进行旋转操作,调整树的平衡。 由于树的高度最高为lgn，所以logn时间内就可以完成增删节点的操作 <strong>高度属性的维护</strong> 必须确保每个节点的height属性可以通过对height属性的一个O(1)操作完成，这样维护height就不会改变动态操作的复杂度</li>
 </ol>
-<p><strong>数据结构的选取</strong> • Set AVL trees achieve O(lg n) time for all set operations, except O(n log n) time for build and O(n) time for iter • Sequence AVL trees achieve O(lg n) time for all sequence operations, except O(n) time for build and iter</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* 获取节点高度 */</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">height</span><span class="params">(TreeNode *node)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 空节点高度为 -1 ，叶节点高度为 0</span></span><br><span class="line">    <span class="keyword">return</span> node == <span class="literal">nullptr</span> ? <span class="number">-1</span> : node-&gt;height;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 更新节点高度 */</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">updateHeight</span><span class="params">(TreeNode *node)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 节点高度等于最高子树高度 + 1</span></span><br><span class="line">    node-&gt;height = <span class="built_in">max</span>(<span class="built_in">height</span>(node-&gt;left), <span class="built_in">height</span>(node-&gt;right)) + <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 获取平衡因子 */</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">balanceFactor</span><span class="params">(TreeNode *node)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 空节点平衡因子为 0</span></span><br><span class="line">    <span class="keyword">if</span> (node == <span class="literal">nullptr</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="comment">// 节点平衡因子 = 左子树高度 - 右子树高度</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">height</span>(node-&gt;left) - <span class="built_in">height</span>(node-&gt;right);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p><strong>旋转的实现</strong></p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/* 右旋操作 */</span></span><br><span class="line"><span class="function">TreeNode *<span class="title">rightRotate</span><span class="params">(TreeNode *node)</span> </span>&#123;</span><br><span class="line">    TreeNode *child = node-&gt;left;</span><br><span class="line">    TreeNode *grandChild = child-&gt;right;</span><br><span class="line">    <span class="comment">// 以 child 为原点，将 node 向右旋转</span></span><br><span class="line">    child-&gt;right = node;</span><br><span class="line">    node-&gt;left = grandChild;</span><br><span class="line">    <span class="comment">// 更新节点高度</span></span><br><span class="line">    <span class="built_in">updateHeight</span>(node);</span><br><span class="line">    <span class="built_in">updateHeight</span>(child);</span><br><span class="line">    <span class="comment">// 返回旋转后子树的根节点</span></span><br><span class="line">    <span class="keyword">return</span> child;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 左旋操作 */</span></span><br><span class="line"><span class="function">TreeNode *<span class="title">leftRotate</span><span class="params">(TreeNode *node)</span> </span>&#123;</span><br><span class="line">    TreeNode *child = node-&gt;right;</span><br><span class="line">    TreeNode *grandChild = child-&gt;left;</span><br><span class="line">    <span class="comment">// 以 child 为原点，将 node 向左旋转</span></span><br><span class="line">    child-&gt;left = node;</span><br><span class="line">    node-&gt;right = grandChild;</span><br><span class="line">    <span class="comment">// 更新节点高度</span></span><br><span class="line">    <span class="built_in">updateHeight</span>(node);</span><br><span class="line">    <span class="built_in">updateHeight</span>(child);</span><br><span class="line">    <span class="comment">// 返回旋转后子树的根节点</span></span><br><span class="line">    <span class="keyword">return</span> child;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>一共有四种需要平衡的情况 <img src="https://www.hello-algo.com/chapter_tree/avl_tree.assets/avltree_rotation_cases.png" /></p>
+<table>
+<thead>
+<tr class="header">
+<th>失衡节点的平衡因子</th>
+<th>子节点的平衡因子</th>
+<th>应采用的旋转方法</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>&gt;1（即左偏树）</td>
+<td>&gt;=0</td>
+<td>右旋</td>
+</tr>
+<tr class="even">
+<td>&gt;1（即左偏树）</td>
+<td>&lt;0</td>
+<td>先左旋后右旋</td>
+</tr>
+<tr class="odd">
+<td>&lt;-1（即右偏树）</td>
+<td>&lt;=0</td>
+<td>左旋</td>
+</tr>
+<tr class="even">
+<td>&lt;-1（即右偏树）</td>
+<td>&gt;0</td>
+<td>先右旋后左旋</td>
+</tr>
+</tbody>
+</table>
+<p><strong>数据结构的选取</strong> • Set AVL trees achieve O(lg n) time for all set operations, except O(n log n) time for build and O(n) time for iter • Sequence AVL trees achieve O(lg n) time for all sequence operations, except O(n) time for build and iter <strong>插入和删除</strong> 此外，插入节点和删除节点在搜索二叉树基础上，需要分别自底向上和自上向下进行恢复平衡的操作</p>
 <h1 id="哈希">哈希</h1>
 <p>哈希有可能产生碰撞，需要特定处理或者数据结构，检索元素时间最后会由负载因数(n/m)决定 <img src="/assets/mit6.006总和笔记/image-20231016200400451.png" /> 一般有<strong>链表</strong>和<strong>开放寻址</strong>两种方式解决碰撞</p>
 <ul>
