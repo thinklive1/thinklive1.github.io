@@ -29,174 +29,8 @@
 <p>2023/11/20 更换了一下子站和资源站的logo图片</p>
 <p>2023/11/22 新增了一个字符版bad apple，以及一个开源的思维导图页面</p>
 <p>2023/11/25 升级了hexo到最新版本，代价是由于没备份配置文件重新做了一下配置，但相应的增加了一些功能，比如代码块折叠，还有改变了字数统计算法（缩水了一半，草）</p>
-<p>2023/11/27 添加rss订阅 ，在左侧的社交栏</p>
+<p>2023/11/27 添加rss订阅 ，在左侧的社交栏,以及分享功能</p>
 ]]></content>
-  </entry>
-  <entry>
-    <title>基于mit6.006的作业解析</title>
-    <url>/2023/11/20/mit6.006%E4%BD%9C%E4%B8%9A%E8%A7%A3%E6%9E%90/</url>
-    <content><![CDATA[<h1 id="hw1">hw1</h1>
-<h2 id="时间复杂度分析">时间复杂度分析</h2>
-<p>对这种形式的函数可以这样比较</p>
-<p><span class="math display">\[f_1=n^{\sqrt{n}}=(2^{lgn})^{\sqrt{n}}\]</span> <span class="math display">\[f_2=n^{10}.2^{n/2}=2^{lg(10n)+n/2}\]</span></p>
-<h2 id="复杂度计算">复杂度计算</h2>
-<p>对于T(n,n): T (x, y) = Θ(x + y) + T (x/2, y/2). 化成</p>
-<p><img src="assets/mit6.006作业解析/image-20231120213425020.png" /></p>
-<p>得到θ(n) <span id="more"></span></p>
-<p>T (x, y) = Θ(x) + T (x, y/2). 等于lgy个θ(x) 即，θ(nlgn)</p>
-<p>T (x, y) = Θ(x) + S(x, y/2), S(x, y) = Θ(y) + T (x/2, y).</p>
-<p>化成T (x, y) = Θ(x) + Θ(y/2) + T (x/2, y/2). 与第一个例子相似，θ(n)</p>
-<h2 id="寻峰算法">寻峰算法</h2>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">algorithm1</span>(<span class="params">problem, trace = <span class="literal">None</span></span>):</span><br><span class="line">    <span class="comment"># if it&#x27;s empty, we&#x27;re done</span></span><br><span class="line">    <span class="keyword">if</span> problem.numRow &lt;= <span class="number">0</span> <span class="keyword">or</span> problem.numCol &lt;= <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">    <span class="comment"># the recursive subproblem will involve half the number of columns</span></span><br><span class="line">    mid = problem.numCol // <span class="number">2</span></span><br><span class="line">    <span class="comment"># information about the two subproblems</span></span><br><span class="line">    (subStartR, subNumR) = (<span class="number">0</span>, problem.numRow)</span><br><span class="line">    (subStartC1, subNumC1) = (<span class="number">0</span>, mid)</span><br><span class="line">    (subStartC2, subNumC2) = (mid + <span class="number">1</span>, problem.numCol - (mid + <span class="number">1</span>))</span><br><span class="line">    subproblems = []</span><br><span class="line">    subproblems.append((subStartR, subStartC1, subNumR, subNumC1))</span><br><span class="line">    subproblems.append((subStartR, subStartC2, subNumR, subNumC2))</span><br><span class="line">    <span class="comment"># get a list of all locations in the dividing column</span></span><br><span class="line">    divider = crossProduct(<span class="built_in">range</span>(problem.numRow), [mid])</span><br><span class="line">    <span class="comment"># find the maximum in the dividing column</span></span><br><span class="line">    bestLoc = problem.getMaximum(divider, trace)</span><br><span class="line">    <span class="comment"># see if the maximum value we found on the dividing line has a better</span></span><br><span class="line">    <span class="comment"># neighbor (which cannot be on the dividing line, because we know that</span></span><br><span class="line">    <span class="comment"># this location is the best on the dividing line)</span></span><br><span class="line">    neighbor = problem.getBetterNeighbor(bestLoc, trace)</span><br><span class="line">    <span class="comment"># this is a peak, so return it</span></span><br><span class="line">    <span class="keyword">if</span> neighbor == bestLoc:</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> trace <span class="keyword">is</span> <span class="literal">None</span>: trace.foundPeak(bestLoc)</span><br><span class="line">        <span class="keyword">return</span> bestLoc</span><br><span class="line">    <span class="comment"># otherwise, figure out which subproblem contains the neighbor, and</span></span><br><span class="line">    <span class="comment"># recurse in that half</span></span><br><span class="line">    sub = problem.getSubproblemContaining(subproblems, neighbor)</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> trace <span class="keyword">is</span> <span class="literal">None</span>: trace.setProblemDimensions(sub)</span><br><span class="line">    result = algorithm1(sub, trace)</span><br><span class="line">    <span class="keyword">return</span> problem.getLocationInSelf(sub, result)</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">algorithm2</span>(<span class="params">problem, location = (<span class="params"><span class="number">0</span>, <span class="number">0</span></span>), trace = <span class="literal">None</span></span>):</span><br><span class="line">    <span class="comment"># if it&#x27;s empty, we&#x27;re done</span></span><br><span class="line">    <span class="keyword">if</span> problem.numRow &lt;= <span class="number">0</span> <span class="keyword">or</span> problem.numCol &lt;= <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">    nextLocation = problem.getBetterNeighbor(location, trace)</span><br><span class="line">    <span class="keyword">if</span> nextLocation == location:</span><br><span class="line">        <span class="comment"># there is no better neighbor, so return this peak</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> trace <span class="keyword">is</span> <span class="literal">None</span>: trace.foundPeak(location)</span><br><span class="line">        <span class="keyword">return</span> location</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="comment"># there is a better neighbor, so move to the neighbor and recurse</span></span><br><span class="line">        <span class="keyword">return</span> algorithm2(problem, nextLocation, trace)</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">algorithm3</span>(<span class="params">problem, bestSeen = <span class="literal">None</span>, trace = <span class="literal">None</span></span>):</span><br><span class="line">    <span class="comment"># if it&#x27;s empty, we&#x27;re done</span></span><br><span class="line">    <span class="keyword">if</span> problem.numRow &lt;= <span class="number">0</span> <span class="keyword">or</span> problem.numCol &lt;= <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">    midRow = problem.numRow // <span class="number">2</span></span><br><span class="line">    midCol = problem.numCol // <span class="number">2</span></span><br><span class="line">    <span class="comment"># first, get the list of all subproblems</span></span><br><span class="line">    subproblems = []</span><br><span class="line">    (subStartR1, subNumR1) = (<span class="number">0</span>, midRow)</span><br><span class="line">    (subStartR2, subNumR2) = (midRow + <span class="number">1</span>, problem.numRow - (midRow + <span class="number">1</span>))</span><br><span class="line">    (subStartC1, subNumC1) = (<span class="number">0</span>, midCol)</span><br><span class="line">    (subStartC2, subNumC2) = (midCol + <span class="number">1</span>, problem.numCol - (midCol + <span class="number">1</span>))</span><br><span class="line">    subproblems.append((subStartR1, subStartC1, subNumR1, subNumC1))</span><br><span class="line">    subproblems.append((subStartR1, subStartC2, subNumR1, subNumC2))</span><br><span class="line">    subproblems.append((subStartR2, subStartC1, subNumR2, subNumC1))</span><br><span class="line">    subproblems.append((subStartR2, subStartC2, subNumR2, subNumC2))</span><br><span class="line">    <span class="comment"># find the best location on the cross (the middle row combined with the</span></span><br><span class="line">    <span class="comment"># middle column)</span></span><br><span class="line">    cross = []</span><br><span class="line">    cross.extend(crossProduct([midRow], <span class="built_in">range</span>(problem.numCol)))</span><br><span class="line">    cross.extend(crossProduct(<span class="built_in">range</span>(problem.numRow), [midCol]))</span><br><span class="line">    crossLoc = problem.getMaximum(cross, trace)</span><br><span class="line">    neighbor = problem.getBetterNeighbor(crossLoc, trace)</span><br><span class="line">    <span class="comment"># update the best we&#x27;ve seen so far based on this new maximum</span></span><br><span class="line">    <span class="keyword">if</span> bestSeen <span class="keyword">is</span> <span class="literal">None</span> <span class="keyword">or</span> problem.get(neighbor) &gt; problem.get(bestSeen):</span><br><span class="line">        bestSeen = neighbor</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> trace <span class="keyword">is</span> <span class="literal">None</span>: trace.setBestSeen(bestSeen)</span><br><span class="line">    <span class="comment"># return if we can&#x27;t see any better neighbors</span></span><br><span class="line">    <span class="keyword">if</span> neighbor == crossLoc:</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> trace <span class="keyword">is</span> <span class="literal">None</span>: trace.foundPeak(crossLoc)</span><br><span class="line">        <span class="keyword">return</span> crossLoc</span><br><span class="line">    <span class="comment"># figure out which subproblem contains the largest number we&#x27;ve seen so</span></span><br><span class="line">    <span class="comment"># far, and recurse</span></span><br><span class="line">    sub = problem.getSubproblemContaining(subproblems, bestSeen)</span><br><span class="line">    newBest = sub.getLocationInSelf(problem, bestSeen)</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> trace <span class="keyword">is</span> <span class="literal">None</span>: trace.setProblemDimensions(sub)</span><br><span class="line">    result = algorithm3(sub, newBest, trace)</span><br><span class="line">    <span class="keyword">return</span> problem.getLocationInSelf(sub, result)</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">algorithm4</span>(<span class="params">problem, bestSeen = <span class="literal">None</span>, rowSplit = <span class="literal">True</span>, trace = <span class="literal">None</span></span>):</span><br><span class="line">    <span class="comment"># if it&#x27;s empty, we&#x27;re done</span></span><br><span class="line">    <span class="keyword">if</span> problem.numRow &lt;= <span class="number">0</span> <span class="keyword">or</span> problem.numCol &lt;= <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">    subproblems = []</span><br><span class="line">    divider = []</span><br><span class="line">  </span><br><span class="line">    <span class="keyword">if</span> rowSplit:</span><br><span class="line">        <span class="comment"># the recursive subproblem will involve half the number of rows</span></span><br><span class="line">        mid = problem.numRow // <span class="number">2</span></span><br><span class="line">  </span><br><span class="line">        <span class="comment"># information about the two subproblems</span></span><br><span class="line">        (subStartR1, subNumR1) = (<span class="number">0</span>, mid)</span><br><span class="line">        (subStartR2, subNumR2) = (mid + <span class="number">1</span>, problem.numRow - (mid + <span class="number">1</span>))</span><br><span class="line">        (subStartC, subNumC) = (<span class="number">0</span>, problem.numCol)</span><br><span class="line">  </span><br><span class="line">        subproblems.append((subStartR1, subStartC, subNumR1, subNumC))</span><br><span class="line">        subproblems.append((subStartR2, subStartC, subNumR2, subNumC))</span><br><span class="line">  </span><br><span class="line">        <span class="comment"># get a list of all locations in the dividing column</span></span><br><span class="line">        divider = crossProduct([mid], <span class="built_in">range</span>(problem.numCol))</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="comment"># the recursive subproblem will involve half the number of columns</span></span><br><span class="line">        mid = problem.numCol // <span class="number">2</span></span><br><span class="line">  </span><br><span class="line">        <span class="comment"># information about the two subproblems</span></span><br><span class="line">        (subStartR, subNumR) = (<span class="number">0</span>, problem.numRow)</span><br><span class="line">        (subStartC1, subNumC1) = (<span class="number">0</span>, mid)</span><br><span class="line">        (subStartC2, subNumC2) = (mid + <span class="number">1</span>, problem.numCol - (mid + <span class="number">1</span>))</span><br><span class="line">  </span><br><span class="line">        subproblems.append((subStartR, subStartC1, subNumR, subNumC1))</span><br><span class="line">        subproblems.append((subStartR, subStartC2, subNumR, subNumC2))</span><br><span class="line">  </span><br><span class="line">        <span class="comment"># get a list of all locations in the dividing column</span></span><br><span class="line">        divider = crossProduct(<span class="built_in">range</span>(problem.numRow), [mid])</span><br><span class="line">  </span><br><span class="line">    <span class="comment"># find the maximum in the dividing row or column</span></span><br><span class="line">    bestLoc = problem.getMaximum(divider, trace)</span><br><span class="line">    neighbor = problem.getBetterNeighbor(bestLoc, trace)</span><br><span class="line">  </span><br><span class="line">    <span class="comment"># update the best we&#x27;ve seen so far based on this new maximum</span></span><br><span class="line">    <span class="keyword">if</span> bestSeen <span class="keyword">is</span> <span class="literal">None</span> <span class="keyword">or</span> problem.get(neighbor) &gt; problem.get(bestSeen):</span><br><span class="line">        bestSeen = neighbor</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> trace <span class="keyword">is</span> <span class="literal">None</span>: trace.setBestSeen(bestSeen)</span><br><span class="line">  </span><br><span class="line">    <span class="comment"># return when we know we&#x27;ve found a peak</span></span><br><span class="line">    <span class="keyword">if</span> neighbor == bestLoc <span class="keyword">and</span> problem.get(bestLoc) &gt;= problem.get(bestSeen):</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> trace <span class="keyword">is</span> <span class="literal">None</span>: trace.foundPeak(bestLoc)</span><br><span class="line">        <span class="keyword">return</span> bestLoc</span><br><span class="line">  </span><br><span class="line">    <span class="comment"># figure out which subproblem contains the largest number we&#x27;ve seen so</span></span><br><span class="line">    <span class="comment"># far, and recurse, alternating between splitting on rows and splitting</span></span><br><span class="line">    <span class="comment"># on columns</span></span><br><span class="line">    sub = problem.getSubproblemContaining(subproblems, bestSeen)</span><br><span class="line">    newBest = sub.getLocationInSelf(problem, bestSeen)</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> trace <span class="keyword">is</span> <span class="literal">None</span>: trace.setProblemDimensions(sub)</span><br><span class="line">    result = algorithm4(sub, newBest, <span class="keyword">not</span> rowSplit, trace)</span><br><span class="line">    <span class="keyword">return</span> problem.getLocationInSelf(sub, result)</span><br></pre></td></tr></table></figure>
-<p>算法一二如课程笔记所述，均是正确的，以下是证明</p>
-<ul>
-<li>algo1</li>
-</ul>
-<ol type="1">
-<li>证明算法不可能返回一个空值，首先算法不可能得到一个负索引的子数组（在只有一列的时候必然会得到结果而不是继续划分），在最小问题的情况下，如果此时子问题有一列，那么必然返回一个峰值，如果有两列，不管目前讨论的列是不是最大值，都会递归成最小为1为列的子问题，不会返回空值</li>
-<li>证明返回的位置确实是峰值位置，如果算法1返回一个位置（r1，c1），则该位置必须具有列c1中的最大值，并且必须是某个递归子问题中的峰值。为了推导矛盾，假设（r1，c1）不是原始问题中的峰值。在某个子问题中，位置（r1，c1）与列c2相邻（|c1 - c2| = 1），并且值必须满足不等式val（r1，c1）&lt; val（r1，c2）。<br />
-让（r2，c2）是算法1在c2列中找到的最大值的位置。因此，必定有val（r1，c2）≤ val（r2，c2）。因为c2是分割线，且算法选择在包含（r1，c1）的一半上进行递归，所以我们知道val（r2，c2）&lt; val（r2，c1）。因此，我们有以下不等式链：<br />
-val（r1，c1）&lt; val（r1，c2）≤ val（r2，c2）&lt; val（r2，c1）<br />
-但是，为了使算法1将（r1，c1）作为峰值返回，（r1，c1）处的值必须是其列中的最大值，即val（r1，c1）≥ val（r2，c1）。因此，我们得到了一个矛盾。</li>
-</ol>
-<ul>
-<li>algo3是错误的</li>
-</ul>
-<p>时间复杂度是θ(n)，情况类似复杂度题目的第一个情况，1+1/2+1/4……</p>
-<p><strong>反例</strong></p>
-<p>如图所示的反例会选择返回一个在当前子问题中看起来像一个峰值，但是与子问题外部的某个更大值相邻的位置</p>
-<table>
-<thead>
-<tr class="header">
-<th>0</th>
-<th>0</th>
-<th>9</th>
-<th>8</th>
-<th>0</th>
-<th>0</th>
-<th>0</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr class="even">
-<td>0</td>
-<td>1</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr class="odd">
-<td>0</td>
-<td>2</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr class="even">
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr class="odd">
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr class="even">
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr class="odd">
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-</tr>
-</tbody>
-</table>
-<p>对算法四的证明</p>
-<ul>
-<li>algo4</li>
-</ul>
-<p>时间复杂度是θ(n),类似算法3</p>
-<p>算法四交叉进行行和列的最大值寻找</p>
-<ol type="1">
-<li>如果峰值问题不为空，则算法将始终返回一个位置。在算法中，根据是在行还是列上分割，递归子问题的维度会相应地减少。所以算法要么在某个时刻停止并返回一个位置，要么最终检查一个行数或列数为非正的子问题。但是，问题的行数或列数变为严格负数的唯一方式是在某个时刻m=0或n=0。因此，如果算法没有返回位置，它必定最终检查一个空的子问题。然而，证明假设该情况不会发生。</li>
-<li>如果算法返回一个位置，则该位置将是原始问题中的一个峰值。如果算法返回一个位置(r1, c1)，那么该位置必定是某个递归子问题中的峰值。另外，如果(r2, c2)是算法执行过程中的最佳位置（存储在bestSeen变量中的位置），那么必定满足val(r1, c1) ≥ val(r2, c2)。证明假设(r1, c1)不是原始问题的峰值。那么当位置(r1, c1)通过递归调用链向上传递时，它必定在某个级别停止是不是峰值。因此，必定存在一个包含位置(r1, c1)的子问题，在该级别中，该子问题的某个邻居(r3, c3)的值满足val(r1, c1) &lt; val(r3, c3)。对于(r3, c3)既是递归子问题的邻居又不包含在子问题中，它必定在算法的执行过程中被检查过。因此，必定满足val(r3, c3) ≤ val(r2, c2)。因此，我们得到以下不等式链：val(r1, c1) &lt; val(r3, c3) ≤ val(r2, c2) ≤ val(r1, c1)。这导致了矛盾。</li>
-</ol>
-<h1 id="hw2">hw2</h1>
-<h2 id="科赫雪花">科赫雪花</h2>
-<figure>
-<embed src="/game/fractal.html" /><figcaption>简单的演示</figcaption>
-</figure>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">SNOWFLAKE(n)</span><br><span class="line"> e1, e2, e3 = edges of an equilateral triangle with side length 1</span><br><span class="line"> SNOWFLAKE-EDGE(e1, n)</span><br><span class="line"> SNOWFLAKE-EDGE(e2, n)</span><br><span class="line"> SNOWFLAKE-EDGE(e3, n)</span><br><span class="line">SNOWFLAKE-EDGE(edge, n)</span><br><span class="line"> if n = = 0</span><br><span class="line">  edge is an edge on the snowflake</span><br><span class="line"> else</span><br><span class="line">  e1, e2, e3 = split edge in 3 equal parts</span><br><span class="line"> SNOWFLAKE-EDGE(e1, n − 1)</span><br><span class="line"> f2, g2 = edges of an equilateral triangle whose 3rd edge is e2, pointing outside the snowflake</span><br><span class="line"> ∆(f2, g2, e2) is a triangle on the snowflake’s surface</span><br><span class="line"> SNOWFLAKE-EDGE(f2, n − 1)</span><br><span class="line"> SNOWFLAKE-EDGE(g2, n − 1)</span><br><span class="line"> SNOWFLAKE-EDGE(e3, n − 1)</span><br></pre></td></tr></table></figure>
-<p>从主函数（层数视为-1)开始对每条边进行处理，这一层有三个节点。 而对边处理的函数则遵从这样的流程</p>
-<ol type="1">
-<li>把边等分成三个部分e1,e2,e3</li>
-<li>对e1进行递归</li>
-<li>以e2为一条边向外侧生成一个等边三角形，f2,g2是这个三角形的另外两条边</li>
-<li>以此对f2,g2,e3进行递归 函数实际上把一条边拓展出了一个三角形 因此第i层的节点数是:<span class="math display">\[3*4^i\]</span> <img src="assets/mit6.006作业解析/image-20231122203735331.png" /></li>
-</ol>
-<h3 id="d-硬件加速渲染">3D 硬件加速渲染</h3>
-<p>在这种渲染方式中，cpu计算分解出的三角形顶点的集合，发给gpu进行绘制，因此cpu的执行时间只取决于分解出的三角形数量，也就是θ(4^n)</p>
-<h3 id="d-硬件加速渲染-1">2D 硬件加速渲染</h3>
-<p>在这种渲染方式中，cpu实际上只计算不断分割出的线段集合，在本题中就是计算最外侧的轮廓的顶点的集合，计算结束后发给gpu绘制 时间复杂度依旧是θ(4^n)，但需要注意的是由于计算完了才开始渲染，因此递归树的中间节点不会对渲染产生时间消耗</p>
-<h3 id="软件渲染">软件渲染</h3>
-<p>在没有硬件加速器的2D渲染（也称为软件渲染）中，CPU 像上一部分一样，为每个路径编译一个线段列表，但它也负责 用于“光栅化”每个线段。 光栅化获取线段端点的坐标 并计算位于线段上的所有像素的坐标。 用这些像素在显示器上绘制线段。光栅化算法在时间上的消耗与线段的长度成正比，线段上的像素数量与线段的长度成正比。 在整个问题中，假设所有线段的长度至少为一个像素，因此 光栅化的成本大于编译线段的成本。 需要注意的是：</p>
-<ol type="1">
-<li>中间节点依旧对渲染无影响</li>
-<li>由于每次对边处理实际上增加了该边1/3的像素点，所以最后一层产生的代价是<span class="math display">\[θ({(1/3)}^n)\]</span></li>
-<li>同理，总渲染代价和cpu处理（只处理像素点）的时间复杂度都是<span class="math display">\[θ({(4/3)}^n)\]</span></li>
-</ol>
-<h3 id="没有硬件加速的-3d-渲染">没有硬件加速的 3D 渲染</h3>
-<p>在这种情况下， CPU 编译三角形列表，然后光栅化每个三角形。 我们知道一种算法 栅格化一个三角形，其运行时间与三角形的表面积成正比。三角形内的像素数量与三角形的面积成正比。可以假设边长为 l 的三角形的面积为 θ(l^2)。 顺着递归树进行分析，首层只增加了三个节点，每个新节点对应一个边长是原边长1/3的新三角形，增加了1/3的面积，之后的每一层都有4^i个节点，对应4/9的面积增长，即每层的增长是 <span class="math display">\[\frac{1}{3}.\frac{4}{9}^i\]</span> 可以用等比数列的求和算出答案，但时间复杂度必然是θ(1)</p>
-<h2 id="电路模拟">电路模拟</h2>
-<p><img src="assets/mit6.006作业解析/image-20231124185516359.png" /> 如图是对一个异或门的模拟，两个输入端AB产生的信号会在2ns的延迟后在输出端产生一个结果，除此以外没有延迟 按照题意运行<code>python -m cProfile -s time circuit.py &lt; tests/5devadas13.in</code> 得到如下结果（不完全），可以看到消耗最多时间的是lt(lower than)和find_min两个函数</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">   ncalls  tottime  percall  cumtime  percall filename:lineno(function)</span><br><span class="line">625762426  319.980    0.000  319.980    0.000 circuit.py:286(__lt__)</span><br><span class="line">   259964  315.431    0.001  635.431    0.002 circuit.py:381(_find_min)</span><br><span class="line">    64400    1.371    0.000  639.636    0.010 circuit.py:423(step)</span><br><span class="line">828793/634381    0.463    0.000    0.612    0.000 &#123;built-in method builtins.len&#125;</span><br><span class="line">   194381    0.421    0.000  635.865    0.003 circuit.py:361(min)</span><br><span class="line">    32768    0.352    0.000    0.352    0.000 &#123;method &#x27;write&#x27; of &#x27;_io.TextIOWrapper&#x27; objects&#125;</span><br><span class="line">    65554    0.309    0.000    0.723    0.000 circuit.py:163(transition_output)</span><br><span class="line">        1    0.290    0.290  640.116  640.116 circuit.py:456(run)</span><br></pre></td></tr></table></figure>
-<p>随后题意要求基于原来的api实现一个优先队列(最小堆)</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">PriorityQueue</span>:</span><br><span class="line">    <span class="string">&quot;&quot;&quot;Array-based priority queue implementation.&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;Initially empty priority queue.&quot;&quot;&quot;</span></span><br><span class="line">        self.queue = []</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">leftchid</span>(<span class="params">self,key</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="number">2</span>*key+<span class="number">1</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">rightchild</span>(<span class="params">self,key</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="number">2</span>*key+<span class="number">2</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">parent</span>(<span class="params">self,key</span>):</span><br><span class="line">        <span class="keyword">return</span> (key-<span class="number">1</span>)//<span class="number">2</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">swap</span>(<span class="params">self,key1,key2</span>):</span><br><span class="line">        temp=self.queue[key2]</span><br><span class="line">        self.queue[key2]=self.queue[key1]</span><br><span class="line">        self.queue[key1]=temp</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__len__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="comment"># Number of elements in the queue.</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">len</span>(self.queue)</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">sift_up</span>(<span class="params">self,key</span>):</span><br><span class="line">        <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">            p=self.parent(key)</span><br><span class="line">            <span class="keyword">if</span> (p&lt;<span class="number">0</span> <span class="keyword">or</span> self.queue[p]&lt;=self.queue[key]):</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                self.swap(p,key)</span><br><span class="line">                key=p</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">append</span>(<span class="params">self, key</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;Inserts an element in the priority queue.&quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">if</span> key <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">raise</span> ValueError(<span class="string">&#x27;Cannot insert None in the queue&#x27;</span>)</span><br><span class="line">        self.queue.append(key)</span><br><span class="line">        self.sift_up(self.__len__()-<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">min</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;The smallest element in the queue.&quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(self.queue) == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">        <span class="keyword">return</span> self.queue[<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">sift_down</span>(<span class="params">self,key</span>):</span><br><span class="line">        <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">            lft,rht = self.leftchid(key),self.rightchild(key)</span><br><span class="line">            min_key=key</span><br><span class="line">            <span class="keyword">if</span> (lft&lt;self.__len__() <span class="keyword">and</span> self.queue[lft]&lt;self.queue[key]):</span><br><span class="line">                min_key=lft</span><br><span class="line">            <span class="keyword">if</span> (rht&lt;self.__len__() <span class="keyword">and</span> self.queue[rht]&lt;self.queue[min_key]):</span><br><span class="line">                min_key=rht</span><br><span class="line">            <span class="keyword">if</span> (min_key==key): <span class="keyword">break</span></span><br><span class="line">            self.swap(min_key,key)</span><br><span class="line">            key =min_key</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">pop</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;Removes the minimum element in the queue.</span></span><br><span class="line"><span class="string">        Returns:</span></span><br><span class="line"><span class="string">            The value of the removed element.</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(self.queue) == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">        self.swap(<span class="number">0</span>,self.__len__()-<span class="number">1</span>)</span><br><span class="line">        min_val=self.queue.pop(self.__len__()-<span class="number">1</span>)</span><br><span class="line">        self.sift_down(<span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> min_val</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">_find_min</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="comment"># Computes the index of the minimum element in the queue.</span></span><br><span class="line">        <span class="comment"># This method may crash if called when the queue is empty.</span></span><br><span class="line">        <span class="keyword">if</span> self.__len__==<span class="number">0</span>:</span><br><span class="line">            <span class="keyword">raise</span> ValueError(<span class="string">&#x27;cannot find min of empty queue&#x27;</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br></pre></td></tr></table></figure>
-<p>python3可以运行所有测试，但无法运行可视化程序，不过也无所谓了，优化后再次运行一开始的输入</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ncalls  tottime  percall  cumtime  percall filename:lineno(function)</span><br><span class="line">    65583    2.826    0.000    5.321    0.000 circuit.py:389(sift_down)</span><br><span class="line">    65583    1.006    0.000    1.901    0.000 circuit.py:366(sift_up)</span><br><span class="line">  1930321    0.807    0.000    1.109    0.000 circuit.py:362(__len__)</span><br><span class="line">  1349048    0.772    0.000    0.772    0.000 circuit.py:357(swap)</span><br><span class="line">  1432334    0.719    0.000    0.719    0.000 circuit.py:286(__lt__)</span><br><span class="line">    64400    0.698    0.000    9.608    0.000 circuit.py:451(step)</span><br><span class="line">2450781/2256369    0.473    0.000    0.567    0.000 &#123;built-in method builtins.len&#125;</span><br></pre></td></tr></table></figure>
-<p>问题解决了,amdtel的offer什么时候发？</p>
-]]></content>
-      <categories>
-        <category>课程笔记</category>
-        <category>数据结构与算法</category>
-      </categories>
-      <tags>
-        <tag>课程笔记</tag>
-        <tag>数据结构与算法</tag>
-        <tag>麻省理工</tag>
-      </tags>
   </entry>
   <entry>
     <title>基于mit6.006和hello-algo的算法笔记</title>
@@ -941,6 +775,172 @@ x(i,j) =
       </tags>
   </entry>
   <entry>
+    <title>基于mit6.006的作业解析</title>
+    <url>/2023/11/20/mit6.006%E4%BD%9C%E4%B8%9A%E8%A7%A3%E6%9E%90/</url>
+    <content><![CDATA[<h1 id="hw1">hw1</h1>
+<h2 id="时间复杂度分析">时间复杂度分析</h2>
+<p>对这种形式的函数可以这样比较</p>
+<p><span class="math display">\[f_1=n^{\sqrt{n}}=(2^{lgn})^{\sqrt{n}}\]</span> <span class="math display">\[f_2=n^{10}.2^{n/2}=2^{lg(10n)+n/2}\]</span></p>
+<h2 id="复杂度计算">复杂度计算</h2>
+<p>对于T(n,n): T (x, y) = Θ(x + y) + T (x/2, y/2). 化成</p>
+<p><img src="assets/mit6.006作业解析/image-20231120213425020.png" /></p>
+<p>得到θ(n) <span id="more"></span></p>
+<p>T (x, y) = Θ(x) + T (x, y/2). 等于lgy个θ(x) 即，θ(nlgn)</p>
+<p>T (x, y) = Θ(x) + S(x, y/2), S(x, y) = Θ(y) + T (x/2, y).</p>
+<p>化成T (x, y) = Θ(x) + Θ(y/2) + T (x/2, y/2). 与第一个例子相似，θ(n)</p>
+<h2 id="寻峰算法">寻峰算法</h2>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">algorithm1</span>(<span class="params">problem, trace = <span class="literal">None</span></span>):</span><br><span class="line">    <span class="comment"># if it&#x27;s empty, we&#x27;re done</span></span><br><span class="line">    <span class="keyword">if</span> problem.numRow &lt;= <span class="number">0</span> <span class="keyword">or</span> problem.numCol &lt;= <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">    <span class="comment"># the recursive subproblem will involve half the number of columns</span></span><br><span class="line">    mid = problem.numCol // <span class="number">2</span></span><br><span class="line">    <span class="comment"># information about the two subproblems</span></span><br><span class="line">    (subStartR, subNumR) = (<span class="number">0</span>, problem.numRow)</span><br><span class="line">    (subStartC1, subNumC1) = (<span class="number">0</span>, mid)</span><br><span class="line">    (subStartC2, subNumC2) = (mid + <span class="number">1</span>, problem.numCol - (mid + <span class="number">1</span>))</span><br><span class="line">    subproblems = []</span><br><span class="line">    subproblems.append((subStartR, subStartC1, subNumR, subNumC1))</span><br><span class="line">    subproblems.append((subStartR, subStartC2, subNumR, subNumC2))</span><br><span class="line">    <span class="comment"># get a list of all locations in the dividing column</span></span><br><span class="line">    divider = crossProduct(<span class="built_in">range</span>(problem.numRow), [mid])</span><br><span class="line">    <span class="comment"># find the maximum in the dividing column</span></span><br><span class="line">    bestLoc = problem.getMaximum(divider, trace)</span><br><span class="line">    <span class="comment"># see if the maximum value we found on the dividing line has a better</span></span><br><span class="line">    <span class="comment"># neighbor (which cannot be on the dividing line, because we know that</span></span><br><span class="line">    <span class="comment"># this location is the best on the dividing line)</span></span><br><span class="line">    neighbor = problem.getBetterNeighbor(bestLoc, trace)</span><br><span class="line">    <span class="comment"># this is a peak, so return it</span></span><br><span class="line">    <span class="keyword">if</span> neighbor == bestLoc:</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> trace <span class="keyword">is</span> <span class="literal">None</span>: trace.foundPeak(bestLoc)</span><br><span class="line">        <span class="keyword">return</span> bestLoc</span><br><span class="line">    <span class="comment"># otherwise, figure out which subproblem contains the neighbor, and</span></span><br><span class="line">    <span class="comment"># recurse in that half</span></span><br><span class="line">    sub = problem.getSubproblemContaining(subproblems, neighbor)</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> trace <span class="keyword">is</span> <span class="literal">None</span>: trace.setProblemDimensions(sub)</span><br><span class="line">    result = algorithm1(sub, trace)</span><br><span class="line">    <span class="keyword">return</span> problem.getLocationInSelf(sub, result)</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">algorithm2</span>(<span class="params">problem, location = (<span class="params"><span class="number">0</span>, <span class="number">0</span></span>), trace = <span class="literal">None</span></span>):</span><br><span class="line">    <span class="comment"># if it&#x27;s empty, we&#x27;re done</span></span><br><span class="line">    <span class="keyword">if</span> problem.numRow &lt;= <span class="number">0</span> <span class="keyword">or</span> problem.numCol &lt;= <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">    nextLocation = problem.getBetterNeighbor(location, trace)</span><br><span class="line">    <span class="keyword">if</span> nextLocation == location:</span><br><span class="line">        <span class="comment"># there is no better neighbor, so return this peak</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> trace <span class="keyword">is</span> <span class="literal">None</span>: trace.foundPeak(location)</span><br><span class="line">        <span class="keyword">return</span> location</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="comment"># there is a better neighbor, so move to the neighbor and recurse</span></span><br><span class="line">        <span class="keyword">return</span> algorithm2(problem, nextLocation, trace)</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">algorithm3</span>(<span class="params">problem, bestSeen = <span class="literal">None</span>, trace = <span class="literal">None</span></span>):</span><br><span class="line">    <span class="comment"># if it&#x27;s empty, we&#x27;re done</span></span><br><span class="line">    <span class="keyword">if</span> problem.numRow &lt;= <span class="number">0</span> <span class="keyword">or</span> problem.numCol &lt;= <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">    midRow = problem.numRow // <span class="number">2</span></span><br><span class="line">    midCol = problem.numCol // <span class="number">2</span></span><br><span class="line">    <span class="comment"># first, get the list of all subproblems</span></span><br><span class="line">    subproblems = []</span><br><span class="line">    (subStartR1, subNumR1) = (<span class="number">0</span>, midRow)</span><br><span class="line">    (subStartR2, subNumR2) = (midRow + <span class="number">1</span>, problem.numRow - (midRow + <span class="number">1</span>))</span><br><span class="line">    (subStartC1, subNumC1) = (<span class="number">0</span>, midCol)</span><br><span class="line">    (subStartC2, subNumC2) = (midCol + <span class="number">1</span>, problem.numCol - (midCol + <span class="number">1</span>))</span><br><span class="line">    subproblems.append((subStartR1, subStartC1, subNumR1, subNumC1))</span><br><span class="line">    subproblems.append((subStartR1, subStartC2, subNumR1, subNumC2))</span><br><span class="line">    subproblems.append((subStartR2, subStartC1, subNumR2, subNumC1))</span><br><span class="line">    subproblems.append((subStartR2, subStartC2, subNumR2, subNumC2))</span><br><span class="line">    <span class="comment"># find the best location on the cross (the middle row combined with the</span></span><br><span class="line">    <span class="comment"># middle column)</span></span><br><span class="line">    cross = []</span><br><span class="line">    cross.extend(crossProduct([midRow], <span class="built_in">range</span>(problem.numCol)))</span><br><span class="line">    cross.extend(crossProduct(<span class="built_in">range</span>(problem.numRow), [midCol]))</span><br><span class="line">    crossLoc = problem.getMaximum(cross, trace)</span><br><span class="line">    neighbor = problem.getBetterNeighbor(crossLoc, trace)</span><br><span class="line">    <span class="comment"># update the best we&#x27;ve seen so far based on this new maximum</span></span><br><span class="line">    <span class="keyword">if</span> bestSeen <span class="keyword">is</span> <span class="literal">None</span> <span class="keyword">or</span> problem.get(neighbor) &gt; problem.get(bestSeen):</span><br><span class="line">        bestSeen = neighbor</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> trace <span class="keyword">is</span> <span class="literal">None</span>: trace.setBestSeen(bestSeen)</span><br><span class="line">    <span class="comment"># return if we can&#x27;t see any better neighbors</span></span><br><span class="line">    <span class="keyword">if</span> neighbor == crossLoc:</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> trace <span class="keyword">is</span> <span class="literal">None</span>: trace.foundPeak(crossLoc)</span><br><span class="line">        <span class="keyword">return</span> crossLoc</span><br><span class="line">    <span class="comment"># figure out which subproblem contains the largest number we&#x27;ve seen so</span></span><br><span class="line">    <span class="comment"># far, and recurse</span></span><br><span class="line">    sub = problem.getSubproblemContaining(subproblems, bestSeen)</span><br><span class="line">    newBest = sub.getLocationInSelf(problem, bestSeen)</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> trace <span class="keyword">is</span> <span class="literal">None</span>: trace.setProblemDimensions(sub)</span><br><span class="line">    result = algorithm3(sub, newBest, trace)</span><br><span class="line">    <span class="keyword">return</span> problem.getLocationInSelf(sub, result)</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">algorithm4</span>(<span class="params">problem, bestSeen = <span class="literal">None</span>, rowSplit = <span class="literal">True</span>, trace = <span class="literal">None</span></span>):</span><br><span class="line">    <span class="comment"># if it&#x27;s empty, we&#x27;re done</span></span><br><span class="line">    <span class="keyword">if</span> problem.numRow &lt;= <span class="number">0</span> <span class="keyword">or</span> problem.numCol &lt;= <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">    subproblems = []</span><br><span class="line">    divider = []</span><br><span class="line">  </span><br><span class="line">    <span class="keyword">if</span> rowSplit:</span><br><span class="line">        <span class="comment"># the recursive subproblem will involve half the number of rows</span></span><br><span class="line">        mid = problem.numRow // <span class="number">2</span></span><br><span class="line">  </span><br><span class="line">        <span class="comment"># information about the two subproblems</span></span><br><span class="line">        (subStartR1, subNumR1) = (<span class="number">0</span>, mid)</span><br><span class="line">        (subStartR2, subNumR2) = (mid + <span class="number">1</span>, problem.numRow - (mid + <span class="number">1</span>))</span><br><span class="line">        (subStartC, subNumC) = (<span class="number">0</span>, problem.numCol)</span><br><span class="line">  </span><br><span class="line">        subproblems.append((subStartR1, subStartC, subNumR1, subNumC))</span><br><span class="line">        subproblems.append((subStartR2, subStartC, subNumR2, subNumC))</span><br><span class="line">  </span><br><span class="line">        <span class="comment"># get a list of all locations in the dividing column</span></span><br><span class="line">        divider = crossProduct([mid], <span class="built_in">range</span>(problem.numCol))</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="comment"># the recursive subproblem will involve half the number of columns</span></span><br><span class="line">        mid = problem.numCol // <span class="number">2</span></span><br><span class="line">  </span><br><span class="line">        <span class="comment"># information about the two subproblems</span></span><br><span class="line">        (subStartR, subNumR) = (<span class="number">0</span>, problem.numRow)</span><br><span class="line">        (subStartC1, subNumC1) = (<span class="number">0</span>, mid)</span><br><span class="line">        (subStartC2, subNumC2) = (mid + <span class="number">1</span>, problem.numCol - (mid + <span class="number">1</span>))</span><br><span class="line">  </span><br><span class="line">        subproblems.append((subStartR, subStartC1, subNumR, subNumC1))</span><br><span class="line">        subproblems.append((subStartR, subStartC2, subNumR, subNumC2))</span><br><span class="line">  </span><br><span class="line">        <span class="comment"># get a list of all locations in the dividing column</span></span><br><span class="line">        divider = crossProduct(<span class="built_in">range</span>(problem.numRow), [mid])</span><br><span class="line">  </span><br><span class="line">    <span class="comment"># find the maximum in the dividing row or column</span></span><br><span class="line">    bestLoc = problem.getMaximum(divider, trace)</span><br><span class="line">    neighbor = problem.getBetterNeighbor(bestLoc, trace)</span><br><span class="line">  </span><br><span class="line">    <span class="comment"># update the best we&#x27;ve seen so far based on this new maximum</span></span><br><span class="line">    <span class="keyword">if</span> bestSeen <span class="keyword">is</span> <span class="literal">None</span> <span class="keyword">or</span> problem.get(neighbor) &gt; problem.get(bestSeen):</span><br><span class="line">        bestSeen = neighbor</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> trace <span class="keyword">is</span> <span class="literal">None</span>: trace.setBestSeen(bestSeen)</span><br><span class="line">  </span><br><span class="line">    <span class="comment"># return when we know we&#x27;ve found a peak</span></span><br><span class="line">    <span class="keyword">if</span> neighbor == bestLoc <span class="keyword">and</span> problem.get(bestLoc) &gt;= problem.get(bestSeen):</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> trace <span class="keyword">is</span> <span class="literal">None</span>: trace.foundPeak(bestLoc)</span><br><span class="line">        <span class="keyword">return</span> bestLoc</span><br><span class="line">  </span><br><span class="line">    <span class="comment"># figure out which subproblem contains the largest number we&#x27;ve seen so</span></span><br><span class="line">    <span class="comment"># far, and recurse, alternating between splitting on rows and splitting</span></span><br><span class="line">    <span class="comment"># on columns</span></span><br><span class="line">    sub = problem.getSubproblemContaining(subproblems, bestSeen)</span><br><span class="line">    newBest = sub.getLocationInSelf(problem, bestSeen)</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> trace <span class="keyword">is</span> <span class="literal">None</span>: trace.setProblemDimensions(sub)</span><br><span class="line">    result = algorithm4(sub, newBest, <span class="keyword">not</span> rowSplit, trace)</span><br><span class="line">    <span class="keyword">return</span> problem.getLocationInSelf(sub, result)</span><br></pre></td></tr></table></figure>
+<p>算法一二如课程笔记所述，均是正确的，以下是证明</p>
+<ul>
+<li>algo1</li>
+</ul>
+<ol type="1">
+<li>证明算法不可能返回一个空值，首先算法不可能得到一个负索引的子数组（在只有一列的时候必然会得到结果而不是继续划分），在最小问题的情况下，如果此时子问题有一列，那么必然返回一个峰值，如果有两列，不管目前讨论的列是不是最大值，都会递归成最小为1为列的子问题，不会返回空值</li>
+<li>证明返回的位置确实是峰值位置，如果算法1返回一个位置（r1，c1），则该位置必须具有列c1中的最大值，并且必须是某个递归子问题中的峰值。为了推导矛盾，假设（r1，c1）不是原始问题中的峰值。在某个子问题中，位置（r1，c1）与列c2相邻（|c1 - c2| = 1），并且值必须满足不等式val（r1，c1）&lt; val（r1，c2）。<br />
+让（r2，c2）是算法1在c2列中找到的最大值的位置。因此，必定有val（r1，c2）≤ val（r2，c2）。因为c2是分割线，且算法选择在包含（r1，c1）的一半上进行递归，所以我们知道val（r2，c2）&lt; val（r2，c1）。因此，我们有以下不等式链：<br />
+val（r1，c1）&lt; val（r1，c2）≤ val（r2，c2）&lt; val（r2，c1）<br />
+但是，为了使算法1将（r1，c1）作为峰值返回，（r1，c1）处的值必须是其列中的最大值，即val（r1，c1）≥ val（r2，c1）。因此，我们得到了一个矛盾。</li>
+</ol>
+<ul>
+<li>algo3是错误的</li>
+</ul>
+<p>时间复杂度是θ(n)，情况类似复杂度题目的第一个情况，1+1/2+1/4……</p>
+<p><strong>反例</strong></p>
+<p>如图所示的反例会选择返回一个在当前子问题中看起来像一个峰值，但是与子问题外部的某个更大值相邻的位置</p>
+<table>
+<thead>
+<tr class="header">
+<th>0</th>
+<th>0</th>
+<th>9</th>
+<th>8</th>
+<th>0</th>
+<th>0</th>
+<th>0</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>0</td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>对算法四的证明</p>
+<ul>
+<li>algo4</li>
+</ul>
+<p>时间复杂度是θ(n),类似算法3</p>
+<p>算法四交叉进行行和列的最大值寻找</p>
+<ol type="1">
+<li>如果峰值问题不为空，则算法将始终返回一个位置。在算法中，根据是在行还是列上分割，递归子问题的维度会相应地减少。所以算法要么在某个时刻停止并返回一个位置，要么最终检查一个行数或列数为非正的子问题。但是，问题的行数或列数变为严格负数的唯一方式是在某个时刻m=0或n=0。因此，如果算法没有返回位置，它必定最终检查一个空的子问题。然而，证明假设该情况不会发生。</li>
+<li>如果算法返回一个位置，则该位置将是原始问题中的一个峰值。如果算法返回一个位置(r1, c1)，那么该位置必定是某个递归子问题中的峰值。另外，如果(r2, c2)是算法执行过程中的最佳位置（存储在bestSeen变量中的位置），那么必定满足val(r1, c1) ≥ val(r2, c2)。证明假设(r1, c1)不是原始问题的峰值。那么当位置(r1, c1)通过递归调用链向上传递时，它必定在某个级别停止是不是峰值。因此，必定存在一个包含位置(r1, c1)的子问题，在该级别中，该子问题的某个邻居(r3, c3)的值满足val(r1, c1) &lt; val(r3, c3)。对于(r3, c3)既是递归子问题的邻居又不包含在子问题中，它必定在算法的执行过程中被检查过。因此，必定满足val(r3, c3) ≤ val(r2, c2)。因此，我们得到以下不等式链：val(r1, c1) &lt; val(r3, c3) ≤ val(r2, c2) ≤ val(r1, c1)。这导致了矛盾。</li>
+</ol>
+<h1 id="hw2">hw2</h1>
+<h2 id="科赫雪花">科赫雪花</h2>
+<figure>
+<embed src="/game/fractal.html" /><figcaption>简单的演示</figcaption>
+</figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">SNOWFLAKE(n)</span><br><span class="line"> e1, e2, e3 = edges of an equilateral triangle with side length 1</span><br><span class="line"> SNOWFLAKE-EDGE(e1, n)</span><br><span class="line"> SNOWFLAKE-EDGE(e2, n)</span><br><span class="line"> SNOWFLAKE-EDGE(e3, n)</span><br><span class="line">SNOWFLAKE-EDGE(edge, n)</span><br><span class="line"> if n = = 0</span><br><span class="line">  edge is an edge on the snowflake</span><br><span class="line"> else</span><br><span class="line">  e1, e2, e3 = split edge in 3 equal parts</span><br><span class="line"> SNOWFLAKE-EDGE(e1, n − 1)</span><br><span class="line"> f2, g2 = edges of an equilateral triangle whose 3rd edge is e2, pointing outside the snowflake</span><br><span class="line"> ∆(f2, g2, e2) is a triangle on the snowflake’s surface</span><br><span class="line"> SNOWFLAKE-EDGE(f2, n − 1)</span><br><span class="line"> SNOWFLAKE-EDGE(g2, n − 1)</span><br><span class="line"> SNOWFLAKE-EDGE(e3, n − 1)</span><br></pre></td></tr></table></figure>
+<p>从主函数（层数视为-1)开始对每条边进行处理，这一层有三个节点。 而对边处理的函数则遵从这样的流程</p>
+<ol type="1">
+<li>把边等分成三个部分e1,e2,e3</li>
+<li>对e1进行递归</li>
+<li>以e2为一条边向外侧生成一个等边三角形，f2,g2是这个三角形的另外两条边</li>
+<li>以此对f2,g2,e3进行递归 函数实际上把一条边拓展出了一个三角形 因此第i层的节点数是:<span class="math display">\[3*4^i\]</span> <img src="assets/mit6.006作业解析/image-20231122203735331.png" /></li>
+</ol>
+<h3 id="d-硬件加速渲染">3D 硬件加速渲染</h3>
+<p>在这种渲染方式中，cpu计算分解出的三角形顶点的集合，发给gpu进行绘制，因此cpu的执行时间只取决于分解出的三角形数量，也就是θ(4^n)</p>
+<h3 id="d-硬件加速渲染-1">2D 硬件加速渲染</h3>
+<p>在这种渲染方式中，cpu实际上只计算不断分割出的线段集合，在本题中就是计算最外侧的轮廓的顶点的集合，计算结束后发给gpu绘制 时间复杂度依旧是θ(4^n)，但需要注意的是由于计算完了才开始渲染，因此递归树的中间节点不会对渲染产生时间消耗</p>
+<h3 id="软件渲染">软件渲染</h3>
+<p>在没有硬件加速器的2D渲染（也称为软件渲染）中，CPU 像上一部分一样，为每个路径编译一个线段列表，但它也负责 用于“光栅化”每个线段。 光栅化获取线段端点的坐标 并计算位于线段上的所有像素的坐标。 用这些像素在显示器上绘制线段。光栅化算法在时间上的消耗与线段的长度成正比，线段上的像素数量与线段的长度成正比。 在整个问题中，假设所有线段的长度至少为一个像素，因此 光栅化的成本大于编译线段的成本。 需要注意的是：</p>
+<ol type="1">
+<li>中间节点依旧对渲染无影响</li>
+<li>由于每次对边处理实际上增加了该边1/3的像素点，所以最后一层产生的代价是<span class="math display">\[θ({(1/3)}^n)\]</span></li>
+<li>同理，总渲染代价和cpu处理（只处理像素点）的时间复杂度都是<span class="math display">\[θ({(4/3)}^n)\]</span></li>
+</ol>
+<h3 id="没有硬件加速的-3d-渲染">没有硬件加速的 3D 渲染</h3>
+<p>在这种情况下， CPU 编译三角形列表，然后光栅化每个三角形。 我们知道一种算法 栅格化一个三角形，其运行时间与三角形的表面积成正比。三角形内的像素数量与三角形的面积成正比。可以假设边长为 l 的三角形的面积为 θ(l^2)。 顺着递归树进行分析，首层只增加了三个节点，每个新节点对应一个边长是原边长1/3的新三角形，增加了1/3的面积，之后的每一层都有4^i个节点，对应4/9的面积增长，即每层的增长是 <span class="math display">\[\frac{1}{3}.\frac{4}{9}^i\]</span> 可以用等比数列的求和算出答案，但时间复杂度必然是θ(1)</p>
+<h2 id="电路模拟">电路模拟</h2>
+<p><img src="assets/mit6.006作业解析/image-20231124185516359.png" /> 如图是对一个异或门的模拟，两个输入端AB产生的信号会在2ns的延迟后在输出端产生一个结果，除此以外没有延迟 按照题意运行<code>python -m cProfile -s time circuit.py &lt; tests/5devadas13.in</code> 得到如下结果（不完全），可以看到消耗最多时间的是lt(lower than)和find_min两个函数</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">   ncalls  tottime  percall  cumtime  percall filename:lineno(function)</span><br><span class="line">625762426  319.980    0.000  319.980    0.000 circuit.py:286(__lt__)</span><br><span class="line">   259964  315.431    0.001  635.431    0.002 circuit.py:381(_find_min)</span><br><span class="line">    64400    1.371    0.000  639.636    0.010 circuit.py:423(step)</span><br><span class="line">828793/634381    0.463    0.000    0.612    0.000 &#123;built-in method builtins.len&#125;</span><br><span class="line">   194381    0.421    0.000  635.865    0.003 circuit.py:361(min)</span><br><span class="line">    32768    0.352    0.000    0.352    0.000 &#123;method &#x27;write&#x27; of &#x27;_io.TextIOWrapper&#x27; objects&#125;</span><br><span class="line">    65554    0.309    0.000    0.723    0.000 circuit.py:163(transition_output)</span><br><span class="line">        1    0.290    0.290  640.116  640.116 circuit.py:456(run)</span><br></pre></td></tr></table></figure>
+<p>随后题意要求基于原来的api实现一个优先队列(最小堆)</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">PriorityQueue</span>:</span><br><span class="line">    <span class="string">&quot;&quot;&quot;Array-based priority queue implementation.&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;Initially empty priority queue.&quot;&quot;&quot;</span></span><br><span class="line">        self.queue = []</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">leftchid</span>(<span class="params">self,key</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="number">2</span>*key+<span class="number">1</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">rightchild</span>(<span class="params">self,key</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="number">2</span>*key+<span class="number">2</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">parent</span>(<span class="params">self,key</span>):</span><br><span class="line">        <span class="keyword">return</span> (key-<span class="number">1</span>)//<span class="number">2</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">swap</span>(<span class="params">self,key1,key2</span>):</span><br><span class="line">        temp=self.queue[key2]</span><br><span class="line">        self.queue[key2]=self.queue[key1]</span><br><span class="line">        self.queue[key1]=temp</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__len__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="comment"># Number of elements in the queue.</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">len</span>(self.queue)</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">sift_up</span>(<span class="params">self,key</span>):</span><br><span class="line">        <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">            p=self.parent(key)</span><br><span class="line">            <span class="keyword">if</span> (p&lt;<span class="number">0</span> <span class="keyword">or</span> self.queue[p]&lt;=self.queue[key]):</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                self.swap(p,key)</span><br><span class="line">                key=p</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">append</span>(<span class="params">self, key</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;Inserts an element in the priority queue.&quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">if</span> key <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">raise</span> ValueError(<span class="string">&#x27;Cannot insert None in the queue&#x27;</span>)</span><br><span class="line">        self.queue.append(key)</span><br><span class="line">        self.sift_up(self.__len__()-<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">min</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;The smallest element in the queue.&quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(self.queue) == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">        <span class="keyword">return</span> self.queue[<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">sift_down</span>(<span class="params">self,key</span>):</span><br><span class="line">        <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">            lft,rht = self.leftchid(key),self.rightchild(key)</span><br><span class="line">            min_key=key</span><br><span class="line">            <span class="keyword">if</span> (lft&lt;self.__len__() <span class="keyword">and</span> self.queue[lft]&lt;self.queue[key]):</span><br><span class="line">                min_key=lft</span><br><span class="line">            <span class="keyword">if</span> (rht&lt;self.__len__() <span class="keyword">and</span> self.queue[rht]&lt;self.queue[min_key]):</span><br><span class="line">                min_key=rht</span><br><span class="line">            <span class="keyword">if</span> (min_key==key): <span class="keyword">break</span></span><br><span class="line">            self.swap(min_key,key)</span><br><span class="line">            key =min_key</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">pop</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;Removes the minimum element in the queue.</span></span><br><span class="line"><span class="string">        Returns:</span></span><br><span class="line"><span class="string">            The value of the removed element.</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(self.queue) == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">        self.swap(<span class="number">0</span>,self.__len__()-<span class="number">1</span>)</span><br><span class="line">        min_val=self.queue.pop(self.__len__()-<span class="number">1</span>)</span><br><span class="line">        self.sift_down(<span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> min_val</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">_find_min</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="comment"># Computes the index of the minimum element in the queue.</span></span><br><span class="line">        <span class="comment"># This method may crash if called when the queue is empty.</span></span><br><span class="line">        <span class="keyword">if</span> self.__len__==<span class="number">0</span>:</span><br><span class="line">            <span class="keyword">raise</span> ValueError(<span class="string">&#x27;cannot find min of empty queue&#x27;</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br></pre></td></tr></table></figure>
+<p>python3可以运行所有测试，但无法运行可视化程序，不过也无所谓了，优化后再次运行一开始的输入</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ncalls  tottime  percall  cumtime  percall filename:lineno(function)</span><br><span class="line">    65583    2.826    0.000    5.321    0.000 circuit.py:389(sift_down)</span><br><span class="line">    65583    1.006    0.000    1.901    0.000 circuit.py:366(sift_up)</span><br><span class="line">  1930321    0.807    0.000    1.109    0.000 circuit.py:362(__len__)</span><br><span class="line">  1349048    0.772    0.000    0.772    0.000 circuit.py:357(swap)</span><br><span class="line">  1432334    0.719    0.000    0.719    0.000 circuit.py:286(__lt__)</span><br><span class="line">    64400    0.698    0.000    9.608    0.000 circuit.py:451(step)</span><br><span class="line">2450781/2256369    0.473    0.000    0.567    0.000 &#123;built-in method builtins.len&#125;</span><br></pre></td></tr></table></figure>
+<p>问题解决了,amdtel的offer什么时候发？</p>
+]]></content>
+      <categories>
+        <category>课程笔记</category>
+        <category>数据结构与算法</category>
+      </categories>
+      <tags>
+        <tag>课程笔记</tag>
+        <tag>数据结构与算法</tag>
+        <tag>麻省理工</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>基于伯克利ds100和cs231n的numpy笔记</title>
     <url>/2023/10/09/numpy/</url>
     <content><![CDATA[<p><a href="http://www.numpy.org/">Numpy</a> 是 Python 中科学计算的核心库。 它提供了高性能的多维数组对象以及使用这些对象的工具 数组。</p>
@@ -1601,6 +1601,62 @@ x(i,j) =
         <tag>课程笔记</tag>
         <tag>linux</tag>
         <tag>系统管理</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>基于中科大郑烇老师授课的计算机网络笔记(待续)</title>
+    <url>/2023/10/14/%E8%AE%A1%E7%BD%91/</url>
+    <content><![CDATA[<h2 id="第一章概论">第一章——概论</h2>
+<h3 id="互联网">互联网</h3>
+<p><code>链路层</code>相邻节点传输数据 <code>网络层</code>提供源主机到目标主机之间(端到端end to end)的服务(没有保障)</p>
+<ol type="1">
+<li>传统方式：IP协议，路由协议（路由器交换路由信息，根据算法算出路由表，由ip协议根据目标ip查询路由表确定找到合适端口，进行转发）</li>
+<li>SDN(数据平面：交换机，控制平面：网络操作系统)，控制平面中的网络应用根据信息算出有大量字段的流表给交换机，根据字段匹配相应表项 <code>传输层</code>区分进程，为进程中多个应用提供服务 <code>传输协议</code>:tcp提供可靠的数据传输，udp更强调实时性 <code>tcp</code>：往返建立连接得到响应后再传输 <code>udp</code>：不会先建立连接再传输 <code>应用层协议</code>：客户端，服务器等应用之间如何交互来实现功能 <code>网络</code>：节点和边的形成的拓扑结构 <code>计算机网络</code>：</li>
+</ol>
+<ul>
+<li>节点：主机节点，数据交换节点（转发数据，交换机，路由器等等）</li>
+<li>边被称为链路：接入网链路（主机连接到互联网），主干链路（路由器之间）</li>
+<li>协议：网络设备的工作标准 <code>互联网</code>：世界上最大的互联计算机网络，网络的网络 <span id="more"></span></li>
+<li>节点：数以亿计的互联设备，主机(host/end system),一般方节点是主机，圆节点是交换机</li>
+<li>通信链路(link)：光纤，卫星，无线电等，传输速率 = 带宽(bps每秒传输的位)</li>
+<li>分组交换设备(packets):路由器和交换机</li>
+<li>协议和标准(tcp,ip,udp,)：不同实体之间通讯方式的规定(在RFC官网公布) 协议定义了发送信息的格式，次序，动作等</li>
+</ul>
+<p>从服务角度：应用层以下是基础设施，为其上的分布式应用提供通讯，两者一起组成了互联网 提供通讯使用操作系统提供的网络api(socket)和其他节点建立连接和通讯</p>
+<h3 id="网络边缘">网络边缘</h3>
+<p><img src="assets/计网/image-20231010191525639.png" /> 互联网的三个子系统</p>
+<ul>
+<li><code>网络边缘</code>：主机和应用程序</li>
+<li><code>网络核心</code>：实现大规模的数据交换，互联的路由器（网络的网络）</li>
+<li><code>网络的接入</code>:把边缘接入到核心</li>
+</ul>
+<p>边缘的模式</p>
+<ol type="1">
+<li>C/S模式(主从模式)，客户端-服务器(客户端发送请求，服务器响应请求，并把结果发送给客户端) 缺点：可扩展性较差，负载达到一定阈值，响应能力断崖式下降</li>
+<li>P2P模式(Peer to Peer)，对等模式，每个节点既是客户端又是服务器，分布式通信 可以在不同的节点上得到分段的资源</li>
+</ol>
+<p>通信方式</p>
+<ol type="1">
+<li>面向连接的通讯方式，先建立连接(发送连接请求，响应请求，准备好缓冲区等)，再相互通讯 特点：连接状态仅仅是端系统维持 eg. tcp协议（流量控制）</li>
+<li>无连接通信，不建立连接 eg. udp协议（无流量控制）</li>
+</ol>
+<h3 id="网络核心">网络核心</h3>
+<p>路由器的网状网络 <img src="assets/计网/image-20231013084440297.png" /> 网络资源可以被分成片，给每个呼叫分配片，如果没有数据交换，则可以不占用资源片（频分，波分等） 资源交换除了时间还有电磁波的传播延迟 <img src="assets/计网/image-20231013103915204.png" /> 电路交换不适合计算机通信（计算机通信有突发性）</p>
+<p>分组交换(共享性)：交换节点存储数据包，并分组转发，从而实现通信，按需使用网络资源 由于中间节点的存在，延迟比线路交换更高 可能出现分组的排队，甚至丢失 路由：决定源主机到目标主机的路径 转发：把输入链路转移到输出链路 <code>复用方式</code>：时分复用（时间片），统计多路复用(不固定) 问题：流媒体等需要速度保证的场景有更高的性能需求</p>
+<p>分组交换网络：</p>
+<ul>
+<li>数据报网络：两主机不需要建立连接，不需要维护通信状态，每个主机都有目标主机的地址，可以独立路由地运作，路由器根据分组的目标地址进行路由</li>
+<li>虚电路网络：两个主机通信前建立连接，每个分组有一个虚电路表，按照虚电路号标识进行存储转发，过程中虚电路号可能变化</li>
+</ul>
+]]></content>
+      <categories>
+        <category>课程笔记</category>
+        <category>计算机网络</category>
+      </categories>
+      <tags>
+        <tag>课程笔记</tag>
+        <tag>中科大</tag>
+        <tag>计算机网络</tag>
       </tags>
   </entry>
   <entry>
@@ -2267,62 +2323,6 @@ x(i,j) =
         <tag>linux</tag>
         <tag>苏州大学</tag>
         <tag>中国科学技术大学</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>基于中科大郑烇老师授课的计算机网络笔记(待续)</title>
-    <url>/2023/10/14/%E8%AE%A1%E7%BD%91/</url>
-    <content><![CDATA[<h2 id="第一章概论">第一章——概论</h2>
-<h3 id="互联网">互联网</h3>
-<p><code>链路层</code>相邻节点传输数据 <code>网络层</code>提供源主机到目标主机之间(端到端end to end)的服务(没有保障)</p>
-<ol type="1">
-<li>传统方式：IP协议，路由协议（路由器交换路由信息，根据算法算出路由表，由ip协议根据目标ip查询路由表确定找到合适端口，进行转发）</li>
-<li>SDN(数据平面：交换机，控制平面：网络操作系统)，控制平面中的网络应用根据信息算出有大量字段的流表给交换机，根据字段匹配相应表项 <code>传输层</code>区分进程，为进程中多个应用提供服务 <code>传输协议</code>:tcp提供可靠的数据传输，udp更强调实时性 <code>tcp</code>：往返建立连接得到响应后再传输 <code>udp</code>：不会先建立连接再传输 <code>应用层协议</code>：客户端，服务器等应用之间如何交互来实现功能 <code>网络</code>：节点和边的形成的拓扑结构 <code>计算机网络</code>：</li>
-</ol>
-<ul>
-<li>节点：主机节点，数据交换节点（转发数据，交换机，路由器等等）</li>
-<li>边被称为链路：接入网链路（主机连接到互联网），主干链路（路由器之间）</li>
-<li>协议：网络设备的工作标准 <code>互联网</code>：世界上最大的互联计算机网络，网络的网络 <span id="more"></span></li>
-<li>节点：数以亿计的互联设备，主机(host/end system),一般方节点是主机，圆节点是交换机</li>
-<li>通信链路(link)：光纤，卫星，无线电等，传输速率 = 带宽(bps每秒传输的位)</li>
-<li>分组交换设备(packets):路由器和交换机</li>
-<li>协议和标准(tcp,ip,udp,)：不同实体之间通讯方式的规定(在RFC官网公布) 协议定义了发送信息的格式，次序，动作等</li>
-</ul>
-<p>从服务角度：应用层以下是基础设施，为其上的分布式应用提供通讯，两者一起组成了互联网 提供通讯使用操作系统提供的网络api(socket)和其他节点建立连接和通讯</p>
-<h3 id="网络边缘">网络边缘</h3>
-<p><img src="assets/计网/image-20231010191525639.png" /> 互联网的三个子系统</p>
-<ul>
-<li><code>网络边缘</code>：主机和应用程序</li>
-<li><code>网络核心</code>：实现大规模的数据交换，互联的路由器（网络的网络）</li>
-<li><code>网络的接入</code>:把边缘接入到核心</li>
-</ul>
-<p>边缘的模式</p>
-<ol type="1">
-<li>C/S模式(主从模式)，客户端-服务器(客户端发送请求，服务器响应请求，并把结果发送给客户端) 缺点：可扩展性较差，负载达到一定阈值，响应能力断崖式下降</li>
-<li>P2P模式(Peer to Peer)，对等模式，每个节点既是客户端又是服务器，分布式通信 可以在不同的节点上得到分段的资源</li>
-</ol>
-<p>通信方式</p>
-<ol type="1">
-<li>面向连接的通讯方式，先建立连接(发送连接请求，响应请求，准备好缓冲区等)，再相互通讯 特点：连接状态仅仅是端系统维持 eg. tcp协议（流量控制）</li>
-<li>无连接通信，不建立连接 eg. udp协议（无流量控制）</li>
-</ol>
-<h3 id="网络核心">网络核心</h3>
-<p>路由器的网状网络 <img src="assets/计网/image-20231013084440297.png" /> 网络资源可以被分成片，给每个呼叫分配片，如果没有数据交换，则可以不占用资源片（频分，波分等） 资源交换除了时间还有电磁波的传播延迟 <img src="assets/计网/image-20231013103915204.png" /> 电路交换不适合计算机通信（计算机通信有突发性）</p>
-<p>分组交换(共享性)：交换节点存储数据包，并分组转发，从而实现通信，按需使用网络资源 由于中间节点的存在，延迟比线路交换更高 可能出现分组的排队，甚至丢失 路由：决定源主机到目标主机的路径 转发：把输入链路转移到输出链路 <code>复用方式</code>：时分复用（时间片），统计多路复用(不固定) 问题：流媒体等需要速度保证的场景有更高的性能需求</p>
-<p>分组交换网络：</p>
-<ul>
-<li>数据报网络：两主机不需要建立连接，不需要维护通信状态，每个主机都有目标主机的地址，可以独立路由地运作，路由器根据分组的目标地址进行路由</li>
-<li>虚电路网络：两个主机通信前建立连接，每个分组有一个虚电路表，按照虚电路号标识进行存储转发，过程中虚电路号可能变化</li>
-</ul>
-]]></content>
-      <categories>
-        <category>课程笔记</category>
-        <category>计算机网络</category>
-      </categories>
-      <tags>
-        <tag>课程笔记</tag>
-        <tag>中科大</tag>
-        <tag>计算机网络</tag>
       </tags>
   </entry>
   <entry>
@@ -4296,6 +4296,20 @@ Name: people_house_proportion, dtype: float64</code></pre>
       </tags>
   </entry>
   <entry>
+    <title>游戏互动性的新探索——步行模拟器</title>
+    <url>/2023/09/30/%E6%AD%A5%E8%A1%8C%E6%A8%A1%E6%8B%9F%E5%99%A8/</url>
+    <content><![CDATA[<p>步行模拟器，在本视频中取操作只局限于步行和一些简单动作，主要获取信息的途径为阅读和观察的游戏，这是一种颇为先锋，也颇为小众的游戏类型，在其中有一些火到出圈的佳作，也有缺点明细的庸作，但都有着共性在其中，今天，我就用一个业余爱好者的身份来浅析一下这类游戏。 <span id="more"></span> 我们先从步行模拟器的历史说起，由于我不是专业人士，也不是什么老玩家，所以只能大概地说说。 溯及这类游戏的根源是一件很难且没有必要的事情，所以我们只把目光放在本世纪好了，在2007年，一个传奇的年份，当时的游戏界见证了巫师一，质量效应一，刺客信条一等传奇系列首作的诞生，也有一些人注意到一款名为《亲爱的艾斯特》的奇异游戏，对一个原教旨主义者来说它可能算不上游戏，玩家操控着一位失去妻子的男人在孤岛上步行，整部游戏唯一的信息来源就是沿途的风景，壁画，以及男人的自言自语，某种意义上这带来了一种推理小说式的体验，你需要在文本中领略事件的来龙去脉，同时体验它压抑深沉的环境氛围。 亲爱的艾斯特取得了意想不到的小范围成功，本作为免费游戏的它在12年发布了付费版，并取得了80万的销量，可以说，近十年的步行模拟器很大程度上是由它启蒙的。 因此，以12年为分水岭，逐渐涌现出不少的步行模拟器游戏。 13年亮相的是著名的meta游戏史丹利的寓言和较为平庸的到家（gone home） 14年问世的是解密风的伊森卡特的消失 15年艾斯特的工作室发行了同类型的万众狂欢 16年则有看火人与弗吉尼亚出现 而在17年，此类型的集大成者，艾迪芬奇的记忆横空出世，成为了此类型至今为止的最优者 可能不少对此类游戏毫无兴趣的玩家会好奇，步行模拟器的卖点到底在哪? 在这个媒体资源空前丰富的时代，每个人都能输出自己的思想，因此思想的输出变得极为廉价，而接受者的地位却会被拔高，因此，门槛越高的思想输出方式就有着越大的不被接受的风险，导致晦涩隐喻的内容就会不受待见。尽管如此，这些晦涩的思想与表达依旧是存在的，步行模拟器就是一种方式。 事实上，接受他人的思想表达一直都有很大的风险，只要作者多加一点私货，或者在莫名其妙的地方整个活，接受者的思想就会收到极大的冲击，例子我就不举了，懂得都懂。所以很多人都会倾向于不去接受，晦涩的作品他们根本不会碰，也有的人沉迷于此类快感，不顾风险地追寻自己认为好的输出者，这两种选择没有高下之分，但体现在游戏上，我们就会发现后者经常会成为所谓的小众游戏爱好者，这并不意味着他们很优越，相反，他们可能已经踩过不知道多少雷了。 为此前的论述做一个总结，步行模拟器可以作为一个高门槛的思想输出方法，因此能吸引一些喜欢此类体验的玩家。事实上，它和同样强调探索的avg可能存在一些关系，但由于我对此没有足够的知识，就不献丑了。 在此基础上，我们来分析此类游戏的一些特性。 首先，第一个问题是，为什么要用步行模拟器这种形式，毫无疑问这种游戏的互动性基本不是很强，也没有刺激官能的要素，然而，正是因为这种自断一臂式的操作，让它能够把自己的叙事能力提高到大部分游戏所不能及的程度，玩法单一也就意味着玩家的注意力会完全集中于一点，制作者只要专注于此方面，就能高频度地向玩家提供信息，而不会让人一头雾水，因为这样的特点，相比大部分游戏，步行模拟器可以聚焦于很多与众不同的题材，可以选用不同的叙事方式， 另一个优点是，较小的游戏规模与如今相对成熟的游戏工业，让制作者能以较为低廉的成本做出不同的场景，美术效果和环境在步行模拟器中有很大的作用，我之所以这么说，不仅是因为它有着渲染气氛的作用，在很多此类游戏中，环境本身就承担着叙事的任务，尤其以艾迪芬奇的记忆而言，环境在这款游戏中达到了当代游戏的新高度，不同的房间布置在无言中传达了房间主人的个性，甚至在一些细节中暗示了主人的命运。可以这么说，在很多步行模拟器中，环境有着超越装饰的作用 步行模拟器还有一个特点，那就是它是第一人称的，你可能单纯地觉得这是为了提高代入感，但事实上，因为互动性的匮乏，步行模拟器往往更趋向于探索和体验，而不是扮演，更形象的说法是，在步行模拟器中看到的是别人的故事，因此在我看来，第一人称更多的意义是类似侦探小说的叙述主体，也就是说，以这个故事而言，第一人称对应的角色就是最适合展现故事全貌的人，同时，这个主体具体的身份也可以是一个谜题，伊森卡特的消失，艾迪芬奇的记忆都在这方面上做了文章，非常有趣。 上述特点事实上还是很笼统的，实际上的步行模拟器在风格和题材上都是各具特色，特点也不尽相同，但由于到目前为止出名的步行模拟器实在不多，所以我们就用穷举的方法来说说这些步行模拟器。 先从最早的亲爱的艾斯特说起 在所有步行模拟器中，艾斯特应该是互动性最低的一个，你能做的只有控制一个喃喃自语的男人在孤岛上乱走，然而，艾斯特依然是一部很优秀的游戏，优秀的文本质量和环境建模完美地融合在了一起，配合迷雾重重的故事，与四个风格迥异的场景与种种细节，成功营造出了一种哀伤中透着迷幻的气氛。虽然选取了悼念亡妻的题材，但艾斯特并没有直接表现哀伤，叙事主体的男子呈现的态度是思辨的，其文本很有些深度，艾斯特的氛围塑造与文本水平，我个人认为是步行模拟器中最优秀的之一，并没有被后来者超越，甚至也没有被他们自己超越。 史丹利的寓言 这游戏很难归类，它更为众人所熟悉的标签是meta游戏，举个不恰当的例子，meta游戏和游戏的区别就像文学批评和文学的区别，很难说史丹利的目的是对游戏这一创作形式进行批判还是呈现一段故事。 这游戏几乎是靠作者一个人的天才撑起来的，即便在meta游戏中有史丹利寓言这么强烈批判属性的游戏，据我所知也是不存在的，它很有创设性的给予了游戏四个视角两个阵营，呈现者阵营的游戏系统（游戏作者？）与旁白，接受者阵营的史丹利与玩家本人，史丹利的故事几乎都是两个阵营间不同角色的互动，它实现了大部分游戏都做不到的一点，即让玩家直接与游戏的底层逻辑对话。 现代游戏互动性的本质是什么，无非不过是选择而已，拟真度高的游戏也不过是多提供了一些选项，史丹利抓住了这个底层逻辑，因此哪怕是步行模拟器这一形式只要用好“选择”，就不会缺少互动性。 这样的策略让史丹利显得不是那么“步行模拟器”，但实际上这还是一部叙事游戏，只不过它的故事千变万化，且富有批判意味，而且它的叙事有着“选择”的成分，因此它包含了十几个不同的故事。 归家 归家是一部很有实验意义的作品，如果你情商比较高的话，应该就知道我的意思是这游戏有着不少的缺点，归家的故事发生在20世纪末的一个美国家庭，一个暴风雨之夜，家中的姐姐回到家中，发现妹妹离家出走，于是开始寻找原因，归家的核心机制是拾取/查看物体触发回忆，核心谜题则是揭开妹妹的下落，然而这游戏的故事非常简单，简单到什么程度呢？在触发前三个回忆后你基本上就能猜到故事的梗概了——没错，一个俗套的恋爱被父母反对然后私奔的故事，稍微有些不同的是，主角是两位女同性恋，此外，游戏中有一些不怎么明显的机关且缺乏提示的机关，总体感觉实在是索然无味，尽管某种意义上它为有核心谜题的步行模拟器树了一个榜样，但论其素质十分乏善可陈，最大的优点可能是还算有20世纪风格的家居布置。 值得一提的是ign给了归家9.5的超高分，对ign来说这种分数是很少见的，我们之前提到的艾斯特得到了8分，史丹利寓言得到了8.8分，而品质平平的到家则得到了9.5分的超高评价，并且编辑的评论是没有缺点，联系其故事题材，此件原因令人深思，因为涉及敏感话题，我就不多说了 伊森卡特的消失 这是一部很有风格的作品，在场景建模上制作组创作性的采用了结合实景照片的做法，因此画质显得极为真实，配合微恐怖的风格，代入感极强，游戏的内容是一个有着回溯犯罪现场能力的侦探应伊斯卡特的邀请调查一个据说有着不可名状怪物的地区的系列凶杀案，抛开几乎为0的地图指引，游玩过程中你会觉得这似乎就是一个普通的解谜游戏，虽有称道之处，但综合来看质量一般，然而，这款游戏最值得称道的一点是，制作组为了一个有极大反转的结局在流程中埋了不少伏笔，因此伊森卡特的结局在我看来在叙事游戏中算最优秀的一档，当然实际上这也是见仁见智的一件事，或许也有不少人觉得铺垫不足。 在步行模拟器中悬疑风格的作品伊斯卡特应该可以说是最成功的。 万众狂欢 这是一部和亲爱的艾斯特风格迥异的作品，它没有叙事主体，玩家以超然的眼光去回顾一座村庄全员蒸发的惨剧，我认为这是一部失败的作品，为什么呢。作为一个拼凑出故事全貌的游戏，万众狂欢很不幸的选择了把最大的悬念放在开头——凶手是形似光球的不可名状生物，而游戏的过程则是目睹居民怎么一步步迈向死亡，整个过程中的互动，只有不如不做的触发回忆过程有——跟着手柄按QTE。具体到故事，恕我直言是很无聊的，寥寥几语的场景中大部分缺少让人身临其境的氛围营造，整部游戏有着浓郁的宗教风格，因此部分场景会有种神圣感，但也就仅此而已了，没有悬念，没有细腻的情感，没有复杂精彩的故事，更没有氛围的营造，万众狂欢在我看来是一部平庸的游戏 看火人 在众多步行模拟器中，看火人是极其冷门的纯写实题材，它选取了森林看护员这一冷门的职业视角来叙述故事，然而它的美术风格却是抽象的大色块风格，这造就了看火人实中有虚的奇妙质感，不论看火人的故事如何，这样的题材与美术创新是优秀的且值得鼓励的。 主角亨利在爱妻患病后心灰意冷，因为酗酒被妻子家人排挤的他最后来到了荒无人烟的森林公园成为了火情瞭望员，我们可以看到，游戏的主题几乎已经确定为心灵的救赎，但看火人的呈现方式是特别的，因为职业的特殊性，从始至终能与亨利交流的只有一位名为黛利拉的女性，在一片孤独的瞭望塔中这似乎是亨利唯一的情感支柱，事实上，看火人最大的优点就是情感的细腻，整个游戏几乎就是亨利与黛利拉互相的情感激励与救赎，最后这场类似柏拉图之恋的关系随着因为火情观察员撤离而收尾。 值得一提的是，看火人神奇的在游戏中夹杂了不少悬疑的成分，这让看火人的基调显得有些奇怪，由一开始的悠闲巡逻转到紧张的解密，随后又在急转直下后收尾，尽管不算无聊，但前后依旧有割裂感。 尽管如此，凭借细腻的情感描写，看火人依旧是一部优秀的游戏。 弗吉尼亚 这是一款很奇特的游戏，即使在步行模拟器里，它也是交互性最差的一类，它使用了一种极为抽象的风格，整个游戏由很多不明所以，充斥着象征的片段组成，而将这些片段串联到一起不过是一些点触的操作，坦白的说，我只能分离地去欣赏这些场景，单从象征的角度来说这些场景单独拿出来还挺有意思的，但你很难把这些片段连起来，事实上不让你把他们连起来可能正是这游戏的目的，此外，该游戏使用了很罕见的古典风格配乐，配合上本就很魔幻的内容产生了一种难以言喻的奇特的氛围。总的来说，这真的是一个很难评价的游戏，如果你有些猎奇心的话倒可以尝试一下 艾迪芬奇的记忆 艾迪芬奇的记忆是一款很优秀的游戏，但它的意义不仅如此，可以说在对互动性的新尝试方面，艾迪芬奇是游戏界最前沿的一个，游戏在叙事上最大的优势就是互动性，大部分游戏选择了剧情分支，qte之类的通解，而艾迪芬奇的记忆则在此基础上作出了创新，单论最简单的字幕，往往只被放置在屏幕底部用于阐释信息，而艾迪芬奇则将它放置在了场景之中，伴随着主角的前进逐渐浮现在路边，如此一来字幕甚至兼任了指引的作用。 依我看来，艾迪芬奇的主基调可以用魔幻二字来概括。随着艾迪依次探索旧宅，我们进入了一个个家族成员死前的景象中，但我们透过屏幕看到的不仅仅是一个个纪录片式的景象，还有情绪的具象化，例如令人啧啧称奇的操纵漫画中的角色一段，操纵角色在悬疑漫画的分镜中行走，这是一种崭新且绝妙的传递恐惧感的方式，艾迪芬奇的互动形式总是新颖的，角色伴随着开罐头喃喃自语，在切鱼的流水线上展开与工作融为一体的幻想，手柄的两遥感分别控制现实与幻想世界，此类新颖的设想，艾迪芬奇有近十种，可以这是一款极为奢侈的堆砌创意的游戏。 艾迪芬奇的家族大都耽于幻想，他们的幻想往往与现实融为一体，以此呈现出的情景显得分外的魔幻，以游戏的形式来叙述这样的故事，这一模式提供了一种特别的审视真实世界与内心世界的视角，这样类似魔幻现实主义的创作手法可以说极为前卫和有趣。 毫无疑问艾迪芬奇的互动性与创意是它最耀眼的闪光点，在此的映衬下，艾迪芬奇的剧情似乎显得暧昧不清，多个家庭成员的死亡都没有得到明确交代，尽管在一个个情景中我们能在画面中感知到情绪的具象化，尽管艾迪芬奇家族一向有着早死的诅咒，但艾迪芬奇没有，至少没有直接透露任何家庭成员对于死亡的看法，在一部探讨死亡的作品中这点显得很奇怪，似乎它只想将死亡本身呈现出来，却不想对此发表任何议论，我们很难说艾迪芬奇有什么主旨，在死亡这个主题上，制作组显得分外的冷漠，只留下玩家在原地回味。Steam上艾迪芬奇的商店页面有这样一句差评，艾迪芬奇的记忆有着美化死亡的嫌疑，这对那些有自杀倾向的人来说似乎太不友好了。这并不是没有道理。 总结 步行模拟器始终是个小众的品类，它固然有着一些创作上的优点，但成本和受众的因素始终制约着这一类型，导致作品寥寥无几，但在步行模拟器其实不乏对游戏这一创作形式的革新，作为新时代的叙事向avg游戏与独立游戏的一大阵营，步行模拟器的身上其实或多或少蕴含着电子游戏未来的一大方向，即作为有才能的作者表达自己的一种方式，对此我报以极大的期待。</p>
+]]></content>
+      <categories>
+        <category>游戏杂谈</category>
+        <category>独立游戏</category>
+      </categories>
+      <tags>
+        <tag>游戏杂谈</tag>
+        <tag>步行模拟器</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>【杀手3争议】拟真性与游戏性之争</title>
     <url>/2023/09/30/%E6%9D%80%E6%89%8B47/</url>
     <content><![CDATA[<p>2022年一月份，杀手3将解除一周年的独占，登录steam，而早在21年初，杀手3就成了一款有点话题性的游戏，这是因为游戏的一张重庆的地图，这一地图因为缝合了赛博朋克，老大哥等元素被指责有乳制品嫌疑。 <span id="more"></span> 在仔细讨论这件事前，让我们先来看看这是一个什么样的游戏。平心而论，作为一个系列续作，杀手3可以说还算合格，虽然刺杀方式上有缩水，但看得出制作组在氛围营造上投入了不少努力，有很多截一帧就是壁纸的远景或者特写。杀手系列可以说是一个好游戏，甚至可以说是刺杀游戏这一细分品类的霸主，但ioi是纯纯的懒狗，犯下了版本混乱，高价低质量dlc，违背承诺种种重大错误，ioi并不是一个好开发商，如果你骂ioi，我举双手赞成，但对杀手三3有没有乳，我认为还是要谨慎讨论。 我所好奇的是，杀手是不是一个拟真的游戏？ 我想只要你玩过这个游戏，你就会知道答案是否定的，即便是游戏的核心——刺杀系统，也有很多方案并不具有现实可行性。，如果说起其他设定，就更没有真实性了，杀手三部曲的反派是一个势力遍及全球，由“社会精英”组成的阴谋论组织，我并不认为这样的组织有什么现实可行性，如果我们这种普通人都能知道这样的组织，那只有两个可能，1这样的组织情报保密工作很烂，那它早该被拿下来了2它故意泄露的，实际上我们对它一无所知，那就让我们一切的想法都成了臆测，阴谋论是一些无法质疑的假设，这样的假设我可以提出几百个。 当然，我们没必要对一个游戏上纲上线，即便涉及到阴谋论，也只能说杀手并不是一个拟真的游戏。那么，作为一个涉及到多个国家刺杀目标的游戏，杀手对其中的国家是怎么描写的呢？ 摩洛哥在杀手里被描绘成政府软弱无能被军阀控制，甚至准备发动政变，我们且不论这是不是真的，无论如何这都不是什么很友好的描写，我们提到过的阴谋论组织的一位高层在法国有一个大葡萄酒厂，很符合我们对法国的刻板印象吧，然而这位律师有私人武装，甚至包括一队直接听命的狙击手，我想法国不会放任私人权利到这个地步。孟买的街头扛着步枪的武装士兵到处走，北欧的高端别墅区一栋不算特别大的别墅有十几个全副武装的保镖，这些对我一个中国人来说都觉得不合理，可见杀手这个系列根本没有多少写实性。 我们可以做一个总结了，无论从什么角度看杀手都不是一个贴近现实的游戏，特别是在zz方面，尤其口无遮拦，什么都编的得出来。 那让我们再看看重庆这张图，这张图有什么呢，赛博朋克+老大哥，大量的监控摄像头，华人街一样的街道和餐馆，秘密暗杀组织的不人道实验，改造人类街头的流浪汉，我们之前也说了，杀手的地图里编的成分很大，更何况设定上ICA最重要的实验室就在这里，与其说ioi想还原什么地方，倒不如说估计是他们看到一些关于重庆很赛博朋克的新闻，然后觉得可以蹭一下人设。试问这些元素有多少是真正不合适的呢，脑子正常的人都不会觉得现在有技术能操控人的思想或者改造人类吧，既然你不会觉得这些情节是真的，你为什么会觉得这座城市是真的这样呢？ 当然，事实上这样的论述也是有模糊性的，你可以说不够还原就是不够尊重，也可以说法国，美国的图比中国的还原是歧视，在国际矛盾激化的今天，会在这样的事上比较敏感可以理解，但我想说，我希望并呼吁大家在至少在文娱领域多一些宽容，不要泛政治化，能疑罪从无就不要恶意去揣测。 47的目标有很多罪不至死，为了一己私欲杀死无罪者，这难道不是宣传不良价值观吗？但恐怕没人这么批评，为什么我们会在道德上对文娱作品这么宽容，在政治上却那么草木皆兵呢？ 我很希望大家能多一些宽容，我也希望文娱作品无论何时都应该是一片不被zz过分染指的净土</p>
@@ -4310,17 +4324,17 @@ Name: people_house_proportion, dtype: float64</code></pre>
       </tags>
   </entry>
   <entry>
-    <title>游戏互动性的新探索——步行模拟器</title>
-    <url>/2023/09/30/%E6%AD%A5%E8%A1%8C%E6%A8%A1%E6%8B%9F%E5%99%A8/</url>
-    <content><![CDATA[<p>步行模拟器，在本视频中取操作只局限于步行和一些简单动作，主要获取信息的途径为阅读和观察的游戏，这是一种颇为先锋，也颇为小众的游戏类型，在其中有一些火到出圈的佳作，也有缺点明细的庸作，但都有着共性在其中，今天，我就用一个业余爱好者的身份来浅析一下这类游戏。 <span id="more"></span> 我们先从步行模拟器的历史说起，由于我不是专业人士，也不是什么老玩家，所以只能大概地说说。 溯及这类游戏的根源是一件很难且没有必要的事情，所以我们只把目光放在本世纪好了，在2007年，一个传奇的年份，当时的游戏界见证了巫师一，质量效应一，刺客信条一等传奇系列首作的诞生，也有一些人注意到一款名为《亲爱的艾斯特》的奇异游戏，对一个原教旨主义者来说它可能算不上游戏，玩家操控着一位失去妻子的男人在孤岛上步行，整部游戏唯一的信息来源就是沿途的风景，壁画，以及男人的自言自语，某种意义上这带来了一种推理小说式的体验，你需要在文本中领略事件的来龙去脉，同时体验它压抑深沉的环境氛围。 亲爱的艾斯特取得了意想不到的小范围成功，本作为免费游戏的它在12年发布了付费版，并取得了80万的销量，可以说，近十年的步行模拟器很大程度上是由它启蒙的。 因此，以12年为分水岭，逐渐涌现出不少的步行模拟器游戏。 13年亮相的是著名的meta游戏史丹利的寓言和较为平庸的到家（gone home） 14年问世的是解密风的伊森卡特的消失 15年艾斯特的工作室发行了同类型的万众狂欢 16年则有看火人与弗吉尼亚出现 而在17年，此类型的集大成者，艾迪芬奇的记忆横空出世，成为了此类型至今为止的最优者 可能不少对此类游戏毫无兴趣的玩家会好奇，步行模拟器的卖点到底在哪? 在这个媒体资源空前丰富的时代，每个人都能输出自己的思想，因此思想的输出变得极为廉价，而接受者的地位却会被拔高，因此，门槛越高的思想输出方式就有着越大的不被接受的风险，导致晦涩隐喻的内容就会不受待见。尽管如此，这些晦涩的思想与表达依旧是存在的，步行模拟器就是一种方式。 事实上，接受他人的思想表达一直都有很大的风险，只要作者多加一点私货，或者在莫名其妙的地方整个活，接受者的思想就会收到极大的冲击，例子我就不举了，懂得都懂。所以很多人都会倾向于不去接受，晦涩的作品他们根本不会碰，也有的人沉迷于此类快感，不顾风险地追寻自己认为好的输出者，这两种选择没有高下之分，但体现在游戏上，我们就会发现后者经常会成为所谓的小众游戏爱好者，这并不意味着他们很优越，相反，他们可能已经踩过不知道多少雷了。 为此前的论述做一个总结，步行模拟器可以作为一个高门槛的思想输出方法，因此能吸引一些喜欢此类体验的玩家。事实上，它和同样强调探索的avg可能存在一些关系，但由于我对此没有足够的知识，就不献丑了。 在此基础上，我们来分析此类游戏的一些特性。 首先，第一个问题是，为什么要用步行模拟器这种形式，毫无疑问这种游戏的互动性基本不是很强，也没有刺激官能的要素，然而，正是因为这种自断一臂式的操作，让它能够把自己的叙事能力提高到大部分游戏所不能及的程度，玩法单一也就意味着玩家的注意力会完全集中于一点，制作者只要专注于此方面，就能高频度地向玩家提供信息，而不会让人一头雾水，因为这样的特点，相比大部分游戏，步行模拟器可以聚焦于很多与众不同的题材，可以选用不同的叙事方式， 另一个优点是，较小的游戏规模与如今相对成熟的游戏工业，让制作者能以较为低廉的成本做出不同的场景，美术效果和环境在步行模拟器中有很大的作用，我之所以这么说，不仅是因为它有着渲染气氛的作用，在很多此类游戏中，环境本身就承担着叙事的任务，尤其以艾迪芬奇的记忆而言，环境在这款游戏中达到了当代游戏的新高度，不同的房间布置在无言中传达了房间主人的个性，甚至在一些细节中暗示了主人的命运。可以这么说，在很多步行模拟器中，环境有着超越装饰的作用 步行模拟器还有一个特点，那就是它是第一人称的，你可能单纯地觉得这是为了提高代入感，但事实上，因为互动性的匮乏，步行模拟器往往更趋向于探索和体验，而不是扮演，更形象的说法是，在步行模拟器中看到的是别人的故事，因此在我看来，第一人称更多的意义是类似侦探小说的叙述主体，也就是说，以这个故事而言，第一人称对应的角色就是最适合展现故事全貌的人，同时，这个主体具体的身份也可以是一个谜题，伊森卡特的消失，艾迪芬奇的记忆都在这方面上做了文章，非常有趣。 上述特点事实上还是很笼统的，实际上的步行模拟器在风格和题材上都是各具特色，特点也不尽相同，但由于到目前为止出名的步行模拟器实在不多，所以我们就用穷举的方法来说说这些步行模拟器。 先从最早的亲爱的艾斯特说起 在所有步行模拟器中，艾斯特应该是互动性最低的一个，你能做的只有控制一个喃喃自语的男人在孤岛上乱走，然而，艾斯特依然是一部很优秀的游戏，优秀的文本质量和环境建模完美地融合在了一起，配合迷雾重重的故事，与四个风格迥异的场景与种种细节，成功营造出了一种哀伤中透着迷幻的气氛。虽然选取了悼念亡妻的题材，但艾斯特并没有直接表现哀伤，叙事主体的男子呈现的态度是思辨的，其文本很有些深度，艾斯特的氛围塑造与文本水平，我个人认为是步行模拟器中最优秀的之一，并没有被后来者超越，甚至也没有被他们自己超越。 史丹利的寓言 这游戏很难归类，它更为众人所熟悉的标签是meta游戏，举个不恰当的例子，meta游戏和游戏的区别就像文学批评和文学的区别，很难说史丹利的目的是对游戏这一创作形式进行批判还是呈现一段故事。 这游戏几乎是靠作者一个人的天才撑起来的，即便在meta游戏中有史丹利寓言这么强烈批判属性的游戏，据我所知也是不存在的，它很有创设性的给予了游戏四个视角两个阵营，呈现者阵营的游戏系统（游戏作者？）与旁白，接受者阵营的史丹利与玩家本人，史丹利的故事几乎都是两个阵营间不同角色的互动，它实现了大部分游戏都做不到的一点，即让玩家直接与游戏的底层逻辑对话。 现代游戏互动性的本质是什么，无非不过是选择而已，拟真度高的游戏也不过是多提供了一些选项，史丹利抓住了这个底层逻辑，因此哪怕是步行模拟器这一形式只要用好“选择”，就不会缺少互动性。 这样的策略让史丹利显得不是那么“步行模拟器”，但实际上这还是一部叙事游戏，只不过它的故事千变万化，且富有批判意味，而且它的叙事有着“选择”的成分，因此它包含了十几个不同的故事。 归家 归家是一部很有实验意义的作品，如果你情商比较高的话，应该就知道我的意思是这游戏有着不少的缺点，归家的故事发生在20世纪末的一个美国家庭，一个暴风雨之夜，家中的姐姐回到家中，发现妹妹离家出走，于是开始寻找原因，归家的核心机制是拾取/查看物体触发回忆，核心谜题则是揭开妹妹的下落，然而这游戏的故事非常简单，简单到什么程度呢？在触发前三个回忆后你基本上就能猜到故事的梗概了——没错，一个俗套的恋爱被父母反对然后私奔的故事，稍微有些不同的是，主角是两位女同性恋，此外，游戏中有一些不怎么明显的机关且缺乏提示的机关，总体感觉实在是索然无味，尽管某种意义上它为有核心谜题的步行模拟器树了一个榜样，但论其素质十分乏善可陈，最大的优点可能是还算有20世纪风格的家居布置。 值得一提的是ign给了归家9.5的超高分，对ign来说这种分数是很少见的，我们之前提到的艾斯特得到了8分，史丹利寓言得到了8.8分，而品质平平的到家则得到了9.5分的超高评价，并且编辑的评论是没有缺点，联系其故事题材，此件原因令人深思，因为涉及敏感话题，我就不多说了 伊森卡特的消失 这是一部很有风格的作品，在场景建模上制作组创作性的采用了结合实景照片的做法，因此画质显得极为真实，配合微恐怖的风格，代入感极强，游戏的内容是一个有着回溯犯罪现场能力的侦探应伊斯卡特的邀请调查一个据说有着不可名状怪物的地区的系列凶杀案，抛开几乎为0的地图指引，游玩过程中你会觉得这似乎就是一个普通的解谜游戏，虽有称道之处，但综合来看质量一般，然而，这款游戏最值得称道的一点是，制作组为了一个有极大反转的结局在流程中埋了不少伏笔，因此伊森卡特的结局在我看来在叙事游戏中算最优秀的一档，当然实际上这也是见仁见智的一件事，或许也有不少人觉得铺垫不足。 在步行模拟器中悬疑风格的作品伊斯卡特应该可以说是最成功的。 万众狂欢 这是一部和亲爱的艾斯特风格迥异的作品，它没有叙事主体，玩家以超然的眼光去回顾一座村庄全员蒸发的惨剧，我认为这是一部失败的作品，为什么呢。作为一个拼凑出故事全貌的游戏，万众狂欢很不幸的选择了把最大的悬念放在开头——凶手是形似光球的不可名状生物，而游戏的过程则是目睹居民怎么一步步迈向死亡，整个过程中的互动，只有不如不做的触发回忆过程有——跟着手柄按QTE。具体到故事，恕我直言是很无聊的，寥寥几语的场景中大部分缺少让人身临其境的氛围营造，整部游戏有着浓郁的宗教风格，因此部分场景会有种神圣感，但也就仅此而已了，没有悬念，没有细腻的情感，没有复杂精彩的故事，更没有氛围的营造，万众狂欢在我看来是一部平庸的游戏 看火人 在众多步行模拟器中，看火人是极其冷门的纯写实题材，它选取了森林看护员这一冷门的职业视角来叙述故事，然而它的美术风格却是抽象的大色块风格，这造就了看火人实中有虚的奇妙质感，不论看火人的故事如何，这样的题材与美术创新是优秀的且值得鼓励的。 主角亨利在爱妻患病后心灰意冷，因为酗酒被妻子家人排挤的他最后来到了荒无人烟的森林公园成为了火情瞭望员，我们可以看到，游戏的主题几乎已经确定为心灵的救赎，但看火人的呈现方式是特别的，因为职业的特殊性，从始至终能与亨利交流的只有一位名为黛利拉的女性，在一片孤独的瞭望塔中这似乎是亨利唯一的情感支柱，事实上，看火人最大的优点就是情感的细腻，整个游戏几乎就是亨利与黛利拉互相的情感激励与救赎，最后这场类似柏拉图之恋的关系随着因为火情观察员撤离而收尾。 值得一提的是，看火人神奇的在游戏中夹杂了不少悬疑的成分，这让看火人的基调显得有些奇怪，由一开始的悠闲巡逻转到紧张的解密，随后又在急转直下后收尾，尽管不算无聊，但前后依旧有割裂感。 尽管如此，凭借细腻的情感描写，看火人依旧是一部优秀的游戏。 弗吉尼亚 这是一款很奇特的游戏，即使在步行模拟器里，它也是交互性最差的一类，它使用了一种极为抽象的风格，整个游戏由很多不明所以，充斥着象征的片段组成，而将这些片段串联到一起不过是一些点触的操作，坦白的说，我只能分离地去欣赏这些场景，单从象征的角度来说这些场景单独拿出来还挺有意思的，但你很难把这些片段连起来，事实上不让你把他们连起来可能正是这游戏的目的，此外，该游戏使用了很罕见的古典风格配乐，配合上本就很魔幻的内容产生了一种难以言喻的奇特的氛围。总的来说，这真的是一个很难评价的游戏，如果你有些猎奇心的话倒可以尝试一下 艾迪芬奇的记忆 艾迪芬奇的记忆是一款很优秀的游戏，但它的意义不仅如此，可以说在对互动性的新尝试方面，艾迪芬奇是游戏界最前沿的一个，游戏在叙事上最大的优势就是互动性，大部分游戏选择了剧情分支，qte之类的通解，而艾迪芬奇的记忆则在此基础上作出了创新，单论最简单的字幕，往往只被放置在屏幕底部用于阐释信息，而艾迪芬奇则将它放置在了场景之中，伴随着主角的前进逐渐浮现在路边，如此一来字幕甚至兼任了指引的作用。 依我看来，艾迪芬奇的主基调可以用魔幻二字来概括。随着艾迪依次探索旧宅，我们进入了一个个家族成员死前的景象中，但我们透过屏幕看到的不仅仅是一个个纪录片式的景象，还有情绪的具象化，例如令人啧啧称奇的操纵漫画中的角色一段，操纵角色在悬疑漫画的分镜中行走，这是一种崭新且绝妙的传递恐惧感的方式，艾迪芬奇的互动形式总是新颖的，角色伴随着开罐头喃喃自语，在切鱼的流水线上展开与工作融为一体的幻想，手柄的两遥感分别控制现实与幻想世界，此类新颖的设想，艾迪芬奇有近十种，可以这是一款极为奢侈的堆砌创意的游戏。 艾迪芬奇的家族大都耽于幻想，他们的幻想往往与现实融为一体，以此呈现出的情景显得分外的魔幻，以游戏的形式来叙述这样的故事，这一模式提供了一种特别的审视真实世界与内心世界的视角，这样类似魔幻现实主义的创作手法可以说极为前卫和有趣。 毫无疑问艾迪芬奇的互动性与创意是它最耀眼的闪光点，在此的映衬下，艾迪芬奇的剧情似乎显得暧昧不清，多个家庭成员的死亡都没有得到明确交代，尽管在一个个情景中我们能在画面中感知到情绪的具象化，尽管艾迪芬奇家族一向有着早死的诅咒，但艾迪芬奇没有，至少没有直接透露任何家庭成员对于死亡的看法，在一部探讨死亡的作品中这点显得很奇怪，似乎它只想将死亡本身呈现出来，却不想对此发表任何议论，我们很难说艾迪芬奇有什么主旨，在死亡这个主题上，制作组显得分外的冷漠，只留下玩家在原地回味。Steam上艾迪芬奇的商店页面有这样一句差评，艾迪芬奇的记忆有着美化死亡的嫌疑，这对那些有自杀倾向的人来说似乎太不友好了。这并不是没有道理。 总结 步行模拟器始终是个小众的品类，它固然有着一些创作上的优点，但成本和受众的因素始终制约着这一类型，导致作品寥寥无几，但在步行模拟器其实不乏对游戏这一创作形式的革新，作为新时代的叙事向avg游戏与独立游戏的一大阵营，步行模拟器的身上其实或多或少蕴含着电子游戏未来的一大方向，即作为有才能的作者表达自己的一种方式，对此我报以极大的期待。</p>
+    <title>游戏简评</title>
+    <url>/2023/09/30/%E6%B8%B8%E6%88%8F%E7%AE%80%E8%AF%84/</url>
+    <content><![CDATA[<h1 id="被封锁的涩谷">428被封锁的涩谷</h1>
+<p>希腊神话将命运女神履行职能的过程写作织网，这无疑是一种极为贴切的比喻，对网状结构来说，在中心处的轻轻一拨，边缘处就是极大的震动，越是深入核心，就越是复杂，但所有分支无论看上去多么没有规律，最后都会收束到中心网点，我想这就是428的编剧想实现的叙事结构。 <span id="more"></span> 这样的结构需要极致的严谨和巨大的工作量，正如正统的本格派推理一样丝丝入扣，同时还要维持各个部分的信息量尽量均布，各个网点处都有关键悬念留待读者，但，他们做到了，7位主角的命运与城市里大大小小配角的命运，就这样纠缠在一起，并收束到了一个巨大的阴谋上，更令人称奇的是，尽管使用了这样的结构，制作组仍然做到了悬念的均布，几乎没有出现信息量失衡的情况。 于是，玩家得以在4月28日的涩谷当一天的命运女神，只要在一个个节点上轻轻拨正些许紊乱的蛛丝，蛛丝就会自然而然地化为网状，事实上没有我说的这么轻松，因为这些命运的线条起初似乎是绕成一团，理清它们的过程也少不了误解和错误。 为了确保这个过程的顺畅，85个bad end大部分都有提示，以每一小时为节点，只有理清一小时内的所有事件，命运才能向前推进，起初似乎是一些不成规律的线，但逐渐就开始交错，纠缠，而作为有着神力的玩家，只需要制造一些偶然，改变一两个小小的决定就能够造成一连串的蝴蝶效应。 对这种操控命运的讨论很容易回到一些宿命论的思潮上来，幸运的是428的编剧在这个方面却有着很积极的态度，于是在结局，命运的线条汇聚在一起，无数偶然交错下，产生的必然却孕育着希望，尽管多少有些日式的大团圆味道，但流露出的价值观确实积极的。 如果说这样精巧的叙事结构有没有问题，那么当然也是有的，叙事必须依靠逻辑的支撑，如此庞大的网状结构，逻辑当然不可能天衣无缝，事实上依然有很多巧合和偶然，为了配合结构的需要，甚至部分主角也免不了当工具人，但你很难对此苛责什么，通过有限的角色实现如此复杂的剧本，不免要让一些角色承担过多的推进剧情的作用，相对来说编剧已经做得很不错了。 此外的问题是大部分日式游戏难免的幼稚气，叙事结构是精巧且充满悬念的，但一些抒情节点，以及一些过度夸张以至于模板化的人物性格，依然为其减色不少。不过我也能理解编剧，毕竟这种精密的结构确实很难填补完全恰如其分的内容 总的来说428在叙事结构方面可以说是当今电子游戏的最高峰水平，尽管它的其他部分可能只是优秀或者不错的程度，依旧是一款剧情类的神作</p>
 ]]></content>
       <categories>
         <category>游戏杂谈</category>
-        <category>独立游戏</category>
+        <category>其他游戏</category>
       </categories>
       <tags>
         <tag>游戏杂谈</tag>
-        <tag>步行模拟器</tag>
       </tags>
   </entry>
   <entry>
@@ -5135,20 +5149,6 @@ Inexpensive Disk）由美国加州大学伯克利分校提出。<br />
       </tags>
   </entry>
   <entry>
-    <title>游戏简评</title>
-    <url>/2023/09/30/%E6%B8%B8%E6%88%8F%E7%AE%80%E8%AF%84/</url>
-    <content><![CDATA[<h1 id="被封锁的涩谷">428被封锁的涩谷</h1>
-<p>希腊神话将命运女神履行职能的过程写作织网，这无疑是一种极为贴切的比喻，对网状结构来说，在中心处的轻轻一拨，边缘处就是极大的震动，越是深入核心，就越是复杂，但所有分支无论看上去多么没有规律，最后都会收束到中心网点，我想这就是428的编剧想实现的叙事结构。 <span id="more"></span> 这样的结构需要极致的严谨和巨大的工作量，正如正统的本格派推理一样丝丝入扣，同时还要维持各个部分的信息量尽量均布，各个网点处都有关键悬念留待读者，但，他们做到了，7位主角的命运与城市里大大小小配角的命运，就这样纠缠在一起，并收束到了一个巨大的阴谋上，更令人称奇的是，尽管使用了这样的结构，制作组仍然做到了悬念的均布，几乎没有出现信息量失衡的情况。 于是，玩家得以在4月28日的涩谷当一天的命运女神，只要在一个个节点上轻轻拨正些许紊乱的蛛丝，蛛丝就会自然而然地化为网状，事实上没有我说的这么轻松，因为这些命运的线条起初似乎是绕成一团，理清它们的过程也少不了误解和错误。 为了确保这个过程的顺畅，85个bad end大部分都有提示，以每一小时为节点，只有理清一小时内的所有事件，命运才能向前推进，起初似乎是一些不成规律的线，但逐渐就开始交错，纠缠，而作为有着神力的玩家，只需要制造一些偶然，改变一两个小小的决定就能够造成一连串的蝴蝶效应。 对这种操控命运的讨论很容易回到一些宿命论的思潮上来，幸运的是428的编剧在这个方面却有着很积极的态度，于是在结局，命运的线条汇聚在一起，无数偶然交错下，产生的必然却孕育着希望，尽管多少有些日式的大团圆味道，但流露出的价值观确实积极的。 如果说这样精巧的叙事结构有没有问题，那么当然也是有的，叙事必须依靠逻辑的支撑，如此庞大的网状结构，逻辑当然不可能天衣无缝，事实上依然有很多巧合和偶然，为了配合结构的需要，甚至部分主角也免不了当工具人，但你很难对此苛责什么，通过有限的角色实现如此复杂的剧本，不免要让一些角色承担过多的推进剧情的作用，相对来说编剧已经做得很不错了。 此外的问题是大部分日式游戏难免的幼稚气，叙事结构是精巧且充满悬念的，但一些抒情节点，以及一些过度夸张以至于模板化的人物性格，依然为其减色不少。不过我也能理解编剧，毕竟这种精密的结构确实很难填补完全恰如其分的内容 总的来说428在叙事结构方面可以说是当今电子游戏的最高峰水平，尽管它的其他部分可能只是优秀或者不错的程度，依旧是一款剧情类的神作</p>
-]]></content>
-      <categories>
-        <category>游戏杂谈</category>
-        <category>其他游戏</category>
-      </categories>
-      <tags>
-        <tag>游戏杂谈</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>爱丽丝的回忆</title>
     <url>/2023/09/28/%E7%A7%98%E5%AF%861/</url>
     <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="縺ｫ縺ｯ繧｢繝ｪ繧ｹ縺励" data-whm="縺ｫ縺ｯ繧｢繝ｪ繧ｹ縺励">
@@ -5379,6 +5379,95 @@ Inexpensive Disk）由美国加州大学伯克利分校提出。<br />
       </tags>
   </entry>
   <entry>
+    <title>基于北大前沿计算实践课和missing semester的vim笔记</title>
+    <url>/2023/09/29/vim%E6%80%BB%E5%92%8C%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[<h1 id="you-are-your-dotfiles">you are your dotfiles</h1>
+<h2 id="帮助">帮助</h2>
+<p>按f1或命令行输入help开启在线帮助 &lt;Cw&gt;切换到另一个窗口q关闭窗口 <span id="more"></span></p>
+<h2 id="编辑">编辑</h2>
+<p>如之前所述，Vim最主要的编辑模式是Insert模式，想要修改文本，先将光标在Normal模式下移动到对应位置，然后再键入<code>i</code>进入Insert模式，在这个模式下添加或者删除文本。但是当我们需要修改的地方非常多时，每次都需要先移动光标再输入<code>i</code>就是一个相对麻烦的操作，因而Vim提供了一些命令将移动光标和进入Insert模式合成一步：</p>
+<ul>
+<li><code>i</code>在当前位置输入（光标前），<code>I</code>在行首输入</li>
+<li><code>a</code>在光标后输入(append)，<code>A</code>在行尾输入</li>
+<li><code>o</code>在当前行下新建一行输入，<code>O</code>在当前行上新建一行输入</li>
+<li><code>c</code>+光标移动命令会先删除然后进入Insert模式，比如<code>cl</code>会删除下一个字符，<code>cw</code>会删除到单词尾，<code>c10l</code>会删除10个字符。此外，<code>ciw</code>会删除整个单词，<code>cc</code>会删除整行，<code>ci(</code>(change in)会删除小括号里的内容，<code>ca(</code>(change around)则会删除小括号以及小括号里的内容，这在修改代码里的字符串、修改函数变量之类的工作中极其有用</li>
+<li><code>s</code>(substitute)会删除当前字符并进入Insert模式，等同于<code>cl</code></li>
+<li><code>r</code>(replace)替换当前字母</li>
+<li><code>p</code>把上次删除的行放置在当前位置</li>
+</ul>
+<p>进入Insert模式之后，Vim也有一些奇奇怪怪的命令，比如<code>&lt;C-h&gt;</code>等同于删除键，会删除前一个字符，<code>&lt;C-j&gt;</code>等同于回车键，将光标后的文本移到下一行，但是否要这样做就全凭个人喜好了。<br />
+其实在Normal模式下也能进行一些删除操作，<code>x</code>会删除当前字符，<code>d</code>+光标移动命令会删除对应文本，与<code>s</code>以及<code>c</code>命令的区别仅仅在于<code>x</code>和<code>d</code>操作完之后依然处在Normal模式，所以<code>s</code>也等同于<code>xi</code>。此外，<code>r</code>的作用也是替换当前字符，键入<code>r</code>之后会提示输入一个字符，输入完成之后自动回到Normal模式，想要替换长文本就需要键入<code>R</code>进入Replace模式。因此如果想要替换一个字符成x，最快的方法是<code>r</code>+x，也可以<code>s</code>+x+<code>&lt;ESC&gt;</code>，也可以<code>xi</code>+x+<code>&lt;ESC&gt;</code>，也可以<code>cl</code>+x+<code>&lt;ESC&gt;</code>。<br />
+撤销和重做也是非常常用的编辑命令，在Vim中分别对应Normal模式下的<code>u</code>(undo)和<code>U</code>，同时<code>.</code>可以重复之前最后一个命令。 “U”（行撤销）。恢复整行的所有操作 &lt;C-r&gt;重做上一个 被撤销的命令</p>
+<h2 id="命令行">命令行</h2>
+<p>在Normal模式下键入<code>:</code>就会进入命令行模式，此时光标已经移动到了最下面。命令行中可以输入的命令种类非常多：</p>
+<ul>
+<li><code>w</code>保存文件，但是不退出</li>
+<li><code>w !sudo tee %</code>使用sudo保存文件 w filename保存文件到当前目录</li>
+<li><code>wq</code>、<code>x</code>、<code>ZZ</code>保存并退出</li>
+<li><code>q!</code>、<code>ZQ</code>退出但不保存</li>
+<li><code>!</code>+命令 可以在shell环境下执行命令</li>
+<li><code>r !</code>+命令 可以在shell环境下执行命令并插入到当前光标下一行</li>
+<li><code>e</code>+文件 可以加载新的文件（当前文件没保存的话会报错）</li>
+<li><code>e!</code>+文件 加载新文件并丢弃当前更改</li>
+<li><code>f</code>显示当前文件的文件名</li>
+<li><code>%s/old/new/g</code>搜索所有<code>old</code>并替代成<code>new</code>，支持正则表达式o 命令行界面输入&lt;Cd&gt;显示可以选择的命令，tab自动补全o</li>
+</ul>
+<h2 id="搜索">搜索</h2>
+<p>除了这些直接跳转命令，Vim也提供了搜索机制。 首先是行内的搜索，<code>f</code>、<code>t</code>、<code>F</code>、<code>T</code>后面加上任意字符x，代表跳转到当前光标下一个x、跳转到下一个x之前、跳转到上一个x、跳转到上一个x之后，搜索到了之后也可以继续按<code>,</code>和<code>;</code>在搜索结果之间前后移动。 然后是文件内的搜索， 直接键入<code>/</code>或者<code>?</code>会进入命令行搜索模式，<code>/</code>是从开头开始搜索，<code>?</code>是从结尾开始搜索，后面可以加上任意长度的字符 然后键入<code>&lt;CR&gt;</code>就可以高亮显示所有的搜索结果，按<code>n</code>和<code>N</code>就可以在搜索结果之间向前和向后移动。 输入:set ic(ignore case)忽略大小写搜索 set noic取消 仅搜索一次忽略大小写:/search_sth\s 输入:set hls is高亮搜索结果 //'ic' 'ignorecase' ignore upper/lower case when searching</p>
+<p>'is' 'incsearch' show partial matches for a search phrase</p>
+<p>'hls' 'hlsearch' highlight all matching phrases 搜索模式支持正则表达式。最后如果想要关闭搜索结果的高亮，需要借助命令行命令，输入<code>:noh</code>即可关闭高亮。 type :#,#s/old/new/g where #,# are the line numbers of the range</p>
+<p>of lines where the substitution is to be done.</p>
+<p>Type :%s/old/new/g to change every occurrence in the whole file.</p>
+<p>Type :%s/old/new/gc to find every occurrence in the whole file,</p>
+<p>with a prompt whether to substitute or not.</p>
+<h2 id="选择">选择</h2>
+<p>编辑文本和代码难免要复制和粘贴，复制操作涉及到选择需要复制的文本，在Vim中这需要在Visual模式下进行。在Normal模式中键入<code>v</code>进入选择模式，可以跟在Normal模式下一样移动光标，被选择的文本就会高亮。 或者在Normal模式中键入<code>V</code>进入行选择模式，被选择的行会高亮。选择完成后，如果直接按<code>&lt;ESC&gt;</code>就会返回Normal模式，并且选择的内容高亮消失，因此不应该这么做，而应该直接在Visual模式下键入<code>y</code>(yank)复制高亮的文本，如果输入的是<code>d</code>则会删除被选择的文本，此时会自动回到Normal模式。 不管是<code>y</code>还是<code>d</code>操作，被选择的文本都会被操作到Vim的缓存中，在Normal模式下按<code>p</code>就会粘贴其中的文本到当前位置。与之前介绍的<code>cc</code>、<code>dd</code>类似，也可以直接在Normal模式下输入<code>yy</code>，对应复制当前行。<br />
+Vim还提供了列选择模式，在Normal模式下键入<code>&lt;C-V&gt;</code>进入，选择完列之后可以跟Normal模式一样进行<code>r</code>、<code>d</code>等操作，这在制表、注释中非常有用。</p>
+<h2 id="移动">移动</h2>
+<p>Vim中所有键盘输入都可以视为命令，可以被记录下来映射到快捷键。在Normal模式下，最基本的命令是控制光标移动的命令<code>hjkl</code>，其中<code>jk</code>控制上下(大写状态下删除行间空格)，<code>hl</code>控制左右，方向键同样可以控制光标，但是因为方向键盘离打字的范围比较远，所以推荐大家熟悉<code>hjkl</code>这四个键。在没有鼠标的情况下想实现长距离的光标跳转，每次只能移动一个单位显然是低效的，好在Vim为光标跳转提供了多种命令：</p>
+<ul>
+<li><p>单词间：<code>w</code>可以跳转到下一个单词的开头，<code>b</code>跳转到当前单词的开头，继续按跳转到上一个单词的开头，<code>e</code>跳转到当前单词的结尾，继续按跳转到下一个单词的结尾</p>
+<blockquote>
+<p>遗憾的是中文很难分词，所以在中文中键入<code>w</code>会跳转到下一个短句</p>
+</blockquote></li>
+<li><p>括号、引号间：如果光标在括号或者引号中间，<code>%</code>会高亮显示括号或引号，继续按会在头和尾反复横跳</p></li>
+<li><p>行内：<code>0</code>跳转到行的开头，<code>^</code>跳转到行的第一个非空格的字符，<code>$</code>跳转到行的结尾</p></li>
+<li><p>段落间：<code>&#123;</code>跳转到上一段，<code>&#125;</code>跳转到下一段</p></li>
+<li><p>屏幕内：<code>H</code>跳转到屏幕最上面，<code>M</code>跳转到屏幕最中间，<code>L</code>跳转到屏幕最下面</p></li>
+<li><p>屏幕滑动：<code>&lt;C-u&gt;</code>向上滑动，<code>&lt;C-d&gt;</code>向下滑动</p></li>
+<li><p>文件内：<code>gg</code>跳转到文件开头，<code>G</code>跳转到文件结尾,</p></li>
+<li><p>&lt;CG&gt;显示当前行数，数字G跳转到对应行</p></li>
+<li><p>其他：<code>zz</code>会将光标置于屏幕中心</p></li>
+</ul>
+<p>这些基本命令可以和数字进行组合，输入任意数字（默认情况下显示在右下角），然后输入<code>j</code>就会向下移动对应行数，同理，如果是数字+<code>w</code>，就会移动对应单词数。另外，数字+<code>&lt;CR&gt;</code>等同于数字+<code>j</code>，数字+<code>G</code>会跳转到整个文件的第几行。</p>
+<h2 id="模式">模式</h2>
+<p>Normal模式是最基本的模式，在这个模式下基本只能移动光标，不能直接输入文本，因为此时键入任何字符都会被当成是Vim的命令而非插入到文本中。想要输入文本需要切换到Insert模式，可以直接键入<code>i</code>进入Insert模式，此时输入任何字符都会插入到光标所在位置。想从输入模式中返回Normal模式，只需要键入<code>&lt;ESC&gt;</code>。事实上，在任何模式下键入<code>&lt;ESC&gt;</code>都 能回到Normal模式。Normal模式和Insert模式是Vim中最常用的两种模式，理论上我们只需要这两种模式就能完成修改文本的所有操作，其他 模式和命令都是用来更快地完成一些任务。默认情况下，所处模式会显示在Vim窗口的左下角，Normal模式没有显示，Insert模式会显示<code>--INSERT--</code>，Command-line模式会显示所输入的命令等等。在Normal模式下键入<code>R</code>进入Replace模式，用于替换当前光标处的文本，键入<code>v</code>进入Visual模式，用于选择文本。</p>
+<figure>
+<img src="/images/obsidian/vim-mode.jpg" title="image" alt="" /><figcaption>图片</figcaption>
+</figure>
+<h2 id="进阶">进阶</h2>
+<p>.命令重复上一次命令，可用于简化操作</p>
+<ul>
+<li>C=c$</li>
+<li>s=cl</li>
+<li>S=^C//整行替换</li>
+<li>I=^i</li>
+<li>A=$a</li>
+</ul>
+]]></content>
+      <categories>
+        <category>课程笔记</category>
+        <category>其他</category>
+      </categories>
+      <tags>
+        <tag>课程笔记</tag>
+        <tag>麻省理工</tag>
+        <tag>北京大学</tag>
+        <tag>编程工具</tag>
+        <tag>vim</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>不予播出——极端意识形态大乱斗</title>
     <url>/2023/09/30/%E4%B8%8D%E4%BA%88%E6%92%AD%E5%87%BA/</url>
     <content><![CDATA[<p>吉姆哈克：当一个国家走在下坡路上，必须有一个给它踩一脚油门。 你生活在一个贫富差距分化严重，外部国家敌意渐升的民主国家，而在此危难关头，一个名为先进党的政党，凭借集体主义的价值观，以及消灭富人扶持穷人的竞选纲领上了台，时代变换的帷幕在你面前缓缓拉开，这时，你能做什么呢？ <span id="more"></span> 这大概就是不予播出想呈现的故事，这个游戏是我认为近年zz题材最出彩的一部独立游戏。 我们先从游戏的形式说起 它选取了一个很少见的视角——电视台导播，也就是在电视内容被播放前负责镜头切换与简单后期音效处理的一个职位，这是一个虽然默默无名却十分重要的职位，制作组对此的选择非常高明，在这个位置上你能接收到一切媒体信息，同时决定哪些内容会被最后播出。 游戏的背景设定是魔改版的80年代英国，想想就知道在这个电视台的黄金时代这个职位意味着什么。 在我们这个娱乐至死的年代，恐怕我们的印象中很难会有什么凭良心的办事的媒体人，但在游戏中，随着举足轻重的影响力而来的同样还有巨大的责任，我们可以看到游戏的封面是一个被操控的提线木偶端坐于导播台前，这似乎预示着你不过是政党口中的喉舌，事实上，面对zz大势，大部分时候你确实是无力的，但总有一些事是你可以做的。游戏中，你能做的包括切换各种机位设置，添加后期音效这些普通的工作，你也可以转而接收反对党的信号，甚至在暗中支持他们。 可以说这样的玩法绝对算不上丰富，但是，为了这些内容制作组拍摄了极为大量的采访，节目，等等实景拍摄，这些作品的文案，演出水平都极为突出，也就是说，让你去观看这些节目，决定他们如何被呈现于观众面前，才是它的核心玩法。 于是，我们可以说说它的剧情了。 我为不予播出的剧情概括了一些特点，首先是荒谬性 国家晚间新闻，是一家有不少zz性的电台，在游戏的一开始，作为新上任的导播，我们的第一次工作就见证了前文提到的先进党的上台，在游戏的一开始我们能感受到强烈的荒谬感，就拿先进党举例，该党的带头人是一对夫妇，丈夫粗俗不堪，而妻子却圆滑世故，这样一对其貌不扬的夫妇在自己上任的第一天就大声向“富人”宣战，我们知道，如果对这些拥有大量资产的人过于苛刻就会造成大量资产外流，对此这对夫妇甚至采用强制手法禁止他们出境，这对一个“民主”国家而言恐怕很难想象，更为魔幻的是这样的举措确实赢得了大众为他们叫好，收归民有资产为国有，强制推行福利政策，提倡集体主义，一副宏伟的蓝图就这样在我们面前展开，即使对民粹主义者来说，这样狂野的改革恐怕也有些吓人，而这些种种举措以极快的速度在游戏中发生了，并且让你切实的体会到厉害之处——也就是游戏中各种惊慌失措的小资产阶级。如果你问大资产阶级咋样了，就有限的情报来说，似乎他们在与国家合作后过得很好。 这是一家很有煽动性的政党，但如果你细细去看他们做了什么，建立国家养老机构（把老人送进去就可以不管了）成立青少年队伍（洗脑从娃娃抓起）半强制推行政党性而不是国家性的身份卡（很明显，只是后续动作的开始）甚至把反对的国家的个别城市用特工安置的核弹统统炸上天。 很荒谬，不是吗？但这些事情确实如此发生了。</p>
@@ -5392,6 +5481,20 @@ Inexpensive Disk）由美国加州大学伯克利分校提出。<br />
       <tags>
         <tag>游戏杂谈</tag>
         <tag>not for broadcast</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>被所有人遗忘的故事，巫师二之殇</title>
+    <url>/2023/09/30/%E5%B7%AB%E5%B8%88%E4%BA%8C/</url>
+    <content><![CDATA[<p>熟悉我的朋友都知道，我本人是巫师系列的死忠，如果让我给rpg游戏做一个排行，我会把巫师放在第一位，有的人可能会说，巫师固然是rpg佳作，但在浩如烟海，名作辈出的rpg里可未必排的上号，又有的人可能会说，说这么多不过是“情怀党”的矫情而已。 <span id="more"></span> 不错，巫师系列对我来说不只是一个游戏，如果说每个人最大的爱好都有一个启蒙物，那么可以说正是巫师，将我带进了那些着重于叙事的游戏的坑。不过与大部分人不同的是，我初次接触巫师系列是巫师的二代。 那是一个普通的暑假，我费力地思考着，家里残破的笔记本电脑到底能玩点什么游戏，这时我突然想到，听说有个叫巫师三的游戏挺有名，我不如试试它的前作好了。就这样我搜到了巫师一二，巫师一画面陈旧，操作蹩脚，我毫不犹豫地排除了它，但二代却有着在那个年代来说不错的画质，于是我找到了它的资源，试着玩了起来。 听到这里可能大家觉得我无非在说一些陈词滥调，但我想说的是，巫师二即使以我现在不知道涨了多少的阅历来看，依旧是一款特立独行的游戏。在此之前我也玩过不少游戏，但我从来没有见过一个没有政治诉求纯粹为了自己的利益行动的主角，我从来没有见过一个每个人都栩栩如生，有自己行事逻辑的世界，我从来都没有见过，一个以阴暗的政治冲突，种族歧视为背景的游戏，即使以rpg来说，巫师二也是个很有勇气的游戏，在巫师二不长的序章过后，就会面临两个截然不同的分歧，并且这两条分支路线的重复内容并不多，如此大的分支毫无疑问是不多见的。现在回想起来，巫师二可能是我唯一一个一点也没有碰支线的rpg游戏，固然因为当时我懵懂无知，但其波澜壮阔的主线确实无比吸引我， 是的，这是一个非常有突破性的游戏，可谓是cdpr写政治戏码的巅峰，但是，很神奇的是，这又是一个被遗忘的游戏，不仅是被引流来的巫师三玩家遗忘，就连cdpr好像也忘了它，巫师三和二代基本没有什么关系，可能有人会反驳我，巫师三的开头就要模拟二代抉择，但事实上，对一个强调选择的rpg游戏来说，重要的不仅是选择，更是选择带来的后果，而巫师二那些惊心动魄的选择，在三代中几乎都成了定局，无论上亚甸是否赢得了独立，最后的区别不过是沦陷在亨赛特的军队下还是尼弗嘉德军队下而已。无论是否救回泰莫利亚最后的王室血脉，罗契都只能带着他的兄弟们再度流亡。更神奇的是二代最成功的女性角色，龙女居然不知所踪，事实上龙女和伊欧菲斯在巫师三曾有过一个现在沦为废案的任务，但因为赶工期被砍掉了。我们对比一下同样三部曲的龙腾世纪，一代的诸多队友都会在二代亮相，甚至还能在三代中当重要角色。而巫师三部间的关联则少得可怜，一代的女主角夏妮在石之心才出场，也就雷索与罗契在三代的戏份多一点，这无疑大大削弱了巫师中选择的分量。当然，我也能理解cdpr，三代是系列中唯一重启主线的一部，与更像外传的一二部有着极大的区别，并且这一作有着不小的制作规模，必须放弃前作壁垒，放低身段吸引新玩家，种种考量下，三代注定是相对独立的一作，更何况在二代一番精心算计下，事线固然优秀，但已经形成了逻辑闭环，也很难找到延续的办法。而三代为了种种考量，强行让南北形成均势，更破坏了延续巫师二剧情的可能性，尽管可惜，但巫师二作为一个完整的故事，也可以称得上优秀。 接下来我们就来讨论一下一款游戏。 首先，依照惯例，巫师二的系统，巫师二的画面在当年算得上不错，但毕竟此时的cdpr并没有太大经验，因此整部游戏的一些地方仍然显得很生涩，比如说，巫师二是没有跳跃功能的，只能让玩家去寻找攀爬点才能上下移动，而这些攀爬点则都做的很隐蔽，配合拙劣的导路功能，跑图体验难言理想，随后巫师二的战斗相比巫师三繁琐不少，同样分为三种流派，近战，炼金和法印，法印有单独的储备槽，能随着时间恢复，这点有点像dnd，近战则有和三代近似华丽但破绽很大的剑术，并且翻滚是没有无敌帧的，也就是说翻滚途中被攻击打断是常用的事。药剂和炸弹都是一次性用品，众所周知，rpg游戏的一次性用品就是不打最终boss能不用就不用的东西，因此虽然炼金流算得上强力，但由于合成的琐碎以及造价昂贵，走这条线的并不算多。总的来说巫师的战斗系统基本都是在及格线上徘徊的水平，实在没有多少意思。 而论起剧情，就很有的说了 巫师二的叙事有什么特点呢？ 第一，选择 巫师二依旧采取了巫师系列道德困境式的抉择，有不少人批评说这种列车难题式的道德抉择千篇一律，然而，我很好奇的是，他们指望在一个商业游戏里看到怎么样的抉择设定呢？巫师的抉择可能算不上精巧，但在rpg可以说是独树一帜的有分量，重要人物的生死，一个王国的命运，巫师二充斥着各种意义上的抉择，甚至包括第二章两个截然不同的路线。放眼整个rpg史，我敢说有如此大主线分歧的也是寥寥无几，而这样独特的设计，其实与巫师二的剧情结构有不少关系。 第二，双线叙事 我们的杰洛特一向对政治敬而远之，而巫师二构思巧妙之处在于，让一个对政治最没有兴趣的人成了北境局势的关键人物，在游戏中，双线并进的结构被广泛的运用。杰洛特的态度是模糊的，归根到底他不过是想洗脱罪名并寻回自己的记忆，这两大主线目标，前者为主线后者为暗线，都被牵扯到了同一个人身上——雷索。而对于雷索的刺杀行动而言，女术士集会所的阴谋浮现在明处，而隐藏最深的则是尼弗伽德入侵的阴谋。对于游戏中涉及的北境势力而言，两大对抗者，上亚甸和科德温，杰洛特在游戏中任选其一作为明线，另一方便会成为暗线穿插其中。几条剧情路线互相交叉，且彼此间都有说不清道不明的关系，可以说巫师二颇有些戏剧的风格，重要人物算不上多，但却有着极为复杂的人物关系，整个故事都十分耐人寻味。 第三，演出水平 巫师在剧情演出上向来不遗余力，这点倒是颇有生软的师传，巫师二增强版的开场cg对一个11年的游戏来说可以说无比华丽，而在随后的剧情中，也有不少制作不错的cg的即时演出，更有趣的是，不知道是不是为了赶时髦，巫师二还做了两个系列中少有的巨型boss战，在11年来说，这样的演出效果可以说相当不错了，说到这里不得不佩服cdpr的勇气，只做过一部巫师一就敢砸这么多钱到一个前景不明的项目去。 第四，政治阴谋 大部分宫廷政治故事都是肮脏的，巫师二也不例外，开篇我们就能看到为了自己和妹妹的私生子发动王国内战的妹控王，要说这妹控王也是个有勇有谋之辈，但把自己荒淫无度的行径公开到整个国家民众面前的行为，着实是让人叹为观止。如果你觉得这已经很毁三观了，那么我可以负责任地告诉你说，福尔泰斯特在北境执政者里是道德楷模级别的存在，整部游戏里你碰到的政治家，浮港的总督是个没有下限的人渣，亨赛特是个粗暴蛮横的野心家，此时看上去正常的拉多维德对待自己的恩师也是“无微不至”，就连浓眉大眼的斯坦尼斯王子，都能为了上位一脸坦荡地毒害龙女。 当然了，也有萨奇亚这种浑身坦荡的完美领袖，上亚甸是巫师中难得直接描写非人种族抗争的一段剧情，十分正能量和主旋律，算是难得地调剂了巫师阴暗冷酷的风格，巫师对“义军”的描写并没有落入俗套，龙女一身正气但是并不迂腐，伊欧菲斯虽然仇恨人类，但并不是不择手段之辈，他会对萨奇亚动心，会对救了他的命的杰洛特予以回报，矮人往往看上去豪放，却不失狡诈和算计，而义军中也有斯坦尼斯王子和菲丽芭这种野心家。Cdpr对上亚甸线是很上了些功夫的，多种族混杂的特点被个性迥异的npc完美地体现了出来。可以说，在有政治戏码的rpg中，巫师二绝对是一部水准上的作品。 稍微扯开一点话题，巫师二的最终boss雷索，我个人认为是rpg游戏设计得最成功的反派人物之一，雷索的人物志在b站就有，在此不做赘述，纵观其生平，不得不说无论是公事还是私德上，雷索都是一个近乎完美的角色，公事上为了复兴自己的学派，雷索完美执行了恩希尔大帝的命令，他的刺杀行动无不是计划周详，下手果断，善后的处理的也无可挑剔，甚至面对女术士集会所的谋划，将计就计把北境的大部分术士架上了火刑架，要知道，让术士吃这种大亏，这恐怕是猎魔人历史上都没几个人能做的壮举，更可贵的是雷索在做这些事的时候完全秉持公事公办，各为其主的态度，他没有因为杰洛特是福尔泰斯特的护卫就下手迟疑，也没有把自己兄弟的死记在杰洛特头上，他始终清楚地认识到自己不过是尼弗伽德的一把刀这个事实，即使三代中被恩希尔背刺了一刀，也很难说他会有多么吃惊，而在私德方面，为了答谢杰洛特的救命之恩，他跟着杰洛特去迎战几乎没有胜机的狂猎大军，保护叶奈法，甚至在最后把特莉丝从大屠杀中救了出来，而在整场游戏中，他一次也没有对杰洛特下死手。这种文能算计整个北境的术士，武能压制失忆期杰洛特的全能型人才，实在是比工具人白狼不知道高到哪里去了。可能每个巫师系列的粉丝都对巫师四有自己的想法，不过如果是我的话，我是很希望能有以雷索为主角的一部游戏，这个人设实在是太强了。 上述是我个人认为巫师二的优点，不过如果你要问我有没有缺点，那我也可以很明确的说，有的，而且还很明显，并且这个缺点贯穿了整个巫师系列。 我们知道，rpg的意思就是角色扮演游戏，意思就是可以让玩家扮演一个虚拟角色在一个虚拟世界中做出种种行为，巫师系列是21世纪rpg的一大系列，但巫师却并不是一个完全标准的rpg，为什么呢？因为杰洛特是有性格的，杰洛特大体的性格是，外冷内热，自尊心强，外表冷酷无情，内心深处其实是一个傲娇老好人，这样问题就来了，你杰洛特都有性格了，那玩家怎么做选择，cdpr的回答是，尽量把所有选择都做成两难式的，即使是杰洛特本人来选也会犹豫的那种，这也是为什么cdpr总是喜欢这种两难抉择的原因，但还有问题，总有一些真正的杰洛特不会犹豫的选择，比如说真正的杰洛特必然是椰奶的舔狗，而面对这种选择，玩家只能扮演自己，这就让巫师的剧情流程也有了一种割裂感，你是要扮演杰洛特还是扮演自己，这是在你打开巫师游戏前要先做出的选择。当然，两种选择都无可厚非，但这也必然会造成一些矛盾性的情况，像巫师二里，无论哪条线路，不去救特莉丝都会都会对游戏的重要角色大有益处，作为玩家，如果你查了攻略，你就会知道好兄弟雷索会帮你把萌特救出来，然而如果真让杰洛特选他绝对不会放弃自己的情人，也就意味着，要么玩家放弃选择权，要么就要忍受杰洛特的ooc（人设崩塌）。 我个人觉得这是个不大不小的问题，只要做好心理准备还是能忍受的，毕竟一个小说改游戏，碰到这种问题也是难免的，cdpr其实已经把平衡性做的挺好了，没必要太苛求。额，如果这也算孝子那就算吧，不狡辩。 回过头去看，巫师二确实是一部难得的rpg佳作，但它未必是一个合格的承上启下之作，巫师二讲了一个太过精彩的故事，导致接下来不怎么好编了，尼国平推北方顺理成章却很无趣，北方反攻又是天方夜谭，导致巫师三的政治形势显得十分强行，迪胖和拉多维德其实都像开了挂一样，要知道，历史是没有个人英雄主义的，区区一个统治者就能逆转尼弗伽德和北方天堑一般的差距吗？这多少有点机械降神了。这么说来巫师二某种意义上近乎把故事讲死了，不过如果我是cdpr估计也会很无奈，小说基本已经写到恩希尔大帝快一统天下的地步了，巫师由于以杰洛特这种政治无关人士作为主角，搞点宫廷刺杀已经是政治戏的极限了，还能怎么编呢？ 写到这突然想到，巫师三里曾经对雷索喊打喊杀的杰洛特也成了“国王刺客”，这可真是，人终将活成自己最讨厌的样子。</p>
+]]></content>
+      <categories>
+        <category>游戏杂谈</category>
+        <category>wrpg</category>
+      </categories>
+      <tags>
+        <tag>游戏杂谈</tag>
+        <tag>巫师二</tag>
       </tags>
   </entry>
   <entry>
@@ -5595,109 +5698,6 @@ Inexpensive Disk）由美国加州大学伯克利分校提出。<br />
         <tag>next</tag>
         <tag>webstack</tag>
         <tag>icarus</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>被所有人遗忘的故事，巫师二之殇</title>
-    <url>/2023/09/30/%E5%B7%AB%E5%B8%88%E4%BA%8C/</url>
-    <content><![CDATA[<p>熟悉我的朋友都知道，我本人是巫师系列的死忠，如果让我给rpg游戏做一个排行，我会把巫师放在第一位，有的人可能会说，巫师固然是rpg佳作，但在浩如烟海，名作辈出的rpg里可未必排的上号，又有的人可能会说，说这么多不过是“情怀党”的矫情而已。 <span id="more"></span> 不错，巫师系列对我来说不只是一个游戏，如果说每个人最大的爱好都有一个启蒙物，那么可以说正是巫师，将我带进了那些着重于叙事的游戏的坑。不过与大部分人不同的是，我初次接触巫师系列是巫师的二代。 那是一个普通的暑假，我费力地思考着，家里残破的笔记本电脑到底能玩点什么游戏，这时我突然想到，听说有个叫巫师三的游戏挺有名，我不如试试它的前作好了。就这样我搜到了巫师一二，巫师一画面陈旧，操作蹩脚，我毫不犹豫地排除了它，但二代却有着在那个年代来说不错的画质，于是我找到了它的资源，试着玩了起来。 听到这里可能大家觉得我无非在说一些陈词滥调，但我想说的是，巫师二即使以我现在不知道涨了多少的阅历来看，依旧是一款特立独行的游戏。在此之前我也玩过不少游戏，但我从来没有见过一个没有政治诉求纯粹为了自己的利益行动的主角，我从来没有见过一个每个人都栩栩如生，有自己行事逻辑的世界，我从来都没有见过，一个以阴暗的政治冲突，种族歧视为背景的游戏，即使以rpg来说，巫师二也是个很有勇气的游戏，在巫师二不长的序章过后，就会面临两个截然不同的分歧，并且这两条分支路线的重复内容并不多，如此大的分支毫无疑问是不多见的。现在回想起来，巫师二可能是我唯一一个一点也没有碰支线的rpg游戏，固然因为当时我懵懂无知，但其波澜壮阔的主线确实无比吸引我， 是的，这是一个非常有突破性的游戏，可谓是cdpr写政治戏码的巅峰，但是，很神奇的是，这又是一个被遗忘的游戏，不仅是被引流来的巫师三玩家遗忘，就连cdpr好像也忘了它，巫师三和二代基本没有什么关系，可能有人会反驳我，巫师三的开头就要模拟二代抉择，但事实上，对一个强调选择的rpg游戏来说，重要的不仅是选择，更是选择带来的后果，而巫师二那些惊心动魄的选择，在三代中几乎都成了定局，无论上亚甸是否赢得了独立，最后的区别不过是沦陷在亨赛特的军队下还是尼弗嘉德军队下而已。无论是否救回泰莫利亚最后的王室血脉，罗契都只能带着他的兄弟们再度流亡。更神奇的是二代最成功的女性角色，龙女居然不知所踪，事实上龙女和伊欧菲斯在巫师三曾有过一个现在沦为废案的任务，但因为赶工期被砍掉了。我们对比一下同样三部曲的龙腾世纪，一代的诸多队友都会在二代亮相，甚至还能在三代中当重要角色。而巫师三部间的关联则少得可怜，一代的女主角夏妮在石之心才出场，也就雷索与罗契在三代的戏份多一点，这无疑大大削弱了巫师中选择的分量。当然，我也能理解cdpr，三代是系列中唯一重启主线的一部，与更像外传的一二部有着极大的区别，并且这一作有着不小的制作规模，必须放弃前作壁垒，放低身段吸引新玩家，种种考量下，三代注定是相对独立的一作，更何况在二代一番精心算计下，事线固然优秀，但已经形成了逻辑闭环，也很难找到延续的办法。而三代为了种种考量，强行让南北形成均势，更破坏了延续巫师二剧情的可能性，尽管可惜，但巫师二作为一个完整的故事，也可以称得上优秀。 接下来我们就来讨论一下一款游戏。 首先，依照惯例，巫师二的系统，巫师二的画面在当年算得上不错，但毕竟此时的cdpr并没有太大经验，因此整部游戏的一些地方仍然显得很生涩，比如说，巫师二是没有跳跃功能的，只能让玩家去寻找攀爬点才能上下移动，而这些攀爬点则都做的很隐蔽，配合拙劣的导路功能，跑图体验难言理想，随后巫师二的战斗相比巫师三繁琐不少，同样分为三种流派，近战，炼金和法印，法印有单独的储备槽，能随着时间恢复，这点有点像dnd，近战则有和三代近似华丽但破绽很大的剑术，并且翻滚是没有无敌帧的，也就是说翻滚途中被攻击打断是常用的事。药剂和炸弹都是一次性用品，众所周知，rpg游戏的一次性用品就是不打最终boss能不用就不用的东西，因此虽然炼金流算得上强力，但由于合成的琐碎以及造价昂贵，走这条线的并不算多。总的来说巫师的战斗系统基本都是在及格线上徘徊的水平，实在没有多少意思。 而论起剧情，就很有的说了 巫师二的叙事有什么特点呢？ 第一，选择 巫师二依旧采取了巫师系列道德困境式的抉择，有不少人批评说这种列车难题式的道德抉择千篇一律，然而，我很好奇的是，他们指望在一个商业游戏里看到怎么样的抉择设定呢？巫师的抉择可能算不上精巧，但在rpg可以说是独树一帜的有分量，重要人物的生死，一个王国的命运，巫师二充斥着各种意义上的抉择，甚至包括第二章两个截然不同的路线。放眼整个rpg史，我敢说有如此大主线分歧的也是寥寥无几，而这样独特的设计，其实与巫师二的剧情结构有不少关系。 第二，双线叙事 我们的杰洛特一向对政治敬而远之，而巫师二构思巧妙之处在于，让一个对政治最没有兴趣的人成了北境局势的关键人物，在游戏中，双线并进的结构被广泛的运用。杰洛特的态度是模糊的，归根到底他不过是想洗脱罪名并寻回自己的记忆，这两大主线目标，前者为主线后者为暗线，都被牵扯到了同一个人身上——雷索。而对于雷索的刺杀行动而言，女术士集会所的阴谋浮现在明处，而隐藏最深的则是尼弗伽德入侵的阴谋。对于游戏中涉及的北境势力而言，两大对抗者，上亚甸和科德温，杰洛特在游戏中任选其一作为明线，另一方便会成为暗线穿插其中。几条剧情路线互相交叉，且彼此间都有说不清道不明的关系，可以说巫师二颇有些戏剧的风格，重要人物算不上多，但却有着极为复杂的人物关系，整个故事都十分耐人寻味。 第三，演出水平 巫师在剧情演出上向来不遗余力，这点倒是颇有生软的师传，巫师二增强版的开场cg对一个11年的游戏来说可以说无比华丽，而在随后的剧情中，也有不少制作不错的cg的即时演出，更有趣的是，不知道是不是为了赶时髦，巫师二还做了两个系列中少有的巨型boss战，在11年来说，这样的演出效果可以说相当不错了，说到这里不得不佩服cdpr的勇气，只做过一部巫师一就敢砸这么多钱到一个前景不明的项目去。 第四，政治阴谋 大部分宫廷政治故事都是肮脏的，巫师二也不例外，开篇我们就能看到为了自己和妹妹的私生子发动王国内战的妹控王，要说这妹控王也是个有勇有谋之辈，但把自己荒淫无度的行径公开到整个国家民众面前的行为，着实是让人叹为观止。如果你觉得这已经很毁三观了，那么我可以负责任地告诉你说，福尔泰斯特在北境执政者里是道德楷模级别的存在，整部游戏里你碰到的政治家，浮港的总督是个没有下限的人渣，亨赛特是个粗暴蛮横的野心家，此时看上去正常的拉多维德对待自己的恩师也是“无微不至”，就连浓眉大眼的斯坦尼斯王子，都能为了上位一脸坦荡地毒害龙女。 当然了，也有萨奇亚这种浑身坦荡的完美领袖，上亚甸是巫师中难得直接描写非人种族抗争的一段剧情，十分正能量和主旋律，算是难得地调剂了巫师阴暗冷酷的风格，巫师对“义军”的描写并没有落入俗套，龙女一身正气但是并不迂腐，伊欧菲斯虽然仇恨人类，但并不是不择手段之辈，他会对萨奇亚动心，会对救了他的命的杰洛特予以回报，矮人往往看上去豪放，却不失狡诈和算计，而义军中也有斯坦尼斯王子和菲丽芭这种野心家。Cdpr对上亚甸线是很上了些功夫的，多种族混杂的特点被个性迥异的npc完美地体现了出来。可以说，在有政治戏码的rpg中，巫师二绝对是一部水准上的作品。 稍微扯开一点话题，巫师二的最终boss雷索，我个人认为是rpg游戏设计得最成功的反派人物之一，雷索的人物志在b站就有，在此不做赘述，纵观其生平，不得不说无论是公事还是私德上，雷索都是一个近乎完美的角色，公事上为了复兴自己的学派，雷索完美执行了恩希尔大帝的命令，他的刺杀行动无不是计划周详，下手果断，善后的处理的也无可挑剔，甚至面对女术士集会所的谋划，将计就计把北境的大部分术士架上了火刑架，要知道，让术士吃这种大亏，这恐怕是猎魔人历史上都没几个人能做的壮举，更可贵的是雷索在做这些事的时候完全秉持公事公办，各为其主的态度，他没有因为杰洛特是福尔泰斯特的护卫就下手迟疑，也没有把自己兄弟的死记在杰洛特头上，他始终清楚地认识到自己不过是尼弗伽德的一把刀这个事实，即使三代中被恩希尔背刺了一刀，也很难说他会有多么吃惊，而在私德方面，为了答谢杰洛特的救命之恩，他跟着杰洛特去迎战几乎没有胜机的狂猎大军，保护叶奈法，甚至在最后把特莉丝从大屠杀中救了出来，而在整场游戏中，他一次也没有对杰洛特下死手。这种文能算计整个北境的术士，武能压制失忆期杰洛特的全能型人才，实在是比工具人白狼不知道高到哪里去了。可能每个巫师系列的粉丝都对巫师四有自己的想法，不过如果是我的话，我是很希望能有以雷索为主角的一部游戏，这个人设实在是太强了。 上述是我个人认为巫师二的优点，不过如果你要问我有没有缺点，那我也可以很明确的说，有的，而且还很明显，并且这个缺点贯穿了整个巫师系列。 我们知道，rpg的意思就是角色扮演游戏，意思就是可以让玩家扮演一个虚拟角色在一个虚拟世界中做出种种行为，巫师系列是21世纪rpg的一大系列，但巫师却并不是一个完全标准的rpg，为什么呢？因为杰洛特是有性格的，杰洛特大体的性格是，外冷内热，自尊心强，外表冷酷无情，内心深处其实是一个傲娇老好人，这样问题就来了，你杰洛特都有性格了，那玩家怎么做选择，cdpr的回答是，尽量把所有选择都做成两难式的，即使是杰洛特本人来选也会犹豫的那种，这也是为什么cdpr总是喜欢这种两难抉择的原因，但还有问题，总有一些真正的杰洛特不会犹豫的选择，比如说真正的杰洛特必然是椰奶的舔狗，而面对这种选择，玩家只能扮演自己，这就让巫师的剧情流程也有了一种割裂感，你是要扮演杰洛特还是扮演自己，这是在你打开巫师游戏前要先做出的选择。当然，两种选择都无可厚非，但这也必然会造成一些矛盾性的情况，像巫师二里，无论哪条线路，不去救特莉丝都会都会对游戏的重要角色大有益处，作为玩家，如果你查了攻略，你就会知道好兄弟雷索会帮你把萌特救出来，然而如果真让杰洛特选他绝对不会放弃自己的情人，也就意味着，要么玩家放弃选择权，要么就要忍受杰洛特的ooc（人设崩塌）。 我个人觉得这是个不大不小的问题，只要做好心理准备还是能忍受的，毕竟一个小说改游戏，碰到这种问题也是难免的，cdpr其实已经把平衡性做的挺好了，没必要太苛求。额，如果这也算孝子那就算吧，不狡辩。 回过头去看，巫师二确实是一部难得的rpg佳作，但它未必是一个合格的承上启下之作，巫师二讲了一个太过精彩的故事，导致接下来不怎么好编了，尼国平推北方顺理成章却很无趣，北方反攻又是天方夜谭，导致巫师三的政治形势显得十分强行，迪胖和拉多维德其实都像开了挂一样，要知道，历史是没有个人英雄主义的，区区一个统治者就能逆转尼弗伽德和北方天堑一般的差距吗？这多少有点机械降神了。这么说来巫师二某种意义上近乎把故事讲死了，不过如果我是cdpr估计也会很无奈，小说基本已经写到恩希尔大帝快一统天下的地步了，巫师由于以杰洛特这种政治无关人士作为主角，搞点宫廷刺杀已经是政治戏的极限了，还能怎么编呢？ 写到这突然想到，巫师三里曾经对雷索喊打喊杀的杰洛特也成了“国王刺客”，这可真是，人终将活成自己最讨厌的样子。</p>
-]]></content>
-      <categories>
-        <category>游戏杂谈</category>
-        <category>wrpg</category>
-      </categories>
-      <tags>
-        <tag>游戏杂谈</tag>
-        <tag>巫师二</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>基于北大前沿计算实践课和missing semester的vim笔记</title>
-    <url>/2023/09/29/vim%E6%80%BB%E5%92%8C%E7%AC%94%E8%AE%B0/</url>
-    <content><![CDATA[<h1 id="you-are-your-dotfiles">you are your dotfiles</h1>
-<h2 id="帮助">帮助</h2>
-<p>按f1或命令行输入help开启在线帮助 &lt;Cw&gt;切换到另一个窗口q关闭窗口 <span id="more"></span></p>
-<h2 id="编辑">编辑</h2>
-<p>如之前所述，Vim最主要的编辑模式是Insert模式，想要修改文本，先将光标在Normal模式下移动到对应位置，然后再键入<code>i</code>进入Insert模式，在这个模式下添加或者删除文本。但是当我们需要修改的地方非常多时，每次都需要先移动光标再输入<code>i</code>就是一个相对麻烦的操作，因而Vim提供了一些命令将移动光标和进入Insert模式合成一步：</p>
-<ul>
-<li><code>i</code>在当前位置输入（光标前），<code>I</code>在行首输入</li>
-<li><code>a</code>在光标后输入(append)，<code>A</code>在行尾输入</li>
-<li><code>o</code>在当前行下新建一行输入，<code>O</code>在当前行上新建一行输入</li>
-<li><code>c</code>+光标移动命令会先删除然后进入Insert模式，比如<code>cl</code>会删除下一个字符，<code>cw</code>会删除到单词尾，<code>c10l</code>会删除10个字符。此外，<code>ciw</code>会删除整个单词，<code>cc</code>会删除整行，<code>ci(</code>(change in)会删除小括号里的内容，<code>ca(</code>(change around)则会删除小括号以及小括号里的内容，这在修改代码里的字符串、修改函数变量之类的工作中极其有用</li>
-<li><code>s</code>(substitute)会删除当前字符并进入Insert模式，等同于<code>cl</code></li>
-<li><code>r</code>(replace)替换当前字母</li>
-<li><code>p</code>把上次删除的行放置在当前位置</li>
-</ul>
-<p>进入Insert模式之后，Vim也有一些奇奇怪怪的命令，比如<code>&lt;C-h&gt;</code>等同于删除键，会删除前一个字符，<code>&lt;C-j&gt;</code>等同于回车键，将光标后的文本移到下一行，但是否要这样做就全凭个人喜好了。<br />
-其实在Normal模式下也能进行一些删除操作，<code>x</code>会删除当前字符，<code>d</code>+光标移动命令会删除对应文本，与<code>s</code>以及<code>c</code>命令的区别仅仅在于<code>x</code>和<code>d</code>操作完之后依然处在Normal模式，所以<code>s</code>也等同于<code>xi</code>。此外，<code>r</code>的作用也是替换当前字符，键入<code>r</code>之后会提示输入一个字符，输入完成之后自动回到Normal模式，想要替换长文本就需要键入<code>R</code>进入Replace模式。因此如果想要替换一个字符成x，最快的方法是<code>r</code>+x，也可以<code>s</code>+x+<code>&lt;ESC&gt;</code>，也可以<code>xi</code>+x+<code>&lt;ESC&gt;</code>，也可以<code>cl</code>+x+<code>&lt;ESC&gt;</code>。<br />
-撤销和重做也是非常常用的编辑命令，在Vim中分别对应Normal模式下的<code>u</code>(undo)和<code>U</code>，同时<code>.</code>可以重复之前最后一个命令。 “U”（行撤销）。恢复整行的所有操作 &lt;C-r&gt;重做上一个 被撤销的命令</p>
-<h2 id="命令行">命令行</h2>
-<p>在Normal模式下键入<code>:</code>就会进入命令行模式，此时光标已经移动到了最下面。命令行中可以输入的命令种类非常多：</p>
-<ul>
-<li><code>w</code>保存文件，但是不退出</li>
-<li><code>w !sudo tee %</code>使用sudo保存文件 w filename保存文件到当前目录</li>
-<li><code>wq</code>、<code>x</code>、<code>ZZ</code>保存并退出</li>
-<li><code>q!</code>、<code>ZQ</code>退出但不保存</li>
-<li><code>!</code>+命令 可以在shell环境下执行命令</li>
-<li><code>r !</code>+命令 可以在shell环境下执行命令并插入到当前光标下一行</li>
-<li><code>e</code>+文件 可以加载新的文件（当前文件没保存的话会报错）</li>
-<li><code>e!</code>+文件 加载新文件并丢弃当前更改</li>
-<li><code>f</code>显示当前文件的文件名</li>
-<li><code>%s/old/new/g</code>搜索所有<code>old</code>并替代成<code>new</code>，支持正则表达式o 命令行界面输入&lt;Cd&gt;显示可以选择的命令，tab自动补全o</li>
-</ul>
-<h2 id="搜索">搜索</h2>
-<p>除了这些直接跳转命令，Vim也提供了搜索机制。 首先是行内的搜索，<code>f</code>、<code>t</code>、<code>F</code>、<code>T</code>后面加上任意字符x，代表跳转到当前光标下一个x、跳转到下一个x之前、跳转到上一个x、跳转到上一个x之后，搜索到了之后也可以继续按<code>,</code>和<code>;</code>在搜索结果之间前后移动。 然后是文件内的搜索， 直接键入<code>/</code>或者<code>?</code>会进入命令行搜索模式，<code>/</code>是从开头开始搜索，<code>?</code>是从结尾开始搜索，后面可以加上任意长度的字符 然后键入<code>&lt;CR&gt;</code>就可以高亮显示所有的搜索结果，按<code>n</code>和<code>N</code>就可以在搜索结果之间向前和向后移动。 输入:set ic(ignore case)忽略大小写搜索 set noic取消 仅搜索一次忽略大小写:/search_sth\s 输入:set hls is高亮搜索结果 //'ic' 'ignorecase' ignore upper/lower case when searching</p>
-<p>'is' 'incsearch' show partial matches for a search phrase</p>
-<p>'hls' 'hlsearch' highlight all matching phrases 搜索模式支持正则表达式。最后如果想要关闭搜索结果的高亮，需要借助命令行命令，输入<code>:noh</code>即可关闭高亮。 type :#,#s/old/new/g where #,# are the line numbers of the range</p>
-<p>of lines where the substitution is to be done.</p>
-<p>Type :%s/old/new/g to change every occurrence in the whole file.</p>
-<p>Type :%s/old/new/gc to find every occurrence in the whole file,</p>
-<p>with a prompt whether to substitute or not.</p>
-<h2 id="选择">选择</h2>
-<p>编辑文本和代码难免要复制和粘贴，复制操作涉及到选择需要复制的文本，在Vim中这需要在Visual模式下进行。在Normal模式中键入<code>v</code>进入选择模式，可以跟在Normal模式下一样移动光标，被选择的文本就会高亮。 或者在Normal模式中键入<code>V</code>进入行选择模式，被选择的行会高亮。选择完成后，如果直接按<code>&lt;ESC&gt;</code>就会返回Normal模式，并且选择的内容高亮消失，因此不应该这么做，而应该直接在Visual模式下键入<code>y</code>(yank)复制高亮的文本，如果输入的是<code>d</code>则会删除被选择的文本，此时会自动回到Normal模式。 不管是<code>y</code>还是<code>d</code>操作，被选择的文本都会被操作到Vim的缓存中，在Normal模式下按<code>p</code>就会粘贴其中的文本到当前位置。与之前介绍的<code>cc</code>、<code>dd</code>类似，也可以直接在Normal模式下输入<code>yy</code>，对应复制当前行。<br />
-Vim还提供了列选择模式，在Normal模式下键入<code>&lt;C-V&gt;</code>进入，选择完列之后可以跟Normal模式一样进行<code>r</code>、<code>d</code>等操作，这在制表、注释中非常有用。</p>
-<h2 id="移动">移动</h2>
-<p>Vim中所有键盘输入都可以视为命令，可以被记录下来映射到快捷键。在Normal模式下，最基本的命令是控制光标移动的命令<code>hjkl</code>，其中<code>jk</code>控制上下(大写状态下删除行间空格)，<code>hl</code>控制左右，方向键同样可以控制光标，但是因为方向键盘离打字的范围比较远，所以推荐大家熟悉<code>hjkl</code>这四个键。在没有鼠标的情况下想实现长距离的光标跳转，每次只能移动一个单位显然是低效的，好在Vim为光标跳转提供了多种命令：</p>
-<ul>
-<li><p>单词间：<code>w</code>可以跳转到下一个单词的开头，<code>b</code>跳转到当前单词的开头，继续按跳转到上一个单词的开头，<code>e</code>跳转到当前单词的结尾，继续按跳转到下一个单词的结尾</p>
-<blockquote>
-<p>遗憾的是中文很难分词，所以在中文中键入<code>w</code>会跳转到下一个短句</p>
-</blockquote></li>
-<li><p>括号、引号间：如果光标在括号或者引号中间，<code>%</code>会高亮显示括号或引号，继续按会在头和尾反复横跳</p></li>
-<li><p>行内：<code>0</code>跳转到行的开头，<code>^</code>跳转到行的第一个非空格的字符，<code>$</code>跳转到行的结尾</p></li>
-<li><p>段落间：<code>&#123;</code>跳转到上一段，<code>&#125;</code>跳转到下一段</p></li>
-<li><p>屏幕内：<code>H</code>跳转到屏幕最上面，<code>M</code>跳转到屏幕最中间，<code>L</code>跳转到屏幕最下面</p></li>
-<li><p>屏幕滑动：<code>&lt;C-u&gt;</code>向上滑动，<code>&lt;C-d&gt;</code>向下滑动</p></li>
-<li><p>文件内：<code>gg</code>跳转到文件开头，<code>G</code>跳转到文件结尾,</p></li>
-<li><p>&lt;CG&gt;显示当前行数，数字G跳转到对应行</p></li>
-<li><p>其他：<code>zz</code>会将光标置于屏幕中心</p></li>
-</ul>
-<p>这些基本命令可以和数字进行组合，输入任意数字（默认情况下显示在右下角），然后输入<code>j</code>就会向下移动对应行数，同理，如果是数字+<code>w</code>，就会移动对应单词数。另外，数字+<code>&lt;CR&gt;</code>等同于数字+<code>j</code>，数字+<code>G</code>会跳转到整个文件的第几行。</p>
-<h2 id="模式">模式</h2>
-<p>Normal模式是最基本的模式，在这个模式下基本只能移动光标，不能直接输入文本，因为此时键入任何字符都会被当成是Vim的命令而非插入到文本中。想要输入文本需要切换到Insert模式，可以直接键入<code>i</code>进入Insert模式，此时输入任何字符都会插入到光标所在位置。想从输入模式中返回Normal模式，只需要键入<code>&lt;ESC&gt;</code>。事实上，在任何模式下键入<code>&lt;ESC&gt;</code>都 能回到Normal模式。Normal模式和Insert模式是Vim中最常用的两种模式，理论上我们只需要这两种模式就能完成修改文本的所有操作，其他 模式和命令都是用来更快地完成一些任务。默认情况下，所处模式会显示在Vim窗口的左下角，Normal模式没有显示，Insert模式会显示<code>--INSERT--</code>，Command-line模式会显示所输入的命令等等。在Normal模式下键入<code>R</code>进入Replace模式，用于替换当前光标处的文本，键入<code>v</code>进入Visual模式，用于选择文本。</p>
-<figure>
-<img src="/images/obsidian/vim-mode.jpg" title="image" alt="" /><figcaption>图片</figcaption>
-</figure>
-<h2 id="进阶">进阶</h2>
-<p>.命令重复上一次命令，可用于简化操作</p>
-<ul>
-<li>C=c$</li>
-<li>s=cl</li>
-<li>S=^C//整行替换</li>
-<li>I=^i</li>
-<li>A=$a</li>
-</ul>
-]]></content>
-      <categories>
-        <category>课程笔记</category>
-        <category>其他</category>
-      </categories>
-      <tags>
-        <tag>课程笔记</tag>
-        <tag>麻省理工</tag>
-        <tag>北京大学</tag>
-        <tag>编程工具</tag>
-        <tag>vim</tag>
       </tags>
   </entry>
   <entry>
@@ -6852,6 +6852,85 @@ used the next time std::cin &gt;&gt; is called<br />
       </tags>
   </entry>
   <entry>
+    <title>基于伯克利ds100的数据科学笔记pandas部分</title>
+    <url>/2023/09/29/jupyter%20notebook/</url>
+    <content><![CDATA[<h2 id="notebook">notebook</h2>
+<ol type="1">
+<li><code>Ctrl</code> + <code>Return</code>（或者 <code>Cmd</code> + <code>Return</code>在 Mac 上）： <em>评估当前单元格</em></li>
+<li><code>Shift</code> + <code>Return</code>： <em>评估当前单元格并移至下一个单元格</em></li>
+<li><code>ESC</code>： <em>命令模式</em> （在使用以下任何命令之前可能需要按）</li>
+<li><code>a</code>: <em>在上面创建一个单元格</em></li>
+<li><code>b</code>： <em>在下面创建一个单元格</em></li>
+<li><code>dd</code>: <em>删除一个单元格</em></li>
+<li><code>z</code>： <em>撤消上一次单元格操作</em></li>
+<li><code>m</code>： <em>将单元格转换为 Markdown</em></li>
+<li><code>y</code>： <em>将单元格转换为代码</em> <span id="more"></span></li>
+</ol>
+<h2 id="pandas">pandas</h2>
+<h3 id="创建表格dataframe">创建表格DataFrame</h3>
+<p>按列创建</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">fruit_info = pd.DataFrame(</span><br><span class="line">    data = &#123;&#x27;fruit&#x27;: [&#x27;apple&#x27;, &#x27;orange&#x27;, &#x27;banana&#x27;, &#x27;raspberry&#x27;],</span><br><span class="line">          &#x27;color&#x27;: [&#x27;red&#x27;, &#x27;orange&#x27;, &#x27;yellow&#x27;, &#x27;pink&#x27;],</span><br><span class="line">          &#x27;price&#x27;: [1.0, 0.75, 0.35, 0.05]</span><br><span class="line">          &#125;)</span><br><span class="line">fruit_info</span><br></pre></td></tr></table></figure>
+<p>按行创建</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">fruit_info2 = pd.DataFrame(</span><br><span class="line">    [(&quot;red&quot;, &quot;apple&quot;, 1.0), (&quot;orange&quot;, &quot;orange&quot;, 0.75), (&quot;yellow&quot;, &quot;banana&quot;, 0.35),</span><br><span class="line">     (&quot;pink&quot;, &quot;raspberry&quot;, 0.05)], </span><br><span class="line">    columns = [&quot;color&quot;, &quot;fruit&quot;, &quot;price&quot;])</span><br></pre></td></tr></table></figure>
+<h3 id="选择行和列">选择行和列</h3>
+<ul>
+<li>loc 两个详细运算符中的第一个是 <code>loc</code>，它需要两个参数。 第一个是一个或多个行 <strong>标签</strong> ，第二个是一个或多个列 <strong>标签</strong> 。</li>
+</ul>
+<p>所需的行或列可以单独提供、以切片表示法或作为列表提供。 单独提供会返回series 单独切片参数默认返回行</p>
+<p><img src="assets/jupyter%20notbook/image-20230924084033386.png" /> <img src="assets/jupyter%20notbook/image-20230924084006924.png" /> <img src="assets/jupyter%20notbook/image-20230924084050655.png" /> ● loc selects items by label. First argument is rows, second argument is columns. ● iloc selects items by number. First argument is rows, second argument is columns. ● [] only takes one argument, which may be: ○ A slice of row numbers. ○ A list of column labels. ○ A single column label. That is,[] is context sensitive.</p>
+<ul>
+<li>列名一般唯一，可以强制重复</li>
+<li>行名可以重复 pandas支持裸操作,但此时无法使用切片</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># Here we&#x27;re providing a list of fruits as single argument to []</span><br><span class="line">fruit_info[[&quot;fruit&quot;, &quot;color&quot;, &quot;price&quot;]]</span><br></pre></td></tr></table></figure>
+<h3 id="其他行列操作">其他行列操作</h3>
+<p>添加行和列</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">fruit_info[&#x27;rank1&#x27;] = [1,2,3,4]</span><br><span class="line">fruit_info.loc[:,&#x27;rank2&#x27;] = [1,2,3,4]</span><br></pre></td></tr></table></figure>
+<p>使用 <code>.drop()</code>方法来 <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.drop.html">删除</a> 这两个 <code>rank1</code>和 <code>rank2</code>您创建的列。 确保使用 <code>axis</code>参数正确。 注意 <code>drop</code>不会更改表，而是返回一个具有较少列或行的新表，除非您设置可选 <code>inplace</code>范围</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">fruit_info</span><br><span class="line">fruit_info_original = fruit_info.drop([&#x27;rank1&#x27;,&#x27;rank2&#x27;],axis=1)</span><br><span class="line">fruit_info_original</span><br></pre></td></tr></table></figure>
+<p>重命名</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">fruit_info_caps=fruit_info_original.rename(columns=&#123;&#x27;fruit&#x27;:&#x27;F&#x27;,&#x27;color&#x27;:&#x27;C&#x27;,&#x27;price&#x27;:&#x27;P&#x27;&#125;)</span><br><span class="line">fruit_info_caps</span><br></pre></td></tr></table></figure>
+<h3 id="布尔数组筛选和查询">布尔数组筛选和查询</h3>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">result = baby_names[(baby_names[&#x27;Year&#x27;]==2000) &amp; (baby_names[&#x27;Count&#x27;]&gt;3000)]</span><br><span class="line">result_using_query = baby_names.query(&#x27;Year==2000 &amp; Count&gt;3000&#x27;)</span><br></pre></td></tr></table></figure>
+<h3 id="slides实例">slides实例</h3>
+<p>提取列数据：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">elections[&quot;Candidate&quot;].tail(5).to_frame()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>提取目录：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">For row labels, use DataFrame.index:</span><br><span class="line">For column labels, use DataFrame.columns:</span><br></pre></td></tr></table></figure>
+<p>支持布尔数组检索 <img src="assets/jupyter%20notbook/image-20230924090511103.png" /></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">elections[elections[&quot;Party&quot;] == &quot;Independent&quot;]</span><br><span class="line">elections[(elections[&quot;Result&quot;] == &quot;win&quot;) &amp; (elections[&quot;%&quot;] &lt; 47)]</span><br></pre></td></tr></table></figure>
+<p>支持用其他数组检索</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">a_parties = [&quot;Anti-Masonic&quot;, &quot;American&quot;, &quot;Anti-Monopoly&quot;, &quot;American Independent&quot;]</span><br><span class="line">elections[elections[&quot;Party&quot;].isin(a_parties)]</span><br></pre></td></tr></table></figure>
+<p>查询类似sql</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">elections.query(&#x27;Result == &quot;win&quot; and Party not in @parties&#x27;)</span><br></pre></td></tr></table></figure>
+<p>匿名函数辅助查询</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">What if we wanted to find the longest names in California?</span><br><span class="line">babynames.query(&#x27;Sex == &quot;M&quot; and Year == 2020&#x27;)</span><br><span class="line">.sort_values(&quot;Name&quot;, key = lambda x: x.str.len(),</span><br><span class="line">ascending = False)</span><br></pre></td></tr></table></figure>
+<p>创建删除列</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">babyname_lengths = babynames[&quot;Name&quot;].str.len()</span><br><span class="line">#add that series to the dataframe as a column</span><br><span class="line">babynames[&quot;name_lengths&quot;] = babyname_lengths</span><br><span class="line">babynames = babynames.sort_values(by = &quot;name_lengths&quot;, ascending=False)</span><br><span class="line">babynames = babynames.drop(&quot;name_lengths&quot;, axis = &#x27;columns&#x27;)//删除列(默认为行)</span><br></pre></td></tr></table></figure>
+<p>map方法使用函数统计数据</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">def dr_ea_count(string):</span><br><span class="line">return string.count(&#x27;dr&#x27;) + string.count(&#x27;ea&#x27;)</span><br><span class="line">babynames[&quot;dr_ea_count&quot;] = babynames[&quot;Name&quot;].map(dr_ea_count)</span><br><span class="line">babynames = babynames.sort_values(by = &quot;dr_ea_count&quot;, ascending=False)</span><br></pre></td></tr></table></figure>
+<p>字典创建表格</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#build dictionary where each entry is the rtp for a given name</span><br><span class="line">#e.g. rtps[&quot;jennifer&quot;] should be 0.0231</span><br><span class="line">rtps = &#123;&#125;</span><br><span class="line">for name in babynames[&quot;Name&quot;].unique():</span><br><span class="line">counts_of_current_name = female_babynames[female_babynames[&quot;Name&quot;] == name][&quot;Count&quot;]</span><br><span class="line">rtps[name] = ratio_to_peak(counts_of_current_name)</span><br><span class="line">#convert to series</span><br><span class="line">rtps = pd.Series(rtps)</span><br></pre></td></tr></table></figure>
+<p>使用group建立新表格</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">female_babynames.groupby(&quot;Name&quot;).agg(ratio_to_peak)</span><br></pre></td></tr></table></figure>
+<p><img src="assets/jupyter%20notbook/image-20230924092636108.png" /> groupby的其他用法</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Given a DataFrameGroupBy object, can use various functions to generate DataFrames (or</span><br><span class="line">Series). agg is only one choice:</span><br><span class="line">● agg: Creates a new DataFrame with one aggregated row per subframe.</span><br><span class="line">● max: Creates a new DataFrame aggregated using the max function.</span><br><span class="line">● size: Creates a new Series with the size of each subframe.</span><br><span class="line">● filter: Creates a copy of the original DataFrame, but keeping only rows from subframes</span><br><span class="line">that obey the provided condition.</span><br></pre></td></tr></table></figure>
+<p>合并表格</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">merged = pd.merge(left = elections, right = male_2020_babynames,</span><br><span class="line">left_on = &quot;First Name&quot;, right_on = &quot;Name&quot;)</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>课程笔记</category>
+        <category>数据科学</category>
+      </categories>
+      <tags>
+        <tag>伯克利</tag>
+        <tag>课程笔记</tag>
+        <tag>python</tag>
+        <tag>数据科学</tag>
+        <tag>pandas</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>基于北大前沿计算实践课和missing semester的linux等编程工具笔记</title>
     <url>/2023/09/29/linux%E6%80%BB%E5%92%8C%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<h2 id="简介">简介</h2>
@@ -7166,85 +7245,6 @@ used the next time std::cin &gt;&gt; is called<br />
         <tag>北京大学</tag>
         <tag>linux</tag>
         <tag>编程工具</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>基于伯克利ds100的数据科学笔记pandas部分</title>
-    <url>/2023/09/29/jupyter%20notebook/</url>
-    <content><![CDATA[<h2 id="notebook">notebook</h2>
-<ol type="1">
-<li><code>Ctrl</code> + <code>Return</code>（或者 <code>Cmd</code> + <code>Return</code>在 Mac 上）： <em>评估当前单元格</em></li>
-<li><code>Shift</code> + <code>Return</code>： <em>评估当前单元格并移至下一个单元格</em></li>
-<li><code>ESC</code>： <em>命令模式</em> （在使用以下任何命令之前可能需要按）</li>
-<li><code>a</code>: <em>在上面创建一个单元格</em></li>
-<li><code>b</code>： <em>在下面创建一个单元格</em></li>
-<li><code>dd</code>: <em>删除一个单元格</em></li>
-<li><code>z</code>： <em>撤消上一次单元格操作</em></li>
-<li><code>m</code>： <em>将单元格转换为 Markdown</em></li>
-<li><code>y</code>： <em>将单元格转换为代码</em> <span id="more"></span></li>
-</ol>
-<h2 id="pandas">pandas</h2>
-<h3 id="创建表格dataframe">创建表格DataFrame</h3>
-<p>按列创建</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">fruit_info = pd.DataFrame(</span><br><span class="line">    data = &#123;&#x27;fruit&#x27;: [&#x27;apple&#x27;, &#x27;orange&#x27;, &#x27;banana&#x27;, &#x27;raspberry&#x27;],</span><br><span class="line">          &#x27;color&#x27;: [&#x27;red&#x27;, &#x27;orange&#x27;, &#x27;yellow&#x27;, &#x27;pink&#x27;],</span><br><span class="line">          &#x27;price&#x27;: [1.0, 0.75, 0.35, 0.05]</span><br><span class="line">          &#125;)</span><br><span class="line">fruit_info</span><br></pre></td></tr></table></figure>
-<p>按行创建</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">fruit_info2 = pd.DataFrame(</span><br><span class="line">    [(&quot;red&quot;, &quot;apple&quot;, 1.0), (&quot;orange&quot;, &quot;orange&quot;, 0.75), (&quot;yellow&quot;, &quot;banana&quot;, 0.35),</span><br><span class="line">     (&quot;pink&quot;, &quot;raspberry&quot;, 0.05)], </span><br><span class="line">    columns = [&quot;color&quot;, &quot;fruit&quot;, &quot;price&quot;])</span><br></pre></td></tr></table></figure>
-<h3 id="选择行和列">选择行和列</h3>
-<ul>
-<li>loc 两个详细运算符中的第一个是 <code>loc</code>，它需要两个参数。 第一个是一个或多个行 <strong>标签</strong> ，第二个是一个或多个列 <strong>标签</strong> 。</li>
-</ul>
-<p>所需的行或列可以单独提供、以切片表示法或作为列表提供。 单独提供会返回series 单独切片参数默认返回行</p>
-<p><img src="assets/jupyter%20notbook/image-20230924084033386.png" /> <img src="assets/jupyter%20notbook/image-20230924084006924.png" /> <img src="assets/jupyter%20notbook/image-20230924084050655.png" /> ● loc selects items by label. First argument is rows, second argument is columns. ● iloc selects items by number. First argument is rows, second argument is columns. ● [] only takes one argument, which may be: ○ A slice of row numbers. ○ A list of column labels. ○ A single column label. That is,[] is context sensitive.</p>
-<ul>
-<li>列名一般唯一，可以强制重复</li>
-<li>行名可以重复 pandas支持裸操作,但此时无法使用切片</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># Here we&#x27;re providing a list of fruits as single argument to []</span><br><span class="line">fruit_info[[&quot;fruit&quot;, &quot;color&quot;, &quot;price&quot;]]</span><br></pre></td></tr></table></figure>
-<h3 id="其他行列操作">其他行列操作</h3>
-<p>添加行和列</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">fruit_info[&#x27;rank1&#x27;] = [1,2,3,4]</span><br><span class="line">fruit_info.loc[:,&#x27;rank2&#x27;] = [1,2,3,4]</span><br></pre></td></tr></table></figure>
-<p>使用 <code>.drop()</code>方法来 <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.drop.html">删除</a> 这两个 <code>rank1</code>和 <code>rank2</code>您创建的列。 确保使用 <code>axis</code>参数正确。 注意 <code>drop</code>不会更改表，而是返回一个具有较少列或行的新表，除非您设置可选 <code>inplace</code>范围</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">fruit_info</span><br><span class="line">fruit_info_original = fruit_info.drop([&#x27;rank1&#x27;,&#x27;rank2&#x27;],axis=1)</span><br><span class="line">fruit_info_original</span><br></pre></td></tr></table></figure>
-<p>重命名</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">fruit_info_caps=fruit_info_original.rename(columns=&#123;&#x27;fruit&#x27;:&#x27;F&#x27;,&#x27;color&#x27;:&#x27;C&#x27;,&#x27;price&#x27;:&#x27;P&#x27;&#125;)</span><br><span class="line">fruit_info_caps</span><br></pre></td></tr></table></figure>
-<h3 id="布尔数组筛选和查询">布尔数组筛选和查询</h3>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">result = baby_names[(baby_names[&#x27;Year&#x27;]==2000) &amp; (baby_names[&#x27;Count&#x27;]&gt;3000)]</span><br><span class="line">result_using_query = baby_names.query(&#x27;Year==2000 &amp; Count&gt;3000&#x27;)</span><br></pre></td></tr></table></figure>
-<h3 id="slides实例">slides实例</h3>
-<p>提取列数据：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">elections[&quot;Candidate&quot;].tail(5).to_frame()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>提取目录：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">For row labels, use DataFrame.index:</span><br><span class="line">For column labels, use DataFrame.columns:</span><br></pre></td></tr></table></figure>
-<p>支持布尔数组检索 <img src="assets/jupyter%20notbook/image-20230924090511103.png" /></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">elections[elections[&quot;Party&quot;] == &quot;Independent&quot;]</span><br><span class="line">elections[(elections[&quot;Result&quot;] == &quot;win&quot;) &amp; (elections[&quot;%&quot;] &lt; 47)]</span><br></pre></td></tr></table></figure>
-<p>支持用其他数组检索</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">a_parties = [&quot;Anti-Masonic&quot;, &quot;American&quot;, &quot;Anti-Monopoly&quot;, &quot;American Independent&quot;]</span><br><span class="line">elections[elections[&quot;Party&quot;].isin(a_parties)]</span><br></pre></td></tr></table></figure>
-<p>查询类似sql</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">elections.query(&#x27;Result == &quot;win&quot; and Party not in @parties&#x27;)</span><br></pre></td></tr></table></figure>
-<p>匿名函数辅助查询</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">What if we wanted to find the longest names in California?</span><br><span class="line">babynames.query(&#x27;Sex == &quot;M&quot; and Year == 2020&#x27;)</span><br><span class="line">.sort_values(&quot;Name&quot;, key = lambda x: x.str.len(),</span><br><span class="line">ascending = False)</span><br></pre></td></tr></table></figure>
-<p>创建删除列</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">babyname_lengths = babynames[&quot;Name&quot;].str.len()</span><br><span class="line">#add that series to the dataframe as a column</span><br><span class="line">babynames[&quot;name_lengths&quot;] = babyname_lengths</span><br><span class="line">babynames = babynames.sort_values(by = &quot;name_lengths&quot;, ascending=False)</span><br><span class="line">babynames = babynames.drop(&quot;name_lengths&quot;, axis = &#x27;columns&#x27;)//删除列(默认为行)</span><br></pre></td></tr></table></figure>
-<p>map方法使用函数统计数据</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">def dr_ea_count(string):</span><br><span class="line">return string.count(&#x27;dr&#x27;) + string.count(&#x27;ea&#x27;)</span><br><span class="line">babynames[&quot;dr_ea_count&quot;] = babynames[&quot;Name&quot;].map(dr_ea_count)</span><br><span class="line">babynames = babynames.sort_values(by = &quot;dr_ea_count&quot;, ascending=False)</span><br></pre></td></tr></table></figure>
-<p>字典创建表格</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#build dictionary where each entry is the rtp for a given name</span><br><span class="line">#e.g. rtps[&quot;jennifer&quot;] should be 0.0231</span><br><span class="line">rtps = &#123;&#125;</span><br><span class="line">for name in babynames[&quot;Name&quot;].unique():</span><br><span class="line">counts_of_current_name = female_babynames[female_babynames[&quot;Name&quot;] == name][&quot;Count&quot;]</span><br><span class="line">rtps[name] = ratio_to_peak(counts_of_current_name)</span><br><span class="line">#convert to series</span><br><span class="line">rtps = pd.Series(rtps)</span><br></pre></td></tr></table></figure>
-<p>使用group建立新表格</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">female_babynames.groupby(&quot;Name&quot;).agg(ratio_to_peak)</span><br></pre></td></tr></table></figure>
-<p><img src="assets/jupyter%20notbook/image-20230924092636108.png" /> groupby的其他用法</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Given a DataFrameGroupBy object, can use various functions to generate DataFrames (or</span><br><span class="line">Series). agg is only one choice:</span><br><span class="line">● agg: Creates a new DataFrame with one aggregated row per subframe.</span><br><span class="line">● max: Creates a new DataFrame aggregated using the max function.</span><br><span class="line">● size: Creates a new Series with the size of each subframe.</span><br><span class="line">● filter: Creates a copy of the original DataFrame, but keeping only rows from subframes</span><br><span class="line">that obey the provided condition.</span><br></pre></td></tr></table></figure>
-<p>合并表格</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">merged = pd.merge(left = elections, right = male_2020_babynames,</span><br><span class="line">left_on = &quot;First Name&quot;, right_on = &quot;Name&quot;)</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>课程笔记</category>
-        <category>数据科学</category>
-      </categories>
-      <tags>
-        <tag>伯克利</tag>
-        <tag>课程笔记</tag>
-        <tag>python</tag>
-        <tag>数据科学</tag>
-        <tag>pandas</tag>
       </tags>
   </entry>
 </search>
