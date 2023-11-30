@@ -1052,6 +1052,70 @@ val（r1，c1）&lt; val（r1，c2）≤ val（r2，c2）&lt; val（r2，c1）<b
       </tags>
   </entry>
   <entry>
+    <title>基于伯克利ds100和cs231n的numpy笔记</title>
+    <url>/2023/10/09/numpy/</url>
+    <content><![CDATA[<p><a href="http://www.numpy.org/">Numpy</a> 是 Python 中科学计算的核心库。 它提供了高性能的多维数组对象以及使用这些对象的工具 数组。</p>
+<h2 id="数组">数组</h2>
+<p>numpy 数组是一个值网格，所有值都具有相同的类型，并由非负整数组成的元组索引。 它的维度就是数组的秩 ；它的shape就是每个维度的大小组成的元组 <span id="more"></span> <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">b = np.array([[1,2,3],[4,5,6]])    # Create a rank 2 array</span><br><span class="line">print(b.shape)                     # Prints &quot;(2, 3)&quot;</span><br><span class="line">print(b[0, 0], b[0, 1], b[1, 0])   # Prints &quot;1 2 4&quot;</span><br></pre></td></tr></table></figure></p>
+<p><a href="https://numpy.org/doc/stable/user/basics.creation.html#arrays-creation">官方数组创建教程</a> <a href="http://ds100.org/fa17/assets/notebooks/numpy/Numpy_Review.html">ds100的numpy教程</a> <a href="https://cs231n.github.io/python-numpy-tutorial/#numpy">cs231n的python numpy教程</a></p>
+<h3 id="创建数组的方法">创建数组的方法</h3>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt;np.array([[1.,2.], [3.,4.]])</span><br><span class="line"></span><br><span class="line">array([[ 1.,  2.],</span><br><span class="line">       [ 3.,  4.]])</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt;np.array([x for x in range(5)])</span><br><span class="line"></span><br><span class="line">array([0, 1, 2, 3, 4])</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt;np.array([[&quot;A&quot;, &quot;matrix&quot;], [&quot;of&quot;, &quot;words.&quot;]])</span><br><span class="line"></span><br><span class="line">array([[&#x27;A&#x27;, &#x27;matrix&#x27;],</span><br><span class="line">       [&#x27;of&#x27;, &#x27;words.&#x27;]], </span><br><span class="line">      dtype=&#x27;&lt;U6&#x27;)</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt;np.ones([3,2])</span><br><span class="line"></span><br><span class="line">array([[ 1.,  1.],</span><br><span class="line">       [ 1.,  1.],</span><br><span class="line">       [ 1.,  1.]])</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt;np.random.randn(3,2)</span><br><span class="line"></span><br><span class="line">array([[ 0.3601399 ,  1.31206686],</span><br><span class="line">       [-0.95112397,  0.62475726],</span><br><span class="line">       [-1.24179768,  1.63392069]])</span><br><span class="line">       </span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt;c = np.full((2,2), 7)  # Create a constant array</span><br><span class="line">print(c)               # Prints &quot;[[ 7.  7.]</span><br><span class="line">                       #          [ 7.  7.]]&quot;</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt;d = np.eye(2)         # Create a 2x2 identity matrix</span><br><span class="line">print(d)              # Prints &quot;[[ 1.  0.]</span><br><span class="line">                      #          [ 0.  1.]]&quot;</span><br></pre></td></tr></table></figure>
+<h3 id="数组属性">数组属性</h3>
+<ul>
+<li>dtype</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt;np.arange(1,5).dtype</span><br><span class="line"></span><br><span class="line">dtype(&#x27;int64&#x27;)</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt;np.array([&quot;Hello&quot;, &quot;Worlddddd!&quot;]).dtype</span><br><span class="line"></span><br><span class="line">dtype(&#x27;&lt;U10&#x27;)</span><br><span class="line">/*</span><br><span class="line">What does `&lt;U6` mean?</span><br><span class="line">- `&lt;` Little Endian</span><br><span class="line">- `U` Unicode</span><br><span class="line">- `6` length of longest string</span><br><span class="line">*/</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; np.array([1,2,3]).astype(float)</span><br><span class="line"></span><br><span class="line">array([ 1.,  2.,  3.])</span><br></pre></td></tr></table></figure>
+<p>数组的类型与其包含的数据类型相对应,可以用.astype改变类型</p>
+<h3 id="数组编辑">数组编辑</h3>
+<h4 id="重组和展开">重组和展开</h4>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt;np.arange(1,13).reshape(4,3)</span><br><span class="line"></span><br><span class="line">array([[ 1,  2,  3],</span><br><span class="line">       [ 4,  5,  6],</span><br><span class="line">       [ 7,  8,  9],</span><br><span class="line">       [10, 11, 12]])</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt;A.flatten()</span><br><span class="line">array([ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12])</span><br></pre></td></tr></table></figure>
+<h4 id="切片索引和整数索引">切片索引和整数索引</h4>
+<p>切片时，第一个参数是行，第二个是列，切片形成的是对原来数组的引用，修改子数组也会影响原数组</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># Create the following rank 2 array with shape (3, 4)</span><br><span class="line"># [[ 1  2  3  4]</span><br><span class="line">#  [ 5  6  7  8]</span><br><span class="line">#  [ 9 10 11 12]]</span><br><span class="line">a = np.array([[1,2,3,4], [5,6,7,8], [9,10,11,12]])</span><br><span class="line"></span><br><span class="line"># Use slicing to pull out the subarray consisting of the first 2 rows</span><br><span class="line"># and columns 1 and 2; b is the following array of shape (2, 2):</span><br><span class="line"># [[2 3]</span><br><span class="line">#  [6 7]]</span><br><span class="line">b = a[:2, 1:3]</span><br><span class="line"></span><br><span class="line"># A slice of an array is a view into the same data, so modifying it</span><br><span class="line"># will modify the original array.</span><br><span class="line">print(a[0, 1])   # Prints &quot;2&quot;</span><br><span class="line">b[0, 0] = 77     # b[0, 0] is the same piece of data as a[0, 1]</span><br><span class="line">print(a[0, 1])   # Prints &quot;77&quot;</span><br></pre></td></tr></table></figure>
+<p>可以混合整数索引和切片索引，这样做会产生一个比原始数组的秩更低的数组</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># Create the following rank 2 array with shape (3, 4)</span><br><span class="line"># [[ 1  2  3  4]</span><br><span class="line">#  [ 5  6  7  8]</span><br><span class="line">#  [ 9 10 11 12]]</span><br><span class="line">a = np.array([[1,2,3,4], [5,6,7,8], [9,10,11,12]])</span><br><span class="line"></span><br><span class="line"># Two ways of accessing the data in the middle row of the array.</span><br><span class="line"># Mixing integer indexing with slices yields an array of lower rank,</span><br><span class="line"># while using only slices yields an array of the same rank as the</span><br><span class="line"># original array:</span><br><span class="line">row_r1 = a[1, :]    # Rank 1 view of the second row of a</span><br><span class="line">row_r2 = a[1:2, :]  # Rank 2 view of the second row of a</span><br><span class="line">print(row_r1, row_r1.shape)  # Prints &quot;[5 6 7 8] (4,)&quot;</span><br><span class="line">print(row_r2, row_r2.shape)  # Prints &quot;[[5 6 7 8]] (1, 4)&quot;</span><br><span class="line"></span><br><span class="line"># We can make the same distinction when accessing columns of an array:</span><br><span class="line">col_r1 = a[:, 1]</span><br><span class="line">col_r2 = a[:, 1:2]</span><br><span class="line">print(col_r1, col_r1.shape)  # Prints &quot;[ 2  6 10] (3,)&quot;</span><br><span class="line">print(col_r2, col_r2.shape)  # Prints &quot;[[ 2]</span><br><span class="line">                             #          [ 6]</span><br><span class="line">                             #          [10]] (3, 1)&quot;</span><br></pre></td></tr></table></figure>
+<p>整数数组 索引允许你使用另一个数组的数据构造任意数组 大批。 这是一个例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line"></span><br><span class="line">a = np.array([[1,2], [3, 4], [5, 6]])</span><br><span class="line"></span><br><span class="line"># An example of integer array indexing.</span><br><span class="line"># The returned array will have shape (3,) and</span><br><span class="line">print(a[[0, 1, 2], [0, 1, 0]])  # Prints &quot;[1 4 5]&quot;</span><br><span class="line"></span><br><span class="line"># The above example of integer array indexing is equivalent to this:</span><br><span class="line">print(np.array([a[0, 0], a[1, 1], a[2, 0]]))  # Prints &quot;[1 4 5]&quot;</span><br><span class="line"></span><br><span class="line"># When using integer array indexing, you can reuse the same</span><br><span class="line"># element from the source array:</span><br><span class="line">print(a[[0, 0], [1, 1]])  # Prints &quot;[2 2]&quot;</span><br><span class="line"></span><br><span class="line"># Equivalent to the previous integer array indexing example</span><br><span class="line">print(np.array([a[0, 1], a[0, 1]]))  # Prints &quot;[2 2]&quot;</span><br></pre></td></tr></table></figure>
+<p>可以用整数数组索引修改数组部分值</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line"></span><br><span class="line"># Create a new array from which we will select elements</span><br><span class="line">a = np.array([[1,2,3], [4,5,6], [7,8,9], [10, 11, 12]])</span><br><span class="line"></span><br><span class="line">print(a)  # prints &quot;array([[ 1,  2,  3],</span><br><span class="line">          #                [ 4,  5,  6],</span><br><span class="line">          #                [ 7,  8,  9],</span><br><span class="line">          #                [10, 11, 12]])&quot;</span><br><span class="line"></span><br><span class="line"># Create an array of indices</span><br><span class="line">b = np.array([0, 2, 0, 1])</span><br><span class="line"></span><br><span class="line"># Select one element from each row of a using the indices in b</span><br><span class="line">print(a[np.arange(4), b])  # Prints &quot;[ 1  6  7 11]&quot;</span><br><span class="line"></span><br><span class="line"># Mutate one element from each row of a using the indices in b</span><br><span class="line">a[np.arange(4), b] += 10</span><br><span class="line"></span><br><span class="line">print(a)  # prints &quot;array([[11,  2,  3],</span><br><span class="line">          #                [ 4,  5, 16],</span><br><span class="line">          #                [17,  8,  9],</span><br><span class="line">          #                [10, 21, 12]])</span><br></pre></td></tr></table></figure>
+<h4 id="数组的数学运算">数组的数学运算</h4>
+<p>numpy 提供的数学函数的完整列表 <a href="http://docs.scipy.org/doc/numpy/reference/routines.math.html">文档</a> Numpy 提供了更多用于操作数组的函数； 完整的列表 <a href="http://docs.scipy.org/doc/numpy/reference/routines.array-manipulation.html">文档</a></p>
+<p>Numpy 提供了许多有用的函数来执行计算 数组； 最有用的之一是 <code>sum</code>:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line"></span><br><span class="line">x = np.array([[1,2],[3,4]])</span><br><span class="line"></span><br><span class="line">print(np.sum(x))  # Compute sum of all elements; prints &quot;10&quot;</span><br><span class="line">print(np.sum(x, axis=0))  # Compute sum of each column; prints &quot;[4 6]&quot;</span><br><span class="line">print(np.sum(x, axis=1))  # Compute sum of each row; prints &quot;[3 7]&quot;</span><br></pre></td></tr></table></figure>
+<p>转置矩阵， 只需使用 <code>T</code>数组对象的属性：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line"></span><br><span class="line">x = np.array([[1,2], [3,4]])</span><br><span class="line">print(x)    # Prints &quot;[[1 2]</span><br><span class="line">            #          [3 4]]&quot;</span><br><span class="line">print(x.T)  # Prints &quot;[[1 3]</span><br><span class="line">            #          [2 4]]&quot;</span><br><span class="line"></span><br><span class="line"># Note that taking the transpose of a rank 1 array does nothing:</span><br><span class="line">v = np.array([1,2,3])</span><br><span class="line">print(v)    # Prints &quot;[1 2 3]&quot;</span><br><span class="line">print(v.T)  # Prints &quot;[1 2 3]&quot;</span><br></pre></td></tr></table></figure>
+<h3 id="广播">广播</h3>
+<p>我们有一个较小的数组和一个 较大的数组，并且我们想多次使用较小的数组来执行某些操作 在更大的阵列上。</p>
+<p>例如，假设我们要向每个添加一个常数向量 矩阵的行。 我们可以这样做：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line"></span><br><span class="line"># We will add the vector v to each row of the matrix x,</span><br><span class="line"># storing the result in the matrix y</span><br><span class="line">x = np.array([[1,2,3], [4,5,6], [7,8,9], [10, 11, 12]])</span><br><span class="line">v = np.array([1, 0, 1])</span><br><span class="line">y = np.empty_like(x)   # Create an empty matrix with the same shape as x</span><br><span class="line"></span><br><span class="line"># Add the vector v to each row of the matrix x with an explicit loop</span><br><span class="line">for i in range(4):</span><br><span class="line">    y[i, :] = x[i, :] + v</span><br><span class="line"></span><br><span class="line"># Now y is the following</span><br><span class="line"># [[ 2  2  4]</span><br><span class="line">#  [ 5  5  7]</span><br><span class="line">#  [ 8  8 10]</span><br><span class="line">#  [11 11 13]]</span><br><span class="line">print(y)</span><br></pre></td></tr></table></figure>
+<p>Numpy 广播允许我们执行此计算，而无需实际执行 创建多个副本 <code>v</code>。 考虑这个版本，使用广播：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line"></span><br><span class="line"># We will add the vector v to each row of the matrix x,</span><br><span class="line"># storing the result in the matrix y</span><br><span class="line">x = np.array([[1,2,3], [4,5,6], [7,8,9], [10, 11, 12]])</span><br><span class="line">v = np.array([1, 0, 1])</span><br><span class="line">y = x + v  # Add v to each row of x using broadcasting</span><br><span class="line">print(y)  # Prints &quot;[[ 2  2  4]</span><br><span class="line">          #          [ 5  5  7]</span><br><span class="line">          #          [ 8  8 10]</span><br><span class="line">          #          [11 11 13]]&quot;</span><br></pre></td></tr></table></figure>
+<p>线路 <code>y = x + v</code>尽管有效 <code>x</code>有形状 <code>(4, 3)</code>和 <code>v</code>有形状 <code>(3,)</code>由于广播； 这条线的工作原理就像 <code>v</code>实际上有形状 <code>(4, 3)</code>, 其中每一行都是一个副本 <code>v</code>，并且按元素求和。</p>
+<p>一起广播两个数组遵循以下规则：</p>
+<ol type="1">
+<li>如果数组没有相同的秩，则在前面添加较低秩数组的形状 1s 直到两个形状具有相同的长度。</li>
+<li>如果两个数组具有相同的维度，则称 <em>兼容</em> 它们在维度上 维度中的大小，或者如果其中一个数组在该维度中的大小为 1。</li>
+<li>如果数组在所有维度上都兼容，则可以一起广播。</li>
+<li>广播后，每个数组的行为就好像它的形状等于元素方向 两个输入数组的形状的最大值。</li>
+<li>在一个数组的大小为 1 而另一个数组的大小大于 1 的任何维度中， 第一个数组的行为就好像它是沿着该维度复制的</li>
+</ol>
+<p>一些应用</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line"></span><br><span class="line"># Compute outer product of vectors</span><br><span class="line">v = np.array([1,2,3])  # v has shape (3,)</span><br><span class="line">w = np.array([4,5])    # w has shape (2,)</span><br><span class="line"># To compute an outer product, we first reshape v to be a column</span><br><span class="line"># vector of shape (3, 1); we can then broadcast it against w to yield</span><br><span class="line"># an output of shape (3, 2), which is the outer product of v and w:</span><br><span class="line"># [[ 4  5]</span><br><span class="line">#  [ 8 10]</span><br><span class="line">#  [12 15]]</span><br><span class="line">print(np.reshape(v, (3, 1)) * w)</span><br><span class="line"></span><br><span class="line"># Add a vector to each row of a matrix</span><br><span class="line">x = np.array([[1,2,3], [4,5,6]])</span><br><span class="line"># x has shape (2, 3) and v has shape (3,) so they broadcast to (2, 3),</span><br><span class="line"># giving the following matrix:</span><br><span class="line"># [[2 4 6]</span><br><span class="line">#  [5 7 9]]</span><br><span class="line">print(x + v)</span><br><span class="line"></span><br><span class="line"># Add a vector to each column of a matrix</span><br><span class="line"># x has shape (2, 3) and w has shape (2,).</span><br><span class="line"># If we transpose x then it has shape (3, 2) and can be broadcast</span><br><span class="line"># against w to yield a result of shape (3, 2); transposing this result</span><br><span class="line"># yields the final result of shape (2, 3) which is the matrix x with</span><br><span class="line"># the vector w added to each column. Gives the following matrix:</span><br><span class="line"># [[ 5  6  7]</span><br><span class="line">#  [ 9 10 11]]</span><br><span class="line">print((x.T + w).T)</span><br><span class="line"># Another solution is to reshape w to be a column vector of shape (2, 1);</span><br><span class="line"># we can then broadcast it directly against x to produce the same</span><br><span class="line"># output.</span><br><span class="line">print(x + np.reshape(w, (2, 1)))</span><br><span class="line"></span><br><span class="line"># Multiply a matrix by a constant:</span><br><span class="line"># x has shape (2, 3). Numpy treats scalars as arrays of shape ();</span><br><span class="line"># these can be broadcast together to shape (2, 3), producing the</span><br><span class="line"># following array:</span><br><span class="line"># [[ 2  4  6]</span><br><span class="line">#  [ 8 10 12]]</span><br><span class="line">print(x * 2)</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>课程笔记</category>
+        <category>数据科学</category>
+      </categories>
+      <tags>
+        <tag>伯克利</tag>
+        <tag>课程笔记</tag>
+        <tag>python</tag>
+        <tag>数据科学</tag>
+        <tag>pandas</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>基于伯克利Sysadmin decal的linux笔记</title>
     <url>/2023/10/12/sysadmin/</url>
     <content><![CDATA[<h1 id="shell脚本">shell脚本</h1>
@@ -1648,70 +1712,6 @@ val（r1，c1）&lt; val（r1，c2）≤ val（r2，c2）&lt; val（r2，c1）<b
         <tag>课程笔记</tag>
         <tag>linux</tag>
         <tag>系统管理</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>基于伯克利ds100和cs231n的numpy笔记</title>
-    <url>/2023/10/09/numpy/</url>
-    <content><![CDATA[<p><a href="http://www.numpy.org/">Numpy</a> 是 Python 中科学计算的核心库。 它提供了高性能的多维数组对象以及使用这些对象的工具 数组。</p>
-<h2 id="数组">数组</h2>
-<p>numpy 数组是一个值网格，所有值都具有相同的类型，并由非负整数组成的元组索引。 它的维度就是数组的秩 ；它的shape就是每个维度的大小组成的元组 <span id="more"></span> <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">b = np.array([[1,2,3],[4,5,6]])    # Create a rank 2 array</span><br><span class="line">print(b.shape)                     # Prints &quot;(2, 3)&quot;</span><br><span class="line">print(b[0, 0], b[0, 1], b[1, 0])   # Prints &quot;1 2 4&quot;</span><br></pre></td></tr></table></figure></p>
-<p><a href="https://numpy.org/doc/stable/user/basics.creation.html#arrays-creation">官方数组创建教程</a> <a href="http://ds100.org/fa17/assets/notebooks/numpy/Numpy_Review.html">ds100的numpy教程</a> <a href="https://cs231n.github.io/python-numpy-tutorial/#numpy">cs231n的python numpy教程</a></p>
-<h3 id="创建数组的方法">创建数组的方法</h3>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt;np.array([[1.,2.], [3.,4.]])</span><br><span class="line"></span><br><span class="line">array([[ 1.,  2.],</span><br><span class="line">       [ 3.,  4.]])</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt;np.array([x for x in range(5)])</span><br><span class="line"></span><br><span class="line">array([0, 1, 2, 3, 4])</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt;np.array([[&quot;A&quot;, &quot;matrix&quot;], [&quot;of&quot;, &quot;words.&quot;]])</span><br><span class="line"></span><br><span class="line">array([[&#x27;A&#x27;, &#x27;matrix&#x27;],</span><br><span class="line">       [&#x27;of&#x27;, &#x27;words.&#x27;]], </span><br><span class="line">      dtype=&#x27;&lt;U6&#x27;)</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt;np.ones([3,2])</span><br><span class="line"></span><br><span class="line">array([[ 1.,  1.],</span><br><span class="line">       [ 1.,  1.],</span><br><span class="line">       [ 1.,  1.]])</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt;np.random.randn(3,2)</span><br><span class="line"></span><br><span class="line">array([[ 0.3601399 ,  1.31206686],</span><br><span class="line">       [-0.95112397,  0.62475726],</span><br><span class="line">       [-1.24179768,  1.63392069]])</span><br><span class="line">       </span><br></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt;c = np.full((2,2), 7)  # Create a constant array</span><br><span class="line">print(c)               # Prints &quot;[[ 7.  7.]</span><br><span class="line">                       #          [ 7.  7.]]&quot;</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt;d = np.eye(2)         # Create a 2x2 identity matrix</span><br><span class="line">print(d)              # Prints &quot;[[ 1.  0.]</span><br><span class="line">                      #          [ 0.  1.]]&quot;</span><br></pre></td></tr></table></figure>
-<h3 id="数组属性">数组属性</h3>
-<ul>
-<li>dtype</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt;np.arange(1,5).dtype</span><br><span class="line"></span><br><span class="line">dtype(&#x27;int64&#x27;)</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt;np.array([&quot;Hello&quot;, &quot;Worlddddd!&quot;]).dtype</span><br><span class="line"></span><br><span class="line">dtype(&#x27;&lt;U10&#x27;)</span><br><span class="line">/*</span><br><span class="line">What does `&lt;U6` mean?</span><br><span class="line">- `&lt;` Little Endian</span><br><span class="line">- `U` Unicode</span><br><span class="line">- `6` length of longest string</span><br><span class="line">*/</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; np.array([1,2,3]).astype(float)</span><br><span class="line"></span><br><span class="line">array([ 1.,  2.,  3.])</span><br></pre></td></tr></table></figure>
-<p>数组的类型与其包含的数据类型相对应,可以用.astype改变类型</p>
-<h3 id="数组编辑">数组编辑</h3>
-<h4 id="重组和展开">重组和展开</h4>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt;np.arange(1,13).reshape(4,3)</span><br><span class="line"></span><br><span class="line">array([[ 1,  2,  3],</span><br><span class="line">       [ 4,  5,  6],</span><br><span class="line">       [ 7,  8,  9],</span><br><span class="line">       [10, 11, 12]])</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt;A.flatten()</span><br><span class="line">array([ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12])</span><br></pre></td></tr></table></figure>
-<h4 id="切片索引和整数索引">切片索引和整数索引</h4>
-<p>切片时，第一个参数是行，第二个是列，切片形成的是对原来数组的引用，修改子数组也会影响原数组</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># Create the following rank 2 array with shape (3, 4)</span><br><span class="line"># [[ 1  2  3  4]</span><br><span class="line">#  [ 5  6  7  8]</span><br><span class="line">#  [ 9 10 11 12]]</span><br><span class="line">a = np.array([[1,2,3,4], [5,6,7,8], [9,10,11,12]])</span><br><span class="line"></span><br><span class="line"># Use slicing to pull out the subarray consisting of the first 2 rows</span><br><span class="line"># and columns 1 and 2; b is the following array of shape (2, 2):</span><br><span class="line"># [[2 3]</span><br><span class="line">#  [6 7]]</span><br><span class="line">b = a[:2, 1:3]</span><br><span class="line"></span><br><span class="line"># A slice of an array is a view into the same data, so modifying it</span><br><span class="line"># will modify the original array.</span><br><span class="line">print(a[0, 1])   # Prints &quot;2&quot;</span><br><span class="line">b[0, 0] = 77     # b[0, 0] is the same piece of data as a[0, 1]</span><br><span class="line">print(a[0, 1])   # Prints &quot;77&quot;</span><br></pre></td></tr></table></figure>
-<p>可以混合整数索引和切片索引，这样做会产生一个比原始数组的秩更低的数组</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># Create the following rank 2 array with shape (3, 4)</span><br><span class="line"># [[ 1  2  3  4]</span><br><span class="line">#  [ 5  6  7  8]</span><br><span class="line">#  [ 9 10 11 12]]</span><br><span class="line">a = np.array([[1,2,3,4], [5,6,7,8], [9,10,11,12]])</span><br><span class="line"></span><br><span class="line"># Two ways of accessing the data in the middle row of the array.</span><br><span class="line"># Mixing integer indexing with slices yields an array of lower rank,</span><br><span class="line"># while using only slices yields an array of the same rank as the</span><br><span class="line"># original array:</span><br><span class="line">row_r1 = a[1, :]    # Rank 1 view of the second row of a</span><br><span class="line">row_r2 = a[1:2, :]  # Rank 2 view of the second row of a</span><br><span class="line">print(row_r1, row_r1.shape)  # Prints &quot;[5 6 7 8] (4,)&quot;</span><br><span class="line">print(row_r2, row_r2.shape)  # Prints &quot;[[5 6 7 8]] (1, 4)&quot;</span><br><span class="line"></span><br><span class="line"># We can make the same distinction when accessing columns of an array:</span><br><span class="line">col_r1 = a[:, 1]</span><br><span class="line">col_r2 = a[:, 1:2]</span><br><span class="line">print(col_r1, col_r1.shape)  # Prints &quot;[ 2  6 10] (3,)&quot;</span><br><span class="line">print(col_r2, col_r2.shape)  # Prints &quot;[[ 2]</span><br><span class="line">                             #          [ 6]</span><br><span class="line">                             #          [10]] (3, 1)&quot;</span><br></pre></td></tr></table></figure>
-<p>整数数组 索引允许你使用另一个数组的数据构造任意数组 大批。 这是一个例子：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line"></span><br><span class="line">a = np.array([[1,2], [3, 4], [5, 6]])</span><br><span class="line"></span><br><span class="line"># An example of integer array indexing.</span><br><span class="line"># The returned array will have shape (3,) and</span><br><span class="line">print(a[[0, 1, 2], [0, 1, 0]])  # Prints &quot;[1 4 5]&quot;</span><br><span class="line"></span><br><span class="line"># The above example of integer array indexing is equivalent to this:</span><br><span class="line">print(np.array([a[0, 0], a[1, 1], a[2, 0]]))  # Prints &quot;[1 4 5]&quot;</span><br><span class="line"></span><br><span class="line"># When using integer array indexing, you can reuse the same</span><br><span class="line"># element from the source array:</span><br><span class="line">print(a[[0, 0], [1, 1]])  # Prints &quot;[2 2]&quot;</span><br><span class="line"></span><br><span class="line"># Equivalent to the previous integer array indexing example</span><br><span class="line">print(np.array([a[0, 1], a[0, 1]]))  # Prints &quot;[2 2]&quot;</span><br></pre></td></tr></table></figure>
-<p>可以用整数数组索引修改数组部分值</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line"></span><br><span class="line"># Create a new array from which we will select elements</span><br><span class="line">a = np.array([[1,2,3], [4,5,6], [7,8,9], [10, 11, 12]])</span><br><span class="line"></span><br><span class="line">print(a)  # prints &quot;array([[ 1,  2,  3],</span><br><span class="line">          #                [ 4,  5,  6],</span><br><span class="line">          #                [ 7,  8,  9],</span><br><span class="line">          #                [10, 11, 12]])&quot;</span><br><span class="line"></span><br><span class="line"># Create an array of indices</span><br><span class="line">b = np.array([0, 2, 0, 1])</span><br><span class="line"></span><br><span class="line"># Select one element from each row of a using the indices in b</span><br><span class="line">print(a[np.arange(4), b])  # Prints &quot;[ 1  6  7 11]&quot;</span><br><span class="line"></span><br><span class="line"># Mutate one element from each row of a using the indices in b</span><br><span class="line">a[np.arange(4), b] += 10</span><br><span class="line"></span><br><span class="line">print(a)  # prints &quot;array([[11,  2,  3],</span><br><span class="line">          #                [ 4,  5, 16],</span><br><span class="line">          #                [17,  8,  9],</span><br><span class="line">          #                [10, 21, 12]])</span><br></pre></td></tr></table></figure>
-<h4 id="数组的数学运算">数组的数学运算</h4>
-<p>numpy 提供的数学函数的完整列表 <a href="http://docs.scipy.org/doc/numpy/reference/routines.math.html">文档</a> Numpy 提供了更多用于操作数组的函数； 完整的列表 <a href="http://docs.scipy.org/doc/numpy/reference/routines.array-manipulation.html">文档</a></p>
-<p>Numpy 提供了许多有用的函数来执行计算 数组； 最有用的之一是 <code>sum</code>:</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line"></span><br><span class="line">x = np.array([[1,2],[3,4]])</span><br><span class="line"></span><br><span class="line">print(np.sum(x))  # Compute sum of all elements; prints &quot;10&quot;</span><br><span class="line">print(np.sum(x, axis=0))  # Compute sum of each column; prints &quot;[4 6]&quot;</span><br><span class="line">print(np.sum(x, axis=1))  # Compute sum of each row; prints &quot;[3 7]&quot;</span><br></pre></td></tr></table></figure>
-<p>转置矩阵， 只需使用 <code>T</code>数组对象的属性：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line"></span><br><span class="line">x = np.array([[1,2], [3,4]])</span><br><span class="line">print(x)    # Prints &quot;[[1 2]</span><br><span class="line">            #          [3 4]]&quot;</span><br><span class="line">print(x.T)  # Prints &quot;[[1 3]</span><br><span class="line">            #          [2 4]]&quot;</span><br><span class="line"></span><br><span class="line"># Note that taking the transpose of a rank 1 array does nothing:</span><br><span class="line">v = np.array([1,2,3])</span><br><span class="line">print(v)    # Prints &quot;[1 2 3]&quot;</span><br><span class="line">print(v.T)  # Prints &quot;[1 2 3]&quot;</span><br></pre></td></tr></table></figure>
-<h3 id="广播">广播</h3>
-<p>我们有一个较小的数组和一个 较大的数组，并且我们想多次使用较小的数组来执行某些操作 在更大的阵列上。</p>
-<p>例如，假设我们要向每个添加一个常数向量 矩阵的行。 我们可以这样做：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line"></span><br><span class="line"># We will add the vector v to each row of the matrix x,</span><br><span class="line"># storing the result in the matrix y</span><br><span class="line">x = np.array([[1,2,3], [4,5,6], [7,8,9], [10, 11, 12]])</span><br><span class="line">v = np.array([1, 0, 1])</span><br><span class="line">y = np.empty_like(x)   # Create an empty matrix with the same shape as x</span><br><span class="line"></span><br><span class="line"># Add the vector v to each row of the matrix x with an explicit loop</span><br><span class="line">for i in range(4):</span><br><span class="line">    y[i, :] = x[i, :] + v</span><br><span class="line"></span><br><span class="line"># Now y is the following</span><br><span class="line"># [[ 2  2  4]</span><br><span class="line">#  [ 5  5  7]</span><br><span class="line">#  [ 8  8 10]</span><br><span class="line">#  [11 11 13]]</span><br><span class="line">print(y)</span><br></pre></td></tr></table></figure>
-<p>Numpy 广播允许我们执行此计算，而无需实际执行 创建多个副本 <code>v</code>。 考虑这个版本，使用广播：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line"></span><br><span class="line"># We will add the vector v to each row of the matrix x,</span><br><span class="line"># storing the result in the matrix y</span><br><span class="line">x = np.array([[1,2,3], [4,5,6], [7,8,9], [10, 11, 12]])</span><br><span class="line">v = np.array([1, 0, 1])</span><br><span class="line">y = x + v  # Add v to each row of x using broadcasting</span><br><span class="line">print(y)  # Prints &quot;[[ 2  2  4]</span><br><span class="line">          #          [ 5  5  7]</span><br><span class="line">          #          [ 8  8 10]</span><br><span class="line">          #          [11 11 13]]&quot;</span><br></pre></td></tr></table></figure>
-<p>线路 <code>y = x + v</code>尽管有效 <code>x</code>有形状 <code>(4, 3)</code>和 <code>v</code>有形状 <code>(3,)</code>由于广播； 这条线的工作原理就像 <code>v</code>实际上有形状 <code>(4, 3)</code>, 其中每一行都是一个副本 <code>v</code>，并且按元素求和。</p>
-<p>一起广播两个数组遵循以下规则：</p>
-<ol type="1">
-<li>如果数组没有相同的秩，则在前面添加较低秩数组的形状 1s 直到两个形状具有相同的长度。</li>
-<li>如果两个数组具有相同的维度，则称 <em>兼容</em> 它们在维度上 维度中的大小，或者如果其中一个数组在该维度中的大小为 1。</li>
-<li>如果数组在所有维度上都兼容，则可以一起广播。</li>
-<li>广播后，每个数组的行为就好像它的形状等于元素方向 两个输入数组的形状的最大值。</li>
-<li>在一个数组的大小为 1 而另一个数组的大小大于 1 的任何维度中， 第一个数组的行为就好像它是沿着该维度复制的</li>
-</ol>
-<p>一些应用</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line"></span><br><span class="line"># Compute outer product of vectors</span><br><span class="line">v = np.array([1,2,3])  # v has shape (3,)</span><br><span class="line">w = np.array([4,5])    # w has shape (2,)</span><br><span class="line"># To compute an outer product, we first reshape v to be a column</span><br><span class="line"># vector of shape (3, 1); we can then broadcast it against w to yield</span><br><span class="line"># an output of shape (3, 2), which is the outer product of v and w:</span><br><span class="line"># [[ 4  5]</span><br><span class="line">#  [ 8 10]</span><br><span class="line">#  [12 15]]</span><br><span class="line">print(np.reshape(v, (3, 1)) * w)</span><br><span class="line"></span><br><span class="line"># Add a vector to each row of a matrix</span><br><span class="line">x = np.array([[1,2,3], [4,5,6]])</span><br><span class="line"># x has shape (2, 3) and v has shape (3,) so they broadcast to (2, 3),</span><br><span class="line"># giving the following matrix:</span><br><span class="line"># [[2 4 6]</span><br><span class="line">#  [5 7 9]]</span><br><span class="line">print(x + v)</span><br><span class="line"></span><br><span class="line"># Add a vector to each column of a matrix</span><br><span class="line"># x has shape (2, 3) and w has shape (2,).</span><br><span class="line"># If we transpose x then it has shape (3, 2) and can be broadcast</span><br><span class="line"># against w to yield a result of shape (3, 2); transposing this result</span><br><span class="line"># yields the final result of shape (2, 3) which is the matrix x with</span><br><span class="line"># the vector w added to each column. Gives the following matrix:</span><br><span class="line"># [[ 5  6  7]</span><br><span class="line">#  [ 9 10 11]]</span><br><span class="line">print((x.T + w).T)</span><br><span class="line"># Another solution is to reshape w to be a column vector of shape (2, 1);</span><br><span class="line"># we can then broadcast it directly against x to produce the same</span><br><span class="line"># output.</span><br><span class="line">print(x + np.reshape(w, (2, 1)))</span><br><span class="line"></span><br><span class="line"># Multiply a matrix by a constant:</span><br><span class="line"># x has shape (2, 3). Numpy treats scalars as arrays of shape ();</span><br><span class="line"># these can be broadcast together to shape (2, 3), producing the</span><br><span class="line"># following array:</span><br><span class="line"># [[ 2  4  6]</span><br><span class="line">#  [ 8 10 12]]</span><br><span class="line">print(x * 2)</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>课程笔记</category>
-        <category>数据科学</category>
-      </categories>
-      <tags>
-        <tag>伯克利</tag>
-        <tag>课程笔记</tag>
-        <tag>python</tag>
-        <tag>数据科学</tag>
-        <tag>pandas</tag>
       </tags>
   </entry>
   <entry>
@@ -4435,6 +4435,20 @@ Name: people_house_proportion, dtype: float64</code></pre>
       </tags>
   </entry>
   <entry>
+    <title>游戏简评</title>
+    <url>/2023/09/30/%E6%B8%B8%E6%88%8F%E7%AE%80%E8%AF%84/</url>
+    <content><![CDATA[<h1 id="被封锁的涩谷">428被封锁的涩谷</h1>
+<p>希腊神话将命运女神履行职能的过程写作织网，这无疑是一种极为贴切的比喻，对网状结构来说，在中心处的轻轻一拨，边缘处就是极大的震动，越是深入核心，就越是复杂，但所有分支无论看上去多么没有规律，最后都会收束到中心网点，我想这就是428的编剧想实现的叙事结构。 <span id="more"></span> 这样的结构需要极致的严谨和巨大的工作量，正如正统的本格派推理一样丝丝入扣，同时还要维持各个部分的信息量尽量均布，各个网点处都有关键悬念留待读者，但，他们做到了，7位主角的命运与城市里大大小小配角的命运，就这样纠缠在一起，并收束到了一个巨大的阴谋上，更令人称奇的是，尽管使用了这样的结构，制作组仍然做到了悬念的均布，几乎没有出现信息量失衡的情况。 于是，玩家得以在4月28日的涩谷当一天的命运女神，只要在一个个节点上轻轻拨正些许紊乱的蛛丝，蛛丝就会自然而然地化为网状，事实上没有我说的这么轻松，因为这些命运的线条起初似乎是绕成一团，理清它们的过程也少不了误解和错误。 为了确保这个过程的顺畅，85个bad end大部分都有提示，以每一小时为节点，只有理清一小时内的所有事件，命运才能向前推进，起初似乎是一些不成规律的线，但逐渐就开始交错，纠缠，而作为有着神力的玩家，只需要制造一些偶然，改变一两个小小的决定就能够造成一连串的蝴蝶效应。 对这种操控命运的讨论很容易回到一些宿命论的思潮上来，幸运的是428的编剧在这个方面却有着很积极的态度，于是在结局，命运的线条汇聚在一起，无数偶然交错下，产生的必然却孕育着希望，尽管多少有些日式的大团圆味道，但流露出的价值观确实积极的。 如果说这样精巧的叙事结构有没有问题，那么当然也是有的，叙事必须依靠逻辑的支撑，如此庞大的网状结构，逻辑当然不可能天衣无缝，事实上依然有很多巧合和偶然，为了配合结构的需要，甚至部分主角也免不了当工具人，但你很难对此苛责什么，通过有限的角色实现如此复杂的剧本，不免要让一些角色承担过多的推进剧情的作用，相对来说编剧已经做得很不错了。 此外的问题是大部分日式游戏难免的幼稚气，叙事结构是精巧且充满悬念的，但一些抒情节点，以及一些过度夸张以至于模板化的人物性格，依然为其减色不少。不过我也能理解编剧，毕竟这种精密的结构确实很难填补完全恰如其分的内容 总的来说428在叙事结构方面可以说是当今电子游戏的最高峰水平，尽管它的其他部分可能只是优秀或者不错的程度，依旧是一款剧情类的神作</p>
+]]></content>
+      <categories>
+        <category>游戏杂谈</category>
+        <category>其他游戏</category>
+      </categories>
+      <tags>
+        <tag>游戏杂谈</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>基于苏大ppt的计算机硬件笔记</title>
     <url>/2023/09/29/%E7%A1%AC%E4%BB%B6%E6%80%BB%E5%92%8C%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<p>`冯·诺依曼计算机特点<br />
@@ -5246,20 +5260,6 @@ Inexpensive Disk）由美国加州大学伯克利分校提出。<br />
       </tags>
   </entry>
   <entry>
-    <title>游戏简评</title>
-    <url>/2023/09/30/%E6%B8%B8%E6%88%8F%E7%AE%80%E8%AF%84/</url>
-    <content><![CDATA[<h1 id="被封锁的涩谷">428被封锁的涩谷</h1>
-<p>希腊神话将命运女神履行职能的过程写作织网，这无疑是一种极为贴切的比喻，对网状结构来说，在中心处的轻轻一拨，边缘处就是极大的震动，越是深入核心，就越是复杂，但所有分支无论看上去多么没有规律，最后都会收束到中心网点，我想这就是428的编剧想实现的叙事结构。 <span id="more"></span> 这样的结构需要极致的严谨和巨大的工作量，正如正统的本格派推理一样丝丝入扣，同时还要维持各个部分的信息量尽量均布，各个网点处都有关键悬念留待读者，但，他们做到了，7位主角的命运与城市里大大小小配角的命运，就这样纠缠在一起，并收束到了一个巨大的阴谋上，更令人称奇的是，尽管使用了这样的结构，制作组仍然做到了悬念的均布，几乎没有出现信息量失衡的情况。 于是，玩家得以在4月28日的涩谷当一天的命运女神，只要在一个个节点上轻轻拨正些许紊乱的蛛丝，蛛丝就会自然而然地化为网状，事实上没有我说的这么轻松，因为这些命运的线条起初似乎是绕成一团，理清它们的过程也少不了误解和错误。 为了确保这个过程的顺畅，85个bad end大部分都有提示，以每一小时为节点，只有理清一小时内的所有事件，命运才能向前推进，起初似乎是一些不成规律的线，但逐渐就开始交错，纠缠，而作为有着神力的玩家，只需要制造一些偶然，改变一两个小小的决定就能够造成一连串的蝴蝶效应。 对这种操控命运的讨论很容易回到一些宿命论的思潮上来，幸运的是428的编剧在这个方面却有着很积极的态度，于是在结局，命运的线条汇聚在一起，无数偶然交错下，产生的必然却孕育着希望，尽管多少有些日式的大团圆味道，但流露出的价值观确实积极的。 如果说这样精巧的叙事结构有没有问题，那么当然也是有的，叙事必须依靠逻辑的支撑，如此庞大的网状结构，逻辑当然不可能天衣无缝，事实上依然有很多巧合和偶然，为了配合结构的需要，甚至部分主角也免不了当工具人，但你很难对此苛责什么，通过有限的角色实现如此复杂的剧本，不免要让一些角色承担过多的推进剧情的作用，相对来说编剧已经做得很不错了。 此外的问题是大部分日式游戏难免的幼稚气，叙事结构是精巧且充满悬念的，但一些抒情节点，以及一些过度夸张以至于模板化的人物性格，依然为其减色不少。不过我也能理解编剧，毕竟这种精密的结构确实很难填补完全恰如其分的内容 总的来说428在叙事结构方面可以说是当今电子游戏的最高峰水平，尽管它的其他部分可能只是优秀或者不错的程度，依旧是一款剧情类的神作</p>
-]]></content>
-      <categories>
-        <category>游戏杂谈</category>
-        <category>其他游戏</category>
-      </categories>
-      <tags>
-        <tag>游戏杂谈</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>爱丽丝的回忆</title>
     <url>/2023/09/28/%E7%A7%98%E5%AF%861/</url>
     <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="縺ｫ縺ｯ繧｢繝ｪ繧ｹ縺励" data-whm="縺ｫ縺ｯ繧｢繝ｪ繧ｹ縺励">
@@ -5355,6 +5355,60 @@ Inexpensive Disk）由美国加州大学伯克利分校提出。<br />
       </tags>
   </entry>
   <entry>
+    <title>迪瑞克拉世界观设定集</title>
+    <url>/2023/09/29/%E8%BF%AA%E7%91%9E%E5%85%8B%E6%8B%89%E4%B8%96%E7%95%8C%E8%A7%82/</url>
+    <content><![CDATA[<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">起初，世界是一团思索，它向所有的方向迈了一步，于是万物由此而生……</span><br></pre></td></tr></table></figure>
+<p>这是邪神辛克莱温教徒传颂的创世神话，也是目前为止我们所知最早的创世神话，可以说后世诸多关于创世的传说都有它的影子。 <span id="more"></span></p>
+<p>邪神辛克莱温的信徒有着自己的语言，这种符号文字晦涩难懂，虽然给传播教义造成了困难，却成为维系着邪神教绵延几千年信仰的纽带。 邪神辛克莱温是……</p>
+<p>——选自帝国学者载丝莉《邪神起源探究》</p>
+<h2 id="克雷多斯族">克雷多斯族</h2>
+<pre><code>      平庸是进化论所给我们最后的仁慈——帝国医学教科书扉页</code></pre>
+<p>奥诺斯是社会达尔文主义者的神，他的教义就是物竞天择，适者生存，让优秀的种族淘汰低劣的种族。放到现在他肯定会被当做邪神。奥诺斯创造过很多种族，大部分在穷兵黩武中走向了灭亡，然而其中有一个民族最为他所垂青——克雷多斯族。这一种族刚出现时平平无奇，但他们的眼中只有强者，尊严的力量促使着他们不断发挥着潜力，追逐着比自己强大无数倍的敌人。他们逐渐走向强盛，但后来因为自相残杀导致族人寥寥无几。这时，一位天才创造出了一种把他们一分为二的方法，以此来把自己当做对手，起初，克雷多斯族凭借这一方法几乎成为世界上最令人恐惧的种族，深深地让奥诺斯感到自豪。然而，在与自己的斗争中，有的族人学会了“阴谋”，将另一个自己与其他敌人算计致死，有的人学会了“隐忍”，进而学会了妥协与认输，最终，他们都选择了“平庸”。为了心爱的子民惋惜不止的奥诺斯神来到了最后一个保持着绝对尊严的战士面前：</p>
+<p>“我也给予你选择平庸的权利。”</p>
+<p>“你要我变得和他们一样吗?绝不！！！”</p>
+<p>战士怒吼着冲向了最后一个对手。从此，奥诺斯和他的战士消失于迪瑞克拉世界。</p>
+<h2 id="沉默峡谷">沉默峡谷</h2>
+<p>沉默不是逃避，而是一种选择——沉默沼泽路牌上的涂鸦</p>
+<p>沉默峡谷被命名并正式标在官方地图上是帝国历387年的事了，在此之前它只是个普通的荒凉之处而已，当然，还是偶尔进入的旅客发现这里——但他们有的没能走出来，有的在出来后被别人或自己当成了疯子。</p>
+<p>沉默峡谷的土壤和两侧的山岩有种特殊的性质，能几乎把所有的声音消除，巴比伦塔的学者曾对此展开研究，然而他们一无所获。除此以外，沉默峡谷就是个普通的荒凉峡谷，稀疏的杂草养不出大型动物，对一个经验丰富的旅行者而言，找到水源，辨别方向和驱散毒虫都不算难 ——只要他能忍受无尽的沉默</p>
+<p>在被载入地图后，这里逐渐成了修士的圣地，当然，也有人进去后再也没有出来</p>
+<h2 id="幻影沼泽">幻影沼泽</h2>
+<p>警告！魔术师慎入！</p>
+<p>这是沉默峡谷一处著名的景点，和峡谷本身一样，这里也几乎没什么异常，对有防备的旅行者而言并没什么危险。传说中一位善于擅长表演幻影魔术的魔术师来到这里时，将自己当做了幻影，而把幻影当成了真实。于是他迷失在这里，将此处化成了一片沼泽，如果一位有真才实学的魔术师来到这里，那么他绝对无法精神正常地离开，尽管对其他人而言，这里能看到的异象仅仅是偶尔出现魔术师忧郁的身影而已。</p>
+<h2 id="沉默王国">沉默王国</h2>
+<p>………………………………</p>
+<p>沉默王国一直是个传说，一开始只是有少数人怀疑那些进了峡谷再没有出来的人到底去了哪里？这些怀疑逐渐被时间埋葬，直到帝国标记了沉默峡谷的存在导致一批旅行者来此游览，，有些旅行家发现了沉默王国的存在，很难想象一个王国会存在于荒野，事实上，那里只是寥寥几个人的聚居处。住民们给了旅行家一些食物和饮水，并为他指明了道路，从始至终，他们都带着沉默，从未试图张开嘴唇过。</p>
+<p>此后又陆陆续续地出现了类似住民目击报告，但都被帝国封锁，最终，这一切成为了传说或是怪谈，奇怪的是，帝国似乎对此颇为忌惮，从此以后沉默峡谷再也没有出现在官方文件上过。</p>
+<p>我们认为那些住民的存在涉及了达瑞克拉世界的源论，可以肯定那是一些向往沉默的人，不知何时他们聚集起来，用各自的思虑创造了一个无声的世界——或许跟0号研究所揭示的结果一致，这十分危险，一旦被人们知道，达瑞克拉世界或许会因此毁灭。</p>
+<pre><code>                                 ——《关于沉默王国的报告》</code></pre>
+<h2 id="号研究所">0号研究所</h2>
+<p>我思故我在，我在故我思。——帝国哲学家卡尔迪</p>
+<p>0号研究是科学组织浮士德所进行的一场实验，没错，与大多数我同事的想法相反，它并不是个邪教组织，从同行的角度来说，我很佩服他们的开创性。</p>
+<p>0号研究所本是个普通的小镇，如果不是那件事的发生，我们永远不会知道这里曾发生过这样的实验。</p>
+<p>帝国的审讯所抓到过一个浮士德的高层，今天他们终于设法让他开口了，由此我们终于知道他们是怎么进行实验的。首先，小镇只是出现了一些以屠戮人民，掠夺财物为乐的人，他们穿着迥异的衣服，却意外有着纯正的当地口音，经过一番协力，这些人不久就被送上了断头台。</p>
+<p>奇怪的是，他们面对死亡毫无畏惧，自称“玩家”的他们发出了下次进犯的预告，然后在断头台上化成白光消失了。</p>
+<p>当天，一切有关他们的消息被政府封锁，几乎同时不少“智者”跳了，要求让民众得知真相，惴惴不安中，很多小册子在民众中传阅——上面说这个世界只是虚构，完全为了让那些玩家取乐而存在（至于为何能让民众了解虚幻的概念，或许浮士德的教育机制还是挺有成效的）</p>
+<p>第二天，更多所谓的“玩家从天而降”，所有住民都陷入了绝望与怀疑，就在这时我们所知的异变发生了，没人知道这是怎么做到的，但整个克罗利安镇就这么化为一片混沌之地，我们的不少调查员在第一眼看到它的遗址时就发疯了——我们没人知道为什么。</p>
+<p>现在那里应该已经封闭了，我的建议是，永远封闭下去，或许邪神辛克莱温是对的，这个世界确实由我们的思想决定。我希望所有人都能对此提高警惕，永远不要让类似的事故重演</p>
+<h2 id="帕斯卡王国">帕斯卡王国</h2>
+<p>世上哪有不建立在剥削上的幸福？</p>
+<p>帝国前36年，在正片大陆一个名不见经传的角落有一个小国，这个国家物资贫瘠，人口稀疏，尽管气候不算恶劣，但人民常常处于食不果腹的状态。</p>
+<p>国王帕列斯是位平庸的君主，他的儿子——王子恩西斯却是位有想法的年轻人，尽管刚刚成年，他已经开始思索如何壮大自己的国家，这位王子曾经游学诸国，每次看到国民因营养不良而矮小纤弱的身材，他都会在心中发誓一定要找到让子民过上幸福快乐生活的方法</p>
+<p>有一天，他带着这个愿望，带着几位侍从出门远行，在一番艰难跋涉后，王子在荒野中迷路了，他仿徨了几天，终于有一天他发现了一个村落</p>
+<p>这个村落贫瘠弱小，王子注意到他们大量以烤制生肉，野菜，甚至昆虫而食，他们没有国王或者地位高于其他居民的人，尽管如此，他们的脸上却常常洋溢着笑容</p>
+<p>王子作为外来人并没有对这些野人产生太多影响，于是他也学着野人的样子，用茅草和树枝搭起简易的居所，尝试融入野人的生活</p>
+<p>一个月后，当国王派出的宫廷军顺着王子迷路时留下的标记找到他时，王子正喃喃自语道：我要找到的道路，就在这里啊</p>
+<p>归国后几月，王子继位成为了国王，他实现了自己的诺言，在他的治理下，他的子民过上了物质丰富，精神充足的生活——凭借着王子制定并实现的驯养土著成为奴隶的方法。建立帕索斯帝国后五年，王子临终，面对伏在病榻前痛苦的子孙，他淡淡地说：他们以前就没有国王，以后也不会有吧。随后他保持着沉默，任凭御医记录他由有到无的脉搏直至最后</p>
+<p>帝国历364年，历经三百年的不懈斗争，萨曼人杰出的领袖终于为族人争取到了自由，帝国，这一最先实现奴隶制的国家，最终成为了民主共和的起源…… ——《帝国通史》</p>
+]]></content>
+      <categories>
+        <category>迪瑞克拉</category>
+      </categories>
+      <tags>
+        <tag>迪瑞克拉</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>迪瑞克拉世界观轶事集</title>
     <url>/2023/09/29/%E8%BF%AA%E7%91%9E%E5%85%8B%E6%8B%89%E8%BD%B6%E4%BA%8B%E9%9B%86/</url>
     <content><![CDATA[<h2 id="泰特斯">泰特斯</h2>
@@ -5406,60 +5460,6 @@ Inexpensive Disk）由美国加州大学伯克利分校提出。<br />
 <p>“结账，他那杯也算我的”占卜师指着中年男人桌上的酒，向服务员喊道。</p>
 <p>占卜师离开酒吧的背影显得并不年轻，“我是他的第几个客户？”中年男人想到。</p>
 <p>中年人从此再也没有喝过酒，一年后，一种以果汁为主成分的硬饮料在帝国风靡一时，中年人在一次应酬中举起了一杯苹果汁，当他察觉到一丝酒味后已经晚了，作为一个厌恶半途而废的男人，他选择一饮而尽，随后咽了气。</p>
-]]></content>
-      <categories>
-        <category>迪瑞克拉</category>
-      </categories>
-      <tags>
-        <tag>迪瑞克拉</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>迪瑞克拉世界观设定集</title>
-    <url>/2023/09/29/%E8%BF%AA%E7%91%9E%E5%85%8B%E6%8B%89%E4%B8%96%E7%95%8C%E8%A7%82/</url>
-    <content><![CDATA[<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">起初，世界是一团思索，它向所有的方向迈了一步，于是万物由此而生……</span><br></pre></td></tr></table></figure>
-<p>这是邪神辛克莱温教徒传颂的创世神话，也是目前为止我们所知最早的创世神话，可以说后世诸多关于创世的传说都有它的影子。 <span id="more"></span></p>
-<p>邪神辛克莱温的信徒有着自己的语言，这种符号文字晦涩难懂，虽然给传播教义造成了困难，却成为维系着邪神教绵延几千年信仰的纽带。 邪神辛克莱温是……</p>
-<p>——选自帝国学者载丝莉《邪神起源探究》</p>
-<h2 id="克雷多斯族">克雷多斯族</h2>
-<pre><code>      平庸是进化论所给我们最后的仁慈——帝国医学教科书扉页</code></pre>
-<p>奥诺斯是社会达尔文主义者的神，他的教义就是物竞天择，适者生存，让优秀的种族淘汰低劣的种族。放到现在他肯定会被当做邪神。奥诺斯创造过很多种族，大部分在穷兵黩武中走向了灭亡，然而其中有一个民族最为他所垂青——克雷多斯族。这一种族刚出现时平平无奇，但他们的眼中只有强者，尊严的力量促使着他们不断发挥着潜力，追逐着比自己强大无数倍的敌人。他们逐渐走向强盛，但后来因为自相残杀导致族人寥寥无几。这时，一位天才创造出了一种把他们一分为二的方法，以此来把自己当做对手，起初，克雷多斯族凭借这一方法几乎成为世界上最令人恐惧的种族，深深地让奥诺斯感到自豪。然而，在与自己的斗争中，有的族人学会了“阴谋”，将另一个自己与其他敌人算计致死，有的人学会了“隐忍”，进而学会了妥协与认输，最终，他们都选择了“平庸”。为了心爱的子民惋惜不止的奥诺斯神来到了最后一个保持着绝对尊严的战士面前：</p>
-<p>“我也给予你选择平庸的权利。”</p>
-<p>“你要我变得和他们一样吗?绝不！！！”</p>
-<p>战士怒吼着冲向了最后一个对手。从此，奥诺斯和他的战士消失于迪瑞克拉世界。</p>
-<h2 id="沉默峡谷">沉默峡谷</h2>
-<p>沉默不是逃避，而是一种选择——沉默沼泽路牌上的涂鸦</p>
-<p>沉默峡谷被命名并正式标在官方地图上是帝国历387年的事了，在此之前它只是个普通的荒凉之处而已，当然，还是偶尔进入的旅客发现这里——但他们有的没能走出来，有的在出来后被别人或自己当成了疯子。</p>
-<p>沉默峡谷的土壤和两侧的山岩有种特殊的性质，能几乎把所有的声音消除，巴比伦塔的学者曾对此展开研究，然而他们一无所获。除此以外，沉默峡谷就是个普通的荒凉峡谷，稀疏的杂草养不出大型动物，对一个经验丰富的旅行者而言，找到水源，辨别方向和驱散毒虫都不算难 ——只要他能忍受无尽的沉默</p>
-<p>在被载入地图后，这里逐渐成了修士的圣地，当然，也有人进去后再也没有出来</p>
-<h2 id="幻影沼泽">幻影沼泽</h2>
-<p>警告！魔术师慎入！</p>
-<p>这是沉默峡谷一处著名的景点，和峡谷本身一样，这里也几乎没什么异常，对有防备的旅行者而言并没什么危险。传说中一位善于擅长表演幻影魔术的魔术师来到这里时，将自己当做了幻影，而把幻影当成了真实。于是他迷失在这里，将此处化成了一片沼泽，如果一位有真才实学的魔术师来到这里，那么他绝对无法精神正常地离开，尽管对其他人而言，这里能看到的异象仅仅是偶尔出现魔术师忧郁的身影而已。</p>
-<h2 id="沉默王国">沉默王国</h2>
-<p>………………………………</p>
-<p>沉默王国一直是个传说，一开始只是有少数人怀疑那些进了峡谷再没有出来的人到底去了哪里？这些怀疑逐渐被时间埋葬，直到帝国标记了沉默峡谷的存在导致一批旅行者来此游览，，有些旅行家发现了沉默王国的存在，很难想象一个王国会存在于荒野，事实上，那里只是寥寥几个人的聚居处。住民们给了旅行家一些食物和饮水，并为他指明了道路，从始至终，他们都带着沉默，从未试图张开嘴唇过。</p>
-<p>此后又陆陆续续地出现了类似住民目击报告，但都被帝国封锁，最终，这一切成为了传说或是怪谈，奇怪的是，帝国似乎对此颇为忌惮，从此以后沉默峡谷再也没有出现在官方文件上过。</p>
-<p>我们认为那些住民的存在涉及了达瑞克拉世界的源论，可以肯定那是一些向往沉默的人，不知何时他们聚集起来，用各自的思虑创造了一个无声的世界——或许跟0号研究所揭示的结果一致，这十分危险，一旦被人们知道，达瑞克拉世界或许会因此毁灭。</p>
-<pre><code>                                 ——《关于沉默王国的报告》</code></pre>
-<h2 id="号研究所">0号研究所</h2>
-<p>我思故我在，我在故我思。——帝国哲学家卡尔迪</p>
-<p>0号研究是科学组织浮士德所进行的一场实验，没错，与大多数我同事的想法相反，它并不是个邪教组织，从同行的角度来说，我很佩服他们的开创性。</p>
-<p>0号研究所本是个普通的小镇，如果不是那件事的发生，我们永远不会知道这里曾发生过这样的实验。</p>
-<p>帝国的审讯所抓到过一个浮士德的高层，今天他们终于设法让他开口了，由此我们终于知道他们是怎么进行实验的。首先，小镇只是出现了一些以屠戮人民，掠夺财物为乐的人，他们穿着迥异的衣服，却意外有着纯正的当地口音，经过一番协力，这些人不久就被送上了断头台。</p>
-<p>奇怪的是，他们面对死亡毫无畏惧，自称“玩家”的他们发出了下次进犯的预告，然后在断头台上化成白光消失了。</p>
-<p>当天，一切有关他们的消息被政府封锁，几乎同时不少“智者”跳了，要求让民众得知真相，惴惴不安中，很多小册子在民众中传阅——上面说这个世界只是虚构，完全为了让那些玩家取乐而存在（至于为何能让民众了解虚幻的概念，或许浮士德的教育机制还是挺有成效的）</p>
-<p>第二天，更多所谓的“玩家从天而降”，所有住民都陷入了绝望与怀疑，就在这时我们所知的异变发生了，没人知道这是怎么做到的，但整个克罗利安镇就这么化为一片混沌之地，我们的不少调查员在第一眼看到它的遗址时就发疯了——我们没人知道为什么。</p>
-<p>现在那里应该已经封闭了，我的建议是，永远封闭下去，或许邪神辛克莱温是对的，这个世界确实由我们的思想决定。我希望所有人都能对此提高警惕，永远不要让类似的事故重演</p>
-<h2 id="帕斯卡王国">帕斯卡王国</h2>
-<p>世上哪有不建立在剥削上的幸福？</p>
-<p>帝国前36年，在正片大陆一个名不见经传的角落有一个小国，这个国家物资贫瘠，人口稀疏，尽管气候不算恶劣，但人民常常处于食不果腹的状态。</p>
-<p>国王帕列斯是位平庸的君主，他的儿子——王子恩西斯却是位有想法的年轻人，尽管刚刚成年，他已经开始思索如何壮大自己的国家，这位王子曾经游学诸国，每次看到国民因营养不良而矮小纤弱的身材，他都会在心中发誓一定要找到让子民过上幸福快乐生活的方法</p>
-<p>有一天，他带着这个愿望，带着几位侍从出门远行，在一番艰难跋涉后，王子在荒野中迷路了，他仿徨了几天，终于有一天他发现了一个村落</p>
-<p>这个村落贫瘠弱小，王子注意到他们大量以烤制生肉，野菜，甚至昆虫而食，他们没有国王或者地位高于其他居民的人，尽管如此，他们的脸上却常常洋溢着笑容</p>
-<p>王子作为外来人并没有对这些野人产生太多影响，于是他也学着野人的样子，用茅草和树枝搭起简易的居所，尝试融入野人的生活</p>
-<p>一个月后，当国王派出的宫廷军顺着王子迷路时留下的标记找到他时，王子正喃喃自语道：我要找到的道路，就在这里啊</p>
-<p>归国后几月，王子继位成为了国王，他实现了自己的诺言，在他的治理下，他的子民过上了物质丰富，精神充足的生活——凭借着王子制定并实现的驯养土著成为奴隶的方法。建立帕索斯帝国后五年，王子临终，面对伏在病榻前痛苦的子孙，他淡淡地说：他们以前就没有国王，以后也不会有吧。随后他保持着沉默，任凭御医记录他由有到无的脉搏直至最后</p>
-<p>帝国历364年，历经三百年的不懈斗争，萨曼人杰出的领袖终于为族人争取到了自由，帝国，这一最先实现奴隶制的国家，最终成为了民主共和的起源…… ——《帝国通史》</p>
 ]]></content>
       <categories>
         <category>迪瑞克拉</category>
@@ -6809,6 +6809,68 @@ Vim还提供了列选择模式，在Normal模式下键入<code>&lt;C-V&gt;</code
       </tags>
   </entry>
   <entry>
+    <title>基于斯坦福cs106l的c++编程规范笔记</title>
+    <url>/2023/09/29/cs106l%E6%80%BB%E5%92%8C%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[<h2 id="c特性">c++特性</h2>
+<ul>
+<li>更好的C C++支持<code>命令式编程</code>，一种编程风格，其中程序按顺序执行的命令序列。从这个意义上讲，C++ 可以看作是对C 编程语言，使日常命令式编程更加直观和更容易使用。课程阅读器的这一部分介绍了一些 C++ 最常用的库,包括标准模板库，并展示了如何使用这些库来构建命令程式。 此外，它探索了最初出现在 C++ 语言中的新原语。C 编程语言，即指针、C 字符串和预处理器。 <span id="more"></span></li>
+<li>数据抽象</li>
+</ul>
+<p>C++与其兄弟C的最大区别在于_数据抽象_,程序执行的方式可以与程序执行的方式分开 程序员谈论那个程序。</p>
+<ul>
+<li>面向对象编程</li>
+</ul>
+<p>. 面向对象编程是一种完全不同的方式考虑程序设计，可以极大地简化复杂的软件系统。 钥匙 面向对象背后的概念很简单，但要真正体会到面向对象的力量 编程，您将需要一次又一次地看到它的运行情况。 这部分课程 读者探索了面向对象编程中的主要概念以及如何在 C++ 中实现它继承和多态。</p>
+<ul>
+<li>泛型编程</li>
+</ul>
+<p>泛型编程是一种编程风格，旨在构建可以解决一系列远远超出最初设想的问题的软件<br />
+履行。 虽然泛型编程的完整处理远远超出了介绍性的范围C++ 编程课，泛型编程的许多思想都可以访问并且可以从根本上改变了您对 C++ 编程的看法。</p>
+<h2 id="const">const</h2>
+<p>Can’t declare non-const reference to const variable Can’t declare non-const reference to const vari</p>
+<p><img src="/images/obsidian/20230215213916.png" title="image" alt="图片" /> <img src="/images/obsidian/20230215214023.png" title="image" alt="图片" /></p>
+<h2 id="模板">模板</h2>
+<p><img src="/images/obsidian/20230215215043.png" title="image" alt="图片" /> 函数指针：将函数作为对象传递</p>
+<h2 id="stl">stl</h2>
+<p>sequence:线性，有顺序 associative:不一定线性，有索引机制(map)</p>
+<p>vector:有顺序的相同类型的数据集合，大小可控制 ---子属性：<em>size:元素数量 ---capacity</em>:单个元素大小 <img src="/images/obsidian/20230214194657.png" title="image" alt="图片" /> vector最常用，deque用于首部插入场合，list用于多种列表</p>
+<p>associative(关联数组):有顺序的需要有比较方法，无序的需要哈希函数（更快） iterators（迭代器）：用于访问容器中的所有数据 --常用函数，begin(),end(),iter++,*(pointer),== !=,=（赋值,复制）, <img src="/images/obsidian/20230214200501.png" title="image" alt="图片" /> <img src="/images/obsidian/20230214200805.png" title="image" alt="图片" /> <img src="/images/obsidian/20230214201819.png" title="image" alt="图片" /></p>
+<h2 id="输入输出流">输入输出流</h2>
+<p>First call to std::cin &gt;&gt; creates a command line<br />
+prompt that allows the user to type until they hit enter</p>
+<ul>
+<li>Each &gt;&gt; ONLY reads until the next whitespace<br />
+</li>
+<li>Whitespace = tab, space, newline<br />
+</li>
+<li>Everything after the first whitespace gets saved and<br />
+used the next time std::cin &gt;&gt; is called<br />
+</li>
+<li>The place its saved is called a buffer <img src="/images/obsidian/20230213213832.png" title="image" alt="图片" /> <img src="/images/obsidian/20230213214430.png" title="image" alt="图片" /> <img src="/images/obsidian/20230213214751.png" title="image" alt="图片" /> <img src="/images/obsidian/20230214102508.png" title="image" alt="图片" /> <img src="/images/obsidian/20230214104421.png" title="image" alt="图片" /> <img src="/images/obsidian/20230214162731.png" title="image" alt="图片" /> <img src="/images/obsidian/20230214162820.png" title="image" alt="图片" /></li>
+</ul>
+<h2 id="hashmap的c实现">hashmap的c++实现</h2>
+<h3 id="相关函数">相关函数</h3>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">构造函数HashMap():</span><br><span class="line">接受参数count(值的个数),hash function(有默认值)</span><br><span class="line"></span><br><span class="line">参数(typename fitst,typename last,bucket_count,H)</span><br><span class="line">//用一个容器首尾指针初始化hashmap</span><br><span class="line">eg.</span><br><span class="line">hashmap&lt;k,m&gt; map&#123;vec.begin(),vec.end()&#125;</span><br><span class="line"></span><br><span class="line">参数(init_list init,bucket_count,H)</span><br><span class="line">//用容器直接初始化hashmap</span><br><span class="line">eg.</span><br><span class="line">HashMap&lt;char, int&gt; map&#123;&#123;&#x27;a&#x27;, 3&#125;, &#123;&#x27;b&#x27;, 5&#125;, &#123;&#x27;c&#x27;, 7&#125;&#125;;</span><br><span class="line"></span><br><span class="line">public:</span><br><span class="line">key-键</span><br><span class="line">mapped-被加密的值(int)</span><br><span class="line">H-哈希函数</span><br><span class="line">bucket_count(存储的键值对数组容量)</span><br><span class="line">load_factor(内联函数，返回size/bucket_count，即实际储存值的键值对)</span><br><span class="line">contains(参数const K&amp; key判断是否存在改键，返回bool值)</span><br><span class="line">at(参数k，返回mapped的引用)</span><br><span class="line">clear(清空键值对)</span><br><span class="line">insert(参数为键值对引用，返回一对pair&lt;iterator,bool&gt;,iter指向改键值对，无论是否已存在，bool表示是否成功添加，如为false则已存在该键值对)</span><br><span class="line">erase(key为参数，返回bool值)</span><br><span class="line">earse(iter为参数，返回该指针下一个位置)</span><br><span class="line">rehash(size_t为参数，重新哈希为给出的新的指针数组大小)</span><br><span class="line">begin(根据hashmap是否为const给出iter或const iter)</span><br><span class="line">end(返回伪指针)</span><br><span class="line">debug(打印所有哈希键值对以及哈希表所有参数，注意，必须基于重载&lt;&lt;运算符的基础)</span><br><span class="line"></span><br><span class="line">符号重载：</span><br><span class="line">M&amp; [](const key&amp; ,返回insert(key)的返回pair的first成员的second成员，即mapped值)</span><br><span class="line">//用于给key对应的value(mapped)赋值</span><br><span class="line"></span><br><span class="line">private:</span><br><span class="line">node(struct，包含next指针和value)</span><br><span class="line">nodepair(前后node的pair)</span><br><span class="line">findnode(参数key，返回指针对&lt;prev,curr&gt;)</span><br><span class="line">first_not_empty_bucket()</span><br><span class="line">make_iterator(参数node*curr)</span><br><span class="line">_bucket_array(vector&lt;node*&gt;,其中一个node*为ptr,则ptr-&gt;value为&lt;key ,mapped&gt;)</span><br><span class="line"></span><br><span class="line">//指针构造</span><br><span class="line"></span><br><span class="line">_bucket_array：由指针组成的数组,每个成员都是一个指针</span><br><span class="line">储存的值为next指针和一个pair&lt;key,mapped&gt;</span><br><span class="line">operator-&gt; is a bit of an odd-ball. When you write p-&gt;m, it is interpreted as (p.operator-&gt;())-&gt;m.</span><br><span class="line"></span><br><span class="line">- This means operator-&gt; should return a pointer to the object that has the field m.</span><br></pre></td></tr></table></figure>
+<h3 id="涉及的c特性">涉及的c++特性</h3>
+<p>匿名函数 基本lambda语法 基本形式如下： 【capture】（parameters）-&gt;return-type {body}</p>
+<p>typename function() return {x,y,z} 即用{}的参数初始化原函数返回的类型</p>
+<p>ptrdiff_t:用于储存两个指针的差</p>
+<p>conditional_t&lt;func,x,y&gt;如果func为true则x，为false则y</p>
+<p>forward_iterator_tag：单方向迭代器（可读写） ++iter，iter+=1随后返回对自身的引用 iter++，先返回一个对自身的复制，随后iter+=1</p>
+<p>std::move并不能移动任何东西，它唯一的功能是将一个左值强制转化为右值引用，继而可以通过右值引用使用该值，以用于移动语义。从实现上讲，std::move基本等同于一个类型转换：static_cast&lt;T&amp;&amp;&gt;(lvalue);</p>
+<p>ate：从文件尾部开始 strsub(start,length) 移动语义(c++11新特性) clss(classname &amp;&amp;) 利用右值引用的部分数据直接初始化新的类，并在初始化之后将右值删除，可以通过std::move()强制转化左值为右值。</p>
+]]></content>
+      <categories>
+        <category>课程笔记</category>
+        <category>数据结构与算法</category>
+      </categories>
+      <tags>
+        <tag>课程笔记</tag>
+        <tag>c++</tag>
+        <tag>斯坦福</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>基于斯坦福cs106b的c++数据结构笔记</title>
     <url>/2023/09/29/cs106b%E6%80%BB%E5%92%8C%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<h2 id="一些查找和排序算法">一些查找和排序算法</h2>
@@ -6901,65 +6963,82 @@ Vim还提供了列选择模式，在Normal模式下键入<code>&lt;C-V&gt;</code
       </tags>
   </entry>
   <entry>
-    <title>基于斯坦福cs106l的c++编程规范笔记</title>
-    <url>/2023/09/29/cs106l%E6%80%BB%E5%92%8C%E7%AC%94%E8%AE%B0/</url>
-    <content><![CDATA[<h2 id="c特性">c++特性</h2>
+    <title>基于伯克利ds100的数据科学笔记pandas部分</title>
+    <url>/2023/09/29/jupyter%20notebook/</url>
+    <content><![CDATA[<h2 id="notebook">notebook</h2>
+<ol type="1">
+<li><code>Ctrl</code> + <code>Return</code>（或者 <code>Cmd</code> + <code>Return</code>在 Mac 上）： <em>评估当前单元格</em></li>
+<li><code>Shift</code> + <code>Return</code>： <em>评估当前单元格并移至下一个单元格</em></li>
+<li><code>ESC</code>： <em>命令模式</em> （在使用以下任何命令之前可能需要按）</li>
+<li><code>a</code>: <em>在上面创建一个单元格</em></li>
+<li><code>b</code>： <em>在下面创建一个单元格</em></li>
+<li><code>dd</code>: <em>删除一个单元格</em></li>
+<li><code>z</code>： <em>撤消上一次单元格操作</em></li>
+<li><code>m</code>： <em>将单元格转换为 Markdown</em></li>
+<li><code>y</code>： <em>将单元格转换为代码</em> <span id="more"></span></li>
+</ol>
+<h2 id="pandas">pandas</h2>
+<h3 id="创建表格dataframe">创建表格DataFrame</h3>
+<p>按列创建</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">fruit_info = pd.DataFrame(</span><br><span class="line">    data = &#123;&#x27;fruit&#x27;: [&#x27;apple&#x27;, &#x27;orange&#x27;, &#x27;banana&#x27;, &#x27;raspberry&#x27;],</span><br><span class="line">          &#x27;color&#x27;: [&#x27;red&#x27;, &#x27;orange&#x27;, &#x27;yellow&#x27;, &#x27;pink&#x27;],</span><br><span class="line">          &#x27;price&#x27;: [1.0, 0.75, 0.35, 0.05]</span><br><span class="line">          &#125;)</span><br><span class="line">fruit_info</span><br></pre></td></tr></table></figure>
+<p>按行创建</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">fruit_info2 = pd.DataFrame(</span><br><span class="line">    [(&quot;red&quot;, &quot;apple&quot;, 1.0), (&quot;orange&quot;, &quot;orange&quot;, 0.75), (&quot;yellow&quot;, &quot;banana&quot;, 0.35),</span><br><span class="line">     (&quot;pink&quot;, &quot;raspberry&quot;, 0.05)], </span><br><span class="line">    columns = [&quot;color&quot;, &quot;fruit&quot;, &quot;price&quot;])</span><br></pre></td></tr></table></figure>
+<h3 id="选择行和列">选择行和列</h3>
 <ul>
-<li>更好的C C++支持<code>命令式编程</code>，一种编程风格，其中程序按顺序执行的命令序列。从这个意义上讲，C++ 可以看作是对C 编程语言，使日常命令式编程更加直观和更容易使用。课程阅读器的这一部分介绍了一些 C++ 最常用的库,包括标准模板库，并展示了如何使用这些库来构建命令程式。 此外，它探索了最初出现在 C++ 语言中的新原语。C 编程语言，即指针、C 字符串和预处理器。 <span id="more"></span></li>
-<li>数据抽象</li>
+<li>loc 两个详细运算符中的第一个是 <code>loc</code>，它需要两个参数。 第一个是一个或多个行 <strong>标签</strong> ，第二个是一个或多个列 <strong>标签</strong> 。</li>
 </ul>
-<p>C++与其兄弟C的最大区别在于_数据抽象_,程序执行的方式可以与程序执行的方式分开 程序员谈论那个程序。</p>
+<p>所需的行或列可以单独提供、以切片表示法或作为列表提供。 单独提供会返回series 单独切片参数默认返回行</p>
+<p><img src="assets/jupyter%20notbook/image-20230924084033386.png" /> <img src="assets/jupyter%20notbook/image-20230924084006924.png" /> <img src="assets/jupyter%20notbook/image-20230924084050655.png" /> ● loc selects items by label. First argument is rows, second argument is columns. ● iloc selects items by number. First argument is rows, second argument is columns. ● [] only takes one argument, which may be: ○ A slice of row numbers. ○ A list of column labels. ○ A single column label. That is,[] is context sensitive.</p>
 <ul>
-<li>面向对象编程</li>
+<li>列名一般唯一，可以强制重复</li>
+<li>行名可以重复 pandas支持裸操作,但此时无法使用切片</li>
 </ul>
-<p>. 面向对象编程是一种完全不同的方式考虑程序设计，可以极大地简化复杂的软件系统。 钥匙 面向对象背后的概念很简单，但要真正体会到面向对象的力量 编程，您将需要一次又一次地看到它的运行情况。 这部分课程 读者探索了面向对象编程中的主要概念以及如何在 C++ 中实现它继承和多态。</p>
-<ul>
-<li>泛型编程</li>
-</ul>
-<p>泛型编程是一种编程风格，旨在构建可以解决一系列远远超出最初设想的问题的软件<br />
-履行。 虽然泛型编程的完整处理远远超出了介绍性的范围C++ 编程课，泛型编程的许多思想都可以访问并且可以从根本上改变了您对 C++ 编程的看法。</p>
-<h2 id="const">const</h2>
-<p>Can’t declare non-const reference to const variable Can’t declare non-const reference to const vari</p>
-<p><img src="/images/obsidian/20230215213916.png" title="image" alt="图片" /> <img src="/images/obsidian/20230215214023.png" title="image" alt="图片" /></p>
-<h2 id="模板">模板</h2>
-<p><img src="/images/obsidian/20230215215043.png" title="image" alt="图片" /> 函数指针：将函数作为对象传递</p>
-<h2 id="stl">stl</h2>
-<p>sequence:线性，有顺序 associative:不一定线性，有索引机制(map)</p>
-<p>vector:有顺序的相同类型的数据集合，大小可控制 ---子属性：<em>size:元素数量 ---capacity</em>:单个元素大小 <img src="/images/obsidian/20230214194657.png" title="image" alt="图片" /> vector最常用，deque用于首部插入场合，list用于多种列表</p>
-<p>associative(关联数组):有顺序的需要有比较方法，无序的需要哈希函数（更快） iterators（迭代器）：用于访问容器中的所有数据 --常用函数，begin(),end(),iter++,*(pointer),== !=,=（赋值,复制）, <img src="/images/obsidian/20230214200501.png" title="image" alt="图片" /> <img src="/images/obsidian/20230214200805.png" title="image" alt="图片" /> <img src="/images/obsidian/20230214201819.png" title="image" alt="图片" /></p>
-<h2 id="输入输出流">输入输出流</h2>
-<p>First call to std::cin &gt;&gt; creates a command line<br />
-prompt that allows the user to type until they hit enter</p>
-<ul>
-<li>Each &gt;&gt; ONLY reads until the next whitespace<br />
-</li>
-<li>Whitespace = tab, space, newline<br />
-</li>
-<li>Everything after the first whitespace gets saved and<br />
-used the next time std::cin &gt;&gt; is called<br />
-</li>
-<li>The place its saved is called a buffer <img src="/images/obsidian/20230213213832.png" title="image" alt="图片" /> <img src="/images/obsidian/20230213214430.png" title="image" alt="图片" /> <img src="/images/obsidian/20230213214751.png" title="image" alt="图片" /> <img src="/images/obsidian/20230214102508.png" title="image" alt="图片" /> <img src="/images/obsidian/20230214104421.png" title="image" alt="图片" /> <img src="/images/obsidian/20230214162731.png" title="image" alt="图片" /> <img src="/images/obsidian/20230214162820.png" title="image" alt="图片" /></li>
-</ul>
-<h2 id="hashmap的c实现">hashmap的c++实现</h2>
-<h3 id="相关函数">相关函数</h3>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">构造函数HashMap():</span><br><span class="line">接受参数count(值的个数),hash function(有默认值)</span><br><span class="line"></span><br><span class="line">参数(typename fitst,typename last,bucket_count,H)</span><br><span class="line">//用一个容器首尾指针初始化hashmap</span><br><span class="line">eg.</span><br><span class="line">hashmap&lt;k,m&gt; map&#123;vec.begin(),vec.end()&#125;</span><br><span class="line"></span><br><span class="line">参数(init_list init,bucket_count,H)</span><br><span class="line">//用容器直接初始化hashmap</span><br><span class="line">eg.</span><br><span class="line">HashMap&lt;char, int&gt; map&#123;&#123;&#x27;a&#x27;, 3&#125;, &#123;&#x27;b&#x27;, 5&#125;, &#123;&#x27;c&#x27;, 7&#125;&#125;;</span><br><span class="line"></span><br><span class="line">public:</span><br><span class="line">key-键</span><br><span class="line">mapped-被加密的值(int)</span><br><span class="line">H-哈希函数</span><br><span class="line">bucket_count(存储的键值对数组容量)</span><br><span class="line">load_factor(内联函数，返回size/bucket_count，即实际储存值的键值对)</span><br><span class="line">contains(参数const K&amp; key判断是否存在改键，返回bool值)</span><br><span class="line">at(参数k，返回mapped的引用)</span><br><span class="line">clear(清空键值对)</span><br><span class="line">insert(参数为键值对引用，返回一对pair&lt;iterator,bool&gt;,iter指向改键值对，无论是否已存在，bool表示是否成功添加，如为false则已存在该键值对)</span><br><span class="line">erase(key为参数，返回bool值)</span><br><span class="line">earse(iter为参数，返回该指针下一个位置)</span><br><span class="line">rehash(size_t为参数，重新哈希为给出的新的指针数组大小)</span><br><span class="line">begin(根据hashmap是否为const给出iter或const iter)</span><br><span class="line">end(返回伪指针)</span><br><span class="line">debug(打印所有哈希键值对以及哈希表所有参数，注意，必须基于重载&lt;&lt;运算符的基础)</span><br><span class="line"></span><br><span class="line">符号重载：</span><br><span class="line">M&amp; [](const key&amp; ,返回insert(key)的返回pair的first成员的second成员，即mapped值)</span><br><span class="line">//用于给key对应的value(mapped)赋值</span><br><span class="line"></span><br><span class="line">private:</span><br><span class="line">node(struct，包含next指针和value)</span><br><span class="line">nodepair(前后node的pair)</span><br><span class="line">findnode(参数key，返回指针对&lt;prev,curr&gt;)</span><br><span class="line">first_not_empty_bucket()</span><br><span class="line">make_iterator(参数node*curr)</span><br><span class="line">_bucket_array(vector&lt;node*&gt;,其中一个node*为ptr,则ptr-&gt;value为&lt;key ,mapped&gt;)</span><br><span class="line"></span><br><span class="line">//指针构造</span><br><span class="line"></span><br><span class="line">_bucket_array：由指针组成的数组,每个成员都是一个指针</span><br><span class="line">储存的值为next指针和一个pair&lt;key,mapped&gt;</span><br><span class="line">operator-&gt; is a bit of an odd-ball. When you write p-&gt;m, it is interpreted as (p.operator-&gt;())-&gt;m.</span><br><span class="line"></span><br><span class="line">- This means operator-&gt; should return a pointer to the object that has the field m.</span><br></pre></td></tr></table></figure>
-<h3 id="涉及的c特性">涉及的c++特性</h3>
-<p>匿名函数 基本lambda语法 基本形式如下： 【capture】（parameters）-&gt;return-type {body}</p>
-<p>typename function() return {x,y,z} 即用{}的参数初始化原函数返回的类型</p>
-<p>ptrdiff_t:用于储存两个指针的差</p>
-<p>conditional_t&lt;func,x,y&gt;如果func为true则x，为false则y</p>
-<p>forward_iterator_tag：单方向迭代器（可读写） ++iter，iter+=1随后返回对自身的引用 iter++，先返回一个对自身的复制，随后iter+=1</p>
-<p>std::move并不能移动任何东西，它唯一的功能是将一个左值强制转化为右值引用，继而可以通过右值引用使用该值，以用于移动语义。从实现上讲，std::move基本等同于一个类型转换：static_cast&lt;T&amp;&amp;&gt;(lvalue);</p>
-<p>ate：从文件尾部开始 strsub(start,length) 移动语义(c++11新特性) clss(classname &amp;&amp;) 利用右值引用的部分数据直接初始化新的类，并在初始化之后将右值删除，可以通过std::move()强制转化左值为右值。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># Here we&#x27;re providing a list of fruits as single argument to []</span><br><span class="line">fruit_info[[&quot;fruit&quot;, &quot;color&quot;, &quot;price&quot;]]</span><br></pre></td></tr></table></figure>
+<h3 id="其他行列操作">其他行列操作</h3>
+<p>添加行和列</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">fruit_info[&#x27;rank1&#x27;] = [1,2,3,4]</span><br><span class="line">fruit_info.loc[:,&#x27;rank2&#x27;] = [1,2,3,4]</span><br></pre></td></tr></table></figure>
+<p>使用 <code>.drop()</code>方法来 <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.drop.html">删除</a> 这两个 <code>rank1</code>和 <code>rank2</code>您创建的列。 确保使用 <code>axis</code>参数正确。 注意 <code>drop</code>不会更改表，而是返回一个具有较少列或行的新表，除非您设置可选 <code>inplace</code>范围</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">fruit_info</span><br><span class="line">fruit_info_original = fruit_info.drop([&#x27;rank1&#x27;,&#x27;rank2&#x27;],axis=1)</span><br><span class="line">fruit_info_original</span><br></pre></td></tr></table></figure>
+<p>重命名</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">fruit_info_caps=fruit_info_original.rename(columns=&#123;&#x27;fruit&#x27;:&#x27;F&#x27;,&#x27;color&#x27;:&#x27;C&#x27;,&#x27;price&#x27;:&#x27;P&#x27;&#125;)</span><br><span class="line">fruit_info_caps</span><br></pre></td></tr></table></figure>
+<h3 id="布尔数组筛选和查询">布尔数组筛选和查询</h3>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">result = baby_names[(baby_names[&#x27;Year&#x27;]==2000) &amp; (baby_names[&#x27;Count&#x27;]&gt;3000)]</span><br><span class="line">result_using_query = baby_names.query(&#x27;Year==2000 &amp; Count&gt;3000&#x27;)</span><br></pre></td></tr></table></figure>
+<h3 id="slides实例">slides实例</h3>
+<p>提取列数据：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">elections[&quot;Candidate&quot;].tail(5).to_frame()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>提取目录：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">For row labels, use DataFrame.index:</span><br><span class="line">For column labels, use DataFrame.columns:</span><br></pre></td></tr></table></figure>
+<p>支持布尔数组检索 <img src="assets/jupyter%20notbook/image-20230924090511103.png" /></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">elections[elections[&quot;Party&quot;] == &quot;Independent&quot;]</span><br><span class="line">elections[(elections[&quot;Result&quot;] == &quot;win&quot;) &amp; (elections[&quot;%&quot;] &lt; 47)]</span><br></pre></td></tr></table></figure>
+<p>支持用其他数组检索</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">a_parties = [&quot;Anti-Masonic&quot;, &quot;American&quot;, &quot;Anti-Monopoly&quot;, &quot;American Independent&quot;]</span><br><span class="line">elections[elections[&quot;Party&quot;].isin(a_parties)]</span><br></pre></td></tr></table></figure>
+<p>查询类似sql</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">elections.query(&#x27;Result == &quot;win&quot; and Party not in @parties&#x27;)</span><br></pre></td></tr></table></figure>
+<p>匿名函数辅助查询</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">What if we wanted to find the longest names in California?</span><br><span class="line">babynames.query(&#x27;Sex == &quot;M&quot; and Year == 2020&#x27;)</span><br><span class="line">.sort_values(&quot;Name&quot;, key = lambda x: x.str.len(),</span><br><span class="line">ascending = False)</span><br></pre></td></tr></table></figure>
+<p>创建删除列</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">babyname_lengths = babynames[&quot;Name&quot;].str.len()</span><br><span class="line">#add that series to the dataframe as a column</span><br><span class="line">babynames[&quot;name_lengths&quot;] = babyname_lengths</span><br><span class="line">babynames = babynames.sort_values(by = &quot;name_lengths&quot;, ascending=False)</span><br><span class="line">babynames = babynames.drop(&quot;name_lengths&quot;, axis = &#x27;columns&#x27;)//删除列(默认为行)</span><br></pre></td></tr></table></figure>
+<p>map方法使用函数统计数据</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">def dr_ea_count(string):</span><br><span class="line">return string.count(&#x27;dr&#x27;) + string.count(&#x27;ea&#x27;)</span><br><span class="line">babynames[&quot;dr_ea_count&quot;] = babynames[&quot;Name&quot;].map(dr_ea_count)</span><br><span class="line">babynames = babynames.sort_values(by = &quot;dr_ea_count&quot;, ascending=False)</span><br></pre></td></tr></table></figure>
+<p>字典创建表格</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#build dictionary where each entry is the rtp for a given name</span><br><span class="line">#e.g. rtps[&quot;jennifer&quot;] should be 0.0231</span><br><span class="line">rtps = &#123;&#125;</span><br><span class="line">for name in babynames[&quot;Name&quot;].unique():</span><br><span class="line">counts_of_current_name = female_babynames[female_babynames[&quot;Name&quot;] == name][&quot;Count&quot;]</span><br><span class="line">rtps[name] = ratio_to_peak(counts_of_current_name)</span><br><span class="line">#convert to series</span><br><span class="line">rtps = pd.Series(rtps)</span><br></pre></td></tr></table></figure>
+<p>使用group建立新表格</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">female_babynames.groupby(&quot;Name&quot;).agg(ratio_to_peak)</span><br></pre></td></tr></table></figure>
+<p><img src="assets/jupyter%20notbook/image-20230924092636108.png" /> groupby的其他用法</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Given a DataFrameGroupBy object, can use various functions to generate DataFrames (or</span><br><span class="line">Series). agg is only one choice:</span><br><span class="line">● agg: Creates a new DataFrame with one aggregated row per subframe.</span><br><span class="line">● max: Creates a new DataFrame aggregated using the max function.</span><br><span class="line">● size: Creates a new Series with the size of each subframe.</span><br><span class="line">● filter: Creates a copy of the original DataFrame, but keeping only rows from subframes</span><br><span class="line">that obey the provided condition.</span><br></pre></td></tr></table></figure>
+<p>合并表格</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">merged = pd.merge(left = elections, right = male_2020_babynames,</span><br><span class="line">left_on = &quot;First Name&quot;, right_on = &quot;Name&quot;)</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>课程笔记</category>
-        <category>数据结构与算法</category>
+        <category>数据科学</category>
       </categories>
       <tags>
+        <tag>伯克利</tag>
         <tag>课程笔记</tag>
-        <tag>c++</tag>
-        <tag>斯坦福</tag>
+        <tag>python</tag>
+        <tag>数据科学</tag>
+        <tag>pandas</tag>
       </tags>
   </entry>
   <entry>
@@ -7277,85 +7356,6 @@ used the next time std::cin &gt;&gt; is called<br />
         <tag>北京大学</tag>
         <tag>linux</tag>
         <tag>编程工具</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>基于伯克利ds100的数据科学笔记pandas部分</title>
-    <url>/2023/09/29/jupyter%20notebook/</url>
-    <content><![CDATA[<h2 id="notebook">notebook</h2>
-<ol type="1">
-<li><code>Ctrl</code> + <code>Return</code>（或者 <code>Cmd</code> + <code>Return</code>在 Mac 上）： <em>评估当前单元格</em></li>
-<li><code>Shift</code> + <code>Return</code>： <em>评估当前单元格并移至下一个单元格</em></li>
-<li><code>ESC</code>： <em>命令模式</em> （在使用以下任何命令之前可能需要按）</li>
-<li><code>a</code>: <em>在上面创建一个单元格</em></li>
-<li><code>b</code>： <em>在下面创建一个单元格</em></li>
-<li><code>dd</code>: <em>删除一个单元格</em></li>
-<li><code>z</code>： <em>撤消上一次单元格操作</em></li>
-<li><code>m</code>： <em>将单元格转换为 Markdown</em></li>
-<li><code>y</code>： <em>将单元格转换为代码</em> <span id="more"></span></li>
-</ol>
-<h2 id="pandas">pandas</h2>
-<h3 id="创建表格dataframe">创建表格DataFrame</h3>
-<p>按列创建</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">fruit_info = pd.DataFrame(</span><br><span class="line">    data = &#123;&#x27;fruit&#x27;: [&#x27;apple&#x27;, &#x27;orange&#x27;, &#x27;banana&#x27;, &#x27;raspberry&#x27;],</span><br><span class="line">          &#x27;color&#x27;: [&#x27;red&#x27;, &#x27;orange&#x27;, &#x27;yellow&#x27;, &#x27;pink&#x27;],</span><br><span class="line">          &#x27;price&#x27;: [1.0, 0.75, 0.35, 0.05]</span><br><span class="line">          &#125;)</span><br><span class="line">fruit_info</span><br></pre></td></tr></table></figure>
-<p>按行创建</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">fruit_info2 = pd.DataFrame(</span><br><span class="line">    [(&quot;red&quot;, &quot;apple&quot;, 1.0), (&quot;orange&quot;, &quot;orange&quot;, 0.75), (&quot;yellow&quot;, &quot;banana&quot;, 0.35),</span><br><span class="line">     (&quot;pink&quot;, &quot;raspberry&quot;, 0.05)], </span><br><span class="line">    columns = [&quot;color&quot;, &quot;fruit&quot;, &quot;price&quot;])</span><br></pre></td></tr></table></figure>
-<h3 id="选择行和列">选择行和列</h3>
-<ul>
-<li>loc 两个详细运算符中的第一个是 <code>loc</code>，它需要两个参数。 第一个是一个或多个行 <strong>标签</strong> ，第二个是一个或多个列 <strong>标签</strong> 。</li>
-</ul>
-<p>所需的行或列可以单独提供、以切片表示法或作为列表提供。 单独提供会返回series 单独切片参数默认返回行</p>
-<p><img src="assets/jupyter%20notbook/image-20230924084033386.png" /> <img src="assets/jupyter%20notbook/image-20230924084006924.png" /> <img src="assets/jupyter%20notbook/image-20230924084050655.png" /> ● loc selects items by label. First argument is rows, second argument is columns. ● iloc selects items by number. First argument is rows, second argument is columns. ● [] only takes one argument, which may be: ○ A slice of row numbers. ○ A list of column labels. ○ A single column label. That is,[] is context sensitive.</p>
-<ul>
-<li>列名一般唯一，可以强制重复</li>
-<li>行名可以重复 pandas支持裸操作,但此时无法使用切片</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># Here we&#x27;re providing a list of fruits as single argument to []</span><br><span class="line">fruit_info[[&quot;fruit&quot;, &quot;color&quot;, &quot;price&quot;]]</span><br></pre></td></tr></table></figure>
-<h3 id="其他行列操作">其他行列操作</h3>
-<p>添加行和列</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">fruit_info[&#x27;rank1&#x27;] = [1,2,3,4]</span><br><span class="line">fruit_info.loc[:,&#x27;rank2&#x27;] = [1,2,3,4]</span><br></pre></td></tr></table></figure>
-<p>使用 <code>.drop()</code>方法来 <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.drop.html">删除</a> 这两个 <code>rank1</code>和 <code>rank2</code>您创建的列。 确保使用 <code>axis</code>参数正确。 注意 <code>drop</code>不会更改表，而是返回一个具有较少列或行的新表，除非您设置可选 <code>inplace</code>范围</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">fruit_info</span><br><span class="line">fruit_info_original = fruit_info.drop([&#x27;rank1&#x27;,&#x27;rank2&#x27;],axis=1)</span><br><span class="line">fruit_info_original</span><br></pre></td></tr></table></figure>
-<p>重命名</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">fruit_info_caps=fruit_info_original.rename(columns=&#123;&#x27;fruit&#x27;:&#x27;F&#x27;,&#x27;color&#x27;:&#x27;C&#x27;,&#x27;price&#x27;:&#x27;P&#x27;&#125;)</span><br><span class="line">fruit_info_caps</span><br></pre></td></tr></table></figure>
-<h3 id="布尔数组筛选和查询">布尔数组筛选和查询</h3>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">result = baby_names[(baby_names[&#x27;Year&#x27;]==2000) &amp; (baby_names[&#x27;Count&#x27;]&gt;3000)]</span><br><span class="line">result_using_query = baby_names.query(&#x27;Year==2000 &amp; Count&gt;3000&#x27;)</span><br></pre></td></tr></table></figure>
-<h3 id="slides实例">slides实例</h3>
-<p>提取列数据：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">elections[&quot;Candidate&quot;].tail(5).to_frame()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>提取目录：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">For row labels, use DataFrame.index:</span><br><span class="line">For column labels, use DataFrame.columns:</span><br></pre></td></tr></table></figure>
-<p>支持布尔数组检索 <img src="assets/jupyter%20notbook/image-20230924090511103.png" /></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">elections[elections[&quot;Party&quot;] == &quot;Independent&quot;]</span><br><span class="line">elections[(elections[&quot;Result&quot;] == &quot;win&quot;) &amp; (elections[&quot;%&quot;] &lt; 47)]</span><br></pre></td></tr></table></figure>
-<p>支持用其他数组检索</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">a_parties = [&quot;Anti-Masonic&quot;, &quot;American&quot;, &quot;Anti-Monopoly&quot;, &quot;American Independent&quot;]</span><br><span class="line">elections[elections[&quot;Party&quot;].isin(a_parties)]</span><br></pre></td></tr></table></figure>
-<p>查询类似sql</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">elections.query(&#x27;Result == &quot;win&quot; and Party not in @parties&#x27;)</span><br></pre></td></tr></table></figure>
-<p>匿名函数辅助查询</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">What if we wanted to find the longest names in California?</span><br><span class="line">babynames.query(&#x27;Sex == &quot;M&quot; and Year == 2020&#x27;)</span><br><span class="line">.sort_values(&quot;Name&quot;, key = lambda x: x.str.len(),</span><br><span class="line">ascending = False)</span><br></pre></td></tr></table></figure>
-<p>创建删除列</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">babyname_lengths = babynames[&quot;Name&quot;].str.len()</span><br><span class="line">#add that series to the dataframe as a column</span><br><span class="line">babynames[&quot;name_lengths&quot;] = babyname_lengths</span><br><span class="line">babynames = babynames.sort_values(by = &quot;name_lengths&quot;, ascending=False)</span><br><span class="line">babynames = babynames.drop(&quot;name_lengths&quot;, axis = &#x27;columns&#x27;)//删除列(默认为行)</span><br></pre></td></tr></table></figure>
-<p>map方法使用函数统计数据</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">def dr_ea_count(string):</span><br><span class="line">return string.count(&#x27;dr&#x27;) + string.count(&#x27;ea&#x27;)</span><br><span class="line">babynames[&quot;dr_ea_count&quot;] = babynames[&quot;Name&quot;].map(dr_ea_count)</span><br><span class="line">babynames = babynames.sort_values(by = &quot;dr_ea_count&quot;, ascending=False)</span><br></pre></td></tr></table></figure>
-<p>字典创建表格</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#build dictionary where each entry is the rtp for a given name</span><br><span class="line">#e.g. rtps[&quot;jennifer&quot;] should be 0.0231</span><br><span class="line">rtps = &#123;&#125;</span><br><span class="line">for name in babynames[&quot;Name&quot;].unique():</span><br><span class="line">counts_of_current_name = female_babynames[female_babynames[&quot;Name&quot;] == name][&quot;Count&quot;]</span><br><span class="line">rtps[name] = ratio_to_peak(counts_of_current_name)</span><br><span class="line">#convert to series</span><br><span class="line">rtps = pd.Series(rtps)</span><br></pre></td></tr></table></figure>
-<p>使用group建立新表格</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">female_babynames.groupby(&quot;Name&quot;).agg(ratio_to_peak)</span><br></pre></td></tr></table></figure>
-<p><img src="assets/jupyter%20notbook/image-20230924092636108.png" /> groupby的其他用法</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Given a DataFrameGroupBy object, can use various functions to generate DataFrames (or</span><br><span class="line">Series). agg is only one choice:</span><br><span class="line">● agg: Creates a new DataFrame with one aggregated row per subframe.</span><br><span class="line">● max: Creates a new DataFrame aggregated using the max function.</span><br><span class="line">● size: Creates a new Series with the size of each subframe.</span><br><span class="line">● filter: Creates a copy of the original DataFrame, but keeping only rows from subframes</span><br><span class="line">that obey the provided condition.</span><br></pre></td></tr></table></figure>
-<p>合并表格</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">merged = pd.merge(left = elections, right = male_2020_babynames,</span><br><span class="line">left_on = &quot;First Name&quot;, right_on = &quot;Name&quot;)</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>课程笔记</category>
-        <category>数据科学</category>
-      </categories>
-      <tags>
-        <tag>伯克利</tag>
-        <tag>课程笔记</tag>
-        <tag>python</tag>
-        <tag>数据科学</tag>
-        <tag>pandas</tag>
       </tags>
   </entry>
 </search>
