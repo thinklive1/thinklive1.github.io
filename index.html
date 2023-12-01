@@ -285,14 +285,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>1.3k</span>
+      <span>1k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
+      <span>4 分钟</span>
     </span>
 </div>
 
@@ -388,7 +388,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-11-30 20:45:25" itemprop="dateModified" datetime="2023-11-30T20:45:25+08:00">2023-11-30</time>
+      <time title="修改时间：2023-12-01 16:28:21" itemprop="dateModified" datetime="2023-12-01T16:28:21+08:00">2023-12-01</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -407,14 +407,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>4.1k</span>
+      <span>1.7k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>4 分钟</span>
+      <span>6 分钟</span>
     </span>
 </div>
 
@@ -449,72 +449,14 @@
 <li><code>数据的运算</code></li>
 </ul>
 <p><code>ADT</code>(抽象数据类型)构成一个完整的数据结构定义</p>
-<h2 id="算法">算法</h2>
-<p>算法是对指定输入的一系列指令 特性：</p>
-<ul>
-<li><code>有穷性</code>，执行时间和指令次数有穷</li>
-<li><code>确定性</code>，指令有确定的含义，相同输入输出一定相同</li>
-<li><code>可行性</code>，指令都是以及明确实现有定义的</li>
-<li><code>输入</code>：有零个或者多个输入</li>
-<li><code>输出</code>：有一个或以上的输出</li>
-</ul>
-<p>需要实现的目标：正确，可读，健壮（对于非法数据，也输出可控），效率</p>
-<p><code>复杂度</code>：略</p>
-<h1 id="线性表">线性表</h1>
-<p><code>定义</code>：有相同数据类型的n个数据元素的有限序列,元素直接存在前后关系，且只能线性前后排列,其中的元素都是数据元素，类型相同 <code>类别</code>：逻辑结构，而非顺序表链表等存储结构 <code>基本操作</code>：</p>
-<ul>
-<li>初始化</li>
-<li>按值查找</li>
-<li>按位查找</li>
-<li>删除元素</li>
-<li>输出(print)</li>
-<li>求表长</li>
-<li>销毁</li>
-<li>判空</li>
-</ul>
-<h2 id="顺序表">顺序表</h2>
-<p><code>定义</code>:线性表的顺序存储是顺序表，用连续的地址存储表内元素，让逻辑顺序和物理顺序相同 <img src="/assets/苏大linux_ppt/Pasted%20image%2020231130102600.png" /> <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> Maxsize 50     <span class="comment">//定义线性表的最大长度</span></span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span>&#123;</span><br><span class="line">	ElemType* data[Maxsize]; <span class="comment">//顺序表的元素</span></span><br><span class="line">	<span class="type">int</span> Maxsize,length;      <span class="comment">//顺序表的当前长度</span></span><br><span class="line">&#125;SeqList;        <span class="comment">//顺序表的类型定义</span></span><br><span class="line">L.data=<span class="keyword">new</span> ElemType[InitSize]; <span class="comment">//动态分配</span></span><br></pre></td></tr></table></figure></p>
-<ol type="1">
-<li>插入操作</li>
-</ol>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">bool</span> <span class="title">ListInsert</span><span class="params">(sqList &amp;L, <span class="type">int</span> i, ElemType e)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(i&lt;<span class="number">1</span> || i&gt;L.length+<span class="number">1</span>) &#123;<span class="comment">//判断i的范围是否有效</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span>(L.length &gt;= Maxsize) &#123;</span><br><span class="line">    <span class="comment">//当前存储空间已满,不能插入  </span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span>(<span class="type">int</span> j=L.length; j&gt;i; j--) &#123;</span><br><span class="line">    <span class="comment">//将第i个元素及之后的元素后移</span></span><br><span class="line">    L.data[j] = L.data[j<span class="number">-1</span>]; </span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  L.data[i<span class="number">-1</span>] = e; <span class="comment">//在位置i处放入e</span></span><br><span class="line"></span><br><span class="line">  L.length++; <span class="comment">//线性表长度加1</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>平均时间分析： <span class="math inline">\(\sum_{i=1}^{n+1}p_{i}(n-i+1)=\sum_{i=1}^{n+1}{\frac{1}{n+1}}(n-i+1)={\frac{1}{n+1}}\sum_{i=1}^{n+1}(n-i+1)={\frac{1}{n+1}}{\frac{n(n+1)}{2}}={\frac{n}{2}}\)</span></p>
-<ol start="2" type="1">
-<li>删除操作 平均时间分析： <span class="math inline">\(\sum_{i=1}^{n}p_{i}(n-i)=\sum_{i=1}^{n}{\frac{1}{n}}(n-i)={\frac{1}{n}}\sum_{i=1}^{n}(n-i)={\frac{1}{n}}{\frac{n(n-1)}{2}}={\frac{n-1}{2}}\)</span></li>
-</ol>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">bool</span> <span class="title">ListDelete</span><span class="params">(SgList&amp; L, <span class="type">int</span> i, ElemType&amp; e)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(i&lt;<span class="number">1</span> || i&gt;L.length) &#123;<span class="comment">//判断i的范围是否有效  </span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  e = L.data[i<span class="number">-1</span>];<span class="comment">//将被删除的元素赋值给e</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span>(<span class="type">int</span> j=i; j&lt;L.length; j++) &#123;</span><br><span class="line">    <span class="comment">//将第i个位置后的元素前移</span></span><br><span class="line">    L.data[j<span class="number">-1</span>] = L.data[j];  </span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  L.length--;<span class="comment">//线性表长度减1</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol start="3" type="1">
-<li>按值查找</li>
-</ol>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">LocateElem</span><span class="params">(SqList L, ElemType e)</span> </span>&#123;</span><br><span class="line">  <span class="type">int</span> i;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">for</span>(i=<span class="number">0</span>; i&lt;L.length; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span>(L.data[i] == e) &#123;</span><br><span class="line">      <span class="keyword">return</span> i+<span class="number">1</span>; <span class="comment">//下标为i的元素值等于e,返回其位序i+1</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>; <span class="comment">//退出循环,说明查找失败</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>平均情况：假设pi是（pi=1/n）是查找的元素在第i（1&lt;=i&lt;=L.length）个位置上的概率， <span class="math inline">\(\sum_{i=1}^{n}p_{i}\times i=\sum_{i=1}^{n}{\frac{1}{n}}\times i={\frac{1}{n}}{\frac{n(n+1)}{2}}={\frac{n+1}{2}}\)</span></p>
-<div class="note info"><p>Q:线性表的顺序存储结构是一种（）。 A随机存取的存储结构 B顺序存取的存储结构 C索引存取的存储结构 D 散列存取的存储结构</p>
-<p>A: (A)此处的顺序存取指的是只能线性遍历的数据结构，而顺序表可以随机存取</p>
-<p>Q:若长度为n的非空线性表采用顺序存储结构，在表的第i个位置插入一个数据元素，则 的合法值应该是（）。 A.1&lt;=i&lt;=n B.1≤i≤n+ 1 C.0≤i&lt;=n-1 D.0≤i≤n</p>
-<p>A: (B)顺序表的索引从1开始</p>
-<p>Q:写一个时间O(n),空间O(1)的删除表内一个值的算法 A: <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">del</span><span class="params">(SqList&amp; L, ElemType x)</span> </span>&#123;</span><br><span class="line">  <span class="type">int</span> k = <span class="number">0</span>, i = <span class="number">0</span>;<span class="comment">//k记录值等于x的元素个数</span></span><br><span class="line">  <span class="keyword">while</span>(i &lt; L.length) &#123;</span><br><span class="line">    <span class="keyword">if</span>(L.data[i] == x) &#123;</span><br><span class="line">      k++; </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">      L.data[i-k] = L.data[i];<span class="comment">//当前元素前移k个位置</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    i++;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  L.length = L.length - k;<span class="comment">//顺序表长度递减</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-</div>
-<div class="note warning"><p>本书中的时间复杂度默认指渐进时间复杂度，即n默认趋近正无穷，而不是常数</p>
-</div>
-<h2 id="链式表示">链式表示</h2>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> <span class="title class_">LNodef</span> &#123; <span class="comment">//定义单链表结点类型</span></span><br><span class="line">	ElemType data; <span class="comment">//数据域</span></span><br><span class="line">	<span class="keyword">struct</span> <span class="title class_">LNode</span> *next; <span class="comment">//指针域</span></span><br><span class="line">&#125; ILNode,*LinkList;</span><br><span class="line"><span class="comment">//node是一个节点，Linklist是它的指针（即数组）</span></span><br></pre></td></tr></table></figure>
-<p>一般会用一个<code>头结点</code>指向单链表，<code>头结点</code>的数据没有意义，空链表时指针是一个空指针</p>
-<p><code>头指针</code>指向单链表的第一个节点，对有头指针的链表就是指向<code>头结点</code></p>
-<p><code>头结点</code>的`优点：</p>
-<ol type="1">
-<li>所有数据节点都可以用相同的办法处理</li>
-<li>由于有<code>头节点</code>，<code>头指针</code>不会是一个空指针，空表和非空表也可以统一处理</li>
-</ol>
-<h3 id="基本操作">基本操作</h3>
-<ol type="1">
-<li>头插法建立单链表,该方法把新节点一个个插入到头结点后</li>
-</ol>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Linklist <span class="title">List_HeadInsert</span><span class="params">(LinkList&amp; L)</span></span>&#123;</span><br><span class="line">	LNode* s;</span><br><span class="line">	<span class="type">int</span> x;</span><br><span class="line">	L = (LinkList)<span class="built_in">malloc</span>(<span class="built_in">sizeof</span>(LNode));<span class="comment">//创建头结点</span></span><br><span class="line">	L-&gt;next = <span class="literal">NULL</span>;<span class="comment">//初始化为空链表</span></span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;x);<span class="comment">//输入结点的值</span></span><br><span class="line">	<span class="keyword">while</span>(x != <span class="number">9999</span>)&#123;<span class="comment">//输入9999表示结束</span></span><br><span class="line">	    s = (LNode*)<span class="built_in">malloc</span>(<span class="built_in">sizeof</span>(LNode));<span class="comment">//创建新结点</span></span><br><span class="line">	    s-&gt;data = x;</span><br><span class="line">	    s-&gt;next = L-&gt;next;</span><br><span class="line">	    L-&gt;next = s;<span class="comment">//将新结点插入表中,L为头指针</span></span><br><span class="line">	    <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;x);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> L</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol start="2" type="1">
-<li>尾插法建立单链表，与头插法相反</li>
-</ol>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">LinkList <span class="title">ListTailInsert</span><span class="params">(LinkList&amp; L)</span> </span>&#123;</span><br><span class="line">  <span class="type">int</span> x;</span><br><span class="line">  L = (LinkList)<span class="built_in">malloc</span>(<span class="built_in">sizeof</span>(LNode));</span><br><span class="line">  LNode* s, *r = L;</span><br><span class="line">  <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;x);</span><br><span class="line">  <span class="keyword">while</span>(x != <span class="number">9999</span>) &#123;</span><br><span class="line">    s = (LNode*)<span class="built_in">malloc</span>(<span class="built_in">sizeof</span>(LNode));</span><br><span class="line">    s-&gt;data = x;</span><br><span class="line">    r-&gt;next = s;</span><br><span class="line">    r = s; <span class="comment">//r指向新的表尾结点</span></span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;x);</span><br><span class="line">  &#125;</span><br><span class="line">  r-&gt;next = <span class="literal">NULL</span>;<span class="comment">//尾结点指针置空</span></span><br><span class="line">  <span class="keyword">return</span> L;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/11/29/%E8%80%83%E7%A0%94%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -599,14 +541,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>48k</span>
+      <span>18k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>44 分钟</span>
+      <span>1:06</span>
     </span>
 </div>
 
@@ -723,14 +665,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>14k</span>
+      <span>3.3k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>13 分钟</span>
+      <span>12 分钟</span>
     </span>
 </div>
 
@@ -843,14 +785,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>8.6k</span>
+      <span>1.9k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>8 分钟</span>
+      <span>7 分钟</span>
     </span>
 </div>
 
@@ -958,14 +900,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>33k</span>
+      <span>16k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>30 分钟</span>
+      <span>59 分钟</span>
     </span>
 </div>
 
@@ -984,129 +926,6 @@
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2023/10/12/sysadmin/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://thinklive1.github.io/2023/10/14/%E8%AE%A1%E7%BD%91/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/thive.png">
-      <meta itemprop="name" content="thinklive">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="thinklive">
-      <meta itemprop="description" content="起初，世界是一团思索，它向所有的方向迈了一步，于是万物由此而生">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | thinklive">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/10/14/%E8%AE%A1%E7%BD%91/" class="post-title-link" itemprop="url">基于中科大郑烇老师授课的计算机网络笔记(待续)</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2023-10-14 20:37:40" itemprop="dateCreated datePublished" datetime="2023-10-14T20:37:40+08:00">2023-10-14</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-11-27 20:50:13" itemprop="dateModified" datetime="2023-11-27T20:50:13+08:00">2023-11-27</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">课程笔记</span></a>
-        </span>
-          ，
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" itemprop="url" rel="index"><span itemprop="name">计算机网络</span></a>
-        </span>
-    </span>
-
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>1.4k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
-    </span>
-</div>
-
-        
-        </div>
-      </header>
-   
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="第一章概论">第一章——概论</h2>
-<h3 id="互联网">互联网</h3>
-<p><code>链路层</code>相邻节点传输数据 <code>网络层</code>提供源主机到目标主机之间(端到端end to end)的服务(没有保障)</p>
-<ol type="1">
-<li>传统方式：IP协议，路由协议（路由器交换路由信息，根据算法算出路由表，由ip协议根据目标ip查询路由表确定找到合适端口，进行转发）</li>
-<li>SDN(数据平面：交换机，控制平面：网络操作系统)，控制平面中的网络应用根据信息算出有大量字段的流表给交换机，根据字段匹配相应表项 <code>传输层</code>区分进程，为进程中多个应用提供服务 <code>传输协议</code>:tcp提供可靠的数据传输，udp更强调实时性 <code>tcp</code>：往返建立连接得到响应后再传输 <code>udp</code>：不会先建立连接再传输 <code>应用层协议</code>：客户端，服务器等应用之间如何交互来实现功能 <code>网络</code>：节点和边的形成的拓扑结构 <code>计算机网络</code>：</li>
-</ol>
-<ul>
-<li>节点：主机节点，数据交换节点（转发数据，交换机，路由器等等）</li>
-<li>边被称为链路：接入网链路（主机连接到互联网），主干链路（路由器之间）</li>
-<li>协议：网络设备的工作标准 <code>互联网</code>：世界上最大的互联计算机网络，网络的网络
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/10/14/%E8%AE%A1%E7%BD%91/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1196,14 +1015,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>20k</span>
+      <span>10k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>18 分钟</span>
+      <span>37 分钟</span>
     </span>
 </div>
 
@@ -1228,6 +1047,129 @@
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2023/10/14/%E8%8B%8F%E5%A4%A7linux_ppt/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://thinklive1.github.io/2023/10/14/%E8%AE%A1%E7%BD%91/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/thive.png">
+      <meta itemprop="name" content="thinklive">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="thinklive">
+      <meta itemprop="description" content="起初，世界是一团思索，它向所有的方向迈了一步，于是万物由此而生">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | thinklive">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/10/14/%E8%AE%A1%E7%BD%91/" class="post-title-link" itemprop="url">基于中科大郑烇老师授课的计算机网络笔记(待续)</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-10-14 20:37:40" itemprop="dateCreated datePublished" datetime="2023-10-14T20:37:40+08:00">2023-10-14</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-11-27 20:50:13" itemprop="dateModified" datetime="2023-11-27T20:50:13+08:00">2023-11-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">课程笔记</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" itemprop="url" rel="index"><span itemprop="name">计算机网络</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.1k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>4 分钟</span>
+    </span>
+</div>
+
+        
+        </div>
+      </header>
+   
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="第一章概论">第一章——概论</h2>
+<h3 id="互联网">互联网</h3>
+<p><code>链路层</code>相邻节点传输数据 <code>网络层</code>提供源主机到目标主机之间(端到端end to end)的服务(没有保障)</p>
+<ol type="1">
+<li>传统方式：IP协议，路由协议（路由器交换路由信息，根据算法算出路由表，由ip协议根据目标ip查询路由表确定找到合适端口，进行转发）</li>
+<li>SDN(数据平面：交换机，控制平面：网络操作系统)，控制平面中的网络应用根据信息算出有大量字段的流表给交换机，根据字段匹配相应表项 <code>传输层</code>区分进程，为进程中多个应用提供服务 <code>传输协议</code>:tcp提供可靠的数据传输，udp更强调实时性 <code>tcp</code>：往返建立连接得到响应后再传输 <code>udp</code>：不会先建立连接再传输 <code>应用层协议</code>：客户端，服务器等应用之间如何交互来实现功能 <code>网络</code>：节点和边的形成的拓扑结构 <code>计算机网络</code>：</li>
+</ol>
+<ul>
+<li>节点：主机节点，数据交换节点（转发数据，交换机，路由器等等）</li>
+<li>边被称为链路：接入网链路（主机连接到互联网），主干链路（路由器之间）</li>
+<li>协议：网络设备的工作标准 <code>互联网</code>：世界上最大的互联计算机网络，网络的网络
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/10/14/%E8%AE%A1%E7%BD%91/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1317,14 +1259,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>14k</span>
+      <span>3.8k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>13 分钟</span>
+      <span>14 分钟</span>
     </span>
 </div>
 
@@ -1434,14 +1376,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>16k</span>
+      <span>3.2k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>14 分钟</span>
+      <span>12 分钟</span>
     </span>
 </div>
 
@@ -1521,14 +1463,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">356k</span>
+    <span title="站点总字数">182k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">5:23</span>
+    <span title="站点阅读时长">11:01</span>
   </span>
 </div>
 <div class="busuanzi-count">
