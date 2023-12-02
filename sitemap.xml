@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://thinklive1.github.io/README.html</loc>
+    
+    <lastmod>2023-12-02</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://thinklive1.github.io/2023/09/29/vim%E6%80%BB%E5%92%8C%E7%AC%94%E8%AE%B0/</loc>
     
     <lastmod>2023-12-02</lastmod>
@@ -200,7 +209,7 @@
   </url>
   
   <url>
-    <loc>https://thinklive1.github.io/2023/09/30/%E5%BD%B1%E5%AD%90%E5%B7%A5%E5%8E%82/</loc>
+    <loc>https://thinklive1.github.io/2023/10/05/%E5%BB%BA%E7%AB%99%E6%8C%87%E5%8C%97/</loc>
     
     <lastmod>2023-11-27</lastmod>
     
@@ -209,7 +218,7 @@
   </url>
   
   <url>
-    <loc>https://thinklive1.github.io/2023/10/05/%E5%BB%BA%E7%AB%99%E6%8C%87%E5%8C%97/</loc>
+    <loc>https://thinklive1.github.io/2023/09/30/%E5%BD%B1%E5%AD%90%E5%B7%A5%E5%8E%82/</loc>
     
     <lastmod>2023-11-27</lastmod>
     
@@ -511,13 +520,6 @@
   </url>
   
   <url>
-    <loc>https://thinklive1.github.io/tags/%E5%BD%B1%E5%AD%90%E5%B7%A5%E5%8E%82/</loc>
-    <lastmod>2023-12-02</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://thinklive1.github.io/tags/hexo/</loc>
     <lastmod>2023-12-02</lastmod>
     <changefreq>weekly</changefreq>
@@ -546,7 +548,7 @@
   </url>
   
   <url>
-    <loc>https://thinklive1.github.io/tags/hitman/</loc>
+    <loc>https://thinklive1.github.io/tags/%E5%BD%B1%E5%AD%90%E5%B7%A5%E5%8E%82/</loc>
     <lastmod>2023-12-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -561,6 +563,13 @@
   
   <url>
     <loc>https://thinklive1.github.io/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/</loc>
+    <lastmod>2023-12-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://thinklive1.github.io/tags/hitman/</loc>
     <lastmod>2023-12-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -709,14 +718,14 @@
   </url>
   
   <url>
-    <loc>https://thinklive1.github.io/categories/%E7%A7%98%E5%AF%86/</loc>
+    <loc>https://thinklive1.github.io/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/</loc>
     <lastmod>2023-12-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://thinklive1.github.io/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/</loc>
+    <loc>https://thinklive1.github.io/categories/%E7%A7%98%E5%AF%86/</loc>
     <lastmod>2023-12-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
