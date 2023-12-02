@@ -35,106 +35,713 @@
 ]]></content>
   </entry>
   <entry>
-    <title>考研笔记——数据结构部分</title>
-    <url>/2023/11/29/%E8%80%83%E7%A0%94%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</url>
-    <content><![CDATA[<h1 id="序论">序论</h1>
-<h2 id="数据">数据</h2>
+    <title>基于中科大linux101和苏大ppt的linux笔记</title>
+    <url>/2023/10/14/%E8%8B%8F%E5%A4%A7linux_ppt/</url>
+    <content><![CDATA[<h1 id="苏大部分">苏大部分</h1>
+<h2 id="文件系统">文件系统</h2>
+<h3 id="命名">命名</h3>
+<p>•除/之外，所有的字符都合法</p>
+<p>•大小写敏感</p>
+<p>•有些字符最好不用，如空格符、制表符、退格符和字符：？, @ # $ &amp; ()  | ; ‘ ’ “ ” &lt; &gt;</p>
+<p>•避免使用＋、－或. 来作为普通文件名的第一个字符</p>
+<p>•可以使用长文件名或目录名（255个字符）</p>
+<p>包括完整路径的文件名不超过4096字符 <span id="more"></span></p>
+<h3 id="目录">目录</h3>
+<table>
+<tbody>
+<tr class="odd">
+<td>bin</td>
+<td>存放二进制的可执行程序</td>
+</tr>
+<tr class="even">
+<td>boot</td>
+<td>存放用于系统引导时使用的各种文件</td>
+</tr>
+<tr class="odd">
+<td>dev</td>
+<td>存放设备文件，用户通过这些文件访问外部设备</td>
+</tr>
+<tr class="even">
+<td>etc</td>
+<td>存放系统的配置文件</td>
+</tr>
+<tr class="odd">
+<td>home</td>
+<td>存放用户文件的目录，每个用户在该目录下有一个与该用户名对应的子目录</td>
+</tr>
+<tr class="even">
+<td>root</td>
+<td>超级用户目录</td>
+</tr>
+<tr class="odd">
+<td>sbin</td>
+<td>类似于/bin目录，存放二进制文件，只有root才能访问</td>
+</tr>
+<tr class="even">
+<td>tmp</td>
+<td>用于放置各种临时文件</td>
+</tr>
+</tbody>
+</table>
+<table>
+<tbody>
+<tr class="odd">
+<td>var</td>
+<td>用于存放需要随时改变的文件，如系统日志、脱机工作目录等</td>
+</tr>
+<tr class="even">
+<td>mnt</td>
+<td>系统管理员安装临时文件系统的安装点</td>
+</tr>
+<tr class="odd">
+<td>opt</td>
+<td>一般情况下，该目录不属于系统的基本文件系统，是额外安装的应用程序包所放置的地方</td>
+</tr>
+<tr class="even">
+<td>usr</td>
+<td>用于存放系统应用程序</td>
+</tr>
+<tr class="odd">
+<td>lib</td>
+<td>存放根文件系统中的程序运行所需要的共享库及内核模块</td>
+</tr>
+<tr class="even">
+<td>proc</td>
+<td>是一个虚拟文件系统，存放当前内存的映射，主要用于在不重启机器的情况下管理内核</td>
+</tr>
+<tr class="odd">
+<td>lost+ found</td>
+<td>存放一些系统检查结果，发现不合法的文件或数据都存放在这里，通常此目录是空的，除非硬盘遭到损坏</td>
+</tr>
+</tbody>
+</table>
+<h3 id="链接文件">链接文件</h3>
 <ul>
-<li><code>数据</code>：信息的载体，在计算机中是符号的集合</li>
-<li><code>数据元素</code>：数据的基本单位，一个整体，有一些不可分割的数据项组成，例如一个学生档案</li>
-<li><code>数据对象</code>：有相同性质的数据元素集合，是数据的子集</li>
-<li><code>数据类型</code>：数据值的类型，和对这个类型特定操作的集合</li>
-<li><code>数据结构</code>：相互之间存在特殊关系的数据元素的集合，这种特殊关系就是所谓的结构。</li>
+<li><p>硬链接 将两个文件名指向硬盘上同一个存储空间（inode），对任何一个文件的修改都将影响到另一个文件。 特性： 文件有相同的 inode 及 data block； 只能对已存在的文件进行创建； 不能交叉文件系统进行硬链接的创建； 不能对目录进行创建，只可对文件创建； 删除一个硬链接文件并不影响其他有相同 inode 号的文件。</p></li>
+<li><p>符号链接 又称软链接，是指将一个文件指向另外一个文件的文件名。 特性： 软链接有自己的文件属性及权限等； 软链接可对文件或目录创建； 可对不存在的文件或目录创建软链接； 软链接可交叉文件系统； 若被指向的原文件被删除，则相关软连接被称为死链接 删除软链接并不影响被指向的文件，若被指向路径文件被重新创建，死链接可恢复为正常的软链接</p></li>
 </ul>
-<p>数据结构包括三个方面</p>
+<p><code>符号链接可以跨文件系统，即可以跨磁盘分区。硬链接不可以跨文件系统。它只能建立对文件的链接。</code> 链接文件命令  ln</p>
+<table>
+<tbody>
+<tr class="odd">
+<td>ln file1 file2</td>
+<td>创建源文件file1的硬链接file2</td>
+</tr>
+<tr class="even">
+<td>ln -s file1 file2</td>
+<td>创建源文件file1的软链接file2</td>
+</tr>
+</tbody>
+</table>
+<p>符号链接可以跨文件系统，即可以跨磁盘分区。 硬链接不可以跨文件系统，只能建立对文件的链接。 硬链接删除只原文件或硬链接不影响文件内容 软连接删除源文件导致链接失效</p>
+<h3 id="mbr">MBR</h3>
+<p>硬盘的第一个扇区存有主引导记录(Master boot record, MBR)及分区表(partition table)</p>
 <ul>
-<li><code>逻辑结构</code>（数据的逻辑关系，和怎么存储在计算机中无关） <img src="/assets/苏大linux_ppt/Pasted%20image%2020231129144215.png" /></li>
-<li><code>存储结构</code>（数据在计算机中的表示）
+<li>MBR用于引导操作系统， 446 bytes ；</li>
+<li>partition table用于记录分区信息， 64 bytes ； 一个MBR分区表类型的硬盘最多存在4个主分区，每个分区项占用16个字节 如果分区超过4个，则需要使用扩展分区，即一个物理硬盘上最多有3个主分区和1个扩展分区。 扩展分区不能直接使用，必须分割成为逻辑分区，一个扩展分区中的逻辑分区可以任意多个。</li>
+</ul>
+<h3 id="gpt">GPT</h3>
+<p>全称全局唯一标识分区表 GUID Partition Table</p>
 <ul>
-<li><code>顺序存储</code>：元素存储在相邻的地址间，不需要额外索引，可以随机读写，但容易产生外部碎片</li>
-<li><code>链式存储</code>：每个元素不仅存储值，还存储指向下一个元素的指针，不会产生碎片，但占用空间较大</li>
-<li><code>索引存储</code>：建立一个外部索引表，，利用索引表对数据进行读写，需要额外空间和对索引表增删的消耗</li>
-<li><code>散列存储</code>：对每个元素用一个哈希函数计算其存储的地址，需要恰当的哈希函数</li>
+<li>主分区数量任意（Win 128个）</li>
+<li>支持最大18EB（NTFS 256TB） 1EB=1024PB=1,048,576TB 可能需要EFI支持（Win、Mac）</li>
+</ul>
+<h3 id="ext2">ext2</h3>
+<p>磁盘分区完毕后还需要进行格式化(format)，不同操作系统默认的文件系统不同，所以需要格式化成不同格式的分区。 EXT2（second extended filesystem）是LINUX内核默认的文件系统。 EXT2中的主要构成： •SuperBlock  记录此 filesystem 的整体信息，包括inode/block的总量、使用量、剩余量， 以及文件系统的格式与相关信息等； •Block   实际记录文件的内容，若文件较大，则占用多个 block。 •Inode   记录文件的属性，一个文件占用一个inode，同时记录此文件的数据所在的 block 号码</p>
+<h4 id="inode">inode</h4>
+<p>ext2 创建一个目录时，分配1个 inode 与至少1块 block 给目录 •inode 记录目录权限与属性，并记录分配到 block号码 •block 记录目录下文件名与该文件名占用的 inode</p>
+<p>inode 数量与大小在格式化时固定 特征：</p>
+<ul>
+<li>每个 inode 大小均固定为 128 bytes；</li>
+<li>每个文件仅占用一个 inode；</li>
+<li>文件系统能够创建的文件数量与 inode 的数量有关；</li>
+<li>系统读取文件时先找到 inode，分析 inode 所记录的权限与用户是否符合，若符合读取 block 的内容。 <img src="/assets/苏大linux_ppt/image-20231014145226727.png" /></li>
+</ul>
+<h4 id="升级">升级</h4>
+<p><code>EXT2</code>文件系统高效稳定，但不提供日志 <code>EXT3</code> 提供日志模式： data=journal模式 对所有的文件数据及metadata（定义文件系统中数据的数据,即数据的数据）进行日志记录 data=ordered或data=writeback模式 只对metadata记录日志，而不对数据进行日志记录</p>
+<p><code>EXT4</code> EXT3的扩展升级，可以提供更佳的性能和可靠性，包括支持更大的分区和文件大小，更快的文件操作速度。</p>
+<h3 id="实例">实例</h3>
+<h4 id="fdisk">fdisk</h4>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">           fdisk      [-options]     &lt;disk&gt;</span><br><span class="line">选项：</span><br><span class="line">-l 列出分区信息表</span><br><span class="line">/dev/sda    对sda磁盘进行分区</span><br></pre></td></tr></table></figure>
+<p>中科大的xubuntu镜像</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ustc@ustclug-linux101:~/桌面$ sudo fdisk -l</span><br><span class="line">[sudo] ustc 的密码： </span><br><span class="line">Disk /dev/sda：5 GiB，5368709120 字节，10485760 个扇区</span><br><span class="line">Disk model: VMware Virtual S</span><br><span class="line">单元：扇区 / 1 * 512 = 512 字节</span><br><span class="line">扇区大小(逻辑/物理)：512 字节 / 512 字节</span><br><span class="line">I/O 大小(最小/最佳)：512 字节 / 512 字节</span><br><span class="line">磁盘标签类型：gpt</span><br><span class="line">磁盘标识符：12526913-E330-4CA7-A379-90A87EF858B0</span><br><span class="line"></span><br><span class="line">设备         起点     末尾    扇区  大小 类型</span><br><span class="line">/dev/sda1    2048   499711  497664  243M EFI 系统</span><br><span class="line">/dev/sda2  499712 10483711 9984000  4.8G Linux 文件系统</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h4 id="mkfs格式化">mkfs格式化</h4>
+<p>mkfs      [-t 磁盘格式名]     &lt;partition&gt;</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mkfs  -t ext3  /dev/sdb1</span><br></pre></td></tr></table></figure>
+<h4 id="mount挂载">mount挂载</h4>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mount [-t vfstype] [-o options]    device    <span class="built_in">dir</span></span><br><span class="line">mount                         显示所有挂载的信息</span><br><span class="line"></span><br><span class="line">mount –a                   将所有未挂载设备挂载</span><br><span class="line"></span><br><span class="line">mount   /dev/hda2   /mnt/myhd2    将hda2设备挂载到/mnt/myhd2</span><br><span class="line"></span><br><span class="line">mount -t iso9660 /dev/cdrom  /media/cdrom  挂载光驱</span><br><span class="line">umount [选项] <span class="built_in">dir</span></span><br><span class="line"></span><br><span class="line">选项：</span><br><span class="line"></span><br><span class="line">-f     强制卸载</span><br><span class="line"></span><br><span class="line">-all   卸载所有挂载</span><br><span class="line"></span><br><span class="line">例：</span><br><span class="line"></span><br><span class="line">umount  /media/cdrom     卸载刚才挂载的光驱</span><br></pre></td></tr></table></figure>
+<h2 id="shell">shell</h2>
+<h3 id="重定向">重定向</h3>
+<p>lLinux启动后，默认打开3个文件描述符 •标准输入：standard input   0 •标准输出：standard output  1 •错误输出：error output     2 每条shell命令执行，都会继承父进程的文件描述符。因此，所有运行的shell命令，都会有默认3个文件描述符。 <code>重定向</code> 是指不使用系统的标准输入，标准输出或标准错误端口，而重新指定输入输出。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入重定向</span><br><span class="line"></span><br><span class="line">&lt;          输入重定向，从普通文件获取</span><br><span class="line"></span><br><span class="line">&lt;&lt;!...!    输入重定向， here文件，即从命令行获取</span><br><span class="line"></span><br><span class="line">输出重定向</span><br><span class="line"></span><br><span class="line">&gt;          输出重定向，覆盖模式</span><br><span class="line"></span><br><span class="line">&gt;&gt;         输出重定向，追加模式</span><br><span class="line"></span><br><span class="line">2&gt;         错误重定向，覆盖模式</span><br><span class="line"></span><br><span class="line">2&gt;&gt;        错误重定向，追加模式</span><br><span class="line"></span><br><span class="line">&amp;&gt;         同时实现输出重定向和错误重定向，覆盖模式</span><br><span class="line"></span><br><span class="line">&amp;&gt;&gt;        同时实现输出重定向和错误重定向，追加模式</span><br></pre></td></tr></table></figure>
+<h3 id="管道">管道</h3>
+<p>管道是一种两个进程间进行单向通信的机制 每个命令的输出作为下一条命令的输入，管道线中的命令从左到右顺序执行的，管道线是单向的 因为管道传递数据的单向性，管道又称为半双工管道</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ls –l | wc -l</span><br></pre></td></tr></table></figure>
+<h3 id="命令替换">命令替换</h3>
+<p>Shell中的命令参数可以由另一个命令执行的结果来替代</p>
+<p>命令格式：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$cmd1 `cmd2  arguments`</span><br><span class="line">或</span><br><span class="line">$cmd1 $(cmd2 arguments)</span><br></pre></td></tr></table></figure>
+<p>其中cmd2  arguments的输出作为cmd1的参数y</p>
+<h3 id="命令聚合">命令聚合</h3>
+<p>在一个命令行上使用若干shell元字符将若干命令聚合在一起运行。</p>
+<p>执行聚合的几种方式：</p>
+<p>•<code>cmd1;cmd2</code>   顺序执行若干命令</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">pwd;date;ls</span><br></pre></td></tr></table></figure>
+<p>•<code>cmd1&amp;&amp;cmd2</code> 当cmd1运行成功时才运行cmd2</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">gzip mylargefile&amp;&amp;echo &quot;OK.&quot;</span><br></pre></td></tr></table></figure>
+<p>•<code>cmd1||cmd2</code>   当cmd1运行失败时才运行cmd2</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">gzip mylargefile||echo &quot;FALSE.&quot;</span><br></pre></td></tr></table></figure>
+<p>•<code>(cmdlist)</code>   在子shell中执行命令序列，命令不影响当前shell</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">(date;who|wc -l)&gt;~/login-users.log</span><br></pre></td></tr></table></figure>
+<h2 id="用户系统">用户系统</h2>
+<ul>
+<li><p>普通用户账户：在系统上的任务是进行普通工作</p></li>
+<li><p>超级用户账户：在系统上的任务是对普通用户和整个系统进行管理。</p></li>
+<li><p>系统用户账户：伪用户，并不能登录，由操作系统自己操作。 每个用户都被分配了一个唯一的用户ID号（UID）</p></li>
+<li><p>超级用户：UID=0，GID=0</p></li>
+<li><p>普通用户：UID&gt;=500(有的系统是1000)</p></li>
+<li><p>系统用户（伪用户，不可登录）：0&lt;UID&lt;500（有的系统是1000）</p></li>
+</ul>
+<p>用户名和 UID 被保存在 /etc/passwd 这个文件中</p>
+<h3 id="组">组</h3>
+<ul>
+<li>组是用户的集合</li>
+<li>每个组都被分配了一个唯一的组ID号（GID）</li>
+<li>组和GID 被保存在 /etc/group 文件中</li>
+<li>每个用户都有他们自己的私有组</li>
+<li>每个用户都可以被添加到其他组中来获得额外的存取权限</li>
+<li>组中的所有用户都可以共享属于该组的文件</li>
+<li>当一个用户同属于多个组时，将这些组分为：
+<ul>
+<li>主组（初始组）：用户登录系统时的组</li>
+<li>附加组：可切换的其他组</li>
 </ul></li>
-<li><code>数据的运算</code></li>
 </ul>
-<p><code>ADT</code>(抽象数据类型)构成一个完整的数据结构定义</p>
-<span id="more"></span>
-<h2 id="算法">算法</h2>
-<p>算法是对指定输入的一系列指令 特性：</p>
+<h3 id="权限管理">权限管理</h3>
+<p>被加密后的密码实际上储存在/etc/shadow中 组口令则储存在/etc/gshadow 用户管理相关命令： useradd , userdel, usermod ,passwd ,chage ,su,sudo groupadd, groupdel, groupmod 权限管理相关命令：</p>
 <ul>
-<li><code>有穷性</code>，执行时间和指令次数有穷</li>
-<li><code>确定性</code>，指令有确定的含义，相同输入输出一定相同</li>
-<li><code>可行性</code>，指令都是以及明确实现有定义的</li>
-<li><code>输入</code>：有零个或者多个输入</li>
-<li><code>输出</code>：有一个或以上的输出</li>
+<li>权限设定命令 chmod</li>
+<li>修改文件的属主和/或组命令 chown</li>
+<li>修改文件的所属组命令 chgrp</li>
 </ul>
-<p>需要实现的目标：正确，可读，健壮（对于非法数据，也输出可控），效率</p>
-<p><code>复杂度</code>：略</p>
-<h1 id="线性表">线性表</h1>
-<p><code>定义</code>：有相同数据类型的n个数据元素的有限序列,元素直接存在前后关系，且只能线性前后排列,其中的元素都是数据元素，类型相同 <code>类别</code>：逻辑结构，而非顺序表链表等存储结构 <code>基本操作</code>：</p>
+<h1 id="linux101">linux101</h1>
+<p><img src="/assets/苏大linux_ppt/clitool.png" /></p>
+<h2 id="apt">apt</h2>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ apt search firefox</span><br><span class="line">Sorting... Done</span><br><span class="line">Full Text Search... Done</span><br><span class="line">(Output omitted)</span><br><span class="line"></span><br><span class="line">firefox/bionic-updates,bionic-security,now 72.0.2+build1-0ubuntu0.18.04.1 amd64</span><br><span class="line">  Safe and easy web browser from Mozilla</span><br><span class="line"></span><br><span class="line">(Output omitted)</span><br></pre></td></tr></table></figure>
+<p>中间两行每个字段的含义：</p>
+<table>
+<thead>
+<tr class="header">
+<th>样例中的字段</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>firefox</code></td>
+<td>即为在软件仓库中的包名</td>
+</tr>
+<tr class="even">
+<td><code>bionic-updates,bionic-security,now</code></td>
+<td>为包含这个软件包的仓库源</td>
+</tr>
+<tr class="odd">
+<td><code>72.0.2+build1-0ubuntu0.18.04.1</code></td>
+<td>为软件包的版本</td>
+</tr>
+<tr class="even">
+<td><code>amd64</code></td>
+<td>软件包的架构；还可能为<code>i386</code>、<code>all</code>等</td>
+</tr>
+<tr class="odd">
+<td><code>Safe and easy web browser from Mozilla</code></td>
+<td>在软件仓库中对这个软件包的描述</td>
+</tr>
+</tbody>
+</table>
+<div class="note warning"><p>请避免直接使用 <code>dpkg -i</code> 安装 deb 包。 在绝大多数情况下，都应该使用 <code>apt</code> 来安装 deb 文件。 如果不小心执行了 <code>dpkg -i</code> 导致系统出现依赖问题，可以尝试通过如下的方式调用 <code>apt</code> 帮助修复依赖管理：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo apt -f install</span><br></pre></td></tr></table></figure>
+</div>
+<h2 id="环境变量">环境变量</h2>
+<p>我们不能每次在需要编译程序的时候输入如此长的路径找到 <code>clang</code> 和 <code>clang++</code>，而更希望的是能够像 <code>apt</code> 那样在任何地方都可以直接运行。</p>
+<p>我们可以这样做：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 将 clang+llvm-10.0.0-x86_64-linux-gnu-ubuntu-18.04 目录下的所有内容复制到 /usr/local/ 下</span><br><span class="line">sudo cp -R * /usr/local/</span><br></pre></td></tr></table></figure>
+<p>为什么是 <code>/usr/local</code> 呢？因为 <code>/usr/local/bin</code> 处在 PATH 环境变量下。当我们在终端输入命令时，终端会先判断是否为终端的内建命令，如果不是，则会在 $PATH 环境变量中包含的目录下进行查找。因此，只要我们将一个可执行文件放入了 $PATH 中的目录下面，我们就可以像 <code>apt</code> 一样，在任意地方调用我们的程序。 通过这个命令可以看到当前的 PATH 环境变量有哪些目录。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ echo $PATH</span><br><span class="line">/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin</span><br></pre></td></tr></table></figure>
+<p>在上面的复制过程中，源目录和目标目录的两个 <code>bin</code> 目录会相互合并，<code>clang</code> 和 <code>clang++</code> 两个可执行文件也就被复制到了 <code>/usr/local/bin/</code> 目录中。这样子也就达到了我们希望能够在任意地方调用我们的可执行文件的目的。此外，在复制的时候 lib、doc 等文件夹也会和 <code>/usr/local</code> 下的对应目录合并，将 clang 的库和文档加到系统当中。</p>
+<h2 id="模式匹配">模式匹配</h2>
+<p>许多现代的 shell 都支持一定程度的模式匹配。举个例子，bash 的匹配模式被称为 <a href="https://mywiki.wooledge.org/glob">glob</a>，支持的操作如下：</p>
+<table>
+<thead>
+<tr class="header">
+<th>模式</th>
+<th>匹配的字串</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>*</code></td>
+<td>任意字串</td>
+</tr>
+<tr class="even">
+<td><code>foo*</code></td>
+<td>匹配 foo 开头的字串</td>
+</tr>
+<tr class="odd">
+<td><code>*x*</code></td>
+<td>匹配含 x 的字串</td>
+</tr>
+<tr class="even">
+<td><code>?</code></td>
+<td>一个字符</td>
+</tr>
+<tr class="odd">
+<td><code>a?b</code></td>
+<td><code>acb</code>、<code>a0b</code> 等，但不包含 <code>a00b</code></td>
+</tr>
+<tr class="even">
+<td><code>*.[ch]</code></td>
+<td>以 .c 或 .h 结尾的文件</td>
+</tr>
+</tbody>
+</table>
+<div class="note info no-icon"><p>除了上面提到的 glob，bash 还支持 <a href="https://www.linuxjournal.com/content/bash-extended-globbing">extglob</a>，不过需要先用 <code>shopt -s extglob</code> 启用。</p>
+</div>
+<h2 id="进程">进程</h2>
+<h3 id="htop">htop</h3>
+<p>Htop 可以简单方便查看当前运行的所有进程，以及系统 CPU、内存占用情况与系统负载等信息。</p>
+<p>使用鼠标与键盘都可以操作 htop。Htop 界面的最下方是一些选项，使用鼠标点击或按键盘的 F1 至 F10 功能键可以选择这些功能，常用的功能例如搜索进程（F3, Search）、过滤进程（F4, Filter，使得界面中只有满足条件的进程）、切换树形结构/列表显示（F5, Tree/List）等等。</p>
+<p><strong>进程标识符</strong>（PID，Process Identifier（是一个数字，是进程的唯一标识。在 htop 中，最左侧一列即为 PID。当用户想挂起、继续或终止进程时可以使用 PID 作为索引。</p>
+<p>在 htop 中，直接单击绿色条内的 PID 栏，可以将进程顺序按照 PID 升序排列，再次点击为降序排列，同理可应用于其他列。</p>
+<div class="note info no-icon"><p>按照 PID 排序时，我们可以观察系统启动的过程。Linux 系统内核从引导程序接手控制权后，开始内核初始化，随后变为 <strong>init_task</strong>，初始化自己的 PID 为 0。随后创建出 1 号进程（init 程序，目前一般为 systemd）衍生出用户空间的所有进程，创建 2 号进程 kthreadd 衍生出所有内核线程。随后 0 号进程成为 idle 进程，1 号、2 号并非特意预留，而是产生进程的自然顺序使然。</p>
+<p>由于 kthreadd 运行于内核空间，故需按大写 K（Shift + k）键显示内核进程后才能看到。然而无论如何也不可能在 htop 中看到 0 号进程本体，只能发现 1 号和 2 号进程的 PPID 是 0。</p>
+</div>
+<h4 id="linux对进程的分类">linux对进程的分类</h4>
+<p><code>Status: R: running; S: sleeping; T: traced/stopped; Z: zombie; D: disk sleep</code> S 对应的 sleeping 又称 interruptible sleep，字面意思是「可以被中断」；而 D 对应的 disk sleep 又称 uninterruptible sleep，不可被中断，一般是因为阻塞在磁盘读写操作上。 Zombie 是僵尸进程，该状态下进程已经结束，只是仍然占用一个 PID，保存一个返回值。而 traced/stopped 状态正是下文使用 Ctrl + Z 导致的挂起状态（大写 T），或者是在使用 gdb 等调试（Debug）工具进行跟踪时的状态（小写 t）。</p>
+<table>
+<thead>
+<tr class="header">
+<th>状态</th>
+<th>缩写表示</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Running</td>
+<td>R</td>
+<td>正在运行/可以立刻运行</td>
+</tr>
+<tr class="even">
+<td>Sleeping</td>
+<td>S</td>
+<td>可以被中断的睡眠</td>
+</tr>
+<tr class="odd">
+<td>Disk Sleep</td>
+<td>D</td>
+<td>不可被中断的睡眠</td>
+</tr>
+<tr class="even">
+<td>Traced / Stopped</td>
+<td>T</td>
+<td>被跟踪/被挂起的进程</td>
+</tr>
+<tr class="odd">
+<td>Zombie</td>
+<td>Z</td>
+<td>僵尸进程</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ps">ps</h3>
+<p>ps（<strong>p</strong>rocess <strong>s</strong>tatus）是常用的输出进程状态的工具。直接调用 <code>ps</code> 仅会显示本终端中运行的相关进程。如果需要显示所有进程，对应的命令为 <code>ps aux</code>。</p>
+<h3 id="优先级与-nice-值">优先级与 nice 值</h3>
+<p>有了进程，谁先运行？谁给一点时间就够了，谁要占用大部分 CPU 时间？这又是如何决定的？这些问题之中体现着优先权的概念。如果说上面所介绍的的那些进程属性描述了进程的控制信息，那么<strong>优先级</strong>则反映操作系统调度进程的手段。在 htop 的显示中有两个与优先级有关的值：Priority（PRI）和 <strong>nice（NI）</strong>。以下主要介绍用户层使用的 nice 值。</p>
+<p>Nice 值越高代表一个进程对其它进程越 "nice"（友好），对应的优先级也就更低。Nice 值最高为 19，最低为 -20。通常，我们运行的程序的 nice 值为 0。我们可以打开 htop 观察与调整每个进程的 nice 值。</p>
+<p>用户可以使用 <code>nice</code> 命令在运行程序时指定优先级，而 <code>renice</code> 命令则可以重新指定优先级。当然，若想调低 nice 值，还需要 <code>sudo</code>（毕竟不能随便就把自己的优先级设置得更高，不然对其他的用户不公平）。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">nice -n 10 vim # 以 10 为 nice 值运行 vim</span><br><span class="line">renice -n 10 -p 12345 # 设置 PID 为 12345 的进程的 nice 值为 10</span><br></pre></td></tr></table></figure>
+<div class="note info no-icon"><p>如果你在 htop 中测试调整进程的 nice 值，可能会发现一个公式：<code>PRI = nice + 20</code>。这对于普通进程是成立的——普通进程的 PRI 会被映射到一个非负整数。</p>
+<p>但在正常运行的 Linux 系统中，我们可能会发现有些进程的 PRI 值是 RT，或者是负数。这表明对应的进程有更高的实时性要求（例如内核进程、音频相关进程等），采用了与普通进程不同的调度策略，优先级也相应更高。</p>
+</div>
+<h3 id="用户进程控制">用户进程控制</h3>
+<p><img src="https://101.lug.ustc.edu.cn/Ch04/images/signal_slide.png" /> 信号是 Unix 系列系统中进程之间相互通信的一种机制。发送信号的 Linux 命令叫作 <code>kill</code>。被称作 "kill" 的原因是：早期信号的作用就是关闭（杀死）进程。</p>
+<h3 id="前后台">前后台</h3>
+<p><img src="https://101.lug.ustc.edu.cn/Ch04/images/bg.gif" /> 默认情况下，在 shell 中运行的命令都在前台运行，如果需要在后台运行程序，需要在最后加上 <code>&amp;</code> 而如果需要将前台程序切换到后台，则需要按下 Ctrl + Z 发送 SIGTSTP 使进程挂起，控制权还给 shell 我们可以使用 <code>jobs</code> 命令，看到当前 shell 上所有相关的进程 任务前的代号在 fg，bg，乃至 kill 命令中发挥作用。使用时需要在前面加 <code>%</code>，如将 2 号进程放入后台，则使用 <code>bg %2</code> <div class="note info no-icon"><p>然而我们也许会关注一个细节，在图中显示的编号后面跟着的加号和减号是什么？</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[1]  - running    ./signal handle</span><br><span class="line">[2]  + suspended  ping localhost</span><br></pre></td></tr></table></figure>
+<p>这里的加号标记了 fg 和 bg 命令默认作用到的任务为 2，所以这里 <code>bg %2</code> 也可以直接简化为 <code>bg</code>。减号表示如果加号标记的进程退出了，它就会成为加号标记进程。我们也可以用 <code>%+</code> 和 <code>%-</code> 指代这两个任务。</p>
+</div></p>
+<h3 id="终止进程">终止进程</h3>
+<p>标准的终止进程信号是 SIGTERM，意味着一个进程的自然死亡</p>
 <ul>
-<li>初始化</li>
-<li>按值查找</li>
-<li>按位查找</li>
-<li>删除元素</li>
-<li>输出(print)</li>
-<li>求表长</li>
-<li>销毁</li>
-<li>判空</li>
+<li>htop 中自带向进程发送信号的功能。按下 K 键，在左侧提示栏中选择需要的信号，按下回车发送。同时可以使用空格对进程进行标记，被标记的进程将改变显示颜色。此时重复上述过程，可对被标记进程批量发送信号。</li>
+<li>如果不加任何参数，只有 PID，<code>kill</code> 命令将自动使用 15（SIGTERM）作为信号参数。</li>
+<li>在信号中，9 代表 SIGKILL，收到这个信号之后，程序会立刻退出。在使用时，直接 <code>kill -9 PID</code> 即可。</li>
 </ul>
-<h2 id="顺序表">顺序表</h2>
-<p><code>定义</code>:线性表的顺序存储是顺序表，用连续的地址存储表内元素，让逻辑顺序和物理顺序相同 <img src="/assets/苏大linux_ppt/Pasted%20image%2020231130102600.png" /> <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> Maxsize 50     <span class="comment">//定义线性表的最大长度</span></span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span>&#123;</span><br><span class="line">	ElemType* data[Maxsize]; <span class="comment">//顺序表的元素</span></span><br><span class="line">	<span class="type">int</span> Maxsize,length;      <span class="comment">//顺序表的当前长度</span></span><br><span class="line">&#125;SeqList;        <span class="comment">//顺序表的类型定义</span></span><br><span class="line">L.data=<span class="keyword">new</span> ElemType[InitSize]; <span class="comment">//动态分配</span></span><br></pre></td></tr></table></figure></p>
-<ol type="1">
-<li>插入操作</li>
-</ol>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">bool</span> <span class="title">ListInsert</span><span class="params">(sqList &amp;L, <span class="type">int</span> i, ElemType e)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(i&lt;<span class="number">1</span> || i&gt;L.length+<span class="number">1</span>) &#123;<span class="comment">//判断i的范围是否有效</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span>(L.length &gt;= Maxsize) &#123;</span><br><span class="line">    <span class="comment">//当前存储空间已满,不能插入  </span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span>(<span class="type">int</span> j=L.length; j&gt;i; j--) &#123;</span><br><span class="line">    <span class="comment">//将第i个元素及之后的元素后移</span></span><br><span class="line">    L.data[j] = L.data[j<span class="number">-1</span>]; </span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  L.data[i<span class="number">-1</span>] = e; <span class="comment">//在位置i处放入e</span></span><br><span class="line"></span><br><span class="line">  L.length++; <span class="comment">//线性表长度加1</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>平均时间分析：</p>
-<p><span class="math inline">\(\sum_{i=1}^{n+1}p_{i}(n-i+1)=\sum_{i=1}^{n+1}{\frac{1}{n+1}}(n-i+1)={\frac{1}{n+1}}\sum_{i=1}^{n+1}(n-i+1)={\frac{1}{n+1}}{\frac{n(n+1)}{2}}={\frac{n}{2}}\)</span></p>
-<ol start="2" type="1">
-<li>删除操作</li>
-<li>平均时间分析：</li>
-</ol>
-<p><span class="math inline">\(\sum_{i=1}^{n}p_{i}(n-i)=\sum_{i=1}^{n}{\frac{1}{n}}(n-i)={\frac{1}{n}}\sum_{i=1}^{n}(n-i)={\frac{1}{n}}{\frac{n(n-1)}{2}}={\frac{n-1}{2}}\)</span></p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">bool</span> <span class="title">ListDelete</span><span class="params">(SgList&amp; L, <span class="type">int</span> i, ElemType&amp; e)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(i&lt;<span class="number">1</span> || i&gt;L.length) &#123;<span class="comment">//判断i的范围是否有效  </span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  e = L.data[i<span class="number">-1</span>];<span class="comment">//将被删除的元素赋值给e</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span>(<span class="type">int</span> j=i; j&lt;L.length; j++) &#123;</span><br><span class="line">    <span class="comment">//将第i个位置后的元素前移</span></span><br><span class="line">    L.data[j<span class="number">-1</span>] = L.data[j];  </span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  L.length--;<span class="comment">//线性表长度减1</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol start="3" type="1">
-<li>按值查找</li>
-</ol>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">LocateElem</span><span class="params">(SqList L, ElemType e)</span> </span>&#123;</span><br><span class="line">  <span class="type">int</span> i;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">for</span>(i=<span class="number">0</span>; i&lt;L.length; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span>(L.data[i] == e) &#123;</span><br><span class="line">      <span class="keyword">return</span> i+<span class="number">1</span>; <span class="comment">//下标为i的元素值等于e,返回其位序i+1</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>; <span class="comment">//退出循环,说明查找失败</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>平均情况：假设pi是（pi=1/n）是查找的元素在第i（1&lt;=i&lt;=L.length）个位置上的概率，</p>
-<p><span class="math inline">\(\sum_{i=1}^{n}p_{i}\times i=\sum_{i=1}^{n}{\frac{1}{n}}\times i={\frac{1}{n}}{\frac{n(n+1)}{2}}={\frac{n+1}{2}}\)</span></p>
-<div class="note info"><p>Q:线性表的顺序存储结构是一种（）。 A随机存取的存储结构 B顺序存取的存储结构 C索引存取的存储结构 D 散列存取的存储结构</p>
-<p>A: (A)此处的顺序存取指的是只能线性遍历的数据结构，而顺序表可以随机存取</p>
-<p>Q:若长度为n的非空线性表采用顺序存储结构，在表的第i个位置插入一个数据元素，则 的合法值应该是（）。 A.1&lt;=i&lt;=n B.1≤i≤n+ 1 C.0≤i&lt;=n-1 D.0≤i≤n</p>
-<p>A: (B)顺序表的索引从1开始</p>
-<p>Q:写一个时间O(n),空间O(1)的删除表内一个值的算法 A: <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">del</span><span class="params">(SqList&amp; L, ElemType x)</span> </span>&#123;</span><br><span class="line">  <span class="type">int</span> k = <span class="number">0</span>, i = <span class="number">0</span>;<span class="comment">//k记录值等于x的元素个数</span></span><br><span class="line">  <span class="keyword">while</span>(i &lt; L.length) &#123;</span><br><span class="line">    <span class="keyword">if</span>(L.data[i] == x) &#123;</span><br><span class="line">      k++; </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">      L.data[i-k] = L.data[i];<span class="comment">//当前元素前移k个位置</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    i++;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  L.length = L.length - k;<span class="comment">//顺序表长度递减</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="其他类-kill-命令">其他类 kill 命令</h3>
+<ul>
+<li><p><code>pgrep</code> / <code>pkill</code> 后面接模糊名称，实际上类似于对名称进行 <code>grep</code> 命令。<code>pgrep</code> 仅列出搜索到的进程名称符合用户输入的进程标识符，而 <code>pkill</code> 会根据用户的输入向进程发送信号。</p></li>
+<li><p><code>killall</code> 与 <code>pkill</code> 有一些类似，会向指定名字的进程发送信号。</p></li>
+<li><p><code>xkill</code> <code>xkill</code> 是针对窗口的 kill，运行该命令后，鼠标点击程序对应的窗口，就可以杀死该程序。</p></li>
+</ul>
+<h3 id="脱离终端">脱离终端</h3>
+<p>如果你使用过 SSH 连接到远程服务器执行任务，那么你会发现，你在 shell 中执行的程序在 SSH 断开之后会被关闭。这是因为终端一旦被关闭会向其中每个进程发送 SIGHUP（Signal hangup），而 SIGHUP 的默认动作即退出程序运行。</p>
+<h4 id="nohup">nohup</h4>
+<p>nohup，字面含义，就是「不要被 SIGHUP 影响」。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ nohup ping 101.ustclug.org &amp;</span><br><span class="line">[1] 19258</span><br><span class="line">nohup: ignoring input and appending output to &#x27;/home/ustc/nohup.out&#x27;</span><br></pre></td></tr></table></figure>
+<p>在需要屏蔽 SIGHUP 的程序前添加 nohup，则运行时的输出将被<a href="https://101.lug.ustc.edu.cn/Ch06/#redirect">重定向</a>到 nohup.out，也可以通过重定向手段自定义输出的文件。</p>
+<h2 id="服务">服务</h2>
+<h3 id="服务管理">服务管理</h3>
+<p>目前绝大多数 Linux 发行版的 init 方案都是 systemd，其管理系统服务的命令是 <code>systemctl</code>。</p>
+<p>若想了解全部服务内容，可以运行 <code>systemctl list-units</code> 来查看。该命令将显示所有 systemd 管理的单元，同时右面还会附上一句注释来表明该服务的任务。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ tldr systemctl</span><br><span class="line">systemctl</span><br><span class="line">Control the systemd system and service manager.</span><br><span class="line"></span><br><span class="line">    - List failed units:  # 列出运行失败的服务</span><br><span class="line">    systemctl --failed</span><br><span class="line"></span><br><span class="line">    - Start/Stop/Restart/Reload a service:  # 开启/关闭/重启/重载服务。Reload 代表重载配置文件而不重启进程。</span><br><span class="line">    systemctl start/stop/restart/reload &#123;&#123;unit&#125;&#125;</span><br><span class="line"></span><br><span class="line">    - Show the status of a unit:  # 显示服务状态</span><br><span class="line">    systemctl status &#123;&#123;unit&#125;&#125;</span><br><span class="line"></span><br><span class="line">    - Enable/Disable a unit to be started on bootup:  # 设置（Enable）/取消（Disable）服务开机自启</span><br><span class="line">    systemctl enable/disable &#123;&#123;unit&#125;&#125;</span><br><span class="line"></span><br><span class="line">    - Mask/Unmask a unit, prevent it to be started on bootup:  # 阻止/取消阻止服务被 enable</span><br><span class="line">    systemctl mask/unmask &#123;&#123;unit&#125;&#125;</span><br><span class="line"></span><br><span class="line">    - Reload systemd, scanning for new or changed units:  # 重载 systemd，需要在创建或修改服务文件后执行</span><br><span class="line">    systemctl daemon-reload</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<div class="note info no-icon"><p>wsl默认不支持systemctl,可以使用传统的service</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ tldr service</span><br><span class="line">service</span><br><span class="line">Manage services by running init scripts.</span><br><span class="line">The full script path should be omitted (/etc/init.d/ is assumed).</span><br><span class="line"></span><br><span class="line"> - Start/Stop/Restart/Reload service (start/stop should always be available):</span><br><span class="line">   service &#123;&#123;init_script&#125;&#125; &#123;&#123;start|stop|restart|reload&#125;&#125;</span><br><span class="line"></span><br><span class="line"> - Do a full restart (runs script twice with start and stop):</span><br><span class="line">   service &#123;&#123;init_script&#125;&#125; --full-restart</span><br><span class="line"></span><br><span class="line"> - Show the current status of a service:</span><br><span class="line">   service &#123;&#123;init_script&#125;&#125; status</span><br><span class="line"></span><br><span class="line"> - List the status of all services:</span><br><span class="line">   service --status-all</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>或者手动打开</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo vim /etc/wsl.conf</span><br></pre></td></tr></table></figure>
+<p>输入：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[boot]</span><br><span class="line">systemd=true</span><br></pre></td></tr></table></figure>
+<p>然后在windows终端wsl --shutdown再重启</p>
 </div>
-<div class="note warning"><p>本书中的时间复杂度默认指渐进时间复杂度，即n默认趋近正无穷，而不是常数</p>
+<div class="note info no-icon"><p><strong>编写 .service 文件并运行（以 Jupyter Notebook 为例）</strong></p>
+<p>Jupyter Notebook 是基于浏览器的交互式编程平台，在数据科学领域非常常用。</p>
+<p>首先使用文本编辑器在 <code>/etc/systemd/system</code> 目录下创建一个名为 <code>jupyter.service</code> 的文件。并填入以下内容：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=Jupyter Notebook    # 该服务的简要描述</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">PIDFile=/run/jupyter.pid        # 用来存放 PID 的文件</span><br><span class="line">ExecStart=/usr/local/bin/jupyter-notebook --allow-root</span><br><span class="line">                                # 使用绝对路径标明的命令及命令行参数</span><br><span class="line">WorkingDirectory=/root          # 服务启动时的工作目录</span><br><span class="line">Restart=always                  # 重启模式，这里是无论因何退出都重启</span><br><span class="line">RestartSec=10                   # 退出后多少秒重启</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target      # 依赖目标，这里指进入多用户模式后再启动该服务</span><br></pre></td></tr></table></figure>
+<p>将写好的配置文件保存为 <code>/etc/systemd/system/jupyter.service</code>，然后运行 <code>systemctl daemon-reload</code>，就可以使用 <code>systemctl</code> 命令来管理这个服务了，例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">systemctl start jupyter</span><br><span class="line">systemctl stop jupyter</span><br><span class="line">systemctl enable jupyter  # enable 表示标记服务的开机自动启动</span><br><span class="line">systemctl disable jupyter # 取消自启</span><br></pre></td></tr></table></figure>
 </div>
-<h2 id="链式表示">链式表示</h2>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> <span class="title class_">LNodef</span> &#123; <span class="comment">//定义单链表结点类型</span></span><br><span class="line">	ElemType data; <span class="comment">//数据域</span></span><br><span class="line">	<span class="keyword">struct</span> <span class="title class_">LNode</span> *next; <span class="comment">//指针域</span></span><br><span class="line">&#125; ILNode,*LinkList;</span><br><span class="line"><span class="comment">//node是一个节点，Linklist是它的指针（即数组）</span></span><br></pre></td></tr></table></figure>
-<p>一般会用一个<code>头结点</code>指向单链表，<code>头结点</code>的数据没有意义，空链表时指针是一个空指针</p>
-<p><code>头指针</code>指向单链表的第一个节点，对有头指针的链表就是指向<code>头结点</code></p>
-<p><code>头结点</code>的`优点：</p>
-<ol type="1">
-<li>所有数据节点都可以用相同的办法处理</li>
-<li>由于有<code>头节点</code>，<code>头指针</code>不会是一个空指针，空表和非空表也可以统一处理</li>
-</ol>
-<h3 id="基本操作">基本操作</h3>
-<ol type="1">
-<li>头插法建立单链表,该方法把新节点一个个插入到头结点后</li>
-</ol>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function">Linklist <span class="title">List_HeadInsert</span><span class="params">(LinkList&amp; L)</span></span>&#123;</span><br><span class="line">	LNode* s;</span><br><span class="line">	<span class="type">int</span> x;</span><br><span class="line">	L = (LinkList)<span class="built_in">malloc</span>(<span class="built_in">sizeof</span>(LNode));<span class="comment">//创建头结点</span></span><br><span class="line">	L-&gt;next = <span class="literal">NULL</span>;<span class="comment">//初始化为空链表</span></span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;x);<span class="comment">//输入结点的值</span></span><br><span class="line">	<span class="keyword">while</span>(x != <span class="number">9999</span>)&#123;<span class="comment">//输入9999表示结束</span></span><br><span class="line">	    s = (LNode*)<span class="built_in">malloc</span>(<span class="built_in">sizeof</span>(LNode));<span class="comment">//创建新结点</span></span><br><span class="line">	    s-&gt;data = x;</span><br><span class="line">	    s-&gt;next = L-&gt;next;</span><br><span class="line">	    L-&gt;next = s;<span class="comment">//将新结点插入表中,L为头指针</span></span><br><span class="line">	    <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;x);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> L</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol start="2" type="1">
-<li>尾插法建立单链表，与头插法相反</li>
-</ol>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function">LinkList <span class="title">ListTailInsert</span><span class="params">(LinkList&amp; L)</span> </span>&#123;</span><br><span class="line">  <span class="type">int</span> x;</span><br><span class="line">  L = (LinkList)<span class="built_in">malloc</span>(<span class="built_in">sizeof</span>(LNode));</span><br><span class="line">  LNode* s, *r = L;</span><br><span class="line">  <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;x);</span><br><span class="line">  <span class="keyword">while</span>(x != <span class="number">9999</span>) &#123;</span><br><span class="line">    s = (LNode*)<span class="built_in">malloc</span>(<span class="built_in">sizeof</span>(LNode));</span><br><span class="line">    s-&gt;data = x;</span><br><span class="line">    r-&gt;next = s;</span><br><span class="line">    r = s; <span class="comment">//r指向新的表尾结点</span></span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;x);</span><br><span class="line">  &#125;</span><br><span class="line">  r-&gt;next = <span class="literal">NULL</span>;<span class="comment">//尾结点指针置空</span></span><br><span class="line">  <span class="keyword">return</span> L;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="例行性任务">例行性任务</h3>
+<p>可以用at，crontab等工具创建例行性任务 详见<a href="https://101.lug.ustc.edu.cn/Ch04/#crontab">linux101</a></p>
+<div class="note info no-icon">
+</div>
+<h2 id="用户权限和文件系统">用户权限和文件系统</h2>
+<p>可以查看 <code>/etc/passwd</code> 文件，来得到系统中用户的配置信息。 普通用户的文件存储于位于 <code>/home/username/</code>路径</p>
+<div class="note info no-icon"><p>你是否常常忘记敲 <code>sudo</code>，结果还要把后面的整条命令重新敲一遍？在发现权限不足之后有一个方便的「补救方案」：<code>sudo !!</code>，效果如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ apt update</span><br><span class="line">Reading package lists... Done</span><br><span class="line">E: Could not open lock file /var/lib/apt/lists/lock - open (13: Permission denied)</span><br><span class="line">E: Unable to lock directory /var/lib/apt/lists/</span><br><span class="line">W: Problem unlinking the file /var/cache/apt/pkgcache.bin - RemoveCaches (13: Permission denied)</span><br><span class="line">W: Problem unlinking the file /var/cache/apt/srcpkgcache.bin - RemoveCaches (13: Permission denied)</span><br><span class="line">$ sudo !!</span><br><span class="line">sudo apt update</span><br><span class="line">[sudo] password for ustc:</span><br><span class="line">Hit:1 http://mirrors.ustc.edu.cn/ubuntu bionic InRelease</span><br><span class="line">（以下内容省略）</span><br></pre></td></tr></table></figure>
+<p>其实，在 Shell 中，<code>!!</code> 即代表上一条命令，可以和其他的命令结合使用。</p>
+</div>
+<p>以 <code>root</code> 之外的用户的身份执行命令：加上 <code>-u 用户名</code> 的参数即可。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ sudo -u nobody id</span><br><span class="line">uid=65534(nobody) gid=65534(nogroup) groups=65534(nogroup)</span><br></pre></td></tr></table></figure>
+<h3 id="用户组">用户组</h3>
+<p>用户组是用户的集合。通过用户组机制，可以为一批用户设置权限。可以使用 <code>groups</code> 命令，查看自己所属的用户组。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ groups</span><br><span class="line">ustc adm cdrom sudo dip plugdev lxd</span><br></pre></td></tr></table></figure>
+<p>用户组和用户一样，也有编号：GID (Group ID)。 <div class="note info no-icon"><p><code>adduser</code> 是 Debian 及其衍生发行版中附带的一个方便的用户管理脚本。它可以用来向系统添加用户、添加组，以及将用户加入组。输入：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo adduser 用户名</span><br></pre></td></tr></table></figure>
+<p>即可添加此用户。而输入</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo adduser --group 组名</span><br></pre></td></tr></table></figure>
+<p>即可添加此用户组。将用户加入指定用户组也非常简单：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo adduser 用户名 组名</span><br></pre></td></tr></table></figure>
+<p>在通过 <code>adduser</code> 创建了新的用户后，直接使用 <code>sudo</code> 以 <code>root</code> 身份运行程序可能会得到：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ sudo apt update</span><br><span class="line">[sudo] password for ustc:</span><br><span class="line">ustc is not in the sudoers file.  This incident will be reported.</span><br></pre></td></tr></table></figure>
+<p>除了可以通过 <code>visudo</code> 命令编辑 <code>sudoers</code> 文件外，还可以直接通过将新的用户加入到 <code>sudo</code> 用户组，以能够使用 <code>sudo</code> 命令。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo adduser ustc sudo</span><br></pre></td></tr></table></figure>
+<p>再次切换到新的用户即可看到使用 sudo 的提示：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">To run a command as administrator (user &quot;root&quot;), use &quot;sudo &lt;command&gt;&quot;.</span><br><span class="line">See &quot;man sudo_root&quot; for details.</span><br></pre></td></tr></table></figure>
+</div></p>
+<h2 id="文本处理">文本处理</h2>
+<h3 id="正则表达式">正则表达式</h3>
+<p><a href="https://regex101.com/">在线编辑正则表达式</a> 正则表达式（regular expression）描述了一种字符串匹配的模式，可以用来检查一个串是否含有某种子串、将匹配的子串做替换或者从某个串中取出符合某个条件的子串等。</p>
+<p>特殊字符表：</p>
+<table>
+<thead>
+<tr class="header">
+<th>特殊字符</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>[]</code></td>
+<td>方括号表达式，表示匹配的字符集合，例如 <code>[0-9]</code>、<code>[abcde]</code></td>
+</tr>
+<tr class="even">
+<td><code>()</code></td>
+<td>标记子表达式起止位置</td>
+</tr>
+<tr class="odd">
+<td><code>*</code></td>
+<td>匹配前面的子表达式零或多次</td>
+</tr>
+<tr class="even">
+<td><code>+</code></td>
+<td>匹配前面的子表达式一或多次</td>
+</tr>
+<tr class="odd">
+<td><code>?</code></td>
+<td>匹配前面的子表达式零或一次</td>
+</tr>
+<tr class="even">
+<td><code>\</code></td>
+<td>转义字符，除了常用转义外，还有：<code>\b</code> 匹配单词边界；<code>\B</code> 匹配非单词边界等</td>
+</tr>
+<tr class="odd">
+<td><code>.</code></td>
+<td>匹配除 <code>\n</code>（换行）外的任意单个字符</td>
+</tr>
+<tr class="even">
+<td><code>&#123;&#125;</code></td>
+<td>标记限定符表达式的起止。例如 <code>&#123;n&#125;</code> 表示匹配前一子表达式 n 次；<code>&#123;n,&#125;</code> 匹配至少 n 次；<code>&#123;n,m&#125;</code> 匹配 n 至 m 次</td>
+</tr>
+<tr class="odd">
+<td><code>\|</code></td>
+<td>表明前后两项二选一</td>
+</tr>
+<tr class="even">
+<td><code>$</code></td>
+<td>匹配字符串的结尾</td>
+</tr>
+<tr class="odd">
+<td><code>^</code></td>
+<td>匹配字符串的开头，在方括号表达式中表示不接受该方括号表达式中的字符集合</td>
+</tr>
+</tbody>
+</table>
+<p>若是想要匹配特殊字符本身，需要在之前加上转义字符 <code>\</code>。 <div class="note info no-icon"><p>匹配正整数：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[1-9][0-9]*</span><br></pre></td></tr></table></figure>
+<p>匹配仅由 26 个英文字母组成的字符串：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">^[A-Za-z]+$</span><br></pre></td></tr></table></figure>
+<p>匹配 Chapter 1-99 或 Section 1-99</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">^(Chapter|Section) [1-9][0-9]&#123;0,1&#125;$</span><br></pre></td></tr></table></figure>
+<p>匹配“ter”结尾的单词：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ter\b</span><br></pre></td></tr></table></figure>
+<p>匹配rgb代码</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">^#([0-9]&#123;6&#125;$|([0-9]|[A-F])&#123;3&#125;$)</span><br></pre></td></tr></table></figure>
+</div></p>
+<h4 id="基本扩展正则表达式">基本/扩展正则表达式</h4>
+<p>基本正则表达式（Basic Regular Expressions, BRE）和扩展正则表达式（Extended Regular Expressions, ERE）是两种 POSIX 正则表达式风格。</p>
+<p>BRE 可能是如今最老的正则风格了，对于部分特殊字符（如 <code>+</code>, <code>?</code>, <code>|</code>, <code>&#123;</code>）需要加上转义符 <code>\</code> 才能表达其特殊含义。</p>
+<p>ERE 与如今的现代正则风格较为一致，相比 BRE，上述特殊字符默认发挥特殊作用，加上 <code>\</code> 之后表达普通含义。</p>
+<h4 id="懒惰和贪婪">懒惰和贪婪</h4>
+<p>使用 <code>*</code> <code>+</code> 的时候默认是贪婪模式，即尽可能匹配更多的子表达式。在 <code>*</code> <code>+</code> 之后加上 <code>?</code> 变为懒惰模式，即尽可能匹配更少的子表达式。</p>
+<p>例如：<code>123456456</code></p>
+<p>贪婪：<code>1.+6</code> -&gt; <code>123456456</code></p>
+<p>懒惰：<code>1.+?6</code> -&gt; <code>123456</code> 后向引用可以将之前匹配到的具体内容再次利用。在正则表达式中，<code>()</code> 以及它们包含的内容为一个分组，每个分组默认拥有一个组号。</p>
+<p>组号分配规则：</p>
+<ul>
+<li>0 代表整个表达式</li>
+<li>从左至右，按左括号的出现顺序分配，第一个为 1，第二个为 2，以此类推</li>
+<li>扫描两遍，第一次只分配未命名的组，第二次只分配命名的组。即任意命名组的组号都大于未命名的组号</li>
+</ul>
+<h4 id="后向引用">后向引用</h4>
+<div class="note info no-icon"><p>示例</p>
+<p><code>\b(\w+)\b\s+\1\b</code> 可以用来匹配用空白字符分割的两个重复的单词（例如 <code>linux linux</code>），其中 <code>\1</code> 是对组号为 1 的组 <code>(\w+)</code> 的引用。</p>
+<p><code>\b(?'Word'\w+)\b\s+\k'Word'\b</code> 也可以起到同样的效果，其中 <code>?'Word'</code> 用于命名组，<code>\k'Word'</code> 用于引用组。</p>
+</div>
+<h4 id="零宽断言">零宽断言</h4>
+<p>零宽断言用于查找某些内容进行定位，但内容并不放入匹配结果，就像 <code>\b</code> <code>^</code> <code>$</code> 的定位一样。<code>(?=exp)</code> 用于匹配表达式 <code>exp</code> 前面的位置，<code>(?&lt;=exp)</code> 用于匹配后面的位置。</p>
+<h4 id="拓展阅读">拓展阅读</h4>
+<p><a href="https://zhuanlan.zhihu.com/p/46294360">乱用正则引发的惨案</a></p>
+<h3 id="其他的文本处理工具">其他的文本处理工具</h3>
+<h4 id="grep">grep</h4>
+<p>grep 全称 Global Regular Expression Print，是一个强大的文本搜索工具，可以在一个或多个文件中搜索指定 pattern 并显示相关行。</p>
+<p>grep 默认使用 BRE，要使用 ERE 可以使用 <code>grep -E</code> 或 egrep。</p>
+<p>命令格式：<code>grep [option] pattern file</code></p>
+<p>一些用法：</p>
+<ul>
+<li><code>-n</code>：显示匹配到内容的行号</li>
+<li><code>-v</code>：显示不被匹配到的行</li>
+<li><code>-i</code>：忽略字符大小写</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ls /bin | grep -n &quot;^man$&quot;  # 搜索内容仅含 man 的行，并且显示行号</span><br><span class="line">ls /bin | grep -v &quot;[a-z]\|[0-9]&quot;  # 搜索不含小写字母和数字的行</span><br><span class="line">ls /bin | grep -iv &quot;[A-Z]\|[0-9]&quot;  # 搜索不含字母和数字的行</span><br></pre></td></tr></table></figure>
+<h4 id="sed">sed</h4>
+<p>sed 全称 Stream EDitor，即流编辑器，可以方便地对文件的内容进行逐行处理。</p>
+<p>sed 默认使用 BRE，要使用 ERE 可以 sed -E。</p>
+<p>命令格式：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sed [OPTIONS] &#x27;command&#x27; file(s)</span><br><span class="line">sed [OPTIONS] -f scriptfile file(s)</span><br></pre></td></tr></table></figure>
+<p>此处的 command 和 scriptfile 中的命令均指的是 sed 命令。</p>
+<p>常见 sed 命令：</p>
+<ul>
+<li>s 替换</li>
+<li>d 删除</li>
+<li>c 选定行改成新文本</li>
+<li>a 当前行下插入文本</li>
+<li>i 当前行上插入文本</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ echo -e &quot;seD\nIS\ngOod&quot; &gt; sed_demo</span><br><span class="line">$ cat sed_demo</span><br><span class="line">seD</span><br><span class="line">IS</span><br><span class="line">gOod</span><br><span class="line">$ sed &quot;2d&quot; sed_demo  # 删除第二行</span><br><span class="line">seD</span><br><span class="line">gOod</span><br><span class="line">$ sed &quot;s/[a-z]/~/g&quot; sed_demo  # 替换所有小写字母为 ~</span><br><span class="line">~~D</span><br><span class="line">IS</span><br><span class="line">~O~~</span><br><span class="line">$ sed &quot;3cpErfeCt&quot; sed_demo  # 选定第三行，改成 pErfeCt</span><br><span class="line">seD</span><br><span class="line">IS</span><br><span class="line">pErfeCt</span><br></pre></td></tr></table></figure>
+<h4 id="awk">awk</h4>
+<p>awk 是一种用于处理文本的编程语言工具，名字来源于三个作者的首字母。相比 sed，awk 可以在逐行处理的基础上，针对列进行处理。默认的列分隔符号是空格，其他分隔符可以自行指定。</p>
+<p>awk 使用 ERE。</p>
+<p>命令格式：<code>awk [options] 'pattern &#123;action&#125;' [file]</code></p>
+<p>awk 逐行处理文本，对符合的 patthern 执行 action。需要注意的是，awk 使用单引号时可以直接用 <code>$</code>，使用双引号则要用 <code>\$</code>。</p>
+<p>一些示例：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ cat awk_demo</span><br><span class="line">Beth    4.00    0</span><br><span class="line">Dan     3.75    0</span><br><span class="line">kathy   4.00    10</span><br><span class="line">Mark    5.00    20</span><br><span class="line">Mary    5.50    22</span><br><span class="line">Susie   4.25    18</span><br><span class="line">$ # 选择第三列值大于 0 的行，对每一行输出第一列的值和第二第三列的乘积</span><br><span class="line">$ awk &#x27;$3 &gt;0 &#123; print $1, $2 * $3 &#125;&#x27; awk_demo</span><br><span class="line">kathy 40</span><br><span class="line">Mark 100</span><br><span class="line">Mary 121</span><br><span class="line">Susie 76.5</span><br></pre></td></tr></table></figure>
+<p>示例中 <code>$1</code>，<code>$2</code>，<code>$3</code> 分别指代本行的第 1、2、3 列。特别地，$0 指代本行。</p>
+<p>awk 语言是「图灵完全」的，这意味着理论上它可以做到和其他语言一样的事情。这里我们不仅可以对每行进行操作，还可以定义变量，将前面处理的状态保存下来，以下是一个求和的例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ awk &#x27;BEGIN &#123; sum = 0 &#125; &#123; sum += $2 * $3 &#125; END &#123; print sum &#125;&#x27; awk_demo</span><br><span class="line">337.5</span><br></pre></td></tr></table></figure>
+<h4 id="trsort">tr,sort</h4>
+<p>除此之外，tr可用于进行简单的预处理，sort可以用于进行简单的排序、</p>
+<h2 id="shell环境">shell环境</h2>
+<p>组命令：</p>
+<ul>
+<li><p>使用 <code>&#123; 命令1; 命令2; … &#125;</code>，组命令在 shell 内执行，不会产生新的进程，注意花括号和命令之间的空格。</p></li>
+<li><p>使用 <code>(命令1; 命令2; …)</code>，组命令会建立独立的 shell 子进程来执行组命令，这里的圆括号周围并不需要空格。</p></li>
+</ul>
+<p>可以在脚本开头加上 <code>set -u</code> 来实现使用未定义变量报错，否则会默认成空值</p>
+<h3 id="位置参数">位置参数</h3>
+<ul>
+<li>Shell 解释用户的命令时，把命令程序名后面的所有字串作为程序的参数。分别对应 <code>$1</code>、<code>$2</code>、<code>$3</code>、……、<code>$9</code>，程序名本身对应 <code>$0</code>。</li>
+<li>可用 <code>shift &lt;n&gt;</code> 命令，丢弃开头的 n 个位置变量，改变 <code>$1</code>、<code>$2</code>、<code>$3</code> 等的对应关系。</li>
+<li>可用 <code>set</code> 命令，重置整个位置变量列表，从而给 <code>$1</code>、<code>$2</code>、<code>$3</code> 等赋值。</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ set one two three</span><br><span class="line">$ echo $1 $2 $3</span><br><span class="line">one two three</span><br><span class="line">$ shift 2</span><br><span class="line">$ echo $1 $2 $3</span><br><span class="line">three</span><br><span class="line">$ # 此时 $2 和 $3 已不存在</span><br></pre></td></tr></table></figure>
+<h3 id="特殊变量">特殊变量</h3>
+<table>
+<thead>
+<tr class="header">
+<th>特殊变量</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>$#</code></td>
+<td>命令行上的参数个数，不包括 <code>$0</code></td>
+</tr>
+<tr class="even">
+<td><code>$?</code></td>
+<td>最后命令的退出代码，0 表示成功，其它值表示失败</td>
+</tr>
+<tr class="odd">
+<td><code>$$</code></td>
+<td>当前进程的 PID</td>
+</tr>
+<tr class="even">
+<td><code>$!</code></td>
+<td>最近一个后台运行进程的进程号</td>
+</tr>
+<tr class="odd">
+<td><code>$*</code></td>
+<td>命令行所有参数构成的一个字符串</td>
+</tr>
+<tr class="even">
+<td><code>$@</code></td>
+<td>用双引号括起的命令行各参数拼接构成的一个字符串</td>
+</tr>
+</tbody>
+</table>
+<h3 id="特殊字符">特殊字符</h3>
+<ul>
+<li><p>反斜杠，消除单个字符的特殊含义。</p>
+<ul>
+<li>包含空白字符（空格和制表符）、反斜杠本身、各种引号，以及 <code>$</code>、<code>!</code> 等。</li>
+<li>与其他语言不同，shell 中反斜杠不会将普通字符转义为其他含义（例如 <code>\n</code> 不会被视作换行符）。</li>
+</ul></li>
+<li><p>使用双引号包裹字符串可以消除空白字符切分参数的特殊含义，但是很多其他特殊字符的特殊含义仍然保留。双引号也被称为「弱引用」。</p></li>
+<li><p>单引号，能消除所有特殊字符的特殊含义，包括反斜杠，因此单引号字符串中不能使用反斜杠转义单引号本身。单引号也被称为「强引用」。</p></li>
+<li><p>反引号（<code>`</code>）括起的字符串，被 shell 解释为命令，执行时用命令输出结果代替整个反引号对界限部分。</p>
+<ul>
+<li>与反引号相同的语法是 <code>$(command)</code>，它的好处是界限更明确，且可以嵌套。因此编写新脚本时，更建议使用此语法。</li>
+</ul></li>
+</ul>
+<h3 id="语法">语法</h3>
+<p>具体语法可参考<a href="https://101.lug.ustc.edu.cn/Ch06/#bash-arithmetic">linux101</a></p>
+<h2 id="拓展阅读-1">拓展阅读</h2>
+<h3 id="进程与会话">进程与会话</h3>
+<p>Fork 是类 UNIX 中创建进程的基本方法：将当前的进程完整复制一份。新进程和旧进程唯一的区别是 <code>fork()</code> 的返回值不同。程序员可以根据其返回值为新旧进程设置不同的逻辑。</p>
+<p>除了最开始的 0 号进程外，绝大多数情况下其他进程是由另一个进程通过 fork 产生的。这里产生进程的一方为<strong>父进程</strong>，被产生的是<strong>子进程</strong>。在 Linux 中，父进程可以等待子进程，接收子进程退出信号以及返回值。 父进程如果先于子进程退出，产生孤儿进程，会被0号进程(init)接管 子进程先退出但父进程没有回应，产生僵尸进程，会被系统定时清理</p>
+<p><strong>进程组</strong>大体上是执行同一工作的进程形成的一个团体，通常是由于父进程 fork 出子进程后子进程继承父进程的组 ID 而逐渐形成。</p>
+<p><strong>会话</strong> (session) 可以说是面向用户的登录出现的概念。当用户从终端登录进入 shell，就会以该 shell 为会话首进程展开本次会话。一个会话中通常包含着多个进程组，分别完成不同的工作。用户退出时，这个会话会结束，但有些进程仍然以该会话标识符 (session ID) 驻留系统中继续运行。</p>
+<table>
+<thead>
+<tr class="header">
+<th>进程属性</th>
+<th>意义/目的</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>PID</td>
+<td>Process ID，标识进程的唯一性。</td>
+</tr>
+<tr class="even">
+<td>PPID</td>
+<td>Parent PID，标识进程父子关系。</td>
+</tr>
+<tr class="odd">
+<td>PGID</td>
+<td>Process Group ID，标识共同完成一个任务的整体。</td>
+</tr>
+<tr class="even">
+<td>TPGID</td>
+<td>标识一组会话中处于前台（与用户交流）的进程（组）。</td>
+</tr>
+<tr class="odd">
+<td>SID</td>
+<td>Session ID，标识一组会话，传统意义上标识一次登录所做的任务的集合，如果是与具体登录无关的进程，其 SID 被重置。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="终端-terminal-与控制台-console">终端 (Terminal) 与控制台 (Console)</h3>
+<p>在上世纪六十年代，个人计算机尚未开始发展，用户使用计算机的一种常见方式就是通过终端，与远程的服务器连接交互。当时键盘和显示器连为一体，称为终端（terminal）。而主机自带的一套键盘与屏幕只能给系统管理员使用，称为控制台 (console)，用来输出启动 debug 信息（现在的 Linux 系统如果因故障而不得不进入单用户修复模式，则只有一个终端 <code>/dev/console</code> 开启）。</p>
+<p>然而随着时代的发展，这种模式逐渐被家庭电脑的分布式主机取代，我们不需要，也没有多套终端了，只有显示器、键盘、鼠标。但是为了向前兼容性，我们需要假装这是一个（甚至多个）终端，所以一般发行版 <code>/dev</code> 目录下有 7 个终端 <code>tty1 ~ tty7</code>，通过 <code>Ctrl + Alt + F1 ~ F7</code> 切换键盘与显示器与哪个终端相对应。</p>
+<p>再后来，随着时代发展，终端需要出现在图形界面上了，然而承载图形界面的也是终端，所以终端里的终端就需要终端模拟器来实现了。由此，出现在图形界面上的终端才叫终端模拟器。</p>
+<p>没有图形界面时，shell 一般为控制台 (tty) 的子进程，在图形界面上 shell 建立在虚拟终端 (pty, pseudo tty) 之上。顺带一提，服务器常用的远程连接工具 <code>ssh</code> 的父进程也是一个 pty。</p>
+<p>参考阅读: <a href="https://www.linuxdashen.com/%E4%BD%A0%E7%9C%9F%E7%9A%84%E7%9F%A5%E9%81%93%E4%BB%80%E4%B9%88%E6%98%AF%E7%BB%88%E7%AB%AF%E5%90%97%EF%BC%9F">你真的知道什么是终端吗？</a></p>
+<h3 id="文件系统的特殊权限位">文件系统的特殊权限位</h3>
+<p>有三个特殊权限位：setuid, setgid 和 sticky。</p>
+<ul>
+<li><code>setuid</code>: 以文件所属的用户的身份 (UID) 执行此程序。</li>
+<li><code>setgid</code>: 对文件来说，以文件所属的用户组的身份 (GID) 执行此程序；对目录来说，在这个目录下创建的文件的用户组都与此目录本身的用户组一致，而不是创建者的用户组。</li>
+<li><code>sticky</code> (restricted deletion flag): 目录中的所有文件只能由文件所有者（除 <code>root</code> 以外）删除或者移动。一个典型的例子是临时文件夹 <code>/tmp</code>，在此文件夹中你可以创建、修改、重命名、移动、删除自己的文件，但是动不了别人的文件。</li>
+</ul>
+<p><code>/usr/bin/passwd</code> 的文件权限设置：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ ls -l /usr/bin/passwd</span><br><span class="line">-rwsr-xr-x 1 root root 67992 Aug 29  2019 /usr/bin/passwd</span><br></pre></td></tr></table></figure>
+<p>可以看到，本来是执行权限位的地方变成了 <code>s</code>。这代表此文件有 <code>setuid</code> 特殊权限位。在你执行 <code>passwd</code> 的时候，它的实际权限和 <code>root</code> 一样，只是它知道，执行它的人是你（而非 <code>root</code>），所以只提供修改你自己的密码的功能。</p>
+<p>此外，passwd需要知道实际执行自己的用户是谁，在 Linux 中，有两个系统调用可以获取当前进程归属的 UID：<code>getuid()</code> 和 <code>geteuid()</code>。前者对应的是「实际用户」(Real user)，是实际运行（拥有）这个进程的用户，后者对应的是「有效用户」(Effective user)，对应进程拥有的权限。在运行 <code>passwd</code> 的时候，有效用户是 <code>root</code>，所以可以修改 <code>/etc/shadow</code>；而实际用户是你，所以它不会让你修改别人的密码。</p>
+<p>对用户组来说，也有实际用户组 (GID) 和有效用户组 (EGID) 的区别。</p>
+<h3 id="登录-shell和非登录-shell">登录 Shell和非登录 Shell</h3>
+<p>「登录 Shell」是属于你的当前会话操作中的第一个进程，一般是在你输入用户名和密码之后打开的 Shell。常见的场景有：</p>
+<ul>
+<li><code>su -</code> 之后的 Shell。</li>
+<li>SSH 登录机器后的 Shell</li>
+<li>Ctrl + Alt + F[1-7] 之后 TTY 中的 Shell</li>
+</ul>
+<p>而「非登录 Shell」的常见场景：</p>
+<ul>
+<li><code>su</code> 打开的是「非登录 Shell」</li>
+<li>在桌面环境中打开的终端（模拟器），启动的也是「非登录 Shell」</li>
+</ul>
+<p>一般地，「登录 Shell」会额外加载 <code>profile</code> 文件（文件名根据你使用的 Shell 的不同而有区别），且它的 <code>argv[0][0] == '-'</code>（相信你已经学过 C 语言了）。可以用以下方法验证：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ echo $0  # 查看当前 Shell 的 argv[0] 的值</span><br><span class="line">-bash</span><br><span class="line">$ # 是 Login shell</span><br><span class="line">$ sudo su # 进入 root</span><br><span class="line"># echo $0</span><br><span class="line">bash</span><br><span class="line"># # 是 Non-login shell</span><br></pre></td></tr></table></figure>
+<h3 id="fork炸弹">fork炸弹</h3>
+<p>Fork 炸弹有如下的这种形式：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">:()&#123; :|: &amp; &#125;;:</span><br></pre></td></tr></table></figure>
+<p>这是一个函数定义以及对其的调用语句，可以格式化为：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">:()</span><br><span class="line">&#123;</span><br><span class="line">    :|: &amp;</span><br><span class="line">&#125;;</span><br><span class="line">:</span><br></pre></td></tr></table></figure>
+<p>在 Bash 中，<code>:</code>、<code>.</code>、<code>/</code> 等一些字符也能够被用于函数命名，因此，上面的代码等价于：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">func()</span><br><span class="line">&#123;</span><br><span class="line">    func | func &amp;</span><br><span class="line">&#125;;</span><br><span class="line">func</span><br></pre></td></tr></table></figure>
+<p>fork 炸弹的核心是函数内容：<code>func | func &amp;</code></p>
+<ul>
+<li>第一个 func 代表递归执行这个函数。</li>
+<li><div class="line-block">代表要将第一个函数的数据结果通过管道传输给后一个函数。</div></li>
+<li>&amp; 代表要在后台执行这一条命令，如果其中一个函数被操作系统回收，其调用产生的子函数并不会被回收。</li>
+</ul>
+<p>于是运行一次这个函数就会创建两个 func 函数的实例，并不断地反复调用。实例的数量会指数爆炸式地增长，最终耗尽系统的资源。</p>
+<h4 id="防范方法">防范方法</h4>
+<p>一个有效的方式(https://101.lug.ustc.edu.cn/Ch06/supplement/#fn:1)是通过修改系统配置，限制一个用户能够拥有的进程数量多少。<code>ulimit -u 30</code> 可以限制当前用户能够拥有的进程数量为 30。</p>
+<h3 id="动静态链接">动/静态链接</h3>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">gcc -o hello hello.c</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">ldd ./hello</span></span><br><span class="line">    linux-vdso.so.1 (0x00007ffc49703000)</span><br><span class="line">    libc.so.6 =&gt; /lib/x86_64-linux-gnu/libc.so.6 (0x00007f36767d3000)</span><br><span class="line">    /lib64/ld-linux-x86-64.so.2 (0x00007f36769ea000)</span><br><span class="line"></span><br><span class="line">//编译得到程序就依赖于 `linux-vdso.so.1`、`libc.so.6` 和 `/lib64/ld-linux-x86-64.so.2` 三个库文件，如果系统中没有这三个库文件，程序就无法执行。</span><br></pre></td></tr></table></figure>
+<p>使用到第三方的库需要加上 <code>-l</code> 参数指定在<strong>链接</strong>时链接到的库。 对于复杂的应用来说，下载后可能会因为没有动态链接库而无法运行。 而静态链接则将依赖的库全部打包到程序文件中。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ gcc -o hello-static hello.c -static  # 编译一个静态链接的应用</span><br><span class="line">$ ldd ./hello-static  # 没有动态链接库的依赖</span><br><span class="line">    not a dynamic executable</span><br></pre></td></tr></table></figure>
+<p>此时编译得到的程序文件没有额外的依赖，在其他机器上一般也能顺利运行。代价则是消耗更多的空间，并且可能产生性能损耗</p>
+<h3 id="交叉编译">交叉编译</h3>
+<p>有时需要开发另一个系统的程序，此时就需要交叉编译来实现，比如使用mingw编译windows程序 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ sudo apt install gcc-mingw-w64  # 安装 mingw 交叉编译器</span><br><span class="line">$ sudo apt install wine  # 安装 wine Windows 兼容层（默认仅安装 64 位架构支持）</span><br><span class="line">$ x86_64-w64-mingw32-gcc -o hello.exe hello.c  # 编译为 64 位的 Windows 程序</span><br><span class="line">$ file hello.exe  # 确认为 Windows 程序</span><br><span class="line">hello.exe: PE32+ executable (console) x86-64, for MS Windows</span><br><span class="line">$ wine hello.exe  # 使用 wine 运行</span><br><span class="line">it looks like wine32 is missing, you should install it.</span><br><span class="line">as root, please execute &quot;apt-get install wine32&quot;</span><br><span class="line">wine: created the configuration directory &#x27;/home/ubuntu/.wine&#x27;</span><br><span class="line">（忽略首次配置的输出）</span><br><span class="line">wine: configuration in L&quot;/home/ubuntu/.wine&quot; has been updated.</span><br><span class="line">Hello, world!</span><br><span class="line"></span><br></pre></td></tr></table></figure> ### docker Dockerfile 是构建 Docker 镜像的标准格式，下面会举一些例子。我们会基于这些例子简单介绍 Dockerfile 的语法。</p>
+<h4 id="构建简单的交叉编译环境">构建简单的交叉编译环境</h4>
+<p>这个例子尝试使用 Debian 仓库中的 RISC-V <a href="https://101.lug.ustc.edu.cn/Ch07/supplement/#cross-compile-example">交叉编译</a>工具链与 QEMU 模拟器构建一个简单的用于交叉编译的环境。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">FROM debian:buster-slim</span><br><span class="line"></span><br><span class="line">RUN sed -i &#x27;s/deb.debian.org/mirrors.ustc.edu.cn/g&#x27; /etc/apt/sources.list &amp;&amp; \</span><br><span class="line">    apt update &amp;&amp; apt install -y gcc-riscv64-linux-gnu g++-riscv64-linux-gnu libc6-dev-riscv64-cross \</span><br><span class="line">                                 binutils-riscv64-linux-gnu libstdc++-dev-riscv64-cross \</span><br><span class="line">                                 qemu-system-misc qemu-user-static qemu-user binfmt-support \</span><br><span class="line">                                 fish vim --no-install-recommends</span><br><span class="line">RUN mkdir /workspace/</span><br><span class="line"></span><br><span class="line">WORKDIR /workspace/</span><br><span class="line">ENV QEMU_LD_PREFIX=/usr/riscv64-linux-gnu/</span><br><span class="line"></span><br><span class="line">CMD [&quot;fish&quot;]</span><br></pre></td></tr></table></figure>
+<p>通过使用 <code>docker build</code>，我们可以构建出镜像。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo docker build -t riscv-cross:example .</span><br></pre></td></tr></table></figure>
+<p>Docker 在根据 Dockerfile 构建时，会从上到下执行这些指令，每条指令对应镜像的一层。Docker 容器镜像的独特之处就在于它的分层设计：在构建镜像时每层的更改会叠加在上一层上（这意味着，上一层的所有数据仍然会保留，即使在新的一层删除了）；如果某一层已经存在，Docker 会直接使用这一层，节约构建的时间和占用的空间。 因此构建镜像应尽量减少层数避免空间浪费</p>
 ]]></content>
       <categories>
-        <category>考研笔记</category>
+        <category>课程笔记</category>
+        <category>操作系统</category>
       </categories>
       <tags>
-        <tag>数据结构与算法</tag>
+        <tag>课程笔记</tag>
+        <tag>linux</tag>
+        <tag>苏州大学</tag>
+        <tag>中国科学技术大学</tag>
       </tags>
   </entry>
   <entry>
@@ -227,6 +834,18 @@
 <p>时间复杂度O(n),由于需要维护一个额外的哈希表，因此空间复杂度为O(n)</p>
 <h2 id="随机查找">随机查找</h2>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">RANDOMIZED-SELECT (A, p, r, i)</span><br><span class="line">    if p==r</span><br><span class="line">        return A[p]</span><br><span class="line">    q = RANDOMlZED-PARTITION(A, p, r)</span><br><span class="line">    k = q-p+I</span><br><span class="line">    if i == k // the pivot value is the answer</span><br><span class="line">        return A[q]</span><br><span class="line">    else if i&lt;k</span><br><span class="line">        return RANOOMIZED-SELECT(A, p, q-1, i)</span><br><span class="line">    else return RANOOMIZED-SELECT(A, q+l, r, i-k</span><br></pre></td></tr></table></figure>
+<h2 id="期望线性时间的查找">期望线性时间的查找</h2>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">RANDOMIZED-SELECT(A, p, r, i)  </span><br><span class="line">if p == r  </span><br><span class="line">	return A[p]  </span><br><span class="line">q = RANDOMIZED-PARTITION(A, p, r)  </span><br><span class="line">k = q - p + 1  </span><br><span class="line">if i == k  // the pivot value is the answer  </span><br><span class="line">	return A[q]  </span><br><span class="line">else if i &lt; k  </span><br><span class="line">	return RANDOMIZED-SELECT(A, p, q - 1, i)  </span><br><span class="line">else return RANDOMIZED-SELECT(A, q + 1, r, i - k)</span><br></pre></td></tr></table></figure>
+<h2 id="最坏运行时间为线性的中位数查找">最坏运行时间为线性的中位数查找</h2>
+<ol type="1">
+<li>将输入数组的 n 个元素划分为 ⌊n/5 ⌋组，每组 5 个元素，且至多只有一组由剩下的 nmod5 个元素组成。</li>
+<li>寻找这⌈ n/5⌉ 组中每一组的中位数：首先对每组元素进行插入排序，然后确定每组有序元 素的中位数。</li>
+<li>对第 2 步中找出的「 n/5 ⌉个中位数，递归调用 SELECT 以找出其中位数 x( 如果有偶数个中 位数，为了方便，约定 x 是较小的中位数）。</li>
+<li>利用修改过的 PARTITION 版本，按中位数的中位数 x 对输入数组进行划分。让 K 比划 分的低区中的元素数目多 1, 因此 x 是第 k 小的元素，并且有 n-k 个元素在划分的高区。</li>
+<li>如果 i=k, 则返回 x 。如果 i&lt;k, 则在低区递归调用 SELECT 来找出第 i 小的元素。如果 i&gt;k, 则在高区递归查找第 i-k 小的元素。</li>
+</ol>
+<p>在第 2 步找出的中位数中，至少有一半大千或等于中位数的中位数户。因此，在这「n/5⌉个组中，除了当 n 不能被 5 整除时产生的所含元素少于 5 的那个组和包含 x 的那个组之外，至少有一半的组中有 3 个元素大千 x 。不算这两个组，大于 x 的元素个数至少为： <span class="math inline">\(3\Bigl(\biggl\lceil\frac{1}{2}\biggl\lceil\frac{n}{5}\biggr\vert-2\Bigr)\ge\frac{3n}{10}-6\)</span> 也至少有这个数的元素小于x</p>
+<p><span class="math inline">\(T(n)&lt;={T([n/5])+T(7n/10+6)+O(n)}\)</span> <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">divide</span>(<span class="params">A</span>):</span><br><span class="line">    array_num=<span class="built_in">len</span>(A)//<span class="number">5</span></span><br><span class="line">    matrix=[]</span><br><span class="line">    index=<span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span> (array_num):</span><br><span class="line">        new_array=[]</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">5</span>):</span><br><span class="line">            new_array.append(A[index])</span><br><span class="line">            index+=<span class="number">1</span></span><br><span class="line">        matrix.append(new_array)</span><br><span class="line">    <span class="keyword">if</span> index==<span class="built_in">len</span>(A): <span class="keyword">return</span> matrix</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        new_array=[]</span><br><span class="line">        <span class="keyword">while</span> index&lt;<span class="built_in">len</span>(A):</span><br><span class="line">            new_array.append(A[index])</span><br><span class="line">            index+=<span class="number">1</span></span><br><span class="line">        matrix.append(new_array)</span><br><span class="line">    <span class="keyword">return</span> matrix</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">insertion_sort</span>(<span class="params">nums</span>):</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="built_in">len</span>(nums)):</span><br><span class="line">        base = nums[i]</span><br><span class="line">        j = i - <span class="number">1</span></span><br><span class="line">        <span class="keyword">while</span> j &gt;= <span class="number">0</span> <span class="keyword">and</span> nums[j] &gt; base:</span><br><span class="line">            nums[j + <span class="number">1</span>] = nums[j]  </span><br><span class="line">            j -= <span class="number">1</span></span><br><span class="line">        nums[j + <span class="number">1</span>] = base  </span><br><span class="line">    <span class="keyword">return</span> nums</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">swap</span>(<span class="params">A,i,j</span>):</span><br><span class="line">    temp=A[i]</span><br><span class="line">    A[i]=A[j]</span><br><span class="line">    A[j]=temp</span><br><span class="line">    <span class="keyword">return</span> A</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">partition</span>(<span class="params">nums, left, right,x</span>):</span><br><span class="line">    i, j = left, right</span><br><span class="line">    <span class="keyword">while</span> i &lt; j:</span><br><span class="line">        <span class="keyword">while</span> i &lt; j <span class="keyword">and</span> nums[j] &gt; x:</span><br><span class="line">            j -= <span class="number">1</span>  </span><br><span class="line">        <span class="keyword">while</span> i &lt; j <span class="keyword">and</span> nums[i] &lt;= x:</span><br><span class="line">            i += <span class="number">1</span>  </span><br><span class="line">        nums[i], nums[j] = nums[j], nums[i]</span><br><span class="line">    nums[i], nums[left] = nums[left], nums[i]</span><br><span class="line">    <span class="keyword">return</span> i  </span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">select</span>(<span class="params">A,ith</span>):</span><br><span class="line">    matrix = divide(A)<span class="comment">#划分n/5个数组</span></span><br><span class="line">    medium_nums=[]</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(matrix)):<span class="comment">#产生中位数数组</span></span><br><span class="line">        matrix[i]=insertion_sort(matrix[i])</span><br><span class="line">        medium_nums.append(matrix[i][(<span class="built_in">len</span>(matrix[i])-<span class="number">1</span>)//<span class="number">2</span>])</span><br><span class="line">    medium_nums=insertion_sort(medium_nums)<span class="comment">#对中位数数组排序</span></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(medium_nums)%<span class="number">2</span>==<span class="number">0</span>:</span><br><span class="line">        medium=(<span class="built_in">len</span>(medium_nums)-<span class="number">1</span>)//<span class="number">2</span></span><br><span class="line">    <span class="keyword">else</span>: medium=<span class="built_in">len</span>(medium_nums)//<span class="number">2</span><span class="comment">#计算出中位数数组的中位数索引并向下取整</span></span><br><span class="line">    x=medium_nums[medium]</span><br><span class="line">    k=partition(A,<span class="number">0</span>,<span class="built_in">len</span>(A)-<span class="number">1</span>,x)+<span class="number">1</span><span class="comment">#划分数组</span></span><br><span class="line">    <span class="keyword">if</span> k==ith: <span class="keyword">return</span> x</span><br><span class="line">    <span class="keyword">elif</span> ith&lt;k: <span class="keyword">return</span> select(A[<span class="number">0</span>:k],ith)</span><br><span class="line">    <span class="keyword">else</span>: <span class="keyword">return</span> select(A[k:],ith-k)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">main</span>():</span><br><span class="line">    A=[<span class="number">41</span>,<span class="number">5</span>,<span class="number">46</span>,<span class="number">48</span>,<span class="number">456</span>,<span class="number">1</span>,<span class="number">56</span>,<span class="number">1448</span>,<span class="number">21</span>,<span class="number">84</span>,<span class="number">49</span>,<span class="number">11</span>]</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,<span class="built_in">len</span>(A)+<span class="number">1</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;第&#x27;</span>+<span class="built_in">str</span>(i)+<span class="string">&#x27;个元素是：&#x27;</span>)</span><br><span class="line">        <span class="built_in">print</span>(select(A,i))</span><br><span class="line">main()</span><br></pre></td></tr></table></figure></p>
 <h1 id="比较排序">比较排序</h1>
 <p><img src="/assets/mit6.006总和笔记/image-20231016192215938.png" /></p>
 <h2 id="决策树">决策树</h2>
@@ -942,6 +1561,109 @@ x(i,j) =
         <tag>课程笔记</tag>
         <tag>数据结构与算法</tag>
         <tag>麻省理工</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>考研笔记——数据结构部分</title>
+    <url>/2023/11/29/%E8%80%83%E7%A0%94%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</url>
+    <content><![CDATA[<h1 id="序论">序论</h1>
+<h2 id="数据">数据</h2>
+<ul>
+<li><code>数据</code>：信息的载体，在计算机中是符号的集合</li>
+<li><code>数据元素</code>：数据的基本单位，一个整体，有一些不可分割的数据项组成，例如一个学生档案</li>
+<li><code>数据对象</code>：有相同性质的数据元素集合，是数据的子集</li>
+<li><code>数据类型</code>：数据值的类型，和对这个类型特定操作的集合</li>
+<li><code>数据结构</code>：相互之间存在特殊关系的数据元素的集合，这种特殊关系就是所谓的结构。</li>
+</ul>
+<p>数据结构包括三个方面</p>
+<ul>
+<li><code>逻辑结构</code>（数据的逻辑关系，和怎么存储在计算机中无关） <img src="/assets/苏大linux_ppt/Pasted%20image%2020231129144215.png" /></li>
+<li><code>存储结构</code>（数据在计算机中的表示）
+<ul>
+<li><code>顺序存储</code>：元素存储在相邻的地址间，不需要额外索引，可以随机读写，但容易产生外部碎片</li>
+<li><code>链式存储</code>：每个元素不仅存储值，还存储指向下一个元素的指针，不会产生碎片，但占用空间较大</li>
+<li><code>索引存储</code>：建立一个外部索引表，，利用索引表对数据进行读写，需要额外空间和对索引表增删的消耗</li>
+<li><code>散列存储</code>：对每个元素用一个哈希函数计算其存储的地址，需要恰当的哈希函数</li>
+</ul></li>
+<li><code>数据的运算</code></li>
+</ul>
+<p><code>ADT</code>(抽象数据类型)构成一个完整的数据结构定义</p>
+<span id="more"></span>
+<h2 id="算法">算法</h2>
+<p>算法是对指定输入的一系列指令 特性：</p>
+<ul>
+<li><code>有穷性</code>，执行时间和指令次数有穷</li>
+<li><code>确定性</code>，指令有确定的含义，相同输入输出一定相同</li>
+<li><code>可行性</code>，指令都是以及明确实现有定义的</li>
+<li><code>输入</code>：有零个或者多个输入</li>
+<li><code>输出</code>：有一个或以上的输出</li>
+</ul>
+<p>需要实现的目标：正确，可读，健壮（对于非法数据，也输出可控），效率</p>
+<p><code>复杂度</code>：略</p>
+<h1 id="线性表">线性表</h1>
+<p><code>定义</code>：有相同数据类型的n个数据元素的有限序列,元素直接存在前后关系，且只能线性前后排列,其中的元素都是数据元素，类型相同 <code>类别</code>：逻辑结构，而非顺序表链表等存储结构 <code>基本操作</code>：</p>
+<ul>
+<li>初始化</li>
+<li>按值查找</li>
+<li>按位查找</li>
+<li>删除元素</li>
+<li>输出(print)</li>
+<li>求表长</li>
+<li>销毁</li>
+<li>判空</li>
+</ul>
+<h2 id="顺序表">顺序表</h2>
+<p><code>定义</code>:线性表的顺序存储是顺序表，用连续的地址存储表内元素，让逻辑顺序和物理顺序相同 <img src="/assets/苏大linux_ppt/Pasted%20image%2020231130102600.png" /> <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> Maxsize 50     <span class="comment">//定义线性表的最大长度</span></span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span>&#123;</span><br><span class="line">	ElemType* data[Maxsize]; <span class="comment">//顺序表的元素</span></span><br><span class="line">	<span class="type">int</span> Maxsize,length;      <span class="comment">//顺序表的当前长度</span></span><br><span class="line">&#125;SeqList;        <span class="comment">//顺序表的类型定义</span></span><br><span class="line">L.data=<span class="keyword">new</span> ElemType[InitSize]; <span class="comment">//动态分配</span></span><br></pre></td></tr></table></figure></p>
+<ol type="1">
+<li>插入操作</li>
+</ol>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">bool</span> <span class="title">ListInsert</span><span class="params">(sqList &amp;L, <span class="type">int</span> i, ElemType e)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(i&lt;<span class="number">1</span> || i&gt;L.length+<span class="number">1</span>) &#123;<span class="comment">//判断i的范围是否有效</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span>(L.length &gt;= Maxsize) &#123;</span><br><span class="line">    <span class="comment">//当前存储空间已满,不能插入  </span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span>(<span class="type">int</span> j=L.length; j&gt;i; j--) &#123;</span><br><span class="line">    <span class="comment">//将第i个元素及之后的元素后移</span></span><br><span class="line">    L.data[j] = L.data[j<span class="number">-1</span>]; </span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  L.data[i<span class="number">-1</span>] = e; <span class="comment">//在位置i处放入e</span></span><br><span class="line"></span><br><span class="line">  L.length++; <span class="comment">//线性表长度加1</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>平均时间分析：</p>
+<p><span class="math inline">\(\sum_{i=1}^{n+1}p_{i}(n-i+1)=\sum_{i=1}^{n+1}{\frac{1}{n+1}}(n-i+1)={\frac{1}{n+1}}\sum_{i=1}^{n+1}(n-i+1)={\frac{1}{n+1}}{\frac{n(n+1)}{2}}={\frac{n}{2}}\)</span></p>
+<ol start="2" type="1">
+<li>删除操作</li>
+<li>平均时间分析：</li>
+</ol>
+<p><span class="math inline">\(\sum_{i=1}^{n}p_{i}(n-i)=\sum_{i=1}^{n}{\frac{1}{n}}(n-i)={\frac{1}{n}}\sum_{i=1}^{n}(n-i)={\frac{1}{n}}{\frac{n(n-1)}{2}}={\frac{n-1}{2}}\)</span></p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">bool</span> <span class="title">ListDelete</span><span class="params">(SgList&amp; L, <span class="type">int</span> i, ElemType&amp; e)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(i&lt;<span class="number">1</span> || i&gt;L.length) &#123;<span class="comment">//判断i的范围是否有效  </span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  e = L.data[i<span class="number">-1</span>];<span class="comment">//将被删除的元素赋值给e</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span>(<span class="type">int</span> j=i; j&lt;L.length; j++) &#123;</span><br><span class="line">    <span class="comment">//将第i个位置后的元素前移</span></span><br><span class="line">    L.data[j<span class="number">-1</span>] = L.data[j];  </span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  L.length--;<span class="comment">//线性表长度减1</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="3" type="1">
+<li>按值查找</li>
+</ol>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">LocateElem</span><span class="params">(SqList L, ElemType e)</span> </span>&#123;</span><br><span class="line">  <span class="type">int</span> i;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">for</span>(i=<span class="number">0</span>; i&lt;L.length; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span>(L.data[i] == e) &#123;</span><br><span class="line">      <span class="keyword">return</span> i+<span class="number">1</span>; <span class="comment">//下标为i的元素值等于e,返回其位序i+1</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>; <span class="comment">//退出循环,说明查找失败</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>平均情况：假设pi是（pi=1/n）是查找的元素在第i（1&lt;=i&lt;=L.length）个位置上的概率，</p>
+<p><span class="math inline">\(\sum_{i=1}^{n}p_{i}\times i=\sum_{i=1}^{n}{\frac{1}{n}}\times i={\frac{1}{n}}{\frac{n(n+1)}{2}}={\frac{n+1}{2}}\)</span></p>
+<div class="note info"><p>Q:线性表的顺序存储结构是一种（）。 A随机存取的存储结构 B顺序存取的存储结构 C索引存取的存储结构 D 散列存取的存储结构</p>
+<p>A: (A)此处的顺序存取指的是只能线性遍历的数据结构，而顺序表可以随机存取</p>
+<p>Q:若长度为n的非空线性表采用顺序存储结构，在表的第i个位置插入一个数据元素，则 的合法值应该是（）。 A.1&lt;=i&lt;=n B.1≤i≤n+ 1 C.0≤i&lt;=n-1 D.0≤i≤n</p>
+<p>A: (B)顺序表的索引从1开始</p>
+<p>Q:写一个时间O(n),空间O(1)的删除表内一个值的算法 A: <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">del</span><span class="params">(SqList&amp; L, ElemType x)</span> </span>&#123;</span><br><span class="line">  <span class="type">int</span> k = <span class="number">0</span>, i = <span class="number">0</span>;<span class="comment">//k记录值等于x的元素个数</span></span><br><span class="line">  <span class="keyword">while</span>(i &lt; L.length) &#123;</span><br><span class="line">    <span class="keyword">if</span>(L.data[i] == x) &#123;</span><br><span class="line">      k++; </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">      L.data[i-k] = L.data[i];<span class="comment">//当前元素前移k个位置</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    i++;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  L.length = L.length - k;<span class="comment">//顺序表长度递减</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+</div>
+<div class="note warning"><p>本书中的时间复杂度默认指渐进时间复杂度，即n默认趋近正无穷，而不是常数</p>
+</div>
+<h2 id="链式表示">链式表示</h2>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> <span class="title class_">LNodef</span> &#123; <span class="comment">//定义单链表结点类型</span></span><br><span class="line">	ElemType data; <span class="comment">//数据域</span></span><br><span class="line">	<span class="keyword">struct</span> <span class="title class_">LNode</span> *next; <span class="comment">//指针域</span></span><br><span class="line">&#125; ILNode,*LinkList;</span><br><span class="line"><span class="comment">//node是一个节点，Linklist是它的指针（即数组）</span></span><br></pre></td></tr></table></figure>
+<p>一般会用一个<code>头结点</code>指向单链表，<code>头结点</code>的数据没有意义，空链表时指针是一个空指针</p>
+<p><code>头指针</code>指向单链表的第一个节点，对有头指针的链表就是指向<code>头结点</code></p>
+<p><code>头结点</code>的`优点：</p>
+<ol type="1">
+<li>所有数据节点都可以用相同的办法处理</li>
+<li>由于有<code>头节点</code>，<code>头指针</code>不会是一个空指针，空表和非空表也可以统一处理</li>
+</ol>
+<h3 id="基本操作">基本操作</h3>
+<ol type="1">
+<li>头插法建立单链表,该方法把新节点一个个插入到头结点后</li>
+</ol>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function">Linklist <span class="title">List_HeadInsert</span><span class="params">(LinkList&amp; L)</span></span>&#123;</span><br><span class="line">	LNode* s;</span><br><span class="line">	<span class="type">int</span> x;</span><br><span class="line">	L = (LinkList)<span class="built_in">malloc</span>(<span class="built_in">sizeof</span>(LNode));<span class="comment">//创建头结点</span></span><br><span class="line">	L-&gt;next = <span class="literal">NULL</span>;<span class="comment">//初始化为空链表</span></span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;x);<span class="comment">//输入结点的值</span></span><br><span class="line">	<span class="keyword">while</span>(x != <span class="number">9999</span>)&#123;<span class="comment">//输入9999表示结束</span></span><br><span class="line">	    s = (LNode*)<span class="built_in">malloc</span>(<span class="built_in">sizeof</span>(LNode));<span class="comment">//创建新结点</span></span><br><span class="line">	    s-&gt;data = x;</span><br><span class="line">	    s-&gt;next = L-&gt;next;</span><br><span class="line">	    L-&gt;next = s;<span class="comment">//将新结点插入表中,L为头指针</span></span><br><span class="line">	    <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;x);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> L</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="2" type="1">
+<li>尾插法建立单链表，与头插法相反</li>
+</ol>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function">LinkList <span class="title">ListTailInsert</span><span class="params">(LinkList&amp; L)</span> </span>&#123;</span><br><span class="line">  <span class="type">int</span> x;</span><br><span class="line">  L = (LinkList)<span class="built_in">malloc</span>(<span class="built_in">sizeof</span>(LNode));</span><br><span class="line">  LNode* s, *r = L;</span><br><span class="line">  <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;x);</span><br><span class="line">  <span class="keyword">while</span>(x != <span class="number">9999</span>) &#123;</span><br><span class="line">    s = (LNode*)<span class="built_in">malloc</span>(<span class="built_in">sizeof</span>(LNode));</span><br><span class="line">    s-&gt;data = x;</span><br><span class="line">    r-&gt;next = s;</span><br><span class="line">    r = s; <span class="comment">//r指向新的表尾结点</span></span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;x);</span><br><span class="line">  &#125;</span><br><span class="line">  r-&gt;next = <span class="literal">NULL</span>;<span class="comment">//尾结点指针置空</span></span><br><span class="line">  <span class="keyword">return</span> L;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>考研笔记</category>
+      </categories>
+      <tags>
+        <tag>数据结构与算法</tag>
       </tags>
   </entry>
   <entry>
@@ -1771,672 +2493,6 @@ val（r1，c1）&lt; val（r1，c2）≤ val（r2，c2）&lt; val（r2，c1）<b
         <tag>课程笔记</tag>
         <tag>linux</tag>
         <tag>系统管理</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>基于中科大linux101和苏大ppt的linux笔记</title>
-    <url>/2023/10/14/%E8%8B%8F%E5%A4%A7linux_ppt/</url>
-    <content><![CDATA[<h1 id="苏大部分">苏大部分</h1>
-<h2 id="文件系统">文件系统</h2>
-<h3 id="命名">命名</h3>
-<p>•除/之外，所有的字符都合法</p>
-<p>•大小写敏感</p>
-<p>•有些字符最好不用，如空格符、制表符、退格符和字符：？, @ # $ &amp; ()  | ; ‘ ’ “ ” &lt; &gt;</p>
-<p>•避免使用＋、－或. 来作为普通文件名的第一个字符</p>
-<p>•可以使用长文件名或目录名（255个字符）</p>
-<p>包括完整路径的文件名不超过4096字符 <span id="more"></span></p>
-<h3 id="目录">目录</h3>
-<table>
-<tbody>
-<tr class="odd">
-<td>bin</td>
-<td>存放二进制的可执行程序</td>
-</tr>
-<tr class="even">
-<td>boot</td>
-<td>存放用于系统引导时使用的各种文件</td>
-</tr>
-<tr class="odd">
-<td>dev</td>
-<td>存放设备文件，用户通过这些文件访问外部设备</td>
-</tr>
-<tr class="even">
-<td>etc</td>
-<td>存放系统的配置文件</td>
-</tr>
-<tr class="odd">
-<td>home</td>
-<td>存放用户文件的目录，每个用户在该目录下有一个与该用户名对应的子目录</td>
-</tr>
-<tr class="even">
-<td>root</td>
-<td>超级用户目录</td>
-</tr>
-<tr class="odd">
-<td>sbin</td>
-<td>类似于/bin目录，存放二进制文件，只有root才能访问</td>
-</tr>
-<tr class="even">
-<td>tmp</td>
-<td>用于放置各种临时文件</td>
-</tr>
-</tbody>
-</table>
-<table>
-<tbody>
-<tr class="odd">
-<td>var</td>
-<td>用于存放需要随时改变的文件，如系统日志、脱机工作目录等</td>
-</tr>
-<tr class="even">
-<td>mnt</td>
-<td>系统管理员安装临时文件系统的安装点</td>
-</tr>
-<tr class="odd">
-<td>opt</td>
-<td>一般情况下，该目录不属于系统的基本文件系统，是额外安装的应用程序包所放置的地方</td>
-</tr>
-<tr class="even">
-<td>usr</td>
-<td>用于存放系统应用程序</td>
-</tr>
-<tr class="odd">
-<td>lib</td>
-<td>存放根文件系统中的程序运行所需要的共享库及内核模块</td>
-</tr>
-<tr class="even">
-<td>proc</td>
-<td>是一个虚拟文件系统，存放当前内存的映射，主要用于在不重启机器的情况下管理内核</td>
-</tr>
-<tr class="odd">
-<td>lost+ found</td>
-<td>存放一些系统检查结果，发现不合法的文件或数据都存放在这里，通常此目录是空的，除非硬盘遭到损坏</td>
-</tr>
-</tbody>
-</table>
-<h3 id="链接文件">链接文件</h3>
-<ul>
-<li><p>硬链接 将两个文件名指向硬盘上同一个存储空间（inode），对任何一个文件的修改都将影响到另一个文件。 特性： 文件有相同的 inode 及 data block； 只能对已存在的文件进行创建； 不能交叉文件系统进行硬链接的创建； 不能对目录进行创建，只可对文件创建； 删除一个硬链接文件并不影响其他有相同 inode 号的文件。</p></li>
-<li><p>符号链接 又称软链接，是指将一个文件指向另外一个文件的文件名。 特性： 软链接有自己的文件属性及权限等； 软链接可对文件或目录创建； 可对不存在的文件或目录创建软链接； 软链接可交叉文件系统； 若被指向的原文件被删除，则相关软连接被称为死链接 删除软链接并不影响被指向的文件，若被指向路径文件被重新创建，死链接可恢复为正常的软链接</p></li>
-</ul>
-<p><code>符号链接可以跨文件系统，即可以跨磁盘分区。硬链接不可以跨文件系统。它只能建立对文件的链接。</code> 链接文件命令  ln</p>
-<table>
-<tbody>
-<tr class="odd">
-<td>ln file1 file2</td>
-<td>创建源文件file1的硬链接file2</td>
-</tr>
-<tr class="even">
-<td>ln -s file1 file2</td>
-<td>创建源文件file1的软链接file2</td>
-</tr>
-</tbody>
-</table>
-<p>符号链接可以跨文件系统，即可以跨磁盘分区。 硬链接不可以跨文件系统，只能建立对文件的链接。 硬链接删除只原文件或硬链接不影响文件内容 软连接删除源文件导致链接失效</p>
-<h3 id="mbr">MBR</h3>
-<p>硬盘的第一个扇区存有主引导记录(Master boot record, MBR)及分区表(partition table)</p>
-<ul>
-<li>MBR用于引导操作系统， 446 bytes ；</li>
-<li>partition table用于记录分区信息， 64 bytes ； 一个MBR分区表类型的硬盘最多存在4个主分区，每个分区项占用16个字节 如果分区超过4个，则需要使用扩展分区，即一个物理硬盘上最多有3个主分区和1个扩展分区。 扩展分区不能直接使用，必须分割成为逻辑分区，一个扩展分区中的逻辑分区可以任意多个。</li>
-</ul>
-<h3 id="gpt">GPT</h3>
-<p>全称全局唯一标识分区表 GUID Partition Table</p>
-<ul>
-<li>主分区数量任意（Win 128个）</li>
-<li>支持最大18EB（NTFS 256TB） 1EB=1024PB=1,048,576TB 可能需要EFI支持（Win、Mac）</li>
-</ul>
-<h3 id="ext2">ext2</h3>
-<p>磁盘分区完毕后还需要进行格式化(format)，不同操作系统默认的文件系统不同，所以需要格式化成不同格式的分区。 EXT2（second extended filesystem）是LINUX内核默认的文件系统。 EXT2中的主要构成： •SuperBlock  记录此 filesystem 的整体信息，包括inode/block的总量、使用量、剩余量， 以及文件系统的格式与相关信息等； •Block   实际记录文件的内容，若文件较大，则占用多个 block。 •Inode   记录文件的属性，一个文件占用一个inode，同时记录此文件的数据所在的 block 号码</p>
-<h4 id="inode">inode</h4>
-<p>ext2 创建一个目录时，分配1个 inode 与至少1块 block 给目录 •inode 记录目录权限与属性，并记录分配到 block号码 •block 记录目录下文件名与该文件名占用的 inode</p>
-<p>inode 数量与大小在格式化时固定 特征：</p>
-<ul>
-<li>每个 inode 大小均固定为 128 bytes；</li>
-<li>每个文件仅占用一个 inode；</li>
-<li>文件系统能够创建的文件数量与 inode 的数量有关；</li>
-<li>系统读取文件时先找到 inode，分析 inode 所记录的权限与用户是否符合，若符合读取 block 的内容。 <img src="assets/苏大linux_ppt/image-20231014145226727.png" /></li>
-</ul>
-<h4 id="升级">升级</h4>
-<p><code>EXT2</code>文件系统高效稳定，但不提供日志 <code>EXT3</code> 提供日志模式： data=journal模式 对所有的文件数据及metadata（定义文件系统中数据的数据,即数据的数据）进行日志记录 data=ordered或data=writeback模式 只对metadata记录日志，而不对数据进行日志记录</p>
-<p><code>EXT4</code> EXT3的扩展升级，可以提供更佳的性能和可靠性，包括支持更大的分区和文件大小，更快的文件操作速度。</p>
-<h3 id="实例">实例</h3>
-<h4 id="fdisk">fdisk</h4>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">           fdisk      [-options]     &lt;disk&gt;</span><br><span class="line">选项：</span><br><span class="line">-l 列出分区信息表</span><br><span class="line">/dev/sda    对sda磁盘进行分区</span><br></pre></td></tr></table></figure>
-<p>中科大的xubuntu镜像</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ustc@ustclug-linux101:~/桌面$ sudo fdisk -l</span><br><span class="line">[sudo] ustc 的密码： </span><br><span class="line">Disk /dev/sda：5 GiB，5368709120 字节，10485760 个扇区</span><br><span class="line">Disk model: VMware Virtual S</span><br><span class="line">单元：扇区 / 1 * 512 = 512 字节</span><br><span class="line">扇区大小(逻辑/物理)：512 字节 / 512 字节</span><br><span class="line">I/O 大小(最小/最佳)：512 字节 / 512 字节</span><br><span class="line">磁盘标签类型：gpt</span><br><span class="line">磁盘标识符：12526913-E330-4CA7-A379-90A87EF858B0</span><br><span class="line"></span><br><span class="line">设备         起点     末尾    扇区  大小 类型</span><br><span class="line">/dev/sda1    2048   499711  497664  243M EFI 系统</span><br><span class="line">/dev/sda2  499712 10483711 9984000  4.8G Linux 文件系统</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h4 id="mkfs格式化">mkfs格式化</h4>
-<p>mkfs      [-t 磁盘格式名]     &lt;partition&gt;</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mkfs  -t ext3  /dev/sdb1</span><br></pre></td></tr></table></figure>
-<h4 id="mount挂载">mount挂载</h4>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mount [-t vfstype] [-o options]    device    <span class="built_in">dir</span></span><br><span class="line">mount                         显示所有挂载的信息</span><br><span class="line"></span><br><span class="line">mount –a                   将所有未挂载设备挂载</span><br><span class="line"></span><br><span class="line">mount   /dev/hda2   /mnt/myhd2    将hda2设备挂载到/mnt/myhd2</span><br><span class="line"></span><br><span class="line">mount -t iso9660 /dev/cdrom  /media/cdrom  挂载光驱</span><br><span class="line">umount [选项] <span class="built_in">dir</span></span><br><span class="line"></span><br><span class="line">选项：</span><br><span class="line"></span><br><span class="line">-f     强制卸载</span><br><span class="line"></span><br><span class="line">-all   卸载所有挂载</span><br><span class="line"></span><br><span class="line">例：</span><br><span class="line"></span><br><span class="line">umount  /media/cdrom     卸载刚才挂载的光驱</span><br></pre></td></tr></table></figure>
-<h2 id="shell">shell</h2>
-<h3 id="重定向">重定向</h3>
-<p>lLinux启动后，默认打开3个文件描述符 •标准输入：standard input   0 •标准输出：standard output  1 •错误输出：error output     2 每条shell命令执行，都会继承父进程的文件描述符。因此，所有运行的shell命令，都会有默认3个文件描述符。 <code>重定向</code> 是指不使用系统的标准输入，标准输出或标准错误端口，而重新指定输入输出。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入重定向</span><br><span class="line"></span><br><span class="line">&lt;          输入重定向，从普通文件获取</span><br><span class="line"></span><br><span class="line">&lt;&lt;!...!    输入重定向， here文件，即从命令行获取</span><br><span class="line"></span><br><span class="line">输出重定向</span><br><span class="line"></span><br><span class="line">&gt;          输出重定向，覆盖模式</span><br><span class="line"></span><br><span class="line">&gt;&gt;         输出重定向，追加模式</span><br><span class="line"></span><br><span class="line">2&gt;         错误重定向，覆盖模式</span><br><span class="line"></span><br><span class="line">2&gt;&gt;        错误重定向，追加模式</span><br><span class="line"></span><br><span class="line">&amp;&gt;         同时实现输出重定向和错误重定向，覆盖模式</span><br><span class="line"></span><br><span class="line">&amp;&gt;&gt;        同时实现输出重定向和错误重定向，追加模式</span><br></pre></td></tr></table></figure>
-<h3 id="管道">管道</h3>
-<p>管道是一种两个进程间进行单向通信的机制 每个命令的输出作为下一条命令的输入，管道线中的命令从左到右顺序执行的，管道线是单向的 因为管道传递数据的单向性，管道又称为半双工管道</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ls –l | wc -l</span><br></pre></td></tr></table></figure>
-<h3 id="命令替换">命令替换</h3>
-<p>Shell中的命令参数可以由另一个命令执行的结果来替代</p>
-<p>命令格式：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$cmd1 `cmd2  arguments`</span><br><span class="line">或</span><br><span class="line">$cmd1 $(cmd2 arguments)</span><br></pre></td></tr></table></figure>
-<p>其中cmd2  arguments的输出作为cmd1的参数y</p>
-<h3 id="命令聚合">命令聚合</h3>
-<p>在一个命令行上使用若干shell元字符将若干命令聚合在一起运行。</p>
-<p>执行聚合的几种方式：</p>
-<p>•<code>cmd1;cmd2</code>   顺序执行若干命令</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">pwd;date;ls</span><br></pre></td></tr></table></figure>
-<p>•<code>cmd1&amp;&amp;cmd2</code> 当cmd1运行成功时才运行cmd2</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">gzip mylargefile&amp;&amp;echo &quot;OK.&quot;</span><br></pre></td></tr></table></figure>
-<p>•<code>cmd1||cmd2</code>   当cmd1运行失败时才运行cmd2</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">gzip mylargefile||echo &quot;FALSE.&quot;</span><br></pre></td></tr></table></figure>
-<p>•<code>(cmdlist)</code>   在子shell中执行命令序列，命令不影响当前shell</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">(date;who|wc -l)&gt;~/login-users.log</span><br></pre></td></tr></table></figure>
-<h1 id="linux101">linux101</h1>
-<p><img src="/assets/苏大linux_ppt/clitool.png" /></p>
-<h2 id="apt">apt</h2>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ apt search firefox</span><br><span class="line">Sorting... Done</span><br><span class="line">Full Text Search... Done</span><br><span class="line">(Output omitted)</span><br><span class="line"></span><br><span class="line">firefox/bionic-updates,bionic-security,now 72.0.2+build1-0ubuntu0.18.04.1 amd64</span><br><span class="line">  Safe and easy web browser from Mozilla</span><br><span class="line"></span><br><span class="line">(Output omitted)</span><br></pre></td></tr></table></figure>
-<p>中间两行每个字段的含义：</p>
-<table>
-<thead>
-<tr class="header">
-<th>样例中的字段</th>
-<th>含义</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>firefox</code></td>
-<td>即为在软件仓库中的包名</td>
-</tr>
-<tr class="even">
-<td><code>bionic-updates,bionic-security,now</code></td>
-<td>为包含这个软件包的仓库源</td>
-</tr>
-<tr class="odd">
-<td><code>72.0.2+build1-0ubuntu0.18.04.1</code></td>
-<td>为软件包的版本</td>
-</tr>
-<tr class="even">
-<td><code>amd64</code></td>
-<td>软件包的架构；还可能为<code>i386</code>、<code>all</code>等</td>
-</tr>
-<tr class="odd">
-<td><code>Safe and easy web browser from Mozilla</code></td>
-<td>在软件仓库中对这个软件包的描述</td>
-</tr>
-</tbody>
-</table>
-<div class="note warning"><p>请避免直接使用 <code>dpkg -i</code> 安装 deb 包。 在绝大多数情况下，都应该使用 <code>apt</code> 来安装 deb 文件。 如果不小心执行了 <code>dpkg -i</code> 导致系统出现依赖问题，可以尝试通过如下的方式调用 <code>apt</code> 帮助修复依赖管理：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo apt -f install</span><br></pre></td></tr></table></figure>
-</div>
-<h2 id="环境变量">环境变量</h2>
-<p>我们不能每次在需要编译程序的时候输入如此长的路径找到 <code>clang</code> 和 <code>clang++</code>，而更希望的是能够像 <code>apt</code> 那样在任何地方都可以直接运行。</p>
-<p>我们可以这样做：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 将 clang+llvm-10.0.0-x86_64-linux-gnu-ubuntu-18.04 目录下的所有内容复制到 /usr/local/ 下</span><br><span class="line">sudo cp -R * /usr/local/</span><br></pre></td></tr></table></figure>
-<p>为什么是 <code>/usr/local</code> 呢？因为 <code>/usr/local/bin</code> 处在 PATH 环境变量下。当我们在终端输入命令时，终端会先判断是否为终端的内建命令，如果不是，则会在 $PATH 环境变量中包含的目录下进行查找。因此，只要我们将一个可执行文件放入了 $PATH 中的目录下面，我们就可以像 <code>apt</code> 一样，在任意地方调用我们的程序。 通过这个命令可以看到当前的 PATH 环境变量有哪些目录。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ echo $PATH</span><br><span class="line">/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin</span><br></pre></td></tr></table></figure>
-<p>在上面的复制过程中，源目录和目标目录的两个 <code>bin</code> 目录会相互合并，<code>clang</code> 和 <code>clang++</code> 两个可执行文件也就被复制到了 <code>/usr/local/bin/</code> 目录中。这样子也就达到了我们希望能够在任意地方调用我们的可执行文件的目的。此外，在复制的时候 lib、doc 等文件夹也会和 <code>/usr/local</code> 下的对应目录合并，将 clang 的库和文档加到系统当中。</p>
-<h2 id="模式匹配">模式匹配</h2>
-<p>许多现代的 shell 都支持一定程度的模式匹配。举个例子，bash 的匹配模式被称为 <a href="https://mywiki.wooledge.org/glob">glob</a>，支持的操作如下：</p>
-<table>
-<thead>
-<tr class="header">
-<th>模式</th>
-<th>匹配的字串</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>*</code></td>
-<td>任意字串</td>
-</tr>
-<tr class="even">
-<td><code>foo*</code></td>
-<td>匹配 foo 开头的字串</td>
-</tr>
-<tr class="odd">
-<td><code>*x*</code></td>
-<td>匹配含 x 的字串</td>
-</tr>
-<tr class="even">
-<td><code>?</code></td>
-<td>一个字符</td>
-</tr>
-<tr class="odd">
-<td><code>a?b</code></td>
-<td><code>acb</code>、<code>a0b</code> 等，但不包含 <code>a00b</code></td>
-</tr>
-<tr class="even">
-<td><code>*.[ch]</code></td>
-<td>以 .c 或 .h 结尾的文件</td>
-</tr>
-</tbody>
-</table>
-<div class="note info no-icon"><p>除了上面提到的 glob，bash 还支持 <a href="https://www.linuxjournal.com/content/bash-extended-globbing">extglob</a>，不过需要先用 <code>shopt -s extglob</code> 启用。</p>
-</div>
-<h2 id="进程">进程</h2>
-<h3 id="htop">htop</h3>
-<p>Htop 可以简单方便查看当前运行的所有进程，以及系统 CPU、内存占用情况与系统负载等信息。</p>
-<p>使用鼠标与键盘都可以操作 htop。Htop 界面的最下方是一些选项，使用鼠标点击或按键盘的 F1 至 F10 功能键可以选择这些功能，常用的功能例如搜索进程（F3, Search）、过滤进程（F4, Filter，使得界面中只有满足条件的进程）、切换树形结构/列表显示（F5, Tree/List）等等。</p>
-<p><strong>进程标识符</strong>（PID，Process Identifier（是一个数字，是进程的唯一标识。在 htop 中，最左侧一列即为 PID。当用户想挂起、继续或终止进程时可以使用 PID 作为索引。</p>
-<p>在 htop 中，直接单击绿色条内的 PID 栏，可以将进程顺序按照 PID 升序排列，再次点击为降序排列，同理可应用于其他列。</p>
-<div class="note info no-icon"><p>按照 PID 排序时，我们可以观察系统启动的过程。Linux 系统内核从引导程序接手控制权后，开始内核初始化，随后变为 <strong>init_task</strong>，初始化自己的 PID 为 0。随后创建出 1 号进程（init 程序，目前一般为 systemd）衍生出用户空间的所有进程，创建 2 号进程 kthreadd 衍生出所有内核线程。随后 0 号进程成为 idle 进程，1 号、2 号并非特意预留，而是产生进程的自然顺序使然。</p>
-<p>由于 kthreadd 运行于内核空间，故需按大写 K（Shift + k）键显示内核进程后才能看到。然而无论如何也不可能在 htop 中看到 0 号进程本体，只能发现 1 号和 2 号进程的 PPID 是 0。</p>
-</div>
-<h4 id="linux对进程的分类">linux对进程的分类</h4>
-<p><code>Status: R: running; S: sleeping; T: traced/stopped; Z: zombie; D: disk sleep</code> S 对应的 sleeping 又称 interruptible sleep，字面意思是「可以被中断」；而 D 对应的 disk sleep 又称 uninterruptible sleep，不可被中断，一般是因为阻塞在磁盘读写操作上。 Zombie 是僵尸进程，该状态下进程已经结束，只是仍然占用一个 PID，保存一个返回值。而 traced/stopped 状态正是下文使用 Ctrl + Z 导致的挂起状态（大写 T），或者是在使用 gdb 等调试（Debug）工具进行跟踪时的状态（小写 t）。</p>
-<table>
-<thead>
-<tr class="header">
-<th>状态</th>
-<th>缩写表示</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Running</td>
-<td>R</td>
-<td>正在运行/可以立刻运行</td>
-</tr>
-<tr class="even">
-<td>Sleeping</td>
-<td>S</td>
-<td>可以被中断的睡眠</td>
-</tr>
-<tr class="odd">
-<td>Disk Sleep</td>
-<td>D</td>
-<td>不可被中断的睡眠</td>
-</tr>
-<tr class="even">
-<td>Traced / Stopped</td>
-<td>T</td>
-<td>被跟踪/被挂起的进程</td>
-</tr>
-<tr class="odd">
-<td>Zombie</td>
-<td>Z</td>
-<td>僵尸进程</td>
-</tr>
-</tbody>
-</table>
-<h3 id="ps">ps</h3>
-<p>ps（<strong>p</strong>rocess <strong>s</strong>tatus）是常用的输出进程状态的工具。直接调用 <code>ps</code> 仅会显示本终端中运行的相关进程。如果需要显示所有进程，对应的命令为 <code>ps aux</code>。</p>
-<h3 id="优先级与-nice-值">优先级与 nice 值</h3>
-<p>有了进程，谁先运行？谁给一点时间就够了，谁要占用大部分 CPU 时间？这又是如何决定的？这些问题之中体现着优先权的概念。如果说上面所介绍的的那些进程属性描述了进程的控制信息，那么<strong>优先级</strong>则反映操作系统调度进程的手段。在 htop 的显示中有两个与优先级有关的值：Priority（PRI）和 <strong>nice（NI）</strong>。以下主要介绍用户层使用的 nice 值。</p>
-<p>Nice 值越高代表一个进程对其它进程越 "nice"（友好），对应的优先级也就更低。Nice 值最高为 19，最低为 -20。通常，我们运行的程序的 nice 值为 0。我们可以打开 htop 观察与调整每个进程的 nice 值。</p>
-<p>用户可以使用 <code>nice</code> 命令在运行程序时指定优先级，而 <code>renice</code> 命令则可以重新指定优先级。当然，若想调低 nice 值，还需要 <code>sudo</code>（毕竟不能随便就把自己的优先级设置得更高，不然对其他的用户不公平）。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">nice -n 10 vim # 以 10 为 nice 值运行 vim</span><br><span class="line">renice -n 10 -p 12345 # 设置 PID 为 12345 的进程的 nice 值为 10</span><br></pre></td></tr></table></figure>
-<div class="note info no-icon"><p>如果你在 htop 中测试调整进程的 nice 值，可能会发现一个公式：<code>PRI = nice + 20</code>。这对于普通进程是成立的——普通进程的 PRI 会被映射到一个非负整数。</p>
-<p>但在正常运行的 Linux 系统中，我们可能会发现有些进程的 PRI 值是 RT，或者是负数。这表明对应的进程有更高的实时性要求（例如内核进程、音频相关进程等），采用了与普通进程不同的调度策略，优先级也相应更高。</p>
-</div>
-<h3 id="用户进程控制">用户进程控制</h3>
-<p><img src="https://101.lug.ustc.edu.cn/Ch04/images/signal_slide.png" /> 信号是 Unix 系列系统中进程之间相互通信的一种机制。发送信号的 Linux 命令叫作 <code>kill</code>。被称作 "kill" 的原因是：早期信号的作用就是关闭（杀死）进程。</p>
-<h3 id="前后台">前后台</h3>
-<p><img src="https://101.lug.ustc.edu.cn/Ch04/images/bg.gif" /> 默认情况下，在 shell 中运行的命令都在前台运行，如果需要在后台运行程序，需要在最后加上 <code>&amp;</code> 而如果需要将前台程序切换到后台，则需要按下 Ctrl + Z 发送 SIGTSTP 使进程挂起，控制权还给 shell 我们可以使用 <code>jobs</code> 命令，看到当前 shell 上所有相关的进程 任务前的代号在 fg，bg，乃至 kill 命令中发挥作用。使用时需要在前面加 <code>%</code>，如将 2 号进程放入后台，则使用 <code>bg %2</code> <div class="note info no-icon"><p>然而我们也许会关注一个细节，在图中显示的编号后面跟着的加号和减号是什么？</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[1]  - running    ./signal handle</span><br><span class="line">[2]  + suspended  ping localhost</span><br></pre></td></tr></table></figure>
-<p>这里的加号标记了 fg 和 bg 命令默认作用到的任务为 2，所以这里 <code>bg %2</code> 也可以直接简化为 <code>bg</code>。减号表示如果加号标记的进程退出了，它就会成为加号标记进程。我们也可以用 <code>%+</code> 和 <code>%-</code> 指代这两个任务。</p>
-</div></p>
-<h3 id="终止进程">终止进程</h3>
-<p>标准的终止进程信号是 SIGTERM，意味着一个进程的自然死亡</p>
-<ul>
-<li>htop 中自带向进程发送信号的功能。按下 K 键，在左侧提示栏中选择需要的信号，按下回车发送。同时可以使用空格对进程进行标记，被标记的进程将改变显示颜色。此时重复上述过程，可对被标记进程批量发送信号。</li>
-<li>如果不加任何参数，只有 PID，<code>kill</code> 命令将自动使用 15（SIGTERM）作为信号参数。</li>
-<li>在信号中，9 代表 SIGKILL，收到这个信号之后，程序会立刻退出。在使用时，直接 <code>kill -9 PID</code> 即可。</li>
-</ul>
-<h3 id="其他类-kill-命令">其他类 kill 命令</h3>
-<ul>
-<li><p><code>pgrep</code> / <code>pkill</code> 后面接模糊名称，实际上类似于对名称进行 <code>grep</code> 命令。<code>pgrep</code> 仅列出搜索到的进程名称符合用户输入的进程标识符，而 <code>pkill</code> 会根据用户的输入向进程发送信号。</p></li>
-<li><p><code>killall</code> 与 <code>pkill</code> 有一些类似，会向指定名字的进程发送信号。</p></li>
-<li><p><code>xkill</code> <code>xkill</code> 是针对窗口的 kill，运行该命令后，鼠标点击程序对应的窗口，就可以杀死该程序。</p></li>
-</ul>
-<h3 id="脱离终端">脱离终端</h3>
-<p>如果你使用过 SSH 连接到远程服务器执行任务，那么你会发现，你在 shell 中执行的程序在 SSH 断开之后会被关闭。这是因为终端一旦被关闭会向其中每个进程发送 SIGHUP（Signal hangup），而 SIGHUP 的默认动作即退出程序运行。</p>
-<h4 id="nohup">nohup</h4>
-<p>nohup，字面含义，就是「不要被 SIGHUP 影响」。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ nohup ping 101.ustclug.org &amp;</span><br><span class="line">[1] 19258</span><br><span class="line">nohup: ignoring input and appending output to &#x27;/home/ustc/nohup.out&#x27;</span><br></pre></td></tr></table></figure>
-<p>在需要屏蔽 SIGHUP 的程序前添加 nohup，则运行时的输出将被<a href="https://101.lug.ustc.edu.cn/Ch06/#redirect">重定向</a>到 nohup.out，也可以通过重定向手段自定义输出的文件。</p>
-<h2 id="服务">服务</h2>
-<h3 id="服务管理">服务管理</h3>
-<p>目前绝大多数 Linux 发行版的 init 方案都是 systemd，其管理系统服务的命令是 <code>systemctl</code>。</p>
-<p>若想了解全部服务内容，可以运行 <code>systemctl list-units</code> 来查看。该命令将显示所有 systemd 管理的单元，同时右面还会附上一句注释来表明该服务的任务。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ tldr systemctl</span><br><span class="line">systemctl</span><br><span class="line">Control the systemd system and service manager.</span><br><span class="line"></span><br><span class="line">    - List failed units:  # 列出运行失败的服务</span><br><span class="line">    systemctl --failed</span><br><span class="line"></span><br><span class="line">    - Start/Stop/Restart/Reload a service:  # 开启/关闭/重启/重载服务。Reload 代表重载配置文件而不重启进程。</span><br><span class="line">    systemctl start/stop/restart/reload &#123;&#123;unit&#125;&#125;</span><br><span class="line"></span><br><span class="line">    - Show the status of a unit:  # 显示服务状态</span><br><span class="line">    systemctl status &#123;&#123;unit&#125;&#125;</span><br><span class="line"></span><br><span class="line">    - Enable/Disable a unit to be started on bootup:  # 设置（Enable）/取消（Disable）服务开机自启</span><br><span class="line">    systemctl enable/disable &#123;&#123;unit&#125;&#125;</span><br><span class="line"></span><br><span class="line">    - Mask/Unmask a unit, prevent it to be started on bootup:  # 阻止/取消阻止服务被 enable</span><br><span class="line">    systemctl mask/unmask &#123;&#123;unit&#125;&#125;</span><br><span class="line"></span><br><span class="line">    - Reload systemd, scanning for new or changed units:  # 重载 systemd，需要在创建或修改服务文件后执行</span><br><span class="line">    systemctl daemon-reload</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<div class="note info no-icon"><p>wsl默认不支持systemctl,可以使用传统的service</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ tldr service</span><br><span class="line">service</span><br><span class="line">Manage services by running init scripts.</span><br><span class="line">The full script path should be omitted (/etc/init.d/ is assumed).</span><br><span class="line"></span><br><span class="line"> - Start/Stop/Restart/Reload service (start/stop should always be available):</span><br><span class="line">   service &#123;&#123;init_script&#125;&#125; &#123;&#123;start|stop|restart|reload&#125;&#125;</span><br><span class="line"></span><br><span class="line"> - Do a full restart (runs script twice with start and stop):</span><br><span class="line">   service &#123;&#123;init_script&#125;&#125; --full-restart</span><br><span class="line"></span><br><span class="line"> - Show the current status of a service:</span><br><span class="line">   service &#123;&#123;init_script&#125;&#125; status</span><br><span class="line"></span><br><span class="line"> - List the status of all services:</span><br><span class="line">   service --status-all</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>或者手动打开</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo vim /etc/wsl.conf</span><br></pre></td></tr></table></figure>
-<p>输入：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[boot]</span><br><span class="line">systemd=true</span><br></pre></td></tr></table></figure>
-<p>然后在windows终端wsl --shutdown再重启</p>
-</div>
-<div class="note info no-icon"><p><strong>编写 .service 文件并运行（以 Jupyter Notebook 为例）</strong></p>
-<p>Jupyter Notebook 是基于浏览器的交互式编程平台，在数据科学领域非常常用。</p>
-<p>首先使用文本编辑器在 <code>/etc/systemd/system</code> 目录下创建一个名为 <code>jupyter.service</code> 的文件。并填入以下内容：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=Jupyter Notebook    # 该服务的简要描述</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">PIDFile=/run/jupyter.pid        # 用来存放 PID 的文件</span><br><span class="line">ExecStart=/usr/local/bin/jupyter-notebook --allow-root</span><br><span class="line">                                # 使用绝对路径标明的命令及命令行参数</span><br><span class="line">WorkingDirectory=/root          # 服务启动时的工作目录</span><br><span class="line">Restart=always                  # 重启模式，这里是无论因何退出都重启</span><br><span class="line">RestartSec=10                   # 退出后多少秒重启</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target      # 依赖目标，这里指进入多用户模式后再启动该服务</span><br></pre></td></tr></table></figure>
-<p>将写好的配置文件保存为 <code>/etc/systemd/system/jupyter.service</code>，然后运行 <code>systemctl daemon-reload</code>，就可以使用 <code>systemctl</code> 命令来管理这个服务了，例如：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">systemctl start jupyter</span><br><span class="line">systemctl stop jupyter</span><br><span class="line">systemctl enable jupyter  # enable 表示标记服务的开机自动启动</span><br><span class="line">systemctl disable jupyter # 取消自启</span><br></pre></td></tr></table></figure>
-</div>
-<h3 id="例行性任务">例行性任务</h3>
-<p>可以用at，crontab等工具创建例行性任务 详见<a href="https://101.lug.ustc.edu.cn/Ch04/#crontab">linux101</a></p>
-<div class="note info no-icon">
-</div>
-<h2 id="用户权限和文件系统">用户权限和文件系统</h2>
-<p>可以查看 <code>/etc/passwd</code> 文件，来得到系统中用户的配置信息。 普通用户的文件存储于位于 <code>/home/username/</code>路径</p>
-<div class="note info no-icon"><p>你是否常常忘记敲 <code>sudo</code>，结果还要把后面的整条命令重新敲一遍？在发现权限不足之后有一个方便的「补救方案」：<code>sudo !!</code>，效果如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ apt update</span><br><span class="line">Reading package lists... Done</span><br><span class="line">E: Could not open lock file /var/lib/apt/lists/lock - open (13: Permission denied)</span><br><span class="line">E: Unable to lock directory /var/lib/apt/lists/</span><br><span class="line">W: Problem unlinking the file /var/cache/apt/pkgcache.bin - RemoveCaches (13: Permission denied)</span><br><span class="line">W: Problem unlinking the file /var/cache/apt/srcpkgcache.bin - RemoveCaches (13: Permission denied)</span><br><span class="line">$ sudo !!</span><br><span class="line">sudo apt update</span><br><span class="line">[sudo] password for ustc:</span><br><span class="line">Hit:1 http://mirrors.ustc.edu.cn/ubuntu bionic InRelease</span><br><span class="line">（以下内容省略）</span><br></pre></td></tr></table></figure>
-<p>其实，在 Shell 中，<code>!!</code> 即代表上一条命令，可以和其他的命令结合使用。</p>
-</div>
-<p>以 <code>root</code> 之外的用户的身份执行命令：加上 <code>-u 用户名</code> 的参数即可。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ sudo -u nobody id</span><br><span class="line">uid=65534(nobody) gid=65534(nogroup) groups=65534(nogroup)</span><br></pre></td></tr></table></figure>
-<h3 id="用户组">用户组</h3>
-<p>用户组是用户的集合。通过用户组机制，可以为一批用户设置权限。可以使用 <code>groups</code> 命令，查看自己所属的用户组。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ groups</span><br><span class="line">ustc adm cdrom sudo dip plugdev lxd</span><br></pre></td></tr></table></figure>
-<p>用户组和用户一样，也有编号：GID (Group ID)。 <div class="note info no-icon"><p><code>adduser</code> 是 Debian 及其衍生发行版中附带的一个方便的用户管理脚本。它可以用来向系统添加用户、添加组，以及将用户加入组。输入：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo adduser 用户名</span><br></pre></td></tr></table></figure>
-<p>即可添加此用户。而输入</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo adduser --group 组名</span><br></pre></td></tr></table></figure>
-<p>即可添加此用户组。将用户加入指定用户组也非常简单：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo adduser 用户名 组名</span><br></pre></td></tr></table></figure>
-<p>在通过 <code>adduser</code> 创建了新的用户后，直接使用 <code>sudo</code> 以 <code>root</code> 身份运行程序可能会得到：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ sudo apt update</span><br><span class="line">[sudo] password for ustc:</span><br><span class="line">ustc is not in the sudoers file.  This incident will be reported.</span><br></pre></td></tr></table></figure>
-<p>除了可以通过 <code>visudo</code> 命令编辑 <code>sudoers</code> 文件外，还可以直接通过将新的用户加入到 <code>sudo</code> 用户组，以能够使用 <code>sudo</code> 命令。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo adduser ustc sudo</span><br></pre></td></tr></table></figure>
-<p>再次切换到新的用户即可看到使用 sudo 的提示：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">To run a command as administrator (user &quot;root&quot;), use &quot;sudo &lt;command&gt;&quot;.</span><br><span class="line">See &quot;man sudo_root&quot; for details.</span><br></pre></td></tr></table></figure>
-</div></p>
-<h2 id="文本处理">文本处理</h2>
-<h3 id="正则表达式">正则表达式</h3>
-<p><a href="https://regex101.com/">在线编辑正则表达式</a> 正则表达式（regular expression）描述了一种字符串匹配的模式，可以用来检查一个串是否含有某种子串、将匹配的子串做替换或者从某个串中取出符合某个条件的子串等。</p>
-<p>特殊字符表：</p>
-<table>
-<thead>
-<tr class="header">
-<th>特殊字符</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>[]</code></td>
-<td>方括号表达式，表示匹配的字符集合，例如 <code>[0-9]</code>、<code>[abcde]</code></td>
-</tr>
-<tr class="even">
-<td><code>()</code></td>
-<td>标记子表达式起止位置</td>
-</tr>
-<tr class="odd">
-<td><code>*</code></td>
-<td>匹配前面的子表达式零或多次</td>
-</tr>
-<tr class="even">
-<td><code>+</code></td>
-<td>匹配前面的子表达式一或多次</td>
-</tr>
-<tr class="odd">
-<td><code>?</code></td>
-<td>匹配前面的子表达式零或一次</td>
-</tr>
-<tr class="even">
-<td><code>\</code></td>
-<td>转义字符，除了常用转义外，还有：<code>\b</code> 匹配单词边界；<code>\B</code> 匹配非单词边界等</td>
-</tr>
-<tr class="odd">
-<td><code>.</code></td>
-<td>匹配除 <code>\n</code>（换行）外的任意单个字符</td>
-</tr>
-<tr class="even">
-<td><code>&#123;&#125;</code></td>
-<td>标记限定符表达式的起止。例如 <code>&#123;n&#125;</code> 表示匹配前一子表达式 n 次；<code>&#123;n,&#125;</code> 匹配至少 n 次；<code>&#123;n,m&#125;</code> 匹配 n 至 m 次</td>
-</tr>
-<tr class="odd">
-<td><code>\|</code></td>
-<td>表明前后两项二选一</td>
-</tr>
-<tr class="even">
-<td><code>$</code></td>
-<td>匹配字符串的结尾</td>
-</tr>
-<tr class="odd">
-<td><code>^</code></td>
-<td>匹配字符串的开头，在方括号表达式中表示不接受该方括号表达式中的字符集合</td>
-</tr>
-</tbody>
-</table>
-<p>若是想要匹配特殊字符本身，需要在之前加上转义字符 <code>\</code>。 <div class="note info no-icon"><p>匹配正整数：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[1-9][0-9]*</span><br></pre></td></tr></table></figure>
-<p>匹配仅由 26 个英文字母组成的字符串：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">^[A-Za-z]+$</span><br></pre></td></tr></table></figure>
-<p>匹配 Chapter 1-99 或 Section 1-99</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">^(Chapter|Section) [1-9][0-9]&#123;0,1&#125;$</span><br></pre></td></tr></table></figure>
-<p>匹配“ter”结尾的单词：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ter\b</span><br></pre></td></tr></table></figure>
-<p>匹配rgb代码</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">^#([0-9]&#123;6&#125;$|([0-9]|[A-F])&#123;3&#125;$)</span><br></pre></td></tr></table></figure>
-</div></p>
-<h4 id="基本扩展正则表达式">基本/扩展正则表达式</h4>
-<p>基本正则表达式（Basic Regular Expressions, BRE）和扩展正则表达式（Extended Regular Expressions, ERE）是两种 POSIX 正则表达式风格。</p>
-<p>BRE 可能是如今最老的正则风格了，对于部分特殊字符（如 <code>+</code>, <code>?</code>, <code>|</code>, <code>&#123;</code>）需要加上转义符 <code>\</code> 才能表达其特殊含义。</p>
-<p>ERE 与如今的现代正则风格较为一致，相比 BRE，上述特殊字符默认发挥特殊作用，加上 <code>\</code> 之后表达普通含义。</p>
-<h4 id="懒惰和贪婪">懒惰和贪婪</h4>
-<p>使用 <code>*</code> <code>+</code> 的时候默认是贪婪模式，即尽可能匹配更多的子表达式。在 <code>*</code> <code>+</code> 之后加上 <code>?</code> 变为懒惰模式，即尽可能匹配更少的子表达式。</p>
-<p>例如：<code>123456456</code></p>
-<p>贪婪：<code>1.+6</code> -&gt; <code>123456456</code></p>
-<p>懒惰：<code>1.+?6</code> -&gt; <code>123456</code> 后向引用可以将之前匹配到的具体内容再次利用。在正则表达式中，<code>()</code> 以及它们包含的内容为一个分组，每个分组默认拥有一个组号。</p>
-<p>组号分配规则：</p>
-<ul>
-<li>0 代表整个表达式</li>
-<li>从左至右，按左括号的出现顺序分配，第一个为 1，第二个为 2，以此类推</li>
-<li>扫描两遍，第一次只分配未命名的组，第二次只分配命名的组。即任意命名组的组号都大于未命名的组号</li>
-</ul>
-<h4 id="后向引用">后向引用</h4>
-<div class="note info no-icon"><p>示例</p>
-<p><code>\b(\w+)\b\s+\1\b</code> 可以用来匹配用空白字符分割的两个重复的单词（例如 <code>linux linux</code>），其中 <code>\1</code> 是对组号为 1 的组 <code>(\w+)</code> 的引用。</p>
-<p><code>\b(?'Word'\w+)\b\s+\k'Word'\b</code> 也可以起到同样的效果，其中 <code>?'Word'</code> 用于命名组，<code>\k'Word'</code> 用于引用组。</p>
-</div>
-<h4 id="零宽断言">零宽断言</h4>
-<p>零宽断言用于查找某些内容进行定位，但内容并不放入匹配结果，就像 <code>\b</code> <code>^</code> <code>$</code> 的定位一样。<code>(?=exp)</code> 用于匹配表达式 <code>exp</code> 前面的位置，<code>(?&lt;=exp)</code> 用于匹配后面的位置。</p>
-<h4 id="拓展阅读">拓展阅读</h4>
-<p><a href="https://zhuanlan.zhihu.com/p/46294360">乱用正则引发的惨案</a></p>
-<h3 id="其他的文本处理工具">其他的文本处理工具</h3>
-<h4 id="grep">grep</h4>
-<p>grep 全称 Global Regular Expression Print，是一个强大的文本搜索工具，可以在一个或多个文件中搜索指定 pattern 并显示相关行。</p>
-<p>grep 默认使用 BRE，要使用 ERE 可以使用 <code>grep -E</code> 或 egrep。</p>
-<p>命令格式：<code>grep [option] pattern file</code></p>
-<p>一些用法：</p>
-<ul>
-<li><code>-n</code>：显示匹配到内容的行号</li>
-<li><code>-v</code>：显示不被匹配到的行</li>
-<li><code>-i</code>：忽略字符大小写</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ls /bin | grep -n &quot;^man$&quot;  # 搜索内容仅含 man 的行，并且显示行号</span><br><span class="line">ls /bin | grep -v &quot;[a-z]\|[0-9]&quot;  # 搜索不含小写字母和数字的行</span><br><span class="line">ls /bin | grep -iv &quot;[A-Z]\|[0-9]&quot;  # 搜索不含字母和数字的行</span><br></pre></td></tr></table></figure>
-<h4 id="sed">sed</h4>
-<p>sed 全称 Stream EDitor，即流编辑器，可以方便地对文件的内容进行逐行处理。</p>
-<p>sed 默认使用 BRE，要使用 ERE 可以 sed -E。</p>
-<p>命令格式：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sed [OPTIONS] &#x27;command&#x27; file(s)</span><br><span class="line">sed [OPTIONS] -f scriptfile file(s)</span><br></pre></td></tr></table></figure>
-<p>此处的 command 和 scriptfile 中的命令均指的是 sed 命令。</p>
-<p>常见 sed 命令：</p>
-<ul>
-<li>s 替换</li>
-<li>d 删除</li>
-<li>c 选定行改成新文本</li>
-<li>a 当前行下插入文本</li>
-<li>i 当前行上插入文本</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ echo -e &quot;seD\nIS\ngOod&quot; &gt; sed_demo</span><br><span class="line">$ cat sed_demo</span><br><span class="line">seD</span><br><span class="line">IS</span><br><span class="line">gOod</span><br><span class="line">$ sed &quot;2d&quot; sed_demo  # 删除第二行</span><br><span class="line">seD</span><br><span class="line">gOod</span><br><span class="line">$ sed &quot;s/[a-z]/~/g&quot; sed_demo  # 替换所有小写字母为 ~</span><br><span class="line">~~D</span><br><span class="line">IS</span><br><span class="line">~O~~</span><br><span class="line">$ sed &quot;3cpErfeCt&quot; sed_demo  # 选定第三行，改成 pErfeCt</span><br><span class="line">seD</span><br><span class="line">IS</span><br><span class="line">pErfeCt</span><br></pre></td></tr></table></figure>
-<h4 id="awk">awk</h4>
-<p>awk 是一种用于处理文本的编程语言工具，名字来源于三个作者的首字母。相比 sed，awk 可以在逐行处理的基础上，针对列进行处理。默认的列分隔符号是空格，其他分隔符可以自行指定。</p>
-<p>awk 使用 ERE。</p>
-<p>命令格式：<code>awk [options] 'pattern &#123;action&#125;' [file]</code></p>
-<p>awk 逐行处理文本，对符合的 patthern 执行 action。需要注意的是，awk 使用单引号时可以直接用 <code>$</code>，使用双引号则要用 <code>\$</code>。</p>
-<p>一些示例：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ cat awk_demo</span><br><span class="line">Beth    4.00    0</span><br><span class="line">Dan     3.75    0</span><br><span class="line">kathy   4.00    10</span><br><span class="line">Mark    5.00    20</span><br><span class="line">Mary    5.50    22</span><br><span class="line">Susie   4.25    18</span><br><span class="line">$ # 选择第三列值大于 0 的行，对每一行输出第一列的值和第二第三列的乘积</span><br><span class="line">$ awk &#x27;$3 &gt;0 &#123; print $1, $2 * $3 &#125;&#x27; awk_demo</span><br><span class="line">kathy 40</span><br><span class="line">Mark 100</span><br><span class="line">Mary 121</span><br><span class="line">Susie 76.5</span><br></pre></td></tr></table></figure>
-<p>示例中 <code>$1</code>，<code>$2</code>，<code>$3</code> 分别指代本行的第 1、2、3 列。特别地，$0 指代本行。</p>
-<p>awk 语言是「图灵完全」的，这意味着理论上它可以做到和其他语言一样的事情。这里我们不仅可以对每行进行操作，还可以定义变量，将前面处理的状态保存下来，以下是一个求和的例子：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ awk &#x27;BEGIN &#123; sum = 0 &#125; &#123; sum += $2 * $3 &#125; END &#123; print sum &#125;&#x27; awk_demo</span><br><span class="line">337.5</span><br></pre></td></tr></table></figure>
-<h4 id="trsort">tr,sort</h4>
-<p>除此之外，tr可用于进行简单的预处理，sort可以用于进行简单的排序、</p>
-<h2 id="shell环境">shell环境</h2>
-<p>组命令：</p>
-<ul>
-<li><p>使用 <code>&#123; 命令1; 命令2; … &#125;</code>，组命令在 shell 内执行，不会产生新的进程，注意花括号和命令之间的空格。</p></li>
-<li><p>使用 <code>(命令1; 命令2; …)</code>，组命令会建立独立的 shell 子进程来执行组命令，这里的圆括号周围并不需要空格。</p></li>
-</ul>
-<p>可以在脚本开头加上 <code>set -u</code> 来实现使用未定义变量报错，否则会默认成空值</p>
-<h3 id="位置参数">位置参数</h3>
-<ul>
-<li>Shell 解释用户的命令时，把命令程序名后面的所有字串作为程序的参数。分别对应 <code>$1</code>、<code>$2</code>、<code>$3</code>、……、<code>$9</code>，程序名本身对应 <code>$0</code>。</li>
-<li>可用 <code>shift &lt;n&gt;</code> 命令，丢弃开头的 n 个位置变量，改变 <code>$1</code>、<code>$2</code>、<code>$3</code> 等的对应关系。</li>
-<li>可用 <code>set</code> 命令，重置整个位置变量列表，从而给 <code>$1</code>、<code>$2</code>、<code>$3</code> 等赋值。</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ set one two three</span><br><span class="line">$ echo $1 $2 $3</span><br><span class="line">one two three</span><br><span class="line">$ shift 2</span><br><span class="line">$ echo $1 $2 $3</span><br><span class="line">three</span><br><span class="line">$ # 此时 $2 和 $3 已不存在</span><br></pre></td></tr></table></figure>
-<h3 id="特殊变量">特殊变量</h3>
-<table>
-<thead>
-<tr class="header">
-<th>特殊变量</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>$#</code></td>
-<td>命令行上的参数个数，不包括 <code>$0</code></td>
-</tr>
-<tr class="even">
-<td><code>$?</code></td>
-<td>最后命令的退出代码，0 表示成功，其它值表示失败</td>
-</tr>
-<tr class="odd">
-<td><code>$$</code></td>
-<td>当前进程的 PID</td>
-</tr>
-<tr class="even">
-<td><code>$!</code></td>
-<td>最近一个后台运行进程的进程号</td>
-</tr>
-<tr class="odd">
-<td><code>$*</code></td>
-<td>命令行所有参数构成的一个字符串</td>
-</tr>
-<tr class="even">
-<td><code>$@</code></td>
-<td>用双引号括起的命令行各参数拼接构成的一个字符串</td>
-</tr>
-</tbody>
-</table>
-<h3 id="特殊字符">特殊字符</h3>
-<ul>
-<li><p>反斜杠，消除单个字符的特殊含义。</p>
-<ul>
-<li>包含空白字符（空格和制表符）、反斜杠本身、各种引号，以及 <code>$</code>、<code>!</code> 等。</li>
-<li>与其他语言不同，shell 中反斜杠不会将普通字符转义为其他含义（例如 <code>\n</code> 不会被视作换行符）。</li>
-</ul></li>
-<li><p>使用双引号包裹字符串可以消除空白字符切分参数的特殊含义，但是很多其他特殊字符的特殊含义仍然保留。双引号也被称为「弱引用」。</p></li>
-<li><p>单引号，能消除所有特殊字符的特殊含义，包括反斜杠，因此单引号字符串中不能使用反斜杠转义单引号本身。单引号也被称为「强引用」。</p></li>
-<li><p>反引号（<code>`</code>）括起的字符串，被 shell 解释为命令，执行时用命令输出结果代替整个反引号对界限部分。</p>
-<ul>
-<li>与反引号相同的语法是 <code>$(command)</code>，它的好处是界限更明确，且可以嵌套。因此编写新脚本时，更建议使用此语法。</li>
-</ul></li>
-</ul>
-<h3 id="语法">语法</h3>
-<p>具体语法可参考<a href="https://101.lug.ustc.edu.cn/Ch06/#bash-arithmetic">linux101</a></p>
-<h2 id="拓展阅读-1">拓展阅读</h2>
-<h3 id="进程与会话">进程与会话</h3>
-<p>Fork 是类 UNIX 中创建进程的基本方法：将当前的进程完整复制一份。新进程和旧进程唯一的区别是 <code>fork()</code> 的返回值不同。程序员可以根据其返回值为新旧进程设置不同的逻辑。</p>
-<p>除了最开始的 0 号进程外，绝大多数情况下其他进程是由另一个进程通过 fork 产生的。这里产生进程的一方为<strong>父进程</strong>，被产生的是<strong>子进程</strong>。在 Linux 中，父进程可以等待子进程，接收子进程退出信号以及返回值。 父进程如果先于子进程退出，产生孤儿进程，会被0号进程(init)接管 子进程先退出但父进程没有回应，产生僵尸进程，会被系统定时清理</p>
-<p><strong>进程组</strong>大体上是执行同一工作的进程形成的一个团体，通常是由于父进程 fork 出子进程后子进程继承父进程的组 ID 而逐渐形成。</p>
-<p><strong>会话</strong> (session) 可以说是面向用户的登录出现的概念。当用户从终端登录进入 shell，就会以该 shell 为会话首进程展开本次会话。一个会话中通常包含着多个进程组，分别完成不同的工作。用户退出时，这个会话会结束，但有些进程仍然以该会话标识符 (session ID) 驻留系统中继续运行。</p>
-<table>
-<thead>
-<tr class="header">
-<th>进程属性</th>
-<th>意义/目的</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>PID</td>
-<td>Process ID，标识进程的唯一性。</td>
-</tr>
-<tr class="even">
-<td>PPID</td>
-<td>Parent PID，标识进程父子关系。</td>
-</tr>
-<tr class="odd">
-<td>PGID</td>
-<td>Process Group ID，标识共同完成一个任务的整体。</td>
-</tr>
-<tr class="even">
-<td>TPGID</td>
-<td>标识一组会话中处于前台（与用户交流）的进程（组）。</td>
-</tr>
-<tr class="odd">
-<td>SID</td>
-<td>Session ID，标识一组会话，传统意义上标识一次登录所做的任务的集合，如果是与具体登录无关的进程，其 SID 被重置。</td>
-</tr>
-</tbody>
-</table>
-<h3 id="终端-terminal-与控制台-console">终端 (Terminal) 与控制台 (Console)</h3>
-<p>在上世纪六十年代，个人计算机尚未开始发展，用户使用计算机的一种常见方式就是通过终端，与远程的服务器连接交互。当时键盘和显示器连为一体，称为终端（terminal）。而主机自带的一套键盘与屏幕只能给系统管理员使用，称为控制台 (console)，用来输出启动 debug 信息（现在的 Linux 系统如果因故障而不得不进入单用户修复模式，则只有一个终端 <code>/dev/console</code> 开启）。</p>
-<p>然而随着时代的发展，这种模式逐渐被家庭电脑的分布式主机取代，我们不需要，也没有多套终端了，只有显示器、键盘、鼠标。但是为了向前兼容性，我们需要假装这是一个（甚至多个）终端，所以一般发行版 <code>/dev</code> 目录下有 7 个终端 <code>tty1 ~ tty7</code>，通过 <code>Ctrl + Alt + F1 ~ F7</code> 切换键盘与显示器与哪个终端相对应。</p>
-<p>再后来，随着时代发展，终端需要出现在图形界面上了，然而承载图形界面的也是终端，所以终端里的终端就需要终端模拟器来实现了。由此，出现在图形界面上的终端才叫终端模拟器。</p>
-<p>没有图形界面时，shell 一般为控制台 (tty) 的子进程，在图形界面上 shell 建立在虚拟终端 (pty, pseudo tty) 之上。顺带一提，服务器常用的远程连接工具 <code>ssh</code> 的父进程也是一个 pty。</p>
-<p>参考阅读: <a href="https://www.linuxdashen.com/%E4%BD%A0%E7%9C%9F%E7%9A%84%E7%9F%A5%E9%81%93%E4%BB%80%E4%B9%88%E6%98%AF%E7%BB%88%E7%AB%AF%E5%90%97%EF%BC%9F">你真的知道什么是终端吗？</a></p>
-<h3 id="文件系统的特殊权限位">文件系统的特殊权限位</h3>
-<p>有三个特殊权限位：setuid, setgid 和 sticky。</p>
-<ul>
-<li><code>setuid</code>: 以文件所属的用户的身份 (UID) 执行此程序。</li>
-<li><code>setgid</code>: 对文件来说，以文件所属的用户组的身份 (GID) 执行此程序；对目录来说，在这个目录下创建的文件的用户组都与此目录本身的用户组一致，而不是创建者的用户组。</li>
-<li><code>sticky</code> (restricted deletion flag): 目录中的所有文件只能由文件所有者（除 <code>root</code> 以外）删除或者移动。一个典型的例子是临时文件夹 <code>/tmp</code>，在此文件夹中你可以创建、修改、重命名、移动、删除自己的文件，但是动不了别人的文件。</li>
-</ul>
-<p><code>/usr/bin/passwd</code> 的文件权限设置：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ ls -l /usr/bin/passwd</span><br><span class="line">-rwsr-xr-x 1 root root 67992 Aug 29  2019 /usr/bin/passwd</span><br></pre></td></tr></table></figure>
-<p>可以看到，本来是执行权限位的地方变成了 <code>s</code>。这代表此文件有 <code>setuid</code> 特殊权限位。在你执行 <code>passwd</code> 的时候，它的实际权限和 <code>root</code> 一样，只是它知道，执行它的人是你（而非 <code>root</code>），所以只提供修改你自己的密码的功能。</p>
-<p>此外，passwd需要知道实际执行自己的用户是谁，在 Linux 中，有两个系统调用可以获取当前进程归属的 UID：<code>getuid()</code> 和 <code>geteuid()</code>。前者对应的是「实际用户」(Real user)，是实际运行（拥有）这个进程的用户，后者对应的是「有效用户」(Effective user)，对应进程拥有的权限。在运行 <code>passwd</code> 的时候，有效用户是 <code>root</code>，所以可以修改 <code>/etc/shadow</code>；而实际用户是你，所以它不会让你修改别人的密码。</p>
-<p>对用户组来说，也有实际用户组 (GID) 和有效用户组 (EGID) 的区别。</p>
-<h3 id="登录-shell和非登录-shell">登录 Shell和非登录 Shell</h3>
-<p>「登录 Shell」是属于你的当前会话操作中的第一个进程，一般是在你输入用户名和密码之后打开的 Shell。常见的场景有：</p>
-<ul>
-<li><code>su -</code> 之后的 Shell。</li>
-<li>SSH 登录机器后的 Shell</li>
-<li>Ctrl + Alt + F[1-7] 之后 TTY 中的 Shell</li>
-</ul>
-<p>而「非登录 Shell」的常见场景：</p>
-<ul>
-<li><code>su</code> 打开的是「非登录 Shell」</li>
-<li>在桌面环境中打开的终端（模拟器），启动的也是「非登录 Shell」</li>
-</ul>
-<p>一般地，「登录 Shell」会额外加载 <code>profile</code> 文件（文件名根据你使用的 Shell 的不同而有区别），且它的 <code>argv[0][0] == '-'</code>（相信你已经学过 C 语言了）。可以用以下方法验证：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ echo $0  # 查看当前 Shell 的 argv[0] 的值</span><br><span class="line">-bash</span><br><span class="line">$ # 是 Login shell</span><br><span class="line">$ sudo su # 进入 root</span><br><span class="line"># echo $0</span><br><span class="line">bash</span><br><span class="line"># # 是 Non-login shell</span><br></pre></td></tr></table></figure>
-<h3 id="fork炸弹">fork炸弹</h3>
-<p>Fork 炸弹有如下的这种形式：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">:()&#123; :|: &amp; &#125;;:</span><br></pre></td></tr></table></figure>
-<p>这是一个函数定义以及对其的调用语句，可以格式化为：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">:()</span><br><span class="line">&#123;</span><br><span class="line">    :|: &amp;</span><br><span class="line">&#125;;</span><br><span class="line">:</span><br></pre></td></tr></table></figure>
-<p>在 Bash 中，<code>:</code>、<code>.</code>、<code>/</code> 等一些字符也能够被用于函数命名，因此，上面的代码等价于：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">func()</span><br><span class="line">&#123;</span><br><span class="line">    func | func &amp;</span><br><span class="line">&#125;;</span><br><span class="line">func</span><br></pre></td></tr></table></figure>
-<p>fork 炸弹的核心是函数内容：<code>func | func &amp;</code></p>
-<ul>
-<li>第一个 func 代表递归执行这个函数。</li>
-<li><div class="line-block">代表要将第一个函数的数据结果通过管道传输给后一个函数。</div></li>
-<li>&amp; 代表要在后台执行这一条命令，如果其中一个函数被操作系统回收，其调用产生的子函数并不会被回收。</li>
-</ul>
-<p>于是运行一次这个函数就会创建两个 func 函数的实例，并不断地反复调用。实例的数量会指数爆炸式地增长，最终耗尽系统的资源。</p>
-<h4 id="防范方法">防范方法</h4>
-<p>一个有效的方式(https://101.lug.ustc.edu.cn/Ch06/supplement/#fn:1)是通过修改系统配置，限制一个用户能够拥有的进程数量多少。<code>ulimit -u 30</code> 可以限制当前用户能够拥有的进程数量为 30。</p>
-]]></content>
-      <categories>
-        <category>课程笔记</category>
-        <category>操作系统</category>
-      </categories>
-      <tags>
-        <tag>课程笔记</tag>
-        <tag>linux</tag>
-        <tag>苏州大学</tag>
-        <tag>中国科学技术大学</tag>
       </tags>
   </entry>
   <entry>
