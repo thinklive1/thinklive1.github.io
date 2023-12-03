@@ -22,15 +22,15 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"thinklive1.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.18.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"flat"},"fold":{"enable":true,"height":500},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":true,"motion":{"enable":true,"async":true,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="概论 操作系统：控制管理计算机的硬件，协调控制资源分配，并为应用程序和用户提供接口以供使用 基本特征 操作系统的基本特征包括开并发，共享，虚拟和异步 1. 并发 并发是指两个或多个事件在同一时间间隔内发生。操作系统的并发性是指计算机系统中同时存在多个运行的程序，因此它具有处理和调度多个程序同时执行的能力。这是通过类似时间片轮转的机制实现的。 并行性是指系统具有同时进行运算或操作的特性，在同一时刻能">
+    <meta name="description" content="概论 操作系统：控制管理计算机的硬件，协调控制资源分配，并为应用程序和用户提供接口以供使用 基本特征 操作系统的基本特征包括开并发，共享，虚拟和异步  并发 并发是指两个或多个事件在同一时间间隔内发生。操作系统的并发性是指计算机系统中同时存在多个运行的程序，因此它具有处理和调度多个程序同时执行的能力。这是通过类似时间片轮转的机制实现的。 并行性是指系统具有同时进行运算或操作的特性，在同一时刻能完成">
 <meta property="og:type" content="article">
 <meta property="og:title" content="考研笔记——操作系统部分">
 <meta property="og:url" content="https://thinklive1.github.io/2023/12/03/%E8%80%83%E7%A0%94%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/index.html">
 <meta property="og:site_name" content="thinklive">
-<meta property="og:description" content="概论 操作系统：控制管理计算机的硬件，协调控制资源分配，并为应用程序和用户提供接口以供使用 基本特征 操作系统的基本特征包括开并发，共享，虚拟和异步 1. 并发 并发是指两个或多个事件在同一时间间隔内发生。操作系统的并发性是指计算机系统中同时存在多个运行的程序，因此它具有处理和调度多个程序同时执行的能力。这是通过类似时间片轮转的机制实现的。 并行性是指系统具有同时进行运算或操作的特性，在同一时刻能">
+<meta property="og:description" content="概论 操作系统：控制管理计算机的硬件，协调控制资源分配，并为应用程序和用户提供接口以供使用 基本特征 操作系统的基本特征包括开并发，共享，虚拟和异步  并发 并发是指两个或多个事件在同一时间间隔内发生。操作系统的并发性是指计算机系统中同时存在多个运行的程序，因此它具有处理和调度多个程序同时执行的能力。这是通过类似时间片轮转的机制实现的。 并行性是指系统具有同时进行运算或操作的特性，在同一时刻能完成">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-12-03T15:35:54.425Z">
-<meta property="article:modified_time" content="2023-12-03T15:37:28.548Z">
+<meta property="article:modified_time" content="2023-12-03T15:54:59.010Z">
 <meta property="article:author" content="thinklive">
 <meta property="article:tag" content="操作系统">
 <meta name="twitter:card" content="summary">
@@ -274,7 +274,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2023-12-03 23:35:54 / 修改时间：23:37:28" itemprop="dateCreated datePublished" datetime="2023-12-03T23:35:54+08:00">2023-12-03</time>
+      <time title="创建时间：2023-12-03 23:35:54 / 修改时间：23:54:59" itemprop="dateCreated datePublished" datetime="2023-12-03T23:35:54+08:00">2023-12-03</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -322,13 +322,18 @@
     <div class="post-body" itemprop="articleBody"><h1 id="概论">概论</h1>
 <p><code>操作系统</code>：控制管理计算机的硬件，协调控制资源分配，并为应用程序和用户提供接口以供使用</p>
 <h2 id="基本特征">基本特征</h2>
-<p><code>操作系统</code>的基本特征包括开并发，共享，虚拟和异步 1. 并发 <code>并发</code>是指两个或多个事件在同一时间间隔内发生。操作系统的并发性是指计算机系统中同时存在多个运行的程序，因此它具有处理和调度多个程序同时执行的能力。这是通过类似时间片轮转的机制实现的。 <code>并行性</code>是指系统具有同时进行运算或操作的特性，在同一时刻能完成两种或两种以上的动作<code>并行性</code>要有相关硬件的支持, 如多流水线或多处理机硬件环境</p>
-<ol start="2" type="1">
-<li>共享 <code>共享</code>：系统内的某些资源可以供并发的不同进程使用，分为以下几种方式 <span id="more"></span></li>
-<li>互斥共享 规定在一段时间内只充许 一个进程访问该资源，系统分配该资源前，必须确保没有其他进程正在使用它，分配后，在进程访问并释放该资源后，其他进程对资源的申请才会被操作系统允许。 这种一段时间内只能被一个进程占有的资源被称为<code>临界资源</code> 大部分硬件，某些软件的栈，变量等都属于<code>临界资源</code></li>
-<li>同时访问 某些系统资源可以在同一时间段内被多个进程同时访问，例如文件系统，这种同时访问可能是交替进行。 互斥共享要求一种资源在一段时间内（哪怕是一段很小的时间）只能满足一个请求，同时访问通常要求一个请求可以分时间片间隔地完成，效果和连续完成相同</li>
+<p><code>操作系统</code>的基本特征包括开并发，共享，虚拟和异步</p>
+<ol type="1">
+<li><p>并发 <code>并发</code>是指两个或多个事件在同一时间间隔内发生。操作系统的并发性是指计算机系统中同时存在多个运行的程序，因此它具有处理和调度多个程序同时执行的能力。这是通过类似时间片轮转的机制实现的。 <code>并行性</code>是指系统具有同时进行运算或操作的特性，在同一时刻能完成两种或两种以上的动作<code>并行性</code>要有相关硬件的支持, 如多流水线或多处理机硬件环境</p></li>
+<li><p>共享 <code>共享</code>：系统内的某些资源可以供并发的不同进程使用，分为以下几种方式 <span id="more"></span></p></li>
+<li><p>互斥共享 规定在一段时间内只充许 一个进程访问该资源，系统分配该资源前，必须确保没有其他进程正在使用它，分配后，在进程访问并释放该资源后，其他进程对资源的申请才会被操作系统允许。 这种一段时间内只能被一个进程占有的资源被称为<code>临界资源</code> 大部分硬件，某些软件的栈，变量等都属于<code>临界资源</code></p></li>
+<li><p>同时访问 某些系统资源可以在同一时间段内被多个进程同时访问，例如文件系统，这种同时访问可能是交替进行。 互斥共享要求一种资源在一段时间内（哪怕是一段很小的时间）只能满足一个请求，同时访问通常要求一个请求可以分时间片间隔地完成，效果和连续完成相同</p></li>
 </ol>
-<p>并发和共享是操作系统两个最基本的特征，两者之间互为存在的条件： - 资源共享是以程序的并发为条件的：若系统不充许程序并发执行，则自然不存在资源共享问题 - 若系统不能对资源共享实施有效的管理，则必将影响到程序的并发执行，其至根本无法并发执行。</p>
+<p>并发和共享是操作系统两个最基本的特征，两者之间互为存在的条件：</p>
+<ul>
+<li>资源共享是以程序的并发为条件的：若系统不充许程序并发执行，则自然不存在资源共享问题</li>
+<li>若系统不能对资源共享实施有效的管理，则必将影响到程序的并发执行，其至根本无法并发执行。</li>
+</ul>
 <ol start="3" type="1">
 <li><p>虚拟 <code>虚拟</code>是指把一个物理上的实体变为若干逻辑上的对应物。 虚拟处理器技术是通过多道程序设计技术，采用让多道程序并发执行的方法，来分时使用一 个处理器的。此时，虽然只有一个处理器，但它能同时为多个用户服务 把一个物理cpu虚拟成多个虚拟cpu,称为虚拟处理器 虚拟技术可以在时间或者空间上进行相应的现实虚拟转换</p></li>
 <li><p>异步 虽然进程可以并发进行，但推进速度，时间等是不确定的，操作系统必须确保，相同环境下相同操作的进程得到相同的结果，不论时间多久</p></li>
