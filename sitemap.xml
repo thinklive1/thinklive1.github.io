@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://thinklive1.github.io/2023/12/03/myproj3/</loc>
+    
+    <lastmod>2023-12-03</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://thinklive1.github.io/2023/11/20/mit6.006%E4%BD%9C%E4%B8%9A%E8%A7%A3%E6%9E%90/</loc>
     
     <lastmod>2023-12-03</lastmod>
@@ -110,25 +119,7 @@
   </url>
   
   <url>
-    <loc>https://thinklive1.github.io/2023/11/17/houses/</loc>
-    
-    <lastmod>2023-11-27</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://thinklive1.github.io/2023/09/30/%E6%9D%80%E6%89%8B47/</loc>
-    
-    <lastmod>2023-11-27</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://thinklive1.github.io/2023/09/30/%E6%B8%B8%E6%88%8F%E7%AE%80%E8%AF%84/</loc>
     
     <lastmod>2023-11-27</lastmod>
     
@@ -146,7 +137,7 @@
   </url>
   
   <url>
-    <loc>https://thinklive1.github.io/2023/09/28/%E7%A7%98%E5%AF%861/</loc>
+    <loc>https://thinklive1.github.io/2023/09/30/%E6%B8%B8%E6%88%8F%E7%AE%80%E8%AF%84/</loc>
     
     <lastmod>2023-11-27</lastmod>
     
@@ -156,6 +147,15 @@
   
   <url>
     <loc>https://thinklive1.github.io/2023/09/29/%E7%A1%AC%E4%BB%B6%E6%80%BB%E5%92%8C%E7%AC%94%E8%AE%B0/</loc>
+    
+    <lastmod>2023-11-27</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://thinklive1.github.io/2023/09/28/%E7%A7%98%E5%AF%861/</loc>
     
     <lastmod>2023-11-27</lastmod>
     
@@ -209,7 +209,7 @@
   </url>
   
   <url>
-    <loc>https://thinklive1.github.io/2023/10/05/%E5%BB%BA%E7%AB%99%E6%8C%87%E5%8C%97/</loc>
+    <loc>https://thinklive1.github.io/2023/09/30/%E5%BD%B1%E5%AD%90%E5%B7%A5%E5%8E%82/</loc>
     
     <lastmod>2023-11-27</lastmod>
     
@@ -218,7 +218,7 @@
   </url>
   
   <url>
-    <loc>https://thinklive1.github.io/2023/09/30/%E5%BD%B1%E5%AD%90%E5%B7%A5%E5%8E%82/</loc>
+    <loc>https://thinklive1.github.io/2023/10/05/%E5%BB%BA%E7%AB%99%E6%8C%87%E5%8C%97/</loc>
     
     <lastmod>2023-11-27</lastmod>
     
@@ -254,7 +254,7 @@
   </url>
   
   <url>
-    <loc>https://thinklive1.github.io/2023/09/29/blacksouls%E5%8E%9F%E8%91%97%E6%A2%97%E8%A7%A3%E6%9E%90/</loc>
+    <loc>https://thinklive1.github.io/2023/09/29/black%20souls%E5%89%A7%E6%83%85%E8%A7%A3%E6%9E%90/</loc>
     
     <lastmod>2023-11-27</lastmod>
     
@@ -263,7 +263,7 @@
   </url>
   
   <url>
-    <loc>https://thinklive1.github.io/2023/09/29/black%20souls%E5%89%A7%E6%83%85%E8%A7%A3%E6%9E%90/</loc>
+    <loc>https://thinklive1.github.io/2023/09/29/blacksouls%E5%8E%9F%E8%91%97%E6%A2%97%E8%A7%A3%E6%9E%90/</loc>
     
     <lastmod>2023-11-27</lastmod>
     
@@ -385,7 +385,7 @@
   </url>
   
   <url>
-    <loc>https://thinklive1.github.io/tags/JAVA/</loc>
+    <loc>https://thinklive1.github.io/tags/python/</loc>
     <lastmod>2023-12-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -399,7 +399,7 @@
   </url>
   
   <url>
-    <loc>https://thinklive1.github.io/tags/python/</loc>
+    <loc>https://thinklive1.github.io/tags/JAVA/</loc>
     <lastmod>2023-12-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -490,13 +490,6 @@
   </url>
   
   <url>
-    <loc>https://thinklive1.github.io/tags/not-for-broadcast/</loc>
-    <lastmod>2023-12-03</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://thinklive1.github.io/tags/vim/</loc>
     <lastmod>2023-12-03</lastmod>
     <changefreq>weekly</changefreq>
@@ -504,7 +497,21 @@
   </url>
   
   <url>
+    <loc>https://thinklive1.github.io/tags/not-for-broadcast/</loc>
+    <lastmod>2023-12-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://thinklive1.github.io/tags/%E5%B7%AB%E5%B8%88%E4%BA%8C/</loc>
+    <lastmod>2023-12-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://thinklive1.github.io/tags/%E5%BD%B1%E5%AD%90%E5%B7%A5%E5%8E%82/</loc>
     <lastmod>2023-12-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -539,13 +546,6 @@
   </url>
   
   <url>
-    <loc>https://thinklive1.github.io/tags/%E5%BD%B1%E5%AD%90%E5%B7%A5%E5%8E%82/</loc>
-    <lastmod>2023-12-03</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://thinklive1.github.io/tags/%E8%8B%8F%E5%B7%9E%E5%A4%A7%E5%AD%A6/</loc>
     <lastmod>2023-12-03</lastmod>
     <changefreq>weekly</changefreq>
@@ -574,13 +574,6 @@
   </url>
   
   <url>
-    <loc>https://thinklive1.github.io/tags/%E7%A7%98%E5%AF%86/</loc>
-    <lastmod>2023-12-03</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://thinklive1.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/</loc>
     <lastmod>2023-12-03</lastmod>
     <changefreq>weekly</changefreq>
@@ -588,7 +581,21 @@
   </url>
   
   <url>
+    <loc>https://thinklive1.github.io/tags/%E7%A7%98%E5%AF%86/</loc>
+    <lastmod>2023-12-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://thinklive1.github.io/tags/%E4%B8%AD%E5%9B%BD%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E5%A4%A7%E5%AD%A6/</loc>
+    <lastmod>2023-12-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://thinklive1.github.io/tags/%E8%BF%AA%E7%91%9E%E5%85%8B%E6%8B%89/</loc>
     <lastmod>2023-12-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -603,13 +610,6 @@
   
   <url>
     <loc>https://thinklive1.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</loc>
-    <lastmod>2023-12-03</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://thinklive1.github.io/tags/%E8%BF%AA%E7%91%9E%E5%85%8B%E6%8B%89/</loc>
     <lastmod>2023-12-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -702,14 +702,14 @@
   </url>
   
   <url>
-    <loc>https://thinklive1.github.io/categories/%E7%A7%98%E5%AF%86/</loc>
+    <loc>https://thinklive1.github.io/categories/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E8%AE%A1%E7%BB%84/</loc>
     <lastmod>2023-12-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://thinklive1.github.io/categories/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E8%AE%A1%E7%BB%84/</loc>
+    <loc>https://thinklive1.github.io/categories/%E7%A7%98%E5%AF%86/</loc>
     <lastmod>2023-12-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -723,14 +723,14 @@
   </url>
   
   <url>
-    <loc>https://thinklive1.github.io/categories/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</loc>
+    <loc>https://thinklive1.github.io/categories/%E8%BF%AA%E7%91%9E%E5%85%8B%E6%8B%89/</loc>
     <lastmod>2023-12-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://thinklive1.github.io/categories/%E8%BF%AA%E7%91%9E%E5%85%8B%E6%8B%89/</loc>
+    <loc>https://thinklive1.github.io/categories/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</loc>
     <lastmod>2023-12-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
