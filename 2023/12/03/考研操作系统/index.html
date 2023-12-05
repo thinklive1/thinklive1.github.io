@@ -22,18 +22,20 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"thinklive1.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.18.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"flat"},"fold":{"enable":true,"height":500},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":true,"motion":{"enable":true,"async":true,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="概论 操作系统：控制管理计算机的硬件，协调控制资源分配，并为应用程序和用户提供接口以供使用 基本特征 操作系统的基本特征包括开并发，共享，虚拟和异步  并发 并发是指两个或多个事件在同一时间间隔内发生。操作系统的并发性是指计算机系统中同时存在多个运行的程序，因此它具有处理和调度多个程序同时执行的能力。这是通过类似时间片轮转的机制实现的。 并行性是指系统具有同时进行运算或操作的特性，在同一时刻能完成">
+    <meta name="description" content="概论 操作系统：控制管理计算机的硬件，协调控制资源分配，并为应用程序和用户提供接口以供使用 基本特征 操作系统的基本特征包括并发，共享，虚拟和异步  并发 并发是指两个或多个事件在同一时间间隔内发生。操作系统的并发性是指计算机系统中同时存在多个运行的程序，因此它具有处理和调度多个程序同时执行的能力。这是通过类似时间片轮转的机制实现的。 并行性是指系统具有同时进行运算或操作的特性，在同一时刻能完成两">
 <meta property="og:type" content="article">
 <meta property="og:title" content="考研笔记——操作系统部分">
 <meta property="og:url" content="https://thinklive1.github.io/2023/12/03/%E8%80%83%E7%A0%94%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/index.html">
 <meta property="og:site_name" content="thinklive">
-<meta property="og:description" content="概论 操作系统：控制管理计算机的硬件，协调控制资源分配，并为应用程序和用户提供接口以供使用 基本特征 操作系统的基本特征包括开并发，共享，虚拟和异步  并发 并发是指两个或多个事件在同一时间间隔内发生。操作系统的并发性是指计算机系统中同时存在多个运行的程序，因此它具有处理和调度多个程序同时执行的能力。这是通过类似时间片轮转的机制实现的。 并行性是指系统具有同时进行运算或操作的特性，在同一时刻能完成">
+<meta property="og:description" content="概论 操作系统：控制管理计算机的硬件，协调控制资源分配，并为应用程序和用户提供接口以供使用 基本特征 操作系统的基本特征包括并发，共享，虚拟和异步  并发 并发是指两个或多个事件在同一时间间隔内发生。操作系统的并发性是指计算机系统中同时存在多个运行的程序，因此它具有处理和调度多个程序同时执行的能力。这是通过类似时间片轮转的机制实现的。 并行性是指系统具有同时进行运算或操作的特性，在同一时刻能完成两">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://thinklive1.github.io/assets/%E8%8B%8F%E5%A4%A7linux_ppt/Pasted%20image%2020231204211804.png">
 <meta property="og:image" content="https://thinklive1.github.io/assets/%E8%8B%8F%E5%A4%A7linux_ppt/Pasted%20image%2020231204215335.png">
 <meta property="og:image" content="https://thinklive1.github.io/assets/%E8%8B%8F%E5%A4%A7linux_ppt/Pasted%20image%2020231204220927.png">
+<meta property="og:image" content="https://thinklive1.github.io/assets/%E8%8B%8F%E5%A4%A7linux_ppt/Pasted%20image%2020231205144922.png">
+<meta property="og:image" content="https://thinklive1.github.io/assets/%E8%8B%8F%E5%A4%A7linux_ppt/Pasted%20image%2020231205151119.png">
 <meta property="article:published_time" content="2023-12-03T15:35:54.425Z">
-<meta property="article:modified_time" content="2023-12-05T06:28:39.541Z">
+<meta property="article:modified_time" content="2023-12-05T08:15:00.391Z">
 <meta property="article:author" content="thinklive">
 <meta property="article:tag" content="操作系统">
 <meta name="twitter:card" content="summary">
@@ -177,7 +179,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A6%82%E8%AE%BA"><span class="nav-number">1.</span> <span class="nav-text">概论</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E7%89%B9%E5%BE%81"><span class="nav-number">1.1.</span> <span class="nav-text">基本特征</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%9F%E8%83%BD"><span class="nav-number">1.2.</span> <span class="nav-text">功能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8E%86%E5%8F%B2"><span class="nav-number">1.3.</span> <span class="nav-text">历史</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C%E7%8E%AF%E5%A2%83"><span class="nav-number">1.4.</span> <span class="nav-text">运行环境</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E6%A0%B8%E6%9C%BA%E5%88%B6"><span class="nav-number">1.4.1.</span> <span class="nav-text">内核机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%AD%E6%96%AD%E5%92%8C%E5%BC%82%E5%B8%B8"><span class="nav-number">1.4.2.</span> <span class="nav-text">中断和异常</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8"><span class="nav-number">1.4.3.</span> <span class="nav-text">系统调用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E6%9E%84"><span class="nav-number">1.5.</span> <span class="nav-text">结构</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A6%82%E8%AE%BA"><span class="nav-number">1.</span> <span class="nav-text">概论</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E7%89%B9%E5%BE%81"><span class="nav-number">1.1.</span> <span class="nav-text">基本特征</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%9F%E8%83%BD"><span class="nav-number">1.2.</span> <span class="nav-text">功能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8E%86%E5%8F%B2"><span class="nav-number">1.3.</span> <span class="nav-text">历史</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C%E7%8E%AF%E5%A2%83"><span class="nav-number">1.4.</span> <span class="nav-text">运行环境</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E6%A0%B8%E6%9C%BA%E5%88%B6"><span class="nav-number">1.4.1.</span> <span class="nav-text">内核机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%AD%E6%96%AD%E5%92%8C%E5%BC%82%E5%B8%B8"><span class="nav-number">1.4.2.</span> <span class="nav-text">中断和异常</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8"><span class="nav-number">1.4.3.</span> <span class="nav-text">系统调用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E6%9E%84"><span class="nav-number">1.5.</span> <span class="nav-text">结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%95%E5%AF%BC"><span class="nav-number">1.6.</span> <span class="nav-text">引导</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%99%9A%E6%8B%9F%E6%9C%BA"><span class="nav-number">1.7.</span> <span class="nav-text">虚拟机</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B"><span class="nav-number">2.</span> <span class="nav-text">进程和线程</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -284,7 +286,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-12-05 14:28:39" itemprop="dateModified" datetime="2023-12-05T14:28:39+08:00">2023-12-05</time>
+      <time title="修改时间：2023-12-05 16:15:00" itemprop="dateModified" datetime="2023-12-05T16:15:00+08:00">2023-12-05</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -310,14 +312,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>4.2k</span>
+      <span>6.5k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>15 分钟</span>
+      <span>24 分钟</span>
     </span>
 </div>
 
@@ -332,7 +334,7 @@
     <div class="post-body" itemprop="articleBody"><h1 id="概论">概论</h1>
 <p><code>操作系统</code>：控制管理计算机的硬件，协调控制资源分配，并为应用程序和用户提供接口以供使用</p>
 <h2 id="基本特征">基本特征</h2>
-<p><code>操作系统</code>的基本特征包括开并发，共享，虚拟和异步</p>
+<p><code>操作系统</code>的基本特征包括并发，共享，虚拟和异步</p>
 <ol type="1">
 <li><p>并发<br />
 <code>并发</code>是指两个或多个事件在同一时间间隔内发生。操作系统的并发性是指计算机系统中同时存在多个运行的程序，因此它具有处理和调度多个程序同时执行的能力。这是通过类似时间片轮转的机制实现的。<br />
@@ -429,16 +431,18 @@
 <li>可靠性</li>
 </ul>
 <ol start="5" type="1">
-<li><p>其他 网络操作系统把计算机网络中的各台计算机有机地结合起来，提供一种统一、经济而有效的 使用各台计算机的方法，实现各台计算机之间数据的互相传送。网络操作系统最主要的特点是网 络中各种资源的共享及各台计算机之间的通信。<br />
+<li><p>其他<br />
+网络操作系统把计算机网络中的各台计算机有机地结合起来，提供一种统一、经济而有效的 使用各台计算机的方法，实现各台计算机之间数据的互相传送。网络操作系统最主要的特点是网 络中各种资源的共享及各台计算机之间的通信。<br />
 分布式计算机系统是由多台计算机组成并满足下列条件的系统：系统中任意两台计算机通过 通信方式交换信息：系统中的每台计算机都具有同等的地位，即没有主机也没有从机：每台计算 机上的资源为所有用户共享：系统中的任意台计算机都可以构成一个子系统，并且还能重构；任 何工作都可以分布在几台计算机上，由它们并行工作、协同完成。用于管理分布式计算机系统的 操作系统称为分布式计算机系统。该系统的主要特点是：分布性和并行性。分布式操作系统与网 络操作系统的本质不同是，分布式操作系统中的若干计算机相互协同完成同一任务。</p></li>
-<li><p>个人计算机操作系统 个人计算机操作系统是目前使用最广泛的操作系统，它广泛应用于文字处理、电子表格、游戏中，常见的有Windows、Linux和Macintosh等。</p></li>
+<li><p>个人计算机操作系统<br />
+个人计算机操作系统是目前使用最广泛的操作系统，它广泛应用于文字处理、电子表格、游戏中，常见的有Windows、Linux和Macintosh等。</p></li>
 </ol>
 <p><img src="/assets/苏大linux_ppt/Pasted%20image%2020231204211804.png" /></p>
 <h2 id="运行环境">运行环境</h2>
 <p>cpu一般执行两种程序，一种是操作系统内核程序，另一种是用户程序，因此对cpu指令需要做区分</p>
 <ul>
 <li>特权指令，是指不允许用户直接使用的指令，如I/O指令、置中断指令，存取用于内存保护的寄存器、送程序状态字到程序状态字寄存器等的指令。</li>
-<li>2）非特权指令，是指允许用户直接使用的指令，它不能直接访问系统中的软硬件资源，仅 限子访问用户的地址空间，这也是为了防止用户程序对系统造成破坏。 在具体实现上，将CPU的运行模式划分为用户态（目态）和核心态 （又称管态，内核态）</li>
+<li>非特权指令，是指允许用户直接使用的指令，它不能直接访问系统中的软硬件资源，仅 限子访问用户的地址空间，这也是为了防止用户程序对系统造成破坏。 在具体实现上，将CPU的运行模式划分为用户态（目态）和核心态 （又称管态，内核态）</li>
 </ul>
 <h3 id="内核机制">内核机制</h3>
 <ol type="1">
@@ -495,6 +499,84 @@
 </ul>
 </div>
 <h2 id="结构">结构</h2>
+<ol type="1">
+<li>分层法<br />
+最底层为硬件，最高层为用户接口，每个高层只能调用它向下单层的功能和服务<br />
+优点：
+<ol type="1">
+<li>便于调试和验证，由于每层都相对独立，可以隔绝问题，在单层定位问题</li>
+<li>易于扩充维护，只要确保层间接口不便，就可以随意修改单层内的模块</li>
+</ol></li>
+</ol>
+<p>问题：1，难于定义各层。2，由于有时需要跨多层调用，额外开销较大，效率较低</p>
+<ol start="2" type="1">
+<li>模块化 将操作系统定义成各种有自己接口的模块，各模块通过接口进行组合和通信 <img src="/assets/苏大linux_ppt/Pasted%20image%2020231205144922.png" /> 这样的结构需要保证模块之间的独立性，即：</li>
+</ol>
+<ul>
+<li>内聚性，模块内部各部分间联系的紧密程度。内聚性越高，模块独立性越好。</li>
+<li>耦合度，模块间相互联系和相互影响的程度。耦合度越低，模块独立性越好。 模块化的优点：①提高了操作系统设计的正确性、可理解性和可维护性：②增强了操作系统 的可适应性：③加速了操作系统的开发过程。 模块化的缺点：①模块间的接口规定很难满足对接口的实际需求。②各模块设计者齐头并进 每个决定无法建立在上一个已验证的正确决定的基础上，因此无法找到一个可靠的决定顺序。</li>
+</ul>
+<ol start="3" type="1">
+<li><p>宏内核<br />
+宏内核，指将系统的主要功能模块作为整体运行在核心态，从而为用户程序提供高性能的系统服务。因为各管理模块之间共享信息，能有效利用相互之间的有效特性，所以具有无可比拟的性能优势。<br />
+主流操作系统都使用了宏内核，但事实上也在逐渐引进微内核技术，成为一种混合结构</p></li>
+<li><p>微内核<br />
+微内核构架，是指将内核中最基本的功能保留在内核，而将那些不需要在核心态执行的功能移到用户态执行，从而降低内核的设计复杂性。那些移出内核的操作系统代码根据分层的原则划分成若干服务程序，它们的执行相互独立，交互则都借助于微内核进行通信。 一般可以分为两个部分：</p></li>
+</ol>
+<ul>
+<li>微内核,实现操作系统最基本核心功能的小型内核
+<ul>
+<li>与硬件紧密相关的功能</li>
+<li>基本功能</li>
+<li>客户和服务器的通信</li>
+</ul></li>
+<li>多个服务器</li>
+</ul>
+<p><img src="/assets/苏大linux_ppt/Pasted%20image%2020231205151119.png" /> 为了实现高可靠性，只有微内核运行在内核态，其余模块都运行在用户态，一个模块的错误不会影响整个系统<br />
+微内核的功能：</p>
+<ul>
+<li>进程（线程）管理：进程的通信，切换，调度，多处理器的同步等都应该放入微内核，但进程分类，优先级确定等不涉及机制的功能可以放入进程管理服务器</li>
+<li>低级存储器管理：比如页表机制和地址变换机制，而虚拟存储器的管理，页面置换算法等则有存储器管理服务器管理</li>
+<li>中断和陷入处理，捕获相关事件，进行中断响应处理，然后发送给相关服务器来处理</li>
+</ul>
+<p>优点：</p>
+<ul>
+<li>拓展性和灵活性</li>
+<li>可靠性和安全性</li>
+<li>可移植性（和硬件有关的都在微内核中，其他服务器和硬件无关）</li>
+<li>分布式计算，通信采用消息传递机制，很好的支持分布式系统和网络系统</li>
+</ul>
+<p>微内核结构的主要问题是性能问题，因为需要频繁地在核心态和用户态之间进行切换，操作 系统的执行开销偏大。</p>
+<ol start="5" type="1">
+<li>外核<br />
+不同于虚拟机克隆真实机器，另一种策略是对机器进行分区，给每个用户整个资源的一个子集。在底层中，一种称为外核（exokernel）的程序在内核态中运行。它的任务是为虚拟机分配资源，并检查使用这些资源的企图，以确保没有机器会使用他人的资源。每个用户层的虚拟机有自己的操作系统，但资源是受限制的<br />
+外核机制的优点是减少了映射层。在其他的设计中，每个虚拟机都认为它有自己的磁盘，这样虚拟机监控程序就必须维护一张表格以重映像磁盘地址，有外核就不需要维护这个表格了，并且实现了各个虚拟机之间的安全划分，没有冲突</li>
+</ol>
+<h2 id="引导">引导</h2>
+<p>操作系统引导是指计算机利用CPU运行定程序，通过程序识别硬盘，识别硬盘分区，识别硬盘分区上的操作系统，最后通过程序启动操作系统一环扣一一环地完成上述过程。</p>
+<ol type="1">
+<li>激活CPU。激活的CPU读取ROM中的boot程序，将指令寄存器置为BIOS（基本输入/输出系统）的第一条指令，即开始执行BIOS的指令。</li>
+<li>硬件自检。启动BIOS程序后，先进行硬件自检，检查硬件是否出现故障。如有故障，主板会发出不同含义的蜂鸣，启动中止：如果没有故障，屏幕会显示CPU、内存、硬盘等信息。</li>
+<li>加载带有操作系统的硬盘。硬件自检后，BIOS开始读取BootSequence（通过CMOS里保存的启动顺序，或者通过与用户交互的方式），把控制权交给启动顺序排在第一位的存储设备，然后CPU将该存储设备引导扇区的内容加载到内存中。</li>
+<li>加载主引导记录MBR。硬盘以特定的标识符区分引导硬盘和非引导硬盘。如果发现一个存储设备不是可引导盘，就检查下一个存储设备。如无其他启动设备，就会死机。主引导记录MBR的作用是告诉CPU去硬盘的哪个主分区去找操作系统。</li>
+<li>扫描硬盘分区表，并加载硬盘活动分区。MBR包含硬盘分区表，硬盘分区表以特定的标识符区分活动分区和非活动分区。主引导记录扫描硬盘分区表，进而识别含有操作系统的硬盘分区（活动分区）。找到硬盘活动分区后，开始加载硬盘活动分区，将控制权交给活动分区。</li>
+<li>加载分区引导记录PBR。读取活动分区的第一个扇区，这个扇区称为分区引导记录（PBR），其作用是寻找并激活分区根目录下用于引导操作系统的程序（启动管理器）</li>
+<li>加载启动管理器。分区引导记录搜索活动分区中的启动管理器，加载启动管理器</li>
+<li>加裁操作系统</li>
+</ol>
+<h2 id="虚拟机">虚拟机</h2>
+<p>虚拟机是一台逻辑计算机，是指利用特殊的虚拟化技术，通过隐藏特定计算平台的实际物理特性，为用户提供抽象的、统一的、模拟的计算环境。有两类虚拟化方法。<br />
+1. 唯一运行在最高特权的程序，它在裸机上运行并且具备多道程序功能。虚拟机管理程序向上层提供若干台虚拟机、这些虚拟机是裸机硬件的精确复制品。由于每台虚拟机都与裸机相同，所以在不同的虚拟机上可以运行任何不同的操作系统。</p>
+<div class="note info"><p>虚拟机作为用户态的一个进程运行，不充许执行敏感指令。然而，虚拟机上的操作系统认为自已运行在内核态（实际上不是），称为虚拟内核态。虚拟机中的用户进程认为自已运行在用户态（实际上确实是）。当虚拟机操作系统执行了一条CPU处于内核态才充许执行的指令时，会陷入虚拟机管理程序。在支持虚拟化的CPU上，虚拟机管理程序检查这条指令是由虚拟机中的操作系统执行的还是由用户程序执行的。如果是前者，虚拟机管理程序将安排这条指令功能的正确执行。否则，虚拟机管理程序将模拟真实硬件面对用户态执行敏感指令时的行为。</p>
+</div>
+<ol start="2" type="1">
+<li>类似一个依赖宿主机的普通进程，操作系统安装到虚拟磁盘上（其实只是宿主操作系统中的一个文件）。客户操作系统安装完成后，就能启动并运行。 此时，虚拟机管理程序伪装成一台计算机（比如vmware）</li>
+</ol>
+<p>有的教材将第一类虚拟化技术称为裸金属架构，将第二类虚拟化技术称为寄居架构</p>
+<hr />
+<h1 id="进程和线程">进程和线程</h1>
+<div class="note info">
+</div>
 
     </div>
 
@@ -555,14 +637,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">191k</span>
+    <span title="站点总字数">194k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">11:36</span>
+    <span title="站点阅读时长">11:45</span>
   </span>
 </div>
 <div class="busuanzi-count">
