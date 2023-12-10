@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha256-CTSx/A06dm1B063156EVh15m6Y67pAjZZaQc89LLSrU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.24/fancybox/fancybox.css" integrity="sha256-vQkngPS8jiHHH0I6ABTZroZk8NPZ7b+MUReOFE9UsXQ=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"thinklive1.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.18.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"flat"},"fold":{"enable":true,"height":500},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":true,"motion":{"enable":true,"async":true,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="步行模拟器，在本视频中取操作只局限于步行和一些简单动作，主要获取信息的途径为阅读和观察的游戏，这是一种颇为先锋，也颇为小众的游戏类型，在其中有一些火到出圈的佳作，也有缺点明细的庸作，但都有着共性在其中，今天，我就用一个业余爱好者的身份来浅析一下这类游戏。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="游戏互动性的新探索——步行模拟器">
+<meta property="og:url" content="https://thinklive1.github.io/thinklive/60146/index.html">
+<meta property="og:site_name" content="thinklive">
+<meta property="og:description" content="步行模拟器，在本视频中取操作只局限于步行和一些简单动作，主要获取信息的途径为阅读和观察的游戏，这是一种颇为先锋，也颇为小众的游戏类型，在其中有一些火到出圈的佳作，也有缺点明细的庸作，但都有着共性在其中，今天，我就用一个业余爱好者的身份来浅析一下这类游戏。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-09-30T11:35:13.293Z">
+<meta property="article:modified_time" content="2023-11-27T12:47:59.707Z">
+<meta property="article:author" content="thinklive">
+<meta property="article:tag" content="游戏杂谈">
+<meta property="article:tag" content="步行模拟器">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://thinklive1.github.io/thinklive/60146/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://thinklive1.github.io/thinklive/60146/","path":"thinklive/60146/","title":"游戏互动性的新探索——步行模拟器"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>游戏互动性的新探索——步行模拟器 | thinklive</title>
+  
+
+
+
+
+
+
+
+ <!--js: 线条特效-->
+  <script type="text/javascript" color="255,255,255" opacity='1' zIndex="-1" count="300" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+<script type="text/javascript" async src="/js/fairyDustCursor.js"></script>
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<!-- hexo injector head_end start --><script> let HEXO_MMEDIA_DATA = { js: [], css: [], aplayerData: [], metingData: [], artPlayerData: [], dplayerData: []}; </script><!-- hexo injector head_end end --><link rel="alternate" href="/atom.xml" title="thinklive" type="application/atom+xml">
+</head>
+<script src="/js/tab-title.js"></script>
+<!--pjax：防止跳转页面音乐暂停-->
+ <script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.js"></script>
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">thinklive</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">dirichlet labrary</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索 | search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-主页-|-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>主页 | home</a></li><li class="menu-item menu-item-标签-|-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签 | tags</a></li><li class="menu-item menu-item-分类-|-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类 | categories</a></li><li class="menu-item menu-item-归档-|-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档 | archives</a></li><li class="menu-item menu-item-相册-|-photos"><a href="/photos/" rel="section"><i class="fa fa-camera fa-fw"></i>相册 | photos</a></li><li class="menu-item menu-item-留言-|-guestbook"><a href="/guestbook/" rel="section"><i class="fa fa-book fa-fw"></i>留言 | guestbook</a></li><li class="menu-item menu-item-感谢-|-thanks"><a href="/thanks/" rel="section"><i class="fa custom thanks fa-fw"></i>感谢 | thanks</a></li><li class="menu-item menu-item-游戏-|-game"><a href="/game/bad1.html" rel="section"><i class="fa fa-gamepad fa-fw"></i>游戏 | game</a></li><li class="menu-item menu-item-神龛-|-shrine"><a href="/cyberblog/" rel="section"><i class="fa fa-microchip fa-fw"></i>神龛 | shrine</a></li><li class="menu-item menu-item-资源地图-|-resourcemap"><a href="/webstack/" rel="section"><i class="fa fa-list fa-fw"></i>资源地图 | resourcemap</a></li><li class="menu-item menu-item-思维导图-|-mindmap"><a href="/mindmap/index.html" rel="section"><i class="fa fa-map fa-fw"></i>思维导图 | mindmap</a></li><li class="menu-item menu-item-网站地图-|-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>网站地图 | sitemap</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索 | search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+
+<!--网易云音乐插件-->
+<!-- require APlayer -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
+<script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
+<!-- require MetingJS-->
+<script src="https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"></script> 
+<!--网易云playlist外链地址-->   
+<meting-js
+    server="netease"
+    type="playlist" 
+    id="2762741085"
+    mini="false"
+    fixed="false"
+    list-folded="true"
+    autoplay="false"
+    volume="0.2"
+    theme="#4c4c4c"
+    order="random"
+    loop="all"
+    preload="auto"
+    lrc-type="2"
+    mutex="true">
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="thinklive"
+      src="/images/thive.png">
+  <p class="site-author-name" itemprop="name">thinklive</p>
+  <div class="site-description" itemprop="description">起初，世界是一团思索，它向所有的方向迈了一步，于是万物由此而生</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/thinklive1" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;thinklive1" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/xthive@stu.suda.edn.cn" title="E-Mail → xthive@stu.suda.edn.cn" rel="noopener me"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/38099250?spm_id_from=333.1007.0.0" title="bilibili → https:&#x2F;&#x2F;space.bilibili.com&#x2F;38099250?spm_id_from&#x3D;333.1007.0.0" rel="noopener me" target="_blank"><i class="fa custom bilibili fa-fw"></i>bilibili</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://steamcommunity.com/id/thinklive" title="steam → https:&#x2F;&#x2F;steamcommunity.com&#x2F;id&#x2F;thinklive" rel="noopener me" target="_blank"><i class="fa custom steam fa-fw"></i>steam</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml" rel="noopener me"><i class="fa fa-rss fa-fw"></i>RSS</a>
+      </span>
+  </div>
+<img src="/images/thinklive_cyber.png"; z-index: 0; style="max-width: 100%; width: auto; height: auto;background-color: #fff;">
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://thinklive1.github.io/thinklive/60146/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/thive.png">
+      <meta itemprop="name" content="thinklive">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="thinklive">
+      <meta itemprop="description" content="起初，世界是一团思索，它向所有的方向迈了一步，于是万物由此而生">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="游戏互动性的新探索——步行模拟器 | thinklive">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          游戏互动性的新探索——步行模拟器
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-09-30 19:35:13" itemprop="dateCreated datePublished" datetime="2023-09-30T19:35:13+08:00">2023-09-30</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-11-27 20:47:59" itemprop="dateModified" datetime="2023-11-27T20:47:59+08:00">2023-11-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%B8%B8%E6%88%8F%E6%9D%82%E8%B0%88/" itemprop="url" rel="index"><span itemprop="name">游戏杂谈</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%B8%B8%E6%88%8F%E6%9D%82%E8%B0%88/%E7%8B%AC%E7%AB%8B%E6%B8%B8%E6%88%8F/" itemprop="url" rel="index"><span itemprop="name">独立游戏</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>5k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>18 分钟</span>
+    </span>
+</div>
+
+        
+        </div>
+      </header>
+   
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>步行模拟器，在本视频中取操作只局限于步行和一些简单动作，主要获取信息的途径为阅读和观察的游戏，这是一种颇为先锋，也颇为小众的游戏类型，在其中有一些火到出圈的佳作，也有缺点明细的庸作，但都有着共性在其中，今天，我就用一个业余爱好者的身份来浅析一下这类游戏。 <span id="more"></span> 我们先从步行模拟器的历史说起，由于我不是专业人士，也不是什么老玩家，所以只能大概地说说。 溯及这类游戏的根源是一件很难且没有必要的事情，所以我们只把目光放在本世纪好了，在2007年，一个传奇的年份，当时的游戏界见证了巫师一，质量效应一，刺客信条一等传奇系列首作的诞生，也有一些人注意到一款名为《亲爱的艾斯特》的奇异游戏，对一个原教旨主义者来说它可能算不上游戏，玩家操控着一位失去妻子的男人在孤岛上步行，整部游戏唯一的信息来源就是沿途的风景，壁画，以及男人的自言自语，某种意义上这带来了一种推理小说式的体验，你需要在文本中领略事件的来龙去脉，同时体验它压抑深沉的环境氛围。 亲爱的艾斯特取得了意想不到的小范围成功，本作为免费游戏的它在12年发布了付费版，并取得了80万的销量，可以说，近十年的步行模拟器很大程度上是由它启蒙的。 因此，以12年为分水岭，逐渐涌现出不少的步行模拟器游戏。 13年亮相的是著名的meta游戏史丹利的寓言和较为平庸的到家（gone home） 14年问世的是解密风的伊森卡特的消失 15年艾斯特的工作室发行了同类型的万众狂欢 16年则有看火人与弗吉尼亚出现 而在17年，此类型的集大成者，艾迪芬奇的记忆横空出世，成为了此类型至今为止的最优者 可能不少对此类游戏毫无兴趣的玩家会好奇，步行模拟器的卖点到底在哪? 在这个媒体资源空前丰富的时代，每个人都能输出自己的思想，因此思想的输出变得极为廉价，而接受者的地位却会被拔高，因此，门槛越高的思想输出方式就有着越大的不被接受的风险，导致晦涩隐喻的内容就会不受待见。尽管如此，这些晦涩的思想与表达依旧是存在的，步行模拟器就是一种方式。 事实上，接受他人的思想表达一直都有很大的风险，只要作者多加一点私货，或者在莫名其妙的地方整个活，接受者的思想就会收到极大的冲击，例子我就不举了，懂得都懂。所以很多人都会倾向于不去接受，晦涩的作品他们根本不会碰，也有的人沉迷于此类快感，不顾风险地追寻自己认为好的输出者，这两种选择没有高下之分，但体现在游戏上，我们就会发现后者经常会成为所谓的小众游戏爱好者，这并不意味着他们很优越，相反，他们可能已经踩过不知道多少雷了。 为此前的论述做一个总结，步行模拟器可以作为一个高门槛的思想输出方法，因此能吸引一些喜欢此类体验的玩家。事实上，它和同样强调探索的avg可能存在一些关系，但由于我对此没有足够的知识，就不献丑了。 在此基础上，我们来分析此类游戏的一些特性。 首先，第一个问题是，为什么要用步行模拟器这种形式，毫无疑问这种游戏的互动性基本不是很强，也没有刺激官能的要素，然而，正是因为这种自断一臂式的操作，让它能够把自己的叙事能力提高到大部分游戏所不能及的程度，玩法单一也就意味着玩家的注意力会完全集中于一点，制作者只要专注于此方面，就能高频度地向玩家提供信息，而不会让人一头雾水，因为这样的特点，相比大部分游戏，步行模拟器可以聚焦于很多与众不同的题材，可以选用不同的叙事方式， 另一个优点是，较小的游戏规模与如今相对成熟的游戏工业，让制作者能以较为低廉的成本做出不同的场景，美术效果和环境在步行模拟器中有很大的作用，我之所以这么说，不仅是因为它有着渲染气氛的作用，在很多此类游戏中，环境本身就承担着叙事的任务，尤其以艾迪芬奇的记忆而言，环境在这款游戏中达到了当代游戏的新高度，不同的房间布置在无言中传达了房间主人的个性，甚至在一些细节中暗示了主人的命运。可以这么说，在很多步行模拟器中，环境有着超越装饰的作用 步行模拟器还有一个特点，那就是它是第一人称的，你可能单纯地觉得这是为了提高代入感，但事实上，因为互动性的匮乏，步行模拟器往往更趋向于探索和体验，而不是扮演，更形象的说法是，在步行模拟器中看到的是别人的故事，因此在我看来，第一人称更多的意义是类似侦探小说的叙述主体，也就是说，以这个故事而言，第一人称对应的角色就是最适合展现故事全貌的人，同时，这个主体具体的身份也可以是一个谜题，伊森卡特的消失，艾迪芬奇的记忆都在这方面上做了文章，非常有趣。 上述特点事实上还是很笼统的，实际上的步行模拟器在风格和题材上都是各具特色，特点也不尽相同，但由于到目前为止出名的步行模拟器实在不多，所以我们就用穷举的方法来说说这些步行模拟器。 先从最早的亲爱的艾斯特说起 在所有步行模拟器中，艾斯特应该是互动性最低的一个，你能做的只有控制一个喃喃自语的男人在孤岛上乱走，然而，艾斯特依然是一部很优秀的游戏，优秀的文本质量和环境建模完美地融合在了一起，配合迷雾重重的故事，与四个风格迥异的场景与种种细节，成功营造出了一种哀伤中透着迷幻的气氛。虽然选取了悼念亡妻的题材，但艾斯特并没有直接表现哀伤，叙事主体的男子呈现的态度是思辨的，其文本很有些深度，艾斯特的氛围塑造与文本水平，我个人认为是步行模拟器中最优秀的之一，并没有被后来者超越，甚至也没有被他们自己超越。 史丹利的寓言 这游戏很难归类，它更为众人所熟悉的标签是meta游戏，举个不恰当的例子，meta游戏和游戏的区别就像文学批评和文学的区别，很难说史丹利的目的是对游戏这一创作形式进行批判还是呈现一段故事。 这游戏几乎是靠作者一个人的天才撑起来的，即便在meta游戏中有史丹利寓言这么强烈批判属性的游戏，据我所知也是不存在的，它很有创设性的给予了游戏四个视角两个阵营，呈现者阵营的游戏系统（游戏作者？）与旁白，接受者阵营的史丹利与玩家本人，史丹利的故事几乎都是两个阵营间不同角色的互动，它实现了大部分游戏都做不到的一点，即让玩家直接与游戏的底层逻辑对话。 现代游戏互动性的本质是什么，无非不过是选择而已，拟真度高的游戏也不过是多提供了一些选项，史丹利抓住了这个底层逻辑，因此哪怕是步行模拟器这一形式只要用好“选择”，就不会缺少互动性。 这样的策略让史丹利显得不是那么“步行模拟器”，但实际上这还是一部叙事游戏，只不过它的故事千变万化，且富有批判意味，而且它的叙事有着“选择”的成分，因此它包含了十几个不同的故事。 归家 归家是一部很有实验意义的作品，如果你情商比较高的话，应该就知道我的意思是这游戏有着不少的缺点，归家的故事发生在20世纪末的一个美国家庭，一个暴风雨之夜，家中的姐姐回到家中，发现妹妹离家出走，于是开始寻找原因，归家的核心机制是拾取/查看物体触发回忆，核心谜题则是揭开妹妹的下落，然而这游戏的故事非常简单，简单到什么程度呢？在触发前三个回忆后你基本上就能猜到故事的梗概了——没错，一个俗套的恋爱被父母反对然后私奔的故事，稍微有些不同的是，主角是两位女同性恋，此外，游戏中有一些不怎么明显的机关且缺乏提示的机关，总体感觉实在是索然无味，尽管某种意义上它为有核心谜题的步行模拟器树了一个榜样，但论其素质十分乏善可陈，最大的优点可能是还算有20世纪风格的家居布置。 值得一提的是ign给了归家9.5的超高分，对ign来说这种分数是很少见的，我们之前提到的艾斯特得到了8分，史丹利寓言得到了8.8分，而品质平平的到家则得到了9.5分的超高评价，并且编辑的评论是没有缺点，联系其故事题材，此件原因令人深思，因为涉及敏感话题，我就不多说了 伊森卡特的消失 这是一部很有风格的作品，在场景建模上制作组创作性的采用了结合实景照片的做法，因此画质显得极为真实，配合微恐怖的风格，代入感极强，游戏的内容是一个有着回溯犯罪现场能力的侦探应伊斯卡特的邀请调查一个据说有着不可名状怪物的地区的系列凶杀案，抛开几乎为0的地图指引，游玩过程中你会觉得这似乎就是一个普通的解谜游戏，虽有称道之处，但综合来看质量一般，然而，这款游戏最值得称道的一点是，制作组为了一个有极大反转的结局在流程中埋了不少伏笔，因此伊森卡特的结局在我看来在叙事游戏中算最优秀的一档，当然实际上这也是见仁见智的一件事，或许也有不少人觉得铺垫不足。 在步行模拟器中悬疑风格的作品伊斯卡特应该可以说是最成功的。 万众狂欢 这是一部和亲爱的艾斯特风格迥异的作品，它没有叙事主体，玩家以超然的眼光去回顾一座村庄全员蒸发的惨剧，我认为这是一部失败的作品，为什么呢。作为一个拼凑出故事全貌的游戏，万众狂欢很不幸的选择了把最大的悬念放在开头——凶手是形似光球的不可名状生物，而游戏的过程则是目睹居民怎么一步步迈向死亡，整个过程中的互动，只有不如不做的触发回忆过程有——跟着手柄按QTE。具体到故事，恕我直言是很无聊的，寥寥几语的场景中大部分缺少让人身临其境的氛围营造，整部游戏有着浓郁的宗教风格，因此部分场景会有种神圣感，但也就仅此而已了，没有悬念，没有细腻的情感，没有复杂精彩的故事，更没有氛围的营造，万众狂欢在我看来是一部平庸的游戏 看火人 在众多步行模拟器中，看火人是极其冷门的纯写实题材，它选取了森林看护员这一冷门的职业视角来叙述故事，然而它的美术风格却是抽象的大色块风格，这造就了看火人实中有虚的奇妙质感，不论看火人的故事如何，这样的题材与美术创新是优秀的且值得鼓励的。 主角亨利在爱妻患病后心灰意冷，因为酗酒被妻子家人排挤的他最后来到了荒无人烟的森林公园成为了火情瞭望员，我们可以看到，游戏的主题几乎已经确定为心灵的救赎，但看火人的呈现方式是特别的，因为职业的特殊性，从始至终能与亨利交流的只有一位名为黛利拉的女性，在一片孤独的瞭望塔中这似乎是亨利唯一的情感支柱，事实上，看火人最大的优点就是情感的细腻，整个游戏几乎就是亨利与黛利拉互相的情感激励与救赎，最后这场类似柏拉图之恋的关系随着因为火情观察员撤离而收尾。 值得一提的是，看火人神奇的在游戏中夹杂了不少悬疑的成分，这让看火人的基调显得有些奇怪，由一开始的悠闲巡逻转到紧张的解密，随后又在急转直下后收尾，尽管不算无聊，但前后依旧有割裂感。 尽管如此，凭借细腻的情感描写，看火人依旧是一部优秀的游戏。 弗吉尼亚 这是一款很奇特的游戏，即使在步行模拟器里，它也是交互性最差的一类，它使用了一种极为抽象的风格，整个游戏由很多不明所以，充斥着象征的片段组成，而将这些片段串联到一起不过是一些点触的操作，坦白的说，我只能分离地去欣赏这些场景，单从象征的角度来说这些场景单独拿出来还挺有意思的，但你很难把这些片段连起来，事实上不让你把他们连起来可能正是这游戏的目的，此外，该游戏使用了很罕见的古典风格配乐，配合上本就很魔幻的内容产生了一种难以言喻的奇特的氛围。总的来说，这真的是一个很难评价的游戏，如果你有些猎奇心的话倒可以尝试一下 艾迪芬奇的记忆 艾迪芬奇的记忆是一款很优秀的游戏，但它的意义不仅如此，可以说在对互动性的新尝试方面，艾迪芬奇是游戏界最前沿的一个，游戏在叙事上最大的优势就是互动性，大部分游戏选择了剧情分支，qte之类的通解，而艾迪芬奇的记忆则在此基础上作出了创新，单论最简单的字幕，往往只被放置在屏幕底部用于阐释信息，而艾迪芬奇则将它放置在了场景之中，伴随着主角的前进逐渐浮现在路边，如此一来字幕甚至兼任了指引的作用。 依我看来，艾迪芬奇的主基调可以用魔幻二字来概括。随着艾迪依次探索旧宅，我们进入了一个个家族成员死前的景象中，但我们透过屏幕看到的不仅仅是一个个纪录片式的景象，还有情绪的具象化，例如令人啧啧称奇的操纵漫画中的角色一段，操纵角色在悬疑漫画的分镜中行走，这是一种崭新且绝妙的传递恐惧感的方式，艾迪芬奇的互动形式总是新颖的，角色伴随着开罐头喃喃自语，在切鱼的流水线上展开与工作融为一体的幻想，手柄的两遥感分别控制现实与幻想世界，此类新颖的设想，艾迪芬奇有近十种，可以这是一款极为奢侈的堆砌创意的游戏。 艾迪芬奇的家族大都耽于幻想，他们的幻想往往与现实融为一体，以此呈现出的情景显得分外的魔幻，以游戏的形式来叙述这样的故事，这一模式提供了一种特别的审视真实世界与内心世界的视角，这样类似魔幻现实主义的创作手法可以说极为前卫和有趣。 毫无疑问艾迪芬奇的互动性与创意是它最耀眼的闪光点，在此的映衬下，艾迪芬奇的剧情似乎显得暧昧不清，多个家庭成员的死亡都没有得到明确交代，尽管在一个个情景中我们能在画面中感知到情绪的具象化，尽管艾迪芬奇家族一向有着早死的诅咒，但艾迪芬奇没有，至少没有直接透露任何家庭成员对于死亡的看法，在一部探讨死亡的作品中这点显得很奇怪，似乎它只想将死亡本身呈现出来，却不想对此发表任何议论，我们很难说艾迪芬奇有什么主旨，在死亡这个主题上，制作组显得分外的冷漠，只留下玩家在原地回味。Steam上艾迪芬奇的商店页面有这样一句差评，艾迪芬奇的记忆有着美化死亡的嫌疑，这对那些有自杀倾向的人来说似乎太不友好了。这并不是没有道理。 总结 步行模拟器始终是个小众的品类，它固然有着一些创作上的优点，但成本和受众的因素始终制约着这一类型，导致作品寥寥无几，但在步行模拟器其实不乏对游戏这一创作形式的革新，作为新时代的叙事向avg游戏与独立游戏的一大阵营，步行模拟器的身上其实或多或少蕴含着电子游戏未来的一大方向，即作为有才能的作者表达自己的一种方式，对此我报以极大的期待。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%B8%B8%E6%88%8F%E6%9D%82%E8%B0%88/" rel="tag"><i class="fa fa-tag"></i> 游戏杂谈</a>
+              <a href="/tags/%E6%AD%A5%E8%A1%8C%E6%A8%A1%E6%8B%9F%E5%99%A8/" rel="tag"><i class="fa fa-tag"></i> 步行模拟器</a>
+          </div>
+
+        
+  <div class="social-like a2a_kit a2a_kit_size_32 a2a_default_style">
+    <a class="a2a_dd" target="_blank" rel="noopener" href="https://www.addtoany.com/share"></a>
+      <a class="a2a_button_facebook"></a>
+      <a class="a2a_button_twitter"></a>
+      <a class="a2a_button_wechat"></a>
+      <a class="a2a_button_qzone"></a>
+  </div>
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/thinklive/47528/" rel="prev" title="不予播出——极端意识形态大乱斗">
+                  <i class="fa fa-angle-left"></i> 不予播出——极端意识形态大乱斗
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/thinklive/59180/" rel="next" title="影子工厂">
+                  影子工厂 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">thinklive</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">201k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">12:09</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 技术支持
+  </div><script defer src="/lib/three.js"></script><script defer src="/lib/lines.js"></script><script defer src="/lib/waves.js"></script><script color="0,0,255" opacity="0.5" zIndex="-1" count="99" src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1/dist/canvas-nest.js"></script>
+
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="https://cdnjs.cloudflare.com/ajax/libs/ribbon.js/1.0.2/ribbon.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.24/fancybox/fancybox.umd.js" integrity="sha256-oyhjPiYRWGXaAt+ny/mTMWOnN1GBoZDUQnzzgC7FRI4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script class="next-config" data-name="wavedrom" type="application/json">{"enable":true,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/wavedrom/3.3.0/wavedrom.min.js","integrity":"sha256-IRMDzTC+wK5stMucZ/XSXkeS5VNtxZ+/Bm8Mcqfoxdo="}}</script>
+  <script class="next-config" data-name="wavedrom_skin" type="application/json">{"enable":true,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/wavedrom/3.3.0/skins/default.js","integrity":"sha256-fduc/Zszk5ezWws2uInY/ALWVmIrmV6VTgXbsYSReFI="}}</script>
+  <script src="/js/third-party/tags/wavedrom.js"></script>
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  <script src="/js/third-party/addtoany.js"></script>
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/quicklink/2.3.0/quicklink.umd.js" integrity="sha256-yvJQOINiH9fWemHn0vCA5lsHWJaHs6/ZmO+1Ft04SvM=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":false,"archive":false,"delay":true,"timeout":3000,"priority":true,"url":"https://thinklive1.github.io/thinklive/60146/"}</script>
+  <script src="/js/third-party/quicklink.js"></script>
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"thinklive1/blog_comments","issue_term":"pathname","theme":"github-light"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+
+   <!--js: 线条特效-->
+  <script type="text/javascript" color="255,255,255" opacity='1' zIndex="-1" count="300" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+<!-- hexo injector body_end start --><script src="/assets/mmedia/mmedia-loader.js"></script><!-- hexo injector body_end end --></body>
+</html>
