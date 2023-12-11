@@ -43,7 +43,7 @@
 <meta property="og:image" content="https://thinklive1.github.io/assets/%E8%8B%8F%E5%A4%A7linux_ppt/Pasted%20image%2020231209141033.png">
 <meta property="og:image" content="https://thinklive1.github.io/assets/%E8%8B%8F%E5%A4%A7linux_ppt/Pasted%20image%2020231209141146.png">
 <meta property="article:published_time" content="2023-12-03T15:35:54.425Z">
-<meta property="article:modified_time" content="2023-12-11T14:18:34.528Z">
+<meta property="article:modified_time" content="2023-12-11T14:39:08.821Z">
 <meta property="article:author" content="thinklive">
 <meta property="article:tag" content="操作系统">
 <meta name="twitter:card" content="summary">
@@ -294,7 +294,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-12-11 22:18:34" itemprop="dateModified" datetime="2023-12-11T22:18:34+08:00">2023-12-11</time>
+      <time title="修改时间：2023-12-11 22:39:08" itemprop="dateModified" datetime="2023-12-11T22:39:08+08:00">2023-12-11</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -320,14 +320,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>16k</span>
+      <span>17k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>59 分钟</span>
+      <span>1:02</span>
     </span>
 </div>
 
@@ -988,9 +988,26 @@ PCB是进程实体的一部分，是进程存在的唯一标志 <div class="note
 <h4 id="信号量实现前驱关系">信号量实现前驱关系</h4>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">semaphore a1=a2=b1=b2=c=d=e=<span class="number">0</span>;</span><br><span class="line"><span class="built_in">Sl</span>() &#123; <span class="comment">//初始化信号量</span></span><br><span class="line">	<span class="comment">//其他</span></span><br><span class="line">	<span class="built_in">V</span>(a1); <span class="built_in">V</span>(a2); <span class="comment">//S1已经运行完成</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">S2</span>() &#123;</span><br><span class="line">	<span class="built_in">P</span>(a1); <span class="comment">//检查S1是否运行完成</span></span><br><span class="line">	<span class="comment">//其他</span></span><br><span class="line">	<span class="built_in">V</span>(b1);<span class="built_in">V</span>(b2); <span class="comment">//S2已经运行完成</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">S3</span>() &#123;</span><br><span class="line">	<span class="built_in">P</span>(a2); <span class="comment">//检查S1是否己经运行完成</span></span><br><span class="line">	<span class="comment">//其他</span></span><br><span class="line">	<span class="built_in">V</span>(c); <span class="comment">//S3己经运行完成</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">S4</span>() &#123;</span><br><span class="line">	<span class="built_in">P</span>(b1); <span class="comment">//检查S2是否已经运行完成</span></span><br><span class="line">	<span class="comment">//其他</span></span><br><span class="line">	<span class="built_in">v</span>(d); <span class="comment">//S4已经运行完成</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">S5</span>() &#123;</span><br><span class="line">	<span class="built_in">P</span>(b2); <span class="comment">//检查S2是否已经运行完成</span></span><br><span class="line">	<span class="comment">//其他</span></span><br><span class="line">	<span class="built_in">V</span>(e); <span class="comment">//S5已经运行完成</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">S6</span>() &#123;</span><br><span class="line">	<span class="built_in">P</span>(c); <span class="comment">//检查S3是否已经运行完成</span></span><br><span class="line">	<span class="built_in">P</span>(d); <span class="comment">//检查S4是否已经运行完成</span></span><br><span class="line">	<span class="built_in">P</span>(e); <span class="comment">//检查S5是否已经运行完成</span></span><br><span class="line">	<span class="comment">//其他</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="管程">管程</h3>
-<p>管程的特性保证了进程互斥，无须程序员自己实现互斥，从而降低了死锁发生的可能性。同时管程提供了条件变量，可以让程序员灵活地实现进程同步。</p>
-<div class="note info">
+<div class="note info"><p>利用共享数据结构抽象地表示系统中的共享资源，而把对该数据结构实施的操作定义为一组过程。进程对共享资源的申请、释放等操作，都通过这组过程来实现，这组过程还可以根据资源情况，或接受或阻塞进程的访问，确保每次仅有一个进程使用共享资源，这样就可以统一管理对共享资源的所有访问，实现进程互斥。这个代表共享资源的数据结构，以及由对该共享数据结构实施操作的一组过程所组成的资源管理程序，称为<code>管程(monitor)</code>。</p>
 </div>
+<p>管程的特性保证了进程互斥，无须程序员自己实现互斥，从而降低了死锁发生的可能性。同时管程提供了条件变量，可以让程序员灵活地实现进程同步。 <strong>管程的组成</strong></p>
+<ol type="1">
+<li>名称</li>
+<li>管程内部的共享数据结构说明</li>
+<li>对该数据结构操作的一组过程</li>
+<li>对管程内部共享数据设置初值的语句</li>
+</ol>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">monitor Demo&#123; <span class="comment">//1.定义一个名称为“Demo”的管程</span></span><br><span class="line">	<span class="comment">//2.定义共享数据结构，对应系统中的某种共享资源</span></span><br><span class="line">	<span class="comment">//共享数据结构 S;</span></span><br><span class="line">	<span class="comment">//4.对共享数据结构初始化的语句</span></span><br><span class="line">	<span class="built_in">init_code</span>() &#123;</span><br><span class="line">		S=<span class="number">5</span>; <span class="comment">//初始资源数等于5</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//3.过程1:申请一个资源</span></span><br><span class="line">	<span class="built_in">take_away</span>()(</span><br><span class="line">		对共享数据结构x的一系列处理；</span><br><span class="line">		S --; <span class="comment">//可用资源数-1</span></span><br><span class="line">		<span class="comment">//其他</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//3.过程2；归还一个资源</span></span><br><span class="line">	<span class="built_in">give_back</span>() &#123;</span><br><span class="line">		<span class="comment">//对共享数据结构x的一系列处理；</span></span><br><span class="line">		S++; <span class="comment">//可用资源数+1</span></span><br><span class="line">		<span class="comment">//其他</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>一个进程只有通过调用管程内的过程才能进入管程访问共享资源</li>
+<li>每次只允许一个进程进入管程，如果多个进程想进入，只能依次进行</li>
+</ul>
+<p><strong>条件变量</strong><br />
+将阻塞原因定义为条件变量condition，在管程中设置了多个条件变量。每个条件变量保存了一个等待队列，用于记录因该条件变量而阻塞的所有进程，对条件变量只能进行两种操作，即wait和signaL<br />
+x.wait：当x对应的条件不满足时，正在调用管程的进程调用x.wait将自己插入x条件的等待队列，并释放管程。此时其他进程可以使用该管程。<br />
+x.signal： x对应的条件发生了变化，则调用x.signal,唤醒一个因x条件而阻塞的进程</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">monitor Demo &#123;</span><br><span class="line">	<span class="comment">//共享数据结构S;</span></span><br><span class="line">	condition x; <span class="comment">//定义一个条件变量x</span></span><br><span class="line">	<span class="built_in">init_code</span>()&#123;<span class="comment">/*其他*/</span> &#125;</span><br><span class="line">	<span class="built_in">take_away</span>()&#123;</span><br><span class="line">		<span class="keyword">if</span> (S&lt;=<span class="number">0</span>) x.<span class="built_in">wait</span> (); <span class="comment">//资源不够，在条件变量x上阻塞等待</span></span><br><span class="line">		<span class="comment">//资源足够，分配资源，做一系列相应处理：</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">give_back</span>() &#123;</span><br><span class="line">		<span class="comment">//归还资源，做一系列相应处理；</span></span><br><span class="line">		<span class="keyword">if</span> (<span class="comment">/*有进程在等待*/</span>) x.<span class="built_in">signal</span> () ;<span class="comment">//唤醒一个阻塞进程</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>与信号量不同的是，条件变量不需要记录剩余资源数，这个部分由管程的共享数据结构记录</p>
 
     </div>
 
@@ -1054,14 +1071,14 @@ PCB是进程实体的一部分，是进程存在的唯一标志 <div class="note
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">206k</span>
+    <span title="站点总字数">207k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">12:30</span>
+    <span title="站点阅读时长">12:32</span>
   </span>
 </div>
 <div class="busuanzi-count">
