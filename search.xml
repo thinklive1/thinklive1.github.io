@@ -4138,70 +4138,6 @@ x(i,j) =
       </tags>
   </entry>
   <entry>
-    <title>基于伯克利ds100和cs231n的numpy笔记</title>
-    <url>/thinklive/59126/</url>
-    <content><![CDATA[<p><a href="http://www.numpy.org/">Numpy</a> 是 Python 中科学计算的核心库。 它提供了高性能的多维数组对象以及使用这些对象的工具 数组。</p>
-<h2 id="数组">数组</h2>
-<p>numpy 数组是一个值网格，所有值都具有相同的类型，并由非负整数组成的元组索引。 它的维度就是数组的秩 ；它的shape就是每个维度的大小组成的元组 <span id="more"></span> <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">b = np.array([[1,2,3],[4,5,6]])    # Create a rank 2 array</span><br><span class="line">print(b.shape)                     # Prints &quot;(2, 3)&quot;</span><br><span class="line">print(b[0, 0], b[0, 1], b[1, 0])   # Prints &quot;1 2 4&quot;</span><br></pre></td></tr></table></figure></p>
-<p><a href="https://numpy.org/doc/stable/user/basics.creation.html#arrays-creation">官方数组创建教程</a> <a href="http://ds100.org/fa17/assets/notebooks/numpy/Numpy_Review.html">ds100的numpy教程</a> <a href="https://cs231n.github.io/python-numpy-tutorial/#numpy">cs231n的python numpy教程</a></p>
-<h3 id="创建数组的方法">创建数组的方法</h3>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt;np.array([[1.,2.], [3.,4.]])</span><br><span class="line"></span><br><span class="line">array([[ 1.,  2.],</span><br><span class="line">       [ 3.,  4.]])</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt;np.array([x for x in range(5)])</span><br><span class="line"></span><br><span class="line">array([0, 1, 2, 3, 4])</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt;np.array([[&quot;A&quot;, &quot;matrix&quot;], [&quot;of&quot;, &quot;words.&quot;]])</span><br><span class="line"></span><br><span class="line">array([[&#x27;A&#x27;, &#x27;matrix&#x27;],</span><br><span class="line">       [&#x27;of&#x27;, &#x27;words.&#x27;]], </span><br><span class="line">      dtype=&#x27;&lt;U6&#x27;)</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt;np.ones([3,2])</span><br><span class="line"></span><br><span class="line">array([[ 1.,  1.],</span><br><span class="line">       [ 1.,  1.],</span><br><span class="line">       [ 1.,  1.]])</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt;np.random.randn(3,2)</span><br><span class="line"></span><br><span class="line">array([[ 0.3601399 ,  1.31206686],</span><br><span class="line">       [-0.95112397,  0.62475726],</span><br><span class="line">       [-1.24179768,  1.63392069]])</span><br><span class="line">       </span><br></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt;c = np.full((2,2), 7)  # Create a constant array</span><br><span class="line">print(c)               # Prints &quot;[[ 7.  7.]</span><br><span class="line">                       #          [ 7.  7.]]&quot;</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt;d = np.eye(2)         # Create a 2x2 identity matrix</span><br><span class="line">print(d)              # Prints &quot;[[ 1.  0.]</span><br><span class="line">                      #          [ 0.  1.]]&quot;</span><br></pre></td></tr></table></figure>
-<h3 id="数组属性">数组属性</h3>
-<ul>
-<li>dtype</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt;np.arange(1,5).dtype</span><br><span class="line"></span><br><span class="line">dtype(&#x27;int64&#x27;)</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt;np.array([&quot;Hello&quot;, &quot;Worlddddd!&quot;]).dtype</span><br><span class="line"></span><br><span class="line">dtype(&#x27;&lt;U10&#x27;)</span><br><span class="line">/*</span><br><span class="line">What does `&lt;U6` mean?</span><br><span class="line">- `&lt;` Little Endian</span><br><span class="line">- `U` Unicode</span><br><span class="line">- `6` length of longest string</span><br><span class="line">*/</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; np.array([1,2,3]).astype(float)</span><br><span class="line"></span><br><span class="line">array([ 1.,  2.,  3.])</span><br></pre></td></tr></table></figure>
-<p>数组的类型与其包含的数据类型相对应,可以用.astype改变类型</p>
-<h3 id="数组编辑">数组编辑</h3>
-<h4 id="重组和展开">重组和展开</h4>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt;np.arange(1,13).reshape(4,3)</span><br><span class="line"></span><br><span class="line">array([[ 1,  2,  3],</span><br><span class="line">       [ 4,  5,  6],</span><br><span class="line">       [ 7,  8,  9],</span><br><span class="line">       [10, 11, 12]])</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt;A.flatten()</span><br><span class="line">array([ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12])</span><br></pre></td></tr></table></figure>
-<h4 id="切片索引和整数索引">切片索引和整数索引</h4>
-<p>切片时，第一个参数是行，第二个是列，切片形成的是对原来数组的引用，修改子数组也会影响原数组</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># Create the following rank 2 array with shape (3, 4)</span><br><span class="line"># [[ 1  2  3  4]</span><br><span class="line">#  [ 5  6  7  8]</span><br><span class="line">#  [ 9 10 11 12]]</span><br><span class="line">a = np.array([[1,2,3,4], [5,6,7,8], [9,10,11,12]])</span><br><span class="line"></span><br><span class="line"># Use slicing to pull out the subarray consisting of the first 2 rows</span><br><span class="line"># and columns 1 and 2; b is the following array of shape (2, 2):</span><br><span class="line"># [[2 3]</span><br><span class="line">#  [6 7]]</span><br><span class="line">b = a[:2, 1:3]</span><br><span class="line"></span><br><span class="line"># A slice of an array is a view into the same data, so modifying it</span><br><span class="line"># will modify the original array.</span><br><span class="line">print(a[0, 1])   # Prints &quot;2&quot;</span><br><span class="line">b[0, 0] = 77     # b[0, 0] is the same piece of data as a[0, 1]</span><br><span class="line">print(a[0, 1])   # Prints &quot;77&quot;</span><br></pre></td></tr></table></figure>
-<p>可以混合整数索引和切片索引，这样做会产生一个比原始数组的秩更低的数组</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># Create the following rank 2 array with shape (3, 4)</span><br><span class="line"># [[ 1  2  3  4]</span><br><span class="line">#  [ 5  6  7  8]</span><br><span class="line">#  [ 9 10 11 12]]</span><br><span class="line">a = np.array([[1,2,3,4], [5,6,7,8], [9,10,11,12]])</span><br><span class="line"></span><br><span class="line"># Two ways of accessing the data in the middle row of the array.</span><br><span class="line"># Mixing integer indexing with slices yields an array of lower rank,</span><br><span class="line"># while using only slices yields an array of the same rank as the</span><br><span class="line"># original array:</span><br><span class="line">row_r1 = a[1, :]    # Rank 1 view of the second row of a</span><br><span class="line">row_r2 = a[1:2, :]  # Rank 2 view of the second row of a</span><br><span class="line">print(row_r1, row_r1.shape)  # Prints &quot;[5 6 7 8] (4,)&quot;</span><br><span class="line">print(row_r2, row_r2.shape)  # Prints &quot;[[5 6 7 8]] (1, 4)&quot;</span><br><span class="line"></span><br><span class="line"># We can make the same distinction when accessing columns of an array:</span><br><span class="line">col_r1 = a[:, 1]</span><br><span class="line">col_r2 = a[:, 1:2]</span><br><span class="line">print(col_r1, col_r1.shape)  # Prints &quot;[ 2  6 10] (3,)&quot;</span><br><span class="line">print(col_r2, col_r2.shape)  # Prints &quot;[[ 2]</span><br><span class="line">                             #          [ 6]</span><br><span class="line">                             #          [10]] (3, 1)&quot;</span><br></pre></td></tr></table></figure>
-<p>整数数组 索引允许你使用另一个数组的数据构造任意数组 大批。 这是一个例子：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line"></span><br><span class="line">a = np.array([[1,2], [3, 4], [5, 6]])</span><br><span class="line"></span><br><span class="line"># An example of integer array indexing.</span><br><span class="line"># The returned array will have shape (3,) and</span><br><span class="line">print(a[[0, 1, 2], [0, 1, 0]])  # Prints &quot;[1 4 5]&quot;</span><br><span class="line"></span><br><span class="line"># The above example of integer array indexing is equivalent to this:</span><br><span class="line">print(np.array([a[0, 0], a[1, 1], a[2, 0]]))  # Prints &quot;[1 4 5]&quot;</span><br><span class="line"></span><br><span class="line"># When using integer array indexing, you can reuse the same</span><br><span class="line"># element from the source array:</span><br><span class="line">print(a[[0, 0], [1, 1]])  # Prints &quot;[2 2]&quot;</span><br><span class="line"></span><br><span class="line"># Equivalent to the previous integer array indexing example</span><br><span class="line">print(np.array([a[0, 1], a[0, 1]]))  # Prints &quot;[2 2]&quot;</span><br></pre></td></tr></table></figure>
-<p>可以用整数数组索引修改数组部分值</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line"></span><br><span class="line"># Create a new array from which we will select elements</span><br><span class="line">a = np.array([[1,2,3], [4,5,6], [7,8,9], [10, 11, 12]])</span><br><span class="line"></span><br><span class="line">print(a)  # prints &quot;array([[ 1,  2,  3],</span><br><span class="line">          #                [ 4,  5,  6],</span><br><span class="line">          #                [ 7,  8,  9],</span><br><span class="line">          #                [10, 11, 12]])&quot;</span><br><span class="line"></span><br><span class="line"># Create an array of indices</span><br><span class="line">b = np.array([0, 2, 0, 1])</span><br><span class="line"></span><br><span class="line"># Select one element from each row of a using the indices in b</span><br><span class="line">print(a[np.arange(4), b])  # Prints &quot;[ 1  6  7 11]&quot;</span><br><span class="line"></span><br><span class="line"># Mutate one element from each row of a using the indices in b</span><br><span class="line">a[np.arange(4), b] += 10</span><br><span class="line"></span><br><span class="line">print(a)  # prints &quot;array([[11,  2,  3],</span><br><span class="line">          #                [ 4,  5, 16],</span><br><span class="line">          #                [17,  8,  9],</span><br><span class="line">          #                [10, 21, 12]])</span><br></pre></td></tr></table></figure>
-<h4 id="数组的数学运算">数组的数学运算</h4>
-<p>numpy 提供的数学函数的完整列表 <a href="http://docs.scipy.org/doc/numpy/reference/routines.math.html">文档</a> Numpy 提供了更多用于操作数组的函数； 完整的列表 <a href="http://docs.scipy.org/doc/numpy/reference/routines.array-manipulation.html">文档</a></p>
-<p>Numpy 提供了许多有用的函数来执行计算 数组； 最有用的之一是 <code>sum</code>:</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line"></span><br><span class="line">x = np.array([[1,2],[3,4]])</span><br><span class="line"></span><br><span class="line">print(np.sum(x))  # Compute sum of all elements; prints &quot;10&quot;</span><br><span class="line">print(np.sum(x, axis=0))  # Compute sum of each column; prints &quot;[4 6]&quot;</span><br><span class="line">print(np.sum(x, axis=1))  # Compute sum of each row; prints &quot;[3 7]&quot;</span><br></pre></td></tr></table></figure>
-<p>转置矩阵， 只需使用 <code>T</code>数组对象的属性：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line"></span><br><span class="line">x = np.array([[1,2], [3,4]])</span><br><span class="line">print(x)    # Prints &quot;[[1 2]</span><br><span class="line">            #          [3 4]]&quot;</span><br><span class="line">print(x.T)  # Prints &quot;[[1 3]</span><br><span class="line">            #          [2 4]]&quot;</span><br><span class="line"></span><br><span class="line"># Note that taking the transpose of a rank 1 array does nothing:</span><br><span class="line">v = np.array([1,2,3])</span><br><span class="line">print(v)    # Prints &quot;[1 2 3]&quot;</span><br><span class="line">print(v.T)  # Prints &quot;[1 2 3]&quot;</span><br></pre></td></tr></table></figure>
-<h3 id="广播">广播</h3>
-<p>我们有一个较小的数组和一个 较大的数组，并且我们想多次使用较小的数组来执行某些操作 在更大的阵列上。</p>
-<p>例如，假设我们要向每个添加一个常数向量 矩阵的行。 我们可以这样做：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line"></span><br><span class="line"># We will add the vector v to each row of the matrix x,</span><br><span class="line"># storing the result in the matrix y</span><br><span class="line">x = np.array([[1,2,3], [4,5,6], [7,8,9], [10, 11, 12]])</span><br><span class="line">v = np.array([1, 0, 1])</span><br><span class="line">y = np.empty_like(x)   # Create an empty matrix with the same shape as x</span><br><span class="line"></span><br><span class="line"># Add the vector v to each row of the matrix x with an explicit loop</span><br><span class="line">for i in range(4):</span><br><span class="line">    y[i, :] = x[i, :] + v</span><br><span class="line"></span><br><span class="line"># Now y is the following</span><br><span class="line"># [[ 2  2  4]</span><br><span class="line">#  [ 5  5  7]</span><br><span class="line">#  [ 8  8 10]</span><br><span class="line">#  [11 11 13]]</span><br><span class="line">print(y)</span><br></pre></td></tr></table></figure>
-<p>Numpy 广播允许我们执行此计算，而无需实际执行 创建多个副本 <code>v</code>。 考虑这个版本，使用广播：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line"></span><br><span class="line"># We will add the vector v to each row of the matrix x,</span><br><span class="line"># storing the result in the matrix y</span><br><span class="line">x = np.array([[1,2,3], [4,5,6], [7,8,9], [10, 11, 12]])</span><br><span class="line">v = np.array([1, 0, 1])</span><br><span class="line">y = x + v  # Add v to each row of x using broadcasting</span><br><span class="line">print(y)  # Prints &quot;[[ 2  2  4]</span><br><span class="line">          #          [ 5  5  7]</span><br><span class="line">          #          [ 8  8 10]</span><br><span class="line">          #          [11 11 13]]&quot;</span><br></pre></td></tr></table></figure>
-<p>线路 <code>y = x + v</code>尽管有效 <code>x</code>有形状 <code>(4, 3)</code>和 <code>v</code>有形状 <code>(3,)</code>由于广播； 这条线的工作原理就像 <code>v</code>实际上有形状 <code>(4, 3)</code>, 其中每一行都是一个副本 <code>v</code>，并且按元素求和。</p>
-<p>一起广播两个数组遵循以下规则：</p>
-<ol type="1">
-<li>如果数组没有相同的秩，则在前面添加较低秩数组的形状 1s 直到两个形状具有相同的长度。</li>
-<li>如果两个数组具有相同的维度，则称 <em>兼容</em> 它们在维度上 维度中的大小，或者如果其中一个数组在该维度中的大小为 1。</li>
-<li>如果数组在所有维度上都兼容，则可以一起广播。</li>
-<li>广播后，每个数组的行为就好像它的形状等于元素方向 两个输入数组的形状的最大值。</li>
-<li>在一个数组的大小为 1 而另一个数组的大小大于 1 的任何维度中， 第一个数组的行为就好像它是沿着该维度复制的</li>
-</ol>
-<p>一些应用</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line"></span><br><span class="line"># Compute outer product of vectors</span><br><span class="line">v = np.array([1,2,3])  # v has shape (3,)</span><br><span class="line">w = np.array([4,5])    # w has shape (2,)</span><br><span class="line"># To compute an outer product, we first reshape v to be a column</span><br><span class="line"># vector of shape (3, 1); we can then broadcast it against w to yield</span><br><span class="line"># an output of shape (3, 2), which is the outer product of v and w:</span><br><span class="line"># [[ 4  5]</span><br><span class="line">#  [ 8 10]</span><br><span class="line">#  [12 15]]</span><br><span class="line">print(np.reshape(v, (3, 1)) * w)</span><br><span class="line"></span><br><span class="line"># Add a vector to each row of a matrix</span><br><span class="line">x = np.array([[1,2,3], [4,5,6]])</span><br><span class="line"># x has shape (2, 3) and v has shape (3,) so they broadcast to (2, 3),</span><br><span class="line"># giving the following matrix:</span><br><span class="line"># [[2 4 6]</span><br><span class="line">#  [5 7 9]]</span><br><span class="line">print(x + v)</span><br><span class="line"></span><br><span class="line"># Add a vector to each column of a matrix</span><br><span class="line"># x has shape (2, 3) and w has shape (2,).</span><br><span class="line"># If we transpose x then it has shape (3, 2) and can be broadcast</span><br><span class="line"># against w to yield a result of shape (3, 2); transposing this result</span><br><span class="line"># yields the final result of shape (2, 3) which is the matrix x with</span><br><span class="line"># the vector w added to each column. Gives the following matrix:</span><br><span class="line"># [[ 5  6  7]</span><br><span class="line">#  [ 9 10 11]]</span><br><span class="line">print((x.T + w).T)</span><br><span class="line"># Another solution is to reshape w to be a column vector of shape (2, 1);</span><br><span class="line"># we can then broadcast it directly against x to produce the same</span><br><span class="line"># output.</span><br><span class="line">print(x + np.reshape(w, (2, 1)))</span><br><span class="line"></span><br><span class="line"># Multiply a matrix by a constant:</span><br><span class="line"># x has shape (2, 3). Numpy treats scalars as arrays of shape ();</span><br><span class="line"># these can be broadcast together to shape (2, 3), producing the</span><br><span class="line"># following array:</span><br><span class="line"># [[ 2  4  6]</span><br><span class="line">#  [ 8 10 12]]</span><br><span class="line">print(x * 2)</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>课程笔记</category>
-        <category>数据科学</category>
-      </categories>
-      <tags>
-        <tag>伯克利</tag>
-        <tag>课程笔记</tag>
-        <tag>python</tag>
-        <tag>数据科学</tag>
-        <tag>pandas</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>基于伯克利Sysadmin decal的linux笔记</title>
     <url>/thinklive/28990/</url>
     <content><![CDATA[<h1 id="shell脚本">shell脚本</h1>
@@ -4801,6 +4737,70 @@ x(i,j) =
       </tags>
   </entry>
   <entry>
+    <title>基于伯克利ds100和cs231n的numpy笔记</title>
+    <url>/thinklive/59126/</url>
+    <content><![CDATA[<p><a href="http://www.numpy.org/">Numpy</a> 是 Python 中科学计算的核心库。 它提供了高性能的多维数组对象以及使用这些对象的工具 数组。</p>
+<h2 id="数组">数组</h2>
+<p>numpy 数组是一个值网格，所有值都具有相同的类型，并由非负整数组成的元组索引。 它的维度就是数组的秩 ；它的shape就是每个维度的大小组成的元组 <span id="more"></span> <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">b = np.array([[1,2,3],[4,5,6]])    # Create a rank 2 array</span><br><span class="line">print(b.shape)                     # Prints &quot;(2, 3)&quot;</span><br><span class="line">print(b[0, 0], b[0, 1], b[1, 0])   # Prints &quot;1 2 4&quot;</span><br></pre></td></tr></table></figure></p>
+<p><a href="https://numpy.org/doc/stable/user/basics.creation.html#arrays-creation">官方数组创建教程</a> <a href="http://ds100.org/fa17/assets/notebooks/numpy/Numpy_Review.html">ds100的numpy教程</a> <a href="https://cs231n.github.io/python-numpy-tutorial/#numpy">cs231n的python numpy教程</a></p>
+<h3 id="创建数组的方法">创建数组的方法</h3>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt;np.array([[1.,2.], [3.,4.]])</span><br><span class="line"></span><br><span class="line">array([[ 1.,  2.],</span><br><span class="line">       [ 3.,  4.]])</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt;np.array([x for x in range(5)])</span><br><span class="line"></span><br><span class="line">array([0, 1, 2, 3, 4])</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt;np.array([[&quot;A&quot;, &quot;matrix&quot;], [&quot;of&quot;, &quot;words.&quot;]])</span><br><span class="line"></span><br><span class="line">array([[&#x27;A&#x27;, &#x27;matrix&#x27;],</span><br><span class="line">       [&#x27;of&#x27;, &#x27;words.&#x27;]], </span><br><span class="line">      dtype=&#x27;&lt;U6&#x27;)</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt;np.ones([3,2])</span><br><span class="line"></span><br><span class="line">array([[ 1.,  1.],</span><br><span class="line">       [ 1.,  1.],</span><br><span class="line">       [ 1.,  1.]])</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt;np.random.randn(3,2)</span><br><span class="line"></span><br><span class="line">array([[ 0.3601399 ,  1.31206686],</span><br><span class="line">       [-0.95112397,  0.62475726],</span><br><span class="line">       [-1.24179768,  1.63392069]])</span><br><span class="line">       </span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt;c = np.full((2,2), 7)  # Create a constant array</span><br><span class="line">print(c)               # Prints &quot;[[ 7.  7.]</span><br><span class="line">                       #          [ 7.  7.]]&quot;</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt;d = np.eye(2)         # Create a 2x2 identity matrix</span><br><span class="line">print(d)              # Prints &quot;[[ 1.  0.]</span><br><span class="line">                      #          [ 0.  1.]]&quot;</span><br></pre></td></tr></table></figure>
+<h3 id="数组属性">数组属性</h3>
+<ul>
+<li>dtype</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt;np.arange(1,5).dtype</span><br><span class="line"></span><br><span class="line">dtype(&#x27;int64&#x27;)</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt;np.array([&quot;Hello&quot;, &quot;Worlddddd!&quot;]).dtype</span><br><span class="line"></span><br><span class="line">dtype(&#x27;&lt;U10&#x27;)</span><br><span class="line">/*</span><br><span class="line">What does `&lt;U6` mean?</span><br><span class="line">- `&lt;` Little Endian</span><br><span class="line">- `U` Unicode</span><br><span class="line">- `6` length of longest string</span><br><span class="line">*/</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; np.array([1,2,3]).astype(float)</span><br><span class="line"></span><br><span class="line">array([ 1.,  2.,  3.])</span><br></pre></td></tr></table></figure>
+<p>数组的类型与其包含的数据类型相对应,可以用.astype改变类型</p>
+<h3 id="数组编辑">数组编辑</h3>
+<h4 id="重组和展开">重组和展开</h4>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt;np.arange(1,13).reshape(4,3)</span><br><span class="line"></span><br><span class="line">array([[ 1,  2,  3],</span><br><span class="line">       [ 4,  5,  6],</span><br><span class="line">       [ 7,  8,  9],</span><br><span class="line">       [10, 11, 12]])</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt;A.flatten()</span><br><span class="line">array([ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12])</span><br></pre></td></tr></table></figure>
+<h4 id="切片索引和整数索引">切片索引和整数索引</h4>
+<p>切片时，第一个参数是行，第二个是列，切片形成的是对原来数组的引用，修改子数组也会影响原数组</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># Create the following rank 2 array with shape (3, 4)</span><br><span class="line"># [[ 1  2  3  4]</span><br><span class="line">#  [ 5  6  7  8]</span><br><span class="line">#  [ 9 10 11 12]]</span><br><span class="line">a = np.array([[1,2,3,4], [5,6,7,8], [9,10,11,12]])</span><br><span class="line"></span><br><span class="line"># Use slicing to pull out the subarray consisting of the first 2 rows</span><br><span class="line"># and columns 1 and 2; b is the following array of shape (2, 2):</span><br><span class="line"># [[2 3]</span><br><span class="line">#  [6 7]]</span><br><span class="line">b = a[:2, 1:3]</span><br><span class="line"></span><br><span class="line"># A slice of an array is a view into the same data, so modifying it</span><br><span class="line"># will modify the original array.</span><br><span class="line">print(a[0, 1])   # Prints &quot;2&quot;</span><br><span class="line">b[0, 0] = 77     # b[0, 0] is the same piece of data as a[0, 1]</span><br><span class="line">print(a[0, 1])   # Prints &quot;77&quot;</span><br></pre></td></tr></table></figure>
+<p>可以混合整数索引和切片索引，这样做会产生一个比原始数组的秩更低的数组</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># Create the following rank 2 array with shape (3, 4)</span><br><span class="line"># [[ 1  2  3  4]</span><br><span class="line">#  [ 5  6  7  8]</span><br><span class="line">#  [ 9 10 11 12]]</span><br><span class="line">a = np.array([[1,2,3,4], [5,6,7,8], [9,10,11,12]])</span><br><span class="line"></span><br><span class="line"># Two ways of accessing the data in the middle row of the array.</span><br><span class="line"># Mixing integer indexing with slices yields an array of lower rank,</span><br><span class="line"># while using only slices yields an array of the same rank as the</span><br><span class="line"># original array:</span><br><span class="line">row_r1 = a[1, :]    # Rank 1 view of the second row of a</span><br><span class="line">row_r2 = a[1:2, :]  # Rank 2 view of the second row of a</span><br><span class="line">print(row_r1, row_r1.shape)  # Prints &quot;[5 6 7 8] (4,)&quot;</span><br><span class="line">print(row_r2, row_r2.shape)  # Prints &quot;[[5 6 7 8]] (1, 4)&quot;</span><br><span class="line"></span><br><span class="line"># We can make the same distinction when accessing columns of an array:</span><br><span class="line">col_r1 = a[:, 1]</span><br><span class="line">col_r2 = a[:, 1:2]</span><br><span class="line">print(col_r1, col_r1.shape)  # Prints &quot;[ 2  6 10] (3,)&quot;</span><br><span class="line">print(col_r2, col_r2.shape)  # Prints &quot;[[ 2]</span><br><span class="line">                             #          [ 6]</span><br><span class="line">                             #          [10]] (3, 1)&quot;</span><br></pre></td></tr></table></figure>
+<p>整数数组 索引允许你使用另一个数组的数据构造任意数组 大批。 这是一个例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line"></span><br><span class="line">a = np.array([[1,2], [3, 4], [5, 6]])</span><br><span class="line"></span><br><span class="line"># An example of integer array indexing.</span><br><span class="line"># The returned array will have shape (3,) and</span><br><span class="line">print(a[[0, 1, 2], [0, 1, 0]])  # Prints &quot;[1 4 5]&quot;</span><br><span class="line"></span><br><span class="line"># The above example of integer array indexing is equivalent to this:</span><br><span class="line">print(np.array([a[0, 0], a[1, 1], a[2, 0]]))  # Prints &quot;[1 4 5]&quot;</span><br><span class="line"></span><br><span class="line"># When using integer array indexing, you can reuse the same</span><br><span class="line"># element from the source array:</span><br><span class="line">print(a[[0, 0], [1, 1]])  # Prints &quot;[2 2]&quot;</span><br><span class="line"></span><br><span class="line"># Equivalent to the previous integer array indexing example</span><br><span class="line">print(np.array([a[0, 1], a[0, 1]]))  # Prints &quot;[2 2]&quot;</span><br></pre></td></tr></table></figure>
+<p>可以用整数数组索引修改数组部分值</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line"></span><br><span class="line"># Create a new array from which we will select elements</span><br><span class="line">a = np.array([[1,2,3], [4,5,6], [7,8,9], [10, 11, 12]])</span><br><span class="line"></span><br><span class="line">print(a)  # prints &quot;array([[ 1,  2,  3],</span><br><span class="line">          #                [ 4,  5,  6],</span><br><span class="line">          #                [ 7,  8,  9],</span><br><span class="line">          #                [10, 11, 12]])&quot;</span><br><span class="line"></span><br><span class="line"># Create an array of indices</span><br><span class="line">b = np.array([0, 2, 0, 1])</span><br><span class="line"></span><br><span class="line"># Select one element from each row of a using the indices in b</span><br><span class="line">print(a[np.arange(4), b])  # Prints &quot;[ 1  6  7 11]&quot;</span><br><span class="line"></span><br><span class="line"># Mutate one element from each row of a using the indices in b</span><br><span class="line">a[np.arange(4), b] += 10</span><br><span class="line"></span><br><span class="line">print(a)  # prints &quot;array([[11,  2,  3],</span><br><span class="line">          #                [ 4,  5, 16],</span><br><span class="line">          #                [17,  8,  9],</span><br><span class="line">          #                [10, 21, 12]])</span><br></pre></td></tr></table></figure>
+<h4 id="数组的数学运算">数组的数学运算</h4>
+<p>numpy 提供的数学函数的完整列表 <a href="http://docs.scipy.org/doc/numpy/reference/routines.math.html">文档</a> Numpy 提供了更多用于操作数组的函数； 完整的列表 <a href="http://docs.scipy.org/doc/numpy/reference/routines.array-manipulation.html">文档</a></p>
+<p>Numpy 提供了许多有用的函数来执行计算 数组； 最有用的之一是 <code>sum</code>:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line"></span><br><span class="line">x = np.array([[1,2],[3,4]])</span><br><span class="line"></span><br><span class="line">print(np.sum(x))  # Compute sum of all elements; prints &quot;10&quot;</span><br><span class="line">print(np.sum(x, axis=0))  # Compute sum of each column; prints &quot;[4 6]&quot;</span><br><span class="line">print(np.sum(x, axis=1))  # Compute sum of each row; prints &quot;[3 7]&quot;</span><br></pre></td></tr></table></figure>
+<p>转置矩阵， 只需使用 <code>T</code>数组对象的属性：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line"></span><br><span class="line">x = np.array([[1,2], [3,4]])</span><br><span class="line">print(x)    # Prints &quot;[[1 2]</span><br><span class="line">            #          [3 4]]&quot;</span><br><span class="line">print(x.T)  # Prints &quot;[[1 3]</span><br><span class="line">            #          [2 4]]&quot;</span><br><span class="line"></span><br><span class="line"># Note that taking the transpose of a rank 1 array does nothing:</span><br><span class="line">v = np.array([1,2,3])</span><br><span class="line">print(v)    # Prints &quot;[1 2 3]&quot;</span><br><span class="line">print(v.T)  # Prints &quot;[1 2 3]&quot;</span><br></pre></td></tr></table></figure>
+<h3 id="广播">广播</h3>
+<p>我们有一个较小的数组和一个 较大的数组，并且我们想多次使用较小的数组来执行某些操作 在更大的阵列上。</p>
+<p>例如，假设我们要向每个添加一个常数向量 矩阵的行。 我们可以这样做：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line"></span><br><span class="line"># We will add the vector v to each row of the matrix x,</span><br><span class="line"># storing the result in the matrix y</span><br><span class="line">x = np.array([[1,2,3], [4,5,6], [7,8,9], [10, 11, 12]])</span><br><span class="line">v = np.array([1, 0, 1])</span><br><span class="line">y = np.empty_like(x)   # Create an empty matrix with the same shape as x</span><br><span class="line"></span><br><span class="line"># Add the vector v to each row of the matrix x with an explicit loop</span><br><span class="line">for i in range(4):</span><br><span class="line">    y[i, :] = x[i, :] + v</span><br><span class="line"></span><br><span class="line"># Now y is the following</span><br><span class="line"># [[ 2  2  4]</span><br><span class="line">#  [ 5  5  7]</span><br><span class="line">#  [ 8  8 10]</span><br><span class="line">#  [11 11 13]]</span><br><span class="line">print(y)</span><br></pre></td></tr></table></figure>
+<p>Numpy 广播允许我们执行此计算，而无需实际执行 创建多个副本 <code>v</code>。 考虑这个版本，使用广播：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line"></span><br><span class="line"># We will add the vector v to each row of the matrix x,</span><br><span class="line"># storing the result in the matrix y</span><br><span class="line">x = np.array([[1,2,3], [4,5,6], [7,8,9], [10, 11, 12]])</span><br><span class="line">v = np.array([1, 0, 1])</span><br><span class="line">y = x + v  # Add v to each row of x using broadcasting</span><br><span class="line">print(y)  # Prints &quot;[[ 2  2  4]</span><br><span class="line">          #          [ 5  5  7]</span><br><span class="line">          #          [ 8  8 10]</span><br><span class="line">          #          [11 11 13]]&quot;</span><br></pre></td></tr></table></figure>
+<p>线路 <code>y = x + v</code>尽管有效 <code>x</code>有形状 <code>(4, 3)</code>和 <code>v</code>有形状 <code>(3,)</code>由于广播； 这条线的工作原理就像 <code>v</code>实际上有形状 <code>(4, 3)</code>, 其中每一行都是一个副本 <code>v</code>，并且按元素求和。</p>
+<p>一起广播两个数组遵循以下规则：</p>
+<ol type="1">
+<li>如果数组没有相同的秩，则在前面添加较低秩数组的形状 1s 直到两个形状具有相同的长度。</li>
+<li>如果两个数组具有相同的维度，则称 <em>兼容</em> 它们在维度上 维度中的大小，或者如果其中一个数组在该维度中的大小为 1。</li>
+<li>如果数组在所有维度上都兼容，则可以一起广播。</li>
+<li>广播后，每个数组的行为就好像它的形状等于元素方向 两个输入数组的形状的最大值。</li>
+<li>在一个数组的大小为 1 而另一个数组的大小大于 1 的任何维度中， 第一个数组的行为就好像它是沿着该维度复制的</li>
+</ol>
+<p>一些应用</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line"></span><br><span class="line"># Compute outer product of vectors</span><br><span class="line">v = np.array([1,2,3])  # v has shape (3,)</span><br><span class="line">w = np.array([4,5])    # w has shape (2,)</span><br><span class="line"># To compute an outer product, we first reshape v to be a column</span><br><span class="line"># vector of shape (3, 1); we can then broadcast it against w to yield</span><br><span class="line"># an output of shape (3, 2), which is the outer product of v and w:</span><br><span class="line"># [[ 4  5]</span><br><span class="line">#  [ 8 10]</span><br><span class="line">#  [12 15]]</span><br><span class="line">print(np.reshape(v, (3, 1)) * w)</span><br><span class="line"></span><br><span class="line"># Add a vector to each row of a matrix</span><br><span class="line">x = np.array([[1,2,3], [4,5,6]])</span><br><span class="line"># x has shape (2, 3) and v has shape (3,) so they broadcast to (2, 3),</span><br><span class="line"># giving the following matrix:</span><br><span class="line"># [[2 4 6]</span><br><span class="line">#  [5 7 9]]</span><br><span class="line">print(x + v)</span><br><span class="line"></span><br><span class="line"># Add a vector to each column of a matrix</span><br><span class="line"># x has shape (2, 3) and w has shape (2,).</span><br><span class="line"># If we transpose x then it has shape (3, 2) and can be broadcast</span><br><span class="line"># against w to yield a result of shape (3, 2); transposing this result</span><br><span class="line"># yields the final result of shape (2, 3) which is the matrix x with</span><br><span class="line"># the vector w added to each column. Gives the following matrix:</span><br><span class="line"># [[ 5  6  7]</span><br><span class="line">#  [ 9 10 11]]</span><br><span class="line">print((x.T + w).T)</span><br><span class="line"># Another solution is to reshape w to be a column vector of shape (2, 1);</span><br><span class="line"># we can then broadcast it directly against x to produce the same</span><br><span class="line"># output.</span><br><span class="line">print(x + np.reshape(w, (2, 1)))</span><br><span class="line"></span><br><span class="line"># Multiply a matrix by a constant:</span><br><span class="line"># x has shape (2, 3). Numpy treats scalars as arrays of shape ();</span><br><span class="line"># these can be broadcast together to shape (2, 3), producing the</span><br><span class="line"># following array:</span><br><span class="line"># [[ 2  4  6]</span><br><span class="line">#  [ 8 10 12]]</span><br><span class="line">print(x * 2)</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>课程笔记</category>
+        <category>数据科学</category>
+      </categories>
+      <tags>
+        <tag>伯克利</tag>
+        <tag>课程笔记</tag>
+        <tag>python</tag>
+        <tag>数据科学</tag>
+        <tag>pandas</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>基于伯克利cs61b的java数据结构笔记</title>
     <url>/thinklive/59735/</url>
     <content><![CDATA[<h1 id="ppt部分">ppt部分</h1>
@@ -5174,20 +5174,6 @@ x(i,j) =
       </tags>
   </entry>
   <entry>
-    <title>游戏互动性的新探索——步行模拟器</title>
-    <url>/thinklive/60146/</url>
-    <content><![CDATA[<p>步行模拟器，在本视频中取操作只局限于步行和一些简单动作，主要获取信息的途径为阅读和观察的游戏，这是一种颇为先锋，也颇为小众的游戏类型，在其中有一些火到出圈的佳作，也有缺点明细的庸作，但都有着共性在其中，今天，我就用一个业余爱好者的身份来浅析一下这类游戏。 <span id="more"></span> 我们先从步行模拟器的历史说起，由于我不是专业人士，也不是什么老玩家，所以只能大概地说说。 溯及这类游戏的根源是一件很难且没有必要的事情，所以我们只把目光放在本世纪好了，在2007年，一个传奇的年份，当时的游戏界见证了巫师一，质量效应一，刺客信条一等传奇系列首作的诞生，也有一些人注意到一款名为《亲爱的艾斯特》的奇异游戏，对一个原教旨主义者来说它可能算不上游戏，玩家操控着一位失去妻子的男人在孤岛上步行，整部游戏唯一的信息来源就是沿途的风景，壁画，以及男人的自言自语，某种意义上这带来了一种推理小说式的体验，你需要在文本中领略事件的来龙去脉，同时体验它压抑深沉的环境氛围。 亲爱的艾斯特取得了意想不到的小范围成功，本作为免费游戏的它在12年发布了付费版，并取得了80万的销量，可以说，近十年的步行模拟器很大程度上是由它启蒙的。 因此，以12年为分水岭，逐渐涌现出不少的步行模拟器游戏。 13年亮相的是著名的meta游戏史丹利的寓言和较为平庸的到家（gone home） 14年问世的是解密风的伊森卡特的消失 15年艾斯特的工作室发行了同类型的万众狂欢 16年则有看火人与弗吉尼亚出现 而在17年，此类型的集大成者，艾迪芬奇的记忆横空出世，成为了此类型至今为止的最优者 可能不少对此类游戏毫无兴趣的玩家会好奇，步行模拟器的卖点到底在哪? 在这个媒体资源空前丰富的时代，每个人都能输出自己的思想，因此思想的输出变得极为廉价，而接受者的地位却会被拔高，因此，门槛越高的思想输出方式就有着越大的不被接受的风险，导致晦涩隐喻的内容就会不受待见。尽管如此，这些晦涩的思想与表达依旧是存在的，步行模拟器就是一种方式。 事实上，接受他人的思想表达一直都有很大的风险，只要作者多加一点私货，或者在莫名其妙的地方整个活，接受者的思想就会收到极大的冲击，例子我就不举了，懂得都懂。所以很多人都会倾向于不去接受，晦涩的作品他们根本不会碰，也有的人沉迷于此类快感，不顾风险地追寻自己认为好的输出者，这两种选择没有高下之分，但体现在游戏上，我们就会发现后者经常会成为所谓的小众游戏爱好者，这并不意味着他们很优越，相反，他们可能已经踩过不知道多少雷了。 为此前的论述做一个总结，步行模拟器可以作为一个高门槛的思想输出方法，因此能吸引一些喜欢此类体验的玩家。事实上，它和同样强调探索的avg可能存在一些关系，但由于我对此没有足够的知识，就不献丑了。 在此基础上，我们来分析此类游戏的一些特性。 首先，第一个问题是，为什么要用步行模拟器这种形式，毫无疑问这种游戏的互动性基本不是很强，也没有刺激官能的要素，然而，正是因为这种自断一臂式的操作，让它能够把自己的叙事能力提高到大部分游戏所不能及的程度，玩法单一也就意味着玩家的注意力会完全集中于一点，制作者只要专注于此方面，就能高频度地向玩家提供信息，而不会让人一头雾水，因为这样的特点，相比大部分游戏，步行模拟器可以聚焦于很多与众不同的题材，可以选用不同的叙事方式， 另一个优点是，较小的游戏规模与如今相对成熟的游戏工业，让制作者能以较为低廉的成本做出不同的场景，美术效果和环境在步行模拟器中有很大的作用，我之所以这么说，不仅是因为它有着渲染气氛的作用，在很多此类游戏中，环境本身就承担着叙事的任务，尤其以艾迪芬奇的记忆而言，环境在这款游戏中达到了当代游戏的新高度，不同的房间布置在无言中传达了房间主人的个性，甚至在一些细节中暗示了主人的命运。可以这么说，在很多步行模拟器中，环境有着超越装饰的作用 步行模拟器还有一个特点，那就是它是第一人称的，你可能单纯地觉得这是为了提高代入感，但事实上，因为互动性的匮乏，步行模拟器往往更趋向于探索和体验，而不是扮演，更形象的说法是，在步行模拟器中看到的是别人的故事，因此在我看来，第一人称更多的意义是类似侦探小说的叙述主体，也就是说，以这个故事而言，第一人称对应的角色就是最适合展现故事全貌的人，同时，这个主体具体的身份也可以是一个谜题，伊森卡特的消失，艾迪芬奇的记忆都在这方面上做了文章，非常有趣。 上述特点事实上还是很笼统的，实际上的步行模拟器在风格和题材上都是各具特色，特点也不尽相同，但由于到目前为止出名的步行模拟器实在不多，所以我们就用穷举的方法来说说这些步行模拟器。 先从最早的亲爱的艾斯特说起 在所有步行模拟器中，艾斯特应该是互动性最低的一个，你能做的只有控制一个喃喃自语的男人在孤岛上乱走，然而，艾斯特依然是一部很优秀的游戏，优秀的文本质量和环境建模完美地融合在了一起，配合迷雾重重的故事，与四个风格迥异的场景与种种细节，成功营造出了一种哀伤中透着迷幻的气氛。虽然选取了悼念亡妻的题材，但艾斯特并没有直接表现哀伤，叙事主体的男子呈现的态度是思辨的，其文本很有些深度，艾斯特的氛围塑造与文本水平，我个人认为是步行模拟器中最优秀的之一，并没有被后来者超越，甚至也没有被他们自己超越。 史丹利的寓言 这游戏很难归类，它更为众人所熟悉的标签是meta游戏，举个不恰当的例子，meta游戏和游戏的区别就像文学批评和文学的区别，很难说史丹利的目的是对游戏这一创作形式进行批判还是呈现一段故事。 这游戏几乎是靠作者一个人的天才撑起来的，即便在meta游戏中有史丹利寓言这么强烈批判属性的游戏，据我所知也是不存在的，它很有创设性的给予了游戏四个视角两个阵营，呈现者阵营的游戏系统（游戏作者？）与旁白，接受者阵营的史丹利与玩家本人，史丹利的故事几乎都是两个阵营间不同角色的互动，它实现了大部分游戏都做不到的一点，即让玩家直接与游戏的底层逻辑对话。 现代游戏互动性的本质是什么，无非不过是选择而已，拟真度高的游戏也不过是多提供了一些选项，史丹利抓住了这个底层逻辑，因此哪怕是步行模拟器这一形式只要用好“选择”，就不会缺少互动性。 这样的策略让史丹利显得不是那么“步行模拟器”，但实际上这还是一部叙事游戏，只不过它的故事千变万化，且富有批判意味，而且它的叙事有着“选择”的成分，因此它包含了十几个不同的故事。 归家 归家是一部很有实验意义的作品，如果你情商比较高的话，应该就知道我的意思是这游戏有着不少的缺点，归家的故事发生在20世纪末的一个美国家庭，一个暴风雨之夜，家中的姐姐回到家中，发现妹妹离家出走，于是开始寻找原因，归家的核心机制是拾取/查看物体触发回忆，核心谜题则是揭开妹妹的下落，然而这游戏的故事非常简单，简单到什么程度呢？在触发前三个回忆后你基本上就能猜到故事的梗概了——没错，一个俗套的恋爱被父母反对然后私奔的故事，稍微有些不同的是，主角是两位女同性恋，此外，游戏中有一些不怎么明显的机关且缺乏提示的机关，总体感觉实在是索然无味，尽管某种意义上它为有核心谜题的步行模拟器树了一个榜样，但论其素质十分乏善可陈，最大的优点可能是还算有20世纪风格的家居布置。 值得一提的是ign给了归家9.5的超高分，对ign来说这种分数是很少见的，我们之前提到的艾斯特得到了8分，史丹利寓言得到了8.8分，而品质平平的到家则得到了9.5分的超高评价，并且编辑的评论是没有缺点，联系其故事题材，此件原因令人深思，因为涉及敏感话题，我就不多说了 伊森卡特的消失 这是一部很有风格的作品，在场景建模上制作组创作性的采用了结合实景照片的做法，因此画质显得极为真实，配合微恐怖的风格，代入感极强，游戏的内容是一个有着回溯犯罪现场能力的侦探应伊斯卡特的邀请调查一个据说有着不可名状怪物的地区的系列凶杀案，抛开几乎为0的地图指引，游玩过程中你会觉得这似乎就是一个普通的解谜游戏，虽有称道之处，但综合来看质量一般，然而，这款游戏最值得称道的一点是，制作组为了一个有极大反转的结局在流程中埋了不少伏笔，因此伊森卡特的结局在我看来在叙事游戏中算最优秀的一档，当然实际上这也是见仁见智的一件事，或许也有不少人觉得铺垫不足。 在步行模拟器中悬疑风格的作品伊斯卡特应该可以说是最成功的。 万众狂欢 这是一部和亲爱的艾斯特风格迥异的作品，它没有叙事主体，玩家以超然的眼光去回顾一座村庄全员蒸发的惨剧，我认为这是一部失败的作品，为什么呢。作为一个拼凑出故事全貌的游戏，万众狂欢很不幸的选择了把最大的悬念放在开头——凶手是形似光球的不可名状生物，而游戏的过程则是目睹居民怎么一步步迈向死亡，整个过程中的互动，只有不如不做的触发回忆过程有——跟着手柄按QTE。具体到故事，恕我直言是很无聊的，寥寥几语的场景中大部分缺少让人身临其境的氛围营造，整部游戏有着浓郁的宗教风格，因此部分场景会有种神圣感，但也就仅此而已了，没有悬念，没有细腻的情感，没有复杂精彩的故事，更没有氛围的营造，万众狂欢在我看来是一部平庸的游戏 看火人 在众多步行模拟器中，看火人是极其冷门的纯写实题材，它选取了森林看护员这一冷门的职业视角来叙述故事，然而它的美术风格却是抽象的大色块风格，这造就了看火人实中有虚的奇妙质感，不论看火人的故事如何，这样的题材与美术创新是优秀的且值得鼓励的。 主角亨利在爱妻患病后心灰意冷，因为酗酒被妻子家人排挤的他最后来到了荒无人烟的森林公园成为了火情瞭望员，我们可以看到，游戏的主题几乎已经确定为心灵的救赎，但看火人的呈现方式是特别的，因为职业的特殊性，从始至终能与亨利交流的只有一位名为黛利拉的女性，在一片孤独的瞭望塔中这似乎是亨利唯一的情感支柱，事实上，看火人最大的优点就是情感的细腻，整个游戏几乎就是亨利与黛利拉互相的情感激励与救赎，最后这场类似柏拉图之恋的关系随着因为火情观察员撤离而收尾。 值得一提的是，看火人神奇的在游戏中夹杂了不少悬疑的成分，这让看火人的基调显得有些奇怪，由一开始的悠闲巡逻转到紧张的解密，随后又在急转直下后收尾，尽管不算无聊，但前后依旧有割裂感。 尽管如此，凭借细腻的情感描写，看火人依旧是一部优秀的游戏。 弗吉尼亚 这是一款很奇特的游戏，即使在步行模拟器里，它也是交互性最差的一类，它使用了一种极为抽象的风格，整个游戏由很多不明所以，充斥着象征的片段组成，而将这些片段串联到一起不过是一些点触的操作，坦白的说，我只能分离地去欣赏这些场景，单从象征的角度来说这些场景单独拿出来还挺有意思的，但你很难把这些片段连起来，事实上不让你把他们连起来可能正是这游戏的目的，此外，该游戏使用了很罕见的古典风格配乐，配合上本就很魔幻的内容产生了一种难以言喻的奇特的氛围。总的来说，这真的是一个很难评价的游戏，如果你有些猎奇心的话倒可以尝试一下 艾迪芬奇的记忆 艾迪芬奇的记忆是一款很优秀的游戏，但它的意义不仅如此，可以说在对互动性的新尝试方面，艾迪芬奇是游戏界最前沿的一个，游戏在叙事上最大的优势就是互动性，大部分游戏选择了剧情分支，qte之类的通解，而艾迪芬奇的记忆则在此基础上作出了创新，单论最简单的字幕，往往只被放置在屏幕底部用于阐释信息，而艾迪芬奇则将它放置在了场景之中，伴随着主角的前进逐渐浮现在路边，如此一来字幕甚至兼任了指引的作用。 依我看来，艾迪芬奇的主基调可以用魔幻二字来概括。随着艾迪依次探索旧宅，我们进入了一个个家族成员死前的景象中，但我们透过屏幕看到的不仅仅是一个个纪录片式的景象，还有情绪的具象化，例如令人啧啧称奇的操纵漫画中的角色一段，操纵角色在悬疑漫画的分镜中行走，这是一种崭新且绝妙的传递恐惧感的方式，艾迪芬奇的互动形式总是新颖的，角色伴随着开罐头喃喃自语，在切鱼的流水线上展开与工作融为一体的幻想，手柄的两遥感分别控制现实与幻想世界，此类新颖的设想，艾迪芬奇有近十种，可以这是一款极为奢侈的堆砌创意的游戏。 艾迪芬奇的家族大都耽于幻想，他们的幻想往往与现实融为一体，以此呈现出的情景显得分外的魔幻，以游戏的形式来叙述这样的故事，这一模式提供了一种特别的审视真实世界与内心世界的视角，这样类似魔幻现实主义的创作手法可以说极为前卫和有趣。 毫无疑问艾迪芬奇的互动性与创意是它最耀眼的闪光点，在此的映衬下，艾迪芬奇的剧情似乎显得暧昧不清，多个家庭成员的死亡都没有得到明确交代，尽管在一个个情景中我们能在画面中感知到情绪的具象化，尽管艾迪芬奇家族一向有着早死的诅咒，但艾迪芬奇没有，至少没有直接透露任何家庭成员对于死亡的看法，在一部探讨死亡的作品中这点显得很奇怪，似乎它只想将死亡本身呈现出来，却不想对此发表任何议论，我们很难说艾迪芬奇有什么主旨，在死亡这个主题上，制作组显得分外的冷漠，只留下玩家在原地回味。Steam上艾迪芬奇的商店页面有这样一句差评，艾迪芬奇的记忆有着美化死亡的嫌疑，这对那些有自杀倾向的人来说似乎太不友好了。这并不是没有道理。 总结 步行模拟器始终是个小众的品类，它固然有着一些创作上的优点，但成本和受众的因素始终制约着这一类型，导致作品寥寥无几，但在步行模拟器其实不乏对游戏这一创作形式的革新，作为新时代的叙事向avg游戏与独立游戏的一大阵营，步行模拟器的身上其实或多或少蕴含着电子游戏未来的一大方向，即作为有才能的作者表达自己的一种方式，对此我报以极大的期待。</p>
-]]></content>
-      <categories>
-        <category>游戏杂谈</category>
-        <category>独立游戏</category>
-      </categories>
-      <tags>
-        <tag>游戏杂谈</tag>
-        <tag>步行模拟器</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>【杀手3争议】拟真性与游戏性之争</title>
     <url>/thinklive/48580/</url>
     <content><![CDATA[<p>2022年一月份，杀手3将解除一周年的独占，登录steam，而早在21年初，杀手3就成了一款有点话题性的游戏，这是因为游戏的一张重庆的地图，这一地图因为缝合了赛博朋克，老大哥等元素被指责有乳制品嫌疑。 <span id="more"></span> 在仔细讨论这件事前，让我们先来看看这是一个什么样的游戏。平心而论，作为一个系列续作，杀手3可以说还算合格，虽然刺杀方式上有缩水，但看得出制作组在氛围营造上投入了不少努力，有很多截一帧就是壁纸的远景或者特写。杀手系列可以说是一个好游戏，甚至可以说是刺杀游戏这一细分品类的霸主，但ioi是纯纯的懒狗，犯下了版本混乱，高价低质量dlc，违背承诺种种重大错误，ioi并不是一个好开发商，如果你骂ioi，我举双手赞成，但对杀手三3有没有乳，我认为还是要谨慎讨论。 我所好奇的是，杀手是不是一个拟真的游戏？ 我想只要你玩过这个游戏，你就会知道答案是否定的，即便是游戏的核心——刺杀系统，也有很多方案并不具有现实可行性。，如果说起其他设定，就更没有真实性了，杀手三部曲的反派是一个势力遍及全球，由“社会精英”组成的阴谋论组织，我并不认为这样的组织有什么现实可行性，如果我们这种普通人都能知道这样的组织，那只有两个可能，1这样的组织情报保密工作很烂，那它早该被拿下来了2它故意泄露的，实际上我们对它一无所知，那就让我们一切的想法都成了臆测，阴谋论是一些无法质疑的假设，这样的假设我可以提出几百个。 当然，我们没必要对一个游戏上纲上线，即便涉及到阴谋论，也只能说杀手并不是一个拟真的游戏。那么，作为一个涉及到多个国家刺杀目标的游戏，杀手对其中的国家是怎么描写的呢？ 摩洛哥在杀手里被描绘成政府软弱无能被军阀控制，甚至准备发动政变，我们且不论这是不是真的，无论如何这都不是什么很友好的描写，我们提到过的阴谋论组织的一位高层在法国有一个大葡萄酒厂，很符合我们对法国的刻板印象吧，然而这位律师有私人武装，甚至包括一队直接听命的狙击手，我想法国不会放任私人权利到这个地步。孟买的街头扛着步枪的武装士兵到处走，北欧的高端别墅区一栋不算特别大的别墅有十几个全副武装的保镖，这些对我一个中国人来说都觉得不合理，可见杀手这个系列根本没有多少写实性。 我们可以做一个总结了，无论从什么角度看杀手都不是一个贴近现实的游戏，特别是在zz方面，尤其口无遮拦，什么都编的得出来。 那让我们再看看重庆这张图，这张图有什么呢，赛博朋克+老大哥，大量的监控摄像头，华人街一样的街道和餐馆，秘密暗杀组织的不人道实验，改造人类街头的流浪汉，我们之前也说了，杀手的地图里编的成分很大，更何况设定上ICA最重要的实验室就在这里，与其说ioi想还原什么地方，倒不如说估计是他们看到一些关于重庆很赛博朋克的新闻，然后觉得可以蹭一下人设。试问这些元素有多少是真正不合适的呢，脑子正常的人都不会觉得现在有技术能操控人的思想或者改造人类吧，既然你不会觉得这些情节是真的，你为什么会觉得这座城市是真的这样呢？ 当然，事实上这样的论述也是有模糊性的，你可以说不够还原就是不够尊重，也可以说法国，美国的图比中国的还原是歧视，在国际矛盾激化的今天，会在这样的事上比较敏感可以理解，但我想说，我希望并呼吁大家在至少在文娱领域多一些宽容，不要泛政治化，能疑罪从无就不要恶意去揣测。 47的目标有很多罪不至死，为了一己私欲杀死无罪者，这难道不是宣传不良价值观吗？但恐怕没人这么批评，为什么我们会在道德上对文娱作品这么宽容，在政治上却那么草木皆兵呢？ 我很希望大家能多一些宽容，我也希望文娱作品无论何时都应该是一片不被zz过分染指的净土</p>
@@ -5213,6 +5199,20 @@ x(i,j) =
       </categories>
       <tags>
         <tag>游戏杂谈</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>游戏互动性的新探索——步行模拟器</title>
+    <url>/thinklive/60146/</url>
+    <content><![CDATA[<p>步行模拟器，在本视频中取操作只局限于步行和一些简单动作，主要获取信息的途径为阅读和观察的游戏，这是一种颇为先锋，也颇为小众的游戏类型，在其中有一些火到出圈的佳作，也有缺点明细的庸作，但都有着共性在其中，今天，我就用一个业余爱好者的身份来浅析一下这类游戏。 <span id="more"></span> 我们先从步行模拟器的历史说起，由于我不是专业人士，也不是什么老玩家，所以只能大概地说说。 溯及这类游戏的根源是一件很难且没有必要的事情，所以我们只把目光放在本世纪好了，在2007年，一个传奇的年份，当时的游戏界见证了巫师一，质量效应一，刺客信条一等传奇系列首作的诞生，也有一些人注意到一款名为《亲爱的艾斯特》的奇异游戏，对一个原教旨主义者来说它可能算不上游戏，玩家操控着一位失去妻子的男人在孤岛上步行，整部游戏唯一的信息来源就是沿途的风景，壁画，以及男人的自言自语，某种意义上这带来了一种推理小说式的体验，你需要在文本中领略事件的来龙去脉，同时体验它压抑深沉的环境氛围。 亲爱的艾斯特取得了意想不到的小范围成功，本作为免费游戏的它在12年发布了付费版，并取得了80万的销量，可以说，近十年的步行模拟器很大程度上是由它启蒙的。 因此，以12年为分水岭，逐渐涌现出不少的步行模拟器游戏。 13年亮相的是著名的meta游戏史丹利的寓言和较为平庸的到家（gone home） 14年问世的是解密风的伊森卡特的消失 15年艾斯特的工作室发行了同类型的万众狂欢 16年则有看火人与弗吉尼亚出现 而在17年，此类型的集大成者，艾迪芬奇的记忆横空出世，成为了此类型至今为止的最优者 可能不少对此类游戏毫无兴趣的玩家会好奇，步行模拟器的卖点到底在哪? 在这个媒体资源空前丰富的时代，每个人都能输出自己的思想，因此思想的输出变得极为廉价，而接受者的地位却会被拔高，因此，门槛越高的思想输出方式就有着越大的不被接受的风险，导致晦涩隐喻的内容就会不受待见。尽管如此，这些晦涩的思想与表达依旧是存在的，步行模拟器就是一种方式。 事实上，接受他人的思想表达一直都有很大的风险，只要作者多加一点私货，或者在莫名其妙的地方整个活，接受者的思想就会收到极大的冲击，例子我就不举了，懂得都懂。所以很多人都会倾向于不去接受，晦涩的作品他们根本不会碰，也有的人沉迷于此类快感，不顾风险地追寻自己认为好的输出者，这两种选择没有高下之分，但体现在游戏上，我们就会发现后者经常会成为所谓的小众游戏爱好者，这并不意味着他们很优越，相反，他们可能已经踩过不知道多少雷了。 为此前的论述做一个总结，步行模拟器可以作为一个高门槛的思想输出方法，因此能吸引一些喜欢此类体验的玩家。事实上，它和同样强调探索的avg可能存在一些关系，但由于我对此没有足够的知识，就不献丑了。 在此基础上，我们来分析此类游戏的一些特性。 首先，第一个问题是，为什么要用步行模拟器这种形式，毫无疑问这种游戏的互动性基本不是很强，也没有刺激官能的要素，然而，正是因为这种自断一臂式的操作，让它能够把自己的叙事能力提高到大部分游戏所不能及的程度，玩法单一也就意味着玩家的注意力会完全集中于一点，制作者只要专注于此方面，就能高频度地向玩家提供信息，而不会让人一头雾水，因为这样的特点，相比大部分游戏，步行模拟器可以聚焦于很多与众不同的题材，可以选用不同的叙事方式， 另一个优点是，较小的游戏规模与如今相对成熟的游戏工业，让制作者能以较为低廉的成本做出不同的场景，美术效果和环境在步行模拟器中有很大的作用，我之所以这么说，不仅是因为它有着渲染气氛的作用，在很多此类游戏中，环境本身就承担着叙事的任务，尤其以艾迪芬奇的记忆而言，环境在这款游戏中达到了当代游戏的新高度，不同的房间布置在无言中传达了房间主人的个性，甚至在一些细节中暗示了主人的命运。可以这么说，在很多步行模拟器中，环境有着超越装饰的作用 步行模拟器还有一个特点，那就是它是第一人称的，你可能单纯地觉得这是为了提高代入感，但事实上，因为互动性的匮乏，步行模拟器往往更趋向于探索和体验，而不是扮演，更形象的说法是，在步行模拟器中看到的是别人的故事，因此在我看来，第一人称更多的意义是类似侦探小说的叙述主体，也就是说，以这个故事而言，第一人称对应的角色就是最适合展现故事全貌的人，同时，这个主体具体的身份也可以是一个谜题，伊森卡特的消失，艾迪芬奇的记忆都在这方面上做了文章，非常有趣。 上述特点事实上还是很笼统的，实际上的步行模拟器在风格和题材上都是各具特色，特点也不尽相同，但由于到目前为止出名的步行模拟器实在不多，所以我们就用穷举的方法来说说这些步行模拟器。 先从最早的亲爱的艾斯特说起 在所有步行模拟器中，艾斯特应该是互动性最低的一个，你能做的只有控制一个喃喃自语的男人在孤岛上乱走，然而，艾斯特依然是一部很优秀的游戏，优秀的文本质量和环境建模完美地融合在了一起，配合迷雾重重的故事，与四个风格迥异的场景与种种细节，成功营造出了一种哀伤中透着迷幻的气氛。虽然选取了悼念亡妻的题材，但艾斯特并没有直接表现哀伤，叙事主体的男子呈现的态度是思辨的，其文本很有些深度，艾斯特的氛围塑造与文本水平，我个人认为是步行模拟器中最优秀的之一，并没有被后来者超越，甚至也没有被他们自己超越。 史丹利的寓言 这游戏很难归类，它更为众人所熟悉的标签是meta游戏，举个不恰当的例子，meta游戏和游戏的区别就像文学批评和文学的区别，很难说史丹利的目的是对游戏这一创作形式进行批判还是呈现一段故事。 这游戏几乎是靠作者一个人的天才撑起来的，即便在meta游戏中有史丹利寓言这么强烈批判属性的游戏，据我所知也是不存在的，它很有创设性的给予了游戏四个视角两个阵营，呈现者阵营的游戏系统（游戏作者？）与旁白，接受者阵营的史丹利与玩家本人，史丹利的故事几乎都是两个阵营间不同角色的互动，它实现了大部分游戏都做不到的一点，即让玩家直接与游戏的底层逻辑对话。 现代游戏互动性的本质是什么，无非不过是选择而已，拟真度高的游戏也不过是多提供了一些选项，史丹利抓住了这个底层逻辑，因此哪怕是步行模拟器这一形式只要用好“选择”，就不会缺少互动性。 这样的策略让史丹利显得不是那么“步行模拟器”，但实际上这还是一部叙事游戏，只不过它的故事千变万化，且富有批判意味，而且它的叙事有着“选择”的成分，因此它包含了十几个不同的故事。 归家 归家是一部很有实验意义的作品，如果你情商比较高的话，应该就知道我的意思是这游戏有着不少的缺点，归家的故事发生在20世纪末的一个美国家庭，一个暴风雨之夜，家中的姐姐回到家中，发现妹妹离家出走，于是开始寻找原因，归家的核心机制是拾取/查看物体触发回忆，核心谜题则是揭开妹妹的下落，然而这游戏的故事非常简单，简单到什么程度呢？在触发前三个回忆后你基本上就能猜到故事的梗概了——没错，一个俗套的恋爱被父母反对然后私奔的故事，稍微有些不同的是，主角是两位女同性恋，此外，游戏中有一些不怎么明显的机关且缺乏提示的机关，总体感觉实在是索然无味，尽管某种意义上它为有核心谜题的步行模拟器树了一个榜样，但论其素质十分乏善可陈，最大的优点可能是还算有20世纪风格的家居布置。 值得一提的是ign给了归家9.5的超高分，对ign来说这种分数是很少见的，我们之前提到的艾斯特得到了8分，史丹利寓言得到了8.8分，而品质平平的到家则得到了9.5分的超高评价，并且编辑的评论是没有缺点，联系其故事题材，此件原因令人深思，因为涉及敏感话题，我就不多说了 伊森卡特的消失 这是一部很有风格的作品，在场景建模上制作组创作性的采用了结合实景照片的做法，因此画质显得极为真实，配合微恐怖的风格，代入感极强，游戏的内容是一个有着回溯犯罪现场能力的侦探应伊斯卡特的邀请调查一个据说有着不可名状怪物的地区的系列凶杀案，抛开几乎为0的地图指引，游玩过程中你会觉得这似乎就是一个普通的解谜游戏，虽有称道之处，但综合来看质量一般，然而，这款游戏最值得称道的一点是，制作组为了一个有极大反转的结局在流程中埋了不少伏笔，因此伊森卡特的结局在我看来在叙事游戏中算最优秀的一档，当然实际上这也是见仁见智的一件事，或许也有不少人觉得铺垫不足。 在步行模拟器中悬疑风格的作品伊斯卡特应该可以说是最成功的。 万众狂欢 这是一部和亲爱的艾斯特风格迥异的作品，它没有叙事主体，玩家以超然的眼光去回顾一座村庄全员蒸发的惨剧，我认为这是一部失败的作品，为什么呢。作为一个拼凑出故事全貌的游戏，万众狂欢很不幸的选择了把最大的悬念放在开头——凶手是形似光球的不可名状生物，而游戏的过程则是目睹居民怎么一步步迈向死亡，整个过程中的互动，只有不如不做的触发回忆过程有——跟着手柄按QTE。具体到故事，恕我直言是很无聊的，寥寥几语的场景中大部分缺少让人身临其境的氛围营造，整部游戏有着浓郁的宗教风格，因此部分场景会有种神圣感，但也就仅此而已了，没有悬念，没有细腻的情感，没有复杂精彩的故事，更没有氛围的营造，万众狂欢在我看来是一部平庸的游戏 看火人 在众多步行模拟器中，看火人是极其冷门的纯写实题材，它选取了森林看护员这一冷门的职业视角来叙述故事，然而它的美术风格却是抽象的大色块风格，这造就了看火人实中有虚的奇妙质感，不论看火人的故事如何，这样的题材与美术创新是优秀的且值得鼓励的。 主角亨利在爱妻患病后心灰意冷，因为酗酒被妻子家人排挤的他最后来到了荒无人烟的森林公园成为了火情瞭望员，我们可以看到，游戏的主题几乎已经确定为心灵的救赎，但看火人的呈现方式是特别的，因为职业的特殊性，从始至终能与亨利交流的只有一位名为黛利拉的女性，在一片孤独的瞭望塔中这似乎是亨利唯一的情感支柱，事实上，看火人最大的优点就是情感的细腻，整个游戏几乎就是亨利与黛利拉互相的情感激励与救赎，最后这场类似柏拉图之恋的关系随着因为火情观察员撤离而收尾。 值得一提的是，看火人神奇的在游戏中夹杂了不少悬疑的成分，这让看火人的基调显得有些奇怪，由一开始的悠闲巡逻转到紧张的解密，随后又在急转直下后收尾，尽管不算无聊，但前后依旧有割裂感。 尽管如此，凭借细腻的情感描写，看火人依旧是一部优秀的游戏。 弗吉尼亚 这是一款很奇特的游戏，即使在步行模拟器里，它也是交互性最差的一类，它使用了一种极为抽象的风格，整个游戏由很多不明所以，充斥着象征的片段组成，而将这些片段串联到一起不过是一些点触的操作，坦白的说，我只能分离地去欣赏这些场景，单从象征的角度来说这些场景单独拿出来还挺有意思的，但你很难把这些片段连起来，事实上不让你把他们连起来可能正是这游戏的目的，此外，该游戏使用了很罕见的古典风格配乐，配合上本就很魔幻的内容产生了一种难以言喻的奇特的氛围。总的来说，这真的是一个很难评价的游戏，如果你有些猎奇心的话倒可以尝试一下 艾迪芬奇的记忆 艾迪芬奇的记忆是一款很优秀的游戏，但它的意义不仅如此，可以说在对互动性的新尝试方面，艾迪芬奇是游戏界最前沿的一个，游戏在叙事上最大的优势就是互动性，大部分游戏选择了剧情分支，qte之类的通解，而艾迪芬奇的记忆则在此基础上作出了创新，单论最简单的字幕，往往只被放置在屏幕底部用于阐释信息，而艾迪芬奇则将它放置在了场景之中，伴随着主角的前进逐渐浮现在路边，如此一来字幕甚至兼任了指引的作用。 依我看来，艾迪芬奇的主基调可以用魔幻二字来概括。随着艾迪依次探索旧宅，我们进入了一个个家族成员死前的景象中，但我们透过屏幕看到的不仅仅是一个个纪录片式的景象，还有情绪的具象化，例如令人啧啧称奇的操纵漫画中的角色一段，操纵角色在悬疑漫画的分镜中行走，这是一种崭新且绝妙的传递恐惧感的方式，艾迪芬奇的互动形式总是新颖的，角色伴随着开罐头喃喃自语，在切鱼的流水线上展开与工作融为一体的幻想，手柄的两遥感分别控制现实与幻想世界，此类新颖的设想，艾迪芬奇有近十种，可以这是一款极为奢侈的堆砌创意的游戏。 艾迪芬奇的家族大都耽于幻想，他们的幻想往往与现实融为一体，以此呈现出的情景显得分外的魔幻，以游戏的形式来叙述这样的故事，这一模式提供了一种特别的审视真实世界与内心世界的视角，这样类似魔幻现实主义的创作手法可以说极为前卫和有趣。 毫无疑问艾迪芬奇的互动性与创意是它最耀眼的闪光点，在此的映衬下，艾迪芬奇的剧情似乎显得暧昧不清，多个家庭成员的死亡都没有得到明确交代，尽管在一个个情景中我们能在画面中感知到情绪的具象化，尽管艾迪芬奇家族一向有着早死的诅咒，但艾迪芬奇没有，至少没有直接透露任何家庭成员对于死亡的看法，在一部探讨死亡的作品中这点显得很奇怪，似乎它只想将死亡本身呈现出来，却不想对此发表任何议论，我们很难说艾迪芬奇有什么主旨，在死亡这个主题上，制作组显得分外的冷漠，只留下玩家在原地回味。Steam上艾迪芬奇的商店页面有这样一句差评，艾迪芬奇的记忆有着美化死亡的嫌疑，这对那些有自杀倾向的人来说似乎太不友好了。这并不是没有道理。 总结 步行模拟器始终是个小众的品类，它固然有着一些创作上的优点，但成本和受众的因素始终制约着这一类型，导致作品寥寥无几，但在步行模拟器其实不乏对游戏这一创作形式的革新，作为新时代的叙事向avg游戏与独立游戏的一大阵营，步行模拟器的身上其实或多或少蕴含着电子游戏未来的一大方向，即作为有才能的作者表达自己的一种方式，对此我报以极大的期待。</p>
+]]></content>
+      <categories>
+        <category>游戏杂谈</category>
+        <category>独立游戏</category>
+      </categories>
+      <tags>
+        <tag>游戏杂谈</tag>
+        <tag>步行模拟器</tag>
       </tags>
   </entry>
   <entry>
@@ -6052,60 +6052,6 @@ Inexpensive Disk）由美国加州大学伯克利分校提出。<br />
       </tags>
   </entry>
   <entry>
-    <title>迪瑞克拉世界观设定集</title>
-    <url>/thinklive/3998/</url>
-    <content><![CDATA[<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">起初，世界是一团思索，它向所有的方向迈了一步，于是万物由此而生……</span><br></pre></td></tr></table></figure>
-<p>这是邪神辛克莱温教徒传颂的创世神话，也是目前为止我们所知最早的创世神话，可以说后世诸多关于创世的传说都有它的影子。 <span id="more"></span></p>
-<p>邪神辛克莱温的信徒有着自己的语言，这种符号文字晦涩难懂，虽然给传播教义造成了困难，却成为维系着邪神教绵延几千年信仰的纽带。 邪神辛克莱温是……</p>
-<p>——选自帝国学者载丝莉《邪神起源探究》</p>
-<h2 id="克雷多斯族">克雷多斯族</h2>
-<pre><code>      平庸是进化论所给我们最后的仁慈——帝国医学教科书扉页</code></pre>
-<p>奥诺斯是社会达尔文主义者的神，他的教义就是物竞天择，适者生存，让优秀的种族淘汰低劣的种族。放到现在他肯定会被当做邪神。奥诺斯创造过很多种族，大部分在穷兵黩武中走向了灭亡，然而其中有一个民族最为他所垂青——克雷多斯族。这一种族刚出现时平平无奇，但他们的眼中只有强者，尊严的力量促使着他们不断发挥着潜力，追逐着比自己强大无数倍的敌人。他们逐渐走向强盛，但后来因为自相残杀导致族人寥寥无几。这时，一位天才创造出了一种把他们一分为二的方法，以此来把自己当做对手，起初，克雷多斯族凭借这一方法几乎成为世界上最令人恐惧的种族，深深地让奥诺斯感到自豪。然而，在与自己的斗争中，有的族人学会了“阴谋”，将另一个自己与其他敌人算计致死，有的人学会了“隐忍”，进而学会了妥协与认输，最终，他们都选择了“平庸”。为了心爱的子民惋惜不止的奥诺斯神来到了最后一个保持着绝对尊严的战士面前：</p>
-<p>“我也给予你选择平庸的权利。”</p>
-<p>“你要我变得和他们一样吗?绝不！！！”</p>
-<p>战士怒吼着冲向了最后一个对手。从此，奥诺斯和他的战士消失于迪瑞克拉世界。</p>
-<h2 id="沉默峡谷">沉默峡谷</h2>
-<p>沉默不是逃避，而是一种选择——沉默沼泽路牌上的涂鸦</p>
-<p>沉默峡谷被命名并正式标在官方地图上是帝国历387年的事了，在此之前它只是个普通的荒凉之处而已，当然，还是偶尔进入的旅客发现这里——但他们有的没能走出来，有的在出来后被别人或自己当成了疯子。</p>
-<p>沉默峡谷的土壤和两侧的山岩有种特殊的性质，能几乎把所有的声音消除，巴比伦塔的学者曾对此展开研究，然而他们一无所获。除此以外，沉默峡谷就是个普通的荒凉峡谷，稀疏的杂草养不出大型动物，对一个经验丰富的旅行者而言，找到水源，辨别方向和驱散毒虫都不算难 ——只要他能忍受无尽的沉默</p>
-<p>在被载入地图后，这里逐渐成了修士的圣地，当然，也有人进去后再也没有出来</p>
-<h2 id="幻影沼泽">幻影沼泽</h2>
-<p>警告！魔术师慎入！</p>
-<p>这是沉默峡谷一处著名的景点，和峡谷本身一样，这里也几乎没什么异常，对有防备的旅行者而言并没什么危险。传说中一位善于擅长表演幻影魔术的魔术师来到这里时，将自己当做了幻影，而把幻影当成了真实。于是他迷失在这里，将此处化成了一片沼泽，如果一位有真才实学的魔术师来到这里，那么他绝对无法精神正常地离开，尽管对其他人而言，这里能看到的异象仅仅是偶尔出现魔术师忧郁的身影而已。</p>
-<h2 id="沉默王国">沉默王国</h2>
-<p>………………………………</p>
-<p>沉默王国一直是个传说，一开始只是有少数人怀疑那些进了峡谷再没有出来的人到底去了哪里？这些怀疑逐渐被时间埋葬，直到帝国标记了沉默峡谷的存在导致一批旅行者来此游览，，有些旅行家发现了沉默王国的存在，很难想象一个王国会存在于荒野，事实上，那里只是寥寥几个人的聚居处。住民们给了旅行家一些食物和饮水，并为他指明了道路，从始至终，他们都带着沉默，从未试图张开嘴唇过。</p>
-<p>此后又陆陆续续地出现了类似住民目击报告，但都被帝国封锁，最终，这一切成为了传说或是怪谈，奇怪的是，帝国似乎对此颇为忌惮，从此以后沉默峡谷再也没有出现在官方文件上过。</p>
-<p>我们认为那些住民的存在涉及了达瑞克拉世界的源论，可以肯定那是一些向往沉默的人，不知何时他们聚集起来，用各自的思虑创造了一个无声的世界——或许跟0号研究所揭示的结果一致，这十分危险，一旦被人们知道，达瑞克拉世界或许会因此毁灭。</p>
-<pre><code>                                 ——《关于沉默王国的报告》</code></pre>
-<h2 id="号研究所">0号研究所</h2>
-<p>我思故我在，我在故我思。——帝国哲学家卡尔迪</p>
-<p>0号研究是科学组织浮士德所进行的一场实验，没错，与大多数我同事的想法相反，它并不是个邪教组织，从同行的角度来说，我很佩服他们的开创性。</p>
-<p>0号研究所本是个普通的小镇，如果不是那件事的发生，我们永远不会知道这里曾发生过这样的实验。</p>
-<p>帝国的审讯所抓到过一个浮士德的高层，今天他们终于设法让他开口了，由此我们终于知道他们是怎么进行实验的。首先，小镇只是出现了一些以屠戮人民，掠夺财物为乐的人，他们穿着迥异的衣服，却意外有着纯正的当地口音，经过一番协力，这些人不久就被送上了断头台。</p>
-<p>奇怪的是，他们面对死亡毫无畏惧，自称“玩家”的他们发出了下次进犯的预告，然后在断头台上化成白光消失了。</p>
-<p>当天，一切有关他们的消息被政府封锁，几乎同时不少“智者”跳了，要求让民众得知真相，惴惴不安中，很多小册子在民众中传阅——上面说这个世界只是虚构，完全为了让那些玩家取乐而存在（至于为何能让民众了解虚幻的概念，或许浮士德的教育机制还是挺有成效的）</p>
-<p>第二天，更多所谓的“玩家从天而降”，所有住民都陷入了绝望与怀疑，就在这时我们所知的异变发生了，没人知道这是怎么做到的，但整个克罗利安镇就这么化为一片混沌之地，我们的不少调查员在第一眼看到它的遗址时就发疯了——我们没人知道为什么。</p>
-<p>现在那里应该已经封闭了，我的建议是，永远封闭下去，或许邪神辛克莱温是对的，这个世界确实由我们的思想决定。我希望所有人都能对此提高警惕，永远不要让类似的事故重演</p>
-<h2 id="帕斯卡王国">帕斯卡王国</h2>
-<p>世上哪有不建立在剥削上的幸福？</p>
-<p>帝国前36年，在正片大陆一个名不见经传的角落有一个小国，这个国家物资贫瘠，人口稀疏，尽管气候不算恶劣，但人民常常处于食不果腹的状态。</p>
-<p>国王帕列斯是位平庸的君主，他的儿子——王子恩西斯却是位有想法的年轻人，尽管刚刚成年，他已经开始思索如何壮大自己的国家，这位王子曾经游学诸国，每次看到国民因营养不良而矮小纤弱的身材，他都会在心中发誓一定要找到让子民过上幸福快乐生活的方法</p>
-<p>有一天，他带着这个愿望，带着几位侍从出门远行，在一番艰难跋涉后，王子在荒野中迷路了，他仿徨了几天，终于有一天他发现了一个村落</p>
-<p>这个村落贫瘠弱小，王子注意到他们大量以烤制生肉，野菜，甚至昆虫而食，他们没有国王或者地位高于其他居民的人，尽管如此，他们的脸上却常常洋溢着笑容</p>
-<p>王子作为外来人并没有对这些野人产生太多影响，于是他也学着野人的样子，用茅草和树枝搭起简易的居所，尝试融入野人的生活</p>
-<p>一个月后，当国王派出的宫廷军顺着王子迷路时留下的标记找到他时，王子正喃喃自语道：我要找到的道路，就在这里啊</p>
-<p>归国后几月，王子继位成为了国王，他实现了自己的诺言，在他的治理下，他的子民过上了物质丰富，精神充足的生活——凭借着王子制定并实现的驯养土著成为奴隶的方法。建立帕索斯帝国后五年，王子临终，面对伏在病榻前痛苦的子孙，他淡淡地说：他们以前就没有国王，以后也不会有吧。随后他保持着沉默，任凭御医记录他由有到无的脉搏直至最后</p>
-<p>帝国历364年，历经三百年的不懈斗争，萨曼人杰出的领袖终于为族人争取到了自由，帝国，这一最先实现奴隶制的国家，最终成为了民主共和的起源…… ——《帝国通史》</p>
-]]></content>
-      <categories>
-        <category>迪瑞克拉</category>
-      </categories>
-      <tags>
-        <tag>迪瑞克拉</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>迪瑞克拉世界观轶事集</title>
     <url>/thinklive/14434/</url>
     <content><![CDATA[<h2 id="泰特斯">泰特斯</h2>
@@ -6187,19 +6133,57 @@ Inexpensive Disk）由美国加州大学伯克利分校提出。<br />
       </tags>
   </entry>
   <entry>
-    <title>不予播出——极端意识形态大乱斗</title>
-    <url>/thinklive/47528/</url>
-    <content><![CDATA[<p>吉姆哈克：当一个国家走在下坡路上，必须有一个给它踩一脚油门。 你生活在一个贫富差距分化严重，外部国家敌意渐升的民主国家，而在此危难关头，一个名为先进党的政党，凭借集体主义的价值观，以及消灭富人扶持穷人的竞选纲领上了台，时代变换的帷幕在你面前缓缓拉开，这时，你能做什么呢？ <span id="more"></span> 这大概就是不予播出想呈现的故事，这个游戏是我认为近年zz题材最出彩的一部独立游戏。 我们先从游戏的形式说起 它选取了一个很少见的视角——电视台导播，也就是在电视内容被播放前负责镜头切换与简单后期音效处理的一个职位，这是一个虽然默默无名却十分重要的职位，制作组对此的选择非常高明，在这个位置上你能接收到一切媒体信息，同时决定哪些内容会被最后播出。 游戏的背景设定是魔改版的80年代英国，想想就知道在这个电视台的黄金时代这个职位意味着什么。 在我们这个娱乐至死的年代，恐怕我们的印象中很难会有什么凭良心的办事的媒体人，但在游戏中，随着举足轻重的影响力而来的同样还有巨大的责任，我们可以看到游戏的封面是一个被操控的提线木偶端坐于导播台前，这似乎预示着你不过是政党口中的喉舌，事实上，面对zz大势，大部分时候你确实是无力的，但总有一些事是你可以做的。游戏中，你能做的包括切换各种机位设置，添加后期音效这些普通的工作，你也可以转而接收反对党的信号，甚至在暗中支持他们。 可以说这样的玩法绝对算不上丰富，但是，为了这些内容制作组拍摄了极为大量的采访，节目，等等实景拍摄，这些作品的文案，演出水平都极为突出，也就是说，让你去观看这些节目，决定他们如何被呈现于观众面前，才是它的核心玩法。 于是，我们可以说说它的剧情了。 我为不予播出的剧情概括了一些特点，首先是荒谬性 国家晚间新闻，是一家有不少zz性的电台，在游戏的一开始，作为新上任的导播，我们的第一次工作就见证了前文提到的先进党的上台，在游戏的一开始我们能感受到强烈的荒谬感，就拿先进党举例，该党的带头人是一对夫妇，丈夫粗俗不堪，而妻子却圆滑世故，这样一对其貌不扬的夫妇在自己上任的第一天就大声向“富人”宣战，我们知道，如果对这些拥有大量资产的人过于苛刻就会造成大量资产外流，对此这对夫妇甚至采用强制手法禁止他们出境，这对一个“民主”国家而言恐怕很难想象，更为魔幻的是这样的举措确实赢得了大众为他们叫好，收归民有资产为国有，强制推行福利政策，提倡集体主义，一副宏伟的蓝图就这样在我们面前展开，即使对民粹主义者来说，这样狂野的改革恐怕也有些吓人，而这些种种举措以极快的速度在游戏中发生了，并且让你切实的体会到厉害之处——也就是游戏中各种惊慌失措的小资产阶级。如果你问大资产阶级咋样了，就有限的情报来说，似乎他们在与国家合作后过得很好。 这是一家很有煽动性的政党，但如果你细细去看他们做了什么，建立国家养老机构（把老人送进去就可以不管了）成立青少年队伍（洗脑从娃娃抓起）半强制推行政党性而不是国家性的身份卡（很明显，只是后续动作的开始）甚至把反对的国家的个别城市用特工安置的核弹统统炸上天。 很荒谬，不是吗？但这些事情确实如此发生了。</p>
-<p>如果你很好奇对此的政治评论是怎样的，那么我们很快就会见识到该游戏另一个厉害之处——现实性的缺席。 在游戏的一开始国家晚间新闻是一家较为严肃的新闻频道，但随着游戏的进程，娱乐性的报道和节目越来越多（而且不乏先进党资助的无聊作品），这次过程中有着不少精妙的讽刺，例如领着先进党资助大搞政治正确的校园舞台剧组合，光明正大搞热水器的女明星等等，此时在早期的一些政治性节目中，也有不少让人啼笑皆非的人物，例如奉行白人至上主义，热爱sm的警察局局长，似乎几个小丑粉墨登场就能谈起国家大事。作为理应为公众揭露真相的媒体，自己就陷入了娱乐至死的泥潭 不过他们又能怎么办呢？对于一个奉行强权政治的政党，让一个电视台说不了真话简直太容易了。所以我们在游戏中看到的趋势是，节目变得越来越无聊，又臭又长，当批评声变得刺耳，那么连赞扬得不够卖力也成了罪责。 但游戏中依然有着保存着良心的媒体人，杰里米的爆发大概处于游戏中期，他挟持了摄像头，指责所有人都失去了说话的勇气，随后自绝于心爱的镜头前。这段的演出可以说全游戏最大的一个亮点，荒诞的现实与理想的缺席构成了极大的对比，将游戏荒谬而现实的矛盾感体现得极为突出。 然后，我们要说到极端意识形态题材作品的一体两面——压迫与反抗 哪里有压迫，哪里就有反抗，对于极端意识形态题材而言，对其的呈现与对反抗的呈现是一枚硬币的两面，与其他反乌托邦作品伟光正的反抗者不同，不予播出的反对者仅仅是走向了另一个极端。在游戏中有一个明确的反对者——打断组织，这个组织是什么样的呢？很大程度上可能由一些小资产阶级与无产阶级组成，面对集权，他们选择了暴力，游行，破坏，暴动甚至军事政变，我们很难说打断是一个多好的选择，事实上他们根本没有提出什么解决方案，似乎只是因为自己的利益受到了侵犯而已，在游戏的结局我们可以看到打断组织不过是军方扶持的傀儡，用完即扔。 再说回先进党，这一党派在游戏的中期收到全世界的敌视与孤立，不得不进行完全的内循环经济，究其原因，或许是对有产阶级的镇压并不符合经济全球化的要求，从而招致了其他国家的敌视，随后，他们向全世界部分国家的城市引爆核弹，建立起核威慑。 试问，如果你是一位普通人，你能做出什么样的选择呢？ 说到这里，就不得不说不予播出另一个有趣的机制——在导播工作的间隙你将以视觉小说的形式看到作为普通人的自己如何在政治的漩涡中生活。与电视上光鲜亮丽的报道不同，即使作为被济的穷人，你也不过是从一贫如洗走向负债累累而已。 恐怕根本没有什么更好的选择。 最后，我们应该回归这部游戏贯穿始终的特点——讽刺性和娱乐性 可以说，这部游戏最终呈现的是一个荒谬的世界，在政治领域极端，疯狂，暴力构成了它的底色，这也是我称其为极端意识形态大乱斗的原因 你要问这样的构建是否过于疯狂而丢失了真实性，而且想要展现这样的世界观一个导播的视角也远远不够，可能的确是这样，但我认为这样极端之间的碰撞反而能增加不少的戏剧性。 可能根本不会有这么极端的政党，可能如此极端的政党根本得不到如此多的武力支持，或许吧，但说到底，这不过是个讽刺性游戏而已，用夸张的手法实属正常。 而在政治以外的社会领域呢？滑稽，疯癫，娱乐才是它的主题，你可以看到收藏大粪为乐的清洁工，无法控制肠道蠕动放出气体的“病患”等等极为魔幻的人物登上荧幕，可以说，游戏中所有的人物都是经过夸张化和娱乐化的，即使抛开政治性，你也可以当笑话看。这是我很欣赏不予播出的一点，它并不完全正经，但绝对有趣。</p>
-<p>最后，做一个总结吧，根据关键节点的选择不同，游戏一共有14种结局，有一家独大，有天下大乱，也有非极端派兴起，这些结局有的因你而起，有的不过是大势所趋。不予播出从一个导播的小人物视角出发，呈现了一个极端意识形态偏向的荒谬社会的百态，有戏剧性的加工，也有对真实世界的化用与讽刺。 说实话，政治讽刺题材的乐趣不正是在此吗？</p>
+    <title>迪瑞克拉世界观设定集</title>
+    <url>/thinklive/3998/</url>
+    <content><![CDATA[<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">起初，世界是一团思索，它向所有的方向迈了一步，于是万物由此而生……</span><br></pre></td></tr></table></figure>
+<p>这是邪神辛克莱温教徒传颂的创世神话，也是目前为止我们所知最早的创世神话，可以说后世诸多关于创世的传说都有它的影子。 <span id="more"></span></p>
+<p>邪神辛克莱温的信徒有着自己的语言，这种符号文字晦涩难懂，虽然给传播教义造成了困难，却成为维系着邪神教绵延几千年信仰的纽带。 邪神辛克莱温是……</p>
+<p>——选自帝国学者载丝莉《邪神起源探究》</p>
+<h2 id="克雷多斯族">克雷多斯族</h2>
+<pre><code>      平庸是进化论所给我们最后的仁慈——帝国医学教科书扉页</code></pre>
+<p>奥诺斯是社会达尔文主义者的神，他的教义就是物竞天择，适者生存，让优秀的种族淘汰低劣的种族。放到现在他肯定会被当做邪神。奥诺斯创造过很多种族，大部分在穷兵黩武中走向了灭亡，然而其中有一个民族最为他所垂青——克雷多斯族。这一种族刚出现时平平无奇，但他们的眼中只有强者，尊严的力量促使着他们不断发挥着潜力，追逐着比自己强大无数倍的敌人。他们逐渐走向强盛，但后来因为自相残杀导致族人寥寥无几。这时，一位天才创造出了一种把他们一分为二的方法，以此来把自己当做对手，起初，克雷多斯族凭借这一方法几乎成为世界上最令人恐惧的种族，深深地让奥诺斯感到自豪。然而，在与自己的斗争中，有的族人学会了“阴谋”，将另一个自己与其他敌人算计致死，有的人学会了“隐忍”，进而学会了妥协与认输，最终，他们都选择了“平庸”。为了心爱的子民惋惜不止的奥诺斯神来到了最后一个保持着绝对尊严的战士面前：</p>
+<p>“我也给予你选择平庸的权利。”</p>
+<p>“你要我变得和他们一样吗?绝不！！！”</p>
+<p>战士怒吼着冲向了最后一个对手。从此，奥诺斯和他的战士消失于迪瑞克拉世界。</p>
+<h2 id="沉默峡谷">沉默峡谷</h2>
+<p>沉默不是逃避，而是一种选择——沉默沼泽路牌上的涂鸦</p>
+<p>沉默峡谷被命名并正式标在官方地图上是帝国历387年的事了，在此之前它只是个普通的荒凉之处而已，当然，还是偶尔进入的旅客发现这里——但他们有的没能走出来，有的在出来后被别人或自己当成了疯子。</p>
+<p>沉默峡谷的土壤和两侧的山岩有种特殊的性质，能几乎把所有的声音消除，巴比伦塔的学者曾对此展开研究，然而他们一无所获。除此以外，沉默峡谷就是个普通的荒凉峡谷，稀疏的杂草养不出大型动物，对一个经验丰富的旅行者而言，找到水源，辨别方向和驱散毒虫都不算难 ——只要他能忍受无尽的沉默</p>
+<p>在被载入地图后，这里逐渐成了修士的圣地，当然，也有人进去后再也没有出来</p>
+<h2 id="幻影沼泽">幻影沼泽</h2>
+<p>警告！魔术师慎入！</p>
+<p>这是沉默峡谷一处著名的景点，和峡谷本身一样，这里也几乎没什么异常，对有防备的旅行者而言并没什么危险。传说中一位善于擅长表演幻影魔术的魔术师来到这里时，将自己当做了幻影，而把幻影当成了真实。于是他迷失在这里，将此处化成了一片沼泽，如果一位有真才实学的魔术师来到这里，那么他绝对无法精神正常地离开，尽管对其他人而言，这里能看到的异象仅仅是偶尔出现魔术师忧郁的身影而已。</p>
+<h2 id="沉默王国">沉默王国</h2>
+<p>………………………………</p>
+<p>沉默王国一直是个传说，一开始只是有少数人怀疑那些进了峡谷再没有出来的人到底去了哪里？这些怀疑逐渐被时间埋葬，直到帝国标记了沉默峡谷的存在导致一批旅行者来此游览，，有些旅行家发现了沉默王国的存在，很难想象一个王国会存在于荒野，事实上，那里只是寥寥几个人的聚居处。住民们给了旅行家一些食物和饮水，并为他指明了道路，从始至终，他们都带着沉默，从未试图张开嘴唇过。</p>
+<p>此后又陆陆续续地出现了类似住民目击报告，但都被帝国封锁，最终，这一切成为了传说或是怪谈，奇怪的是，帝国似乎对此颇为忌惮，从此以后沉默峡谷再也没有出现在官方文件上过。</p>
+<p>我们认为那些住民的存在涉及了达瑞克拉世界的源论，可以肯定那是一些向往沉默的人，不知何时他们聚集起来，用各自的思虑创造了一个无声的世界——或许跟0号研究所揭示的结果一致，这十分危险，一旦被人们知道，达瑞克拉世界或许会因此毁灭。</p>
+<pre><code>                                 ——《关于沉默王国的报告》</code></pre>
+<h2 id="号研究所">0号研究所</h2>
+<p>我思故我在，我在故我思。——帝国哲学家卡尔迪</p>
+<p>0号研究是科学组织浮士德所进行的一场实验，没错，与大多数我同事的想法相反，它并不是个邪教组织，从同行的角度来说，我很佩服他们的开创性。</p>
+<p>0号研究所本是个普通的小镇，如果不是那件事的发生，我们永远不会知道这里曾发生过这样的实验。</p>
+<p>帝国的审讯所抓到过一个浮士德的高层，今天他们终于设法让他开口了，由此我们终于知道他们是怎么进行实验的。首先，小镇只是出现了一些以屠戮人民，掠夺财物为乐的人，他们穿着迥异的衣服，却意外有着纯正的当地口音，经过一番协力，这些人不久就被送上了断头台。</p>
+<p>奇怪的是，他们面对死亡毫无畏惧，自称“玩家”的他们发出了下次进犯的预告，然后在断头台上化成白光消失了。</p>
+<p>当天，一切有关他们的消息被政府封锁，几乎同时不少“智者”跳了，要求让民众得知真相，惴惴不安中，很多小册子在民众中传阅——上面说这个世界只是虚构，完全为了让那些玩家取乐而存在（至于为何能让民众了解虚幻的概念，或许浮士德的教育机制还是挺有成效的）</p>
+<p>第二天，更多所谓的“玩家从天而降”，所有住民都陷入了绝望与怀疑，就在这时我们所知的异变发生了，没人知道这是怎么做到的，但整个克罗利安镇就这么化为一片混沌之地，我们的不少调查员在第一眼看到它的遗址时就发疯了——我们没人知道为什么。</p>
+<p>现在那里应该已经封闭了，我的建议是，永远封闭下去，或许邪神辛克莱温是对的，这个世界确实由我们的思想决定。我希望所有人都能对此提高警惕，永远不要让类似的事故重演</p>
+<h2 id="帕斯卡王国">帕斯卡王国</h2>
+<p>世上哪有不建立在剥削上的幸福？</p>
+<p>帝国前36年，在正片大陆一个名不见经传的角落有一个小国，这个国家物资贫瘠，人口稀疏，尽管气候不算恶劣，但人民常常处于食不果腹的状态。</p>
+<p>国王帕列斯是位平庸的君主，他的儿子——王子恩西斯却是位有想法的年轻人，尽管刚刚成年，他已经开始思索如何壮大自己的国家，这位王子曾经游学诸国，每次看到国民因营养不良而矮小纤弱的身材，他都会在心中发誓一定要找到让子民过上幸福快乐生活的方法</p>
+<p>有一天，他带着这个愿望，带着几位侍从出门远行，在一番艰难跋涉后，王子在荒野中迷路了，他仿徨了几天，终于有一天他发现了一个村落</p>
+<p>这个村落贫瘠弱小，王子注意到他们大量以烤制生肉，野菜，甚至昆虫而食，他们没有国王或者地位高于其他居民的人，尽管如此，他们的脸上却常常洋溢着笑容</p>
+<p>王子作为外来人并没有对这些野人产生太多影响，于是他也学着野人的样子，用茅草和树枝搭起简易的居所，尝试融入野人的生活</p>
+<p>一个月后，当国王派出的宫廷军顺着王子迷路时留下的标记找到他时，王子正喃喃自语道：我要找到的道路，就在这里啊</p>
+<p>归国后几月，王子继位成为了国王，他实现了自己的诺言，在他的治理下，他的子民过上了物质丰富，精神充足的生活——凭借着王子制定并实现的驯养土著成为奴隶的方法。建立帕索斯帝国后五年，王子临终，面对伏在病榻前痛苦的子孙，他淡淡地说：他们以前就没有国王，以后也不会有吧。随后他保持着沉默，任凭御医记录他由有到无的脉搏直至最后</p>
+<p>帝国历364年，历经三百年的不懈斗争，萨曼人杰出的领袖终于为族人争取到了自由，帝国，这一最先实现奴隶制的国家，最终成为了民主共和的起源…… ——《帝国通史》</p>
 ]]></content>
       <categories>
-        <category>游戏杂谈</category>
-        <category>独立游戏</category>
+        <category>迪瑞克拉</category>
       </categories>
       <tags>
-        <tag>游戏杂谈</tag>
-        <tag>not for broadcast</tag>
+        <tag>迪瑞克拉</tag>
       </tags>
   </entry>
   <entry>
@@ -6214,6 +6198,22 @@ Inexpensive Disk）由美国加州大学伯克利分校提出。<br />
       <tags>
         <tag>游戏杂谈</tag>
         <tag>巫师二</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>不予播出——极端意识形态大乱斗</title>
+    <url>/thinklive/47528/</url>
+    <content><![CDATA[<p>吉姆哈克：当一个国家走在下坡路上，必须有一个给它踩一脚油门。 你生活在一个贫富差距分化严重，外部国家敌意渐升的民主国家，而在此危难关头，一个名为先进党的政党，凭借集体主义的价值观，以及消灭富人扶持穷人的竞选纲领上了台，时代变换的帷幕在你面前缓缓拉开，这时，你能做什么呢？ <span id="more"></span> 这大概就是不予播出想呈现的故事，这个游戏是我认为近年zz题材最出彩的一部独立游戏。 我们先从游戏的形式说起 它选取了一个很少见的视角——电视台导播，也就是在电视内容被播放前负责镜头切换与简单后期音效处理的一个职位，这是一个虽然默默无名却十分重要的职位，制作组对此的选择非常高明，在这个位置上你能接收到一切媒体信息，同时决定哪些内容会被最后播出。 游戏的背景设定是魔改版的80年代英国，想想就知道在这个电视台的黄金时代这个职位意味着什么。 在我们这个娱乐至死的年代，恐怕我们的印象中很难会有什么凭良心的办事的媒体人，但在游戏中，随着举足轻重的影响力而来的同样还有巨大的责任，我们可以看到游戏的封面是一个被操控的提线木偶端坐于导播台前，这似乎预示着你不过是政党口中的喉舌，事实上，面对zz大势，大部分时候你确实是无力的，但总有一些事是你可以做的。游戏中，你能做的包括切换各种机位设置，添加后期音效这些普通的工作，你也可以转而接收反对党的信号，甚至在暗中支持他们。 可以说这样的玩法绝对算不上丰富，但是，为了这些内容制作组拍摄了极为大量的采访，节目，等等实景拍摄，这些作品的文案，演出水平都极为突出，也就是说，让你去观看这些节目，决定他们如何被呈现于观众面前，才是它的核心玩法。 于是，我们可以说说它的剧情了。 我为不予播出的剧情概括了一些特点，首先是荒谬性 国家晚间新闻，是一家有不少zz性的电台，在游戏的一开始，作为新上任的导播，我们的第一次工作就见证了前文提到的先进党的上台，在游戏的一开始我们能感受到强烈的荒谬感，就拿先进党举例，该党的带头人是一对夫妇，丈夫粗俗不堪，而妻子却圆滑世故，这样一对其貌不扬的夫妇在自己上任的第一天就大声向“富人”宣战，我们知道，如果对这些拥有大量资产的人过于苛刻就会造成大量资产外流，对此这对夫妇甚至采用强制手法禁止他们出境，这对一个“民主”国家而言恐怕很难想象，更为魔幻的是这样的举措确实赢得了大众为他们叫好，收归民有资产为国有，强制推行福利政策，提倡集体主义，一副宏伟的蓝图就这样在我们面前展开，即使对民粹主义者来说，这样狂野的改革恐怕也有些吓人，而这些种种举措以极快的速度在游戏中发生了，并且让你切实的体会到厉害之处——也就是游戏中各种惊慌失措的小资产阶级。如果你问大资产阶级咋样了，就有限的情报来说，似乎他们在与国家合作后过得很好。 这是一家很有煽动性的政党，但如果你细细去看他们做了什么，建立国家养老机构（把老人送进去就可以不管了）成立青少年队伍（洗脑从娃娃抓起）半强制推行政党性而不是国家性的身份卡（很明显，只是后续动作的开始）甚至把反对的国家的个别城市用特工安置的核弹统统炸上天。 很荒谬，不是吗？但这些事情确实如此发生了。</p>
+<p>如果你很好奇对此的政治评论是怎样的，那么我们很快就会见识到该游戏另一个厉害之处——现实性的缺席。 在游戏的一开始国家晚间新闻是一家较为严肃的新闻频道，但随着游戏的进程，娱乐性的报道和节目越来越多（而且不乏先进党资助的无聊作品），这次过程中有着不少精妙的讽刺，例如领着先进党资助大搞政治正确的校园舞台剧组合，光明正大搞热水器的女明星等等，此时在早期的一些政治性节目中，也有不少让人啼笑皆非的人物，例如奉行白人至上主义，热爱sm的警察局局长，似乎几个小丑粉墨登场就能谈起国家大事。作为理应为公众揭露真相的媒体，自己就陷入了娱乐至死的泥潭 不过他们又能怎么办呢？对于一个奉行强权政治的政党，让一个电视台说不了真话简直太容易了。所以我们在游戏中看到的趋势是，节目变得越来越无聊，又臭又长，当批评声变得刺耳，那么连赞扬得不够卖力也成了罪责。 但游戏中依然有着保存着良心的媒体人，杰里米的爆发大概处于游戏中期，他挟持了摄像头，指责所有人都失去了说话的勇气，随后自绝于心爱的镜头前。这段的演出可以说全游戏最大的一个亮点，荒诞的现实与理想的缺席构成了极大的对比，将游戏荒谬而现实的矛盾感体现得极为突出。 然后，我们要说到极端意识形态题材作品的一体两面——压迫与反抗 哪里有压迫，哪里就有反抗，对于极端意识形态题材而言，对其的呈现与对反抗的呈现是一枚硬币的两面，与其他反乌托邦作品伟光正的反抗者不同，不予播出的反对者仅仅是走向了另一个极端。在游戏中有一个明确的反对者——打断组织，这个组织是什么样的呢？很大程度上可能由一些小资产阶级与无产阶级组成，面对集权，他们选择了暴力，游行，破坏，暴动甚至军事政变，我们很难说打断是一个多好的选择，事实上他们根本没有提出什么解决方案，似乎只是因为自己的利益受到了侵犯而已，在游戏的结局我们可以看到打断组织不过是军方扶持的傀儡，用完即扔。 再说回先进党，这一党派在游戏的中期收到全世界的敌视与孤立，不得不进行完全的内循环经济，究其原因，或许是对有产阶级的镇压并不符合经济全球化的要求，从而招致了其他国家的敌视，随后，他们向全世界部分国家的城市引爆核弹，建立起核威慑。 试问，如果你是一位普通人，你能做出什么样的选择呢？ 说到这里，就不得不说不予播出另一个有趣的机制——在导播工作的间隙你将以视觉小说的形式看到作为普通人的自己如何在政治的漩涡中生活。与电视上光鲜亮丽的报道不同，即使作为被济的穷人，你也不过是从一贫如洗走向负债累累而已。 恐怕根本没有什么更好的选择。 最后，我们应该回归这部游戏贯穿始终的特点——讽刺性和娱乐性 可以说，这部游戏最终呈现的是一个荒谬的世界，在政治领域极端，疯狂，暴力构成了它的底色，这也是我称其为极端意识形态大乱斗的原因 你要问这样的构建是否过于疯狂而丢失了真实性，而且想要展现这样的世界观一个导播的视角也远远不够，可能的确是这样，但我认为这样极端之间的碰撞反而能增加不少的戏剧性。 可能根本不会有这么极端的政党，可能如此极端的政党根本得不到如此多的武力支持，或许吧，但说到底，这不过是个讽刺性游戏而已，用夸张的手法实属正常。 而在政治以外的社会领域呢？滑稽，疯癫，娱乐才是它的主题，你可以看到收藏大粪为乐的清洁工，无法控制肠道蠕动放出气体的“病患”等等极为魔幻的人物登上荧幕，可以说，游戏中所有的人物都是经过夸张化和娱乐化的，即使抛开政治性，你也可以当笑话看。这是我很欣赏不予播出的一点，它并不完全正经，但绝对有趣。</p>
+<p>最后，做一个总结吧，根据关键节点的选择不同，游戏一共有14种结局，有一家独大，有天下大乱，也有非极端派兴起，这些结局有的因你而起，有的不过是大势所趋。不予播出从一个导播的小人物视角出发，呈现了一个极端意识形态偏向的荒谬社会的百态，有戏剧性的加工，也有对真实世界的化用与讽刺。 说实话，政治讽刺题材的乐趣不正是在此吗？</p>
+]]></content>
+      <categories>
+        <category>游戏杂谈</category>
+        <category>独立游戏</category>
+      </categories>
+      <tags>
+        <tag>游戏杂谈</tag>
+        <tag>not for broadcast</tag>
       </tags>
   </entry>
   <entry>
@@ -6417,6 +6417,20 @@ Inexpensive Disk）由美国加州大学伯克利分校提出。<br />
         <tag>next</tag>
         <tag>webstack</tag>
         <tag>icarus</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>影子工厂</title>
+    <url>/thinklive/59180/</url>
+    <content><![CDATA[<p>我本以为影子工厂会如简介说的一样，会是杂糅诸多风格的悬疑风，故事的一开始也的确如此，时间穿越配合豪宅血腥谋杀的经典模式别有一番风味，不过结合前传一贯的发展，不难想象出而在这之后又回到了我们熟悉的时间轴环节，比较特殊的是，这次高瞰老师罕见地采用了正叙的方式，而且此次的故事出奇的平淡，尽管感情上依旧无比细腻，但几乎没有什么出乎意料地发展。 <span id="more"></span> 而事实上，高瞰老师擅长的叙事诡计只是换了一种方式呈现在我们面前，这是一个一位身患绝症的女性在生活和事业中苦苦挣扎，在经历了孩子的夭折后，最后选择了事业的故事，尽管这个故事占了整部游戏大半的流程，但其实它本身并不是重点，因为在开头，影子工厂的主线就被堂而皇之地摆在了我们的面前，豪宅层出不穷的死亡案件，于是，在历览了女主的人生后，真相的追寻才真正开始，当然了，故事如何这里就不赘述了。 当然，相比前两作选材的独特，和层出不穷的叙事诡计，影子工厂显得平淡的多，正如lynri所说，昆西相比两位博士不过是一个观察者而已，他对于挚爱的lynri无能为力，面对自己不过是模拟的数据也无能为力，他的一生没有什么狂乱幻想，也没有多么丰富的内心世界，尽管他的内心是强大的，不过依旧没有什么意思。当昆西历览lynri的记忆时，我们会发现相比博士的聒噪，大部分时候他不过沉默地接受着，评价这一环节是在这段记忆中缺少的。而让这段记忆，一个不是最重要的故事占据叙事的大部分是可以的，但问题在于这一部分必须要穿插主线，否则会产生严重的割裂感，而就影子工厂来说，很难说这一部分和主线有着多大的关系，是否手术的分歧导致了之后的一切，但要拼凑出真相，我们需要知道的除了这个世界不是真实的以外，还有分歧点在于保大还是保小，以及lynri的姓氏，而这两点都没有结合进这个过程。抛开叙事结构，如果我们只看这个故事本身，昆西的爱情故事虽然不能说不好，但比起前作的惊艳未免显得俗套。可以说，如果把这个故事大刀阔斧地砍几笔，也不会有多大的差别，当然，就故事的首尾而言依旧是很有趣的。 不过即便如此，我也要说影子工厂是一部水准上的作品，它有着层层递归的脑洞，优秀的人物塑造，最重要的是，它还展示了高瞰老师填坑的一点点意愿，虽然到最后我们也不会知道两位博士之后到底会怎么发展。而对于系列中虽然重要但没有认真探讨过的记忆编辑技术，影子工厂也表明了一种态度，就是尽管这可能看上去虚无的，但就我们个人所及的知识与眼见来看，只有有过美好的时刻，它就是有意义的，这是一种积极向上的态度，尽管这只是一种态度，但对于虚无与否的讨论大部分时候都只能取决于我们的态度。能以合适的形式传达出这样的观点，就是一部很好的作品了。</p>
+]]></content>
+      <categories>
+        <category>游戏杂谈</category>
+        <category>独立游戏</category>
+      </categories>
+      <tags>
+        <tag>游戏杂谈</tag>
+        <tag>影子工厂</tag>
       </tags>
   </entry>
   <entry>
@@ -6954,20 +6968,6 @@ Inexpensive Disk）由美国加州大学伯克利分校提出。<br />
         <tag>课程笔记</tag>
         <tag>苏州大学</tag>
         <tag>操作系统</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>影子工厂</title>
-    <url>/thinklive/59180/</url>
-    <content><![CDATA[<p>我本以为影子工厂会如简介说的一样，会是杂糅诸多风格的悬疑风，故事的一开始也的确如此，时间穿越配合豪宅血腥谋杀的经典模式别有一番风味，不过结合前传一贯的发展，不难想象出而在这之后又回到了我们熟悉的时间轴环节，比较特殊的是，这次高瞰老师罕见地采用了正叙的方式，而且此次的故事出奇的平淡，尽管感情上依旧无比细腻，但几乎没有什么出乎意料地发展。 <span id="more"></span> 而事实上，高瞰老师擅长的叙事诡计只是换了一种方式呈现在我们面前，这是一个一位身患绝症的女性在生活和事业中苦苦挣扎，在经历了孩子的夭折后，最后选择了事业的故事，尽管这个故事占了整部游戏大半的流程，但其实它本身并不是重点，因为在开头，影子工厂的主线就被堂而皇之地摆在了我们的面前，豪宅层出不穷的死亡案件，于是，在历览了女主的人生后，真相的追寻才真正开始，当然了，故事如何这里就不赘述了。 当然，相比前两作选材的独特，和层出不穷的叙事诡计，影子工厂显得平淡的多，正如lynri所说，昆西相比两位博士不过是一个观察者而已，他对于挚爱的lynri无能为力，面对自己不过是模拟的数据也无能为力，他的一生没有什么狂乱幻想，也没有多么丰富的内心世界，尽管他的内心是强大的，不过依旧没有什么意思。当昆西历览lynri的记忆时，我们会发现相比博士的聒噪，大部分时候他不过沉默地接受着，评价这一环节是在这段记忆中缺少的。而让这段记忆，一个不是最重要的故事占据叙事的大部分是可以的，但问题在于这一部分必须要穿插主线，否则会产生严重的割裂感，而就影子工厂来说，很难说这一部分和主线有着多大的关系，是否手术的分歧导致了之后的一切，但要拼凑出真相，我们需要知道的除了这个世界不是真实的以外，还有分歧点在于保大还是保小，以及lynri的姓氏，而这两点都没有结合进这个过程。抛开叙事结构，如果我们只看这个故事本身，昆西的爱情故事虽然不能说不好，但比起前作的惊艳未免显得俗套。可以说，如果把这个故事大刀阔斧地砍几笔，也不会有多大的差别，当然，就故事的首尾而言依旧是很有趣的。 不过即便如此，我也要说影子工厂是一部水准上的作品，它有着层层递归的脑洞，优秀的人物塑造，最重要的是，它还展示了高瞰老师填坑的一点点意愿，虽然到最后我们也不会知道两位博士之后到底会怎么发展。而对于系列中虽然重要但没有认真探讨过的记忆编辑技术，影子工厂也表明了一种态度，就是尽管这可能看上去虚无的，但就我们个人所及的知识与眼见来看，只有有过美好的时刻，它就是有意义的，这是一种积极向上的态度，尽管这只是一种态度，但对于虚无与否的讨论大部分时候都只能取决于我们的态度。能以合适的形式传达出这样的观点，就是一部很好的作品了。</p>
-]]></content>
-      <categories>
-        <category>游戏杂谈</category>
-        <category>独立游戏</category>
-      </categories>
-      <tags>
-        <tag>游戏杂谈</tag>
-        <tag>影子工厂</tag>
       </tags>
   </entry>
   <entry>
