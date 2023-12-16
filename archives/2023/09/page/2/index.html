@@ -218,8 +218,8 @@
       </span>
   </div>
 
+<div style="Text-align:center;width:100%"><div style="margin:0 auto"><canvas id="canvas" style="width:60%" height="100" width="700">当前浏览器不支持canvas，请更换浏览器后再试</canvas></div><script>!function(){function t(t,e){for(var a=0;a<l[e].length;a++)for(var n=0;n<l[e][a].length;n++)1==l[e][a][n]&&(h.beginPath(),h.arc(14*(g+2)*t+2*n*(g+1)+(g+1),2*a*(g+1)+(g+1),g,0,2*Math.PI),h.closePath(),h.fill())}function e(){var t=[],e=/(\d)(\d):(\d)(\d):(\d)(\d)/.exec(new Date),a=[];a.push(e[1],e[2],10,e[3],e[4],10,e[5],e[6]);for(var r=c.length-1;r>=0;r--)a[r]!==c[r]&&t.push(r+"_"+(Number(c[r])+1)%10);for(var r=0;r<t.length;r++)n.apply(this,t[r].split("_"));c=a.concat()}function a(){for(var t=0;t<d.length;t++)d[t].stepY+=d[t].disY,d[t].x+=d[t].stepX,d[t].y+=d[t].stepY,(d[t].x>i+g||d[t].y>f+g)&&(d.splice(t,1),t--)}function n(t,e){for(var a=[1,2,3],n=["#3BE","#09C","#A6C","#93C","#9C0","#690","#FB3","#F80","#F44","#C00"],r=0;r<l[e].length;r++)for(var o=0;o<l[e][r].length;o++)if(1==l[e][r][o]){var h={x:14*(g+2)*t+2*o*(g+1)+(g+1),y:2*r*(g+1)+(g+1),stepX:Math.floor(4*Math.random()-2),stepY:-2*a[Math.floor(Math.random()*a.length)],color:n[Math.floor(Math.random()*n.length)],disY:1};d.push(h)}}function r(){o.height=100;for(var e=0;e<c.length;e++)t(e,c[e]);for(var e=0;e<d.length;e++)h.beginPath(),h.arc(d[e].x,d[e].y,g,0,2*Math.PI),h.fillStyle=d[e].color,h.closePath(),h.fill()}var l=[[[0,0,1,1,1,0,0],[0,1,1,0,1,1,0],[1,1,0,0,0,1,1],[1,1,0,0,0,1,1],[1,1,0,0,0,1,1],[1,1,0,0,0,1,1],[1,1,0,0,0,1,1],[1,1,0,0,0,1,1],[0,1,1,0,1,1,0],[0,0,1,1,1,0,0]],[[0,0,0,1,1,0,0],[0,1,1,1,1,0,0],[0,0,0,1,1,0,0],[0,0,0,1,1,0,0],[0,0,0,1,1,0,0],[0,0,0,1,1,0,0],[0,0,0,1,1,0,0],[0,0,0,1,1,0,0],[0,0,0,1,1,0,0],[1,1,1,1,1,1,1]],[[0,1,1,1,1,1,0],[1,1,0,0,0,1,1],[0,0,0,0,0,1,1],[0,0,0,0,1,1,0],[0,0,0,1,1,0,0],[0,0,1,1,0,0,0],[0,1,1,0,0,0,0],[1,1,0,0,0,0,0],[1,1,0,0,0,1,1],[1,1,1,1,1,1,1]],[[1,1,1,1,1,1,1],[0,0,0,0,0,1,1],[0,0,0,0,1,1,0],[0,0,0,1,1,0,0],[0,0,1,1,1,0,0],[0,0,0,0,1,1,0],[0,0,0,0,0,1,1],[0,0,0,0,0,1,1],[1,1,0,0,0,1,1],[0,1,1,1,1,1,0]],[[0,0,0,0,1,1,0],[0,0,0,1,1,1,0],[0,0,1,1,1,1,0],[0,1,1,0,1,1,0],[1,1,0,0,1,1,0],[1,1,1,1,1,1,1],[0,0,0,0,1,1,0],[0,0,0,0,1,1,0],[0,0,0,0,1,1,0],[0,0,0,1,1,1,1]],[[1,1,1,1,1,1,1],[1,1,0,0,0,0,0],[1,1,0,0,0,0,0],[1,1,1,1,1,1,0],[0,0,0,0,0,1,1],[0,0,0,0,0,1,1],[0,0,0,0,0,1,1],[0,0,0,0,0,1,1],[1,1,0,0,0,1,1],[0,1,1,1,1,1,0]],[[0,0,0,0,1,1,0],[0,0,1,1,0,0,0],[0,1,1,0,0,0,0],[1,1,0,0,0,0,0],[1,1,0,1,1,1,0],[1,1,0,0,0,1,1],[1,1,0,0,0,1,1],[1,1,0,0,0,1,1],[1,1,0,0,0,1,1],[0,1,1,1,1,1,0]],[[1,1,1,1,1,1,1],[1,1,0,0,0,1,1],[0,0,0,0,1,1,0],[0,0,0,0,1,1,0],[0,0,0,1,1,0,0],[0,0,0,1,1,0,0],[0,0,1,1,0,0,0],[0,0,1,1,0,0,0],[0,0,1,1,0,0,0],[0,0,1,1,0,0,0]],[[0,1,1,1,1,1,0],[1,1,0,0,0,1,1],[1,1,0,0,0,1,1],[1,1,0,0,0,1,1],[0,1,1,1,1,1,0],[1,1,0,0,0,1,1],[1,1,0,0,0,1,1],[1,1,0,0,0,1,1],[1,1,0,0,0,1,1],[0,1,1,1,1,1,0]],[[0,1,1,1,1,1,0],[1,1,0,0,0,1,1],[1,1,0,0,0,1,1],[1,1,0,0,0,1,1],[0,1,1,1,0,1,1],[0,0,0,0,0,1,1],[0,0,0,0,0,1,1],[0,0,0,0,1,1,0],[0,0,0,1,1,0,0],[0,1,1,0,0,0,0]],[[0,0,0,0,0,0,0],[0,0,1,1,1,0,0],[0,0,1,1,1,0,0],[0,0,1,1,1,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,1,1,1,0,0],[0,0,1,1,1,0,0],[0,0,1,1,1,0,0],[0,0,0,0,0,0,0]]],o=document.getElementById("canvas");if(o.getContext){var h=o.getContext("2d"),f=100,i=700;o.height=f,o.width=i,h.fillStyle="#f00",h.fillRect(10,10,50,50);var c=[],d=[],g=o.height/20-1;!function(){var t=/(\d)(\d):(\d)(\d):(\d)(\d)/.exec(new Date);c.push(t[1],t[2],10,t[3],t[4],10,t[5],t[6])}(),clearInterval(v);var v=setInterval(function(){e(),a(),r()},50)}}()</script></div>
 <img src="/images/thinklive_cyber.png"; z-index: 0; style="max-width: 100%; width: auto; height: auto;background-color: #fff;">
-
         </div>
       </div>
     </div>
@@ -439,8 +439,8 @@
       </div>
 
       <div class="post-title">
-        <a class="post-title-link" href="/thinklive/14434/" itemprop="url">
-          <span itemprop="name">迪瑞克拉世界观轶事集</span>
+        <a class="post-title-link" href="/thinklive/3998/" itemprop="url">
+          <span itemprop="name">迪瑞克拉世界观设定集</span>
         </a>
       </div>
 
@@ -566,7 +566,8 @@
   <script src="/js/third-party/quicklink.js"></script>
 <script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"thinklive1/blog_comments","issue_term":"pathname","theme":"photon-dark"}</script>
 <script src="/js/third-party/comments/utterances.js"></script>
-
+<script z-index=-1 type="text/javascript" src="/js/three-waves.min.js"></script>
+<script z-index=-1 type="text/javascript" src="/js/three.min.js"></script>
    <!--js: 线条特效-->
   <script type="text/javascript" color="255,255,255" opacity='1' zIndex="-1" count="300" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
 </body>
