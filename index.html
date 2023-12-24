@@ -354,6 +354,148 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://thinklive1.github.io/thinklive/39056/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/thive.png">
+      <meta itemprop="name" content="thinklive">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="thinklive">
+      <meta itemprop="description" content="起初，世界是一团思索，它向所有的方向迈了一步，于是万物由此而生">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | thinklive">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/thinklive/39056/" class="post-title-link" itemprop="url">基于加州房地产数据集的数据分析项目</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-12-24 08:56:17 / 修改时间：08:59:10" itemprop="dateCreated datePublished" datetime="2023-12-24T08:56:17+08:00">2023-12-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">课程笔记</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>4k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>14 分钟</span>
+    </span>
+</div>
+
+        
+        </div>
+      </header>
+   
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="实践报告">实践报告</h1>
+<h2 id="背景介绍">背景介绍</h2>
+<p>本次作业使用一个房价数据集，房价数据集完全由数字信息构成，规模属于中小级别(2w条左右)，有一定的数据处理需求，但由于最主要的参数房价和其他相关列主要是简单的类线性关系，易于作为学习数据科学的入门材料。<br />
+此外，通过房屋参数来预测房价在现实中也有一定的实践意义，例如一些房屋出售软件可以建立相关模型来给出估价等。</p>
+<h2 id="问题描述">问题描述</h2>
+<p>主要目标是预测房价，为此目标，需要清洗不合理的数据，寻找线性相关的列，最后利用一些回归模型来进行训练，并验证结果 最后的输入是数据集内和房价线性相关程度较高的列，输出则是对房价的预测结果。</p>
+<h2 id="数据描述">数据描述</h2>
+<p>这些数据涉及在加州某个地区的街区以及基于 1990 年人口普查数据的一些汇总统计数据：</p>
+<ol type="1">
+<li>房屋中位价值：一个街区内家庭的房屋中位价值（以美元计算）</li>
+<li>收入中位数：一栋房屋内的家庭收入中位数（以万美元衡量）</li>
+<li>中位年龄：街区内房屋的中位年龄； 数字较小的是较新的建筑</li>
+<li>房间总数：一个街区内的房间总数</li>
+<li>卧室总数：一个街区内的卧室总数</li>
+<li>人口：居住在一个街区内的总人数</li>
+<li>家庭：一个街区的家庭总数</li>
+<li>纬度：衡量房屋向北有多远的指标； 值越高越北 [°]</li>
+<li>经度：衡量房屋向西有多远的量度； 数值越高，越西 [°]</li>
+<li>距离海岸：到最近海岸点的距离[m]</li>
+<li>到洛杉矶的距离：到洛杉矶市中心的距离[m]</li>
+<li>到圣地亚哥的距离：到圣地亚哥中心的距离[m]</li>
+<li>到圣何塞的距离: 到圣何塞中心的距离 [m]</li>
+<li>到旧金山的距离：到旧金山市中心的距离[m]</li>
+</ol>
+<ol type="1">
+<li>Median House Value: Median house value for households within a block (measured in US Dollars)</li>
+<li>Median Income: Median income for households within a block of houses (measured in tens of thousands of US Dollars)</li>
+<li>Median Age: Median age of a house within a block; a lower number is a newer building [years]</li>
+<li>Total Rooms: Total number of rooms within a block</li>
+<li>Total Bedrooms: Total number of bedrooms within a block</li>
+<li>Population: Total number of people residing within a block</li>
+<li>Households: Total number of households, a group of people residing within a home unit, for a block</li>
+<li>Latitude: A measure of how far north a house is; a higher value is farther north [°]</li>
+<li>Longitude: A measure of how far west a house is; a higher value is farther west [°]</li>
+<li>Distance to coast: Distance to the nearest coast point [m]</li>
+<li>Distance to Los Angeles: Distance to the centre of Los Angeles [m]</li>
+<li>Distance to San Diego: Distance to the centre of San Diego [m]</li>
+<li>Distance to San Jose: Distance to the centre of San Jose [m]</li>
+<li>Distance to San Francisco: Distance to the centre of San Francisco [m]</li>
+</ol>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/thinklive/39056/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://thinklive1.github.io/thinklive/26286/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -390,7 +532,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-12-23 20:59:05" itemprop="dateModified" datetime="2023-12-23T20:59:05+08:00">2023-12-23</time>
+      <time title="修改时间：2023-12-23 21:07:35" itemprop="dateModified" datetime="2023-12-23T21:07:35+08:00">2023-12-23</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -772,131 +914,6 @@
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/thinklive/24155/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://thinklive1.github.io/thinklive/27168/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/thive.png">
-      <meta itemprop="name" content="thinklive">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="thinklive">
-      <meta itemprop="description" content="起初，世界是一团思索，它向所有的方向迈了一步，于是万物由此而生">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | thinklive">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/thinklive/27168/" class="post-title-link" itemprop="url">对加州房地产数据集的数据分析</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2023-12-10 19:39:05 / 修改时间：19:43:15" itemprop="dateCreated datePublished" datetime="2023-12-10T19:39:05+08:00">2023-12-10</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">课程笔记</span></a>
-        </span>
-          ，
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%95%B0%E6%8D%AE%E7%A7%91%E5%AD%A6/" itemprop="url" rel="index"><span itemprop="name">数据科学</span></a>
-        </span>
-    </span>
-
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>4.1k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>15 分钟</span>
-    </span>
-</div>
-
-        
-        </div>
-      </header>
-   
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="加利福尼亚房价数据集">加利福尼亚房价数据集</h1>
-<h2 id="内容">内容</h2>
-<p>这些数据涉及在加州某个地区的街区以及基于 1990 年人口普查数据的一些汇总统计数据：</p>
-<ol type="1">
-<li>房屋中位价值：一个街区内家庭的房屋中位价值（以美元计算）</li>
-<li>收入中位数：一栋房屋内的家庭收入中位数（以万美元衡量）</li>
-<li>中位年龄：街区内房屋的中位年龄； 数字较小的是较新的建筑</li>
-<li>房间总数：一个街区内的房间总数</li>
-<li>卧室总数：一个街区内的卧室总数</li>
-<li>人口：居住在一个街区内的总人数</li>
-<li>家庭：一个街区的家庭总数</li>
-<li>纬度：衡量房屋向北有多远的指标； 值越高越北 [°]</li>
-<li>经度：衡量房屋向西有多远的量度； 数值越高，越西 [°]</li>
-<li>距离海岸：到最近海岸点的距离[m]</li>
-<li>到洛杉矶的距离：到洛杉矶市中心的距离[m]</li>
-<li>到圣地亚哥的距离：到圣地亚哥中心的距离[m]</li>
-<li>到圣何塞的距离: 到圣何塞中心的距离 [m]</li>
-<li>到旧金山的距离：到旧金山市中心的距离[m]</li>
-</ol>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/thinklive/27168/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1432,7 +1449,7 @@
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">13:37</span>
+    <span title="站点阅读时长">13:36</span>
   </span>
 </div>
 <div class="busuanzi-count">
