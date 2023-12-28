@@ -60,6 +60,24 @@
 ]]></content>
   </entry>
   <entry>
+    <title>一些工具的使用备忘录</title>
+    <url>/thinklive/24757/</url>
+    <content><![CDATA[<p>更新wsl后，发现ps定位不到wsl，cmd却可以，查到这个网址<br />
+<a href="https://superuser.com/questions/1501478/wsl-is-not-recognized-as-an-internal-or-external-command">wsl未被识别为内部或外部命令</a></p>
+<p>Common problem when trying to access 64-bit tools from 32-bit processes. wsl.exe is in System32. But if your script happens to run as a 32-bit process, then all accesses to System32 are redirected to SysWOW64. In order to access wsl.exe in the "real" System32 folder, you'll have to use Sysnative instead, like in <code>C:\Windows\Sysnative\wsl.exe.</code><br />
+尝试从 32 位进程访问 64 位工具时的常见问题。 wsl.exe是在 System32。 但是如果你的脚本碰巧作为 32 位进程运行，那么所有访问 System32被重定向到 SysWOW64。 为了访问 wsl.exe使用真正的 System32文件夹，你必须使用 Sysnative，就像 <code>C:\Windows\Sysnative\wsl.exe</code></p>
+<p>也就是环境变量加一条，<code>C:\Windows\Sysnative</code></p>
+<p><code>$ENV:PATH="$ENV:PATH;c:\Windows\System32"</code></p>
+<span id="more"></span>
+]]></content>
+      <categories>
+        <category>备忘录</category>
+      </categories>
+      <tags>
+        <tag>编程工具</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>基于中科大linux101和苏大ppt的linux笔记</title>
     <url>/thinklive/59610/</url>
     <content><![CDATA[<h1 id="苏大部分">苏大部分</h1>
