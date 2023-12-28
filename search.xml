@@ -60,6 +60,1242 @@
 ]]></content>
   </entry>
   <entry>
+    <title>基于中科大linux101和苏大ppt的linux笔记</title>
+    <url>/thinklive/59610/</url>
+    <content><![CDATA[<h1 id="苏大部分">苏大部分</h1>
+<h2 id="概念">概念</h2>
+<p>软件可以粗略分为系统，工具，应用<br />
+软件的发行模式有：</p>
+<ul>
+<li>商业软件</li>
+<li>共享软件,免费给用户使用的商业软件，比如入门版杀毒软件，不一定开源</li>
+<li>开源软件，开放源代码的软件，但不代表用户有自由分发修改源代码的权力</li>
+<li>自由软件，开源，任何用户都有权使用、拷贝、扩散、修改该软件，但有义务公布修改后的代码 <img src="/assets/resources/Pasted%20image%2020231227114417.png" /></li>
+</ul>
+<p>Linux系统提供多个虚拟控制台（默认6个字符界面，1个图形界面），可以独立使用，自由切换</p>
+<span id="more"></span>
+<h2 id="文件">文件</h2>
+<h3 id="命名">命名</h3>
+<ul>
+<li>除/之外，所有的字符都合法</li>
+<li>大小写敏感</li>
+<li>有些字符最好不用，如空格符、制表符、退格符和字符：？, @ # $ &amp; ()  | ; ‘ ’ “ ” &lt; &gt;</li>
+<li>避免使用＋、－或. 来作为普通文件名的第一个字符</li>
+<li>可以使用长文件名或目录名（255个字符）</li>
+<li>包括完整路径的文件名不超过4096字符</li>
+</ul>
+<p>主要的文件类型</p>
+<ul>
+<li>普通文件
+<ul>
+<li>文本</li>
+<li>二进制</li>
+<li>数据格式</li>
+</ul></li>
+<li>目录(同一个文件夹下不可能同时存在相同名称的文件和文件夹)</li>
+<li>符号链接</li>
+<li>字符设备文件,键盘、鼠标等串行接口设备</li>
+<li>块设备文件,存储数据的设备，如硬盘、软盘等</li>
+<li>套接字,socket文件，用于网络数据连接。</li>
+<li>命名管道，用于进程间通信，解决多个程序同时访问一个文件造成的错误</li>
+</ul>
+<h3 id="目录">目录</h3>
+<table>
+<thead>
+<tr class="header">
+<th><br><br></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>bin</td>
+<td>存放二进制的可执行程序</td>
+</tr>
+<tr class="even">
+<td>boot</td>
+<td>存放用于系统引导时使用的各种文件</td>
+</tr>
+<tr class="odd">
+<td>dev</td>
+<td>存放设备文件，用户通过这些文件访问外部设备</td>
+</tr>
+<tr class="even">
+<td>etc</td>
+<td>存放系统的配置文件</td>
+</tr>
+<tr class="odd">
+<td>home</td>
+<td>存放用户文件的目录，每个用户在该目录下有一个与该用户名对应的子目录</td>
+</tr>
+<tr class="even">
+<td>root</td>
+<td>超级用户目录</td>
+</tr>
+<tr class="odd">
+<td>sbin</td>
+<td>类似于/bin目录，存放二进制文件，只有root才能访问</td>
+</tr>
+<tr class="even">
+<td>tmp</td>
+<td>用于放置各种临时文件</td>
+</tr>
+<tr class="odd">
+<td>var</td>
+<td>用于存放需要随时改变的文件，如系统日志、脱机工作目录等</td>
+</tr>
+<tr class="even">
+<td>mnt</td>
+<td>系统管理员安装临时文件系统的安装点</td>
+</tr>
+<tr class="odd">
+<td>opt</td>
+<td>一般情况下，该目录不属于系统的基本文件系统，是额外安装的应用程序包所放置的地方</td>
+</tr>
+<tr class="even">
+<td>usr</td>
+<td>用于存放系统应用程序</td>
+</tr>
+<tr class="odd">
+<td>lib</td>
+<td>存放根文件系统中的程序运行所需要的共享库及内核模块</td>
+</tr>
+<tr class="even">
+<td>proc</td>
+<td>是一个虚拟文件系统，存放当前内存的映射，主要用于在不重启机器的情况下管理内核</td>
+</tr>
+<tr class="odd">
+<td>lost+ found</td>
+<td>存放一些系统检查结果，发现不合法的文件或数据都存放在这里，通常此目录是空的，除非硬盘遭到损坏</td>
+</tr>
+</tbody>
+</table>
+<h3 id="链接文件">链接文件</h3>
+<ul>
+<li><p>硬链接 将两个文件名指向硬盘上同一个存储空间（inode），对任何一个文件的修改都将影响到另一个文件。<br />
+特性：</p>
+<ul>
+<li>文件有相同的 inode 及 data block；</li>
+<li>只能对已存在的文件进行创建；</li>
+<li>不能交叉文件系统进行硬链接的创建；</li>
+<li>不能对目录进行创建，只可对文件创建；</li>
+<li>删除一个硬链接文件并不影响其他有相同 inode 号的文件。</li>
+</ul></li>
+<li><p>符号链接</p></li>
+</ul>
+<p>又称软链接，是指将一个文件指向另外一个文件的文件名。<br />
+特性：</p>
+<pre><code>- 软链接有自己的文件属性及权限等；
+- 软链接可对文件或目录创建；
+- 可对不存在的文件或目录创建软链接；
+- 软链接可交叉文件系统；
+- 若被指向的原文件被删除，则相关软连接被称为死链接
+- 删除软链接并不影响被指向的文件，若被指向路径文件被重新创建，死链接可恢复为正常的软链接</code></pre>
+<p><strong>符号链接可以跨文件系统，即可以跨磁盘分区。硬链接不可以跨文件系统。它只能建立对文件的链接。</strong><br />
+链接文件命令  <code>ln</code></p>
+<table>
+<tbody>
+<tr class="odd">
+<td>ln file1 file2</td>
+<td>创建源文件file1的硬链接file2</td>
+</tr>
+<tr class="even">
+<td>ln -s file1 file2</td>
+<td>创建源文件file1的软链接file2</td>
+</tr>
+</tbody>
+</table>
+<p>符号链接可以跨文件系统，即可以跨磁盘分区。<br />
+硬链接不可以跨文件系统，只能建立对文件的链接。<br />
+硬链接删除只原文件或硬链接不影响文件内容<br />
+软连接删除源文件导致链接失效<br />
+<img src="/assets/resources/Pasted%20image%2020231227153516.png" /></p>
+<h3 id="通配符">通配符</h3>
+<table>
+<thead>
+<tr class="header">
+<th><code>*</code></th>
+<th>任意长度字符</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>?</code></td>
+<td>任意单个字符</td>
+</tr>
+<tr class="even">
+<td><code>[…]</code></td>
+<td>匹配任何包含在括号内的单个字符，可以是范围（-）<br>或多个字符</td>
+</tr>
+<tr class="odd">
+<td><code>!</code>/<code>^</code></td>
+<td>匹配任何不包含在[]括号内的字符</td>
+</tr>
+<tr class="even">
+<td><code>&#123;…&#125;</code></td>
+<td>匹配任何包含在括号内的模式，模式间用,隔开<br>支持遍历查询、创建、删除、修改文件</td>
+</tr>
+</tbody>
+</table>
+<p><code>ls [!abc]*</code>//首字符不是a或b或c的所有文件<br />
+<code>ls a&#123;0,1&#125;&#123;ab,ba&#125;</code>//列出当前目录下符合a0ab、a0ba、a1ab、a1ba名称的文件<br />
+<code>ls [a-zA-Z]*</code></p>
+<h3 id="一些命令">一些命令</h3>
+<p><code>find .</code> 查找当前目录下所有文件和文件夹<br />
+<code>find . -name ‘my*’</code>查找当前目录下所有my开头的文件和文件夹<br />
+<code>find . -type f -name my*</code>在当前目录下查找以my开头的普通文件<br />
+<code>find . -size +25k</code>在当前目录下查找大于25k的文件</p>
+<p><code>scp /home/user/a.txt user1@192.168.1.2:/home/user1</code> 复制a.txt到远程设备user的主目录下<br />
+<code>rm -ri usr/</code> 删除usr目录及其内容,删除时有提示<br />
+<code>rm -d usr/</code> 删除usr目录,usr是一个空目录<br />
+查找系统文件所在路径命令 <code>whereis</code></p>
+<p>more 只能向下翻页，<br />
+less可以上下翻页,可以通过输入/pattern方式查找匹配<br />
+tac mylist 从后往前显示mylist的内容<br />
+统计文本文件的行数,字数,字符数 wc//l行,w单词,c字节数,m字符数</p>
+<p><code>tar [-cxtzZjvC] [-f 文档名称] 文件与目录</code><br />
+c:压缩，x:解压,t:查看 三选一<br />
+zZj是压缩算法，z的后缀是gz最常用<br />
+f后接文件名，v表示过程中打印信息，C接目录<br />
+<code>tar -zxvf myusr.tar.gz -C /home/CentOS/a</code> 解压到指定目录/home/CentOS/a<br />
+<code>tar -zcvf myusr.tar.gz mydoc</code> 用gzip将mydoc目录打包后压缩</p>
+<p>显示文件使用磁盘空间量 du<br />
+显示文件系统磁盘空间的使用情况 df ,-h容易阅读的形式</p>
+<p>显示和编辑历史命令 history<br />
+记录历史命令的数目:HISTSIZE<br />
+记录历史命令的文本文件:HISTFILE<br />
+默认的记录文件:.bash_history<br />
+<code>alias [别名]='[命令]'</code><br />
+<code>unalias [-a] 别名</code></p>
+<h2 id="文件系统">文件系统</h2>
+<p><img src="/assets/resources/Pasted%20image%2020231227155809.png" /> <code>硬盘容量=柱面数（磁道数）*磁头数（盘片数）*扇区数*512B</code><br />
+<code>总扇区=磁道数*磁头数*扇区数</code><br />
+<code>总磁道=磁道数*磁头数</code></p>
+<h3 id="硬盘分区表">硬盘分区表</h3>
+<h4 id="mbr">MBR</h4>
+<p>硬盘的第一个扇区存有主引导记录(Master boot record, MBR)及分区表(partition table)</p>
+<ul>
+<li>MBR用于引导操作系统</li>
+<li>partition table用于记录分区信息 一个MBR分区表类型的硬盘最多存在4个主分区，每个分区项占用16个字节<br />
+如果分区超过4个，则需要使用扩展分区，即一个物理硬盘上最多有3个主分区和1个扩展分区。<br />
+扩展分区不能直接使用，必须分割成为逻辑分区，一个扩展分区中的逻辑分区可以任意多个。</li>
+</ul>
+<h4 id="gpt">GPT</h4>
+<p>全称全局唯一标识分区表 GUID Partition Table</p>
+<ul>
+<li>主分区数量任意（Win 128个）</li>
+<li>支持最大18EB（NTFS 256TB） 1EB=1024PB<br />
+可能需要EFI支持（Win、Mac）</li>
+</ul>
+<h3 id="linux文件系统">linux文件系统</h3>
+<p>磁盘分区完毕后还需要进行格式化(format)，不同操作系统默认的文件系统不同，所以需要格式化成不同格式的分区。<br />
+EXT2（second extended filesystem）是LINUX内核默认的文件系统。<br />
+EXT2中的主要构成：</p>
+<ul>
+<li>SuperBlock  记录文件系统的整体信息，包括inode/block的总量、使用量、剩余量， 以及文件系统的格式与相关信息等；</li>
+<li>Block   实际记录文件的内容，若文件较大，则占用多个 block。</li>
+<li>Inode   记录文件的属性，一个文件占用一个inode，同时记录此文件的数据所在的 block 号码</li>
+</ul>
+<h4 id="inode">inode</h4>
+<p>ext2 创建一个目录时，分配1个 inode 与至少1块 block 给目录<br />
+•inode 记录目录权限与属性，并记录分配到 block号码<br />
+•block 记录目录下文件名与该文件名占用的 inode</p>
+<p>在读取时会先找到inode，定位到相应block，如果还有子文件就继续定位其inode，这样递归下去<br />
+inode 数量与大小在格式化时固定，记录存取模式，拥有者和组，容量，block的地址，修改创建时间等<br />
+inode包括：</p>
+<ul>
+<li>12个直接block号码记录区</li>
+<li>1个间接block号码记录区</li>
+<li>1个双间接block号码记录区</li>
+<li>1个三间接block号码记录区</li>
+</ul>
+<p>特征：</p>
+<ul>
+<li><p>每个 inode 大小均固定为 128 bytes；</p></li>
+<li><p>每个文件仅占用一个 inode；</p></li>
+<li><p>文件系统能够创建的文件数量与 inode 的数量有关；</p></li>
+<li><p>系统读取文件时先找到 inode，分析 inode 所记录的权限与用户是否符合，若符合读取 block 的内容。 <img src="/assets/苏大linux_ppt/image-20231014145226727.png" /> 默认一个block为 4KB大小</p></li>
+<li><p>12个直接连接可以记录<code>12*4=48KB内容</code></p></li>
+<li><p>1个间接连接可以记录<code>1024*4=4096KB内容</code></p></li>
+</ul>
+<h4 id="升级">升级</h4>
+<p><code>EXT2</code>文件系统高效稳定，但不提供日志<br />
+<code>EXT3</code><br />
+提供日志模式：<br />
+data=journal模式<br />
+对所有的文件数据及metadata（定义文件系统中数据的数据,即数据的数据）进行日志记录<br />
+data=ordered或data=writeback模式<br />
+只对metadata记录日志，而不对数据进行日志记录</p>
+<p><code>EXT4</code><br />
+EXT3的扩展升级，可以提供更佳的性能和可靠性，包括支持更大的分区和文件大小，更快的文件操作速度。</p>
+<ul>
+<li>EXT2文件系统高效稳定、安全性高</li>
+<li>FAT文件系统磁盘利用率高，性能一般</li>
+</ul>
+<h3 id="实例">实例</h3>
+<h4 id="fdisk">fdisk</h4>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">           fdisk      [-options]     &lt;disk&gt;</span><br><span class="line">选项：</span><br><span class="line">l 列出分区信息表</span><br><span class="line">m 查看本选项列表</span><br><span class="line">d 删除一个分区（partition）</span><br><span class="line">n 新增一个分区（partition）</span><br><span class="line">g 新建GPT分区表</span><br><span class="line">p 在屏幕上显示磁盘分割表</span><br><span class="line">q 不保存操作并退出fdisk程序</span><br><span class="line">t 切换分区类型（8e为Linux LVM）</span><br><span class="line">w 保存分区操作并退出fdisk</span><br><span class="line">o 新建DOS分区</span><br><span class="line">/dev/sda    对sda磁盘进行分区</span><br></pre></td></tr></table></figure>
+<p>中科大的xubuntu镜像<br />
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ustc@ustclug-linux101:~/桌面$ sudo fdisk -l</span><br><span class="line">[sudo] ustc 的密码： </span><br><span class="line">Disk /dev/sda：5 GiB，5368709120 字节，10485760 个扇区</span><br><span class="line">Disk model: VMware Virtual S</span><br><span class="line">单元：扇区 / 1 * 512 = 512 字节</span><br><span class="line">扇区大小(逻辑/物理)：512 字节 / 512 字节</span><br><span class="line">I/O 大小(最小/最佳)：512 字节 / 512 字节</span><br><span class="line">磁盘标签类型：gpt</span><br><span class="line">磁盘标识符：12526913-E330-4CA7-A379-90A87EF858B0</span><br><span class="line"></span><br><span class="line">设备         起点     末尾    扇区  大小 类型</span><br><span class="line">/dev/sda1    2048   499711  497664  243M EFI 系统</span><br><span class="line">/dev/sda2  499712 10483711 9984000  4.8G Linux 文件系统</span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
+<h4 id="mkfs格式化">mkfs格式化</h4>
+<p><code>mkfs      [-t 磁盘格式名]     &lt;partition&gt;</code> <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mkfs  -t ext3  /dev/sdb1</span><br></pre></td></tr></table></figure></p>
+<h4 id="mount挂载">mount挂载</h4>
+<p>文件系统在访问时，必定需要一个访问地址，也就是要能够链接到目录树才能被使用。<br />
+将文件系统与目录树结合的动作称为『挂载』 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mount [-t vfstype] [-o options]    device    <span class="built_in">dir</span></span><br><span class="line">-t 指定文件系统的类型,通常不必指定</span><br><span class="line">mount                         显示所有挂载的信息</span><br><span class="line">mount –a                   将所有未挂载设备挂载</span><br><span class="line">mount   /dev/hda2   /mnt/myhd2    将hda2设备挂载到/mnt/myhd2</span><br><span class="line">mount -t iso9660 /dev/cdrom  /media/cdrom  挂载光驱</span><br><span class="line"></span><br><span class="line">umount [选项] <span class="built_in">dir</span></span><br><span class="line">选项：</span><br><span class="line">-f     强制卸载</span><br><span class="line">-all   卸载所有挂载</span><br><span class="line">例：</span><br><span class="line">umount  /media/cdrom     卸载刚才挂载的光驱</span><br></pre></td></tr></table></figure></p>
+<h2 id="shell">shell</h2>
+<p>Shell是系统的用户界面，提供了用户和操作系统内核进行交互操作的接口，位于应用与内核之间<br />
+shell命令可以分为内部和外部，内部可以直接执行，外部则需要查找<br />
+格式为<code>cmd [-options] [arguments]</code><br />
+普通用户提示符是$,超级用户是#<br />
+常用命令：ls,clear,type(查询命令类型)<br />
+关机与重新启动本质是切换运行级别，6是重启，1是关机<br />
+init 6|init 0<br />
+reboot| halt<br />
+shutdown -r +5|shutdown -h +5<br />
+帮助程序有:help,man,iinfo,whatis(man -f)</p>
+<h3 id="重定向">重定向</h3>
+<p>Linux启动后，默认打开3个文件描述符<br />
+•标准输入：standard input   0<br />
+•标准输出：standard output  1<br />
+•错误输出：error output     2<br />
+每条shell命令执行，都会继承父进程的文件描述符。因此，所有运行的shell命令，都会有默认3个文件描述符。<br />
+默认的标准输出端口和标准错误端口为控制台的屏幕,标准输入端口是控制台的键盘<br />
+<code>重定向</code> 是指不使用系统的标准输入，标准输出或标准错误端口，而重新指定输入输出。<br />
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入重定向</span><br><span class="line">&lt;          输入重定向，从普通文件获取</span><br><span class="line">&lt;&lt;!...!    输入重定向， here文件，即从命令行获取</span><br><span class="line">wc &lt;&lt;!</span><br><span class="line">&gt;This text forms the content of heredocument</span><br><span class="line">&gt;which continues until the end of delimiter</span><br><span class="line">&gt;!</span><br><span class="line">输出重定向</span><br><span class="line">&gt;          输出重定向，覆盖模式</span><br><span class="line">&gt;&gt;         输出重定向，追加模式</span><br><span class="line">2&gt;         错误重定向，覆盖模式</span><br><span class="line">2&gt;&gt;        错误重定向，追加模式</span><br><span class="line">&amp;&gt;         同时实现输出重定向和错误重定向，覆盖模式</span><br><span class="line">&amp;&gt;&gt;        同时实现输出重定向和错误重定向，追加模式</span><br></pre></td></tr></table></figure></p>
+<h3 id="管道">管道</h3>
+<p>管道是一种两个进程间进行单向通信的机制<br />
+每个命令的输出作为下一条命令的输入，管道线中的命令从左到右顺序执行的，管道线是单向的<br />
+因为管道传递数据的单向性，管道又称为半双工管道<br />
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ls –l | wc -l</span><br></pre></td></tr></table></figure></p>
+<h3 id="命令替换">命令替换</h3>
+<p>Shell中的命令参数可以由另一个命令执行的结果来替代</p>
+<p>命令格式： <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$cmd1 `cmd2  arguments`</span><br><span class="line">或</span><br><span class="line">$cmd1 $(cmd2 arguments)//$()形式可嵌套命令替换</span><br></pre></td></tr></table></figure> 其中cmd2  arguments的输出作为cmd1的参数y</p>
+<h3 id="命令聚合">命令聚合</h3>
+<p>在一个命令行上使用若干shell元字符将若干命令聚合在一起运行。</p>
+<p>执行聚合的几种方式：</p>
+<p>•<code>cmd1;cmd2</code>   顺序执行若干命令<br />
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">pwd;date;ls</span><br></pre></td></tr></table></figure></p>
+<p>•<code>cmd1&amp;&amp;cmd2 </code> 当cmd1运行成功时才运行cmd2<br />
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">gzip mylargefile&amp;&amp;echo &quot;OK.&quot;</span><br></pre></td></tr></table></figure> •<code>cmd1||cmd2</code>   当cmd1运行失败时才运行cmd2<br />
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">gzip mylargefile||echo &quot;FALSE.&quot;</span><br></pre></td></tr></table></figure> •<code>(cmdlist)</code>   在子shell中执行命令序列，命令不影响当前shell<br />
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">(date;who|wc -l)&gt;~/login-users.log</span><br></pre></td></tr></table></figure></p>
+<h2 id="文本编辑">文本编辑</h2>
+<h3 id="vim">vim</h3>
+<p><code>:n1,n2 s/old/new/g</code> g代表所有，不加则只替换一次<br />
+<code>[Ctrl] + [f] | [Ctrl] + [b]</code> 屏幕『向前/后』移动一页<br />
+r 取代(replace)光标所在的那一个字符；<br />
+R 一直取代光标所在的文字，直到按下 ESC 为止；<br />
+:set number 在编辑文件时显示行号<br />
+:set nonumber 不显示行号<br />
+:set ruler 在屏幕底部显示光标所在的行,列位置<br />
+:set noruler 不显示光标所在的行,列位置</p>
+<h3 id="grep">grep</h3>
+<p>正则表达式是字符串的一种表达方式，用于字符串的处理，查找删除特定模式的字符串。<br />
+语法详细见101部分</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">grep [-acinv] [--color=auto] [-EFGP] &#x27;PATTERN&#x27; filename</span><br><span class="line">-a ：将 binary 文件以 text 文件的方式搜寻数据</span><br><span class="line">-c ：计算找到 &#x27;搜寻字符串&#x27; 的次数</span><br><span class="line">-i ：忽略大小写的不同，所以大小写视为相同</span><br><span class="line">-n ：顺便输出行号</span><br><span class="line">-v ：反向选择</span><br><span class="line">--color=auto ：可以将找到的关键词部分加上颜色的显示</span><br><span class="line">-E或--extended-regexp PATTERN 是一个可扩展的正则表达式(缩写为 ERE)</span><br><span class="line">-F或--fixed-strings PATTERN 是一组由断行符分隔的定长字符串，用</span><br><span class="line">于匹配多个表达式。</span><br><span class="line">-G或--basic-regexp PATTERN 是一个基本正则表达式(缩写为 BRE)</span><br><span class="line">-P或--perl-regexp PATTERN 是一个 Perl 正则表达式</span><br><span class="line">不选则默认为-G BRE</span><br></pre></td></tr></table></figure>
+<h3 id="sed">sed</h3>
+<p>sed是一个过滤模式的文本处理工具，可以对数据按行进行替换、删除、新增、选取等处理<br />
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sed [-nri] [-e script] [-f scriptfile] filename</span><br><span class="line">-n 静默模式，即只有经过sed处理的那一行(或者动作)</span><br><span class="line">才输出。默认会输出所有内容。</span><br><span class="line">-e script 运行命令中的脚本</span><br><span class="line">-f &lt;文件名&gt; 运行文件内的脚本</span><br><span class="line">-r 使用扩展正规表达式(默认使用基本表达式)</span><br><span class="line">-i 直接修改文件，而不是输出到标准输出</span><br><span class="line">如果不选相当于预览修改效果</span><br><span class="line"></span><br><span class="line">[addr]X[options]</span><br><span class="line">addr 行地址</span><br><span class="line">X 表示sed支持的单字符操作命令,如果设定行地址</span><br><span class="line">则操作命令只对选择的行进行处理</span><br><span class="line">options 某些操作命令所需的额外选项</span><br><span class="line"></span><br><span class="line">n 指定命令对第n行进行动作</span><br><span class="line">n1,n2 指定命令对第n1行到第n2行进行动作</span><br><span class="line">$ 最后一行</span><br><span class="line"></span><br><span class="line">a ∶新增（append）， a 的后面可以接字串，而这些字串会在新的一行出现 （所选行的下一行）</span><br><span class="line">i ∶插入（insert）， i 的后面可以接字串，而这些字串会在新的一行出现(目前的上一行)；</span><br><span class="line">c ∶取代， c 的后面可以接字串</span><br><span class="line">d ∶删除，通常命令后面不接任何东西；</span><br><span class="line">sed &#x27;1a Hi&#x27; file #第一行后新增Hi</span><br><span class="line">sed &#x27;a Hi&#x27; file #每行后新增Hi</span><br><span class="line">sed &#x27;1i Hi&#x27; file #第一行前新增Hi</span><br><span class="line">sed &#x27;1c Hi&#x27; file #第一行代替为Hi</span><br><span class="line">sed &#x27;1,20d&#x27; file #删除第1-20行</span><br><span class="line"></span><br><span class="line">s ：查找并替换</span><br><span class="line">s/regex/replacement/flags</span><br><span class="line">regex 正则表达式</span><br><span class="line">replacement 替换的内容</span><br><span class="line">flags 设置符号</span><br><span class="line">包括 g全局替换 p打印 =打印行号</span><br><span class="line">sed &#x27;s/old/new/’ file</span><br><span class="line">sed &#x27;s/old/new/g’ file</span><br><span class="line"></span><br><span class="line">\L 将后面的内容转为小写，直到遇到\U或\E结束</span><br><span class="line">\l 将后面的一个字符转为小写</span><br><span class="line">\U 将后面的内容转为大写，直到遇到\L或\E结束</span><br><span class="line">\u 将后面的一个字符转为大写</span><br><span class="line">\E 结束\L,\U的转换</span><br><span class="line">s/(.*)/\U\1/g # 将所有字符大写</span><br><span class="line"></span><br><span class="line">sed -i &#x27;s/123/1234/g&#x27; a.txt 将 a.txt 文件中所有行中的 123 用 1234 替换</span><br><span class="line">cat a.txt | sed &#x27;s/offcie/ofiice/g&#x27;</span><br><span class="line">cat telephone.data | sed &#x27;s/^[0-9]\&#123;3\&#125;/(&amp;)/&#x27; &gt; newTelephone.data</span><br></pre></td></tr></table></figure></p>
+<h3 id="tr">tr</h3>
+<p>tr是一个过滤模式的文本处理工具</p>
+<ul>
+<li>用于替换（translate）、压缩和删除标准输入中的 字符</li>
+<li>使用字符集来描述替换、压缩和删除的字符</li>
+<li>通过管道接收待处理文本</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">tr [-cdst] SET1 [SET2]</span><br><span class="line">set1 待匹配的字符集 [set2] 转换后的字符集</span><br><span class="line">-c 取代所有不属于第一字符集(SET1)的字符</span><br><span class="line">-d 删除所有属于第一字符集的字符</span><br><span class="line">-s 把连续重复的字符使用一个字符表示</span><br><span class="line">-t 先将SET1的长度截为和SET2相等（然后再匹配）</span><br><span class="line"></span><br><span class="line">字符1-字符2 从字符1 到字符2 的升序递增过程中经历的所有字符</span><br><span class="line">[字符*] 在SET2中适用，指定字符会被连续复制直到吻合设置1的长度</span><br><span class="line">[字符*次数] 对字符执行指定次数的复制，若次数以0开头则被视为八进制数</span><br><span class="line">[:alnum:] 所有的字母和数字</span><br><span class="line">[:alpha:] 所有的字母</span><br><span class="line">[:blank:] 所有呈水平排列的空白字符</span><br><span class="line">[:cntrl:] 所有的控制字符</span><br><span class="line">[:digit:] 所有的数字</span><br><span class="line">[:graph:] 所有的可打印字符，不包括空格</span><br><span class="line">[:lower:] 所有的小写字母</span><br><span class="line">[:print:] 所有的可打印字符，包括空格</span><br><span class="line">[:punct:] 所有的标点字符</span><br><span class="line">[:space:] 所有呈水平或垂直排列的空白字符</span><br><span class="line">[:upper:] 所有的大写字母</span><br><span class="line">[:xdigit:] 所有的十六进制数</span><br><span class="line">[=字符=] 所有和指定字符相等的字符</span><br><span class="line"></span><br><span class="line">\n 换行</span><br><span class="line">\r 回车</span><br><span class="line">\t 水平制表符</span><br><span class="line"></span><br><span class="line">echo &#x27; Hello &#x27; | tr &#x27;A-Z&#x27; &#x27;a-z&#x27;</span><br><span class="line">echo &#x27; Hello 123 World&#x27; | tr -d &#x27;0-9&#x27;</span><br><span class="line">echo &#x27; Hello 123 123 World&#x27; | tr -s &#x27;123&#x27; &#x27;a&#x27;</span><br><span class="line">echo &#x27;Hello 123 123 World&#x27; | tr -c &#x27;123&#x27; [?*] 将不等于字符串的部分，全部用另外一个字符重复替换</span><br><span class="line">??????123?123???????</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="awk">awk</h3>
+<p>awk是一个强大的文本分析工具</p>
+<ul>
+<li>逐行读入文件，并假定输入的文本是一个结构化文本</li>
+<li>每一行称为一个记录(Record)，每一列称为一个域(Field)</li>
+<li>默认空格为分隔符进行行列切片，切开部分进行各种分析处理</li>
+<li>支持样式装入、流控制、数学运算、进程控制语句，提供内置变量和函数</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">awk [-Ffv] &#x27; pattern&#123;action&#125;&#x27; &#123;filenames&#125;</span><br><span class="line">pattern 数据查找内容的模式，例如正则表达式，用斜杠括起来。</span><br><span class="line">action 是在找到匹配内容时所执行的一系列命令。action不是必须的，如果不写则默认打印模式匹配的结果</span><br><span class="line">-F fs fs指定输入分隔符，fs可以是字符串或正则表达式，</span><br><span class="line">如-F: -F, 默认是空格</span><br><span class="line">-v var=value 赋值一个用户定义变量，例如将外部变量传递给awk</span><br><span class="line">-f scripfile 从脚本文件中读取awk命令</span><br><span class="line"></span><br><span class="line">print 直接输出变量</span><br><span class="line">printf 和c语言一样的格式化输出</span><br><span class="line">awk &#x27;&#123;print $1,$2&#125;&#x27; 23dat.data</span><br><span class="line">awk &#x27;&#123;printf &quot;name:%s,age:%d\n&quot;,$1,$2&#125;&#x27; 23dat.data</span><br><span class="line">%c 字符型 %d 整数型</span><br><span class="line">%e 浮点科学计数法 %f 浮点</span><br><span class="line">%o 八进制 %x 十六进制</span><br><span class="line">%s 字符串</span><br><span class="line"></span><br><span class="line">内置变量</span><br><span class="line">FS 域的分隔符,默认的是以空白符分隔</span><br><span class="line">RS 记录的分隔符,默认是以换行符来分隔</span><br><span class="line">FILENAME 文件名</span><br><span class="line">NF 当前记录的域数（fields）</span><br><span class="line">NR 输入的记录数,相当于行号一样,多个文件时会接着递增.</span><br><span class="line">FNR 输入的当前记录数,每个文件单独计算</span><br><span class="line">$0 当前整个记录</span><br><span class="line">$n 当前记录和第n个域</span><br><span class="line"></span><br><span class="line">内置函数</span><br><span class="line">1、算数函数</span><br><span class="line">sqrt()、sin()、log()等</span><br><span class="line">2、字符串函数</span><br><span class="line">length [(String)]、tolower( String )等</span><br><span class="line">3、时间函数</span><br><span class="line">awk &#x27;BEGIN&#123;</span><br><span class="line">tstamp=mktime(&quot;2001 01 01 12 12 12&quot;);print</span><br><span class="line">strftime(&quot;%c&quot;,tstamp);&#125;&#x27;</span><br><span class="line"></span><br><span class="line">awk &#x27;BEGIN&#123; commands &#125; pattern&#123; commands &#125; END&#123; commands &#125;&#x27;</span><br><span class="line">BEGIN表示在awk开始从输入流中读取行之前被执行，比如变量初始化、打印输出表格的表头等语句通常可以写在BEGIN语句块中。</span><br><span class="line">END表示在awk从输入流中读取完所有的行之后即被执行，比如打印所有行的分析结果。这类信息汇总都是在END语句块中完成，它也是一个可选语句块。</span><br><span class="line">pattern语句块中的通用命令是最重要的部分，它也是可选的。如果没有提供pattern语句块，则默认执行&#123; print &#125;，即打印每一个读取到的行，awk读取的每一行都会执行该语句块。</span><br><span class="line"></span><br><span class="line">if(表达式)</span><br><span class="line">&#123;语句1&#125;</span><br><span class="line">else if(表达式) &#123;语句2&#125;</span><br><span class="line">else &#123;语句3&#125;</span><br><span class="line"></span><br><span class="line">awk &#x27;BEGIN&#123;</span><br><span class="line">	test=100;</span><br><span class="line">	if(test&gt;90)&#123;</span><br><span class="line">		print &quot;very good&quot;;</span><br><span class="line">	&#125;</span><br><span class="line">	else if(test&gt;60)&#123;</span><br><span class="line">		print &quot;good&quot;;</span><br><span class="line">	&#125;</span><br><span class="line">	else&#123;</span><br><span class="line">		print &quot;no pass&quot;;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;&#x27;</span><br><span class="line">结果：very good</span><br><span class="line"></span><br><span class="line">while(表达式)</span><br><span class="line">&#123;</span><br><span class="line">语句</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">awk &#x27;BEGIN&#123;</span><br><span class="line">	test=100;</span><br><span class="line">	total=0;</span><br><span class="line">	i=0;</span><br><span class="line">	while(i&lt;=test)&#123;</span><br><span class="line">		total+=i;</span><br><span class="line">		i++; </span><br><span class="line">	&#125;</span><br><span class="line">	print i;</span><br><span class="line">	print total; </span><br><span class="line">&#125;&#x27;</span><br><span class="line">结果： 5050</span><br><span class="line"></span><br><span class="line">for(变量 in 数组) &#123;语句&#125;</span><br><span class="line">awk &#x27;BEGIN&#123;</span><br><span class="line">	total=0;</span><br><span class="line">	for(i=0;i&lt;=100;i++)&#123;</span><br><span class="line">		total+=i;</span><br><span class="line">	&#125;</span><br><span class="line">	print total;</span><br><span class="line">&#125;&#x27;</span><br><span class="line">结果：5050</span><br></pre></td></tr></table></figure>
+<h3 id="sort">sort</h3>
+<p>sort是一个用于排序的文本处理工具</p>
+<ul>
+<li>以行为单位进行排序</li>
+<li>以指定分隔符对内容进行分列</li>
+<li>对指定列进行升序或降序</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sort [选项] [文件]</span><br><span class="line">• 常用排序选项</span><br><span class="line">-r 按降序排序（默认升序）</span><br><span class="line">-t &lt;分隔符&gt; 指定分隔符</span><br><span class="line">默认的分隔符为空白字符和非空白字符之间的空字符</span><br><span class="line">-n 依照数值排序（默认按字符）</span><br><span class="line">-f 忽略大小写</span><br><span class="line">-b 忽略每行开始的空格字符</span><br><span class="line">-d 只处理英文字母、数字及空格</span><br><span class="line">-i 忽略非打印字符</span><br><span class="line">-M 按照月份排序（与系统日期表示方式有关）</span><br><span class="line">• 其他常用选项</span><br><span class="line">-c 检查文本是否有序</span><br><span class="line">-k 根据某个键进行排序</span><br><span class="line">-o &lt;文件名&gt; 将结果保存到文件（默认输出到标准输出）</span><br><span class="line"></span><br><span class="line">sort file.txt 默认排序（按第一列升序）</span><br><span class="line">sort -c file.txt 检查是否有序</span><br><span class="line">sort -r file.txt 第一列降序排列</span><br><span class="line">sort -n -k 3 file.txt 第三列按数值升序排列</span><br><span class="line">sort -k 4M file.txt 第四列按月升序排列</span><br></pre></td></tr></table></figure>
+<h2 id="用户系统">用户系统</h2>
+<p>账户的实质上是一个用户在系统上的标识,系统依据账户来区分每个用户的文件、进程、任务</p>
+<ul>
+<li><p>普通用户账户：在系统上的任务是进行普通工作</p></li>
+<li><p>超级用户账户：在系统上的任务是对普通用户和整个系统进行管理。</p></li>
+<li><p>系统用户账户：伪用户，并不能登录，由操作系统自己操作。 每个用户都被分配了一个唯一的用户ID号（UID）</p></li>
+<li><p>超级用户：UID=0，GID=0</p></li>
+<li><p>普通用户：UID&gt;=500(有的系统是1000)</p></li>
+<li><p>系统用户（伪用户，不可登录）：0&lt;UID&lt;500（有的系统是1000）</p></li>
+</ul>
+<p>用户名和 UID 被保存在 /etc/passwd 这个文件中</p>
+<h3 id="组">组</h3>
+<ul>
+<li>组是用户的集合</li>
+<li>每个组都被分配了一个唯一的组ID号（GID）</li>
+<li>组和GID 被保存在 /etc/group 文件中</li>
+<li>每个用户都有他们自己的私有组</li>
+<li>每个用户都可以被添加到其他组中来获得额外的存取权限</li>
+<li>组中的所有用户都可以共享属于该组的文件</li>
+<li>当一个用户同属于多个组时，将这些组分为：
+<ul>
+<li>主组（初始组）：用户登录系统时的组</li>
+<li>附加组：可切换的其他组</li>
+</ul></li>
+</ul>
+<h3 id="权限管理">权限管理</h3>
+<p>口令文件 /etc/passwd</p>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>name</th>
+<th>password</th>
+<th>uid</th>
+<th>gid</th>
+<th>description</th>
+<th>home</th>
+<th>shell</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>用户名</td>
+<td>在此文件中的口令是X,这表示用户的口令是被/etc/shadow文件保护的</td>
+<td>用户的识别号,是一个数字。每个用户的UID都是唯一的</td>
+<td>用户的组的识别号,也是一个数字。每个用户账户在建立好后都会有一个主组。主组相同的账户其GID相同。</td>
+<td>用户的个人资料,包括地址、电话等信息</td>
+<td>用户的主目录,通常在/home下,目录名和账户名相同</td>
+<td>用户登录后启动的shell,默认是/bin/bash</td>
+</tr>
+</tbody>
+</table>
+<p>组账号文件 /etc/group<br />
+被加密后的密码实际上储存在/etc/shadow中(包括修改密码时间，修改密码的最小最大时间间隔，警告修改时间等)<br />
+组口令则储存在/etc/gshadow<br />
+用户管理相关命令：<br />
+useradd , userdel, usermod ,passwd ,chage ,su,sudo<br />
+groupadd, groupdel, groupmod<br />
+权限管理相关命令：</p>
+<ul>
+<li>权限设定命令 chmod</li>
+<li>修改文件的属主和/或组命令 chown</li>
+<li>修改文件的所属组命令 chgrp</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">useradd [&lt;选项&gt;] &lt;用户名&gt;</span><br><span class="line">-g group 指定新用户的主（私有）组。</span><br><span class="line">-d directory 指定新用户的主目录。</span><br><span class="line">-s shell 指定新用户使用的Shell，默认为bash。</span><br><span class="line">-e expire 指定用户的登录失效时间，例如：08/10/2001</span><br><span class="line">-M 不建立新用户的主目录。</span><br><span class="line"></span><br><span class="line">userdel [&lt; -r &gt;] &lt;用户名&gt;</span><br><span class="line">-r 用于删除用户的主目录</span><br><span class="line"></span><br><span class="line">usermod [&lt;选项&gt;] &lt;用户名&gt;</span><br><span class="line">-l newname 修改登录用户名，但文件夹名称等不会改变</span><br><span class="line">-G groupname 增加附加组。</span><br><span class="line">-L 锁定账户，不能登录</span><br><span class="line">-U 解锁账户，恢复登录</span><br><span class="line">-d home_dir 设置新的主目录</span><br><span class="line"></span><br><span class="line">passwd [&lt;用户账号名&gt;]</span><br><span class="line">-l 锁定账户</span><br><span class="line">-u 解锁账户</span><br><span class="line">-d 删除口令</span><br><span class="line"></span><br><span class="line">修改用户账户密码过期信息 chage</span><br><span class="line">chage [选项] [&lt;用户账户名&gt;]</span><br><span class="line">-m days 设置最小天数，0表示永不过期</span><br><span class="line">-M days 设置最/大天数</span><br><span class="line">-W days 设置警告天数</span><br><span class="line">-l 查询过期信息</span><br><span class="line">-d days 设置密码最后修改的天数</span><br><span class="line"></span><br><span class="line">id 显示用户当前的uid、gid和用户所属的组列表</span><br><span class="line">groups 显示指定用户所属的组列表</span><br><span class="line">whoami 显示当前用户的名称</span><br><span class="line">w/who 显示登录用户及相关信息</span><br><span class="line">newgrp 用于转换用户的当前组到指定的组账号，用户必须属</span><br><span class="line">于该组才可以正确执行该命令</span><br></pre></td></tr></table></figure>
+<p>sudo的权限配置存在/etc/sudoers,用<code>visudo</code>配置<br />
+<img src="/assets/resources/Pasted%20image%2020231227224944.png" /></p>
+<p>权限对应数字：</p>
+<table>
+<thead>
+<tr class="header">
+<th>r</th>
+<th>4</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>w</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td>x</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>-</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">```chmod [who] [+| - |=] [permission] 文件或目录名</span><br><span class="line">u 属主（user） </span><br><span class="line">g 同组（group） </span><br><span class="line">o 其他（others） = 直接赋予某权限并取消其他所有权限</span><br><span class="line">a 所有（all） </span><br><span class="line"></span><br><span class="line">chmod u+rw myfile</span><br><span class="line">chmod a+rx,u+w myfile</span><br><span class="line">chmod u+rwx,g+rx,o+rx myfile</span><br><span class="line">chmod a+rwx ,g-w,o-w myfile</span><br><span class="line">chmod a=rwx myfile</span><br><span class="line">chmod go=rx myfile</span><br><span class="line">chmod u-wx,go-x myfile</span><br><span class="line"></span><br><span class="line">修改属主或属组//root</span><br><span class="line">chown [-R] &lt;用户名[:组名]&gt; &lt;文件｜目录&gt;</span><br><span class="line">chown user1 myfile</span><br><span class="line">chown -R user1:softgrp mydir</span><br><span class="line"></span><br><span class="line">修改属组//root</span><br><span class="line">chgrp [-R] &lt;组名&gt; &lt;文件｜目录&gt;</span><br><span class="line">chgrp softgrp myfile</span><br><span class="line"></span><br><span class="line">修改查看默认创建权限 umask</span><br><span class="line">查看当前 umask 值：</span><br><span class="line">umask [-S]</span><br><span class="line">修改当前 umask 值：</span><br><span class="line">umask u1u2u3</span><br><span class="line"></span><br><span class="line">umask值被777减去则是新建目录权限：</span><br><span class="line">022</span><br><span class="line">root用户默认</span><br><span class="line">002</span><br><span class="line">普通用户默认</span><br></pre></td></tr></table></figure>
+<h2 id="系统管理">系统管理</h2>
+<h3 id="进程">进程</h3>
+<p>进程是正在运行的程序的实例。Linux是多任务系统，可以同时运行多个进程<br />
+PID ：进程识别号<br />
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">进程状态命令 ps</span><br><span class="line">BSD风格:</span><br><span class="line">a 显示与终端tty有关的所有进程信息</span><br><span class="line">x 显示所有非控制终端上的进程信息</span><br><span class="line">u 显示面向用户的信息列（用户名、CPU、内存等）</span><br><span class="line">pid号 显示指定进程pid信息</span><br><span class="line"></span><br><span class="line">UNIX风格</span><br><span class="line">-a 显示同一终端下的所有进程信息</span><br><span class="line">-A或-e 显示所有进程</span><br><span class="line">-l 显示长格式</span><br><span class="line">-H 显示进程的树状结构。</span><br><span class="line">-w 宽输出</span><br><span class="line">-f 完全显示信息，即增加显示用户名、PPID等信息</span><br><span class="line">-pid号 显示指定进程pid信息</span><br><span class="line"></span><br><span class="line">• 标准字段</span><br><span class="line">PID 进程标志号</span><br><span class="line">TTY 进程创建时对应的终端，？表示不占用终端</span><br><span class="line">TIME CPU累计使用时间</span><br><span class="line">CMD 执行进程的命令名称</span><br><span class="line">• 扩展字段</span><br><span class="line">UID 进程的用户ID</span><br><span class="line">PPID 父进程ID</span><br><span class="line">• BSD扩展字段</span><br><span class="line">USER 启动进程的用户</span><br><span class="line">%CPU 进程占用CPU时间与该进程总的运行时间的比例</span><br><span class="line">%MEM 进程占用的内存与总内存的比例</span><br><span class="line">VSZ 进程占用的虚拟内存大小</span><br><span class="line">STAT 进程运行状态（D、R、S、T、Z等）</span><br><span class="line">START 开始的时间</span><br><span class="line"></span><br><span class="line">进程终止命令 kill</span><br><span class="line">kill [选项] 进程号</span><br><span class="line">常用选项：</span><br><span class="line">-l 列出全部的信号名称。</span><br><span class="line">-a 当处理当前进程时，不限制命令名和进程号的对应关系。</span><br><span class="line">-p 指定kill 命令只打印相关进程的进程号，而不发送任何信号。</span><br><span class="line">-s 指定发送信号。</span><br><span class="line">-u 指定用户。</span><br><span class="line">-信号 描述进程终止发送的信号编号</span><br><span class="line">kill -9 2277 9号信号代表强制终止</span><br><span class="line"></span><br><span class="line">显示资源消耗最多的进程 top</span><br><span class="line">显示当前内存和交换空间的使用情况 free</span><br></pre></td></tr></table></figure></p>
+<h3 id="网络">网络</h3>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">测试网络的连通性 ping</span><br><span class="line">显示网络状态信息 netstat</span><br><span class="line">显示Socket信息 ss</span><br><span class="line">显示/临时配置网络接口信息 ip</span><br><span class="line"></span><br><span class="line">ping -c 10 192.168.1.100 进行10次ping</span><br><span class="line">ping www.suda.edu.cn 连续不停ping</span><br><span class="line"></span><br><span class="line">netstat 显示所有连接状态</span><br><span class="line">netstat -r 显示路由信息</span><br><span class="line"></span><br><span class="line">ss 显示所有连接状态</span><br><span class="line">ss -l 只显示listening连接</span><br><span class="line">ss -t 只显示TCP连接</span><br><span class="line"></span><br><span class="line">ip address show 显示所有网络接口信息</span><br><span class="line">ip a 简写显示所有网络接口信息</span><br><span class="line">ip add 192.168.1.2 dev eth0 为eth0增加IP地址</span><br><span class="line">ip del 192.168.1.2 dev eth0 为eth0增加IP地址</span><br><span class="line">ip link set eth0 up 启用eth0</span><br><span class="line">ip link set eth0 down 禁用eth0</span><br><span class="line">ip route 查询路由信息</span><br><span class="line"></span><br><span class="line">显示/临时配置网络接口信息 ifconfig</span><br><span class="line">ifconfig 显示所有网络接口信息</span><br><span class="line">ifconfig eth0 显示eth0设备接口信息</span><br><span class="line">ifconfig eth0 add 192.168.1.2 为eth0增加IP地址</span><br><span class="line">ifconfig eth0 up 启用eth0</span><br><span class="line">ifconfig eth0 down 禁用eth0</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="内核与软件">内核与软件</h3>
+<ul>
+<li>二进制软件包 优点：安装简单，可以本地安装也可以在线安装<br />
+缺点：灵活性一般，通常与平台或系统有关联<br />
+</li>
+<li>源代码包 优点：按需配置，可以适应多种平台系统<br />
+缺点：源代码无法直接运行，需要先编译再安装安装过程难度较大，对操作人员有一定要求</li>
+</ul>
+<p>gz,tgz,bz2等后缀压缩包</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">➢ 安装</span><br><span class="line">1、将压缩包解压到指定位置</span><br><span class="line">2、如果程序无需安装则直接可以运行程序</span><br><span class="line">3、如果需要安装则运行压缩包内的安装脚本或二进制的</span><br><span class="line">安装向导程序（setup、install、install.sh等）安装</span><br><span class="line">➢ 卸载</span><br><span class="line">1、如果程序无需安装则直接删除整个文件夹</span><br><span class="line">2、如果程序是安装的，则运行反安装脚本或程序</span><br></pre></td></tr></table></figure>
+<p>Red Hat、CentOS 和 Fedora 等使用 rpm 系统,rpm后缀</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">rpm [-ivhe] rpm包名</span><br><span class="line">-i 显示套件的相关信息</span><br><span class="line">-v 显示指令执行过程</span><br><span class="line">-h 显示安装进度</span><br><span class="line">-e 卸载套件</span><br><span class="line">rpm –ivh software.rpm 安装</span><br><span class="line">rpm –e software 卸载</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>Debian、Ubuntu、Mint 等系统使用 dpkg系统，deb后缀<br />
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">dpkg [-irPL] deb包名</span><br><span class="line">-i： 安装软件包；</span><br><span class="line">-r： 删除软件包；</span><br><span class="line">-P： 删除软件包的同时删除其配置文件；</span><br><span class="line">-L： 显示于软件包关联的文件；</span><br><span class="line">-l： 显示所有安装的包</span><br><span class="line">dpkg –i software.rpm 安装</span><br><span class="line">dpkg –r software 卸载</span><br><span class="line"></span><br><span class="line">apt [选项] 软件名称</span><br><span class="line">intall 安装</span><br><span class="line">update 检查升级</span><br><span class="line">upgrade 升级</span><br><span class="line">remove 卸载</span><br><span class="line">list 列出当前安装的软件</span><br><span class="line">search 搜索软件</span><br><span class="line"></span><br><span class="line">apt list --upgradeable</span><br><span class="line">apt list --installed </span><br></pre></td></tr></table></figure></p>
+<p><strong>内核编译概念</strong>：</p>
+<ul>
+<li>内核是硬件与软件之间的一个中间层</li>
+<li>内核模块是内核的一部分</li>
+<li>内核模块可以单独编译</li>
+<li>内核更新可以自定义功能或者优化系统</li>
+</ul>
+<h2 id="shell编程">shell编程</h2>
+<p>利用Shell提供的高级命令语言功能所写的程序称为Shell脚本。是纯文本文件，由shell解释执行，所以是解释型编程语言<br />
+可分为交互性与非交互性<br />
+退出脚本或当前Shell ：<code>exit n</code>,返回0表示成功，0-255是某种失败</p>
+<p>变量分类</p>
+<ul>
+<li>用户变量,由用户自己定义、修改和使用</li>
+<li>环境变量，由系统维护，用于设置用户的Shell工作环境,部分变量用户可以修改,用户也可以新增自定义的环境变量</li>
+<li>特殊参数变量（Special Parameters）,Bash 预定义的特殊变量，用户不能直接修改，但可以使用</li>
+</ul>
+<h3 id="用户变量">用户变量</h3>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">变量替换</span><br><span class="line">把命令运行结果以字符串形式传递给变量</span><br><span class="line">1、var=`pwd` 用倒引号``</span><br><span class="line">2、var=$(pwd) 用$()</span><br><span class="line"></span><br><span class="line">如果值中间包含空格、制表符或换行符则必须用引号引起来</span><br><span class="line">单引号不会进行变量引用，双引号会引用，使用\进行转义</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>除了直接赋值，也可以declare:<br />
+<code>declare [选项] variable[=value]</code></p>
+<table>
+<tbody>
+<tr class="odd">
+<td>-r</td>
+<td>只读 ( readonly )</td>
+<td>-a</td>
+<td>数组 ( array )</td>
+</tr>
+<tr class="even">
+<td>-x</td>
+<td>环境变量（export 为全局变量）</td>
+<td>-p</td>
+<td>列出变量</td>
+</tr>
+<tr class="odd">
+<td>-i</td>
+<td>整型 ( integer )</td>
+<td>-f -F</td>
+<td>列出函数 ( function )</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">ls</span> /mnt/c/Program Files/</span></span><br><span class="line">ls: cannot access /mnt/c/Program: No such file or directory</span><br><span class="line">ls: cannot access Files/: No such file or directory</span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="comment"># 对于 ls 来说，它接收到了两个参数：/mnt/c/Program 和 Files/，因此会报错。</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="comment"># 可以使用反斜杠来转义空格</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">ls</span> /mnt/c/Program\ Files/  <span class="comment"># 输出省略</span></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="comment"># 或者使用双引号或单引号包裹</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">ls</span> <span class="string">&quot;/mnt/c/Program Files/&quot;</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">ls</span> <span class="string">&#x27;/mnt/c/Program Files/&#x27;</span></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$PWD</span>&quot;</span>  <span class="comment"># 双引号中仍然可以使用各种 shell 特殊符号</span></span></span><br><span class="line">/home/ustc</span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">echo</span> <span class="string">&#x27;$PWD&#x27;</span>  <span class="comment"># 但是单引号则不行</span></span></span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">PWD</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">ls</span> -lh `<span class="built_in">which</span> <span class="built_in">ls</span>`  <span class="comment"># 查看 ls 命令对应的程序信息，使用反引号语法</span></span></span><br><span class="line">-rwxr-xr-x 1 root root 139K Sep  5  2019 /usr/bin/ls</span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">ls</span> -lh $(<span class="built_in">which</span> <span class="built_in">ls</span>) <span class="comment"># 使用 $(command) 语法也是一样的</span></span></span><br><span class="line">-rwxr-xr-x 1 root root 139K Sep  5  2019 /usr/bin/ls</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p><strong>数组</strong><br />
+申明：</p>
+<ul>
+<li>variable=(item1 item2 item2 ... )</li>
+<li>declare -a variable=(item1 item2 item2 ... ) 引用：${variable[n]}</li>
+</ul>
+<p>取消变量命令 <strong>unset</strong><br />
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">declare -a stu                       定义数组变量</span><br><span class="line">stu=(math1101 math1102 math1103)     数组赋值</span><br><span class="line">stu[1]=math                          单个赋值</span><br><span class="line">echo $&#123;stu[0]&#125;                       列出stu的第一个元素</span><br><span class="line">echo $&#123;stu[*]&#125;                       列出stu的所有元素</span><br><span class="line">echo $&#123;#stu[*]&#125;                      给出数组stu中元素的个数</span><br><span class="line">unset stu[1]                         删除stu的第二个元素</span><br><span class="line">unset stu                            删除整个数组</span><br></pre></td></tr></table></figure></p>
+<h3 id="环境变量">环境变量</h3>
+<p>比较重要的有</p>
+<table>
+<thead>
+<tr class="header">
+<th>历史信息</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>HISTFILE</td>
+<td>用于存储历史命令的文件</td>
+</tr>
+<tr class="even">
+<td>HISTSIZE</td>
+<td>历史命令列表的大小</td>
+</tr>
+<tr class="odd">
+<td>HOME</td>
+<td>当前用户的用户目录</td>
+</tr>
+<tr class="even">
+<td>USER</td>
+<td>当前用户名</td>
+</tr>
+<tr class="odd">
+<td>UID</td>
+<td>当前用户的UID</td>
+</tr>
+<tr class="even">
+<td>LANG</td>
+<td>当前用户的主语言环境</td>
+</tr>
+<tr class="odd">
+<td>TERM</td>
+<td>当前用户的终端类型</td>
+</tr>
+<tr class="even">
+<td>PATH</td>
+<td>Bash寻找可执行文件的搜索路径</td>
+</tr>
+<tr class="odd">
+<td>PWD</td>
+<td>当前工作目录</td>
+</tr>
+<tr class="even">
+<td>ENV</td>
+<td>Linux查找配置文件的路径</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">• 系统环境设置文件(对所有用户有效)</span><br><span class="line">登录环境设置文件：/etc/profile</span><br><span class="line">非登录环境设置文件：/etc/bashrc</span><br><span class="line">• 个人环境设置文件(只对用户自身生效)</span><br><span class="line">登录环境设置文件：$HOME/.bash_profile</span><br><span class="line">非登录环境设置文件： $HOME/.bashrc</span><br><span class="line"></span><br><span class="line">export 变量名=变量值</span><br><span class="line">export CLASSPATH=./JAVA_HOME/lib;$JAVA_HOME/jre/lib</span><br><span class="line">export设置的环境变量只在当此登录的Shell中有效</span><br></pre></td></tr></table></figure>
+<h3 id="位置变量">位置变量</h3>
+<p>$n 表示第n个参数值<br />
+<code>ls -l a*中，$1=-l $2=a*</code><br />
+左移参数命令 <code>shift [n]</code></p>
+<h3 id="变量操作">变量操作</h3>
+<p>判断变量是否存在或是否为空，并能对不存在或为空的变量作出相应的动作，这类操作称之为变量测试<br />
+<img src="/assets/resources/Pasted%20image%2020231227233342.png" /> <img src="/assets/resources/Pasted%20image%2020231227233431.png" /></p>
+<p>变量的间接引用<br />
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$(!varname) </span><br><span class="line">aaa=123</span><br><span class="line">Bbb=aaa</span><br><span class="line">Echo $bbb</span><br><span class="line">Echo $&#123;!bbb&#125;</span><br><span class="line">#运行结果</span><br><span class="line">aaa</span><br><span class="line">123</span><br><span class="line"></span><br><span class="line">eval \$$varname</span><br><span class="line">eval newstr=\$$str2</span><br><span class="line">echo $newstr</span><br><span class="line">Hello World</span><br><span class="line"></span><br><span class="line">告知shell取出参数，并重新运算参数内容 eval</span><br><span class="line">eval arg1 [arg2] ... [argN]</span><br><span class="line">eval会对参数进行扫描和替换</span><br><span class="line">1.将所有的参数连接成一个表达式，并计算或执行该表达式</span><br><span class="line">2.参数中的任何变量都将被展开</span><br></pre></td></tr></table></figure></p>
+<p><strong>算术运算</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">let num2=4+1</span><br><span class="line">• 赋值符号和运算符两边不能留空格！</span><br><span class="line">• 如果将字符串赋值给一个整型变量时，则变量的值为 0</span><br><span class="line">• 如果变量的值是字符串，则进行算术运算时设为 0</span><br><span class="line"></span><br><span class="line">expr</span><br><span class="line">#表达式中参数与操作符必须以空格分开。表达式中的运算可以是算术运算，比较运算，字符串运算和逻辑运算</span><br><span class="line">expr 5 \* 3 # 乘法符号必须被转义</span><br><span class="line">expr \( 2 + 5 \) \* 2 – 3 # 括号必须被转义</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="输入输出">输入输出</h3>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">read [参数] [var1 var2 ...]</span><br><span class="line">-p &quot;文字&quot; 后面跟提示信息，即在输入前打印提示信息</span><br><span class="line">-n num 定义输入的长度</span><br><span class="line"></span><br><span class="line">cat test.txt | while read line</span><br><span class="line"># cat 命令的输出作为read命令的输入,read读到&gt;的值放在line中</span><br><span class="line">do</span><br><span class="line">echo &quot;Content: $line&quot;</span><br><span class="line">done</span><br><span class="line"></span><br><span class="line">echo [选项] [文本]</span><br><span class="line">-n 不输出行尾的换行符.</span><br><span class="line">-e 允许加反斜线转义的字符进行解释.</span><br><span class="line">-E 禁止对在STRINGs中的那些序列进行解释</span><br><span class="line"></span><br><span class="line">printf [文本和格式] [参数列表]</span><br><span class="line">printf &quot;The number is: %.2f\n&quot; 100</span><br><span class="line">printf &quot;%-20s|%12.5f|\n&quot; &quot;Joy&quot; 10</span><br><span class="line">printf &quot;%-10d%010o%+10x\n&quot; 20 20 20</span><br><span class="line">printf &quot;%6d\t%6o\&quot;%6x\&quot;\n&quot; 20 20 20</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p><img src="/assets/resources/Pasted%20image%2020231227234149.png" /></p>
+<table>
+<thead>
+<tr class="header">
+<th>转义符</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>\\</code></td>
+<td>反斜线</td>
+</tr>
+<tr class="even">
+<td><code>\a</code></td>
+<td>报警符(BEL)</td>
+</tr>
+<tr class="odd">
+<td><code>\b</code></td>
+<td>退格符</td>
+</tr>
+<tr class="even">
+<td><code>\c</code></td>
+<td>禁止尾随的换行符</td>
+</tr>
+<tr class="odd">
+<td><code>\f</code></td>
+<td>换页符</td>
+</tr>
+<tr class="even">
+<td><code>\n</code></td>
+<td>换行符</td>
+</tr>
+<tr class="odd">
+<td><code>\r</code></td>
+<td>回车符</td>
+</tr>
+<tr class="even">
+<td><code>\t</code></td>
+<td>水平制表符</td>
+</tr>
+<tr class="odd">
+<td><code>\v</code></td>
+<td>纵向制表符</td>
+</tr>
+</tbody>
+</table>
+<h3 id="逻辑和流程运算">逻辑和流程运算</h3>
+<p>条件测试可以判断某个特定条件是否满足，Bash中没有布尔类型变量，0表示真，非0表示假</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">test &lt;测试表达式&gt;</span><br><span class="line">[ &lt;测试表达式&gt; ]</span><br><span class="line">[[ &lt;测试表达式&gt; ]] （bash 2.x 版本以上）</span><br><span class="line">格式1 和 格式2 是等价的，格式3是扩展的 test 命令</span><br><span class="line">在 [[ ]] 中可以使用通配符进行模式匹配</span><br><span class="line">例如&amp;&amp;, ||, &lt;, 和&gt;能够正常存在于[[ ]]中，但不能在 [] 中出现</span><br><span class="line">[和[[之后的字符必须为空格，]和]]之前的字符必须为空格</span><br><span class="line">要对整数进行关系运算也可以使用 (()) 进行测试</span><br><span class="line"></span><br><span class="line">[ -f fname ] fname 存在且是普通文件时，返回真 ( 即返回 0 )</span><br><span class="line">[ -L fname ] fname 存在且是链接文件时，返回真</span><br><span class="line">[ -d fname ] fname 存在且是一个目录时，返回真</span><br><span class="line">[ -e fname ] fname（文件或目录）存在时，返回真</span><br><span class="line">[ -s fname ] fname 存在且大小大于 0 时，返回真</span><br><span class="line">[ -r fname ] fname（文件或目录）存在且可读时，返回真</span><br><span class="line">[ -w fname ] fname（文件或目录）存在且可写时，返回真</span><br><span class="line">[ -x fname ] fname（文件或目录）存在且可执行时，返回真</span><br><span class="line"></span><br><span class="line">[ -z string ] 如果字符串string长度为0，返回真</span><br><span class="line">[ -n string ] 如果字符串string长度不为0，返回真</span><br><span class="line">[ str1 = str2 ] 两字符串相等（也可使用 == ）返回真</span><br><span class="line">[ str1 != str2 ] 两字符串不等返回真</span><br><span class="line">[[ str1 == str2 ]] 两字符串相同返回真</span><br><span class="line">[[ str1 != str2 ]] 两字符串不相同返回真</span><br><span class="line">[[ str1 =~ str2 ]] str2是str1的子串返回真</span><br><span class="line">[[ str1 &gt; str2 ]] str1大于str2返回真</span><br><span class="line">[[ str1 &lt; str2 ]] str1小于str2返回真</span><br><span class="line">字符串按从左到右对应字符的ASCII码进行比较</span><br><span class="line"></span><br><span class="line">• 检查空值</span><br><span class="line">[ &quot;$name&quot; = &quot;&quot; ]</span><br><span class="line">[ -z &quot;$name&quot; ]</span><br><span class="line">[ ! &quot;$name&quot; ]</span><br><span class="line">[ &quot;X$&#123;name&#125;&quot; = &quot;X&quot; ]</span><br><span class="line">• 检查非空值</span><br><span class="line">[ &quot;$name&quot; != &quot;&quot; ]</span><br><span class="line">[ -n &quot;$name&quot; ]</span><br><span class="line">[ &quot;$name&quot; ]</span><br><span class="line">[ &quot;X$&#123;name&#125;&quot; != &quot;X&quot; ]</span><br><span class="line">• 比较相等</span><br><span class="line">[ $ans = &quot;Yes&quot; ]</span><br><span class="line">[[ $ans == &quot;Yes&quot; ]]</span><br><span class="line">[[ $ans == [Yy]es ]]</span><br><span class="line"></span><br><span class="line">[[ int1 -eq int2 ]] int1 等于 int2 返回真</span><br><span class="line">[[ int1 -ne int2 ]] int1 不等于 int2 返回真</span><br><span class="line">[[ int1 -gt int2 ]] int1 大于 int2 返回真</span><br><span class="line">[[ int1 -ge int2 ]] int1 大于或等于 int2 返回真</span><br><span class="line">[[ int1 -lt int2 ]] int1 小于 int2 返回真</span><br><span class="line">[[ int1 -le int2 ]] int1 小于或等于 int2 返回真</span><br><span class="line">((int1 == int2)) int1 等于 int2 返回真</span><br><span class="line">((int1 != int2)) int1 不等于 int2 返回真</span><br><span class="line">((int1 &gt; int2)) int1 大于 int2 返回真</span><br><span class="line">((int1 &gt;= int2)) int1 大于或等于 int2 返回真</span><br><span class="line">((int1 &lt; int2)) int1 小于 int2 返回真</span><br><span class="line">((int1 &lt;= int2)) int1 小于或等于 int2 返回真</span><br><span class="line"></span><br><span class="line">[ expr1 -a expr2 ] 逻辑与，都为真时，结果为真</span><br><span class="line">[ expr1 -o expr2 ] 逻辑或，有一个为真时，结果为真</span><br><span class="line">[ ! expr ] 逻辑非</span><br><span class="line">[[ pattern1 &amp;&amp; pattern2 ]] 逻辑与</span><br><span class="line">[[ pattern1 || pattern2 ]] 逻辑或</span><br><span class="line">[[ ! pattern ]] 逻辑非</span><br><span class="line">(( expr1 &amp;&amp; expr2 )) 逻辑与</span><br><span class="line">(( expr1 || expr2 )) 逻辑或</span><br><span class="line">(( ! expr )) 逻辑非</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p><strong>流程控制</strong> <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">if expr1 # 如果 expr1 为真(返回值为0)</span><br><span class="line">then # 那么</span><br><span class="line">	commands1 # 执行语句块 commands1</span><br><span class="line">elif expr2 # 若 expr1 不真，而 expr2 为真</span><br><span class="line">then # 那么</span><br><span class="line">	commands2 # 执行语句块 commands2</span><br><span class="line">... ... # 可以有多个 elif 语句</span><br><span class="line">else # else 最多只能有一个</span><br><span class="line">	commands4 # 执行语句块 commands4</span><br><span class="line">fi # if 语句必须以单词 fi 终止</span><br><span class="line"></span><br><span class="line">myhost=centos1.ls-al.me</span><br><span class="line">if ping -c1 -w2 $myhost &amp;&gt;/dev/null</span><br><span class="line">then</span><br><span class="line">echo &quot;$myhost is UP.&quot;</span><br><span class="line">else</span><br><span class="line">echo &quot;$myhost is DOWN.&quot;</span><br><span class="line">fi</span><br><span class="line">if ((age&gt;=0&amp;&amp;age&lt;13)) ; then echo &quot;Child !&quot;</span><br><span class="line">elif ((age&gt;=13&amp;&amp;age&lt;20)); then echo &quot;Callan !&quot;</span><br><span class="line">elif ((age&gt;=20&amp;&amp;age&lt;30)); then echo &quot;P III !&quot;</span><br><span class="line">elif ((age&gt;=30&amp;&amp;age&lt;40)); then echo &quot;P IV !&quot;</span><br><span class="line">else echo &quot;Sorry I asked.&quot;</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">case expr in # expr 为表达式，关键词 in 不要忘！</span><br><span class="line">pattern1) # 若 expr 与 pattern1 匹配，注意括号</span><br><span class="line">commands1 # 执行语句块 commands1</span><br><span class="line">;; # 跳出 case 结构</span><br><span class="line">pattern2) # 若 expr 与 pattern2 匹配</span><br><span class="line">commands2 # 执行语句块 commands2</span><br><span class="line">;; # 跳出 case 结构</span><br><span class="line">... ... # 可以有任意多个模式匹配</span><br><span class="line">*) # 若 expr 与上面的模式都不匹配</span><br><span class="line">commands # 执行语句块 commands</span><br><span class="line">;; # 跳出 case 结构</span><br><span class="line">esac # case 语句必须以 esac 终止</span><br><span class="line"></span><br><span class="line">echo &quot;What is your preferred scripting language?&quot;</span><br><span class="line">echo &quot;1) bash&quot;</span><br><span class="line">echo &quot;2) perl&quot;</span><br><span class="line">echo &quot;3) python&quot;</span><br><span class="line">echo &quot;4) ruby&quot;</span><br><span class="line">echo &quot;5) I do not know !&quot;</span><br><span class="line">read lang</span><br><span class="line">case $lang in</span><br><span class="line">1) echo &quot;You selected bash&quot; ;;</span><br><span class="line">2) echo &quot;You selected perl&quot; ;;</span><br><span class="line">3) echo &quot;You selected python&quot;;;</span><br><span class="line">4) echo &quot;You selected ruby&quot; ;;</span><br><span class="line">5) exit</span><br><span class="line">esac</span><br><span class="line"></span><br><span class="line">read yn</span><br><span class="line">case $yn in</span><br><span class="line">1|[Ss]) echo &quot;You selected $yn&quot; ;;</span><br><span class="line">2|[Rr]) echo &quot;You selected $yn&quot; ;;</span><br><span class="line">3|[Ee]) echo &quot;You selected $yn&quot; ;;</span><br><span class="line">esac</span><br><span class="line"></span><br><span class="line">for variable in list</span><br><span class="line"># 每一次循环，依次把列表 list 中的一个值赋给循环变量</span><br><span class="line">do # 循环体开始的标志</span><br><span class="line">commands # 循环变量每取一次值，循环体就执行一遍</span><br><span class="line">done # 循环结束的标志，返回循环顶部</span><br><span class="line"></span><br><span class="line">for day in Mon Tue Wed Thu Fri ; do</span><br><span class="line">echo &quot;Weekday $((i++)) : $day&quot;</span><br><span class="line">done</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">for ((expr1;expr2;expr3)) # 执行 expr1</span><br><span class="line">do # 若 expr2的值为真时进入循环，否则退出 for循环</span><br><span class="line">commands # 执行循环体，之后执行 expr3</span><br><span class="line">done # 循环结束的标志，返回循环顶部</span><br><span class="line"></span><br><span class="line">for ((i=0;i&lt;10;i++))</span><br><span class="line">do</span><br><span class="line">echo $i</span><br><span class="line">done</span><br><span class="line"></span><br><span class="line">while expr # 执行 expr</span><br><span class="line">do # 若expr的退出状态为0，进入循环，否则退出while</span><br><span class="line">commands # 循环体</span><br><span class="line">done # 循环结束标志，返回循环顶部</span><br><span class="line"></span><br><span class="line">num =99</span><br><span class="line">while ((num&gt;10))</span><br><span class="line">do</span><br><span class="line">	echo &quot;num is above 10&quot;</span><br><span class="line">	num=$((RANDOM%100))</span><br><span class="line">done</span><br><span class="line">echo &quot;find a num below 10,the num is $num&quot;</span><br><span class="line"></span><br><span class="line">until ((num&lt;=10))</span><br><span class="line">do</span><br><span class="line">echo &quot;num is above 10&quot;</span><br><span class="line">num=$((RANDOM%100))</span><br><span class="line">done</span><br><span class="line">echo &quot;find a num below 10,the num is $num&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">select name in &quot;Linux&quot; &quot;Windows&quot; &quot;MacOS&quot; &quot;Android&quot; &quot;HarmonyOS&quot;</span><br><span class="line">do</span><br><span class="line">	case $name in</span><br><span class="line">		&quot;Linux&quot;)</span><br><span class="line">			echo &quot;Linux is the best os!&quot;</span><br><span class="line">			break</span><br><span class="line">			;;</span><br><span class="line">		&quot;Windows&quot;)</span><br><span class="line">			echo &quot;Windows is good!&quot;</span><br><span class="line">			break</span><br><span class="line">			;;</span><br><span class="line">		&quot;MacOS&quot;)</span><br><span class="line">			echo &quot;Mac OS is good!&quot;</span><br><span class="line">			break</span><br><span class="line">			;;</span><br><span class="line">		&quot;Android&quot;)</span><br><span class="line">			echo &quot;Android is a mobile os!&quot;</span><br><span class="line">			break</span><br><span class="line">			;;</span><br><span class="line">		&quot;MacOS&quot;)</span><br><span class="line">			echo &quot;Android is a mobile os!&quot;</span><br><span class="line">			break</span><br><span class="line">			;;</span><br><span class="line">		&quot;HarmonyOS&quot;)</span><br><span class="line">			echo &quot;HarmonyOS is a mobile os!&quot;</span><br><span class="line">			break</span><br><span class="line">			;;</span><br><span class="line">			esac</span><br><span class="line">done</span><br></pre></td></tr></table></figure></p>
+<p><strong>函数</strong></p>
+<ol type="1">
+<li>函数在使用前必须先定义</li>
+<li>返回值$？（0~255） <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[ function ] funname [()] //申明函数</span><br><span class="line">&#123;</span><br><span class="line">	action; //函数内部语句</span><br><span class="line">	[return int;] //返回值，如不带则返回最后一条命令的执行状态</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h1 id="linux101">linux101</h1>
+<p><img src="/assets/苏大linux_ppt/clitool.png" /></p>
+<h2 id="apt">apt</h2>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ apt search firefox</span><br><span class="line">Sorting... Done</span><br><span class="line">Full Text Search... Done</span><br><span class="line">(Output omitted)</span><br><span class="line"></span><br><span class="line">firefox/bionic-updates,bionic-security,now 72.0.2+build1-0ubuntu0.18.04.1 amd64</span><br><span class="line">  Safe and easy web browser from Mozilla</span><br><span class="line"></span><br><span class="line">(Output omitted)</span><br></pre></td></tr></table></figure>
+<p>中间两行每个字段的含义：</p>
+<table>
+<thead>
+<tr class="header">
+<th>样例中的字段</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>firefox</code></td>
+<td>即为在软件仓库中的包名</td>
+</tr>
+<tr class="even">
+<td><code>bionic-updates,bionic-security,now</code></td>
+<td>为包含这个软件包的仓库源</td>
+</tr>
+<tr class="odd">
+<td><code>72.0.2+build1-0ubuntu0.18.04.1</code></td>
+<td>为软件包的版本</td>
+</tr>
+<tr class="even">
+<td><code>amd64</code></td>
+<td>软件包的架构；还可能为<code>i386</code>、<code>all</code>等</td>
+</tr>
+<tr class="odd">
+<td><code>Safe and easy web browser from Mozilla</code></td>
+<td>在软件仓库中对这个软件包的描述</td>
+</tr>
+</tbody>
+</table>
+<div class="note warning"><p>请避免直接使用 <code>dpkg -i</code> 安装 deb 包。 在绝大多数情况下，都应该使用 <code>apt</code> 来安装 deb 文件。 如果不小心执行了 <code>dpkg -i</code> 导致系统出现依赖问题，可以尝试通过如下的方式调用 <code>apt</code> 帮助修复依赖管理：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo apt -f install</span><br></pre></td></tr></table></figure>
+</div>
+<h2 id="环境变量-1">环境变量</h2>
+<p>我们不能每次在需要编译程序的时候输入如此长的路径找到 <code>clang</code> 和 <code>clang++</code>，而更希望的是能够像 <code>apt</code> 那样在任何地方都可以直接运行。</p>
+<p>我们可以这样做：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 将 clang+llvm-10.0.0-x86_64-linux-gnu-ubuntu-18.04 目录下的所有内容复制到 /usr/local/ 下</span><br><span class="line">sudo cp -R * /usr/local/</span><br></pre></td></tr></table></figure>
+<p>为什么是 <code>/usr/local</code> 呢？因为 <code>/usr/local/bin</code> 处在 PATH 环境变量下。当我们在终端输入命令时，终端会先判断是否为终端的内建命令，如果不是，则会在 $PATH 环境变量中包含的目录下进行查找。因此，只要我们将一个可执行文件放入了 $PATH 中的目录下面，我们就可以像 <code>apt</code> 一样，在任意地方调用我们的程序。 通过这个命令可以看到当前的 PATH 环境变量有哪些目录。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ echo $PATH</span><br><span class="line">/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin</span><br></pre></td></tr></table></figure>
+<p>在上面的复制过程中，源目录和目标目录的两个 <code>bin</code> 目录会相互合并，<code>clang</code> 和 <code>clang++</code> 两个可执行文件也就被复制到了 <code>/usr/local/bin/</code> 目录中。这样子也就达到了我们希望能够在任意地方调用我们的可执行文件的目的。此外，在复制的时候 lib、doc 等文件夹也会和 <code>/usr/local</code> 下的对应目录合并，将 clang 的库和文档加到系统当中。</p>
+<h2 id="模式匹配">模式匹配</h2>
+<p>许多现代的 shell 都支持一定程度的模式匹配。举个例子，bash 的匹配模式被称为 <a href="https://mywiki.wooledge.org/glob">glob</a>，支持的操作如下：</p>
+<table>
+<thead>
+<tr class="header">
+<th>模式</th>
+<th>匹配的字串</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>*</code></td>
+<td>任意字串</td>
+</tr>
+<tr class="even">
+<td><code>foo*</code></td>
+<td>匹配 foo 开头的字串</td>
+</tr>
+<tr class="odd">
+<td><code>*x*</code></td>
+<td>匹配含 x 的字串</td>
+</tr>
+<tr class="even">
+<td><code>?</code></td>
+<td>一个字符</td>
+</tr>
+<tr class="odd">
+<td><code>a?b</code></td>
+<td><code>acb</code>、<code>a0b</code> 等，但不包含 <code>a00b</code></td>
+</tr>
+<tr class="even">
+<td><code>*.[ch]</code></td>
+<td>以 .c 或 .h 结尾的文件</td>
+</tr>
+</tbody>
+</table>
+<div class="note info no-icon"><p>除了上面提到的 glob，bash 还支持 <a href="https://www.linuxjournal.com/content/bash-extended-globbing">extglob</a>，不过需要先用 <code>shopt -s extglob</code> 启用。</p>
+</div>
+<h2 id="进程-1">进程</h2>
+<h3 id="htop">htop</h3>
+<p>Htop 可以简单方便查看当前运行的所有进程，以及系统 CPU、内存占用情况与系统负载等信息。</p>
+<p>使用鼠标与键盘都可以操作 htop。Htop 界面的最下方是一些选项，使用鼠标点击或按键盘的 F1 至 F10 功能键可以选择这些功能，常用的功能例如搜索进程（F3, Search）、过滤进程（F4, Filter，使得界面中只有满足条件的进程）、切换树形结构/列表显示（F5, Tree/List）等等。</p>
+<p><strong>进程标识符</strong>（PID，Process Identifier（是一个数字，是进程的唯一标识。在 htop 中，最左侧一列即为 PID。当用户想挂起、继续或终止进程时可以使用 PID 作为索引。</p>
+<p>在 htop 中，直接单击绿色条内的 PID 栏，可以将进程顺序按照 PID 升序排列，再次点击为降序排列，同理可应用于其他列。</p>
+<div class="note info no-icon"><p>按照 PID 排序时，我们可以观察系统启动的过程。Linux 系统内核从引导程序接手控制权后，开始内核初始化，随后变为 <strong>init_task</strong>，初始化自己的 PID 为 0。随后创建出 1 号进程（init 程序，目前一般为 systemd）衍生出用户空间的所有进程，创建 2 号进程 kthreadd 衍生出所有内核线程。随后 0 号进程成为 idle 进程，1 号、2 号并非特意预留，而是产生进程的自然顺序使然。</p>
+<p>由于 kthreadd 运行于内核空间，故需按大写 K（Shift + k）键显示内核进程后才能看到。然而无论如何也不可能在 htop 中看到 0 号进程本体，只能发现 1 号和 2 号进程的 PPID 是 0。</p>
+</div>
+<h4 id="linux对进程的分类">linux对进程的分类</h4>
+<p><code>Status: R: running; S: sleeping; T: traced/stopped; Z: zombie; D: disk sleep</code> S 对应的 sleeping 又称 interruptible sleep，字面意思是「可以被中断」；而 D 对应的 disk sleep 又称 uninterruptible sleep，不可被中断，一般是因为阻塞在磁盘读写操作上。 Zombie 是僵尸进程，该状态下进程已经结束，只是仍然占用一个 PID，保存一个返回值。而 traced/stopped 状态正是下文使用 Ctrl + Z 导致的挂起状态（大写 T），或者是在使用 gdb 等调试（Debug）工具进行跟踪时的状态（小写 t）。</p>
+<table>
+<thead>
+<tr class="header">
+<th>状态</th>
+<th>缩写表示</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Running</td>
+<td>R</td>
+<td>正在运行/可以立刻运行</td>
+</tr>
+<tr class="even">
+<td>Sleeping</td>
+<td>S</td>
+<td>可以被中断的睡眠</td>
+</tr>
+<tr class="odd">
+<td>Disk Sleep</td>
+<td>D</td>
+<td>不可被中断的睡眠</td>
+</tr>
+<tr class="even">
+<td>Traced / Stopped</td>
+<td>T</td>
+<td>被跟踪/被挂起的进程</td>
+</tr>
+<tr class="odd">
+<td>Zombie</td>
+<td>Z</td>
+<td>僵尸进程</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ps">ps</h3>
+<p>ps（<strong>p</strong>rocess <strong>s</strong>tatus）是常用的输出进程状态的工具。直接调用 <code>ps</code> 仅会显示本终端中运行的相关进程。如果需要显示所有进程，对应的命令为 <code>ps aux</code>。</p>
+<h3 id="优先级与-nice-值">优先级与 nice 值</h3>
+<p>有了进程，谁先运行？谁给一点时间就够了，谁要占用大部分 CPU 时间？这又是如何决定的？这些问题之中体现着优先权的概念。如果说上面所介绍的的那些进程属性描述了进程的控制信息，那么<strong>优先级</strong>则反映操作系统调度进程的手段。在 htop 的显示中有两个与优先级有关的值：Priority（PRI）和 <strong>nice（NI）</strong>。以下主要介绍用户层使用的 nice 值。</p>
+<p>Nice 值越高代表一个进程对其它进程越 "nice"（友好），对应的优先级也就更低。Nice 值最高为 19，最低为 -20。通常，我们运行的程序的 nice 值为 0。我们可以打开 htop 观察与调整每个进程的 nice 值。</p>
+<p>用户可以使用 <code>nice</code> 命令在运行程序时指定优先级，而 <code>renice</code> 命令则可以重新指定优先级。当然，若想调低 nice 值，还需要 <code>sudo</code>（毕竟不能随便就把自己的优先级设置得更高，不然对其他的用户不公平）。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">nice -n 10 vim # 以 10 为 nice 值运行 vim</span><br><span class="line">renice -n 10 -p 12345 # 设置 PID 为 12345 的进程的 nice 值为 10</span><br></pre></td></tr></table></figure>
+<div class="note info no-icon"><p>如果你在 htop 中测试调整进程的 nice 值，可能会发现一个公式：<code>PRI = nice + 20</code>。这对于普通进程是成立的——普通进程的 PRI 会被映射到一个非负整数。</p>
+<p>但在正常运行的 Linux 系统中，我们可能会发现有些进程的 PRI 值是 RT，或者是负数。这表明对应的进程有更高的实时性要求（例如内核进程、音频相关进程等），采用了与普通进程不同的调度策略，优先级也相应更高。</p>
+</div>
+<h3 id="用户进程控制">用户进程控制</h3>
+<p><img src="https://101.lug.ustc.edu.cn/Ch04/images/signal_slide.png" /> 信号是 Unix 系列系统中进程之间相互通信的一种机制。发送信号的 Linux 命令叫作 <code>kill</code>。被称作 "kill" 的原因是：早期信号的作用就是关闭（杀死）进程。</p>
+<h3 id="前后台">前后台</h3>
+<p><img src="https://101.lug.ustc.edu.cn/Ch04/images/bg.gif" /> 默认情况下，在 shell 中运行的命令都在前台运行，如果需要在后台运行程序，需要在最后加上 <code>&amp;</code> 而如果需要将前台程序切换到后台，则需要按下 Ctrl + Z 发送 SIGTSTP 使进程挂起，控制权还给 shell 我们可以使用 <code>jobs</code> 命令，看到当前 shell 上所有相关的进程 任务前的代号在 fg，bg，乃至 kill 命令中发挥作用。使用时需要在前面加 <code>%</code>，如将 2 号进程放入后台，则使用 <code>bg %2</code> <div class="note info no-icon"><p>然而我们也许会关注一个细节，在图中显示的编号后面跟着的加号和减号是什么？</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[1]  - running    ./signal handle</span><br><span class="line">[2]  + suspended  ping localhost</span><br></pre></td></tr></table></figure>
+<p>这里的加号标记了 fg 和 bg 命令默认作用到的任务为 2，所以这里 <code>bg %2</code> 也可以直接简化为 <code>bg</code>。减号表示如果加号标记的进程退出了，它就会成为加号标记进程。我们也可以用 <code>%+</code> 和 <code>%-</code> 指代这两个任务。</p>
+</div></p>
+<h3 id="终止进程">终止进程</h3>
+<p>标准的终止进程信号是 SIGTERM，意味着一个进程的自然死亡</p>
+<ul>
+<li>htop 中自带向进程发送信号的功能。按下 K 键，在左侧提示栏中选择需要的信号，按下回车发送。同时可以使用空格对进程进行标记，被标记的进程将改变显示颜色。此时重复上述过程，可对被标记进程批量发送信号。</li>
+<li>如果不加任何参数，只有 PID，<code>kill</code> 命令将自动使用 15（SIGTERM）作为信号参数。</li>
+<li>在信号中，9 代表 SIGKILL，收到这个信号之后，程序会立刻退出。在使用时，直接 <code>kill -9 PID</code> 即可。</li>
+</ul>
+<h3 id="其他类-kill-命令">其他类 kill 命令</h3>
+<ul>
+<li><p><code>pgrep</code> / <code>pkill</code> 后面接模糊名称，实际上类似于对名称进行 <code>grep</code> 命令。<code>pgrep</code> 仅列出搜索到的进程名称符合用户输入的进程标识符，而 <code>pkill</code> 会根据用户的输入向进程发送信号。</p></li>
+<li><p><code>killall</code> 与 <code>pkill</code> 有一些类似，会向指定名字的进程发送信号。</p></li>
+<li><p><code>xkill</code> <code>xkill</code> 是针对窗口的 kill，运行该命令后，鼠标点击程序对应的窗口，就可以杀死该程序。</p></li>
+</ul>
+<h3 id="脱离终端">脱离终端</h3>
+<p>如果你使用过 SSH 连接到远程服务器执行任务，那么你会发现，你在 shell 中执行的程序在 SSH 断开之后会被关闭。这是因为终端一旦被关闭会向其中每个进程发送 SIGHUP（Signal hangup），而 SIGHUP 的默认动作即退出程序运行。</p>
+<h4 id="nohup">nohup</h4>
+<p>nohup，字面含义，就是「不要被 SIGHUP 影响」。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ nohup ping 101.ustclug.org &amp;</span><br><span class="line">[1] 19258</span><br><span class="line">nohup: ignoring input and appending output to &#x27;/home/ustc/nohup.out&#x27;</span><br></pre></td></tr></table></figure>
+<p>在需要屏蔽 SIGHUP 的程序前添加 nohup，则运行时的输出将被<a href="https://101.lug.ustc.edu.cn/Ch06/#redirect">重定向</a>到 nohup.out，也可以通过重定向手段自定义输出的文件。</p>
+<h2 id="服务">服务</h2>
+<h3 id="服务管理">服务管理</h3>
+<p>目前绝大多数 Linux 发行版的 init 方案都是 systemd，其管理系统服务的命令是 <code>systemctl</code>。</p>
+<p>若想了解全部服务内容，可以运行 <code>systemctl list-units</code> 来查看。该命令将显示所有 systemd 管理的单元，同时右面还会附上一句注释来表明该服务的任务。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ tldr systemctl</span><br><span class="line">systemctl</span><br><span class="line">Control the systemd system and service manager.</span><br><span class="line"></span><br><span class="line">    - List failed units:  # 列出运行失败的服务</span><br><span class="line">    systemctl --failed</span><br><span class="line"></span><br><span class="line">    - Start/Stop/Restart/Reload a service:  # 开启/关闭/重启/重载服务。Reload 代表重载配置文件而不重启进程。</span><br><span class="line">    systemctl start/stop/restart/reload &#123;&#123;unit&#125;&#125;</span><br><span class="line"></span><br><span class="line">    - Show the status of a unit:  # 显示服务状态</span><br><span class="line">    systemctl status &#123;&#123;unit&#125;&#125;</span><br><span class="line"></span><br><span class="line">    - Enable/Disable a unit to be started on bootup:  # 设置（Enable）/取消（Disable）服务开机自启</span><br><span class="line">    systemctl enable/disable &#123;&#123;unit&#125;&#125;</span><br><span class="line"></span><br><span class="line">    - Mask/Unmask a unit, prevent it to be started on bootup:  # 阻止/取消阻止服务被 enable</span><br><span class="line">    systemctl mask/unmask &#123;&#123;unit&#125;&#125;</span><br><span class="line"></span><br><span class="line">    - Reload systemd, scanning for new or changed units:  # 重载 systemd，需要在创建或修改服务文件后执行</span><br><span class="line">    systemctl daemon-reload</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<div class="note info no-icon"><p>wsl默认不支持systemctl,可以使用传统的service</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ tldr service</span><br><span class="line">service</span><br><span class="line">Manage services by running init scripts.</span><br><span class="line">The full script path should be omitted (/etc/init.d/ is assumed).</span><br><span class="line"></span><br><span class="line"> - Start/Stop/Restart/Reload service (start/stop should always be available):</span><br><span class="line">   service &#123;&#123;init_script&#125;&#125; &#123;&#123;start|stop|restart|reload&#125;&#125;</span><br><span class="line"></span><br><span class="line"> - Do a full restart (runs script twice with start and stop):</span><br><span class="line">   service &#123;&#123;init_script&#125;&#125; --full-restart</span><br><span class="line"></span><br><span class="line"> - Show the current status of a service:</span><br><span class="line">   service &#123;&#123;init_script&#125;&#125; status</span><br><span class="line"></span><br><span class="line"> - List the status of all services:</span><br><span class="line">   service --status-all</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>或者手动打开</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo vim /etc/wsl.conf</span><br></pre></td></tr></table></figure>
+<p>输入：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[boot]</span><br><span class="line">systemd=true</span><br></pre></td></tr></table></figure>
+<p>然后在windows终端wsl --shutdown再重启</p>
+</div>
+<div class="note info no-icon"><p><strong>编写 .service 文件并运行（以 Jupyter Notebook 为例）</strong></p>
+<p>Jupyter Notebook 是基于浏览器的交互式编程平台，在数据科学领域非常常用。</p>
+<p>首先使用文本编辑器在 <code>/etc/systemd/system</code> 目录下创建一个名为 <code>jupyter.service</code> 的文件。并填入以下内容：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=Jupyter Notebook    # 该服务的简要描述</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">PIDFile=/run/jupyter.pid        # 用来存放 PID 的文件</span><br><span class="line">ExecStart=/usr/local/bin/jupyter-notebook --allow-root</span><br><span class="line">                                # 使用绝对路径标明的命令及命令行参数</span><br><span class="line">WorkingDirectory=/root          # 服务启动时的工作目录</span><br><span class="line">Restart=always                  # 重启模式，这里是无论因何退出都重启</span><br><span class="line">RestartSec=10                   # 退出后多少秒重启</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target      # 依赖目标，这里指进入多用户模式后再启动该服务</span><br></pre></td></tr></table></figure>
+<p>将写好的配置文件保存为 <code>/etc/systemd/system/jupyter.service</code>，然后运行 <code>systemctl daemon-reload</code>，就可以使用 <code>systemctl</code> 命令来管理这个服务了，例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">systemctl start jupyter</span><br><span class="line">systemctl stop jupyter</span><br><span class="line">systemctl enable jupyter  # enable 表示标记服务的开机自动启动</span><br><span class="line">systemctl disable jupyter # 取消自启</span><br></pre></td></tr></table></figure>
+</div>
+<h3 id="例行性任务">例行性任务</h3>
+<p>可以用at，crontab等工具创建例行性任务 详见<a href="https://101.lug.ustc.edu.cn/Ch04/#crontab">linux101</a></p>
+<div class="note info no-icon">
+</div>
+<h2 id="用户权限和文件系统">用户权限和文件系统</h2>
+<p>可以查看 <code>/etc/passwd</code> 文件，来得到系统中用户的配置信息。 普通用户的文件存储于位于 <code>/home/username/</code>路径</p>
+<div class="note info no-icon"><p>你是否常常忘记敲 <code>sudo</code>，结果还要把后面的整条命令重新敲一遍？在发现权限不足之后有一个方便的「补救方案」：<code>sudo !!</code>，效果如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ apt update</span><br><span class="line">Reading package lists... Done</span><br><span class="line">E: Could not open lock file /var/lib/apt/lists/lock - open (13: Permission denied)</span><br><span class="line">E: Unable to lock directory /var/lib/apt/lists/</span><br><span class="line">W: Problem unlinking the file /var/cache/apt/pkgcache.bin - RemoveCaches (13: Permission denied)</span><br><span class="line">W: Problem unlinking the file /var/cache/apt/srcpkgcache.bin - RemoveCaches (13: Permission denied)</span><br><span class="line">$ sudo !!</span><br><span class="line">sudo apt update</span><br><span class="line">[sudo] password for ustc:</span><br><span class="line">Hit:1 http://mirrors.ustc.edu.cn/ubuntu bionic InRelease</span><br><span class="line">（以下内容省略）</span><br></pre></td></tr></table></figure>
+<p>其实，在 Shell 中，<code>!!</code> 即代表上一条命令，可以和其他的命令结合使用。</p>
+</div>
+<p>以 <code>root</code> 之外的用户的身份执行命令：加上 <code>-u 用户名</code> 的参数即可。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ sudo -u nobody id</span><br><span class="line">uid=65534(nobody) gid=65534(nogroup) groups=65534(nogroup)</span><br></pre></td></tr></table></figure>
+<h3 id="用户组">用户组</h3>
+<p>用户组是用户的集合。通过用户组机制，可以为一批用户设置权限。可以使用 <code>groups</code> 命令，查看自己所属的用户组。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ groups</span><br><span class="line">ustc adm cdrom sudo dip plugdev lxd</span><br></pre></td></tr></table></figure>
+<p>用户组和用户一样，也有编号：GID (Group ID)。 <div class="note info no-icon"><p><code>adduser</code> 是 Debian 及其衍生发行版中附带的一个方便的用户管理脚本。它可以用来向系统添加用户、添加组，以及将用户加入组。输入：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo adduser 用户名</span><br></pre></td></tr></table></figure>
+<p>即可添加此用户。而输入</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo adduser --group 组名</span><br></pre></td></tr></table></figure>
+<p>即可添加此用户组。将用户加入指定用户组也非常简单：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo adduser 用户名 组名</span><br></pre></td></tr></table></figure>
+<p>在通过 <code>adduser</code> 创建了新的用户后，直接使用 <code>sudo</code> 以 <code>root</code> 身份运行程序可能会得到：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ sudo apt update</span><br><span class="line">[sudo] password for ustc:</span><br><span class="line">ustc is not in the sudoers file.  This incident will be reported.</span><br></pre></td></tr></table></figure>
+<p>除了可以通过 <code>visudo</code> 命令编辑 <code>sudoers</code> 文件外，还可以直接通过将新的用户加入到 <code>sudo</code> 用户组，以能够使用 <code>sudo</code> 命令。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo adduser ustc sudo</span><br></pre></td></tr></table></figure>
+<p>再次切换到新的用户即可看到使用 sudo 的提示：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">To run a command as administrator (user &quot;root&quot;), use &quot;sudo &lt;command&gt;&quot;.</span><br><span class="line">See &quot;man sudo_root&quot; for details.</span><br></pre></td></tr></table></figure>
+</div></p>
+<h2 id="文本处理">文本处理</h2>
+<h3 id="正则表达式">正则表达式</h3>
+<p><a href="https://regex101.com/">在线编辑正则表达式</a> 正则表达式（regular expression）描述了一种字符串匹配的模式，可以用来检查一个串是否含有某种子串、将匹配的子串做替换或者从某个串中取出符合某个条件的子串等。</p>
+<p>特殊字符表：</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>特殊字符</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>[]</code></td>
+<td>方括号表达式，表示匹配的字符集合，例如 <code>[0-9]</code>、<code>[abcde]</code></td>
+</tr>
+<tr class="even">
+<td><code>()</code></td>
+<td>标记子表达式起止位置</td>
+</tr>
+<tr class="odd">
+<td><code>*</code></td>
+<td>匹配前面的子表达式零或多次</td>
+</tr>
+<tr class="even">
+<td><code>+</code></td>
+<td>匹配前面的子表达式一或多次</td>
+</tr>
+<tr class="odd">
+<td><code>?</code></td>
+<td>匹配前面的子表达式零或一次</td>
+</tr>
+<tr class="even">
+<td><code>\</code></td>
+<td>转义字符，除了常用转义外，还有：<code>\b</code> 匹配单词边界；<code>\B</code> 匹配非单词边界等</td>
+</tr>
+<tr class="odd">
+<td><code>.</code></td>
+<td>匹配除 <code>\n</code>（换行）外的任意单个字符</td>
+</tr>
+<tr class="even">
+<td><code>&#123;&#125;</code></td>
+<td>标记限定符表达式的起止。例如 <code>&#123;n&#125;</code> 表示匹配前一子表达式 n 次；<code>&#123;n,&#125;</code> 匹配至少 n 次；<code>&#123;n,m&#125;</code> 匹配 n 至 m 次</td>
+</tr>
+<tr class="odd">
+<td><code>|</code></td>
+<td>表明前后两项二选一</td>
+</tr>
+<tr class="even">
+<td><code>$</code></td>
+<td>匹配字符串的结尾</td>
+</tr>
+<tr class="odd">
+<td><code>^</code></td>
+<td>匹配字符串的开头，在方括号表达式中表示不接受该方括号表达式中的字符集合</td>
+</tr>
+<tr class="even">
+<td><code>\f</code></td>
+<td>匹配一个换页符。等价于 <code>\x0c</code> 和 <code>\cL</code></td>
+</tr>
+<tr class="odd">
+<td><code>\n</code></td>
+<td>匹配一个换行符。等价于 <code>\x0a</code> 和 <code>\cJ</code> 比较常用</td>
+</tr>
+<tr class="even">
+<td><code>\r</code></td>
+<td>匹配一个回车符。等价于 <code>\x0d</code> 和 <code>\cM</code> 比较常用</td>
+</tr>
+<tr class="odd">
+<td><code>\t</code></td>
+<td>匹配一个制表符。等价于 <code>\x09</code>和 <code>\cI</code></td>
+</tr>
+<tr class="even">
+<td><code>\v</code></td>
+<td>匹配一个垂直制表符。等价于 <code>\x0b`` 和</code><code>| |</code><code>| 匹配任何空白字符,包括空格、制表符、换页符等等。等价于</code>[.<code>| |</code><code>| 匹配任何非空白字符。等价于</code>[^ .<code>| |</code><code>| 匹配字母、数字、下划线。等价于</code>[_[:alnum:]]<code>| |</code></td>
+</tr>
+</tbody>
+</table>
+<p>{n,m}表示匹配次数，包括n,m次</p>
+<p>若是想要匹配特殊字符本身，需要在之前加上转义字符 <code>\</code>。 <div class="note info no-icon"><p>匹配正整数：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[1-9][0-9]*</span><br></pre></td></tr></table></figure>
+<p>匹配仅由 26 个英文字母组成的字符串：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">^[A-Za-z]+$</span><br></pre></td></tr></table></figure>
+<p>匹配 Chapter 1-99 或 Section 1-99</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">^(Chapter|Section) [1-9][0-9]&#123;0,1&#125;$</span><br></pre></td></tr></table></figure>
+<p>匹配“ter”结尾的单词：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ter\b</span><br></pre></td></tr></table></figure>
+<p>匹配rgb代码</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">^#([0-9]&#123;6&#125;$|([0-9]|[A-F])&#123;3&#125;$)</span><br></pre></td></tr></table></figure>
+</div></p>
+<h4 id="基本扩展正则表达式">基本/扩展正则表达式</h4>
+<p>基本正则表达式（Basic Regular Expressions, BRE）和扩展正则表达式（Extended Regular Expressions, ERE）是两种 POSIX 正则表达式风格。</p>
+<p>BRE 可能是如今最老的正则风格了，对于部分特殊字符（如 <code>+</code>, <code>?</code>, <code>|</code>, <code>&#123;</code>）需要加上转义符 <code>\</code> 才能表达其特殊含义。</p>
+<p>ERE 与如今的现代正则风格较为一致，相比 BRE，上述特殊字符默认发挥特殊作用，加上 <code>\</code> 之后表达普通含义。</p>
+<h4 id="懒惰和贪婪">懒惰和贪婪</h4>
+<p>使用 <code>*</code> <code>+</code> 的时候默认是贪婪模式，即尽可能匹配更多的子表达式。在 <code>*</code> <code>+</code> 之后加上 <code>?</code> 变为懒惰模式，即尽可能匹配更少的子表达式。</p>
+<p>例如：<code>123456456</code></p>
+<p>贪婪：<code>1.+6</code> -&gt; <code>123456456</code></p>
+<p>懒惰：<code>1.+?6</code> -&gt; <code>123456</code> 后向引用可以将之前匹配到的具体内容再次利用。在正则表达式中，<code>()</code> 以及它们包含的内容为一个分组，每个分组默认拥有一个组号。</p>
+<p>组号分配规则：</p>
+<ul>
+<li>0 代表整个表达式</li>
+<li>从左至右，按左括号的出现顺序分配，第一个为 1，第二个为 2，以此类推</li>
+<li>扫描两遍，第一次只分配未命名的组，第二次只分配命名的组。即任意命名组的组号都大于未命名的组号</li>
+</ul>
+<h4 id="后向引用">后向引用</h4>
+<div class="note info no-icon"><p>示例</p>
+<p><code>\b(\w+)\b\s+\1\b</code> 可以用来匹配用空白字符分割的两个重复的单词（例如 <code>linux linux</code>），其中 <code>\1</code> 是对组号为 1 的组 <code>(\w+)</code> 的引用。</p>
+<p><code>\b(?'Word'\w+)\b\s+\k'Word'\b</code> 也可以起到同样的效果，其中 <code>?'Word'</code> 用于命名组，<code>\k'Word'</code> 用于引用组。</p>
+</div>
+<h4 id="零宽断言">零宽断言</h4>
+<p>零宽断言用于查找某些内容进行定位，但内容并不放入匹配结果，就像 <code>\b</code> <code>^</code> <code>$</code> 的定位一样。<code>(?=exp)</code> 用于匹配表达式 <code>exp</code> 前面的位置，<code>(?&lt;=exp)</code> 用于匹配后面的位置。</p>
+<h4 id="拓展阅读">拓展阅读</h4>
+<p><a href="https://zhuanlan.zhihu.com/p/46294360">乱用正则引发的惨案</a></p>
+<h3 id="其他的文本处理工具">其他的文本处理工具</h3>
+<h4 id="grep-1">grep</h4>
+<p>grep 全称 Global Regular Expression Print，是一个强大的文本搜索工具，可以在一个或多个文件中搜索指定 pattern 并显示相关行。</p>
+<p>grep 默认使用 BRE，要使用 ERE 可以使用 <code>grep -E</code> 或 egrep。</p>
+<p>命令格式：<code>grep [option] pattern file</code></p>
+<p>一些用法：</p>
+<ul>
+<li><code>-n</code>：显示匹配到内容的行号</li>
+<li><code>-v</code>：显示不被匹配到的行</li>
+<li><code>-i</code>：忽略字符大小写</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ls /bin | grep -n &quot;^man$&quot;  # 搜索内容仅含 man 的行，并且显示行号</span><br><span class="line">ls /bin | grep -v &quot;[a-z]\|[0-9]&quot;  # 搜索不含小写字母和数字的行</span><br><span class="line">ls /bin | grep -iv &quot;[A-Z]\|[0-9]&quot;  # 搜索不含字母和数字的行</span><br></pre></td></tr></table></figure>
+<h4 id="sed-1">sed</h4>
+<p>sed 全称 Stream EDitor，即流编辑器，可以方便地对文件的内容进行逐行处理。</p>
+<p>sed 默认使用 BRE，要使用 ERE 可以 sed -E。</p>
+<p>命令格式：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sed [OPTIONS] &#x27;command&#x27; file(s)</span><br><span class="line">sed [OPTIONS] -f scriptfile file(s)</span><br></pre></td></tr></table></figure>
+<p>此处的 command 和 scriptfile 中的命令均指的是 sed 命令。</p>
+<p>常见 sed 命令：</p>
+<ul>
+<li>s 替换</li>
+<li>d 删除</li>
+<li>c 选定行改成新文本</li>
+<li>a 当前行下插入文本</li>
+<li>i 当前行上插入文本</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ echo -e &quot;seD\nIS\ngOod&quot; &gt; sed_demo</span><br><span class="line">$ cat sed_demo</span><br><span class="line">seD</span><br><span class="line">IS</span><br><span class="line">gOod</span><br><span class="line">$ sed &quot;2d&quot; sed_demo  # 删除第二行</span><br><span class="line">seD</span><br><span class="line">gOod</span><br><span class="line">$ sed &quot;s/[a-z]/~/g&quot; sed_demo  # 替换所有小写字母为 ~</span><br><span class="line">~~D</span><br><span class="line">IS</span><br><span class="line">~O~~</span><br><span class="line">$ sed &quot;3cpErfeCt&quot; sed_demo  # 选定第三行，改成 pErfeCt</span><br><span class="line">seD</span><br><span class="line">IS</span><br><span class="line">pErfeCt</span><br></pre></td></tr></table></figure>
+<h4 id="awk-1">awk</h4>
+<p>awk 是一种用于处理文本的编程语言工具，名字来源于三个作者的首字母。相比 sed，awk 可以在逐行处理的基础上，针对列进行处理。默认的列分隔符号是空格，其他分隔符可以自行指定。</p>
+<p>awk 使用 ERE。</p>
+<p>命令格式：<code>awk [options] 'pattern &#123;action&#125;' [file]</code></p>
+<p>awk 逐行处理文本，对符合的 patthern 执行 action。需要注意的是，awk 使用单引号时可以直接用 <code>$</code>，使用双引号则要用 <code>\$</code>。</p>
+<p>一些示例：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ cat awk_demo</span><br><span class="line">Beth    4.00    0</span><br><span class="line">Dan     3.75    0</span><br><span class="line">kathy   4.00    10</span><br><span class="line">Mark    5.00    20</span><br><span class="line">Mary    5.50    22</span><br><span class="line">Susie   4.25    18</span><br><span class="line">$ # 选择第三列值大于 0 的行，对每一行输出第一列的值和第二第三列的乘积</span><br><span class="line">$ awk &#x27;$3 &gt;0 &#123; print $1, $2 * $3 &#125;&#x27; awk_demo</span><br><span class="line">kathy 40</span><br><span class="line">Mark 100</span><br><span class="line">Mary 121</span><br><span class="line">Susie 76.5</span><br></pre></td></tr></table></figure>
+<p>示例中 <code>$1</code>，<code>$2</code>，<code>$3</code> 分别指代本行的第 1、2、3 列。特别地，$0 指代本行。</p>
+<p>awk 语言是「图灵完全」的，这意味着理论上它可以做到和其他语言一样的事情。这里我们不仅可以对每行进行操作，还可以定义变量，将前面处理的状态保存下来，以下是一个求和的例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ awk &#x27;BEGIN &#123; sum = 0 &#125; &#123; sum += $2 * $3 &#125; END &#123; print sum &#125;&#x27; awk_demo</span><br><span class="line">337.5</span><br></pre></td></tr></table></figure>
+<h4 id="trsort">tr,sort</h4>
+<p>除此之外，tr可用于进行简单的预处理，sort可以用于进行简单的排序、</p>
+<h2 id="shell环境">shell环境</h2>
+<p>组命令：</p>
+<ul>
+<li><p>使用 <code>&#123; 命令1; 命令2; … &#125;</code>，组命令在 shell 内执行，不会产生新的进程，注意花括号和命令之间的空格。</p></li>
+<li><p>使用 <code>(命令1; 命令2; …)</code>，组命令会建立独立的 shell 子进程来执行组命令，这里的圆括号周围并不需要空格。</p></li>
+</ul>
+<p>可以在脚本开头加上 <code>set -u</code> 来实现使用未定义变量报错，否则会默认成空值</p>
+<h3 id="位置参数">位置参数</h3>
+<ul>
+<li>Shell 解释用户的命令时，把命令程序名后面的所有字串作为程序的参数。分别对应 <code>$1</code>、<code>$2</code>、<code>$3</code>、……、<code>$9</code>，程序名本身对应 <code>$0</code>。</li>
+<li>可用 <code>shift &lt;n&gt;</code> 命令，丢弃开头的 n 个位置变量，改变 <code>$1</code>、<code>$2</code>、<code>$3</code> 等的对应关系。</li>
+<li>可用 <code>set</code> 命令，重置整个位置变量列表，从而给 <code>$1</code>、<code>$2</code>、<code>$3</code> 等赋值。</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ set one two three</span><br><span class="line">$ echo $1 $2 $3</span><br><span class="line">one two three</span><br><span class="line">$ shift 2</span><br><span class="line">$ echo $1 $2 $3</span><br><span class="line">three</span><br><span class="line">$ # 此时 $2 和 $3 已不存在</span><br></pre></td></tr></table></figure>
+<h3 id="特殊变量">特殊变量</h3>
+<table>
+<thead>
+<tr class="header">
+<th>特殊变量</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>$#</code></td>
+<td>命令行上的参数个数，不包括 <code>$0</code></td>
+</tr>
+<tr class="even">
+<td><code>$?</code></td>
+<td>最后命令的退出代码，0 表示成功，其它值表示失败</td>
+</tr>
+<tr class="odd">
+<td><code>$$</code></td>
+<td>当前进程的 PID</td>
+</tr>
+<tr class="even">
+<td><code>$!</code></td>
+<td>最近一个后台运行进程的进程号</td>
+</tr>
+<tr class="odd">
+<td><code>$*</code></td>
+<td>命令行所有参数构成的一个字符串</td>
+</tr>
+<tr class="even">
+<td><code>$@</code></td>
+<td>用双引号括起的命令行各参数拼接构成的一个字符串</td>
+</tr>
+<tr class="odd">
+<td><code>$_</code></td>
+<td>在此之前执行的命令或脚本的最后一个参数</td>
+</tr>
+<tr class="even">
+<td><code>$0</code></td>
+<td>命令行上输入的Shell程序名</td>
+</tr>
+</tbody>
+</table>
+<h3 id="特殊字符">特殊字符</h3>
+<ul>
+<li><p>反斜杠，消除单个字符的特殊含义。</p>
+<ul>
+<li>包含空白字符（空格和制表符）、反斜杠本身、各种引号，以及 <code>$</code>、<code>!</code> 等。</li>
+<li>与其他语言不同，shell 中反斜杠不会将普通字符转义为其他含义（例如 <code>\n</code> 不会被视作换行符）。</li>
+</ul></li>
+<li><p>使用双引号包裹字符串可以消除空白字符切分参数的特殊含义，但是很多其他特殊字符的特殊含义仍然保留。双引号也被称为「弱引用」。</p></li>
+<li><p>单引号，能消除所有特殊字符的特殊含义，包括反斜杠，因此单引号字符串中不能使用反斜杠转义单引号本身。单引号也被称为「强引用」。</p></li>
+<li><p>反引号（<code>`</code>）括起的字符串，被 shell 解释为命令，执行时用命令输出结果代替整个反引号对界限部分。</p>
+<ul>
+<li>与反引号相同的语法是 <code>$(command)</code>，它的好处是界限更明确，且可以嵌套。因此编写新脚本时，更建议使用此语法。</li>
+</ul></li>
+</ul>
+<h3 id="语法">语法</h3>
+<p>具体语法可参考<a href="https://101.lug.ustc.edu.cn/Ch06/#bash-arithmetic">linux101</a></p>
+<h2 id="拓展阅读-1">拓展阅读</h2>
+<h3 id="进程与会话">进程与会话</h3>
+<p>Fork 是类 UNIX 中创建进程的基本方法：将当前的进程完整复制一份。新进程和旧进程唯一的区别是 <code>fork()</code> 的返回值不同。程序员可以根据其返回值为新旧进程设置不同的逻辑。</p>
+<p>除了最开始的 0 号进程外，绝大多数情况下其他进程是由另一个进程通过 fork 产生的。这里产生进程的一方为<strong>父进程</strong>，被产生的是<strong>子进程</strong>。在 Linux 中，父进程可以等待子进程，接收子进程退出信号以及返回值。 父进程如果先于子进程退出，产生孤儿进程，会被0号进程(init)接管 子进程先退出但父进程没有回应，产生僵尸进程，会被系统定时清理</p>
+<p><strong>进程组</strong>大体上是执行同一工作的进程形成的一个团体，通常是由于父进程 fork 出子进程后子进程继承父进程的组 ID 而逐渐形成。</p>
+<p><strong>会话</strong> (session) 可以说是面向用户的登录出现的概念。当用户从终端登录进入 shell，就会以该 shell 为会话首进程展开本次会话。一个会话中通常包含着多个进程组，分别完成不同的工作。用户退出时，这个会话会结束，但有些进程仍然以该会话标识符 (session ID) 驻留系统中继续运行。</p>
+<table>
+<thead>
+<tr class="header">
+<th>进程属性</th>
+<th>意义/目的</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>PID</td>
+<td>Process ID，标识进程的唯一性。</td>
+</tr>
+<tr class="even">
+<td>PPID</td>
+<td>Parent PID，标识进程父子关系。</td>
+</tr>
+<tr class="odd">
+<td>PGID</td>
+<td>Process Group ID，标识共同完成一个任务的整体。</td>
+</tr>
+<tr class="even">
+<td>TPGID</td>
+<td>标识一组会话中处于前台（与用户交流）的进程（组）。</td>
+</tr>
+<tr class="odd">
+<td>SID</td>
+<td>Session ID，标识一组会话，传统意义上标识一次登录所做的任务的集合，如果是与具体登录无关的进程，其 SID 被重置。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="终端-terminal-与控制台-console">终端 (Terminal) 与控制台 (Console)</h3>
+<p>在上世纪六十年代，个人计算机尚未开始发展，用户使用计算机的一种常见方式就是通过终端，与远程的服务器连接交互。当时键盘和显示器连为一体，称为终端（terminal）。而主机自带的一套键盘与屏幕只能给系统管理员使用，称为控制台 (console)，用来输出启动 debug 信息（现在的 Linux 系统如果因故障而不得不进入单用户修复模式，则只有一个终端 <code>/dev/console</code> 开启）。</p>
+<p>然而随着时代的发展，这种模式逐渐被家庭电脑的分布式主机取代，我们不需要，也没有多套终端了，只有显示器、键盘、鼠标。但是为了向前兼容性，我们需要假装这是一个（甚至多个）终端，所以一般发行版 <code>/dev</code> 目录下有 7 个终端 <code>tty1 ~ tty7</code>，通过 <code>Ctrl + Alt + F1 ~ F7</code> 切换键盘与显示器与哪个终端相对应。</p>
+<p>再后来，随着时代发展，终端需要出现在图形界面上了，然而承载图形界面的也是终端，所以终端里的终端就需要终端模拟器来实现了。由此，出现在图形界面上的终端才叫终端模拟器。</p>
+<p>没有图形界面时，shell 一般为控制台 (tty) 的子进程，在图形界面上 shell 建立在虚拟终端 (pty, pseudo tty) 之上。顺带一提，服务器常用的远程连接工具 <code>ssh</code> 的父进程也是一个 pty。</p>
+<p>参考阅读: <a href="https://www.linuxdashen.com/%E4%BD%A0%E7%9C%9F%E7%9A%84%E7%9F%A5%E9%81%93%E4%BB%80%E4%B9%88%E6%98%AF%E7%BB%88%E7%AB%AF%E5%90%97%EF%BC%9F">你真的知道什么是终端吗？</a></p>
+<h3 id="文件系统的特殊权限位">文件系统的特殊权限位</h3>
+<p>有三个特殊权限位：setuid, setgid 和 sticky。</p>
+<ul>
+<li><code>setuid</code>: 以文件所属的用户的身份 (UID) 执行此程序。</li>
+<li><code>setgid</code>: 对文件来说，以文件所属的用户组的身份 (GID) 执行此程序；对目录来说，在这个目录下创建的文件的用户组都与此目录本身的用户组一致，而不是创建者的用户组。</li>
+<li><code>sticky</code> (restricted deletion flag): 目录中的所有文件只能由文件所有者（除 <code>root</code> 以外）删除或者移动。一个典型的例子是临时文件夹 <code>/tmp</code>，在此文件夹中你可以创建、修改、重命名、移动、删除自己的文件，但是动不了别人的文件。</li>
+</ul>
+<p><code>/usr/bin/passwd</code> 的文件权限设置：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ ls -l /usr/bin/passwd</span><br><span class="line">-rwsr-xr-x 1 root root 67992 Aug 29  2019 /usr/bin/passwd</span><br></pre></td></tr></table></figure>
+<p>可以看到，本来是执行权限位的地方变成了 <code>s</code>。这代表此文件有 <code>setuid</code> 特殊权限位。在你执行 <code>passwd</code> 的时候，它的实际权限和 <code>root</code> 一样，只是它知道，执行它的人是你（而非 <code>root</code>），所以只提供修改你自己的密码的功能。</p>
+<p>此外，passwd需要知道实际执行自己的用户是谁，在 Linux 中，有两个系统调用可以获取当前进程归属的 UID：<code>getuid()</code> 和 <code>geteuid()</code>。前者对应的是「实际用户」(Real user)，是实际运行（拥有）这个进程的用户，后者对应的是「有效用户」(Effective user)，对应进程拥有的权限。在运行 <code>passwd</code> 的时候，有效用户是 <code>root</code>，所以可以修改 <code>/etc/shadow</code>；而实际用户是你，所以它不会让你修改别人的密码。</p>
+<p>对用户组来说，也有实际用户组 (GID) 和有效用户组 (EGID) 的区别。</p>
+<h3 id="登录-shell和非登录-shell">登录 Shell和非登录 Shell</h3>
+<p>「登录 Shell」是属于你的当前会话操作中的第一个进程，一般是在你输入用户名和密码之后打开的 Shell。常见的场景有：</p>
+<ul>
+<li><code>su -</code> 之后的 Shell。</li>
+<li>SSH 登录机器后的 Shell</li>
+<li>Ctrl + Alt + F[1-7] 之后 TTY 中的 Shell</li>
+</ul>
+<p>而「非登录 Shell」的常见场景：</p>
+<ul>
+<li><code>su</code> 打开的是「非登录 Shell」</li>
+<li>在桌面环境中打开的终端（模拟器），启动的也是「非登录 Shell」</li>
+</ul>
+<p>一般地，「登录 Shell」会额外加载 <code>profile</code> 文件（文件名根据你使用的 Shell 的不同而有区别），且它的 <code>argv[0][0] == '-'</code>（相信你已经学过 C 语言了）。可以用以下方法验证：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ echo $0  # 查看当前 Shell 的 argv[0] 的值</span><br><span class="line">-bash</span><br><span class="line">$ # 是 Login shell</span><br><span class="line">$ sudo su # 进入 root</span><br><span class="line"># echo $0</span><br><span class="line">bash</span><br><span class="line"># # 是 Non-login shell</span><br></pre></td></tr></table></figure>
+<h3 id="fork炸弹">fork炸弹</h3>
+<p>Fork 炸弹有如下的这种形式：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">:()&#123; :|: &amp; &#125;;:</span><br></pre></td></tr></table></figure>
+<p>这是一个函数定义以及对其的调用语句，可以格式化为：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">:()</span><br><span class="line">&#123;</span><br><span class="line">    :|: &amp;</span><br><span class="line">&#125;;</span><br><span class="line">:</span><br></pre></td></tr></table></figure>
+<p>在 Bash 中，<code>:</code>、<code>.</code>、<code>/</code> 等一些字符也能够被用于函数命名，因此，上面的代码等价于：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">func()</span><br><span class="line">&#123;</span><br><span class="line">    func | func &amp;</span><br><span class="line">&#125;;</span><br><span class="line">func</span><br></pre></td></tr></table></figure>
+<p>fork 炸弹的核心是函数内容：<code>func | func &amp;</code></p>
+<ul>
+<li>第一个 func 代表递归执行这个函数。</li>
+<li><div class="line-block">代表要将第一个函数的数据结果通过管道传输给后一个函数。</div></li>
+<li>&amp; 代表要在后台执行这一条命令，如果其中一个函数被操作系统回收，其调用产生的子函数并不会被回收。</li>
+</ul>
+<p>于是运行一次这个函数就会创建两个 func 函数的实例，并不断地反复调用。实例的数量会指数爆炸式地增长，最终耗尽系统的资源。</p>
+<h4 id="防范方法">防范方法</h4>
+<p>一个有效的方式(https://101.lug.ustc.edu.cn/Ch06/supplement/#fn:1)是通过修改系统配置，限制一个用户能够拥有的进程数量多少。<code>ulimit -u 30</code> 可以限制当前用户能够拥有的进程数量为 30。</p>
+<h3 id="动静态链接">动/静态链接</h3>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">gcc -o hello hello.c</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">ldd ./hello</span></span><br><span class="line">    linux-vdso.so.1 (0x00007ffc49703000)</span><br><span class="line">    libc.so.6 =&gt; /lib/x86_64-linux-gnu/libc.so.6 (0x00007f36767d3000)</span><br><span class="line">    /lib64/ld-linux-x86-64.so.2 (0x00007f36769ea000)</span><br><span class="line"></span><br><span class="line">//编译得到程序就依赖于 `linux-vdso.so.1`、`libc.so.6` 和 `/lib64/ld-linux-x86-64.so.2` 三个库文件，如果系统中没有这三个库文件，程序就无法执行。</span><br></pre></td></tr></table></figure>
+<p>使用到第三方的库需要加上 <code>-l</code> 参数指定在<strong>链接</strong>时链接到的库。 对于复杂的应用来说，下载后可能会因为没有动态链接库而无法运行。 而静态链接则将依赖的库全部打包到程序文件中。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ gcc -o hello-static hello.c -static  # 编译一个静态链接的应用</span><br><span class="line">$ ldd ./hello-static  # 没有动态链接库的依赖</span><br><span class="line">    not a dynamic executable</span><br></pre></td></tr></table></figure>
+<p>此时编译得到的程序文件没有额外的依赖，在其他机器上一般也能顺利运行。代价则是消耗更多的空间，并且可能产生性能损耗</p>
+<h3 id="交叉编译">交叉编译</h3>
+<p>有时需要开发另一个系统的程序，此时就需要交叉编译来实现，比如使用mingw编译windows程序 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ sudo apt install gcc-mingw-w64  # 安装 mingw 交叉编译器</span><br><span class="line">$ sudo apt install wine  # 安装 wine Windows 兼容层（默认仅安装 64 位架构支持）</span><br><span class="line">$ x86_64-w64-mingw32-gcc -o hello.exe hello.c  # 编译为 64 位的 Windows 程序</span><br><span class="line">$ file hello.exe  # 确认为 Windows 程序</span><br><span class="line">hello.exe: PE32+ executable (console) x86-64, for MS Windows</span><br><span class="line">$ wine hello.exe  # 使用 wine 运行</span><br><span class="line">it looks like wine32 is missing, you should install it.</span><br><span class="line">as root, please execute &quot;apt-get install wine32&quot;</span><br><span class="line">wine: created the configuration directory &#x27;/home/ubuntu/.wine&#x27;</span><br><span class="line">（忽略首次配置的输出）</span><br><span class="line">wine: configuration in L&quot;/home/ubuntu/.wine&quot; has been updated.</span><br><span class="line">Hello, world!</span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
+<h3 id="docker">docker</h3>
+<p>Dockerfile 是构建 Docker 镜像的标准格式，下面会举一些例子。我们会基于这些例子简单介绍 Dockerfile 的语法。</p>
+<h4 id="构建简单的交叉编译环境">构建简单的交叉编译环境</h4>
+<p>这个例子尝试使用 Debian 仓库中的 RISC-V <a href="https://101.lug.ustc.edu.cn/Ch07/supplement/#cross-compile-example">交叉编译</a>工具链与 QEMU 模拟器构建一个简单的用于交叉编译的环境。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">FROM debian:buster-slim</span><br><span class="line"></span><br><span class="line">RUN sed -i &#x27;s/deb.debian.org/mirrors.ustc.edu.cn/g&#x27; /etc/apt/sources.list &amp;&amp; \</span><br><span class="line">    apt update &amp;&amp; apt install -y gcc-riscv64-linux-gnu g++-riscv64-linux-gnu libc6-dev-riscv64-cross \</span><br><span class="line">                                 binutils-riscv64-linux-gnu libstdc++-dev-riscv64-cross \</span><br><span class="line">                                 qemu-system-misc qemu-user-static qemu-user binfmt-support \</span><br><span class="line">                                 fish vim --no-install-recommends</span><br><span class="line">RUN mkdir /workspace/</span><br><span class="line"></span><br><span class="line">WORKDIR /workspace/</span><br><span class="line">ENV QEMU_LD_PREFIX=/usr/riscv64-linux-gnu/</span><br><span class="line"></span><br><span class="line">CMD [&quot;fish&quot;]</span><br></pre></td></tr></table></figure>
+<p>通过使用 <code>docker build</code>，我们可以构建出镜像。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo docker build -t riscv-cross:example .</span><br></pre></td></tr></table></figure>
+<p>Docker 在根据 Dockerfile 构建时，会从上到下执行这些指令，每条指令对应镜像的一层。Docker 容器镜像的独特之处就在于它的分层设计：在构建镜像时每层的更改会叠加在上一层上（这意味着，上一层的所有数据仍然会保留，即使在新的一层删除了）；如果某一层已经存在，Docker 会直接使用这一层，节约构建的时间和占用的空间。 因此构建镜像应尽量减少层数避免空间浪费</p>
+]]></content>
+      <categories>
+        <category>课程笔记</category>
+        <category>操作系统</category>
+      </categories>
+      <tags>
+        <tag>课程笔记</tag>
+        <tag>linux</tag>
+        <tag>苏州大学</tag>
+        <tag>中国科学技术大学</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>爱丽丝的回忆</title>
+    <url>/thinklive/40355/</url>
+    <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="縺ｫ縺ｯ繧｢繝ｪ繧ｹ縺励" data-whm="縺ｫ縺ｯ繧｢繝ｪ繧ｹ縺励">
+  <script id="hbeData" type="hbeData" data-hmacdigest="24f9310fabe519f2ef1fc607999275d5c3362bd67eed8264a350e82ac6de5c38">13aef8e3a4d2474cb9cd233c644c735c7ce62820bf86f805363ad09d940c013f15e271153cdb8f8975b916cf9d1be65d1dfd56bed1f75e0cce9bc945d854b7df8b1c35b68bed377064d0601e6bfe625ae7d8cd2d3736700c00508d2a6a645e1fe125eef8e2f3bb6e5e8dd040b3807272144439ea1b98d0662ba7d17b1d51b57b45bc4137781e59a0b0a63914ea0d85fc7833fc370356cf12132dc520ace76a00a3708e886451d4cf00eddb280dc9aec3b0387f05c42217a6a20147657c6c490310d479384dfc83571b3c46d5c54ca1cd6a00f36b4696ad48a35d03b23bebbd04c64087855bdc7744308770d82e7cd5edb9de0b92eb25bce1a53f4df417ec79d3c8310a88a04574986dcb2484596d5cd0fc89d22dfc95bd5a5add453edd098362f7ef79b135fe0d1b6bd38ab6a21a97c164f7113dce2e86146681550f7897d39779664588967f71287a755297d00061e098572eafcc3305825b27a83a959f71231d8d50268e3a4ba19f418ae502f72553b06af133618a0df82afecbb08f7f9330c84ed3701266cf82bb4fe298b6fb1f1014b4b72b4c9a8562c108eaa8524ad87daab1d90435b2530f5457a881ccac1177e2492f1481c13f400b89544d1fcdb077da7870d89112cd0c7ada9893a0d111e0a84c7b0710ac269a6410556d1ed0c4fe7cb73d2d948df72adad33d70eb1fcb11df29db5a7d31a604181586212f1deb4524761fa3f2da7a8b9a988088b20de28cdceb1759247f421ea5a190910eb1e4208f03fcc01a55ff418a24a7b3c716bb752e1f04ba63766309dd7c56be1bd3c483f49b643d3285c017292fabef71a394f2883add4d8cfeadb05b0fe164eeb3c13242b397162a0f75e142d79f2169e199bb48f8f018789ca402b8c513b395b9f96ce8da364b792a9d68e22ad09b245b564547f1bacf3bf09f6e7a5fcfff9ef9534a9d6b283a65e9ee1689ffe8a528c48f4154f5ade68f755dae38be49c96889ec92712ec3967dfa9e3c03bf838ecbba5f696863b4331e1c3a8b3b527909eb65814292b0a14d7d39ab880524800beb88d573abbd380c644c3d537c0d30a621b2f2ed7199a507b2063d11abf4bb2102644321d8b446df028990b961f66d5056f5a56126c3a9a0986ef86f0475103e696a2444a65c7472409150c610dc82c90db2d5e55706f9236e37a8241b01233b7ff6caad0e44e6581497927676df920f468c83046e53cc402b14d8f53067955f8e3a1aa03996fa4cfb05136669439b388f988d91b37c77e1f1d45df960bf533c49d6afb9775e769039a649fe4c74ddc7089c04fc4a390fb690548585e3c8c23275fbc898b4c5b76b6d94cfd59d34d7a3fa83622e285f93fe5f3580b9becf16be588db16c6718a800a7d2873886f7f7b5efeabbde77a8595afdb9967e490376d3855be3fead1aeef75510179f131e3c3ba05f64ed43bf8a3488ccb59211d5815ab80fd75fa42ab8b49e7fe817222926c50c24706e40a98f49af88489b61c7eff618f94a10263ab98aefa3657f2f4a3d88d046dbfff536b5fea6371bf6938f8ed2e0c9ad00a0805761c36794579a92088a5b39d2bc08425a75f06840e4589772fa1877c6b834658735ce0ad02ea83662b189ba5157449b867d3fb77d97ce16ba7a392798b90b7711353d8037c5d0b76844fae99c476b145c90f4e77319cdc1788455777890c68ce930779f02602169f067e1f370586cb783a9bb5664dafec9c2d84cb8a3e817a07689bc2d4c25cb4718fb72e0858d85419bafac9bc8324681d299ad4ff9c80bd3be62eb163ca386bee0de34c6d1bca7761c8a4ed367ea4d775521c38243a7bcdc8c0775ecc217656aeebc79e0fa6d03fb268af6cc8d2b503b841f28f4389fa86f3b641650da6f3b85a6cb0c0976a99d920557527e1d2fbdbc5aeb75149a6130ade4672215792efbfcdd411524ceaa5a8ce3726315968110300c573d5802f2e31d8957fca161db2d06fbfeaf80636fd7414ad61e5f5fb3011ca214215b65c791e330fdb7b2e02f3b8841a2984d2b7206bb73bd807edae367e9ef141ed4bc9ee294c822fed8a0a43e11a6343d0bed4411ea989b2b4071ada6dd443dd18f7147e979725a231372ed4cd5e1ab064e3ece688a3d9943c07ac3524c24e84927627edc93125e20cac1c3f407e495f93710b03dbc1249b465db4d7103baba381bd02714afcbb79a30b1f60e252fba9d7a974027e970a7d605f3fbabb713c5a62183e15b8b937229173826ba27d4fcd42daf7e8e86671368281a9ddcb40356aba4109a2e910fe56204164f4c7b8e17cfea1f27bc4f3f20fc3cf8efd4e51293770d4ddd55e17c66386e770ff3eb651d0efccd809f03c6ca416f421516e58fd793d29df68096978412469186ae48d3b0c8d0c5ff38dca519c1a18c388e71411ca4c412a4a20c3bfa6227e0792d5cb87b2bb44bf0d30961a6b6fe5c9f6431844379739f0a0e08e0463e9929ea8a24860145d5587000b889fa64603d109ab0da62c027894f90aeaa0e31079c9e0124a78770e71fd20361c20db37f09f13dc7ba7584b2546734bbf7b997c7ae020f37507e99016639fa1b3583423a43edb1b78e52fa6ccea01d9a20c272e340059507096e18524ae01e2c420bce2db312d0631b62f45b00926dc5bd9b2524406d2f1319c13fa8d89519ee2244da16cf7269fa518f3bf6cb43162edbcd286f4b783631a4fcbccc76c9efc610854df49f8aed1e93040817395e3e34ec2d61c70b4a4b68ac2f40d1e7bc23024dc2900565d52fefbb24dcf3e5afa577a85dd6de3a06cc9d223994bc9679823a9f1b00958e72761fc56c5f4a8e3b41c8235de052bdd03152020755db863946488ed839ada092bd2f25f1718fda411d6d84b0dc9ba5f68c94475ff3799847612213d475b44a555052db688ef9d0a6cffd187e60097ecf55b827c6d707c7a53c7d492c773ad89112ced5522ce9d5c2b85eb00d9aec38c539b85b5cde32638b4033984a95d1236145bcc5d7d7558d5d52a5bb047c2771ef52a503dc9d572ad606671679e77d0b83a7072c9ade8f4a79b8798d2f5a0730b2eada92f4cc3ca5669f7b96713185aa6941dcc875a9699d6e5ffdafca8619f489ad4a5faa1b7ec076a6b2be6f83e6d63275b4014d99a6b25b816c32f91d76547c3eed9605dde738e694efa7a3483d6c733570de95ee58f335f6a67b547dc28450feccf26188e5c267a807db1bba849f805d83c7ab96aaa62f639e0170cc264323d081b0974756f19fe10a99a813cc24b0d2a5d861387cb0a47904ad6d96354508cbf5219147de6f738c56da8c770282e1b8c17fa9c221412c483f5ba8d7c09aeb9467c90d20bc6c766e0ea4069134f813b9c2d770c41e84fbe3a5e6fef37ac41ef6300eee4832347eddebb5e16148d19a132a1e6f7ae006fff253591c0e1274344e7bd7dbc690f98c08c15f7cac61b4a92205db274a6a64fcdfded7ef5c0fb30251e7896b1a210dcda6e44278194b1626d725ffd86a4be7350b2a5202cffe2446b17d65a285a203953ad61ce0f2335b5a2c8563e49e02849630ff3b66f5c50c5128b9a1708bdd54d7dc90613b6dddcc4b3594687aa858d5ce67d83c6bc10c2bec6da98c197e794b518fdeeba4a968673ebb8e6eb380711d05e37bb4abffbaa0d264983bdf308aea11a6be3477884ce3e04dec2d54f2730e7257804881b41a6ead6a252c34354536726324257497239455c877f4dfe075121f811fa4b4d540b68d0e7dc5479ae1f29b317333dc0c157d24b480a515e06ecfe4c9734ebcf480dd36b3a8b258ab514d3045183773d8e145406e1cb5f5ad22a36a286f6c1cb645a0b20506911d2e3d08ed2fdaf75c1becfad60b64831cbe68eefd80b22adac1e8286f7ee0b5e3d798571d5b4aadffec67a02b2b154640a034343ee12b5ec777f812fa7a1dc9aaa9b9a5d7d5731bb2315b408f671c531c4feee4b6e5b23a0217cbd56dcc689f902366187c3827b0435aa4678eabca5b24c4f7947678bed992729f557db56ce622e23e534b71e1f7df9273a2c8fc76a87f09116df09b59885192e9aba7ff1f1368748e6bcfcf8fa1d14e47cf075a531a8733e6c93b3f883c398eecabecd6fc366f0c94c206781945a3ae4d8a786f0ad9c97d01ddec215a0e9700e63174251f799578524cb28feb30f6bd306d6242cd028f5e3b911940e2de157482f745abf54e6929df7878</script>
+  <div class="hbe hbe-content">
+    <div class="hbe hbe-input hbe-input-wave">
+      <input class="hbe hbe-input-field hbe-input-field-wave" type="password" id="hbePass">
+      <label class="hbe hbe-input-label hbe-input-label-wave" for="hbePass">
+        <span class="hbe hbe-input-label-content hbe-input-label-content-wave">摇曳着苦闷光辉的火焰在跳动着……心爱的少女，她诞生的时日是？</span>
+      </label>
+      <svg class="hbe hbe-graphic hbe-graphic-wave" width="300%" height="100%" viewBox="0 0 1200 60" preserveAspectRatio="none">
+        <path d="M0,56.5c0,0,298.666,0,399.333,0C448.336,56.5,513.994,46,597,46c77.327,0,135,10.5,200.999,10.5c95.996,0,402.001,0,402.001,0"></path>
+      </svg>
+    </div>
+  </div>
+</div>
+<script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
+      <categories>
+        <category>秘密</category>
+      </categories>
+      <tags>
+        <tag>秘密</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>考研笔记——操作系统部分</title>
     <url>/thinklive/26286/</url>
     <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="縺ｫ縺ｯ繧｢繝ｪ繧ｹ縺励" data-whm="縺ｫ縺ｯ繧｢繝ｪ繧ｹ縺励">
@@ -1554,718 +2790,6 @@ K_neighbours
       </categories>
       <tags>
         <tag>迪瑞克拉</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>基于中科大linux101和苏大ppt的linux笔记</title>
-    <url>/thinklive/59610/</url>
-    <content><![CDATA[<h1 id="苏大部分">苏大部分</h1>
-<h2 id="文件系统">文件系统</h2>
-<h3 id="命名">命名</h3>
-<p>•除/之外，所有的字符都合法</p>
-<p>•大小写敏感</p>
-<p>•有些字符最好不用，如空格符、制表符、退格符和字符：？, @ # $ &amp; ()  | ; ‘ ’ “ ” &lt; &gt;</p>
-<p>•避免使用＋、－或. 来作为普通文件名的第一个字符</p>
-<p>•可以使用长文件名或目录名（255个字符）</p>
-<p>包括完整路径的文件名不超过4096字符 <span id="more"></span></p>
-<h3 id="目录">目录</h3>
-<table>
-<tbody>
-<tr class="odd">
-<td>bin</td>
-<td>存放二进制的可执行程序</td>
-</tr>
-<tr class="even">
-<td>boot</td>
-<td>存放用于系统引导时使用的各种文件</td>
-</tr>
-<tr class="odd">
-<td>dev</td>
-<td>存放设备文件，用户通过这些文件访问外部设备</td>
-</tr>
-<tr class="even">
-<td>etc</td>
-<td>存放系统的配置文件</td>
-</tr>
-<tr class="odd">
-<td>home</td>
-<td>存放用户文件的目录，每个用户在该目录下有一个与该用户名对应的子目录</td>
-</tr>
-<tr class="even">
-<td>root</td>
-<td>超级用户目录</td>
-</tr>
-<tr class="odd">
-<td>sbin</td>
-<td>类似于/bin目录，存放二进制文件，只有root才能访问</td>
-</tr>
-<tr class="even">
-<td>tmp</td>
-<td>用于放置各种临时文件</td>
-</tr>
-</tbody>
-</table>
-<table>
-<tbody>
-<tr class="odd">
-<td>var</td>
-<td>用于存放需要随时改变的文件，如系统日志、脱机工作目录等</td>
-</tr>
-<tr class="even">
-<td>mnt</td>
-<td>系统管理员安装临时文件系统的安装点</td>
-</tr>
-<tr class="odd">
-<td>opt</td>
-<td>一般情况下，该目录不属于系统的基本文件系统，是额外安装的应用程序包所放置的地方</td>
-</tr>
-<tr class="even">
-<td>usr</td>
-<td>用于存放系统应用程序</td>
-</tr>
-<tr class="odd">
-<td>lib</td>
-<td>存放根文件系统中的程序运行所需要的共享库及内核模块</td>
-</tr>
-<tr class="even">
-<td>proc</td>
-<td>是一个虚拟文件系统，存放当前内存的映射，主要用于在不重启机器的情况下管理内核</td>
-</tr>
-<tr class="odd">
-<td>lost+ found</td>
-<td>存放一些系统检查结果，发现不合法的文件或数据都存放在这里，通常此目录是空的，除非硬盘遭到损坏</td>
-</tr>
-</tbody>
-</table>
-<h3 id="链接文件">链接文件</h3>
-<ul>
-<li><p>硬链接 将两个文件名指向硬盘上同一个存储空间（inode），对任何一个文件的修改都将影响到另一个文件。 特性： 文件有相同的 inode 及 data block； 只能对已存在的文件进行创建； 不能交叉文件系统进行硬链接的创建； 不能对目录进行创建，只可对文件创建； 删除一个硬链接文件并不影响其他有相同 inode 号的文件。</p></li>
-<li><p>符号链接 又称软链接，是指将一个文件指向另外一个文件的文件名。 特性： 软链接有自己的文件属性及权限等； 软链接可对文件或目录创建； 可对不存在的文件或目录创建软链接； 软链接可交叉文件系统； 若被指向的原文件被删除，则相关软连接被称为死链接 删除软链接并不影响被指向的文件，若被指向路径文件被重新创建，死链接可恢复为正常的软链接</p></li>
-</ul>
-<p><code>符号链接可以跨文件系统，即可以跨磁盘分区。硬链接不可以跨文件系统。它只能建立对文件的链接。</code> 链接文件命令  ln</p>
-<table>
-<tbody>
-<tr class="odd">
-<td>ln file1 file2</td>
-<td>创建源文件file1的硬链接file2</td>
-</tr>
-<tr class="even">
-<td>ln -s file1 file2</td>
-<td>创建源文件file1的软链接file2</td>
-</tr>
-</tbody>
-</table>
-<p>符号链接可以跨文件系统，即可以跨磁盘分区。 硬链接不可以跨文件系统，只能建立对文件的链接。 硬链接删除只原文件或硬链接不影响文件内容 软连接删除源文件导致链接失效</p>
-<h3 id="mbr">MBR</h3>
-<p>硬盘的第一个扇区存有主引导记录(Master boot record, MBR)及分区表(partition table)</p>
-<ul>
-<li>MBR用于引导操作系统， 446 bytes ；</li>
-<li>partition table用于记录分区信息， 64 bytes ； 一个MBR分区表类型的硬盘最多存在4个主分区，每个分区项占用16个字节 如果分区超过4个，则需要使用扩展分区，即一个物理硬盘上最多有3个主分区和1个扩展分区。 扩展分区不能直接使用，必须分割成为逻辑分区，一个扩展分区中的逻辑分区可以任意多个。</li>
-</ul>
-<h3 id="gpt">GPT</h3>
-<p>全称全局唯一标识分区表 GUID Partition Table</p>
-<ul>
-<li>主分区数量任意（Win 128个）</li>
-<li>支持最大18EB（NTFS 256TB） 1EB=1024PB=1,048,576TB 可能需要EFI支持（Win、Mac）</li>
-</ul>
-<h3 id="ext2">ext2</h3>
-<p>磁盘分区完毕后还需要进行格式化(format)，不同操作系统默认的文件系统不同，所以需要格式化成不同格式的分区。 EXT2（second extended filesystem）是LINUX内核默认的文件系统。 EXT2中的主要构成： •SuperBlock  记录此 filesystem 的整体信息，包括inode/block的总量、使用量、剩余量， 以及文件系统的格式与相关信息等； •Block   实际记录文件的内容，若文件较大，则占用多个 block。 •Inode   记录文件的属性，一个文件占用一个inode，同时记录此文件的数据所在的 block 号码</p>
-<h4 id="inode">inode</h4>
-<p>ext2 创建一个目录时，分配1个 inode 与至少1块 block 给目录 •inode 记录目录权限与属性，并记录分配到 block号码 •block 记录目录下文件名与该文件名占用的 inode</p>
-<p>inode 数量与大小在格式化时固定 特征：</p>
-<ul>
-<li>每个 inode 大小均固定为 128 bytes；</li>
-<li>每个文件仅占用一个 inode；</li>
-<li>文件系统能够创建的文件数量与 inode 的数量有关；</li>
-<li>系统读取文件时先找到 inode，分析 inode 所记录的权限与用户是否符合，若符合读取 block 的内容。 <img src="/assets/苏大linux_ppt/image-20231014145226727.png" /></li>
-</ul>
-<h4 id="升级">升级</h4>
-<p><code>EXT2</code>文件系统高效稳定，但不提供日志 <code>EXT3</code> 提供日志模式： data=journal模式 对所有的文件数据及metadata（定义文件系统中数据的数据,即数据的数据）进行日志记录 data=ordered或data=writeback模式 只对metadata记录日志，而不对数据进行日志记录</p>
-<p><code>EXT4</code> EXT3的扩展升级，可以提供更佳的性能和可靠性，包括支持更大的分区和文件大小，更快的文件操作速度。</p>
-<h3 id="实例">实例</h3>
-<h4 id="fdisk">fdisk</h4>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">           fdisk      [-options]     &lt;disk&gt;</span><br><span class="line">选项：</span><br><span class="line">-l 列出分区信息表</span><br><span class="line">/dev/sda    对sda磁盘进行分区</span><br></pre></td></tr></table></figure>
-<p>中科大的xubuntu镜像</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ustc@ustclug-linux101:~/桌面$ sudo fdisk -l</span><br><span class="line">[sudo] ustc 的密码： </span><br><span class="line">Disk /dev/sda：5 GiB，5368709120 字节，10485760 个扇区</span><br><span class="line">Disk model: VMware Virtual S</span><br><span class="line">单元：扇区 / 1 * 512 = 512 字节</span><br><span class="line">扇区大小(逻辑/物理)：512 字节 / 512 字节</span><br><span class="line">I/O 大小(最小/最佳)：512 字节 / 512 字节</span><br><span class="line">磁盘标签类型：gpt</span><br><span class="line">磁盘标识符：12526913-E330-4CA7-A379-90A87EF858B0</span><br><span class="line"></span><br><span class="line">设备         起点     末尾    扇区  大小 类型</span><br><span class="line">/dev/sda1    2048   499711  497664  243M EFI 系统</span><br><span class="line">/dev/sda2  499712 10483711 9984000  4.8G Linux 文件系统</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h4 id="mkfs格式化">mkfs格式化</h4>
-<p>mkfs      [-t 磁盘格式名]     &lt;partition&gt;</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mkfs  -t ext3  /dev/sdb1</span><br></pre></td></tr></table></figure>
-<h4 id="mount挂载">mount挂载</h4>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mount [-t vfstype] [-o options]    device    <span class="built_in">dir</span></span><br><span class="line">mount                         显示所有挂载的信息</span><br><span class="line"></span><br><span class="line">mount –a                   将所有未挂载设备挂载</span><br><span class="line"></span><br><span class="line">mount   /dev/hda2   /mnt/myhd2    将hda2设备挂载到/mnt/myhd2</span><br><span class="line"></span><br><span class="line">mount -t iso9660 /dev/cdrom  /media/cdrom  挂载光驱</span><br><span class="line">umount [选项] <span class="built_in">dir</span></span><br><span class="line"></span><br><span class="line">选项：</span><br><span class="line"></span><br><span class="line">-f     强制卸载</span><br><span class="line"></span><br><span class="line">-all   卸载所有挂载</span><br><span class="line"></span><br><span class="line">例：</span><br><span class="line"></span><br><span class="line">umount  /media/cdrom     卸载刚才挂载的光驱</span><br></pre></td></tr></table></figure>
-<h2 id="shell">shell</h2>
-<h3 id="重定向">重定向</h3>
-<p>lLinux启动后，默认打开3个文件描述符 •标准输入：standard input   0 •标准输出：standard output  1 •错误输出：error output     2 每条shell命令执行，都会继承父进程的文件描述符。因此，所有运行的shell命令，都会有默认3个文件描述符。 <code>重定向</code> 是指不使用系统的标准输入，标准输出或标准错误端口，而重新指定输入输出。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入重定向</span><br><span class="line"></span><br><span class="line">&lt;          输入重定向，从普通文件获取</span><br><span class="line"></span><br><span class="line">&lt;&lt;!...!    输入重定向， here文件，即从命令行获取</span><br><span class="line"></span><br><span class="line">输出重定向</span><br><span class="line"></span><br><span class="line">&gt;          输出重定向，覆盖模式</span><br><span class="line"></span><br><span class="line">&gt;&gt;         输出重定向，追加模式</span><br><span class="line"></span><br><span class="line">2&gt;         错误重定向，覆盖模式</span><br><span class="line"></span><br><span class="line">2&gt;&gt;        错误重定向，追加模式</span><br><span class="line"></span><br><span class="line">&amp;&gt;         同时实现输出重定向和错误重定向，覆盖模式</span><br><span class="line"></span><br><span class="line">&amp;&gt;&gt;        同时实现输出重定向和错误重定向，追加模式</span><br></pre></td></tr></table></figure>
-<h3 id="管道">管道</h3>
-<p>管道是一种两个进程间进行单向通信的机制 每个命令的输出作为下一条命令的输入，管道线中的命令从左到右顺序执行的，管道线是单向的 因为管道传递数据的单向性，管道又称为半双工管道</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ls –l | wc -l</span><br></pre></td></tr></table></figure>
-<h3 id="命令替换">命令替换</h3>
-<p>Shell中的命令参数可以由另一个命令执行的结果来替代</p>
-<p>命令格式：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$cmd1 `cmd2  arguments`</span><br><span class="line">或</span><br><span class="line">$cmd1 $(cmd2 arguments)</span><br></pre></td></tr></table></figure>
-<p>其中cmd2  arguments的输出作为cmd1的参数y</p>
-<h3 id="命令聚合">命令聚合</h3>
-<p>在一个命令行上使用若干shell元字符将若干命令聚合在一起运行。</p>
-<p>执行聚合的几种方式：</p>
-<p>•<code>cmd1;cmd2</code>   顺序执行若干命令</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">pwd;date;ls</span><br></pre></td></tr></table></figure>
-<p>•<code>cmd1&amp;&amp;cmd2</code> 当cmd1运行成功时才运行cmd2</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">gzip mylargefile&amp;&amp;echo &quot;OK.&quot;</span><br></pre></td></tr></table></figure>
-<p>•<code>cmd1||cmd2</code>   当cmd1运行失败时才运行cmd2</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">gzip mylargefile||echo &quot;FALSE.&quot;</span><br></pre></td></tr></table></figure>
-<p>•<code>(cmdlist)</code>   在子shell中执行命令序列，命令不影响当前shell</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">(date;who|wc -l)&gt;~/login-users.log</span><br></pre></td></tr></table></figure>
-<h2 id="用户系统">用户系统</h2>
-<ul>
-<li><p>普通用户账户：在系统上的任务是进行普通工作</p></li>
-<li><p>超级用户账户：在系统上的任务是对普通用户和整个系统进行管理。</p></li>
-<li><p>系统用户账户：伪用户，并不能登录，由操作系统自己操作。 每个用户都被分配了一个唯一的用户ID号（UID）</p></li>
-<li><p>超级用户：UID=0，GID=0</p></li>
-<li><p>普通用户：UID&gt;=500(有的系统是1000)</p></li>
-<li><p>系统用户（伪用户，不可登录）：0&lt;UID&lt;500（有的系统是1000）</p></li>
-</ul>
-<p>用户名和 UID 被保存在 /etc/passwd 这个文件中</p>
-<h3 id="组">组</h3>
-<ul>
-<li>组是用户的集合</li>
-<li>每个组都被分配了一个唯一的组ID号（GID）</li>
-<li>组和GID 被保存在 /etc/group 文件中</li>
-<li>每个用户都有他们自己的私有组</li>
-<li>每个用户都可以被添加到其他组中来获得额外的存取权限</li>
-<li>组中的所有用户都可以共享属于该组的文件</li>
-<li>当一个用户同属于多个组时，将这些组分为：
-<ul>
-<li>主组（初始组）：用户登录系统时的组</li>
-<li>附加组：可切换的其他组</li>
-</ul></li>
-</ul>
-<h3 id="权限管理">权限管理</h3>
-<p>被加密后的密码实际上储存在/etc/shadow中 组口令则储存在/etc/gshadow 用户管理相关命令： useradd , userdel, usermod ,passwd ,chage ,su,sudo groupadd, groupdel, groupmod 权限管理相关命令：</p>
-<ul>
-<li>权限设定命令 chmod</li>
-<li>修改文件的属主和/或组命令 chown</li>
-<li>修改文件的所属组命令 chgrp</li>
-</ul>
-<h1 id="linux101">linux101</h1>
-<p><img src="/assets/苏大linux_ppt/clitool.png" /></p>
-<h2 id="apt">apt</h2>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ apt search firefox</span><br><span class="line">Sorting... Done</span><br><span class="line">Full Text Search... Done</span><br><span class="line">(Output omitted)</span><br><span class="line"></span><br><span class="line">firefox/bionic-updates,bionic-security,now 72.0.2+build1-0ubuntu0.18.04.1 amd64</span><br><span class="line">  Safe and easy web browser from Mozilla</span><br><span class="line"></span><br><span class="line">(Output omitted)</span><br></pre></td></tr></table></figure>
-<p>中间两行每个字段的含义：</p>
-<table>
-<thead>
-<tr class="header">
-<th>样例中的字段</th>
-<th>含义</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>firefox</code></td>
-<td>即为在软件仓库中的包名</td>
-</tr>
-<tr class="even">
-<td><code>bionic-updates,bionic-security,now</code></td>
-<td>为包含这个软件包的仓库源</td>
-</tr>
-<tr class="odd">
-<td><code>72.0.2+build1-0ubuntu0.18.04.1</code></td>
-<td>为软件包的版本</td>
-</tr>
-<tr class="even">
-<td><code>amd64</code></td>
-<td>软件包的架构；还可能为<code>i386</code>、<code>all</code>等</td>
-</tr>
-<tr class="odd">
-<td><code>Safe and easy web browser from Mozilla</code></td>
-<td>在软件仓库中对这个软件包的描述</td>
-</tr>
-</tbody>
-</table>
-<div class="note warning"><p>请避免直接使用 <code>dpkg -i</code> 安装 deb 包。 在绝大多数情况下，都应该使用 <code>apt</code> 来安装 deb 文件。 如果不小心执行了 <code>dpkg -i</code> 导致系统出现依赖问题，可以尝试通过如下的方式调用 <code>apt</code> 帮助修复依赖管理：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo apt -f install</span><br></pre></td></tr></table></figure>
-</div>
-<h2 id="环境变量">环境变量</h2>
-<p>我们不能每次在需要编译程序的时候输入如此长的路径找到 <code>clang</code> 和 <code>clang++</code>，而更希望的是能够像 <code>apt</code> 那样在任何地方都可以直接运行。</p>
-<p>我们可以这样做：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 将 clang+llvm-10.0.0-x86_64-linux-gnu-ubuntu-18.04 目录下的所有内容复制到 /usr/local/ 下</span><br><span class="line">sudo cp -R * /usr/local/</span><br></pre></td></tr></table></figure>
-<p>为什么是 <code>/usr/local</code> 呢？因为 <code>/usr/local/bin</code> 处在 PATH 环境变量下。当我们在终端输入命令时，终端会先判断是否为终端的内建命令，如果不是，则会在 $PATH 环境变量中包含的目录下进行查找。因此，只要我们将一个可执行文件放入了 $PATH 中的目录下面，我们就可以像 <code>apt</code> 一样，在任意地方调用我们的程序。 通过这个命令可以看到当前的 PATH 环境变量有哪些目录。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ echo $PATH</span><br><span class="line">/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin</span><br></pre></td></tr></table></figure>
-<p>在上面的复制过程中，源目录和目标目录的两个 <code>bin</code> 目录会相互合并，<code>clang</code> 和 <code>clang++</code> 两个可执行文件也就被复制到了 <code>/usr/local/bin/</code> 目录中。这样子也就达到了我们希望能够在任意地方调用我们的可执行文件的目的。此外，在复制的时候 lib、doc 等文件夹也会和 <code>/usr/local</code> 下的对应目录合并，将 clang 的库和文档加到系统当中。</p>
-<h2 id="模式匹配">模式匹配</h2>
-<p>许多现代的 shell 都支持一定程度的模式匹配。举个例子，bash 的匹配模式被称为 <a href="https://mywiki.wooledge.org/glob">glob</a>，支持的操作如下：</p>
-<table>
-<thead>
-<tr class="header">
-<th>模式</th>
-<th>匹配的字串</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>*</code></td>
-<td>任意字串</td>
-</tr>
-<tr class="even">
-<td><code>foo*</code></td>
-<td>匹配 foo 开头的字串</td>
-</tr>
-<tr class="odd">
-<td><code>*x*</code></td>
-<td>匹配含 x 的字串</td>
-</tr>
-<tr class="even">
-<td><code>?</code></td>
-<td>一个字符</td>
-</tr>
-<tr class="odd">
-<td><code>a?b</code></td>
-<td><code>acb</code>、<code>a0b</code> 等，但不包含 <code>a00b</code></td>
-</tr>
-<tr class="even">
-<td><code>*.[ch]</code></td>
-<td>以 .c 或 .h 结尾的文件</td>
-</tr>
-</tbody>
-</table>
-<div class="note info no-icon"><p>除了上面提到的 glob，bash 还支持 <a href="https://www.linuxjournal.com/content/bash-extended-globbing">extglob</a>，不过需要先用 <code>shopt -s extglob</code> 启用。</p>
-</div>
-<h2 id="进程">进程</h2>
-<h3 id="htop">htop</h3>
-<p>Htop 可以简单方便查看当前运行的所有进程，以及系统 CPU、内存占用情况与系统负载等信息。</p>
-<p>使用鼠标与键盘都可以操作 htop。Htop 界面的最下方是一些选项，使用鼠标点击或按键盘的 F1 至 F10 功能键可以选择这些功能，常用的功能例如搜索进程（F3, Search）、过滤进程（F4, Filter，使得界面中只有满足条件的进程）、切换树形结构/列表显示（F5, Tree/List）等等。</p>
-<p><strong>进程标识符</strong>（PID，Process Identifier（是一个数字，是进程的唯一标识。在 htop 中，最左侧一列即为 PID。当用户想挂起、继续或终止进程时可以使用 PID 作为索引。</p>
-<p>在 htop 中，直接单击绿色条内的 PID 栏，可以将进程顺序按照 PID 升序排列，再次点击为降序排列，同理可应用于其他列。</p>
-<div class="note info no-icon"><p>按照 PID 排序时，我们可以观察系统启动的过程。Linux 系统内核从引导程序接手控制权后，开始内核初始化，随后变为 <strong>init_task</strong>，初始化自己的 PID 为 0。随后创建出 1 号进程（init 程序，目前一般为 systemd）衍生出用户空间的所有进程，创建 2 号进程 kthreadd 衍生出所有内核线程。随后 0 号进程成为 idle 进程，1 号、2 号并非特意预留，而是产生进程的自然顺序使然。</p>
-<p>由于 kthreadd 运行于内核空间，故需按大写 K（Shift + k）键显示内核进程后才能看到。然而无论如何也不可能在 htop 中看到 0 号进程本体，只能发现 1 号和 2 号进程的 PPID 是 0。</p>
-</div>
-<h4 id="linux对进程的分类">linux对进程的分类</h4>
-<p><code>Status: R: running; S: sleeping; T: traced/stopped; Z: zombie; D: disk sleep</code> S 对应的 sleeping 又称 interruptible sleep，字面意思是「可以被中断」；而 D 对应的 disk sleep 又称 uninterruptible sleep，不可被中断，一般是因为阻塞在磁盘读写操作上。 Zombie 是僵尸进程，该状态下进程已经结束，只是仍然占用一个 PID，保存一个返回值。而 traced/stopped 状态正是下文使用 Ctrl + Z 导致的挂起状态（大写 T），或者是在使用 gdb 等调试（Debug）工具进行跟踪时的状态（小写 t）。</p>
-<table>
-<thead>
-<tr class="header">
-<th>状态</th>
-<th>缩写表示</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Running</td>
-<td>R</td>
-<td>正在运行/可以立刻运行</td>
-</tr>
-<tr class="even">
-<td>Sleeping</td>
-<td>S</td>
-<td>可以被中断的睡眠</td>
-</tr>
-<tr class="odd">
-<td>Disk Sleep</td>
-<td>D</td>
-<td>不可被中断的睡眠</td>
-</tr>
-<tr class="even">
-<td>Traced / Stopped</td>
-<td>T</td>
-<td>被跟踪/被挂起的进程</td>
-</tr>
-<tr class="odd">
-<td>Zombie</td>
-<td>Z</td>
-<td>僵尸进程</td>
-</tr>
-</tbody>
-</table>
-<h3 id="ps">ps</h3>
-<p>ps（<strong>p</strong>rocess <strong>s</strong>tatus）是常用的输出进程状态的工具。直接调用 <code>ps</code> 仅会显示本终端中运行的相关进程。如果需要显示所有进程，对应的命令为 <code>ps aux</code>。</p>
-<h3 id="优先级与-nice-值">优先级与 nice 值</h3>
-<p>有了进程，谁先运行？谁给一点时间就够了，谁要占用大部分 CPU 时间？这又是如何决定的？这些问题之中体现着优先权的概念。如果说上面所介绍的的那些进程属性描述了进程的控制信息，那么<strong>优先级</strong>则反映操作系统调度进程的手段。在 htop 的显示中有两个与优先级有关的值：Priority（PRI）和 <strong>nice（NI）</strong>。以下主要介绍用户层使用的 nice 值。</p>
-<p>Nice 值越高代表一个进程对其它进程越 "nice"（友好），对应的优先级也就更低。Nice 值最高为 19，最低为 -20。通常，我们运行的程序的 nice 值为 0。我们可以打开 htop 观察与调整每个进程的 nice 值。</p>
-<p>用户可以使用 <code>nice</code> 命令在运行程序时指定优先级，而 <code>renice</code> 命令则可以重新指定优先级。当然，若想调低 nice 值，还需要 <code>sudo</code>（毕竟不能随便就把自己的优先级设置得更高，不然对其他的用户不公平）。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">nice -n 10 vim # 以 10 为 nice 值运行 vim</span><br><span class="line">renice -n 10 -p 12345 # 设置 PID 为 12345 的进程的 nice 值为 10</span><br></pre></td></tr></table></figure>
-<div class="note info no-icon"><p>如果你在 htop 中测试调整进程的 nice 值，可能会发现一个公式：<code>PRI = nice + 20</code>。这对于普通进程是成立的——普通进程的 PRI 会被映射到一个非负整数。</p>
-<p>但在正常运行的 Linux 系统中，我们可能会发现有些进程的 PRI 值是 RT，或者是负数。这表明对应的进程有更高的实时性要求（例如内核进程、音频相关进程等），采用了与普通进程不同的调度策略，优先级也相应更高。</p>
-</div>
-<h3 id="用户进程控制">用户进程控制</h3>
-<p><img src="https://101.lug.ustc.edu.cn/Ch04/images/signal_slide.png" /> 信号是 Unix 系列系统中进程之间相互通信的一种机制。发送信号的 Linux 命令叫作 <code>kill</code>。被称作 "kill" 的原因是：早期信号的作用就是关闭（杀死）进程。</p>
-<h3 id="前后台">前后台</h3>
-<p><img src="https://101.lug.ustc.edu.cn/Ch04/images/bg.gif" /> 默认情况下，在 shell 中运行的命令都在前台运行，如果需要在后台运行程序，需要在最后加上 <code>&amp;</code> 而如果需要将前台程序切换到后台，则需要按下 Ctrl + Z 发送 SIGTSTP 使进程挂起，控制权还给 shell 我们可以使用 <code>jobs</code> 命令，看到当前 shell 上所有相关的进程 任务前的代号在 fg，bg，乃至 kill 命令中发挥作用。使用时需要在前面加 <code>%</code>，如将 2 号进程放入后台，则使用 <code>bg %2</code> <div class="note info no-icon"><p>然而我们也许会关注一个细节，在图中显示的编号后面跟着的加号和减号是什么？</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[1]  - running    ./signal handle</span><br><span class="line">[2]  + suspended  ping localhost</span><br></pre></td></tr></table></figure>
-<p>这里的加号标记了 fg 和 bg 命令默认作用到的任务为 2，所以这里 <code>bg %2</code> 也可以直接简化为 <code>bg</code>。减号表示如果加号标记的进程退出了，它就会成为加号标记进程。我们也可以用 <code>%+</code> 和 <code>%-</code> 指代这两个任务。</p>
-</div></p>
-<h3 id="终止进程">终止进程</h3>
-<p>标准的终止进程信号是 SIGTERM，意味着一个进程的自然死亡</p>
-<ul>
-<li>htop 中自带向进程发送信号的功能。按下 K 键，在左侧提示栏中选择需要的信号，按下回车发送。同时可以使用空格对进程进行标记，被标记的进程将改变显示颜色。此时重复上述过程，可对被标记进程批量发送信号。</li>
-<li>如果不加任何参数，只有 PID，<code>kill</code> 命令将自动使用 15（SIGTERM）作为信号参数。</li>
-<li>在信号中，9 代表 SIGKILL，收到这个信号之后，程序会立刻退出。在使用时，直接 <code>kill -9 PID</code> 即可。</li>
-</ul>
-<h3 id="其他类-kill-命令">其他类 kill 命令</h3>
-<ul>
-<li><p><code>pgrep</code> / <code>pkill</code> 后面接模糊名称，实际上类似于对名称进行 <code>grep</code> 命令。<code>pgrep</code> 仅列出搜索到的进程名称符合用户输入的进程标识符，而 <code>pkill</code> 会根据用户的输入向进程发送信号。</p></li>
-<li><p><code>killall</code> 与 <code>pkill</code> 有一些类似，会向指定名字的进程发送信号。</p></li>
-<li><p><code>xkill</code> <code>xkill</code> 是针对窗口的 kill，运行该命令后，鼠标点击程序对应的窗口，就可以杀死该程序。</p></li>
-</ul>
-<h3 id="脱离终端">脱离终端</h3>
-<p>如果你使用过 SSH 连接到远程服务器执行任务，那么你会发现，你在 shell 中执行的程序在 SSH 断开之后会被关闭。这是因为终端一旦被关闭会向其中每个进程发送 SIGHUP（Signal hangup），而 SIGHUP 的默认动作即退出程序运行。</p>
-<h4 id="nohup">nohup</h4>
-<p>nohup，字面含义，就是「不要被 SIGHUP 影响」。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ nohup ping 101.ustclug.org &amp;</span><br><span class="line">[1] 19258</span><br><span class="line">nohup: ignoring input and appending output to &#x27;/home/ustc/nohup.out&#x27;</span><br></pre></td></tr></table></figure>
-<p>在需要屏蔽 SIGHUP 的程序前添加 nohup，则运行时的输出将被<a href="https://101.lug.ustc.edu.cn/Ch06/#redirect">重定向</a>到 nohup.out，也可以通过重定向手段自定义输出的文件。</p>
-<h2 id="服务">服务</h2>
-<h3 id="服务管理">服务管理</h3>
-<p>目前绝大多数 Linux 发行版的 init 方案都是 systemd，其管理系统服务的命令是 <code>systemctl</code>。</p>
-<p>若想了解全部服务内容，可以运行 <code>systemctl list-units</code> 来查看。该命令将显示所有 systemd 管理的单元，同时右面还会附上一句注释来表明该服务的任务。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ tldr systemctl</span><br><span class="line">systemctl</span><br><span class="line">Control the systemd system and service manager.</span><br><span class="line"></span><br><span class="line">    - List failed units:  # 列出运行失败的服务</span><br><span class="line">    systemctl --failed</span><br><span class="line"></span><br><span class="line">    - Start/Stop/Restart/Reload a service:  # 开启/关闭/重启/重载服务。Reload 代表重载配置文件而不重启进程。</span><br><span class="line">    systemctl start/stop/restart/reload &#123;&#123;unit&#125;&#125;</span><br><span class="line"></span><br><span class="line">    - Show the status of a unit:  # 显示服务状态</span><br><span class="line">    systemctl status &#123;&#123;unit&#125;&#125;</span><br><span class="line"></span><br><span class="line">    - Enable/Disable a unit to be started on bootup:  # 设置（Enable）/取消（Disable）服务开机自启</span><br><span class="line">    systemctl enable/disable &#123;&#123;unit&#125;&#125;</span><br><span class="line"></span><br><span class="line">    - Mask/Unmask a unit, prevent it to be started on bootup:  # 阻止/取消阻止服务被 enable</span><br><span class="line">    systemctl mask/unmask &#123;&#123;unit&#125;&#125;</span><br><span class="line"></span><br><span class="line">    - Reload systemd, scanning for new or changed units:  # 重载 systemd，需要在创建或修改服务文件后执行</span><br><span class="line">    systemctl daemon-reload</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<div class="note info no-icon"><p>wsl默认不支持systemctl,可以使用传统的service</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ tldr service</span><br><span class="line">service</span><br><span class="line">Manage services by running init scripts.</span><br><span class="line">The full script path should be omitted (/etc/init.d/ is assumed).</span><br><span class="line"></span><br><span class="line"> - Start/Stop/Restart/Reload service (start/stop should always be available):</span><br><span class="line">   service &#123;&#123;init_script&#125;&#125; &#123;&#123;start|stop|restart|reload&#125;&#125;</span><br><span class="line"></span><br><span class="line"> - Do a full restart (runs script twice with start and stop):</span><br><span class="line">   service &#123;&#123;init_script&#125;&#125; --full-restart</span><br><span class="line"></span><br><span class="line"> - Show the current status of a service:</span><br><span class="line">   service &#123;&#123;init_script&#125;&#125; status</span><br><span class="line"></span><br><span class="line"> - List the status of all services:</span><br><span class="line">   service --status-all</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>或者手动打开</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo vim /etc/wsl.conf</span><br></pre></td></tr></table></figure>
-<p>输入：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[boot]</span><br><span class="line">systemd=true</span><br></pre></td></tr></table></figure>
-<p>然后在windows终端wsl --shutdown再重启</p>
-</div>
-<div class="note info no-icon"><p><strong>编写 .service 文件并运行（以 Jupyter Notebook 为例）</strong></p>
-<p>Jupyter Notebook 是基于浏览器的交互式编程平台，在数据科学领域非常常用。</p>
-<p>首先使用文本编辑器在 <code>/etc/systemd/system</code> 目录下创建一个名为 <code>jupyter.service</code> 的文件。并填入以下内容：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=Jupyter Notebook    # 该服务的简要描述</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">PIDFile=/run/jupyter.pid        # 用来存放 PID 的文件</span><br><span class="line">ExecStart=/usr/local/bin/jupyter-notebook --allow-root</span><br><span class="line">                                # 使用绝对路径标明的命令及命令行参数</span><br><span class="line">WorkingDirectory=/root          # 服务启动时的工作目录</span><br><span class="line">Restart=always                  # 重启模式，这里是无论因何退出都重启</span><br><span class="line">RestartSec=10                   # 退出后多少秒重启</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target      # 依赖目标，这里指进入多用户模式后再启动该服务</span><br></pre></td></tr></table></figure>
-<p>将写好的配置文件保存为 <code>/etc/systemd/system/jupyter.service</code>，然后运行 <code>systemctl daemon-reload</code>，就可以使用 <code>systemctl</code> 命令来管理这个服务了，例如：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">systemctl start jupyter</span><br><span class="line">systemctl stop jupyter</span><br><span class="line">systemctl enable jupyter  # enable 表示标记服务的开机自动启动</span><br><span class="line">systemctl disable jupyter # 取消自启</span><br></pre></td></tr></table></figure>
-</div>
-<h3 id="例行性任务">例行性任务</h3>
-<p>可以用at，crontab等工具创建例行性任务 详见<a href="https://101.lug.ustc.edu.cn/Ch04/#crontab">linux101</a></p>
-<div class="note info no-icon">
-</div>
-<h2 id="用户权限和文件系统">用户权限和文件系统</h2>
-<p>可以查看 <code>/etc/passwd</code> 文件，来得到系统中用户的配置信息。 普通用户的文件存储于位于 <code>/home/username/</code>路径</p>
-<div class="note info no-icon"><p>你是否常常忘记敲 <code>sudo</code>，结果还要把后面的整条命令重新敲一遍？在发现权限不足之后有一个方便的「补救方案」：<code>sudo !!</code>，效果如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ apt update</span><br><span class="line">Reading package lists... Done</span><br><span class="line">E: Could not open lock file /var/lib/apt/lists/lock - open (13: Permission denied)</span><br><span class="line">E: Unable to lock directory /var/lib/apt/lists/</span><br><span class="line">W: Problem unlinking the file /var/cache/apt/pkgcache.bin - RemoveCaches (13: Permission denied)</span><br><span class="line">W: Problem unlinking the file /var/cache/apt/srcpkgcache.bin - RemoveCaches (13: Permission denied)</span><br><span class="line">$ sudo !!</span><br><span class="line">sudo apt update</span><br><span class="line">[sudo] password for ustc:</span><br><span class="line">Hit:1 http://mirrors.ustc.edu.cn/ubuntu bionic InRelease</span><br><span class="line">（以下内容省略）</span><br></pre></td></tr></table></figure>
-<p>其实，在 Shell 中，<code>!!</code> 即代表上一条命令，可以和其他的命令结合使用。</p>
-</div>
-<p>以 <code>root</code> 之外的用户的身份执行命令：加上 <code>-u 用户名</code> 的参数即可。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ sudo -u nobody id</span><br><span class="line">uid=65534(nobody) gid=65534(nogroup) groups=65534(nogroup)</span><br></pre></td></tr></table></figure>
-<h3 id="用户组">用户组</h3>
-<p>用户组是用户的集合。通过用户组机制，可以为一批用户设置权限。可以使用 <code>groups</code> 命令，查看自己所属的用户组。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ groups</span><br><span class="line">ustc adm cdrom sudo dip plugdev lxd</span><br></pre></td></tr></table></figure>
-<p>用户组和用户一样，也有编号：GID (Group ID)。 <div class="note info no-icon"><p><code>adduser</code> 是 Debian 及其衍生发行版中附带的一个方便的用户管理脚本。它可以用来向系统添加用户、添加组，以及将用户加入组。输入：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo adduser 用户名</span><br></pre></td></tr></table></figure>
-<p>即可添加此用户。而输入</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo adduser --group 组名</span><br></pre></td></tr></table></figure>
-<p>即可添加此用户组。将用户加入指定用户组也非常简单：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo adduser 用户名 组名</span><br></pre></td></tr></table></figure>
-<p>在通过 <code>adduser</code> 创建了新的用户后，直接使用 <code>sudo</code> 以 <code>root</code> 身份运行程序可能会得到：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ sudo apt update</span><br><span class="line">[sudo] password for ustc:</span><br><span class="line">ustc is not in the sudoers file.  This incident will be reported.</span><br></pre></td></tr></table></figure>
-<p>除了可以通过 <code>visudo</code> 命令编辑 <code>sudoers</code> 文件外，还可以直接通过将新的用户加入到 <code>sudo</code> 用户组，以能够使用 <code>sudo</code> 命令。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo adduser ustc sudo</span><br></pre></td></tr></table></figure>
-<p>再次切换到新的用户即可看到使用 sudo 的提示：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">To run a command as administrator (user &quot;root&quot;), use &quot;sudo &lt;command&gt;&quot;.</span><br><span class="line">See &quot;man sudo_root&quot; for details.</span><br></pre></td></tr></table></figure>
-</div></p>
-<h2 id="文本处理">文本处理</h2>
-<h3 id="正则表达式">正则表达式</h3>
-<p><a href="https://regex101.com/">在线编辑正则表达式</a> 正则表达式（regular expression）描述了一种字符串匹配的模式，可以用来检查一个串是否含有某种子串、将匹配的子串做替换或者从某个串中取出符合某个条件的子串等。</p>
-<p>特殊字符表：</p>
-<table>
-<thead>
-<tr class="header">
-<th>特殊字符</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>[]</code></td>
-<td>方括号表达式，表示匹配的字符集合，例如 <code>[0-9]</code>、<code>[abcde]</code></td>
-</tr>
-<tr class="even">
-<td><code>()</code></td>
-<td>标记子表达式起止位置</td>
-</tr>
-<tr class="odd">
-<td><code>*</code></td>
-<td>匹配前面的子表达式零或多次</td>
-</tr>
-<tr class="even">
-<td><code>+</code></td>
-<td>匹配前面的子表达式一或多次</td>
-</tr>
-<tr class="odd">
-<td><code>?</code></td>
-<td>匹配前面的子表达式零或一次</td>
-</tr>
-<tr class="even">
-<td><code>\</code></td>
-<td>转义字符，除了常用转义外，还有：<code>\b</code> 匹配单词边界；<code>\B</code> 匹配非单词边界等</td>
-</tr>
-<tr class="odd">
-<td><code>.</code></td>
-<td>匹配除 <code>\n</code>（换行）外的任意单个字符</td>
-</tr>
-<tr class="even">
-<td><code>&#123;&#125;</code></td>
-<td>标记限定符表达式的起止。例如 <code>&#123;n&#125;</code> 表示匹配前一子表达式 n 次；<code>&#123;n,&#125;</code> 匹配至少 n 次；<code>&#123;n,m&#125;</code> 匹配 n 至 m 次</td>
-</tr>
-<tr class="odd">
-<td><code>\|</code></td>
-<td>表明前后两项二选一</td>
-</tr>
-<tr class="even">
-<td><code>$</code></td>
-<td>匹配字符串的结尾</td>
-</tr>
-<tr class="odd">
-<td><code>^</code></td>
-<td>匹配字符串的开头，在方括号表达式中表示不接受该方括号表达式中的字符集合</td>
-</tr>
-</tbody>
-</table>
-<p>若是想要匹配特殊字符本身，需要在之前加上转义字符 <code>\</code>。 <div class="note info no-icon"><p>匹配正整数：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[1-9][0-9]*</span><br></pre></td></tr></table></figure>
-<p>匹配仅由 26 个英文字母组成的字符串：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">^[A-Za-z]+$</span><br></pre></td></tr></table></figure>
-<p>匹配 Chapter 1-99 或 Section 1-99</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">^(Chapter|Section) [1-9][0-9]&#123;0,1&#125;$</span><br></pre></td></tr></table></figure>
-<p>匹配“ter”结尾的单词：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ter\b</span><br></pre></td></tr></table></figure>
-<p>匹配rgb代码</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">^#([0-9]&#123;6&#125;$|([0-9]|[A-F])&#123;3&#125;$)</span><br></pre></td></tr></table></figure>
-</div></p>
-<h4 id="基本扩展正则表达式">基本/扩展正则表达式</h4>
-<p>基本正则表达式（Basic Regular Expressions, BRE）和扩展正则表达式（Extended Regular Expressions, ERE）是两种 POSIX 正则表达式风格。</p>
-<p>BRE 可能是如今最老的正则风格了，对于部分特殊字符（如 <code>+</code>, <code>?</code>, <code>|</code>, <code>&#123;</code>）需要加上转义符 <code>\</code> 才能表达其特殊含义。</p>
-<p>ERE 与如今的现代正则风格较为一致，相比 BRE，上述特殊字符默认发挥特殊作用，加上 <code>\</code> 之后表达普通含义。</p>
-<h4 id="懒惰和贪婪">懒惰和贪婪</h4>
-<p>使用 <code>*</code> <code>+</code> 的时候默认是贪婪模式，即尽可能匹配更多的子表达式。在 <code>*</code> <code>+</code> 之后加上 <code>?</code> 变为懒惰模式，即尽可能匹配更少的子表达式。</p>
-<p>例如：<code>123456456</code></p>
-<p>贪婪：<code>1.+6</code> -&gt; <code>123456456</code></p>
-<p>懒惰：<code>1.+?6</code> -&gt; <code>123456</code> 后向引用可以将之前匹配到的具体内容再次利用。在正则表达式中，<code>()</code> 以及它们包含的内容为一个分组，每个分组默认拥有一个组号。</p>
-<p>组号分配规则：</p>
-<ul>
-<li>0 代表整个表达式</li>
-<li>从左至右，按左括号的出现顺序分配，第一个为 1，第二个为 2，以此类推</li>
-<li>扫描两遍，第一次只分配未命名的组，第二次只分配命名的组。即任意命名组的组号都大于未命名的组号</li>
-</ul>
-<h4 id="后向引用">后向引用</h4>
-<div class="note info no-icon"><p>示例</p>
-<p><code>\b(\w+)\b\s+\1\b</code> 可以用来匹配用空白字符分割的两个重复的单词（例如 <code>linux linux</code>），其中 <code>\1</code> 是对组号为 1 的组 <code>(\w+)</code> 的引用。</p>
-<p><code>\b(?'Word'\w+)\b\s+\k'Word'\b</code> 也可以起到同样的效果，其中 <code>?'Word'</code> 用于命名组，<code>\k'Word'</code> 用于引用组。</p>
-</div>
-<h4 id="零宽断言">零宽断言</h4>
-<p>零宽断言用于查找某些内容进行定位，但内容并不放入匹配结果，就像 <code>\b</code> <code>^</code> <code>$</code> 的定位一样。<code>(?=exp)</code> 用于匹配表达式 <code>exp</code> 前面的位置，<code>(?&lt;=exp)</code> 用于匹配后面的位置。</p>
-<h4 id="拓展阅读">拓展阅读</h4>
-<p><a href="https://zhuanlan.zhihu.com/p/46294360">乱用正则引发的惨案</a></p>
-<h3 id="其他的文本处理工具">其他的文本处理工具</h3>
-<h4 id="grep">grep</h4>
-<p>grep 全称 Global Regular Expression Print，是一个强大的文本搜索工具，可以在一个或多个文件中搜索指定 pattern 并显示相关行。</p>
-<p>grep 默认使用 BRE，要使用 ERE 可以使用 <code>grep -E</code> 或 egrep。</p>
-<p>命令格式：<code>grep [option] pattern file</code></p>
-<p>一些用法：</p>
-<ul>
-<li><code>-n</code>：显示匹配到内容的行号</li>
-<li><code>-v</code>：显示不被匹配到的行</li>
-<li><code>-i</code>：忽略字符大小写</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ls /bin | grep -n &quot;^man$&quot;  # 搜索内容仅含 man 的行，并且显示行号</span><br><span class="line">ls /bin | grep -v &quot;[a-z]\|[0-9]&quot;  # 搜索不含小写字母和数字的行</span><br><span class="line">ls /bin | grep -iv &quot;[A-Z]\|[0-9]&quot;  # 搜索不含字母和数字的行</span><br></pre></td></tr></table></figure>
-<h4 id="sed">sed</h4>
-<p>sed 全称 Stream EDitor，即流编辑器，可以方便地对文件的内容进行逐行处理。</p>
-<p>sed 默认使用 BRE，要使用 ERE 可以 sed -E。</p>
-<p>命令格式：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sed [OPTIONS] &#x27;command&#x27; file(s)</span><br><span class="line">sed [OPTIONS] -f scriptfile file(s)</span><br></pre></td></tr></table></figure>
-<p>此处的 command 和 scriptfile 中的命令均指的是 sed 命令。</p>
-<p>常见 sed 命令：</p>
-<ul>
-<li>s 替换</li>
-<li>d 删除</li>
-<li>c 选定行改成新文本</li>
-<li>a 当前行下插入文本</li>
-<li>i 当前行上插入文本</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ echo -e &quot;seD\nIS\ngOod&quot; &gt; sed_demo</span><br><span class="line">$ cat sed_demo</span><br><span class="line">seD</span><br><span class="line">IS</span><br><span class="line">gOod</span><br><span class="line">$ sed &quot;2d&quot; sed_demo  # 删除第二行</span><br><span class="line">seD</span><br><span class="line">gOod</span><br><span class="line">$ sed &quot;s/[a-z]/~/g&quot; sed_demo  # 替换所有小写字母为 ~</span><br><span class="line">~~D</span><br><span class="line">IS</span><br><span class="line">~O~~</span><br><span class="line">$ sed &quot;3cpErfeCt&quot; sed_demo  # 选定第三行，改成 pErfeCt</span><br><span class="line">seD</span><br><span class="line">IS</span><br><span class="line">pErfeCt</span><br></pre></td></tr></table></figure>
-<h4 id="awk">awk</h4>
-<p>awk 是一种用于处理文本的编程语言工具，名字来源于三个作者的首字母。相比 sed，awk 可以在逐行处理的基础上，针对列进行处理。默认的列分隔符号是空格，其他分隔符可以自行指定。</p>
-<p>awk 使用 ERE。</p>
-<p>命令格式：<code>awk [options] 'pattern &#123;action&#125;' [file]</code></p>
-<p>awk 逐行处理文本，对符合的 patthern 执行 action。需要注意的是，awk 使用单引号时可以直接用 <code>$</code>，使用双引号则要用 <code>\$</code>。</p>
-<p>一些示例：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ cat awk_demo</span><br><span class="line">Beth    4.00    0</span><br><span class="line">Dan     3.75    0</span><br><span class="line">kathy   4.00    10</span><br><span class="line">Mark    5.00    20</span><br><span class="line">Mary    5.50    22</span><br><span class="line">Susie   4.25    18</span><br><span class="line">$ # 选择第三列值大于 0 的行，对每一行输出第一列的值和第二第三列的乘积</span><br><span class="line">$ awk &#x27;$3 &gt;0 &#123; print $1, $2 * $3 &#125;&#x27; awk_demo</span><br><span class="line">kathy 40</span><br><span class="line">Mark 100</span><br><span class="line">Mary 121</span><br><span class="line">Susie 76.5</span><br></pre></td></tr></table></figure>
-<p>示例中 <code>$1</code>，<code>$2</code>，<code>$3</code> 分别指代本行的第 1、2、3 列。特别地，$0 指代本行。</p>
-<p>awk 语言是「图灵完全」的，这意味着理论上它可以做到和其他语言一样的事情。这里我们不仅可以对每行进行操作，还可以定义变量，将前面处理的状态保存下来，以下是一个求和的例子：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ awk &#x27;BEGIN &#123; sum = 0 &#125; &#123; sum += $2 * $3 &#125; END &#123; print sum &#125;&#x27; awk_demo</span><br><span class="line">337.5</span><br></pre></td></tr></table></figure>
-<h4 id="trsort">tr,sort</h4>
-<p>除此之外，tr可用于进行简单的预处理，sort可以用于进行简单的排序、</p>
-<h2 id="shell环境">shell环境</h2>
-<p>组命令：</p>
-<ul>
-<li><p>使用 <code>&#123; 命令1; 命令2; … &#125;</code>，组命令在 shell 内执行，不会产生新的进程，注意花括号和命令之间的空格。</p></li>
-<li><p>使用 <code>(命令1; 命令2; …)</code>，组命令会建立独立的 shell 子进程来执行组命令，这里的圆括号周围并不需要空格。</p></li>
-</ul>
-<p>可以在脚本开头加上 <code>set -u</code> 来实现使用未定义变量报错，否则会默认成空值</p>
-<h3 id="位置参数">位置参数</h3>
-<ul>
-<li>Shell 解释用户的命令时，把命令程序名后面的所有字串作为程序的参数。分别对应 <code>$1</code>、<code>$2</code>、<code>$3</code>、……、<code>$9</code>，程序名本身对应 <code>$0</code>。</li>
-<li>可用 <code>shift &lt;n&gt;</code> 命令，丢弃开头的 n 个位置变量，改变 <code>$1</code>、<code>$2</code>、<code>$3</code> 等的对应关系。</li>
-<li>可用 <code>set</code> 命令，重置整个位置变量列表，从而给 <code>$1</code>、<code>$2</code>、<code>$3</code> 等赋值。</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ set one two three</span><br><span class="line">$ echo $1 $2 $3</span><br><span class="line">one two three</span><br><span class="line">$ shift 2</span><br><span class="line">$ echo $1 $2 $3</span><br><span class="line">three</span><br><span class="line">$ # 此时 $2 和 $3 已不存在</span><br></pre></td></tr></table></figure>
-<h3 id="特殊变量">特殊变量</h3>
-<table>
-<thead>
-<tr class="header">
-<th>特殊变量</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>$#</code></td>
-<td>命令行上的参数个数，不包括 <code>$0</code></td>
-</tr>
-<tr class="even">
-<td><code>$?</code></td>
-<td>最后命令的退出代码，0 表示成功，其它值表示失败</td>
-</tr>
-<tr class="odd">
-<td><code>$$</code></td>
-<td>当前进程的 PID</td>
-</tr>
-<tr class="even">
-<td><code>$!</code></td>
-<td>最近一个后台运行进程的进程号</td>
-</tr>
-<tr class="odd">
-<td><code>$*</code></td>
-<td>命令行所有参数构成的一个字符串</td>
-</tr>
-<tr class="even">
-<td><code>$@</code></td>
-<td>用双引号括起的命令行各参数拼接构成的一个字符串</td>
-</tr>
-</tbody>
-</table>
-<h3 id="特殊字符">特殊字符</h3>
-<ul>
-<li><p>反斜杠，消除单个字符的特殊含义。</p>
-<ul>
-<li>包含空白字符（空格和制表符）、反斜杠本身、各种引号，以及 <code>$</code>、<code>!</code> 等。</li>
-<li>与其他语言不同，shell 中反斜杠不会将普通字符转义为其他含义（例如 <code>\n</code> 不会被视作换行符）。</li>
-</ul></li>
-<li><p>使用双引号包裹字符串可以消除空白字符切分参数的特殊含义，但是很多其他特殊字符的特殊含义仍然保留。双引号也被称为「弱引用」。</p></li>
-<li><p>单引号，能消除所有特殊字符的特殊含义，包括反斜杠，因此单引号字符串中不能使用反斜杠转义单引号本身。单引号也被称为「强引用」。</p></li>
-<li><p>反引号（<code>`</code>）括起的字符串，被 shell 解释为命令，执行时用命令输出结果代替整个反引号对界限部分。</p>
-<ul>
-<li>与反引号相同的语法是 <code>$(command)</code>，它的好处是界限更明确，且可以嵌套。因此编写新脚本时，更建议使用此语法。</li>
-</ul></li>
-</ul>
-<h3 id="语法">语法</h3>
-<p>具体语法可参考<a href="https://101.lug.ustc.edu.cn/Ch06/#bash-arithmetic">linux101</a></p>
-<h2 id="拓展阅读-1">拓展阅读</h2>
-<h3 id="进程与会话">进程与会话</h3>
-<p>Fork 是类 UNIX 中创建进程的基本方法：将当前的进程完整复制一份。新进程和旧进程唯一的区别是 <code>fork()</code> 的返回值不同。程序员可以根据其返回值为新旧进程设置不同的逻辑。</p>
-<p>除了最开始的 0 号进程外，绝大多数情况下其他进程是由另一个进程通过 fork 产生的。这里产生进程的一方为<strong>父进程</strong>，被产生的是<strong>子进程</strong>。在 Linux 中，父进程可以等待子进程，接收子进程退出信号以及返回值。 父进程如果先于子进程退出，产生孤儿进程，会被0号进程(init)接管 子进程先退出但父进程没有回应，产生僵尸进程，会被系统定时清理</p>
-<p><strong>进程组</strong>大体上是执行同一工作的进程形成的一个团体，通常是由于父进程 fork 出子进程后子进程继承父进程的组 ID 而逐渐形成。</p>
-<p><strong>会话</strong> (session) 可以说是面向用户的登录出现的概念。当用户从终端登录进入 shell，就会以该 shell 为会话首进程展开本次会话。一个会话中通常包含着多个进程组，分别完成不同的工作。用户退出时，这个会话会结束，但有些进程仍然以该会话标识符 (session ID) 驻留系统中继续运行。</p>
-<table>
-<thead>
-<tr class="header">
-<th>进程属性</th>
-<th>意义/目的</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>PID</td>
-<td>Process ID，标识进程的唯一性。</td>
-</tr>
-<tr class="even">
-<td>PPID</td>
-<td>Parent PID，标识进程父子关系。</td>
-</tr>
-<tr class="odd">
-<td>PGID</td>
-<td>Process Group ID，标识共同完成一个任务的整体。</td>
-</tr>
-<tr class="even">
-<td>TPGID</td>
-<td>标识一组会话中处于前台（与用户交流）的进程（组）。</td>
-</tr>
-<tr class="odd">
-<td>SID</td>
-<td>Session ID，标识一组会话，传统意义上标识一次登录所做的任务的集合，如果是与具体登录无关的进程，其 SID 被重置。</td>
-</tr>
-</tbody>
-</table>
-<h3 id="终端-terminal-与控制台-console">终端 (Terminal) 与控制台 (Console)</h3>
-<p>在上世纪六十年代，个人计算机尚未开始发展，用户使用计算机的一种常见方式就是通过终端，与远程的服务器连接交互。当时键盘和显示器连为一体，称为终端（terminal）。而主机自带的一套键盘与屏幕只能给系统管理员使用，称为控制台 (console)，用来输出启动 debug 信息（现在的 Linux 系统如果因故障而不得不进入单用户修复模式，则只有一个终端 <code>/dev/console</code> 开启）。</p>
-<p>然而随着时代的发展，这种模式逐渐被家庭电脑的分布式主机取代，我们不需要，也没有多套终端了，只有显示器、键盘、鼠标。但是为了向前兼容性，我们需要假装这是一个（甚至多个）终端，所以一般发行版 <code>/dev</code> 目录下有 7 个终端 <code>tty1 ~ tty7</code>，通过 <code>Ctrl + Alt + F1 ~ F7</code> 切换键盘与显示器与哪个终端相对应。</p>
-<p>再后来，随着时代发展，终端需要出现在图形界面上了，然而承载图形界面的也是终端，所以终端里的终端就需要终端模拟器来实现了。由此，出现在图形界面上的终端才叫终端模拟器。</p>
-<p>没有图形界面时，shell 一般为控制台 (tty) 的子进程，在图形界面上 shell 建立在虚拟终端 (pty, pseudo tty) 之上。顺带一提，服务器常用的远程连接工具 <code>ssh</code> 的父进程也是一个 pty。</p>
-<p>参考阅读: <a href="https://www.linuxdashen.com/%E4%BD%A0%E7%9C%9F%E7%9A%84%E7%9F%A5%E9%81%93%E4%BB%80%E4%B9%88%E6%98%AF%E7%BB%88%E7%AB%AF%E5%90%97%EF%BC%9F">你真的知道什么是终端吗？</a></p>
-<h3 id="文件系统的特殊权限位">文件系统的特殊权限位</h3>
-<p>有三个特殊权限位：setuid, setgid 和 sticky。</p>
-<ul>
-<li><code>setuid</code>: 以文件所属的用户的身份 (UID) 执行此程序。</li>
-<li><code>setgid</code>: 对文件来说，以文件所属的用户组的身份 (GID) 执行此程序；对目录来说，在这个目录下创建的文件的用户组都与此目录本身的用户组一致，而不是创建者的用户组。</li>
-<li><code>sticky</code> (restricted deletion flag): 目录中的所有文件只能由文件所有者（除 <code>root</code> 以外）删除或者移动。一个典型的例子是临时文件夹 <code>/tmp</code>，在此文件夹中你可以创建、修改、重命名、移动、删除自己的文件，但是动不了别人的文件。</li>
-</ul>
-<p><code>/usr/bin/passwd</code> 的文件权限设置：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ ls -l /usr/bin/passwd</span><br><span class="line">-rwsr-xr-x 1 root root 67992 Aug 29  2019 /usr/bin/passwd</span><br></pre></td></tr></table></figure>
-<p>可以看到，本来是执行权限位的地方变成了 <code>s</code>。这代表此文件有 <code>setuid</code> 特殊权限位。在你执行 <code>passwd</code> 的时候，它的实际权限和 <code>root</code> 一样，只是它知道，执行它的人是你（而非 <code>root</code>），所以只提供修改你自己的密码的功能。</p>
-<p>此外，passwd需要知道实际执行自己的用户是谁，在 Linux 中，有两个系统调用可以获取当前进程归属的 UID：<code>getuid()</code> 和 <code>geteuid()</code>。前者对应的是「实际用户」(Real user)，是实际运行（拥有）这个进程的用户，后者对应的是「有效用户」(Effective user)，对应进程拥有的权限。在运行 <code>passwd</code> 的时候，有效用户是 <code>root</code>，所以可以修改 <code>/etc/shadow</code>；而实际用户是你，所以它不会让你修改别人的密码。</p>
-<p>对用户组来说，也有实际用户组 (GID) 和有效用户组 (EGID) 的区别。</p>
-<h3 id="登录-shell和非登录-shell">登录 Shell和非登录 Shell</h3>
-<p>「登录 Shell」是属于你的当前会话操作中的第一个进程，一般是在你输入用户名和密码之后打开的 Shell。常见的场景有：</p>
-<ul>
-<li><code>su -</code> 之后的 Shell。</li>
-<li>SSH 登录机器后的 Shell</li>
-<li>Ctrl + Alt + F[1-7] 之后 TTY 中的 Shell</li>
-</ul>
-<p>而「非登录 Shell」的常见场景：</p>
-<ul>
-<li><code>su</code> 打开的是「非登录 Shell」</li>
-<li>在桌面环境中打开的终端（模拟器），启动的也是「非登录 Shell」</li>
-</ul>
-<p>一般地，「登录 Shell」会额外加载 <code>profile</code> 文件（文件名根据你使用的 Shell 的不同而有区别），且它的 <code>argv[0][0] == '-'</code>（相信你已经学过 C 语言了）。可以用以下方法验证：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ echo $0  # 查看当前 Shell 的 argv[0] 的值</span><br><span class="line">-bash</span><br><span class="line">$ # 是 Login shell</span><br><span class="line">$ sudo su # 进入 root</span><br><span class="line"># echo $0</span><br><span class="line">bash</span><br><span class="line"># # 是 Non-login shell</span><br></pre></td></tr></table></figure>
-<h3 id="fork炸弹">fork炸弹</h3>
-<p>Fork 炸弹有如下的这种形式：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">:()&#123; :|: &amp; &#125;;:</span><br></pre></td></tr></table></figure>
-<p>这是一个函数定义以及对其的调用语句，可以格式化为：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">:()</span><br><span class="line">&#123;</span><br><span class="line">    :|: &amp;</span><br><span class="line">&#125;;</span><br><span class="line">:</span><br></pre></td></tr></table></figure>
-<p>在 Bash 中，<code>:</code>、<code>.</code>、<code>/</code> 等一些字符也能够被用于函数命名，因此，上面的代码等价于：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">func()</span><br><span class="line">&#123;</span><br><span class="line">    func | func &amp;</span><br><span class="line">&#125;;</span><br><span class="line">func</span><br></pre></td></tr></table></figure>
-<p>fork 炸弹的核心是函数内容：<code>func | func &amp;</code></p>
-<ul>
-<li>第一个 func 代表递归执行这个函数。</li>
-<li><div class="line-block">代表要将第一个函数的数据结果通过管道传输给后一个函数。</div></li>
-<li>&amp; 代表要在后台执行这一条命令，如果其中一个函数被操作系统回收，其调用产生的子函数并不会被回收。</li>
-</ul>
-<p>于是运行一次这个函数就会创建两个 func 函数的实例，并不断地反复调用。实例的数量会指数爆炸式地增长，最终耗尽系统的资源。</p>
-<h4 id="防范方法">防范方法</h4>
-<p>一个有效的方式(https://101.lug.ustc.edu.cn/Ch06/supplement/#fn:1)是通过修改系统配置，限制一个用户能够拥有的进程数量多少。<code>ulimit -u 30</code> 可以限制当前用户能够拥有的进程数量为 30。</p>
-<h3 id="动静态链接">动/静态链接</h3>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">gcc -o hello hello.c</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">ldd ./hello</span></span><br><span class="line">    linux-vdso.so.1 (0x00007ffc49703000)</span><br><span class="line">    libc.so.6 =&gt; /lib/x86_64-linux-gnu/libc.so.6 (0x00007f36767d3000)</span><br><span class="line">    /lib64/ld-linux-x86-64.so.2 (0x00007f36769ea000)</span><br><span class="line"></span><br><span class="line">//编译得到程序就依赖于 `linux-vdso.so.1`、`libc.so.6` 和 `/lib64/ld-linux-x86-64.so.2` 三个库文件，如果系统中没有这三个库文件，程序就无法执行。</span><br></pre></td></tr></table></figure>
-<p>使用到第三方的库需要加上 <code>-l</code> 参数指定在<strong>链接</strong>时链接到的库。 对于复杂的应用来说，下载后可能会因为没有动态链接库而无法运行。 而静态链接则将依赖的库全部打包到程序文件中。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ gcc -o hello-static hello.c -static  # 编译一个静态链接的应用</span><br><span class="line">$ ldd ./hello-static  # 没有动态链接库的依赖</span><br><span class="line">    not a dynamic executable</span><br></pre></td></tr></table></figure>
-<p>此时编译得到的程序文件没有额外的依赖，在其他机器上一般也能顺利运行。代价则是消耗更多的空间，并且可能产生性能损耗</p>
-<h3 id="交叉编译">交叉编译</h3>
-<p>有时需要开发另一个系统的程序，此时就需要交叉编译来实现，比如使用mingw编译windows程序 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ sudo apt install gcc-mingw-w64  # 安装 mingw 交叉编译器</span><br><span class="line">$ sudo apt install wine  # 安装 wine Windows 兼容层（默认仅安装 64 位架构支持）</span><br><span class="line">$ x86_64-w64-mingw32-gcc -o hello.exe hello.c  # 编译为 64 位的 Windows 程序</span><br><span class="line">$ file hello.exe  # 确认为 Windows 程序</span><br><span class="line">hello.exe: PE32+ executable (console) x86-64, for MS Windows</span><br><span class="line">$ wine hello.exe  # 使用 wine 运行</span><br><span class="line">it looks like wine32 is missing, you should install it.</span><br><span class="line">as root, please execute &quot;apt-get install wine32&quot;</span><br><span class="line">wine: created the configuration directory &#x27;/home/ubuntu/.wine&#x27;</span><br><span class="line">（忽略首次配置的输出）</span><br><span class="line">wine: configuration in L&quot;/home/ubuntu/.wine&quot; has been updated.</span><br><span class="line">Hello, world!</span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
-<h3 id="docker">docker</h3>
-<p>Dockerfile 是构建 Docker 镜像的标准格式，下面会举一些例子。我们会基于这些例子简单介绍 Dockerfile 的语法。</p>
-<h4 id="构建简单的交叉编译环境">构建简单的交叉编译环境</h4>
-<p>这个例子尝试使用 Debian 仓库中的 RISC-V <a href="https://101.lug.ustc.edu.cn/Ch07/supplement/#cross-compile-example">交叉编译</a>工具链与 QEMU 模拟器构建一个简单的用于交叉编译的环境。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">FROM debian:buster-slim</span><br><span class="line"></span><br><span class="line">RUN sed -i &#x27;s/deb.debian.org/mirrors.ustc.edu.cn/g&#x27; /etc/apt/sources.list &amp;&amp; \</span><br><span class="line">    apt update &amp;&amp; apt install -y gcc-riscv64-linux-gnu g++-riscv64-linux-gnu libc6-dev-riscv64-cross \</span><br><span class="line">                                 binutils-riscv64-linux-gnu libstdc++-dev-riscv64-cross \</span><br><span class="line">                                 qemu-system-misc qemu-user-static qemu-user binfmt-support \</span><br><span class="line">                                 fish vim --no-install-recommends</span><br><span class="line">RUN mkdir /workspace/</span><br><span class="line"></span><br><span class="line">WORKDIR /workspace/</span><br><span class="line">ENV QEMU_LD_PREFIX=/usr/riscv64-linux-gnu/</span><br><span class="line"></span><br><span class="line">CMD [&quot;fish&quot;]</span><br></pre></td></tr></table></figure>
-<p>通过使用 <code>docker build</code>，我们可以构建出镜像。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo docker build -t riscv-cross:example .</span><br></pre></td></tr></table></figure>
-<p>Docker 在根据 Dockerfile 构建时，会从上到下执行这些指令，每条指令对应镜像的一层。Docker 容器镜像的独特之处就在于它的分层设计：在构建镜像时每层的更改会叠加在上一层上（这意味着，上一层的所有数据仍然会保留，即使在新的一层删除了）；如果某一层已经存在，Docker 会直接使用这一层，节约构建的时间和占用的空间。 因此构建镜像应尽量减少层数避免空间浪费</p>
-]]></content>
-      <categories>
-        <category>课程笔记</category>
-        <category>操作系统</category>
-      </categories>
-      <tags>
-        <tag>课程笔记</tag>
-        <tag>linux</tag>
-        <tag>苏州大学</tag>
-        <tag>中国科学技术大学</tag>
       </tags>
   </entry>
   <entry>
@@ -5391,31 +5915,6 @@ Inexpensive Disk）由美国加州大学伯克利分校提出。<br />
         <tag>课程笔记</tag>
         <tag>苏州大学</tag>
         <tag>计算机组成</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>爱丽丝的回忆</title>
-    <url>/thinklive/40355/</url>
-    <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="縺ｫ縺ｯ繧｢繝ｪ繧ｹ縺励" data-whm="縺ｫ縺ｯ繧｢繝ｪ繧ｹ縺励">
-  <script id="hbeData" type="hbeData" data-hmacdigest="543fd046137c8fa1c8b07df68a2d3e4996dc13f1f06543c0a85a8c2d979be9fb">13aef8e3a4d2474cb9cd233c644c735c7ce62820bf86f805363ad09d940c013f15e271153cdb8f8975b916cf9d1be65d1dfd56bed1f75e0cce9bc945d854b7df8b1c35b68bed377064d0601e6bfe625ae7d8cd2d3736700c00508d2a6a645e1fe125eef8e2f3bb6e5e8dd040b3807272144439ea1b98d0662ba7d17b1d51b57b45bc4137781e59a0b0a63914ea0d85fc7833fc370356cf12132dc520ace76a00a3708e886451d4cf00eddb280dc9aec3b0387f05c42217a6a20147657c6c490310d479384dfc83571b3c46d5c54ca1cd6a00f36b4696ad48a35d03b23bebbd04c64087855bdc7744308770d82e7cd5edb9de0b92eb25bce1a53f4df417ec79d3c8310a88a04574986dcb2484596d5cd0fc89d22dfc95bd5a5add453edd098362f7ef79b135fe0d1b6bd38ab6a21a97c164f7113dce2e86146681550f7897d39779664588967f71287a755297d00061e098572eafcc3305825b27a83a959f71231d8d50268e3a4ba19f418ae502f72553b06af133618a0df82afecbb08f7f9330c84ed3701266cf82bb4fe298b6fb1f1014b4b72b4c9a8562c108eaa8524ad87daab1d90435b2530f5457a881ccac1177e2492f1481c13f400b89544d1fcdb077da7870d89112cd0c7ada9893a0d111e0a84c7b0710ac269a6410556d1ed0c4fe7cb73d2d948df72adad33d70eb1fcb11df29db5a7d31a604181586212f1deb4524761fa3f2da7a8b9a988088b20de28cdceb1759247f421ea5a190910eb1e4208f03fcc01a55ff418a24a7b3c716bb752e1f04ba63766309dd7c56be1bd3c483f49b643d3285c017292fabef71a394f2883add4d8cfeadb05b0fe164eeb3c13242b397162a0f75e142d79f2169e199bb48f8f018789ca402b8c513b395b9f96ce8da364b792a9d68e22ad09b245b564547f1bacf3bf09f6e7a5fcfff9ef9534a9d6b283a65e9ee1689ffe8a528c48f4154f5ade68f755dae38be49c96889ec92712ec3967dfa9e3c03bf838ecbba5f696863b4331e1c3a8b3b527909eb65814292b0a14d7d39ab880524800beb88d573abbd380c644c3d537c0d30a621b2f2ed7199a507b2063d11abf4bb2102644321d8b446df028990b961f66d5056f5a56126c3a9a0986ef86f0475103e696a2444a65c7472409150c610dc82c90db2d5e55706f9236e37a8241b01233b7ff6caad0e44e6581497927676df920f468c83046e53cc402b14d8f53067955f8e3a1aa03996fa4cfb05136669439b388f988d91b37c77e1f1d45df960bf533c49d6afb9775e769039a649fe4c74ddc7089c04fc4a390fb690548585e3c8c23275fbc898b4c5b76b6d94cfd59d34d7a3fa83622e285f93fe5f3580b9becf16be588db16c6718a800a7d2873886f7f7b5efeabbde77a8595afdb9967e490376d3855be3fead1aeef75510179f131e3c3ba05f64ed43bf8a3488ccb59211d5815ab80fd75fa42ab8b49e7fe817222926c50c24706e40a98f49af88489b61c7eff618f94a10263ab98aefa3657f2f4a3d88d046dbfff536b5fea6371bf6938f8ed2e0c9ad00a0805761c36794579a92088a5b39d2bc08425a75f06840e4589772fa1877c6b834658735ce0ad02ea83662b189ba5157449b867d3fb77d97ce16ba7a392798b90b7711353d8037c5d0b76844fae99c476b145c90f4e77319cdc1788455777890c68ce930779f02602169f067e1f370586cb783a9bb5664dafec9c2d84cb8a3e817a07689bc2d4c25cb4718fb72e0858d85419bafac9bc8324681d299ad4ff9c80bd3be62eb163ca386bee0de34c6d1bca7761c8a4ed367ea4d775521c38243a7bcdc8c0775ecc217656aeebc79e0fa6d03fb268af6cc8d2b503b841f28f4389fa86f3b641650da6f3b85a6cb0c0976a99d920557527e1d2fbdbc5aeb75149a6130ade4672215792efbfcdd411524ceaa3077ab95a002b797508db009f3a5fbc60d39f3a25681cd2f51590e5a762f7c9a314333d8cc479da2c1c02c3f79cecd397f589491c01c302b35a4ddd5d1b4e50d393ab633756498e8ebd939bd6821965bda730f8f9a60ad42e68957e879a11104bfceb6ad2584534ddd8273dc29a5b7eb4f8d736775b8038db6880dce1431a620c766f338cad75751c40ad37f6cf3f4c15d8cd95577f8e2fa998975323c229ec44d9943a89d07016ccb666301e763f5b609ba469c1c0ef470c746c53bb27fae87a5eaef33e59e16d37cef076052f40a779661a0970ac93650b62c822fe8297c1be4658736e2c5b54388d61322934a651091953b39e581599baac297a24cb5b90bd022e5c608d4ec955c180d39ffe949b5b4eab51e05533921ffdbbd2d7c2ef410f68a431ae8c3f710329eb3abc97bfa24aaca2112216e6749acf4cfe1148c4cabc184871b625ffa93dc1fd83aa08fc4fa851b6886a431a37b7b55a8629bd2627b1e9c0daa32771657b36122a1d2d2481e2607979f69ae46d2b68793a0e0750be9c940de1688671c18734b7f5e5037b3351f78151d7f449ef0a6438bf1684e2c683c6898ad8ea946cd1d45a724036c6c032fd3c7edd7df36023154f2f03cf2d7947a1bd2c4d97c651f5b152906a8749389a6c2768c7ce393abdb686426f9d5d92b01ccad9624c8e450e97fd23037c9aee3d4afa6fac8ea2f6768c7d2183d1fe641584cd91b4a034b49224b82bf7b29b2d00f8016c47adc24bb5fddbed7421749aa6b8e6750cd4976b539b400af772172cb345cdd09a2c6404704d8402eddadee667656e51aa3875032ac413b24845356f13c2620d870a00bf64882c0a04c8993775c93c1a02c33cc86843ccab646ff37af4ef8d502aa41077b3960140178db22f22940ac05ce84f758358a58f5aaf84b48fd5b0bc61068cc09f3a16715cc78d2d3850389828e7736590dca50fec0a8007bfb9af2baf2efd6fc1eb25a3e3772c5d48acf7f8fe5acfd9ef6228a04c425df481f0b03e67a326d0565acf49609a40a107e33b67ea1637726d1bd1e15dab8292c917ca990c4040511da6740cc44851b1124ff1f1624f79b9eecd40d2ce1c44f1b5d8db3ad95b666dd3a9ec8851b03b464100b44e6d4fbab61bbbb5531bcf38f920280c6fd7b0c1a37dc3ee591f9a93971b455017ad23ca2386506d3b2f323b2e2f6670a29754abe5abe11d8ca6eeb2624a31cece65c6efc9b56c8621ff6bb705915415ce405105aeb3aa2757bda8a7862d182dbf2174212581c53afb09c7c030a28f23d84630b31e91140734ba46ad42ed8b1f19d25626c720d74a84a5f79d89ad74d7b45c8a14a8383e6243fbfa2b248949ec758251e913a07aaafe02b214caeb76c56a0c2805e85a0a1317199ea987724d26268221f7aa925f387b42e6b1246b2ca730c362fd695a94fa5dc6ef6335c0985b8e3fd8501cb6f099b6211b2336e119821f12957f428af23105a41d714a0db02d93aa6d07f23f3df80771c883f99244f5d3e256bd089a98c5bee66f7ddc84151f0e22edec42a98bf6fd899bbffce85c9d5810ff82d560d0ae4191a04f30f7671659f77f706ce44f6bb3589e447d71fd7bd63d8947e23337f96c11f3cc35116e5261086c1de2aa67ecfa761b980b20edc78e7b824b42de65a69350b1e22c8a0b30c7d0f43fec0c5de7d24da964acd70c83762fa67d7cc27c3fa6f354a3a8f678c6c425a0387fb80762397ca636f6d5432812c40c63466acddcb0cb877673b953a2c01de9365d266293d760afa23fcf4406fb29390b810b25d9ac7b7c16b5212a62d8c7f7881a7227b1ba3d1d1dddef6e36535b89f3bf0de7793c78c39b0181e8eb8cc82eaa8bced6dc94faa9309f50043530b0de4c6d194b17e0c20ea026abbc4fbf82d91c9631c3cbbc64ce94b0a72220578d0f7416978c6abcaff121879086bff3611199174ae66286623c722c3f2eea6b74b2cd0db95afd732fd179d3afff7ef1df7ff64573a1dbc397032ed619e4621afac52ca43637c0dcd5a4b53a6232dcce3401475dd93190205e546e8227ecdd7c4a7ba5db04729d22153f53f92d117f60501c8cec81c280d61346967028136e43f1651f695554b9093b73951310a73ce9ea21b2679fc977c9f6b51a57b89f68e5f0998bffedc73cb61134b3e011ad174996dcd5f056efc8f2d73015f9d6ff6cf416e732edb19fca5bdcc1cc57002f52add83dde639ea9a5d07e2f0f9ffc76332c80782607f0cc28ba90d92844cac1c96a2c128abb602bd774778e781d10559b7fd6fbd3d585f41bb70897d932b7097465ddfa38bc95342db7087b80ef494b4bf805c0bd023726ab53e095eef1b9fb35db62bdabc05d6801c7b2819261b6c6417db85527dbd33157833d30047c54a12d7f629727f82e5bf227da3a613c4030193e684397bca2a2c349ac834f30f</script>
-  <div class="hbe hbe-content">
-    <div class="hbe hbe-input hbe-input-wave">
-      <input class="hbe hbe-input-field hbe-input-field-wave" type="password" id="hbePass">
-      <label class="hbe hbe-input-label hbe-input-label-wave" for="hbePass">
-        <span class="hbe hbe-input-label-content hbe-input-label-content-wave">摇曳着苦闷光辉的火焰在跳动着……心爱的少女，她诞生的时日是？</span>
-      </label>
-      <svg class="hbe hbe-graphic hbe-graphic-wave" width="300%" height="100%" viewBox="0 0 1200 60" preserveAspectRatio="none">
-        <path d="M0,56.5c0,0,298.666,0,399.333,0C448.336,56.5,513.994,46,597,46c77.327,0,135,10.5,200.999,10.5c95.996,0,402.001,0,402.001,0"></path>
-      </svg>
-    </div>
-  </div>
-</div>
-<script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
-      <categories>
-        <category>秘密</category>
-      </categories>
-      <tags>
-        <tag>秘密</tag>
       </tags>
   </entry>
   <entry>
