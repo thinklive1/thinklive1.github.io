@@ -22,15 +22,15 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"thinklive1.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.18.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"flat"},"fold":{"enable":true,"height":500},"bookmark":{"enable":true,"color":"#66CCFF","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":true,"motion":{"enable":true,"async":true,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="static  静态方法属于类，所以在静态方法中，无法获取成员变量的值,但是静态方法可以访问到静态变量  所有被标记为静态的内容，会在类刚加载的时候就分配，而不是在对象创建的时候分配，所以说静态内容一定会在第一个对象初始化之前完成加载。  package 包类似于C++中的namespace    当前类 同一个包下的类 不同包下的子类 不同包下的类      public ✅ ✅ ✅ ✅   p">
+    <meta name="description" content="static  静态方法属于类，所以在静态方法中，无法获取成员变量的值,但是静态方法可以访问到静态变量  所有被标记为静态的内容，会在类刚加载的时候就分配，而不是在对象创建的时候分配，所以说静态内容一定会在第一个对象初始化之前完成加载。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="javaweb备忘录">
 <meta property="og:url" content="https://thinklive1.github.io/thinklive/27780/index.html">
 <meta property="og:site_name" content="thinklive">
-<meta property="og:description" content="static  静态方法属于类，所以在静态方法中，无法获取成员变量的值,但是静态方法可以访问到静态变量  所有被标记为静态的内容，会在类刚加载的时候就分配，而不是在对象创建的时候分配，所以说静态内容一定会在第一个对象初始化之前完成加载。  package 包类似于C++中的namespace    当前类 同一个包下的类 不同包下的子类 不同包下的类      public ✅ ✅ ✅ ✅   p">
+<meta property="og:description" content="static  静态方法属于类，所以在静态方法中，无法获取成员变量的值,但是静态方法可以访问到静态变量  所有被标记为静态的内容，会在类刚加载的时候就分配，而不是在对象创建的时候分配，所以说静态内容一定会在第一个对象初始化之前完成加载。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-12-30T13:32:48.039Z">
-<meta property="article:modified_time" content="2023-12-30T13:36:57.309Z">
+<meta property="article:modified_time" content="2024-01-01T04:30:51.107Z">
 <meta property="article:author" content="thinklive">
 <meta property="article:tag" content="java">
 <meta property="article:tag" content="web开发">
@@ -56,18 +56,23 @@
  <!--js: 线条特效-->
   <script type="text/javascript" color="255,255,255" opacity='1' zIndex="-1" count="300" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
 <script type="text/javascript" async src="/js/fairyDustCursor.js"></script>
+<script type="text/javascript" async src="/js/text.js"></script>
   <noscript>
     <link rel="stylesheet" href="/css/noscript.css">
   </noscript>
 <!-- hexo injector head_end start --><script> let HEXO_MMEDIA_DATA = { js: [], css: [], aplayerData: [], metingData: [], artPlayerData: [], dplayerData: []}; </script><!-- hexo injector head_end end --><link rel="alternate" href="/atom.xml" title="thinklive" type="application/atom+xml">
 </head>
 <script src="/js/tab-title.js"></script>
+<script type="text/javascript" async src="/js/text.js"></script>
+
 <!--pjax：防止跳转页面音乐暂停-->
  <script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.js"></script>
 <body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
   <div class="headband"></div>
 <body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
   <div class="headband"></div>
+
+
 
   <main class="main">
     <div class="column">
@@ -273,9 +278,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2023-12-30 21:32:48 / 修改时间：21:36:57" itemprop="dateCreated datePublished" datetime="2023-12-30T21:32:48+08:00">2023-12-30</time>
+      <time title="创建时间：2023-12-30 21:32:48" itemprop="dateCreated datePublished" datetime="2023-12-30T21:32:48+08:00">2023-12-30</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-01-01 12:30:51" itemprop="dateModified" datetime="2024-01-01T12:30:51+08:00">2024-01-01</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -305,14 +316,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>852</span>
+      <span>2.7k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>3 分钟</span>
+      <span>10 分钟</span>
     </span>
 </div>
 
@@ -330,6 +341,7 @@
 </li>
 <li>所有被标记为静态的内容，会在类刚加载的时候就分配，而不是在对象创建的时候分配，所以说静态内容一定会在第一个对象初始化之前完成加载。</li>
 </ul>
+<span id="more"></span>
 <p><strong>package</strong><br />
 包类似于C++中的namespace</p>
 <table>
@@ -410,6 +422,90 @@
 <li>虽然Student对象成功拷贝，但是其内层对象并没有进行拷贝，依然只是对象引用的复制，所以Java为我们提供的<code>clone</code>方法只会进行浅拷贝</li>
 <li>枚举类型的本质就是一个普通的类，但是它继承自<code>Enum</code>类，我们定义的每一个状态其实就是一个<code>public static final</code>的Status类型成员变量，可以给枚举类型添加独有的成员方法</li>
 </ul>
+<p><strong>包装类</strong></p>
+<ul>
+<li>byte -&gt; Byte</li>
+<li>boolean -&gt; Boolean</li>
+<li>short -&gt; Short</li>
+<li>char -&gt; Character</li>
+<li>int -&gt; Integer</li>
+<li>long -&gt; Long</li>
+<li>float -&gt; Float</li>
+<li>double -&gt; Double</li>
+</ul>
+<p>包装类型支持自拆装箱，可以直接将一个对应的基本类型值作为对应包装类型引用变量的值,当然也可以相反<br />
+<code>Integer i = 10;</code><br />
+<code>Integer i = 10; int a = i;</code><br />
+通过自动装箱转换的Integer对象，如果值相同，得到的会是同一个对象，这是因为存在IntegerCache，如果在范围内，那么会直接返回已经提前创建好的对象，IntegerCache会默认缓存-128~127之间的所有值，如果超出这个缓存范围的话，就会得到不同的对象了<br />
+BigDecimal可以实现小数和极大树的精确计算。<br />
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span>[] array = <span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">10</span>];</span><br><span class="line">类型[] 变量名称 = <span class="keyword">new</span> 类型[]&#123;...&#125;; <span class="comment">//静态初始化（直接指定值和大小） </span></span><br><span class="line">类型[] 变量名称 = &#123;...&#125;; <span class="comment">//同上，但是只能在定义时赋值</span></span><br></pre></td></tr></table></figure> 创建出来的数组每个位置上都有默认值，如果是引用类型，就是null，如果是基本数据类型，就是0，或者是false，跟对象成员变量的默认值是一样的</p>
+<p><strong>字符串</strong><br />
+Java中没有字符串这种基本类型，因此只能使用类来进行定义,每个用双引号括起来的字符串，都是String类型的一个实例对象<br />
+如果是直接使用双引号创建的字符串，如果内容相同，为了优化效率，那么始终都是同一个对象<br />
+字符串的内容比较，一定要用equals<br />
+字符串和字符数组的转换<br />
+<code>char[] chars = str.toCharArray();</code><br />
+<code>String str = new String(chars);</code><br />
+<code>str.matches("[abc]*")</code>调用正则表达式进行匹配，返回bool值</p>
+<p><strong>类</strong><br />
+成员内部类中，可以访问到外层的变量<br />
+静态内部类就像静态方法和静态变量一样，是属于类的，可以直接创建使用,但无法访问到外部类的非静态内容 不需要依附任何对象，就可以直接创建静态内部类的对象<br />
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Test</span> </span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">Inner</span> &#123; </span><br><span class="line">		<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test</span><span class="params">()</span> &#123; </span><br><span class="line">			System.out.println(<span class="string">&quot;我是静态内部类！&quot;</span>); </span><br><span class="line">			&#125; </span><br><span class="line">	&#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在new的时候，后面加上花括号，内部可以定义一个匿名类<code>Student student = new Student() &#123;&#125;</code>此时创建出来的Student对象，就是一个已经实现了抽象方法的对象</p>
+<p><strong>Lambda表达式</strong></p>
+<ul>
+<li>标准格式为：<code>([参数类型 参数名称,]...) ‐&gt; &#123; 代码语句，包括返回值 &#125;</code></li>
+<li>和匿名内部类不同，Lambda仅支持接口，不支持抽象类</li>
+<li>接口内部必须有且仅有一个抽象方法（可以有多个方法，但是必须保证其他方法有默认实现，必须留一个抽象方法出来）</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">Study</span> &#123; </span><br><span class="line">    <span class="type">int</span> <span class="title function_">sum</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span>; <span class="comment">//待实现的求和方法 </span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> </span><br><span class="line">&#123; </span><br><span class="line">    <span class="type">Study</span> <span class="variable">study</span> <span class="operator">=</span> (a, b) -&gt; a + b; </span><br><span class="line">&#125;			</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> </span><br><span class="line">&#123; </span><br><span class="line">    <span class="type">Study</span> <span class="variable">study</span> <span class="operator">=</span> (a, b) -&gt; Integer.sum(a, b); <span class="comment">//直接使用Integer为我们通过好的求和方法 </span></span><br><span class="line">    System.out.println(study.sum(<span class="number">10</span>, <span class="number">20</span>)); </span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> </span><br><span class="line">&#123; </span><br><span class="line">    <span class="type">Study</span> <span class="variable">study</span> <span class="operator">=</span> Integer::sum; <span class="comment">//使用双冒号来进行方法引用，静态方法使用 类名::方法名 的形式</span></span><br><span class="line">    System.out.println(study.sum(<span class="number">10</span>, <span class="number">20</span>)); </span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>方法引用其实本质上就相当于将其他方法的实现，直接作为接口中抽象方法的实现。任何方法都可以通过方法引用作为实现<br />
+成员方法因为需要具体对象使用，所以说只能使用 对象::方法名 的形式<br />
+构造方法也可以被引用，使用new表示</p>
+<p>所有的运行时异常都继承自<code>RuntimeException</code> 断言表达式需要使用到<code>assert</code>关键字，如果assert后面的表达式判断结果为false，将抛出AssertionError错误。</p>
+<p><strong>泛型</strong><br />
+泛型在定义时并不明确是什么类型，而是需要到使用时才会确定对应的泛型类型。<br />
+<code>public class Score&lt;T&gt;</code>类似cpp的模板<br />
+因为是具体使用对象时才会明确具体类型，所以静态方法中无法使用<br />
+如果要让某个变量支持引用确定了任意类型的泛型，那么可以使用<code>?</code>通配符<br />
+<code>Test&lt;?&gt; test = new Test&lt;Integer&gt;();</code><br />
+泛型只能确定为一个引用类型，基本类型是不支持的(不包括数组，数组本身是引用类型),如果要存放基本数据类型的值，只能使用对应的包装类<br />
+当子类实现泛型接口时，我们可以选择在实现类明确泛型类型，或是继续使用此泛型让具体创建的对象来确定类型，继承等同理</p>
+<p>在泛型变量的后面添加<code>extends</code>关键字即可指定上界，使用时，具体类型只能是我们指定的上界类型或是上界类型的子类<code>public class Score&lt;T extends Number&gt;</code><br />
+在进行类型判断时，不允许使用泛型，只能使用原始类型<br />
+泛型类不支持创建参数化类型数组(类型擦除导致的，运行时不会检查具体类型是什么)<br />
+<code>Test&lt;String&gt; test = new Test&lt;&gt;(); System.out.println(test instanceof Test);</code></p>
+<p><strong>函数式接口</strong><br />
+函数式接口就是JDK1.8专门为我们提供好的用于Lambda表达式的接口，这些接口都可以直接使用Lambda表达式</p>
+<p>**Supplier供给型函数式接口：这个接口是专门用于供给使用的，其中只有一个get方法用于获取需要的对象<br />
+Consumer消费型函数式接口：这个接口专门用于消费某个对象的。<br />
+Function函数型函数式接口：这个接口消费一个对象，然后会向外供给一个对象（前两个的融合体）<br />
+Predicate断言型函数式接口：接收一个参数，然后进行自定义判断并返回一个boolean结果。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">test</span><span class="params">(String str)</span></span><br><span class="line">&#123;</span><br><span class="line">	Optional .ofNullable(str) <span class="comment">//将传入的对象包装进Optional中 </span></span><br><span class="line">		.ifPresent(s -&gt; System.out.println(<span class="string">&quot;字符串长度为：&quot;</span>+s.length())); <span class="comment">//如果不为空，则执行这里的Consumer实现 </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>Optional</strong><br />
+<code>String s = Optional.ofNullable(str).get(); //get方法可以获取被包装的对象引用，但是如果为空的话，会抛出异常</code><br />
+<code>String s = Optional.ofNullable(str).orElse("我是为null的情况备选方案");</code></p>
+<p><strong>java的集合类</strong>(如果两个对象使用<code>equals</code>方法相等，那么集合中就是相同的两个对象)：</p>
+<ul>
+<li><p>ArrayList</p></li>
+<li><p>List，有序线性表</p></li>
+<li><p>LinkedList,双向链表</p></li>
+<li><p>只要是实现了迭代器接口的类（可以自己实现），都可以使用<code>foreach</code>语法： <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Iterator&lt;String&gt; iterator = list.iterator();</span><br><span class="line"><span class="keyword">while</span> (iterator.hasNext()) </span><br><span class="line">&#123; <span class="comment">//每次循环一定要判断是否还有元素剩余 </span></span><br><span class="line">    System.out.println(iterator.next()); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p></li>
+<li><p>ListIterator是对list类的特化双向迭代器</p></li>
+<li><p>Queue队列，Deque双向队列,其中deque有正反向的迭代器<code>descendingIterator</code>和<code>iterator</code></p></li>
+<li><p>PriorityQueue优先级队列，可以自己实现<code>Comparator</code>接口</p></li>
+<li><p>Set集合，不允许出现重复元素，不支持随机访问</p>
+<ul>
+<li>HashSet，哈希实现，无法维持插入顺序</li>
+<li>TreeSet，元素插入时排序</li>
+</ul></li>
+<li><p>Collections是专用于集合操作的工具类，类似Array</p></li>
+<li><p>Map映射，新插入的相同键会覆盖原来的，在获取一个不存在的映射时，默认会返回null作为结果(可以设置默认值)</p>
+<ul>
+<li>默认不维护插入顺序，LinkedHashMap实现维护</li>
+</ul></li>
+<li><p>Stream流水线，有点像numpy的管道 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">list = list <span class="comment">//链式调用 </span></span><br><span class="line">.stream() <span class="comment">//获取流 </span></span><br><span class="line">.filter(e -&gt; !e.equals(<span class="string">&quot;B&quot;</span>)) <span class="comment">//只允许所有不是B的元素通过流水线 </span></span><br><span class="line">.collect(Collectors.toList()); <span class="comment">//将流水线中的元素重新收集起来，变回List</span></span><br></pre></td></tr></table></figure></p></li>
+</ul>
 
     </div>
 
@@ -458,8 +554,8 @@
     <div class="footer-inner">
 
   <div class="copyright">
-    &copy; 
-    <span itemprop="copyrightYear">2023</span>
+    &copy; 2023 – 
+    <span itemprop="copyrightYear">2024</span>
     <span class="with-love">
       <i class="fa fa-heart"></i>
     </span>
@@ -471,14 +567,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">241k</span>
+    <span title="站点总字数">243k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">14:35</span>
+    <span title="站点阅读时长">14:42</span>
   </span>
 </div>
 <div class="busuanzi-count">
@@ -560,6 +656,8 @@
 <script src="/js/third-party/comments/utterances.js"></script>
 <script z-index=-1 opacity='0.5' color="0,0,0"  type="text/javascript" src="/js/three-waves.min.js"></script>
 <script z-index=-1 type="text/javascript" src="/js/three.min.js"></script>
+
+<script async type="text/javascript" async src="/js/text.js"></script>
    <!--js: 线条特效-->
   <script type="text/javascript" color="255,255,255" opacity='1' zIndex="-1" count="300" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
 <!-- hexo injector body_end start --><script src="/assets/mmedia/mmedia-loader.js"></script><!-- hexo injector body_end end --></body>

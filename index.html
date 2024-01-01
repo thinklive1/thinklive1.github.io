@@ -52,18 +52,23 @@
  <!--js: 线条特效-->
   <script type="text/javascript" color="255,255,255" opacity='1' zIndex="-1" count="300" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
 <script type="text/javascript" async src="/js/fairyDustCursor.js"></script>
+<script type="text/javascript" async src="/js/text.js"></script>
   <noscript>
     <link rel="stylesheet" href="/css/noscript.css">
   </noscript>
 <link rel="alternate" href="/atom.xml" title="thinklive" type="application/atom+xml">
 </head>
 <script src="/js/tab-title.js"></script>
+<script type="text/javascript" async src="/js/text.js"></script>
+
 <!--pjax：防止跳转页面音乐暂停-->
  <script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.js"></script>
 <body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
   <div class="headband"></div>
 <body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
   <div class="headband"></div>
+
+
 
   <main class="main">
     <div class="column">
@@ -382,9 +387,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2023-12-30 21:32:48 / 修改时间：21:36:57" itemprop="dateCreated datePublished" datetime="2023-12-30T21:32:48+08:00">2023-12-30</time>
+      <time title="创建时间：2023-12-30 21:32:48" itemprop="dateCreated datePublished" datetime="2023-12-30T21:32:48+08:00">2023-12-30</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-01-01 12:30:51" itemprop="dateModified" datetime="2024-01-01T12:30:51+08:00">2024-01-01</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -407,14 +418,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>852</span>
+      <span>2.7k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>3 分钟</span>
+      <span>10 分钟</span>
     </span>
 </div>
 
@@ -433,87 +444,14 @@
 </li>
 <li>所有被标记为静态的内容，会在类刚加载的时候就分配，而不是在对象创建的时候分配，所以说静态内容一定会在第一个对象初始化之前完成加载。</li>
 </ul>
-<p><strong>package</strong><br />
-包类似于C++中的namespace</p>
-<table>
-<thead>
-<tr class="header">
-<th>当前类</th>
-<th>同一个包下的类</th>
-<th>不同包下的子类</th>
-<th>不同包下的类</th>
-<th></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>public</td>
-<td>✅</td>
-<td>✅</td>
-<td>✅</td>
-<td>✅</td>
-</tr>
-<tr class="even">
-<td>protected</td>
-<td>✅</td>
-<td>✅</td>
-<td>✅</td>
-<td>❌</td>
-</tr>
-<tr class="odd">
-<td>默认</td>
-<td>✅</td>
-<td>✅</td>
-<td>❌</td>
-<td>❌</td>
-</tr>
-<tr class="even">
-<td>private</td>
-<td>✅</td>
-<td>❌</td>
-<td>❌</td>
-<td>❌</td>
-</tr>
-</tbody>
-</table>
-<p><strong>类的继承</strong></p>
-<ul>
-<li>标记为<code>final</code>的类不允许被继承：</li>
-<li>父类中将属性的访问权限修改为<code>private</code>，那么子类将无法访问，但是依然继承了这个属性</li>
-<li>如果父类存在一个有参构造方法，子类必须在构造方法中调用</li>
-<li>在使用子类时，可以将其当做父类来使用，也可以使用强制类型转换，将一个被当做父类使用的子类对象，转换回子类</li>
-<li><code>a instanceof b</code> 判断a是否是b的一个子类或者实例</li>
-<li>子类可以定义和父类同名的属性，这时可以使用<code>super</code>关键字来表示父类</li>
-<li>所有类都默认继承自Object类</li>
-<li><code>a.equals(b)</code>用于比较a,b是否是同一个对象</li>
-</ul>
-<p><strong>重写override</strong></p>
-<ul>
-<li>方法的重载是为某个方法提供更多种类，而方法的重写是覆盖原有的方法实现</li>
-<li>重写方法要求与父类的定义完全一致</li>
-<li>静态方法不支持重写，因为它是属于类本身的，但是它可以被继承。</li>
-<li>我们如果不希望子类重写某个方法，我们可以在方法前添加<code>final</code>关键字,如果父类中方法的可见性为<code>private</code>，那么子类同样无法访问</li>
-<li>在重写父类方法时，如果希望调用父类原本的方法实现，那么同样可以使用<code>super</code>关键字</li>
-<li>子类在重写父类方法时，不能降低父类方法中的可见性,但是可以在子类中提升权限</li>
-</ul>
-<p><strong>抽象类</strong></p>
-<ul>
-<li>子类，必须要实现抽象类中所有抽象方法，无法直接通过new关键字来直接创建对象</li>
-<li>抽象方法的访问权限不能为<code>private</code></li>
-</ul>
-<p><strong>接口</strong></p>
-<ul>
-<li>接口一般只代表某些功能的抽象，接口包含了一些列方法的定义，类可以实现这个接口，表示类支持接口代表的功能</li>
-<li>从Java8开始，接口中可以存在方法的默认实现</li>
-<li>接口中不允许存在成员变量和成员方法，但是可以存在静态变量和静态方法，接口中定义的静态变量只能是public static final</li>
-<li>接口是可以继承其他接口，相当于是对接口功能的融合</li>
-</ul>
-<p><strong>深浅复制</strong></p>
-<ul>
-<li>虽然Student对象成功拷贝，但是其内层对象并没有进行拷贝，依然只是对象引用的复制，所以Java为我们提供的<code>clone</code>方法只会进行浅拷贝</li>
-<li>枚举类型的本质就是一个普通的类，但是它继承自<code>Enum</code>类，我们定义的每一个状态其实就是一个<code>public static final</code>的Status类型成员变量，可以给枚举类型添加独有的成员方法</li>
-</ul>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/thinklive/27780/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1487,8 +1425,8 @@
     <div class="footer-inner">
 
   <div class="copyright">
-    &copy; 
-    <span itemprop="copyrightYear">2023</span>
+    &copy; 2023 – 
+    <span itemprop="copyrightYear">2024</span>
     <span class="with-love">
       <i class="fa fa-heart"></i>
     </span>
@@ -1500,14 +1438,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">241k</span>
+    <span title="站点总字数">243k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">14:35</span>
+    <span title="站点阅读时长">14:42</span>
   </span>
 </div>
 <div class="busuanzi-count">
@@ -1589,6 +1527,8 @@
 <script src="/js/third-party/comments/utterances.js"></script>
 <script z-index=-1 opacity='0.5' color="0,0,0"  type="text/javascript" src="/js/three-waves.min.js"></script>
 <script z-index=-1 type="text/javascript" src="/js/three.min.js"></script>
+
+<script async type="text/javascript" async src="/js/text.js"></script>
    <!--js: 线条特效-->
   <script type="text/javascript" color="255,255,255" opacity='1' zIndex="-1" count="300" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
 </body>
