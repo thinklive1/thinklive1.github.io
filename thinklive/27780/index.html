@@ -29,12 +29,14 @@
 <meta property="og:site_name" content="thinklive">
 <meta property="og:description" content="javase static  静态方法属于类，所以在静态方法中，无法获取成员变量的值,但是静态方法可以访问到静态变量  所有被标记为静态的内容，会在类刚加载的时候就分配，而不是在对象创建的时候分配，所以说静态内容一定会在第一个对象初始化之前完成加载。">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://thinklive1.github.io/assets/resources/Pasted%20image%2020240103102915.png">
 <meta property="article:published_time" content="2023-12-30T13:32:48.039Z">
-<meta property="article:modified_time" content="2024-01-01T11:40:19.945Z">
+<meta property="article:modified_time" content="2024-01-03T02:40:49.271Z">
 <meta property="article:author" content="thinklive">
 <meta property="article:tag" content="java">
 <meta property="article:tag" content="web开发">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://thinklive1.github.io/assets/resources/Pasted%20image%2020240103102915.png">
 
 
 <link rel="canonical" href="https://thinklive1.github.io/thinklive/27780/">
@@ -287,7 +289,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-01-01 19:40:19" itemprop="dateModified" datetime="2024-01-01T19:40:19+08:00">2024-01-01</time>
+      <time title="修改时间：2024-01-03 10:40:49" itemprop="dateModified" datetime="2024-01-03T10:40:49+08:00">2024-01-03</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -317,14 +319,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>2.7k</span>
+      <span>4.3k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>10 分钟</span>
+      <span>16 分钟</span>
     </span>
 </div>
 
@@ -508,6 +510,64 @@ Predicate断言型函数式接口：接收一个参数，然后进行自定义�
 </ul></li>
 <li><p>Stream流水线，有点像numpy的管道 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">list = list <span class="comment">//链式调用 </span></span><br><span class="line">.stream() <span class="comment">//获取流 </span></span><br><span class="line">.filter(e -&gt; !e.equals(<span class="string">&quot;B&quot;</span>)) <span class="comment">//只允许所有不是B的元素通过流水线 </span></span><br><span class="line">.collect(Collectors.toList()); <span class="comment">//将流水线中的元素重新收集起来，变回List</span></span><br></pre></td></tr></table></figure></p></li>
 </ul>
+<p><strong>I/O操作</strong></p>
+<ul>
+<li><code>FileInputStream inputStream = new FileInputStream("路径");</code></li>
+<li><code>inputStream.available(); //查看剩余数量</code></li>
+<li><code>inputStream.read((byte[]) bytes); //一次性读取全部内容（返回值是读取的字节数）</code></li>
+<li>输出流使用<code>write()</code>类似read</li>
+<li>字符流是以一个具体的字符进行读取，因此它只适合读纯文本的文件，如果是其他类型的文件不适用<code>FileReader | FileWriter</code></li>
+<li>为了避免频繁I/O,可以使用缓冲字节流<code>BufferedInputStream</code>缓冲字符流<code>BufferedReader</code></li>
+<li>转换流<code>InputStreamReader和OutputStreamWriter</code>用于将字符信息转换成字节用于流的输入输出</li>
+<li>打印流<code>PrintStream</code>可以控制打印到的对象(向文件打印则是一个文件输出流对象)，默认是控制台，<code>Scanner</code>默认接受系统输入流，也可以指定输入流</li>
+<li>数据流<code>DataInputStream | dataOutputStream</code>用于写入基本数据类型</li>
+<li>对象流<code>ObjectOutputStream</code>用序列化形式存储对象(也可以让某些属性不序列化)，用<code>private static final long serialVersionUID</code>作为类的标识用于区分版本，并且用于从流式数据还原出对象</li>
+</ul>
+<p><strong>java的多线程</strong></p>
+<ul>
+<li>创建Thread对象来创建一个新的线程，Thread构造方法中需要传入一个Runnable接口的实现（在另一个线程执行的内容逻辑）</li>
+<li>调用<code>sleep()</code>方法来将当前线程进入休眠；<code>interrupt()</code>方法给指定线程添加一个中断标记以告知线程需要立即停止运行或是进行其他操作，由线程来响应此中断并进行相应的处理</li>
+<li>优先级
+<ul>
+<li>MIN_PRIORITY 最低优先级</li>
+<li>MAX_PRIORITY 最高优先级</li>
+<li>NOM_PRIORITY 常规优先级</li>
+</ul></li>
+<li><code>yield()</code>方法来将当前资源让位给其他同优先级线程;使用<code>join()</code>方法来实现线程的加入,让一个线程等待加入的线程执行完成后再继续进行</li>
+<li>synchronized关键字创造一个线程锁;<code>jstack</code>命令来检测死锁;</li>
+<li>对象的<code>wait()</code>方法会暂时使得此线程进入等待状态，同时会释放当前代码块持有的锁，这时其他线程可以获取到此对象的锁，当其他线程调用对象的<code>notify()</code>方法后，会唤醒刚才变成等待状态的线程（这时并没有立即释放锁）。必须是在持有锁的情况下使用</li>
+<li>ThreadLocal类，来创建工作内存中的变量，不同的线程访问到ThreadLocal对象时，都只能获取到当前线程所属的变量</li>
+<li>可以通过创建一个Timer类来让它进行定时任务调度,并且该类维护<code>TaskQueue</code>和<code>TimerThread</code>循环读取任务，闲则<code>wait</code>,调用<code>cancel()</code>方法来关闭工作线程</li>
+<li>其他所有的非守护线程结束之后，守护线程自动结束,守护线程中产生的新线程也是守护的<code>t.setDaemon(true)</code></li>
+</ul>
+<p><strong>反射</strong></p>
+<ul>
+<li><p>反射就是把Java类中的各个成分映射成一个个的Java对象。即在运行状态中，对于任意一个类，都能够知道这个类所有的属性和方法，对于任意一个对象，都能调用它的任意一个方法和属性。这种动态获取信息及动态调用对象方法的功能叫Java的反射机制。</p></li>
+<li><p>在Java程序启动时，JVM会将一部分类（class文件）先加载（并不是所有的类都会在一开始加载），通过ClassLoader将类加载，在加载过程中，会将类的信息提取出来（存放在元空间中，JDK1.8之前存放在永久代），同时也会生成一个Class对象存放在内存（堆内存），注意此Class对象只会存在一个，与加载的类唯一对应 <img src="/assets/resources/Pasted%20image%2020240103102915.png" /></p></li>
+<li><p>反射机制利用这些存放的类信息Class对象，来获取类的信息和操作类。</p></li>
+<li><p>通过反射可以对类进行精准的判断，精细区分子类，父类</p></li>
+<li><p>可以通过反射来创造类对象，调用类的方法（本质上还是类的实例进行调用）只是利用反射机制实现了方法的调用,并且这些对类的操作可以无视权限控制，也可以去除final关键字</p></li>
+<li><p>这样一来，就可以通过编译完的class文件来反向操作其中的类</p></li>
+</ul>
+<p><strong>注解</strong></p>
+<p>注解可以被标注在任意地方,与注释不同的是，注解可以通过反射在运行时获取，注解也可以选择是否保留到运行时。<br />
+可以在注解中定义一些属性，注解的属性也叫做成员变量，注解只有成员变量，没有方法。注解的成员变量在注解的定义中以“无形参的方法”形式来声明，其方法名定义了该成员变量的名字，其返回值定义了该成员变量的类型.如<code>String value();</code><br />
+可以使用<code>getAnnotations()</code>方法来快速获取我们标记的注解。</p>
+<ul>
+<li><span class="citation" data-cites="Override">@Override</span> - 检查（仅仅是检查，不保留到运行时）该方法是否是重写方法。如果发现其父类，或者是引用的接口中并没有该方法时，会报编译错误。</li>
+<li><span class="citation" data-cites="Deprecated">@Deprecated</span> - 标记过时方法。如果使用该方法，会报编译警告。</li>
+<li><span class="citation" data-cites="SuppressWarnings">@SuppressWarnings</span> - 指示编译器去忽略注解中声明的警告（仅仅编译器阶段，不保留到运行时）</li>
+<li><span class="citation" data-cites="FunctionalInterface">@FunctionalInterface</span> - Java 8 开始支持，标识一个匿名函数或函数式接口。</li>
+<li><span class="citation" data-cites="SafeVarargs">@SafeVarargs</span> - Java 7 开始支持，忽略任何使用参数为泛型变量的方法或构造函数调用产生的警告。</li>
+</ul>
+<p>元注解是作用于注解上的注解，用于我们编写自定义的注解：</p>
+<ul>
+<li><span class="citation" data-cites="Retention">@Retention</span> - 标识这个注解怎么保存，是只在代码中，还是编入class文件中，或者是在运行时可以通过反射访问。</li>
+<li><span class="citation" data-cites="Documented">@Documented</span> - 标记这些注解是否包含在用户文档中。</li>
+<li><span class="citation" data-cites="Target">@Target</span> - 标记这个注解应该是哪种 Java 成员。</li>
+<li><span class="citation" data-cites="Inherited">@Inherited</span> - 标记这个注解是继承于哪个注解类(默认 注解并没有继承于任何子类)</li>
+<li><span class="citation" data-cites="Repeatable">@Repeatable</span> - Java 8 开始支持，标识某注解可以在同一个声明上使用多次。</li>
+</ul>
 
     </div>
 
@@ -569,14 +629,14 @@ Predicate断言型函数式接口：接收一个参数，然后进行自定义�
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">243k</span>
+    <span title="站点总字数">244k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">14:42</span>
+    <span title="站点阅读时长">14:48</span>
   </span>
 </div>
 <div class="busuanzi-count">
