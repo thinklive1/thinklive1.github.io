@@ -6,11 +6,10 @@
     <content><![CDATA[<video src="/images/thinklive.mp4" autoplay>
 </video>
 <h1 id="欢迎来到迪瑞克拉">欢迎来到迪瑞克拉</h1>
-<p>这里是thinklive的个人博客，不定时地会发一些个人技术学习心得和生活体会</p>
-<p>使用左侧的分类来定位内容</p>
-<p><a href="/2023/10/05/建站指北">建站指北</a></p>
-<p>申请友链可邮件联系</p>
-<p>菜单的资源地图和神龛是迪瑞克拉子站，分别用于存放资源网站和随笔</p>
+<p>这里是thinklive的个人博客，不定时地会发一些个人技术学习心得和生活体会,申请友链可邮件联系<br />
+使用左侧的分类来定位内容</p>
+<p><a href="./thinklive/22586/">建站指北</a></p>
+<p>菜单的<a href="./webstack">资源地图</a>和<a href="./cyberblog">神龛</a>是迪瑞克拉子站，分别用于存放资源网站和随笔</p>
 <h2 id="迪瑞克拉的由来">迪瑞克拉的由来</h2>
 <p><code>狄利克雷函数</code>（英语：<code>dirichlet function</code>）是一个定义在实数范围上、值域不连续的函数。<code>狄利克雷函数</code>的图像以Y轴为对称轴，是一个偶函数，它处处不连续，处处极限不存在，不可黎曼积分。这是一个处处不连续的可测函数。</p>
 <p>在我看来它象征着混沌，不可知与无限的可能性，<code>狄利克雷</code>换一种方式音译就成了迪瑞克拉</p>
@@ -6394,6 +6393,60 @@ Inexpensive Disk）由美国加州大学伯克利分校提出。<br />
       </tags>
   </entry>
   <entry>
+    <title>迪瑞克拉世界观设定集</title>
+    <url>/thinklive/3998/</url>
+    <content><![CDATA[<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">起初，世界是一团思索，它向所有的方向迈了一步，于是万物由此而生……</span><br></pre></td></tr></table></figure>
+<p>这是邪神辛克莱温教徒传颂的创世神话，也是目前为止我们所知最早的创世神话，可以说后世诸多关于创世的传说都有它的影子。 <span id="more"></span></p>
+<p>邪神辛克莱温的信徒有着自己的语言，这种符号文字晦涩难懂，虽然给传播教义造成了困难，却成为维系着邪神教绵延几千年信仰的纽带。 邪神辛克莱温是……</p>
+<p>——选自帝国学者载丝莉《邪神起源探究》</p>
+<h2 id="克雷多斯族">克雷多斯族</h2>
+<pre><code>      平庸是进化论所给我们最后的仁慈——帝国医学教科书扉页</code></pre>
+<p>奥诺斯是社会达尔文主义者的神，他的教义就是物竞天择，适者生存，让优秀的种族淘汰低劣的种族。放到现在他肯定会被当做邪神。奥诺斯创造过很多种族，大部分在穷兵黩武中走向了灭亡，然而其中有一个民族最为他所垂青——克雷多斯族。这一种族刚出现时平平无奇，但他们的眼中只有强者，尊严的力量促使着他们不断发挥着潜力，追逐着比自己强大无数倍的敌人。他们逐渐走向强盛，但后来因为自相残杀导致族人寥寥无几。这时，一位天才创造出了一种把他们一分为二的方法，以此来把自己当做对手，起初，克雷多斯族凭借这一方法几乎成为世界上最令人恐惧的种族，深深地让奥诺斯感到自豪。然而，在与自己的斗争中，有的族人学会了“阴谋”，将另一个自己与其他敌人算计致死，有的人学会了“隐忍”，进而学会了妥协与认输，最终，他们都选择了“平庸”。为了心爱的子民惋惜不止的奥诺斯神来到了最后一个保持着绝对尊严的战士面前：</p>
+<p>“我也给予你选择平庸的权利。”</p>
+<p>“你要我变得和他们一样吗?绝不！！！”</p>
+<p>战士怒吼着冲向了最后一个对手。从此，奥诺斯和他的战士消失于迪瑞克拉世界。</p>
+<h2 id="沉默峡谷">沉默峡谷</h2>
+<p>沉默不是逃避，而是一种选择——沉默沼泽路牌上的涂鸦</p>
+<p>沉默峡谷被命名并正式标在官方地图上是帝国历387年的事了，在此之前它只是个普通的荒凉之处而已，当然，还是偶尔进入的旅客发现这里——但他们有的没能走出来，有的在出来后被别人或自己当成了疯子。</p>
+<p>沉默峡谷的土壤和两侧的山岩有种特殊的性质，能几乎把所有的声音消除，巴比伦塔的学者曾对此展开研究，然而他们一无所获。除此以外，沉默峡谷就是个普通的荒凉峡谷，稀疏的杂草养不出大型动物，对一个经验丰富的旅行者而言，找到水源，辨别方向和驱散毒虫都不算难 ——只要他能忍受无尽的沉默</p>
+<p>在被载入地图后，这里逐渐成了修士的圣地，当然，也有人进去后再也没有出来</p>
+<h2 id="幻影沼泽">幻影沼泽</h2>
+<p>警告！魔术师慎入！</p>
+<p>这是沉默峡谷一处著名的景点，和峡谷本身一样，这里也几乎没什么异常，对有防备的旅行者而言并没什么危险。传说中一位善于擅长表演幻影魔术的魔术师来到这里时，将自己当做了幻影，而把幻影当成了真实。于是他迷失在这里，将此处化成了一片沼泽，如果一位有真才实学的魔术师来到这里，那么他绝对无法精神正常地离开，尽管对其他人而言，这里能看到的异象仅仅是偶尔出现魔术师忧郁的身影而已。</p>
+<h2 id="沉默王国">沉默王国</h2>
+<p>………………………………</p>
+<p>沉默王国一直是个传说，一开始只是有少数人怀疑那些进了峡谷再没有出来的人到底去了哪里？这些怀疑逐渐被时间埋葬，直到帝国标记了沉默峡谷的存在导致一批旅行者来此游览，，有些旅行家发现了沉默王国的存在，很难想象一个王国会存在于荒野，事实上，那里只是寥寥几个人的聚居处。住民们给了旅行家一些食物和饮水，并为他指明了道路，从始至终，他们都带着沉默，从未试图张开嘴唇过。</p>
+<p>此后又陆陆续续地出现了类似住民目击报告，但都被帝国封锁，最终，这一切成为了传说或是怪谈，奇怪的是，帝国似乎对此颇为忌惮，从此以后沉默峡谷再也没有出现在官方文件上过。</p>
+<p>我们认为那些住民的存在涉及了达瑞克拉世界的源论，可以肯定那是一些向往沉默的人，不知何时他们聚集起来，用各自的思虑创造了一个无声的世界——或许跟0号研究所揭示的结果一致，这十分危险，一旦被人们知道，达瑞克拉世界或许会因此毁灭。</p>
+<pre><code>                                 ——《关于沉默王国的报告》</code></pre>
+<h2 id="号研究所">0号研究所</h2>
+<p>我思故我在，我在故我思。——帝国哲学家卡尔迪</p>
+<p>0号研究是科学组织浮士德所进行的一场实验，没错，与大多数我同事的想法相反，它并不是个邪教组织，从同行的角度来说，我很佩服他们的开创性。</p>
+<p>0号研究所本是个普通的小镇，如果不是那件事的发生，我们永远不会知道这里曾发生过这样的实验。</p>
+<p>帝国的审讯所抓到过一个浮士德的高层，今天他们终于设法让他开口了，由此我们终于知道他们是怎么进行实验的。首先，小镇只是出现了一些以屠戮人民，掠夺财物为乐的人，他们穿着迥异的衣服，却意外有着纯正的当地口音，经过一番协力，这些人不久就被送上了断头台。</p>
+<p>奇怪的是，他们面对死亡毫无畏惧，自称“玩家”的他们发出了下次进犯的预告，然后在断头台上化成白光消失了。</p>
+<p>当天，一切有关他们的消息被政府封锁，几乎同时不少“智者”跳了，要求让民众得知真相，惴惴不安中，很多小册子在民众中传阅——上面说这个世界只是虚构，完全为了让那些玩家取乐而存在（至于为何能让民众了解虚幻的概念，或许浮士德的教育机制还是挺有成效的）</p>
+<p>第二天，更多所谓的“玩家从天而降”，所有住民都陷入了绝望与怀疑，就在这时我们所知的异变发生了，没人知道这是怎么做到的，但整个克罗利安镇就这么化为一片混沌之地，我们的不少调查员在第一眼看到它的遗址时就发疯了——我们没人知道为什么。</p>
+<p>现在那里应该已经封闭了，我的建议是，永远封闭下去，或许邪神辛克莱温是对的，这个世界确实由我们的思想决定。我希望所有人都能对此提高警惕，永远不要让类似的事故重演</p>
+<h2 id="帕斯卡王国">帕斯卡王国</h2>
+<p>世上哪有不建立在剥削上的幸福？</p>
+<p>帝国前36年，在正片大陆一个名不见经传的角落有一个小国，这个国家物资贫瘠，人口稀疏，尽管气候不算恶劣，但人民常常处于食不果腹的状态。</p>
+<p>国王帕列斯是位平庸的君主，他的儿子——王子恩西斯却是位有想法的年轻人，尽管刚刚成年，他已经开始思索如何壮大自己的国家，这位王子曾经游学诸国，每次看到国民因营养不良而矮小纤弱的身材，他都会在心中发誓一定要找到让子民过上幸福快乐生活的方法</p>
+<p>有一天，他带着这个愿望，带着几位侍从出门远行，在一番艰难跋涉后，王子在荒野中迷路了，他仿徨了几天，终于有一天他发现了一个村落</p>
+<p>这个村落贫瘠弱小，王子注意到他们大量以烤制生肉，野菜，甚至昆虫而食，他们没有国王或者地位高于其他居民的人，尽管如此，他们的脸上却常常洋溢着笑容</p>
+<p>王子作为外来人并没有对这些野人产生太多影响，于是他也学着野人的样子，用茅草和树枝搭起简易的居所，尝试融入野人的生活</p>
+<p>一个月后，当国王派出的宫廷军顺着王子迷路时留下的标记找到他时，王子正喃喃自语道：我要找到的道路，就在这里啊</p>
+<p>归国后几月，王子继位成为了国王，他实现了自己的诺言，在他的治理下，他的子民过上了物质丰富，精神充足的生活——凭借着王子制定并实现的驯养土著成为奴隶的方法。建立帕索斯帝国后五年，王子临终，面对伏在病榻前痛苦的子孙，他淡淡地说：他们以前就没有国王，以后也不会有吧。随后他保持着沉默，任凭御医记录他由有到无的脉搏直至最后</p>
+<p>帝国历364年，历经三百年的不懈斗争，萨曼人杰出的领袖终于为族人争取到了自由，帝国，这一最先实现奴隶制的国家，最终成为了民主共和的起源…… ——《帝国通史》</p>
+]]></content>
+      <categories>
+        <category>迪瑞克拉</category>
+      </categories>
+      <tags>
+        <tag>迪瑞克拉</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>迪瑞克拉世界观轶事集</title>
     <url>/thinklive/14434/</url>
     <content><![CDATA[<h2 id="泰特斯">泰特斯</h2>
@@ -6451,263 +6504,6 @@ Inexpensive Disk）由美国加州大学伯克利分校提出。<br />
       </categories>
       <tags>
         <tag>迪瑞克拉</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>迪瑞克拉世界观设定集</title>
-    <url>/thinklive/3998/</url>
-    <content><![CDATA[<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">起初，世界是一团思索，它向所有的方向迈了一步，于是万物由此而生……</span><br></pre></td></tr></table></figure>
-<p>这是邪神辛克莱温教徒传颂的创世神话，也是目前为止我们所知最早的创世神话，可以说后世诸多关于创世的传说都有它的影子。 <span id="more"></span></p>
-<p>邪神辛克莱温的信徒有着自己的语言，这种符号文字晦涩难懂，虽然给传播教义造成了困难，却成为维系着邪神教绵延几千年信仰的纽带。 邪神辛克莱温是……</p>
-<p>——选自帝国学者载丝莉《邪神起源探究》</p>
-<h2 id="克雷多斯族">克雷多斯族</h2>
-<pre><code>      平庸是进化论所给我们最后的仁慈——帝国医学教科书扉页</code></pre>
-<p>奥诺斯是社会达尔文主义者的神，他的教义就是物竞天择，适者生存，让优秀的种族淘汰低劣的种族。放到现在他肯定会被当做邪神。奥诺斯创造过很多种族，大部分在穷兵黩武中走向了灭亡，然而其中有一个民族最为他所垂青——克雷多斯族。这一种族刚出现时平平无奇，但他们的眼中只有强者，尊严的力量促使着他们不断发挥着潜力，追逐着比自己强大无数倍的敌人。他们逐渐走向强盛，但后来因为自相残杀导致族人寥寥无几。这时，一位天才创造出了一种把他们一分为二的方法，以此来把自己当做对手，起初，克雷多斯族凭借这一方法几乎成为世界上最令人恐惧的种族，深深地让奥诺斯感到自豪。然而，在与自己的斗争中，有的族人学会了“阴谋”，将另一个自己与其他敌人算计致死，有的人学会了“隐忍”，进而学会了妥协与认输，最终，他们都选择了“平庸”。为了心爱的子民惋惜不止的奥诺斯神来到了最后一个保持着绝对尊严的战士面前：</p>
-<p>“我也给予你选择平庸的权利。”</p>
-<p>“你要我变得和他们一样吗?绝不！！！”</p>
-<p>战士怒吼着冲向了最后一个对手。从此，奥诺斯和他的战士消失于迪瑞克拉世界。</p>
-<h2 id="沉默峡谷">沉默峡谷</h2>
-<p>沉默不是逃避，而是一种选择——沉默沼泽路牌上的涂鸦</p>
-<p>沉默峡谷被命名并正式标在官方地图上是帝国历387年的事了，在此之前它只是个普通的荒凉之处而已，当然，还是偶尔进入的旅客发现这里——但他们有的没能走出来，有的在出来后被别人或自己当成了疯子。</p>
-<p>沉默峡谷的土壤和两侧的山岩有种特殊的性质，能几乎把所有的声音消除，巴比伦塔的学者曾对此展开研究，然而他们一无所获。除此以外，沉默峡谷就是个普通的荒凉峡谷，稀疏的杂草养不出大型动物，对一个经验丰富的旅行者而言，找到水源，辨别方向和驱散毒虫都不算难 ——只要他能忍受无尽的沉默</p>
-<p>在被载入地图后，这里逐渐成了修士的圣地，当然，也有人进去后再也没有出来</p>
-<h2 id="幻影沼泽">幻影沼泽</h2>
-<p>警告！魔术师慎入！</p>
-<p>这是沉默峡谷一处著名的景点，和峡谷本身一样，这里也几乎没什么异常，对有防备的旅行者而言并没什么危险。传说中一位善于擅长表演幻影魔术的魔术师来到这里时，将自己当做了幻影，而把幻影当成了真实。于是他迷失在这里，将此处化成了一片沼泽，如果一位有真才实学的魔术师来到这里，那么他绝对无法精神正常地离开，尽管对其他人而言，这里能看到的异象仅仅是偶尔出现魔术师忧郁的身影而已。</p>
-<h2 id="沉默王国">沉默王国</h2>
-<p>………………………………</p>
-<p>沉默王国一直是个传说，一开始只是有少数人怀疑那些进了峡谷再没有出来的人到底去了哪里？这些怀疑逐渐被时间埋葬，直到帝国标记了沉默峡谷的存在导致一批旅行者来此游览，，有些旅行家发现了沉默王国的存在，很难想象一个王国会存在于荒野，事实上，那里只是寥寥几个人的聚居处。住民们给了旅行家一些食物和饮水，并为他指明了道路，从始至终，他们都带着沉默，从未试图张开嘴唇过。</p>
-<p>此后又陆陆续续地出现了类似住民目击报告，但都被帝国封锁，最终，这一切成为了传说或是怪谈，奇怪的是，帝国似乎对此颇为忌惮，从此以后沉默峡谷再也没有出现在官方文件上过。</p>
-<p>我们认为那些住民的存在涉及了达瑞克拉世界的源论，可以肯定那是一些向往沉默的人，不知何时他们聚集起来，用各自的思虑创造了一个无声的世界——或许跟0号研究所揭示的结果一致，这十分危险，一旦被人们知道，达瑞克拉世界或许会因此毁灭。</p>
-<pre><code>                                 ——《关于沉默王国的报告》</code></pre>
-<h2 id="号研究所">0号研究所</h2>
-<p>我思故我在，我在故我思。——帝国哲学家卡尔迪</p>
-<p>0号研究是科学组织浮士德所进行的一场实验，没错，与大多数我同事的想法相反，它并不是个邪教组织，从同行的角度来说，我很佩服他们的开创性。</p>
-<p>0号研究所本是个普通的小镇，如果不是那件事的发生，我们永远不会知道这里曾发生过这样的实验。</p>
-<p>帝国的审讯所抓到过一个浮士德的高层，今天他们终于设法让他开口了，由此我们终于知道他们是怎么进行实验的。首先，小镇只是出现了一些以屠戮人民，掠夺财物为乐的人，他们穿着迥异的衣服，却意外有着纯正的当地口音，经过一番协力，这些人不久就被送上了断头台。</p>
-<p>奇怪的是，他们面对死亡毫无畏惧，自称“玩家”的他们发出了下次进犯的预告，然后在断头台上化成白光消失了。</p>
-<p>当天，一切有关他们的消息被政府封锁，几乎同时不少“智者”跳了，要求让民众得知真相，惴惴不安中，很多小册子在民众中传阅——上面说这个世界只是虚构，完全为了让那些玩家取乐而存在（至于为何能让民众了解虚幻的概念，或许浮士德的教育机制还是挺有成效的）</p>
-<p>第二天，更多所谓的“玩家从天而降”，所有住民都陷入了绝望与怀疑，就在这时我们所知的异变发生了，没人知道这是怎么做到的，但整个克罗利安镇就这么化为一片混沌之地，我们的不少调查员在第一眼看到它的遗址时就发疯了——我们没人知道为什么。</p>
-<p>现在那里应该已经封闭了，我的建议是，永远封闭下去，或许邪神辛克莱温是对的，这个世界确实由我们的思想决定。我希望所有人都能对此提高警惕，永远不要让类似的事故重演</p>
-<h2 id="帕斯卡王国">帕斯卡王国</h2>
-<p>世上哪有不建立在剥削上的幸福？</p>
-<p>帝国前36年，在正片大陆一个名不见经传的角落有一个小国，这个国家物资贫瘠，人口稀疏，尽管气候不算恶劣，但人民常常处于食不果腹的状态。</p>
-<p>国王帕列斯是位平庸的君主，他的儿子——王子恩西斯却是位有想法的年轻人，尽管刚刚成年，他已经开始思索如何壮大自己的国家，这位王子曾经游学诸国，每次看到国民因营养不良而矮小纤弱的身材，他都会在心中发誓一定要找到让子民过上幸福快乐生活的方法</p>
-<p>有一天，他带着这个愿望，带着几位侍从出门远行，在一番艰难跋涉后，王子在荒野中迷路了，他仿徨了几天，终于有一天他发现了一个村落</p>
-<p>这个村落贫瘠弱小，王子注意到他们大量以烤制生肉，野菜，甚至昆虫而食，他们没有国王或者地位高于其他居民的人，尽管如此，他们的脸上却常常洋溢着笑容</p>
-<p>王子作为外来人并没有对这些野人产生太多影响，于是他也学着野人的样子，用茅草和树枝搭起简易的居所，尝试融入野人的生活</p>
-<p>一个月后，当国王派出的宫廷军顺着王子迷路时留下的标记找到他时，王子正喃喃自语道：我要找到的道路，就在这里啊</p>
-<p>归国后几月，王子继位成为了国王，他实现了自己的诺言，在他的治理下，他的子民过上了物质丰富，精神充足的生活——凭借着王子制定并实现的驯养土著成为奴隶的方法。建立帕索斯帝国后五年，王子临终，面对伏在病榻前痛苦的子孙，他淡淡地说：他们以前就没有国王，以后也不会有吧。随后他保持着沉默，任凭御医记录他由有到无的脉搏直至最后</p>
-<p>帝国历364年，历经三百年的不懈斗争，萨曼人杰出的领袖终于为族人争取到了自由，帝国，这一最先实现奴隶制的国家，最终成为了民主共和的起源…… ——《帝国通史》</p>
-]]></content>
-      <categories>
-        <category>迪瑞克拉</category>
-      </categories>
-      <tags>
-        <tag>迪瑞克拉</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>hexo建立个人博客指北</title>
-    <url>/thinklive/22586/</url>
-    <content><![CDATA[<h1 id="概要">概要</h1>
-<p>本文用于简要阐释我个人关于使用hexo建个人博客的经验，和解释hexo的各种自定义功能，也可以说是我个人的备忘录。网上很多教程都是直接告诉你怎么做，这在建站时很方便，但如果你要自定义就要知道hexo是怎么自定义的，本文可以帮你对此有一些了解 <span id="more"></span> 在进入正文前，我需要补充一些其他东西</p>
-<h2 id="hexo的原理">hexo的原理</h2>
-<p>网站分为静态和动态，简单地说，静态网站就是写好了不会改变的页面，可以利用js实现一些小的动态效果，但不会有后台服务，动态网站就是用户发送请求，后台处理后更新网站给用户反馈，大部分商业网站都是此类。 hexo搭建的博客属于典型的静态网站，因此很容易搭建和自定义。可以说，hexo就是根据你的设置和写作，用一定规则渲染出静态页面的一个工具</p>
-<h2 id="如何网上访问你的页面">如何网上访问你的页面</h2>
-<p>一般来说网站搭建在服务器上，但对静态页面来说，如Github之类的网站后提供免费的托管功能，只要你建一个github账号名.github.io的公共仓库，把静态页面放进去，就可以托管页面，用这个域名访问它(由于众所周知的原因，墙内有时候访问不太稳定)</p>
-<h2 id="涉及的工具">涉及的工具</h2>
-<h3 id="linux">linux</h3>
-<p>我个人推荐你用linux虚拟机来做这件事，一是linux的包管理工具让装各种框架和插件很方便，二是linux的轻量级可以让你如果要切换生产环境，直接导出一个最多10gb左右的镜像拷贝走，就能换到另一台电脑，保留所有装好的环境,三是如果你是cs学生或者有编程需要,linux都是你几乎必学的系统。 这个博客就搭在微软提供的wsl(windows上的linux子系统)上 <a href="https://dowww.spencerwoo.com/">wsl的教程看这个</a> <a href="https://101.lug.ustc.edu.cn/">linux的教程看这个</a></p>
-<h3 id="git">git</h3>
-<p>git和linux是同一个作者，是当下最流行的版本控制工具，如果我们要用github托管页面，也需要用git来推送页面 git也可以帮我们很方便地给你的博客做备份，推送到github的仓库，切换生产环境后把备份拉过来就能继续维护博客</p>
-<h3 id="markdown">markdown</h3>
-<p>markdown是一门轻量级标记性语言，很容易学习，被用于hexo渲染出html页面 网上教程很多，比如 <a href="https://www.zhihu.com/question/276209281/answer/3045412944">如何优雅地使用 Markdown？</a></p>
-<h1 id="建站和自定义">建站和自定义</h1>
-<h2 id="建站">建站</h2>
-<p>假设你有了一个linux系统，并且掌握了一些基本操作，那么建站教程看这个 <a href="https://zhuanlan.zhihu.com/p/552639819">【保姆级教程】含泪搭建hexo博客</a></p>
-<h3 id="主题选择">主题选择</h3>
-<p>hexo的大部分页面渲染工作由主题决定，直观地说，主题决定你的博客外观 <a href="https://hexo.io/themes/">hexo主题列表</a> 我建议新手选择一些比较流行的主题，比如next,butterfly，一般这些主题自定义比较方便，文档易读并且出了问题网上有解决方案</p>
-<h3 id="以next为例讲讲主题的自定义">以next为例讲讲主题的自定义</h3>
-<p><a href="https://brian-zzz.github.io/2022/05/02/Hexo%E7%9A%84%E4%BD%BF%E7%94%A8%E5%92%8C%E4%B8%AA%E6%80%A7%E5%8C%96%E9%85%8D%E7%BD%AE/">next的简单设置这篇博客有教程</a> <a href="https://theme-next.js.org/docs/getting-started/">next的官方文档</a> hexo的大部分设置有两个yml文件控制，一个是根目录下的_config.yml，可以设置语言，作者名，网站名，网站链接等，还有一个是主题目录的_config.yml，设置主题自己的功能，next的评论，访问统计等等功能都在这里设置 主题的目录一般是根目录/node_modules/hexo-theme-主题名/，但也有主题的配置文件放在根目录的命名成_config.主题名.yml的 关于部分主题功能的详解我会放在下文的主题使用说明</p>
-<h2 id="hexo的工作流程">hexo的工作流程</h2>
-<p>如果想进一步的自定义，就需要了解hexo的大致原理</p>
-<h3 id="前端三件套">前端三件套</h3>
-<ul>
-<li>HTML（超文本标记语言）是一种用来描述网页内容的语言，它使用一系列的标签（tag）来定义网页中的元素，如标题，段落，图片，链接等。</li>
-<li>CSS（层叠样式表）是一种用来控制网页外观的语言，它可以定义网页中元素的颜色，大小，位置，边框等属性。</li>
-<li>JavaScript（简称JS）是一种用来实现网页交互的脚本语言，它可以在浏览器中运行，响应用户的操作，修改网页内容，发送和接收数据等。 hexo目录内的public文件夹就放着最后生成的页面，其中，你看到的页面就是一个个html文件，样式和动态效果则引用js和css文件夹中的文件，hexo g生成和你在github托管的也就是这个文件夹下的文件</li>
-</ul>
-<h3 id="源文件">源文件</h3>
-<p>那么是什么文件会被推送到public文件夹呢？</p>
-<ol type="1">
-<li>根目录下的source文件夹，有下划线_打头的文件夹一般有特殊性质，如根目录下的_data存放一些自定义样式文件，_post则存放具体文章，这些文件夹不会直接放进public，除此以外的文件夹都会被放进public，但如果文件可以被渲染的话，会经过解析然后储存到 <code>public</code> 文件夹，否则会直接拷贝到 <code>public</code> 文件夹。</li>
-<li>主题目录下的source文件夹，一般来说这些文件夹用来放js,css和主题自定义的一些图片,同样，有下划线开头的不会被直接放进public，其他文件夹下会被放进去</li>
-</ol>
-<h4 id="如何跳过渲染">如何跳过渲染</h4>
-<p>在根目录下设置skip_render，以下设置让source的webstack目录全部跳过渲染</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">skip_render:</span><br><span class="line">- webstack/**</span><br></pre></td></tr></table></figure>
-<h2 id="写作">写作</h2>
-<h3 id="文章布局">文章布局</h3>
-<p>hexo有三种文章布局，其中post是普通的博文，page是带文件夹的新页面，比如tags,categories，如果主题支持的话，你可以设置page被特别渲染成目录，标签之类的特色页面并放进菜单，draft是草稿，这种布局在建立时会被保存到 <code>source/_drafts</code> 文件夹，您可通过 <code>publish</code> 命令将草稿移动到 <code>source/_posts</code> 文件夹，默认不会被显示在页面中 你也可以禁用布局，根据 <code>_config.yml</code> 中 <a href="https://hexo.io/zh-cn/docs/configuration#%E6%96%87%E7%AB%A0"><code>default_layout</code></a> 的设置，默认布局是 <code>post</code> 。当文章中的布局被禁用(<code>layout: false</code>)，它将不会使用主题处理。然而，它仍然会被任何可用的渲染引擎渲染：如果一篇文章是用 Markdown 写的，并且安装了 Markdown 渲染引擎（比如默认的 <a href="https://github.com/hexojs/hexo-renderer-marked">hexo-renderer-marked</a>)，它将被渲染成HTML。</p>
-<table>
-<thead>
-<tr class="header">
-<th>布局</th>
-<th>路径</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>post</code></td>
-<td><code>source/_posts</code></td>
-</tr>
-<tr class="even">
-<td><code>page</code></td>
-<td><code>source</code></td>
-</tr>
-<tr class="odd">
-<td><code>draft</code></td>
-<td><code>source/_drafts</code></td>
-</tr>
-</tbody>
-</table>
-<h3 id="文章标头">文章标头</h3>
-<p>Front-matter 是文件最上方以 <code>---</code> 分隔的区域，用于指定个别文件的变量，举例来说： hexo用文章标头来识别文章，因此你可以不用命令行创建文章，把有标头的md文件放进_post就能发布博文了</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: 基于斯坦福cs106b的c++数据结构笔记</span><br><span class="line">tags:</span><br><span class="line">- 课程笔记</span><br><span class="line">- c++</span><br><span class="line">categories: 课程笔记</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
-<table>
-<colgroup>
-<col style="width: 33%" />
-<col style="width: 33%" />
-<col style="width: 33%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>参数</th>
-<th>描述</th>
-<th>默认值</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>layout</code></td>
-<td>布局</td>
-<td><a href="https://hexo.io/zh-cn/docs/configuration#%E6%96%87%E7%AB%A0"><code>config.default_layout</code></a></td>
-</tr>
-<tr class="even">
-<td><code>title</code></td>
-<td>标题</td>
-<td>文章的文件名</td>
-</tr>
-<tr class="odd">
-<td><code>date</code></td>
-<td>建立日期</td>
-<td>文件建立日期</td>
-</tr>
-<tr class="even">
-<td><code>updated</code></td>
-<td>更新日期</td>
-<td>文件更新日期</td>
-</tr>
-<tr class="odd">
-<td><code>comments</code></td>
-<td>开启文章的评论功能</td>
-<td><code>true</code></td>
-</tr>
-<tr class="even">
-<td><code>tags</code></td>
-<td>标签（不适用于分页）</td>
-<td></td>
-</tr>
-<tr class="odd">
-<td><code>categories</code></td>
-<td>分类（不适用于分页）</td>
-<td></td>
-</tr>
-<tr class="even">
-<td><code>permalink</code></td>
-<td>覆盖文章的永久链接，永久链接应该以 <code>/</code> 或 <code>.html</code> 结尾</td>
-<td><code>null</code></td>
-</tr>
-<tr class="odd">
-<td><code>excerpt</code></td>
-<td>纯文本的页面摘要。使用 <a href="https://hexo.io/zh-cn/docs/tag-plugins#%E6%96%87%E7%AB%A0%E6%91%98%E8%A6%81%E5%92%8C%E6%88%AA%E6%96%AD">该插件</a> 来格式化文本</td>
-<td></td>
-</tr>
-<tr class="even">
-<td><code>disableNunjucks</code></td>
-<td>启用时禁用 Nunjucks 标签 <code>&#123;&#123; &#125;&#125;</code>/ <code>&#123;% %&#125;</code> 和 <a href="https://hexo.io/zh-cn/docs/tag-plugins">标签插件</a> 的渲染功能</td>
-<td>错误的</td>
-</tr>
-<tr class="odd">
-<td><code>lang</code></td>
-<td>设置语言以覆盖 <a href="https://hexo.io/zh-cn/docs/internationalization#%E8%B7%AF%E5%BE%84">自动检测</a></td>
-<td>继承自 <code>_config.yml</code></td>
-</tr>
-<tr class="even">
-<td><code>published</code></td>
-<td>文章是否发布</td>
-<td>对于 <code>_posts</code> 下的文章为 <code>true</code>，对于 <code>_draft</code> 下的文章为 <code>false</code></td>
-</tr>
-</tbody>
-</table>
-<h4 id="目录和标签">目录和标签</h4>
-<p>只有文章支持分类和标签，可以在 Front-matter 中设置。在其他系统中，分类和标签听起来很接近，但是在 Hexo 中两者有着明显的差别：分类具有顺序性和层次性，也就是说 <code>Foo, Bar</code> 不等于 <code>Bar, Foo</code>；而标签没有顺序和层次。 eg.如下的标头形成目录是（课程笔记/操作系统）</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: 基于恐龙书和苏大ppt的操作系统笔记</span><br><span class="line">tags:</span><br><span class="line">- 课程笔记</span><br><span class="line">- 操作系统</span><br><span class="line">categories:</span><br><span class="line">- 课程笔记</span><br><span class="line">- 操作系统</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
-<p>也可以并列</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">并列分类 </span><br><span class="line">类别：  </span><br><span class="line">- [Linux]  </span><br><span class="line">- [工具]</span><br><span class="line"></span><br><span class="line">并列+子分类</span><br><span class="line">类别：  </span><br><span class="line">- [Linux, Hexo]  </span><br><span class="line">- [工具，PHP]</span><br></pre></td></tr></table></figure>
-<h3 id="文章缩略">文章缩略</h3>
-<p>一般来说我们不会希望首页显示全文，而是开头的一小部分或者是摘要，摘要可以在标头加上取代缩略，而文章的缩略可以由主题决定，也可以用hexo自己的方式，比如next现在就不支持自动缩进，你只能自己在觉得差不多的地方加上</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;!-- more --&gt;</span><br></pre></td></tr></table></figure>
-<p>每个主题怎么决定缩略或者摘要基本也会在文档里写</p>
-<h2 id="主题说明">主题说明</h2>
-<p>既然大部分渲染由主题决定，那么自定义往往也会取决于主题，以下是我本人用过的主题的一些经验</p>
-<h3 id="next">next</h3>
-<p><code>next</code>是一款典型的黑白简约风主题，并且提供了丰富的自定义性，因此迪瑞克拉的主站就使用了自定义非常方便的next next的文档比较易读，全部看一遍就知道设置里那些选项怎么用了 这里说说next的自定义 next的渲染由主题文件夹下"layout"目录中的njk文件控制（一些老版本是swig)，你也可以使用next提供的自定义文件，去掉注释符号就可以去_data文件新建自定义文件来控制渲染 比如说你想在所有页面加个js特效，就可以在主题文件夹下的layout/_layout.njk文件新增一句</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;script src=&quot;/js/jsname.js&quot;&gt;&lt;/script&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>以下是next提供的自定义文件接口，可以对网站各个位置自定义</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">custom_file_path:</span><br><span class="line">  #head: source/_data/head.njk</span><br><span class="line">  #header: source/_data/header.njk</span><br><span class="line">  sidebar: source/_data/sidebar.njk</span><br><span class="line">  #postMeta: source/_data/post-meta.njk</span><br><span class="line">  #postBodyStart: source/_data/post-body-start.njk</span><br><span class="line">  #postBodyEnd: source/_data/post-body-end.njk</span><br><span class="line">  #footer: source/_data/footer.njk</span><br><span class="line">  #bodyEnd: source/_data/body-end.njk</span><br><span class="line">  #variable: source/_data/variables.styl</span><br><span class="line">  #mixin: source/_data/mixins.styl</span><br><span class="line">  style: source/_data/styles.styl</span><br></pre></td></tr></table></figure>
-<h3 id="webstack">webstack</h3>
-<p>webstack主题基于github的一个开源项目，用来做一个导航页面，作为子站非常合适，自定义虽然没有next那么丰富，但作者慷慨地提供了一个随便插入html的head或者body的接口，可以使用html标签进行自定义，就在webstack的配置文件末尾 怎么做子站看下文的多主题 <a href="https://github.com/HCLonely/hexo-theme-webstack/blob/master/README_CN.md">使用方法看github主页的文档</a></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">custom:</span><br><span class="line">  head: |- # 以下内容插入到&lt;head&gt;&lt;/head&gt;标签内，可设置多行，注意每行开头至少四个空格</span><br><span class="line">    &lt;!-- 直接添加html内容即可 --&gt;</span><br><span class="line">    &lt;!-- 可设置多行 --&gt;</span><br><span class="line">  body: |- # 以下内容插入到&lt;/body&gt;标签之前，可设置多行，注意每行开头至少四个空格</span><br><span class="line">    &lt;!-- 直接添加html内容即可 --&gt;</span><br><span class="line">    &lt;!-- 可设置多行 --&gt;</span><br></pre></td></tr></table></figure>
-<h3 id="icarus">icarus</h3>
-<p>伊卡洛斯也是个简约风的主题，特色是两列或者三列式的美观布局，但最让我中意的是它的赛博朋克风格，伊卡洛斯使用jsx定义渲染，因此自定义比较麻烦，可以自己导入js和css，但没有直接插入html标签的接口 <a href="https://ppoffice.github.io/hexo-theme-icarus/Configuration/icarus%E7%94%A8%E6%88%B7%E6%8C%87%E5%8D%97-%E4%B8%BB%E9%A2%98%E9%85%8D%E7%BD%AE/">使用文档</a> 文档没说那些七七八八的窗口怎么关，但我亲测你不想要的直接在配置文件里删掉就行了 <a href="https://blog.mchook.cn/2021/07/22/icarus%E4%B8%BB%E9%A2%98%E8%87%AA%E5%AE%9A%E4%B9%89/">自定义js和css</a> 顺便一提大部分主题渲染md会直接把正文放进Html,所以直接在文章里放html标签基本也能用，如果你想要一个效果只在文章页面出现可以试试，迪瑞克拉神龛的骇入文字特效就是此类</p>
-<h3 id="多主题">多主题</h3>
-<p>理论上讲，既然主题只是决定了渲染的方法，你自己可以调用主题的各种样式渲染实现 一个主题下渲染出另一个主题效果的页面，但这样做很麻烦，那么有没有更容易实现多主题的方法呢？ 前文说了，source文件夹所有目录都会推送到public，我们可以利用这点把其他主题的网站推送到主站的source文件夹，然后在主站开一个菜单跳转到该子站对应目录的index实现子站用不同主题的功能 具体步骤如下</p>
-<ol type="1">
-<li>如之前的教程一样再建一个站，设置好想要的主题</li>
-<li>根目录的设置这么改</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">url: 主站目录/子站目录名</span><br><span class="line">index_generator:</span><br><span class="line"> path: &#x27;/子站目录名/&#x27;</span><br></pre></td></tr></table></figure>
-<ol start="3" type="1">
-<li>主站子站各自加一个跳转子站，返回主站的菜单 比如next这么改</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">resourcemap: /webstack/ || fa fa-sitemap</span><br></pre></td></tr></table></figure>
-<ol start="4" type="1">
-<li>如果你会写脚本，就写个子站生成网站后自动推送的练练手，不会或者嫌麻烦就拿我的改改</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo clean</span><br><span class="line"></span><br><span class="line">hexo g</span><br><span class="line"></span><br><span class="line">rm -rf /home/thinkliving/hexoblog/source/webstack/*</span><br><span class="line"></span><br><span class="line">cp -r /home/thinkliving/hexochild/public/* /home/thinkliving/hexoblog/source/webstack/</span><br><span class="line"></span><br><span class="line">cp -r /home/thinkliving/hexochild/public/webstack/* /home/thinkliving/hexoblog/source/webstack/</span><br></pre></td></tr></table></figure>
-<h2 id="其他自定义">其他自定义</h2>
-<h3 id="图标">图标</h3>
-<p>大部分hexo主题使用fontawesome的图标，类似这种格式</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">fas fa-tools//s指solid图标</span><br></pre></td></tr></table></figure>
-<p>想自定义可以在css文件里定义图标再使用，比如next中是这样在styl里定义,不过不是所有主题都支持这种自定义</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">.thanks &#123;</span><br><span class="line">  background-image: url(&#x27;/images/thanks.svg&#x27;);</span><br><span class="line">  background-size: 1em 1em;</span><br><span class="line">  background-position: 0.05rem 0.2rem;</span><br><span class="line">  background-repeat: no-repeat;</span><br><span class="line">  height: 1rem;</span><br><span class="line">  width: 1rem; </span><br><span class="line">  </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">thanks: /thanks/ || fa custom thanks</span><br></pre></td></tr></table></figure>
-<h3 id="hexo-s时自动刷新">hexo s时自动刷新</h3>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install -g browser-sync</span><br><span class="line">npm install hexo-browsersync --save</span><br></pre></td></tr></table></figure>
-<h3 id="加密博客">加密博客</h3>
-<p><a href="https://github.com/D0n9X1n/hexo-blog-encrypt/blob/master/ReadMe.zh.md">[hexo-blog-encrypt](https://github.com/D0n9X1n/hexo-blog-encrypt/tree/master)</a></p>
-<h3 id="js动效">js动效</h3>
-<p><a href="https://blog.csdn.net/qq_44036990/article/details/104932173">鼠标移动特效</a> 这种js小特效很多，好奇的话自己去探索吧</p>
-]]></content>
-      <categories>
-        <category>建站经验</category>
-      </categories>
-      <tags>
-        <tag>hexo</tag>
-        <tag>next</tag>
-        <tag>webstack</tag>
-        <tag>icarus</tag>
       </tags>
   </entry>
   <entry>
@@ -7245,6 +7041,209 @@ Inexpensive Disk）由美国加州大学伯克利分校提出。<br />
         <tag>课程笔记</tag>
         <tag>苏州大学</tag>
         <tag>操作系统</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>hexo建立个人博客指北</title>
+    <url>/thinklive/22586/</url>
+    <content><![CDATA[<h1 id="概要">概要</h1>
+<p>本文用于简要阐释我个人关于使用hexo建个人博客的经验，和解释hexo的各种自定义功能，也可以说是我个人的备忘录。网上很多教程都是直接告诉你怎么做，这在建站时很方便，但如果你要自定义就要知道hexo是怎么自定义的，本文可以帮你对此有一些了解 <span id="more"></span> 在进入正文前，我需要补充一些其他东西</p>
+<h2 id="hexo的原理">hexo的原理</h2>
+<p>网站分为静态和动态，简单地说，静态网站就是写好了不会改变的页面，可以利用js实现一些小的动态效果，但不会有后台服务，动态网站就是用户发送请求，后台处理后更新网站给用户反馈，大部分商业网站都是此类。 hexo搭建的博客属于典型的静态网站，因此很容易搭建和自定义。可以说，hexo就是根据你的设置和写作，用一定规则渲染出静态页面的一个工具</p>
+<h2 id="如何网上访问你的页面">如何网上访问你的页面</h2>
+<p>一般来说网站搭建在服务器上，但对静态页面来说，如Github之类的网站后提供免费的托管功能，只要你建一个github账号名.github.io的公共仓库，把静态页面放进去，就可以托管页面，用这个域名访问它(由于众所周知的原因，墙内有时候访问不太稳定)</p>
+<h2 id="涉及的工具">涉及的工具</h2>
+<h3 id="linux">linux</h3>
+<p>我个人推荐你用linux虚拟机来做这件事，一是linux的包管理工具让装各种框架和插件很方便，二是linux的轻量级可以让你如果要切换生产环境，直接导出一个最多10gb左右的镜像拷贝走，就能换到另一台电脑，保留所有装好的环境,三是如果你是cs学生或者有编程需要,linux都是你几乎必学的系统。 这个博客就搭在微软提供的wsl(windows上的linux子系统)上 <a href="https://dowww.spencerwoo.com/">wsl的教程看这个</a> <a href="https://101.lug.ustc.edu.cn/">linux的教程看这个</a></p>
+<h3 id="git">git</h3>
+<p>git和linux是同一个作者，是当下最流行的版本控制工具，如果我们要用github托管页面，也需要用git来推送页面 git也可以帮我们很方便地给你的博客做备份，推送到github的仓库，切换生产环境后把备份拉过来就能继续维护博客</p>
+<h3 id="markdown">markdown</h3>
+<p>markdown是一门轻量级标记性语言，很容易学习，被用于hexo渲染出html页面 网上教程很多，比如 <a href="https://www.zhihu.com/question/276209281/answer/3045412944">如何优雅地使用 Markdown？</a></p>
+<h1 id="建站和自定义">建站和自定义</h1>
+<h2 id="建站">建站</h2>
+<p>假设你有了一个linux系统，并且掌握了一些基本操作，那么建站教程看这个 <a href="https://zhuanlan.zhihu.com/p/552639819">【保姆级教程】含泪搭建hexo博客</a></p>
+<h3 id="主题选择">主题选择</h3>
+<p>hexo的大部分页面渲染工作由主题决定，直观地说，主题决定你的博客外观 <a href="https://hexo.io/themes/">hexo主题列表</a> 我建议新手选择一些比较流行的主题，比如next,butterfly，一般这些主题自定义比较方便，文档易读并且出了问题网上有解决方案</p>
+<h3 id="以next为例讲讲主题的自定义">以next为例讲讲主题的自定义</h3>
+<p><a href="https://brian-zzz.github.io/2022/05/02/Hexo%E7%9A%84%E4%BD%BF%E7%94%A8%E5%92%8C%E4%B8%AA%E6%80%A7%E5%8C%96%E9%85%8D%E7%BD%AE/">next的简单设置这篇博客有教程</a> <a href="https://theme-next.js.org/docs/getting-started/">next的官方文档</a> hexo的大部分设置有两个yml文件控制，一个是根目录下的_config.yml，可以设置语言，作者名，网站名，网站链接等，还有一个是主题目录的_config.yml，设置主题自己的功能，next的评论，访问统计等等功能都在这里设置 主题的目录一般是根目录/node_modules/hexo-theme-主题名/，但也有主题的配置文件放在根目录的命名成_config.主题名.yml的 关于部分主题功能的详解我会放在下文的主题使用说明</p>
+<h2 id="hexo的工作流程">hexo的工作流程</h2>
+<p>如果想进一步的自定义，就需要了解hexo的大致原理</p>
+<h3 id="前端三件套">前端三件套</h3>
+<ul>
+<li>HTML（超文本标记语言）是一种用来描述网页内容的语言，它使用一系列的标签（tag）来定义网页中的元素，如标题，段落，图片，链接等。</li>
+<li>CSS（层叠样式表）是一种用来控制网页外观的语言，它可以定义网页中元素的颜色，大小，位置，边框等属性。</li>
+<li>JavaScript（简称JS）是一种用来实现网页交互的脚本语言，它可以在浏览器中运行，响应用户的操作，修改网页内容，发送和接收数据等。 hexo目录内的public文件夹就放着最后生成的页面，其中，你看到的页面就是一个个html文件，样式和动态效果则引用js和css文件夹中的文件，hexo g生成和你在github托管的也就是这个文件夹下的文件</li>
+</ul>
+<h3 id="源文件">源文件</h3>
+<p>那么是什么文件会被推送到public文件夹呢？</p>
+<ol type="1">
+<li>根目录下的source文件夹，有下划线_打头的文件夹一般有特殊性质，如根目录下的_data存放一些自定义样式文件，_post则存放具体文章，这些文件夹不会直接放进public，除此以外的文件夹都会被放进public，但如果文件可以被渲染的话，会经过解析然后储存到 <code>public</code> 文件夹，否则会直接拷贝到 <code>public</code> 文件夹。</li>
+<li>主题目录下的source文件夹，一般来说这些文件夹用来放js,css和主题自定义的一些图片,同样，有下划线开头的不会被直接放进public，其他文件夹下会被放进去</li>
+</ol>
+<h4 id="如何跳过渲染">如何跳过渲染</h4>
+<p>在根目录下设置skip_render，以下设置让source的webstack目录全部跳过渲染</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">skip_render:</span><br><span class="line">- webstack/**</span><br></pre></td></tr></table></figure>
+<h2 id="写作">写作</h2>
+<h3 id="文章布局">文章布局</h3>
+<p>hexo有三种文章布局，其中post是普通的博文，page是带文件夹的新页面，比如tags,categories，如果主题支持的话，你可以设置page被特别渲染成目录，标签之类的特色页面并放进菜单，draft是草稿，这种布局在建立时会被保存到 <code>source/_drafts</code> 文件夹，您可通过 <code>publish</code> 命令将草稿移动到 <code>source/_posts</code> 文件夹，默认不会被显示在页面中 你也可以禁用布局，根据 <code>_config.yml</code> 中 <a href="https://hexo.io/zh-cn/docs/configuration#%E6%96%87%E7%AB%A0"><code>default_layout</code></a> 的设置，默认布局是 <code>post</code> 。当文章中的布局被禁用(<code>layout: false</code>)，它将不会使用主题处理。然而，它仍然会被任何可用的渲染引擎渲染：如果一篇文章是用 Markdown 写的，并且安装了 Markdown 渲染引擎（比如默认的 <a href="https://github.com/hexojs/hexo-renderer-marked">hexo-renderer-marked</a>)，它将被渲染成HTML。</p>
+<table>
+<thead>
+<tr class="header">
+<th>布局</th>
+<th>路径</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>post</code></td>
+<td><code>source/_posts</code></td>
+</tr>
+<tr class="even">
+<td><code>page</code></td>
+<td><code>source</code></td>
+</tr>
+<tr class="odd">
+<td><code>draft</code></td>
+<td><code>source/_drafts</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="文章标头">文章标头</h3>
+<p>Front-matter 是文件最上方以 <code>---</code> 分隔的区域，用于指定个别文件的变量，举例来说： hexo用文章标头来识别文章，因此你可以不用命令行创建文章，把有标头的md文件放进_post就能发布博文了</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: 基于斯坦福cs106b的c++数据结构笔记</span><br><span class="line">tags:</span><br><span class="line">- 课程笔记</span><br><span class="line">- c++</span><br><span class="line">categories: 课程笔记</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>参数</th>
+<th>描述</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>layout</code></td>
+<td>布局</td>
+<td><a href="https://hexo.io/zh-cn/docs/configuration#%E6%96%87%E7%AB%A0"><code>config.default_layout</code></a></td>
+</tr>
+<tr class="even">
+<td><code>title</code></td>
+<td>标题</td>
+<td>文章的文件名</td>
+</tr>
+<tr class="odd">
+<td><code>date</code></td>
+<td>建立日期</td>
+<td>文件建立日期</td>
+</tr>
+<tr class="even">
+<td><code>updated</code></td>
+<td>更新日期</td>
+<td>文件更新日期</td>
+</tr>
+<tr class="odd">
+<td><code>comments</code></td>
+<td>开启文章的评论功能</td>
+<td><code>true</code></td>
+</tr>
+<tr class="even">
+<td><code>tags</code></td>
+<td>标签（不适用于分页）</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><code>categories</code></td>
+<td>分类（不适用于分页）</td>
+<td></td>
+</tr>
+<tr class="even">
+<td><code>permalink</code></td>
+<td>覆盖文章的永久链接，永久链接应该以 <code>/</code> 或 <code>.html</code> 结尾</td>
+<td><code>null</code></td>
+</tr>
+<tr class="odd">
+<td><code>excerpt</code></td>
+<td>纯文本的页面摘要。使用 <a href="https://hexo.io/zh-cn/docs/tag-plugins#%E6%96%87%E7%AB%A0%E6%91%98%E8%A6%81%E5%92%8C%E6%88%AA%E6%96%AD">该插件</a> 来格式化文本</td>
+<td></td>
+</tr>
+<tr class="even">
+<td><code>disableNunjucks</code></td>
+<td>启用时禁用 Nunjucks 标签 <code>&#123;&#123; &#125;&#125;</code>/ <code>&#123;% %&#125;</code> 和 <a href="https://hexo.io/zh-cn/docs/tag-plugins">标签插件</a> 的渲染功能</td>
+<td>错误的</td>
+</tr>
+<tr class="odd">
+<td><code>lang</code></td>
+<td>设置语言以覆盖 <a href="https://hexo.io/zh-cn/docs/internationalization#%E8%B7%AF%E5%BE%84">自动检测</a></td>
+<td>继承自 <code>_config.yml</code></td>
+</tr>
+<tr class="even">
+<td><code>published</code></td>
+<td>文章是否发布</td>
+<td>对于 <code>_posts</code> 下的文章为 <code>true</code>，对于 <code>_draft</code> 下的文章为 <code>false</code></td>
+</tr>
+</tbody>
+</table>
+<h4 id="目录和标签">目录和标签</h4>
+<p>只有文章支持分类和标签，可以在 Front-matter 中设置。在其他系统中，分类和标签听起来很接近，但是在 Hexo 中两者有着明显的差别：分类具有顺序性和层次性，也就是说 <code>Foo, Bar</code> 不等于 <code>Bar, Foo</code>；而标签没有顺序和层次。 eg.如下的标头形成目录是（课程笔记/操作系统）</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: 基于恐龙书和苏大ppt的操作系统笔记</span><br><span class="line">tags:</span><br><span class="line">- 课程笔记</span><br><span class="line">- 操作系统</span><br><span class="line">categories:</span><br><span class="line">- 课程笔记</span><br><span class="line">- 操作系统</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+<p>也可以并列</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">并列分类 </span><br><span class="line">类别：  </span><br><span class="line">- [Linux]  </span><br><span class="line">- [工具]</span><br><span class="line"></span><br><span class="line">并列+子分类</span><br><span class="line">类别：  </span><br><span class="line">- [Linux, Hexo]  </span><br><span class="line">- [工具，PHP]</span><br></pre></td></tr></table></figure>
+<h3 id="文章缩略">文章缩略</h3>
+<p>一般来说我们不会希望首页显示全文，而是开头的一小部分或者是摘要，摘要可以在标头加上取代缩略，而文章的缩略可以由主题决定，也可以用hexo自己的方式，比如next现在就不支持自动缩进，你只能自己在觉得差不多的地方加上</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;!-- more --&gt;</span><br></pre></td></tr></table></figure>
+<p>每个主题怎么决定缩略或者摘要基本也会在文档里写</p>
+<h2 id="主题说明">主题说明</h2>
+<p>既然大部分渲染由主题决定，那么自定义往往也会取决于主题，以下是我本人用过的主题的一些经验</p>
+<h3 id="next">next</h3>
+<p><code>next</code>是一款典型的黑白简约风主题，并且提供了丰富的自定义性，因此迪瑞克拉的主站就使用了自定义非常方便的next next的文档比较易读，全部看一遍就知道设置里那些选项怎么用了 这里说说next的自定义 next的渲染由主题文件夹下"layout"目录中的njk文件控制（一些老版本是swig)，你也可以使用next提供的自定义文件，去掉注释符号就可以去_data文件新建自定义文件来控制渲染 比如说你想在所有页面加个js特效，就可以在主题文件夹下的layout/_layout.njk文件新增一句</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;script src=&quot;/js/jsname.js&quot;&gt;&lt;/script&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>以下是next提供的自定义文件接口，可以对网站各个位置自定义</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">custom_file_path:</span><br><span class="line">  #head: source/_data/head.njk</span><br><span class="line">  #header: source/_data/header.njk</span><br><span class="line">  sidebar: source/_data/sidebar.njk</span><br><span class="line">  #postMeta: source/_data/post-meta.njk</span><br><span class="line">  #postBodyStart: source/_data/post-body-start.njk</span><br><span class="line">  #postBodyEnd: source/_data/post-body-end.njk</span><br><span class="line">  #footer: source/_data/footer.njk</span><br><span class="line">  #bodyEnd: source/_data/body-end.njk</span><br><span class="line">  #variable: source/_data/variables.styl</span><br><span class="line">  #mixin: source/_data/mixins.styl</span><br><span class="line">  style: source/_data/styles.styl</span><br></pre></td></tr></table></figure>
+<h3 id="webstack">webstack</h3>
+<p>webstack主题基于github的一个开源项目，用来做一个导航页面，作为子站非常合适，自定义虽然没有next那么丰富，但作者慷慨地提供了一个随便插入html的head或者body的接口，可以使用html标签进行自定义，就在webstack的配置文件末尾 怎么做子站看下文的多主题 <a href="https://github.com/HCLonely/hexo-theme-webstack/blob/master/README_CN.md">使用方法看github主页的文档</a></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">custom:</span><br><span class="line">  head: |- # 以下内容插入到&lt;head&gt;&lt;/head&gt;标签内，可设置多行，注意每行开头至少四个空格</span><br><span class="line">    &lt;!-- 直接添加html内容即可 --&gt;</span><br><span class="line">    &lt;!-- 可设置多行 --&gt;</span><br><span class="line">  body: |- # 以下内容插入到&lt;/body&gt;标签之前，可设置多行，注意每行开头至少四个空格</span><br><span class="line">    &lt;!-- 直接添加html内容即可 --&gt;</span><br><span class="line">    &lt;!-- 可设置多行 --&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="icarus">icarus</h3>
+<p>伊卡洛斯也是个简约风的主题，特色是两列或者三列式的美观布局，但最让我中意的是它的赛博朋克风格，伊卡洛斯使用jsx定义渲染，因此自定义比较麻烦，可以自己导入js和css，但没有直接插入html标签的接口 <a href="https://ppoffice.github.io/hexo-theme-icarus/Configuration/icarus%E7%94%A8%E6%88%B7%E6%8C%87%E5%8D%97-%E4%B8%BB%E9%A2%98%E9%85%8D%E7%BD%AE/">使用文档</a> 文档没说那些七七八八的窗口怎么关，但我亲测你不想要的直接在配置文件里删掉就行了 <a href="https://blog.mchook.cn/2021/07/22/icarus%E4%B8%BB%E9%A2%98%E8%87%AA%E5%AE%9A%E4%B9%89/">自定义js和css</a> 顺便一提大部分主题渲染md会直接把正文放进Html,所以直接在文章里放html标签基本也能用，如果你想要一个效果只在文章页面出现可以试试，迪瑞克拉神龛的骇入文字特效就是此类</p>
+<h3 id="多主题">多主题</h3>
+<p>理论上讲，既然主题只是决定了渲染的方法，你自己可以调用主题的各种样式渲染实现 一个主题下渲染出另一个主题效果的页面，但这样做很麻烦，那么有没有更容易实现多主题的方法呢？ 前文说了，source文件夹所有目录都会推送到public，我们可以利用这点把其他主题的网站推送到主站的source文件夹，然后在主站开一个菜单跳转到该子站对应目录的index实现子站用不同主题的功能 具体步骤如下</p>
+<ol type="1">
+<li>如之前的教程一样再建一个站，设置好想要的主题</li>
+<li>根目录的设置这么改</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">url: 主站目录/子站目录名</span><br><span class="line">index_generator:</span><br><span class="line"> path: &#x27;/子站目录名/&#x27;</span><br></pre></td></tr></table></figure>
+<ol start="3" type="1">
+<li>主站子站各自加一个跳转子站，返回主站的菜单 比如next这么改</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">resourcemap: /webstack/ || fa fa-sitemap</span><br></pre></td></tr></table></figure>
+<ol start="4" type="1">
+<li>如果你会写脚本，就写个子站生成网站后自动推送的练练手，不会或者嫌麻烦就拿我的改改</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo clean</span><br><span class="line"></span><br><span class="line">hexo g</span><br><span class="line"></span><br><span class="line">rm -rf /home/thinkliving/hexoblog/source/webstack/*</span><br><span class="line"></span><br><span class="line">cp -r /home/thinkliving/hexochild/public/* /home/thinkliving/hexoblog/source/webstack/</span><br><span class="line"></span><br><span class="line">cp -r /home/thinkliving/hexochild/public/webstack/* /home/thinkliving/hexoblog/source/webstack/</span><br></pre></td></tr></table></figure>
+<h2 id="其他自定义">其他自定义</h2>
+<h3 id="图标">图标</h3>
+<p>大部分hexo主题使用fontawesome的图标，类似这种格式</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">fas fa-tools//s指solid图标</span><br></pre></td></tr></table></figure>
+<p>想自定义可以在css文件里定义图标再使用，比如next中是这样在styl里定义,不过不是所有主题都支持这种自定义</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">.thanks &#123;</span><br><span class="line">  background-image: url(&#x27;/images/thanks.svg&#x27;);</span><br><span class="line">  background-size: 1em 1em;</span><br><span class="line">  background-position: 0.05rem 0.2rem;</span><br><span class="line">  background-repeat: no-repeat;</span><br><span class="line">  height: 1rem;</span><br><span class="line">  width: 1rem; </span><br><span class="line">  </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">thanks: /thanks/ || fa custom thanks</span><br></pre></td></tr></table></figure>
+<h3 id="hexo-s时自动刷新">hexo s时自动刷新</h3>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install -g browser-sync</span><br><span class="line">npm install hexo-browsersync --save</span><br></pre></td></tr></table></figure>
+<h3 id="加密博客">加密博客</h3>
+<p><a href="https://github.com/D0n9X1n/hexo-blog-encrypt/blob/master/ReadMe.zh.md">[hexo-blog-encrypt](https://github.com/D0n9X1n/hexo-blog-encrypt/tree/master)</a></p>
+<h3 id="js动效">js动效</h3>
+<p><a href="https://blog.csdn.net/qq_44036990/article/details/104932173">鼠标移动特效</a> 这种js小特效很多，好奇的话自己去探索吧</p>
+]]></content>
+      <categories>
+        <category>建站经验</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+        <tag>next</tag>
+        <tag>webstack</tag>
+        <tag>icarus</tag>
       </tags>
   </entry>
   <entry>
