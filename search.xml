@@ -6507,6 +6507,209 @@ Inexpensive Disk）由美国加州大学伯克利分校提出。<br />
       </tags>
   </entry>
   <entry>
+    <title>hexo建立个人博客指北</title>
+    <url>/thinklive/22586/</url>
+    <content><![CDATA[<h1 id="概要">概要</h1>
+<p>本文用于简要阐释我个人关于使用hexo建个人博客的经验，和解释hexo的各种自定义功能，也可以说是我个人的备忘录。网上很多教程都是直接告诉你怎么做，这在建站时很方便，但如果你要自定义就要知道hexo是怎么自定义的，本文可以帮你对此有一些了解 <span id="more"></span> 在进入正文前，我需要补充一些其他东西</p>
+<h2 id="hexo的原理">hexo的原理</h2>
+<p>网站分为静态和动态，简单地说，静态网站就是写好了不会改变的页面，可以利用js实现一些小的动态效果，但不会有后台服务，动态网站就是用户发送请求，后台处理后更新网站给用户反馈，大部分商业网站都是此类。 hexo搭建的博客属于典型的静态网站，因此很容易搭建和自定义。可以说，hexo就是根据你的设置和写作，用一定规则渲染出静态页面的一个工具</p>
+<h2 id="如何网上访问你的页面">如何网上访问你的页面</h2>
+<p>一般来说网站搭建在服务器上，但对静态页面来说，如Github之类的网站后提供免费的托管功能，只要你建一个github账号名.github.io的公共仓库，把静态页面放进去，就可以托管页面，用这个域名访问它(由于众所周知的原因，墙内有时候访问不太稳定)</p>
+<h2 id="涉及的工具">涉及的工具</h2>
+<h3 id="linux">linux</h3>
+<p>我个人推荐你用linux虚拟机来做这件事，一是linux的包管理工具让装各种框架和插件很方便，二是linux的轻量级可以让你如果要切换生产环境，直接导出一个最多10gb左右的镜像拷贝走，就能换到另一台电脑，保留所有装好的环境,三是如果你是cs学生或者有编程需要,linux都是你几乎必学的系统。 这个博客就搭在微软提供的wsl(windows上的linux子系统)上 <a href="https://dowww.spencerwoo.com/">wsl的教程看这个</a> <a href="https://101.lug.ustc.edu.cn/">linux的教程看这个</a></p>
+<h3 id="git">git</h3>
+<p>git和linux是同一个作者，是当下最流行的版本控制工具，如果我们要用github托管页面，也需要用git来推送页面 git也可以帮我们很方便地给你的博客做备份，推送到github的仓库，切换生产环境后把备份拉过来就能继续维护博客</p>
+<h3 id="markdown">markdown</h3>
+<p>markdown是一门轻量级标记性语言，很容易学习，被用于hexo渲染出html页面 网上教程很多，比如 <a href="https://www.zhihu.com/question/276209281/answer/3045412944">如何优雅地使用 Markdown？</a></p>
+<h1 id="建站和自定义">建站和自定义</h1>
+<h2 id="建站">建站</h2>
+<p>假设你有了一个linux系统，并且掌握了一些基本操作，那么建站教程看这个 <a href="https://zhuanlan.zhihu.com/p/552639819">【保姆级教程】含泪搭建hexo博客</a></p>
+<h3 id="主题选择">主题选择</h3>
+<p>hexo的大部分页面渲染工作由主题决定，直观地说，主题决定你的博客外观 <a href="https://hexo.io/themes/">hexo主题列表</a> 我建议新手选择一些比较流行的主题，比如next,butterfly，一般这些主题自定义比较方便，文档易读并且出了问题网上有解决方案</p>
+<h3 id="以next为例讲讲主题的自定义">以next为例讲讲主题的自定义</h3>
+<p><a href="https://brian-zzz.github.io/2022/05/02/Hexo%E7%9A%84%E4%BD%BF%E7%94%A8%E5%92%8C%E4%B8%AA%E6%80%A7%E5%8C%96%E9%85%8D%E7%BD%AE/">next的简单设置这篇博客有教程</a> <a href="https://theme-next.js.org/docs/getting-started/">next的官方文档</a> hexo的大部分设置有两个yml文件控制，一个是根目录下的_config.yml，可以设置语言，作者名，网站名，网站链接等，还有一个是主题目录的_config.yml，设置主题自己的功能，next的评论，访问统计等等功能都在这里设置 主题的目录一般是根目录/node_modules/hexo-theme-主题名/，但也有主题的配置文件放在根目录的命名成_config.主题名.yml的 关于部分主题功能的详解我会放在下文的主题使用说明</p>
+<h2 id="hexo的工作流程">hexo的工作流程</h2>
+<p>如果想进一步的自定义，就需要了解hexo的大致原理</p>
+<h3 id="前端三件套">前端三件套</h3>
+<ul>
+<li>HTML（超文本标记语言）是一种用来描述网页内容的语言，它使用一系列的标签（tag）来定义网页中的元素，如标题，段落，图片，链接等。</li>
+<li>CSS（层叠样式表）是一种用来控制网页外观的语言，它可以定义网页中元素的颜色，大小，位置，边框等属性。</li>
+<li>JavaScript（简称JS）是一种用来实现网页交互的脚本语言，它可以在浏览器中运行，响应用户的操作，修改网页内容，发送和接收数据等。 hexo目录内的public文件夹就放着最后生成的页面，其中，你看到的页面就是一个个html文件，样式和动态效果则引用js和css文件夹中的文件，hexo g生成和你在github托管的也就是这个文件夹下的文件</li>
+</ul>
+<h3 id="源文件">源文件</h3>
+<p>那么是什么文件会被推送到public文件夹呢？</p>
+<ol type="1">
+<li>根目录下的source文件夹，有下划线_打头的文件夹一般有特殊性质，如根目录下的_data存放一些自定义样式文件，_post则存放具体文章，这些文件夹不会直接放进public，除此以外的文件夹都会被放进public，但如果文件可以被渲染的话，会经过解析然后储存到 <code>public</code> 文件夹，否则会直接拷贝到 <code>public</code> 文件夹。</li>
+<li>主题目录下的source文件夹，一般来说这些文件夹用来放js,css和主题自定义的一些图片,同样，有下划线开头的不会被直接放进public，其他文件夹下会被放进去</li>
+</ol>
+<h4 id="如何跳过渲染">如何跳过渲染</h4>
+<p>在根目录下设置skip_render，以下设置让source的webstack目录全部跳过渲染</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">skip_render:</span><br><span class="line">- webstack/**</span><br></pre></td></tr></table></figure>
+<h2 id="写作">写作</h2>
+<h3 id="文章布局">文章布局</h3>
+<p>hexo有三种文章布局，其中post是普通的博文，page是带文件夹的新页面，比如tags,categories，如果主题支持的话，你可以设置page被特别渲染成目录，标签之类的特色页面并放进菜单，draft是草稿，这种布局在建立时会被保存到 <code>source/_drafts</code> 文件夹，您可通过 <code>publish</code> 命令将草稿移动到 <code>source/_posts</code> 文件夹，默认不会被显示在页面中 你也可以禁用布局，根据 <code>_config.yml</code> 中 <a href="https://hexo.io/zh-cn/docs/configuration#%E6%96%87%E7%AB%A0"><code>default_layout</code></a> 的设置，默认布局是 <code>post</code> 。当文章中的布局被禁用(<code>layout: false</code>)，它将不会使用主题处理。然而，它仍然会被任何可用的渲染引擎渲染：如果一篇文章是用 Markdown 写的，并且安装了 Markdown 渲染引擎（比如默认的 <a href="https://github.com/hexojs/hexo-renderer-marked">hexo-renderer-marked</a>)，它将被渲染成HTML。</p>
+<table>
+<thead>
+<tr class="header">
+<th>布局</th>
+<th>路径</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>post</code></td>
+<td><code>source/_posts</code></td>
+</tr>
+<tr class="even">
+<td><code>page</code></td>
+<td><code>source</code></td>
+</tr>
+<tr class="odd">
+<td><code>draft</code></td>
+<td><code>source/_drafts</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="文章标头">文章标头</h3>
+<p>Front-matter 是文件最上方以 <code>---</code> 分隔的区域，用于指定个别文件的变量，举例来说： hexo用文章标头来识别文章，因此你可以不用命令行创建文章，把有标头的md文件放进_post就能发布博文了</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: 基于斯坦福cs106b的c++数据结构笔记</span><br><span class="line">tags:</span><br><span class="line">- 课程笔记</span><br><span class="line">- c++</span><br><span class="line">categories: 课程笔记</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>参数</th>
+<th>描述</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>layout</code></td>
+<td>布局</td>
+<td><a href="https://hexo.io/zh-cn/docs/configuration#%E6%96%87%E7%AB%A0"><code>config.default_layout</code></a></td>
+</tr>
+<tr class="even">
+<td><code>title</code></td>
+<td>标题</td>
+<td>文章的文件名</td>
+</tr>
+<tr class="odd">
+<td><code>date</code></td>
+<td>建立日期</td>
+<td>文件建立日期</td>
+</tr>
+<tr class="even">
+<td><code>updated</code></td>
+<td>更新日期</td>
+<td>文件更新日期</td>
+</tr>
+<tr class="odd">
+<td><code>comments</code></td>
+<td>开启文章的评论功能</td>
+<td><code>true</code></td>
+</tr>
+<tr class="even">
+<td><code>tags</code></td>
+<td>标签（不适用于分页）</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><code>categories</code></td>
+<td>分类（不适用于分页）</td>
+<td></td>
+</tr>
+<tr class="even">
+<td><code>permalink</code></td>
+<td>覆盖文章的永久链接，永久链接应该以 <code>/</code> 或 <code>.html</code> 结尾</td>
+<td><code>null</code></td>
+</tr>
+<tr class="odd">
+<td><code>excerpt</code></td>
+<td>纯文本的页面摘要。使用 <a href="https://hexo.io/zh-cn/docs/tag-plugins#%E6%96%87%E7%AB%A0%E6%91%98%E8%A6%81%E5%92%8C%E6%88%AA%E6%96%AD">该插件</a> 来格式化文本</td>
+<td></td>
+</tr>
+<tr class="even">
+<td><code>disableNunjucks</code></td>
+<td>启用时禁用 Nunjucks 标签 <code>&#123;&#123; &#125;&#125;</code>/ <code>&#123;% %&#125;</code> 和 <a href="https://hexo.io/zh-cn/docs/tag-plugins">标签插件</a> 的渲染功能</td>
+<td>错误的</td>
+</tr>
+<tr class="odd">
+<td><code>lang</code></td>
+<td>设置语言以覆盖 <a href="https://hexo.io/zh-cn/docs/internationalization#%E8%B7%AF%E5%BE%84">自动检测</a></td>
+<td>继承自 <code>_config.yml</code></td>
+</tr>
+<tr class="even">
+<td><code>published</code></td>
+<td>文章是否发布</td>
+<td>对于 <code>_posts</code> 下的文章为 <code>true</code>，对于 <code>_draft</code> 下的文章为 <code>false</code></td>
+</tr>
+</tbody>
+</table>
+<h4 id="目录和标签">目录和标签</h4>
+<p>只有文章支持分类和标签，可以在 Front-matter 中设置。在其他系统中，分类和标签听起来很接近，但是在 Hexo 中两者有着明显的差别：分类具有顺序性和层次性，也就是说 <code>Foo, Bar</code> 不等于 <code>Bar, Foo</code>；而标签没有顺序和层次。 eg.如下的标头形成目录是（课程笔记/操作系统）</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: 基于恐龙书和苏大ppt的操作系统笔记</span><br><span class="line">tags:</span><br><span class="line">- 课程笔记</span><br><span class="line">- 操作系统</span><br><span class="line">categories:</span><br><span class="line">- 课程笔记</span><br><span class="line">- 操作系统</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+<p>也可以并列</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">并列分类 </span><br><span class="line">类别：  </span><br><span class="line">- [Linux]  </span><br><span class="line">- [工具]</span><br><span class="line"></span><br><span class="line">并列+子分类</span><br><span class="line">类别：  </span><br><span class="line">- [Linux, Hexo]  </span><br><span class="line">- [工具，PHP]</span><br></pre></td></tr></table></figure>
+<h3 id="文章缩略">文章缩略</h3>
+<p>一般来说我们不会希望首页显示全文，而是开头的一小部分或者是摘要，摘要可以在标头加上取代缩略，而文章的缩略可以由主题决定，也可以用hexo自己的方式，比如next现在就不支持自动缩进，你只能自己在觉得差不多的地方加上</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;!-- more --&gt;</span><br></pre></td></tr></table></figure>
+<p>每个主题怎么决定缩略或者摘要基本也会在文档里写</p>
+<h2 id="主题说明">主题说明</h2>
+<p>既然大部分渲染由主题决定，那么自定义往往也会取决于主题，以下是我本人用过的主题的一些经验</p>
+<h3 id="next">next</h3>
+<p><code>next</code>是一款典型的黑白简约风主题，并且提供了丰富的自定义性，因此迪瑞克拉的主站就使用了自定义非常方便的next next的文档比较易读，全部看一遍就知道设置里那些选项怎么用了 这里说说next的自定义 next的渲染由主题文件夹下"layout"目录中的njk文件控制（一些老版本是swig)，你也可以使用next提供的自定义文件，去掉注释符号就可以去_data文件新建自定义文件来控制渲染 比如说你想在所有页面加个js特效，就可以在主题文件夹下的layout/_layout.njk文件新增一句</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;script src=&quot;/js/jsname.js&quot;&gt;&lt;/script&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>以下是next提供的自定义文件接口，可以对网站各个位置自定义</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">custom_file_path:</span><br><span class="line">  #head: source/_data/head.njk</span><br><span class="line">  #header: source/_data/header.njk</span><br><span class="line">  sidebar: source/_data/sidebar.njk</span><br><span class="line">  #postMeta: source/_data/post-meta.njk</span><br><span class="line">  #postBodyStart: source/_data/post-body-start.njk</span><br><span class="line">  #postBodyEnd: source/_data/post-body-end.njk</span><br><span class="line">  #footer: source/_data/footer.njk</span><br><span class="line">  #bodyEnd: source/_data/body-end.njk</span><br><span class="line">  #variable: source/_data/variables.styl</span><br><span class="line">  #mixin: source/_data/mixins.styl</span><br><span class="line">  style: source/_data/styles.styl</span><br></pre></td></tr></table></figure>
+<h3 id="webstack">webstack</h3>
+<p>webstack主题基于github的一个开源项目，用来做一个导航页面，作为子站非常合适，自定义虽然没有next那么丰富，但作者慷慨地提供了一个随便插入html的head或者body的接口，可以使用html标签进行自定义，就在webstack的配置文件末尾 怎么做子站看下文的多主题 <a href="https://github.com/HCLonely/hexo-theme-webstack/blob/master/README_CN.md">使用方法看github主页的文档</a></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">custom:</span><br><span class="line">  head: |- # 以下内容插入到&lt;head&gt;&lt;/head&gt;标签内，可设置多行，注意每行开头至少四个空格</span><br><span class="line">    &lt;!-- 直接添加html内容即可 --&gt;</span><br><span class="line">    &lt;!-- 可设置多行 --&gt;</span><br><span class="line">  body: |- # 以下内容插入到&lt;/body&gt;标签之前，可设置多行，注意每行开头至少四个空格</span><br><span class="line">    &lt;!-- 直接添加html内容即可 --&gt;</span><br><span class="line">    &lt;!-- 可设置多行 --&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="icarus">icarus</h3>
+<p>伊卡洛斯也是个简约风的主题，特色是两列或者三列式的美观布局，但最让我中意的是它的赛博朋克风格，伊卡洛斯使用jsx定义渲染，因此自定义比较麻烦，可以自己导入js和css，但没有直接插入html标签的接口 <a href="https://ppoffice.github.io/hexo-theme-icarus/Configuration/icarus%E7%94%A8%E6%88%B7%E6%8C%87%E5%8D%97-%E4%B8%BB%E9%A2%98%E9%85%8D%E7%BD%AE/">使用文档</a> 文档没说那些七七八八的窗口怎么关，但我亲测你不想要的直接在配置文件里删掉就行了 <a href="https://blog.mchook.cn/2021/07/22/icarus%E4%B8%BB%E9%A2%98%E8%87%AA%E5%AE%9A%E4%B9%89/">自定义js和css</a> 顺便一提大部分主题渲染md会直接把正文放进Html,所以直接在文章里放html标签基本也能用，如果你想要一个效果只在文章页面出现可以试试，迪瑞克拉神龛的骇入文字特效就是此类</p>
+<h3 id="多主题">多主题</h3>
+<p>理论上讲，既然主题只是决定了渲染的方法，你自己可以调用主题的各种样式渲染实现 一个主题下渲染出另一个主题效果的页面，但这样做很麻烦，那么有没有更容易实现多主题的方法呢？ 前文说了，source文件夹所有目录都会推送到public，我们可以利用这点把其他主题的网站推送到主站的source文件夹，然后在主站开一个菜单跳转到该子站对应目录的index实现子站用不同主题的功能 具体步骤如下</p>
+<ol type="1">
+<li>如之前的教程一样再建一个站，设置好想要的主题</li>
+<li>根目录的设置这么改</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">url: 主站目录/子站目录名</span><br><span class="line">index_generator:</span><br><span class="line"> path: &#x27;/子站目录名/&#x27;</span><br></pre></td></tr></table></figure>
+<ol start="3" type="1">
+<li>主站子站各自加一个跳转子站，返回主站的菜单 比如next这么改</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">resourcemap: /webstack/ || fa fa-sitemap</span><br></pre></td></tr></table></figure>
+<ol start="4" type="1">
+<li>如果你会写脚本，就写个子站生成网站后自动推送的练练手，不会或者嫌麻烦就拿我的改改</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo clean</span><br><span class="line"></span><br><span class="line">hexo g</span><br><span class="line"></span><br><span class="line">rm -rf /home/thinkliving/hexoblog/source/webstack/*</span><br><span class="line"></span><br><span class="line">cp -r /home/thinkliving/hexochild/public/* /home/thinkliving/hexoblog/source/webstack/</span><br><span class="line"></span><br><span class="line">cp -r /home/thinkliving/hexochild/public/webstack/* /home/thinkliving/hexoblog/source/webstack/</span><br></pre></td></tr></table></figure>
+<h2 id="其他自定义">其他自定义</h2>
+<h3 id="图标">图标</h3>
+<p>大部分hexo主题使用fontawesome的图标，类似这种格式</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">fas fa-tools//s指solid图标</span><br></pre></td></tr></table></figure>
+<p>想自定义可以在css文件里定义图标再使用，比如next中是这样在styl里定义,不过不是所有主题都支持这种自定义</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">.thanks &#123;</span><br><span class="line">  background-image: url(&#x27;/images/thanks.svg&#x27;);</span><br><span class="line">  background-size: 1em 1em;</span><br><span class="line">  background-position: 0.05rem 0.2rem;</span><br><span class="line">  background-repeat: no-repeat;</span><br><span class="line">  height: 1rem;</span><br><span class="line">  width: 1rem; </span><br><span class="line">  </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">thanks: /thanks/ || fa custom thanks</span><br></pre></td></tr></table></figure>
+<h3 id="hexo-s时自动刷新">hexo s时自动刷新</h3>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install -g browser-sync</span><br><span class="line">npm install hexo-browsersync --save</span><br></pre></td></tr></table></figure>
+<h3 id="加密博客">加密博客</h3>
+<p><a href="https://github.com/D0n9X1n/hexo-blog-encrypt/blob/master/ReadMe.zh.md">[hexo-blog-encrypt](https://github.com/D0n9X1n/hexo-blog-encrypt/tree/master)</a></p>
+<h3 id="js动效">js动效</h3>
+<p><a href="https://blog.csdn.net/qq_44036990/article/details/104932173">鼠标移动特效</a> 这种js小特效很多，好奇的话自己去探索吧</p>
+]]></content>
+      <categories>
+        <category>建站经验</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+        <tag>next</tag>
+        <tag>webstack</tag>
+        <tag>icarus</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>基于恐龙书和苏大ppt的操作系统笔记</title>
     <url>/thinklive/2910/</url>
     <content><![CDATA[<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">计算机系统可以分为四个部分</span><br><span class="line">硬件(Hardware) – 提供基本的计算资源</span><br><span class="line">CPU, memory, I/O devices</span><br><span class="line">操作系统(Operating System)</span><br><span class="line">控制和协调各用户的应用程序对硬件的使用</span><br><span class="line">应用程序(Application programs) – 规定了用户按何种方式使用系统资源</span><br><span class="line">字处理程序, 编译器, 网络浏览器, 数据库系统, 视频游戏</span><br><span class="line">用户(Users)</span><br><span class="line">人, 机器, 其他计算机</span><br><span class="line">操作系统的目标:</span><br><span class="line">运行用户程序  ---核心目标</span><br><span class="line">更方便使用计算机 ---面向用户</span><br><span class="line">更高效使用计算机 ---面向系统</span><br></pre></td></tr></table></figure>
@@ -7044,209 +7247,6 @@ Inexpensive Disk）由美国加州大学伯克利分校提出。<br />
       </tags>
   </entry>
   <entry>
-    <title>hexo建立个人博客指北</title>
-    <url>/thinklive/22586/</url>
-    <content><![CDATA[<h1 id="概要">概要</h1>
-<p>本文用于简要阐释我个人关于使用hexo建个人博客的经验，和解释hexo的各种自定义功能，也可以说是我个人的备忘录。网上很多教程都是直接告诉你怎么做，这在建站时很方便，但如果你要自定义就要知道hexo是怎么自定义的，本文可以帮你对此有一些了解 <span id="more"></span> 在进入正文前，我需要补充一些其他东西</p>
-<h2 id="hexo的原理">hexo的原理</h2>
-<p>网站分为静态和动态，简单地说，静态网站就是写好了不会改变的页面，可以利用js实现一些小的动态效果，但不会有后台服务，动态网站就是用户发送请求，后台处理后更新网站给用户反馈，大部分商业网站都是此类。 hexo搭建的博客属于典型的静态网站，因此很容易搭建和自定义。可以说，hexo就是根据你的设置和写作，用一定规则渲染出静态页面的一个工具</p>
-<h2 id="如何网上访问你的页面">如何网上访问你的页面</h2>
-<p>一般来说网站搭建在服务器上，但对静态页面来说，如Github之类的网站后提供免费的托管功能，只要你建一个github账号名.github.io的公共仓库，把静态页面放进去，就可以托管页面，用这个域名访问它(由于众所周知的原因，墙内有时候访问不太稳定)</p>
-<h2 id="涉及的工具">涉及的工具</h2>
-<h3 id="linux">linux</h3>
-<p>我个人推荐你用linux虚拟机来做这件事，一是linux的包管理工具让装各种框架和插件很方便，二是linux的轻量级可以让你如果要切换生产环境，直接导出一个最多10gb左右的镜像拷贝走，就能换到另一台电脑，保留所有装好的环境,三是如果你是cs学生或者有编程需要,linux都是你几乎必学的系统。 这个博客就搭在微软提供的wsl(windows上的linux子系统)上 <a href="https://dowww.spencerwoo.com/">wsl的教程看这个</a> <a href="https://101.lug.ustc.edu.cn/">linux的教程看这个</a></p>
-<h3 id="git">git</h3>
-<p>git和linux是同一个作者，是当下最流行的版本控制工具，如果我们要用github托管页面，也需要用git来推送页面 git也可以帮我们很方便地给你的博客做备份，推送到github的仓库，切换生产环境后把备份拉过来就能继续维护博客</p>
-<h3 id="markdown">markdown</h3>
-<p>markdown是一门轻量级标记性语言，很容易学习，被用于hexo渲染出html页面 网上教程很多，比如 <a href="https://www.zhihu.com/question/276209281/answer/3045412944">如何优雅地使用 Markdown？</a></p>
-<h1 id="建站和自定义">建站和自定义</h1>
-<h2 id="建站">建站</h2>
-<p>假设你有了一个linux系统，并且掌握了一些基本操作，那么建站教程看这个 <a href="https://zhuanlan.zhihu.com/p/552639819">【保姆级教程】含泪搭建hexo博客</a></p>
-<h3 id="主题选择">主题选择</h3>
-<p>hexo的大部分页面渲染工作由主题决定，直观地说，主题决定你的博客外观 <a href="https://hexo.io/themes/">hexo主题列表</a> 我建议新手选择一些比较流行的主题，比如next,butterfly，一般这些主题自定义比较方便，文档易读并且出了问题网上有解决方案</p>
-<h3 id="以next为例讲讲主题的自定义">以next为例讲讲主题的自定义</h3>
-<p><a href="https://brian-zzz.github.io/2022/05/02/Hexo%E7%9A%84%E4%BD%BF%E7%94%A8%E5%92%8C%E4%B8%AA%E6%80%A7%E5%8C%96%E9%85%8D%E7%BD%AE/">next的简单设置这篇博客有教程</a> <a href="https://theme-next.js.org/docs/getting-started/">next的官方文档</a> hexo的大部分设置有两个yml文件控制，一个是根目录下的_config.yml，可以设置语言，作者名，网站名，网站链接等，还有一个是主题目录的_config.yml，设置主题自己的功能，next的评论，访问统计等等功能都在这里设置 主题的目录一般是根目录/node_modules/hexo-theme-主题名/，但也有主题的配置文件放在根目录的命名成_config.主题名.yml的 关于部分主题功能的详解我会放在下文的主题使用说明</p>
-<h2 id="hexo的工作流程">hexo的工作流程</h2>
-<p>如果想进一步的自定义，就需要了解hexo的大致原理</p>
-<h3 id="前端三件套">前端三件套</h3>
-<ul>
-<li>HTML（超文本标记语言）是一种用来描述网页内容的语言，它使用一系列的标签（tag）来定义网页中的元素，如标题，段落，图片，链接等。</li>
-<li>CSS（层叠样式表）是一种用来控制网页外观的语言，它可以定义网页中元素的颜色，大小，位置，边框等属性。</li>
-<li>JavaScript（简称JS）是一种用来实现网页交互的脚本语言，它可以在浏览器中运行，响应用户的操作，修改网页内容，发送和接收数据等。 hexo目录内的public文件夹就放着最后生成的页面，其中，你看到的页面就是一个个html文件，样式和动态效果则引用js和css文件夹中的文件，hexo g生成和你在github托管的也就是这个文件夹下的文件</li>
-</ul>
-<h3 id="源文件">源文件</h3>
-<p>那么是什么文件会被推送到public文件夹呢？</p>
-<ol type="1">
-<li>根目录下的source文件夹，有下划线_打头的文件夹一般有特殊性质，如根目录下的_data存放一些自定义样式文件，_post则存放具体文章，这些文件夹不会直接放进public，除此以外的文件夹都会被放进public，但如果文件可以被渲染的话，会经过解析然后储存到 <code>public</code> 文件夹，否则会直接拷贝到 <code>public</code> 文件夹。</li>
-<li>主题目录下的source文件夹，一般来说这些文件夹用来放js,css和主题自定义的一些图片,同样，有下划线开头的不会被直接放进public，其他文件夹下会被放进去</li>
-</ol>
-<h4 id="如何跳过渲染">如何跳过渲染</h4>
-<p>在根目录下设置skip_render，以下设置让source的webstack目录全部跳过渲染</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">skip_render:</span><br><span class="line">- webstack/**</span><br></pre></td></tr></table></figure>
-<h2 id="写作">写作</h2>
-<h3 id="文章布局">文章布局</h3>
-<p>hexo有三种文章布局，其中post是普通的博文，page是带文件夹的新页面，比如tags,categories，如果主题支持的话，你可以设置page被特别渲染成目录，标签之类的特色页面并放进菜单，draft是草稿，这种布局在建立时会被保存到 <code>source/_drafts</code> 文件夹，您可通过 <code>publish</code> 命令将草稿移动到 <code>source/_posts</code> 文件夹，默认不会被显示在页面中 你也可以禁用布局，根据 <code>_config.yml</code> 中 <a href="https://hexo.io/zh-cn/docs/configuration#%E6%96%87%E7%AB%A0"><code>default_layout</code></a> 的设置，默认布局是 <code>post</code> 。当文章中的布局被禁用(<code>layout: false</code>)，它将不会使用主题处理。然而，它仍然会被任何可用的渲染引擎渲染：如果一篇文章是用 Markdown 写的，并且安装了 Markdown 渲染引擎（比如默认的 <a href="https://github.com/hexojs/hexo-renderer-marked">hexo-renderer-marked</a>)，它将被渲染成HTML。</p>
-<table>
-<thead>
-<tr class="header">
-<th>布局</th>
-<th>路径</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>post</code></td>
-<td><code>source/_posts</code></td>
-</tr>
-<tr class="even">
-<td><code>page</code></td>
-<td><code>source</code></td>
-</tr>
-<tr class="odd">
-<td><code>draft</code></td>
-<td><code>source/_drafts</code></td>
-</tr>
-</tbody>
-</table>
-<h3 id="文章标头">文章标头</h3>
-<p>Front-matter 是文件最上方以 <code>---</code> 分隔的区域，用于指定个别文件的变量，举例来说： hexo用文章标头来识别文章，因此你可以不用命令行创建文章，把有标头的md文件放进_post就能发布博文了</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: 基于斯坦福cs106b的c++数据结构笔记</span><br><span class="line">tags:</span><br><span class="line">- 课程笔记</span><br><span class="line">- c++</span><br><span class="line">categories: 课程笔记</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
-<table>
-<colgroup>
-<col style="width: 33%" />
-<col style="width: 33%" />
-<col style="width: 33%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>参数</th>
-<th>描述</th>
-<th>默认值</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>layout</code></td>
-<td>布局</td>
-<td><a href="https://hexo.io/zh-cn/docs/configuration#%E6%96%87%E7%AB%A0"><code>config.default_layout</code></a></td>
-</tr>
-<tr class="even">
-<td><code>title</code></td>
-<td>标题</td>
-<td>文章的文件名</td>
-</tr>
-<tr class="odd">
-<td><code>date</code></td>
-<td>建立日期</td>
-<td>文件建立日期</td>
-</tr>
-<tr class="even">
-<td><code>updated</code></td>
-<td>更新日期</td>
-<td>文件更新日期</td>
-</tr>
-<tr class="odd">
-<td><code>comments</code></td>
-<td>开启文章的评论功能</td>
-<td><code>true</code></td>
-</tr>
-<tr class="even">
-<td><code>tags</code></td>
-<td>标签（不适用于分页）</td>
-<td></td>
-</tr>
-<tr class="odd">
-<td><code>categories</code></td>
-<td>分类（不适用于分页）</td>
-<td></td>
-</tr>
-<tr class="even">
-<td><code>permalink</code></td>
-<td>覆盖文章的永久链接，永久链接应该以 <code>/</code> 或 <code>.html</code> 结尾</td>
-<td><code>null</code></td>
-</tr>
-<tr class="odd">
-<td><code>excerpt</code></td>
-<td>纯文本的页面摘要。使用 <a href="https://hexo.io/zh-cn/docs/tag-plugins#%E6%96%87%E7%AB%A0%E6%91%98%E8%A6%81%E5%92%8C%E6%88%AA%E6%96%AD">该插件</a> 来格式化文本</td>
-<td></td>
-</tr>
-<tr class="even">
-<td><code>disableNunjucks</code></td>
-<td>启用时禁用 Nunjucks 标签 <code>&#123;&#123; &#125;&#125;</code>/ <code>&#123;% %&#125;</code> 和 <a href="https://hexo.io/zh-cn/docs/tag-plugins">标签插件</a> 的渲染功能</td>
-<td>错误的</td>
-</tr>
-<tr class="odd">
-<td><code>lang</code></td>
-<td>设置语言以覆盖 <a href="https://hexo.io/zh-cn/docs/internationalization#%E8%B7%AF%E5%BE%84">自动检测</a></td>
-<td>继承自 <code>_config.yml</code></td>
-</tr>
-<tr class="even">
-<td><code>published</code></td>
-<td>文章是否发布</td>
-<td>对于 <code>_posts</code> 下的文章为 <code>true</code>，对于 <code>_draft</code> 下的文章为 <code>false</code></td>
-</tr>
-</tbody>
-</table>
-<h4 id="目录和标签">目录和标签</h4>
-<p>只有文章支持分类和标签，可以在 Front-matter 中设置。在其他系统中，分类和标签听起来很接近，但是在 Hexo 中两者有着明显的差别：分类具有顺序性和层次性，也就是说 <code>Foo, Bar</code> 不等于 <code>Bar, Foo</code>；而标签没有顺序和层次。 eg.如下的标头形成目录是（课程笔记/操作系统）</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: 基于恐龙书和苏大ppt的操作系统笔记</span><br><span class="line">tags:</span><br><span class="line">- 课程笔记</span><br><span class="line">- 操作系统</span><br><span class="line">categories:</span><br><span class="line">- 课程笔记</span><br><span class="line">- 操作系统</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
-<p>也可以并列</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">并列分类 </span><br><span class="line">类别：  </span><br><span class="line">- [Linux]  </span><br><span class="line">- [工具]</span><br><span class="line"></span><br><span class="line">并列+子分类</span><br><span class="line">类别：  </span><br><span class="line">- [Linux, Hexo]  </span><br><span class="line">- [工具，PHP]</span><br></pre></td></tr></table></figure>
-<h3 id="文章缩略">文章缩略</h3>
-<p>一般来说我们不会希望首页显示全文，而是开头的一小部分或者是摘要，摘要可以在标头加上取代缩略，而文章的缩略可以由主题决定，也可以用hexo自己的方式，比如next现在就不支持自动缩进，你只能自己在觉得差不多的地方加上</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;!-- more --&gt;</span><br></pre></td></tr></table></figure>
-<p>每个主题怎么决定缩略或者摘要基本也会在文档里写</p>
-<h2 id="主题说明">主题说明</h2>
-<p>既然大部分渲染由主题决定，那么自定义往往也会取决于主题，以下是我本人用过的主题的一些经验</p>
-<h3 id="next">next</h3>
-<p><code>next</code>是一款典型的黑白简约风主题，并且提供了丰富的自定义性，因此迪瑞克拉的主站就使用了自定义非常方便的next next的文档比较易读，全部看一遍就知道设置里那些选项怎么用了 这里说说next的自定义 next的渲染由主题文件夹下"layout"目录中的njk文件控制（一些老版本是swig)，你也可以使用next提供的自定义文件，去掉注释符号就可以去_data文件新建自定义文件来控制渲染 比如说你想在所有页面加个js特效，就可以在主题文件夹下的layout/_layout.njk文件新增一句</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;script src=&quot;/js/jsname.js&quot;&gt;&lt;/script&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>以下是next提供的自定义文件接口，可以对网站各个位置自定义</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">custom_file_path:</span><br><span class="line">  #head: source/_data/head.njk</span><br><span class="line">  #header: source/_data/header.njk</span><br><span class="line">  sidebar: source/_data/sidebar.njk</span><br><span class="line">  #postMeta: source/_data/post-meta.njk</span><br><span class="line">  #postBodyStart: source/_data/post-body-start.njk</span><br><span class="line">  #postBodyEnd: source/_data/post-body-end.njk</span><br><span class="line">  #footer: source/_data/footer.njk</span><br><span class="line">  #bodyEnd: source/_data/body-end.njk</span><br><span class="line">  #variable: source/_data/variables.styl</span><br><span class="line">  #mixin: source/_data/mixins.styl</span><br><span class="line">  style: source/_data/styles.styl</span><br></pre></td></tr></table></figure>
-<h3 id="webstack">webstack</h3>
-<p>webstack主题基于github的一个开源项目，用来做一个导航页面，作为子站非常合适，自定义虽然没有next那么丰富，但作者慷慨地提供了一个随便插入html的head或者body的接口，可以使用html标签进行自定义，就在webstack的配置文件末尾 怎么做子站看下文的多主题 <a href="https://github.com/HCLonely/hexo-theme-webstack/blob/master/README_CN.md">使用方法看github主页的文档</a></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">custom:</span><br><span class="line">  head: |- # 以下内容插入到&lt;head&gt;&lt;/head&gt;标签内，可设置多行，注意每行开头至少四个空格</span><br><span class="line">    &lt;!-- 直接添加html内容即可 --&gt;</span><br><span class="line">    &lt;!-- 可设置多行 --&gt;</span><br><span class="line">  body: |- # 以下内容插入到&lt;/body&gt;标签之前，可设置多行，注意每行开头至少四个空格</span><br><span class="line">    &lt;!-- 直接添加html内容即可 --&gt;</span><br><span class="line">    &lt;!-- 可设置多行 --&gt;</span><br></pre></td></tr></table></figure>
-<h3 id="icarus">icarus</h3>
-<p>伊卡洛斯也是个简约风的主题，特色是两列或者三列式的美观布局，但最让我中意的是它的赛博朋克风格，伊卡洛斯使用jsx定义渲染，因此自定义比较麻烦，可以自己导入js和css，但没有直接插入html标签的接口 <a href="https://ppoffice.github.io/hexo-theme-icarus/Configuration/icarus%E7%94%A8%E6%88%B7%E6%8C%87%E5%8D%97-%E4%B8%BB%E9%A2%98%E9%85%8D%E7%BD%AE/">使用文档</a> 文档没说那些七七八八的窗口怎么关，但我亲测你不想要的直接在配置文件里删掉就行了 <a href="https://blog.mchook.cn/2021/07/22/icarus%E4%B8%BB%E9%A2%98%E8%87%AA%E5%AE%9A%E4%B9%89/">自定义js和css</a> 顺便一提大部分主题渲染md会直接把正文放进Html,所以直接在文章里放html标签基本也能用，如果你想要一个效果只在文章页面出现可以试试，迪瑞克拉神龛的骇入文字特效就是此类</p>
-<h3 id="多主题">多主题</h3>
-<p>理论上讲，既然主题只是决定了渲染的方法，你自己可以调用主题的各种样式渲染实现 一个主题下渲染出另一个主题效果的页面，但这样做很麻烦，那么有没有更容易实现多主题的方法呢？ 前文说了，source文件夹所有目录都会推送到public，我们可以利用这点把其他主题的网站推送到主站的source文件夹，然后在主站开一个菜单跳转到该子站对应目录的index实现子站用不同主题的功能 具体步骤如下</p>
-<ol type="1">
-<li>如之前的教程一样再建一个站，设置好想要的主题</li>
-<li>根目录的设置这么改</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">url: 主站目录/子站目录名</span><br><span class="line">index_generator:</span><br><span class="line"> path: &#x27;/子站目录名/&#x27;</span><br></pre></td></tr></table></figure>
-<ol start="3" type="1">
-<li>主站子站各自加一个跳转子站，返回主站的菜单 比如next这么改</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">resourcemap: /webstack/ || fa fa-sitemap</span><br></pre></td></tr></table></figure>
-<ol start="4" type="1">
-<li>如果你会写脚本，就写个子站生成网站后自动推送的练练手，不会或者嫌麻烦就拿我的改改</li>
-</ol>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo clean</span><br><span class="line"></span><br><span class="line">hexo g</span><br><span class="line"></span><br><span class="line">rm -rf /home/thinkliving/hexoblog/source/webstack/*</span><br><span class="line"></span><br><span class="line">cp -r /home/thinkliving/hexochild/public/* /home/thinkliving/hexoblog/source/webstack/</span><br><span class="line"></span><br><span class="line">cp -r /home/thinkliving/hexochild/public/webstack/* /home/thinkliving/hexoblog/source/webstack/</span><br></pre></td></tr></table></figure>
-<h2 id="其他自定义">其他自定义</h2>
-<h3 id="图标">图标</h3>
-<p>大部分hexo主题使用fontawesome的图标，类似这种格式</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">fas fa-tools//s指solid图标</span><br></pre></td></tr></table></figure>
-<p>想自定义可以在css文件里定义图标再使用，比如next中是这样在styl里定义,不过不是所有主题都支持这种自定义</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">.thanks &#123;</span><br><span class="line">  background-image: url(&#x27;/images/thanks.svg&#x27;);</span><br><span class="line">  background-size: 1em 1em;</span><br><span class="line">  background-position: 0.05rem 0.2rem;</span><br><span class="line">  background-repeat: no-repeat;</span><br><span class="line">  height: 1rem;</span><br><span class="line">  width: 1rem; </span><br><span class="line">  </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">thanks: /thanks/ || fa custom thanks</span><br></pre></td></tr></table></figure>
-<h3 id="hexo-s时自动刷新">hexo s时自动刷新</h3>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install -g browser-sync</span><br><span class="line">npm install hexo-browsersync --save</span><br></pre></td></tr></table></figure>
-<h3 id="加密博客">加密博客</h3>
-<p><a href="https://github.com/D0n9X1n/hexo-blog-encrypt/blob/master/ReadMe.zh.md">[hexo-blog-encrypt](https://github.com/D0n9X1n/hexo-blog-encrypt/tree/master)</a></p>
-<h3 id="js动效">js动效</h3>
-<p><a href="https://blog.csdn.net/qq_44036990/article/details/104932173">鼠标移动特效</a> 这种js小特效很多，好奇的话自己去探索吧</p>
-]]></content>
-      <categories>
-        <category>建站经验</category>
-      </categories>
-      <tags>
-        <tag>hexo</tag>
-        <tag>next</tag>
-        <tag>webstack</tag>
-        <tag>icarus</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>基于伯克利cs61a的python笔记</title>
     <url>/thinklive/28549/</url>
     <content><![CDATA[<h2 id="python语言特性">python语言特性</h2>
@@ -7528,21 +7528,6 @@ Inexpensive Disk）由美国加州大学伯克利分校提出。<br />
       </tags>
   </entry>
   <entry>
-    <title>blacksouls剧情解析</title>
-    <url>/thinklive/48368/</url>
-    <content><![CDATA[<h1 id="冬之钟">冬之钟</h1>
-<p>由于black souls的故事远远没有完结，因此现阶段我们很难对<code>红白女王</code>与<code>梅贝尔</code>这些与格林牵扯极深的支配者们进行什么定论，只能就已有的剧情和文本进行一些归纳，本期视频我将就bs2比较难懂的一处地方，冬之钟的主线事件，进行一些个人向的分析。 <span id="more"></span> 在冬之钟最后一章地图能遇到5个白熊，白熊的身份迄今为止依然是谜团，但他们提供了整整五段发生在支配者之间的重要对话，我将概括一下这五段对话提供的主要信息以便进一步的分析 我们按解包后的地图顺序开始， 第一段对话发生于<code>梅贝尔</code>和妹妹爱丽丝之间，可以猜测妹妹爱丽丝属于支配者之一，数量众多的支配者都在奈亚的箱庭占据一个角色以便和格林繁殖，但随着时间推移，支配者们发现扮演角色的同时，他们也在被角色同化（<code>梅贝尔</code>所言），因此纷纷退场，妹妹爱丽丝也逐渐被角色影响对格林产生好感，此外，姐姐爱丽丝不知何故地退场。 第二场对话发生于<code>梅贝尔</code>和白之女王之间，对话中提及冬之钟正是白女王的箱庭，而白之女王由于爱上了格林自愿放弃女王的身份去守护他，而<code>梅贝尔</code>则对这场追寻爱的闹剧，以及陪着胡闹的其他支配者感到无聊，向白女王提出一个让格林摆脱循环，并且能够独占他的计划。 第三第四场对话都发生于红白女王之间，<code>红女王</code>为陷入痛苦轮回的格林而痛苦，不断进行自残，白女王制止了她，两人由于同样爱上格林而心意相通 第四场对话则告诉我们，<code>红女王</code>接过了白女王的权王冠（推测为箱庭权限），并以此创造出库因兰德，并使其能排除奈亚的监视，两人密谋让格林挣脱循环的方法，<code>红女王</code>恳请白女王放弃对格林的独占欲，白女王同意了，此外，<code>梅贝尔</code>也知晓这一计划，并根据后面的行动来看，她不知为何也参与了这个计划 第五场对话发生于白女王和玛丽苏之间，白女王夺走了玛丽苏的改变能力，并且根据混沌迷宫的情报，将其赋予了古兰剧场，玛丽苏察觉白女王爱上了格林，并且等待着格林的到来，结尾，玛丽苏等到了一个神秘人（黑山羊？） 总结这些信息，我们可以推测出针对格林，一共提出了两个计划，一个是<code>梅贝尔</code>怂恿的独占计划，一个是红偶像策划的拯救计划，这两个计划都必须有<code>诺登</code>的参与，但此时我们并不知道<code>诺登</code>的真正想法是哪个 在推进h结局的过程后，格林会有两个选择，1是和暗黑舞台合二为一2是打败舞台，夺取舞台的改变能力， “此时”的冬之钟虽然沉睡，但相信<code>诺登</code>依旧有一定的控制能力，然而不同于G结局的阻拦，此时的<code>诺登</code>选择了旁观，并在最后支持格林任意一个选择 总结一下大致发生的事件（以下事件的时间顺序难以具体确定） 1<code>诺登</code>作为支配者之一管理着自己的箱庭冬之钟，和奈亚创造自己箱庭的时间关系未知 2奈亚将格林带到箱庭，邀请支配者们参加繁殖游戏，根据牛津学院人偶爱丽丝的说法，是舞台装置创造出了让格林在舞台上登场的皮套（格林的灵魂出自玛丽苏的手笔，因此推测只能创造皮套），并且在创造格林时两者间确立了深远的联系，白女王也参加了这个游戏，可以肯定白女王为了心爱的格林才舍弃了王冠（王冠可能指代管理箱庭的权能），因此推测白女王在爱上格林后可能以放弃王冠为代价，得到了管理奈亚箱庭的权限和陪伴在格林身边的权力 3红偶像被奈亚切割，由于茶会时期她曾经打倒初代红之女王，因此此刻可以说她的身份是第二任红之女王，为格林自责的她不断紫餐，得到了白女王的同情，白女王将自己原来的王冠权能移交给被奈亚切割的<code>红女王</code>，让她在原冬之钟的地盘上创造出自己的箱庭。 4红白女王合谋，或者其中之一从奈亚手中夺走了玛丽苏并囚禁起来，为了避免红白女王相互猜疑，二者将从玛丽苏手上得到的改变能力赋予舞台装置古兰，创造出一个新的支配者暗黑舞台，藏于处于过去时间线的冬之钟，同时由于处于过去的时间线，冬之钟几乎没有被发现的风险，通过dlc3经常出现的齿轮与其他信息可以推测，舞台装置拥有着影响整个箱庭以及舞台上大部分“演员”的能力，即在部分地图的bg和格林脑中的“齿轮声”，是不思议之国这场戏的核心，此外，由于<code>诺登</code>为了管理这个箱庭必须借助舞台的力量，而红白女王理论上权能接近，因此本视频中猜测红白女王都有部分操控舞台的权限 4由于支配者们发现扮演箱庭的角色会改变自己的本质，因此纷纷退出，白女王被迫用自己和格林的子嗣填补空缺 5<code>梅贝尔</code>认为这场游戏无聊透顶，一场剧本烂透的戏剧重复多少遍也只会让人厌倦（她自己是这么说的），因此她怂恿白女王让格林脱出循环，并抢先独占他 6<code>红女王</code>努力让自己的领域能排除奈亚的监视，并在此向白女王提出了拯救格林的计划，这个计划<code>梅贝尔</code>也知情，白女王同意了拯救计划，我们不知道白女王听到这两个计划的顺序，但他们明显是冲突的 7可能是人为，可能是自发，舞台觉醒了自我意识呼唤着格林的爱，同时在<code>梅贝尔</code>的指引下格林也朝着舞台进发，一场死斗在所难免，可以推测，在夺取舞台能力的结局中，<code>诺登</code>执行了<code>红女王</code>的拯救计划，舍身为格林断后，使其在爱丽丝01，即现在的红偶像的帮助下回到现实。在舞台与格林合一的bad end中，<code>诺登</code>执行了<code>梅贝尔</code>提出的独占计划，该结局中<code>诺登</code>辅佐着通过合体得到创作能力的格林与奈亚进行斗争，并且前往世界尽头来逃避一切纷争和毁灭，顺便一提，我觉得这结局也不算坏，白女王很可能会确保格林在融合中占据主导，此时格林成为了名副其实的支配者，和白女王的结合甚至能和奈亚势均力敌，不过寿司在采访中提到执着于爱丽丝身份的奈亚无法发挥全力就是了，毫无疑问这时的格林是目前为止的（格林）战力巅峰。 这就是冬之钟里发生的主要事件了，下面我将对事件的主要参与者，红白女王和虚无的少女进行分析。 首先是参与程度较低的<code>梅贝尔</code>，<code>梅贝尔</code>虽然入局较浅，但却是格林的引导者，并帮助拖延了一下奈亚，也是她告诉我们打破这一循环只能正面和舞台装置对决，那么她的目的是什么呢？ 首先，<code>梅贝尔</code>在混沌迷宫中会直接提及支配者间不可避免将爆发战争，并且导致阿撒托斯的苏醒毁灭一切，而身份不是支配者却可能得到支配者之器的格林，才能发动不会惊醒阿撒托斯的箱庭战争，这可能是她帮助格林的首要目的 其次，<code>梅贝尔</code>是个不可救药的收藏狂，她的箱庭是个巨大的垃圾场，什么都有，因此她也想把格林培养成一个完美收藏品或者棋子 最后，在个人感情上，很难定论<code>梅贝尔</code>到底产生了多少感情，她自称对永无止境的劣质戏剧循环感到厌倦，才会帮助格林创造自己的故事，但又在背叛剧情中声称想要让格林得到更高的器随后利用他，最后如果试图救她又会说自己涌现出了一些对格林的爱，由于信息过少，很难知道她到底觉醒了多少感情。 不过可以肯定的是，如果是<code>梅贝尔</code>真有意背叛动机是不充分的，如果她只需要格林成为拥有支配者之器的棋子，那么独占和拯救计划都能实现这个目的，并且由于白女王看着，融合后大概率是格林占主导地位，无非是好不好操控的问题，因此猜测<code>梅贝尔</code>实际上是真心帮助格林，只是在用激将法，或者习惯性毒舌。 冬之钟的棋局不管怎么走<code>梅贝尔</code>都不是输家，如果独占计划成功，白女王和格林则会成为一股对抗奈亚甚至其他支配者的强大力量，如果拯救计划成功，格林则会成为一个有着支配者的器，却对大部分支配者恨之入骨的棋子或潜在盟友，不论哪个结果都对<code>梅贝尔</code>阻止阿撒托斯苏醒的目的有利，而她的损失不过是万千分身中的一个而已 随后则是红之女王，尽管游戏中没有直接说<code>红女王</code>就是一代的爱丽丝01，以及茶会中的爱丽丝，但大量证据表明她和爱丽丝01有着千丝万缕的关系，爱丽丝01也极有可能就是茶会爱丽丝，所以本视频采纳这一说法，可以说最早钻进人类皮套的她是人性化最深的支配者，她人类的一面深爱格林，但又恐惧支配者的一面暴露，因此自觉配不上格林，甚至认为是自己导致了格林的一切悲剧，顺便一提关于茶会以及更早时期的资料实在太少，所以我们现在对这段剧情的讨论很可能是不完整甚至有较大误解的，因此在此我只能尽可能保守地做一些推测，由于支配者本性难以剥离，在她身上有着强烈的自毁倾向，想爱，却又自觉没有资格去爱，因此她只能用紫餐的方式填补内心的负罪感，H结局中，她以几乎自杀的方式当着奈亚的面帮助格林逃离了奈亚的掌控，可以说为了格林，<code>红女王</code>自降身份把自己变成了棋子，而且是必死的棋子，只为了能在后续将奈亚一军。 等待着这个叛徒的是什么结局，我们只能发挥一下想象力了 最后则是冬之钟的核心人物，白之女王<code>诺登</code>，<code>诺登</code>的原型之一是爱丽丝梦游仙境的白兔先生，白兔最明显的元素就是他永远匆忙的样子和怀表，这点也在<code>诺登</code>身上得以体现，白女王作为这场繁殖游戏事实上的管理者，为了协调任性的演员们可谓操碎了心，在轮回的最后，台上的演员几乎全部是她的子嗣（兔子可是繁殖力非常强的生物），可以猜测在制定剧本和排练上她也得下不少功夫，而dlc3的核心意象，齿轮，其实可以说既指着暗黑舞台的齿轮带动了戏码的上演，也指着<code>诺登</code>怀表的齿轮，<code>诺登</code>就是那个负责在指针快点到达终点前让齿轮倒转，重新开始计时的人，这也是为何她会在结局中说为齿轮停止感到害怕，让齿轮转动是她的职责，在她的内心深处或许也有着对无尽循环中格林真正爱上自己并一起逃到世界尽头的希望，但最后她选择成全格林真正的爱，而放弃管理齿轮的职责则意味着她与自己支配者的身份完全决裂，将一切奉献给人类的爱。此外，<code>诺登</code>的支配者原型则是所谓的幻梦境之主，这或许解释了为何是她在实际上管理着二代这个巨大的梦境 我在尸龙的人物解析说，类似尸龙的独占欲在红白女王身上也出现过，但<code>红女王</code>由于害怕自己的支配者本性选择放手，那么白女王呢？在h结局中，<code>梅贝尔</code>被古兰（推测，也可能是奈亚）针对性的陷阱解决，但拥有舞台权限的红白女王应该不受影响，<code>红女王</code>为了最后拯救格林必须蛰伏，因此辅助格林对抗古兰以及奈亚的任务只能交给白女王，但即使在此时此刻，白女王依旧有着独占格林的选项，如果她控制或者协助舞台装置强迫和格林融合，就可以抢先一步独占所有支配者都垂涎的格林，但如果把舞台的改变能力给予格林，那么失去王冠和舞台的<code>诺登</code>则会失去自己在棋局上的几乎所有棋子，面对这种选择，<code>诺登</code>将选择权给了格林，不能说她是完全无私的，但面对这样的诱惑，她也会尊重格林的选择，这不得不说是非常伟大的爱 可以说白女王是一个有着两面性的角色，她支配者的一面始终对格林有着独占欲，但她人性的一面始终压抑着这些黑暗的感情，她是一个徘徊于人与神界限的存在，但无论如何，她都尊重并支持着格林的选择，所以她闪耀着人性光辉的一面始终是压过支配者的黑暗一面的。 让我们给这幕疯狂剧场的落幕做一个总结吧，这局棋是红白女王和<code>梅贝尔</code>设下的，目的是为了让格林得到古兰的改变能力并逃离奈亚的箱庭，其中没有舞台权限的<code>梅贝尔</code>负责引导格林，<code>红女王</code>则在最后帮助得到改变能力的格林摆脱奈亚掌控，而白女王则有着最关键的决策权，即是否利用舞台独占格林，但她最后将决定权给了格林，而格林真正的选择应该是夺取舞台的改变能力，因此最后白女王舍弃了一切帮助格林逃离崩坏的舞台。 这场棋局中，<code>梅贝尔</code>横竖不亏，<code>红女王</code>陷入必死之局，最关键的棋手就是白女王，只要她愿意，随时可以下出必赢的一着，但最后她依旧选择了放弃自己的棋子，把终结棋局的希望留给了格林 在经历如此多的牺牲之后，格林终于从棋子升为了棋手，只是不知道他又会下出怎样的一着</p>
-]]></content>
-      <categories>
-        <category>游戏杂谈</category>
-        <category>black souls</category>
-      </categories>
-      <tags>
-        <tag>游戏杂谈</tag>
-        <tag>black souls</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>blacksouls原著梗解析</title>
     <url>/thinklive/29916/</url>
     <content><![CDATA[<h1 id="section">01</h1>
@@ -7569,6 +7554,21 @@ Inexpensive Disk）由美国加州大学伯克利分校提出。<br />
 <p>随后，爱丽丝遇到了前来将她军的红骑士，但埋伏在旁的白骑士反吃了红骑士，护送爱丽丝成王前的最后一段路，这段几乎没有在游戏里的直接对应，除了冬之钟小剧场he中卡罗尔让三姐妹为他挥手帕用了原台词，并且也有说法是白骑士是作者的投影。 但我个人对此有一些猜测，这段很可能对应整个冬之钟剧场，根据一些主流猜测，这段其实是梅贝尔和古兰合谋困住了追击的奈亚，如果我们认为红方是敌方，那么就对应奈亚，指引爱丽丝成王的红王后对应反水的红女王，红骑士表示前来追击的奈亚，白骑士就可能是白女王方的梅贝尔，那么这段剧情就成了，奈亚前来将住格林，梅贝尔前来解围，护送格林到了成王之路</p>
 <p>终于，爱丽丝戴上了王冠，格林成了“王”，在此之后的剧情对应很少，青蛙佣人招待爱丽丝去了晚宴，对应游戏中去往古兰晚宴前向海因里希托付女儿，爱丽丝梦醒后红白王后成了黑白两只小猫，对应红女王的台词，可能会在续作有进一步的阐释</p>
 <p>至此，对卡罗尔爱丽丝系列的作品就完全结束了，之后有机会可以说说贾巴沃克和猎蛇鲨记</p>
+]]></content>
+      <categories>
+        <category>游戏杂谈</category>
+        <category>black souls</category>
+      </categories>
+      <tags>
+        <tag>游戏杂谈</tag>
+        <tag>black souls</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>blacksouls剧情解析</title>
+    <url>/thinklive/48368/</url>
+    <content><![CDATA[<h1 id="冬之钟">冬之钟</h1>
+<p>由于black souls的故事远远没有完结，因此现阶段我们很难对<code>红白女王</code>与<code>梅贝尔</code>这些与格林牵扯极深的支配者们进行什么定论，只能就已有的剧情和文本进行一些归纳，本期视频我将就bs2比较难懂的一处地方，冬之钟的主线事件，进行一些个人向的分析。 <span id="more"></span> 在冬之钟最后一章地图能遇到5个白熊，白熊的身份迄今为止依然是谜团，但他们提供了整整五段发生在支配者之间的重要对话，我将概括一下这五段对话提供的主要信息以便进一步的分析 我们按解包后的地图顺序开始， 第一段对话发生于<code>梅贝尔</code>和妹妹爱丽丝之间，可以猜测妹妹爱丽丝属于支配者之一，数量众多的支配者都在奈亚的箱庭占据一个角色以便和格林繁殖，但随着时间推移，支配者们发现扮演角色的同时，他们也在被角色同化（<code>梅贝尔</code>所言），因此纷纷退场，妹妹爱丽丝也逐渐被角色影响对格林产生好感，此外，姐姐爱丽丝不知何故地退场。 第二场对话发生于<code>梅贝尔</code>和白之女王之间，对话中提及冬之钟正是白女王的箱庭，而白之女王由于爱上了格林自愿放弃女王的身份去守护他，而<code>梅贝尔</code>则对这场追寻爱的闹剧，以及陪着胡闹的其他支配者感到无聊，向白女王提出一个让格林摆脱循环，并且能够独占他的计划。 第三第四场对话都发生于红白女王之间，<code>红女王</code>为陷入痛苦轮回的格林而痛苦，不断进行自残，白女王制止了她，两人由于同样爱上格林而心意相通 第四场对话则告诉我们，<code>红女王</code>接过了白女王的权王冠（推测为箱庭权限），并以此创造出库因兰德，并使其能排除奈亚的监视，两人密谋让格林挣脱循环的方法，<code>红女王</code>恳请白女王放弃对格林的独占欲，白女王同意了，此外，<code>梅贝尔</code>也知晓这一计划，并根据后面的行动来看，她不知为何也参与了这个计划 第五场对话发生于白女王和玛丽苏之间，白女王夺走了玛丽苏的改变能力，并且根据混沌迷宫的情报，将其赋予了古兰剧场，玛丽苏察觉白女王爱上了格林，并且等待着格林的到来，结尾，玛丽苏等到了一个神秘人（黑山羊？） 总结这些信息，我们可以推测出针对格林，一共提出了两个计划，一个是<code>梅贝尔</code>怂恿的独占计划，一个是红偶像策划的拯救计划，这两个计划都必须有<code>诺登</code>的参与，但此时我们并不知道<code>诺登</code>的真正想法是哪个 在推进h结局的过程后，格林会有两个选择，1是和暗黑舞台合二为一2是打败舞台，夺取舞台的改变能力， “此时”的冬之钟虽然沉睡，但相信<code>诺登</code>依旧有一定的控制能力，然而不同于G结局的阻拦，此时的<code>诺登</code>选择了旁观，并在最后支持格林任意一个选择 总结一下大致发生的事件（以下事件的时间顺序难以具体确定） 1<code>诺登</code>作为支配者之一管理着自己的箱庭冬之钟，和奈亚创造自己箱庭的时间关系未知 2奈亚将格林带到箱庭，邀请支配者们参加繁殖游戏，根据牛津学院人偶爱丽丝的说法，是舞台装置创造出了让格林在舞台上登场的皮套（格林的灵魂出自玛丽苏的手笔，因此推测只能创造皮套），并且在创造格林时两者间确立了深远的联系，白女王也参加了这个游戏，可以肯定白女王为了心爱的格林才舍弃了王冠（王冠可能指代管理箱庭的权能），因此推测白女王在爱上格林后可能以放弃王冠为代价，得到了管理奈亚箱庭的权限和陪伴在格林身边的权力 3红偶像被奈亚切割，由于茶会时期她曾经打倒初代红之女王，因此此刻可以说她的身份是第二任红之女王，为格林自责的她不断紫餐，得到了白女王的同情，白女王将自己原来的王冠权能移交给被奈亚切割的<code>红女王</code>，让她在原冬之钟的地盘上创造出自己的箱庭。 4红白女王合谋，或者其中之一从奈亚手中夺走了玛丽苏并囚禁起来，为了避免红白女王相互猜疑，二者将从玛丽苏手上得到的改变能力赋予舞台装置古兰，创造出一个新的支配者暗黑舞台，藏于处于过去时间线的冬之钟，同时由于处于过去的时间线，冬之钟几乎没有被发现的风险，通过dlc3经常出现的齿轮与其他信息可以推测，舞台装置拥有着影响整个箱庭以及舞台上大部分“演员”的能力，即在部分地图的bg和格林脑中的“齿轮声”，是不思议之国这场戏的核心，此外，由于<code>诺登</code>为了管理这个箱庭必须借助舞台的力量，而红白女王理论上权能接近，因此本视频中猜测红白女王都有部分操控舞台的权限 4由于支配者们发现扮演箱庭的角色会改变自己的本质，因此纷纷退出，白女王被迫用自己和格林的子嗣填补空缺 5<code>梅贝尔</code>认为这场游戏无聊透顶，一场剧本烂透的戏剧重复多少遍也只会让人厌倦（她自己是这么说的），因此她怂恿白女王让格林脱出循环，并抢先独占他 6<code>红女王</code>努力让自己的领域能排除奈亚的监视，并在此向白女王提出了拯救格林的计划，这个计划<code>梅贝尔</code>也知情，白女王同意了拯救计划，我们不知道白女王听到这两个计划的顺序，但他们明显是冲突的 7可能是人为，可能是自发，舞台觉醒了自我意识呼唤着格林的爱，同时在<code>梅贝尔</code>的指引下格林也朝着舞台进发，一场死斗在所难免，可以推测，在夺取舞台能力的结局中，<code>诺登</code>执行了<code>红女王</code>的拯救计划，舍身为格林断后，使其在爱丽丝01，即现在的红偶像的帮助下回到现实。在舞台与格林合一的bad end中，<code>诺登</code>执行了<code>梅贝尔</code>提出的独占计划，该结局中<code>诺登</code>辅佐着通过合体得到创作能力的格林与奈亚进行斗争，并且前往世界尽头来逃避一切纷争和毁灭，顺便一提，我觉得这结局也不算坏，白女王很可能会确保格林在融合中占据主导，此时格林成为了名副其实的支配者，和白女王的结合甚至能和奈亚势均力敌，不过寿司在采访中提到执着于爱丽丝身份的奈亚无法发挥全力就是了，毫无疑问这时的格林是目前为止的（格林）战力巅峰。 这就是冬之钟里发生的主要事件了，下面我将对事件的主要参与者，红白女王和虚无的少女进行分析。 首先是参与程度较低的<code>梅贝尔</code>，<code>梅贝尔</code>虽然入局较浅，但却是格林的引导者，并帮助拖延了一下奈亚，也是她告诉我们打破这一循环只能正面和舞台装置对决，那么她的目的是什么呢？ 首先，<code>梅贝尔</code>在混沌迷宫中会直接提及支配者间不可避免将爆发战争，并且导致阿撒托斯的苏醒毁灭一切，而身份不是支配者却可能得到支配者之器的格林，才能发动不会惊醒阿撒托斯的箱庭战争，这可能是她帮助格林的首要目的 其次，<code>梅贝尔</code>是个不可救药的收藏狂，她的箱庭是个巨大的垃圾场，什么都有，因此她也想把格林培养成一个完美收藏品或者棋子 最后，在个人感情上，很难定论<code>梅贝尔</code>到底产生了多少感情，她自称对永无止境的劣质戏剧循环感到厌倦，才会帮助格林创造自己的故事，但又在背叛剧情中声称想要让格林得到更高的器随后利用他，最后如果试图救她又会说自己涌现出了一些对格林的爱，由于信息过少，很难知道她到底觉醒了多少感情。 不过可以肯定的是，如果是<code>梅贝尔</code>真有意背叛动机是不充分的，如果她只需要格林成为拥有支配者之器的棋子，那么独占和拯救计划都能实现这个目的，并且由于白女王看着，融合后大概率是格林占主导地位，无非是好不好操控的问题，因此猜测<code>梅贝尔</code>实际上是真心帮助格林，只是在用激将法，或者习惯性毒舌。 冬之钟的棋局不管怎么走<code>梅贝尔</code>都不是输家，如果独占计划成功，白女王和格林则会成为一股对抗奈亚甚至其他支配者的强大力量，如果拯救计划成功，格林则会成为一个有着支配者的器，却对大部分支配者恨之入骨的棋子或潜在盟友，不论哪个结果都对<code>梅贝尔</code>阻止阿撒托斯苏醒的目的有利，而她的损失不过是万千分身中的一个而已 随后则是红之女王，尽管游戏中没有直接说<code>红女王</code>就是一代的爱丽丝01，以及茶会中的爱丽丝，但大量证据表明她和爱丽丝01有着千丝万缕的关系，爱丽丝01也极有可能就是茶会爱丽丝，所以本视频采纳这一说法，可以说最早钻进人类皮套的她是人性化最深的支配者，她人类的一面深爱格林，但又恐惧支配者的一面暴露，因此自觉配不上格林，甚至认为是自己导致了格林的一切悲剧，顺便一提关于茶会以及更早时期的资料实在太少，所以我们现在对这段剧情的讨论很可能是不完整甚至有较大误解的，因此在此我只能尽可能保守地做一些推测，由于支配者本性难以剥离，在她身上有着强烈的自毁倾向，想爱，却又自觉没有资格去爱，因此她只能用紫餐的方式填补内心的负罪感，H结局中，她以几乎自杀的方式当着奈亚的面帮助格林逃离了奈亚的掌控，可以说为了格林，<code>红女王</code>自降身份把自己变成了棋子，而且是必死的棋子，只为了能在后续将奈亚一军。 等待着这个叛徒的是什么结局，我们只能发挥一下想象力了 最后则是冬之钟的核心人物，白之女王<code>诺登</code>，<code>诺登</code>的原型之一是爱丽丝梦游仙境的白兔先生，白兔最明显的元素就是他永远匆忙的样子和怀表，这点也在<code>诺登</code>身上得以体现，白女王作为这场繁殖游戏事实上的管理者，为了协调任性的演员们可谓操碎了心，在轮回的最后，台上的演员几乎全部是她的子嗣（兔子可是繁殖力非常强的生物），可以猜测在制定剧本和排练上她也得下不少功夫，而dlc3的核心意象，齿轮，其实可以说既指着暗黑舞台的齿轮带动了戏码的上演，也指着<code>诺登</code>怀表的齿轮，<code>诺登</code>就是那个负责在指针快点到达终点前让齿轮倒转，重新开始计时的人，这也是为何她会在结局中说为齿轮停止感到害怕，让齿轮转动是她的职责，在她的内心深处或许也有着对无尽循环中格林真正爱上自己并一起逃到世界尽头的希望，但最后她选择成全格林真正的爱，而放弃管理齿轮的职责则意味着她与自己支配者的身份完全决裂，将一切奉献给人类的爱。此外，<code>诺登</code>的支配者原型则是所谓的幻梦境之主，这或许解释了为何是她在实际上管理着二代这个巨大的梦境 我在尸龙的人物解析说，类似尸龙的独占欲在红白女王身上也出现过，但<code>红女王</code>由于害怕自己的支配者本性选择放手，那么白女王呢？在h结局中，<code>梅贝尔</code>被古兰（推测，也可能是奈亚）针对性的陷阱解决，但拥有舞台权限的红白女王应该不受影响，<code>红女王</code>为了最后拯救格林必须蛰伏，因此辅助格林对抗古兰以及奈亚的任务只能交给白女王，但即使在此时此刻，白女王依旧有着独占格林的选项，如果她控制或者协助舞台装置强迫和格林融合，就可以抢先一步独占所有支配者都垂涎的格林，但如果把舞台的改变能力给予格林，那么失去王冠和舞台的<code>诺登</code>则会失去自己在棋局上的几乎所有棋子，面对这种选择，<code>诺登</code>将选择权给了格林，不能说她是完全无私的，但面对这样的诱惑，她也会尊重格林的选择，这不得不说是非常伟大的爱 可以说白女王是一个有着两面性的角色，她支配者的一面始终对格林有着独占欲，但她人性的一面始终压抑着这些黑暗的感情，她是一个徘徊于人与神界限的存在，但无论如何，她都尊重并支持着格林的选择，所以她闪耀着人性光辉的一面始终是压过支配者的黑暗一面的。 让我们给这幕疯狂剧场的落幕做一个总结吧，这局棋是红白女王和<code>梅贝尔</code>设下的，目的是为了让格林得到古兰的改变能力并逃离奈亚的箱庭，其中没有舞台权限的<code>梅贝尔</code>负责引导格林，<code>红女王</code>则在最后帮助得到改变能力的格林摆脱奈亚掌控，而白女王则有着最关键的决策权，即是否利用舞台独占格林，但她最后将决定权给了格林，而格林真正的选择应该是夺取舞台的改变能力，因此最后白女王舍弃了一切帮助格林逃离崩坏的舞台。 这场棋局中，<code>梅贝尔</code>横竖不亏，<code>红女王</code>陷入必死之局，最关键的棋手就是白女王，只要她愿意，随时可以下出必赢的一着，但最后她依旧选择了放弃自己的棋子，把终结棋局的希望留给了格林 在经历如此多的牺牲之后，格林终于从棋子升为了棋手，只是不知道他又会下出怎样的一着</p>
 ]]></content>
       <categories>
         <category>游戏杂谈</category>
@@ -7693,6 +7693,68 @@ Inexpensive Disk）由美国加州大学伯克利分校提出。<br />
       </tags>
   </entry>
   <entry>
+    <title>基于斯坦福cs106l的c++编程规范笔记</title>
+    <url>/thinklive/48468/</url>
+    <content><![CDATA[<h2 id="c特性">c++特性</h2>
+<ul>
+<li>更好的C C++支持<code>命令式编程</code>，一种编程风格，其中程序按顺序执行的命令序列。从这个意义上讲，C++ 可以看作是对C 编程语言，使日常命令式编程更加直观和更容易使用。课程阅读器的这一部分介绍了一些 C++ 最常用的库,包括标准模板库，并展示了如何使用这些库来构建命令程式。 此外，它探索了最初出现在 C++ 语言中的新原语。C 编程语言，即指针、C 字符串和预处理器。 <span id="more"></span></li>
+<li>数据抽象</li>
+</ul>
+<p>C++与其兄弟C的最大区别在于_数据抽象_,程序执行的方式可以与程序执行的方式分开 程序员谈论那个程序。</p>
+<ul>
+<li>面向对象编程</li>
+</ul>
+<p>. 面向对象编程是一种完全不同的方式考虑程序设计，可以极大地简化复杂的软件系统。 钥匙 面向对象背后的概念很简单，但要真正体会到面向对象的力量 编程，您将需要一次又一次地看到它的运行情况。 这部分课程 读者探索了面向对象编程中的主要概念以及如何在 C++ 中实现它继承和多态。</p>
+<ul>
+<li>泛型编程</li>
+</ul>
+<p>泛型编程是一种编程风格，旨在构建可以解决一系列远远超出最初设想的问题的软件<br />
+履行。 虽然泛型编程的完整处理远远超出了介绍性的范围C++ 编程课，泛型编程的许多思想都可以访问并且可以从根本上改变了您对 C++ 编程的看法。</p>
+<h2 id="const">const</h2>
+<p>Can’t declare non-const reference to const variable Can’t declare non-const reference to const vari</p>
+<p><img src="/images/obsidian/20230215213916.png" title="image" alt="图片" /> <img src="/images/obsidian/20230215214023.png" title="image" alt="图片" /></p>
+<h2 id="模板">模板</h2>
+<p><img src="/images/obsidian/20230215215043.png" title="image" alt="图片" /> 函数指针：将函数作为对象传递</p>
+<h2 id="stl">stl</h2>
+<p>sequence:线性，有顺序 associative:不一定线性，有索引机制(map)</p>
+<p>vector:有顺序的相同类型的数据集合，大小可控制 ---子属性：<em>size:元素数量 ---capacity</em>:单个元素大小 <img src="/images/obsidian/20230214194657.png" title="image" alt="图片" /> vector最常用，deque用于首部插入场合，list用于多种列表</p>
+<p>associative(关联数组):有顺序的需要有比较方法，无序的需要哈希函数（更快） iterators（迭代器）：用于访问容器中的所有数据 --常用函数，begin(),end(),iter++,*(pointer),== !=,=（赋值,复制）, <img src="/images/obsidian/20230214200501.png" title="image" alt="图片" /> <img src="/images/obsidian/20230214200805.png" title="image" alt="图片" /> <img src="/images/obsidian/20230214201819.png" title="image" alt="图片" /></p>
+<h2 id="输入输出流">输入输出流</h2>
+<p>First call to std::cin &gt;&gt; creates a command line<br />
+prompt that allows the user to type until they hit enter</p>
+<ul>
+<li>Each &gt;&gt; ONLY reads until the next whitespace<br />
+</li>
+<li>Whitespace = tab, space, newline<br />
+</li>
+<li>Everything after the first whitespace gets saved and<br />
+used the next time std::cin &gt;&gt; is called<br />
+</li>
+<li>The place its saved is called a buffer <img src="/images/obsidian/20230213213832.png" title="image" alt="图片" /> <img src="/images/obsidian/20230213214430.png" title="image" alt="图片" /> <img src="/images/obsidian/20230213214751.png" title="image" alt="图片" /> <img src="/images/obsidian/20230214102508.png" title="image" alt="图片" /> <img src="/images/obsidian/20230214104421.png" title="image" alt="图片" /> <img src="/images/obsidian/20230214162731.png" title="image" alt="图片" /> <img src="/images/obsidian/20230214162820.png" title="image" alt="图片" /></li>
+</ul>
+<h2 id="hashmap的c实现">hashmap的c++实现</h2>
+<h3 id="相关函数">相关函数</h3>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">构造函数HashMap():</span><br><span class="line">接受参数count(值的个数),hash function(有默认值)</span><br><span class="line"></span><br><span class="line">参数(typename fitst,typename last,bucket_count,H)</span><br><span class="line">//用一个容器首尾指针初始化hashmap</span><br><span class="line">eg.</span><br><span class="line">hashmap&lt;k,m&gt; map&#123;vec.begin(),vec.end()&#125;</span><br><span class="line"></span><br><span class="line">参数(init_list init,bucket_count,H)</span><br><span class="line">//用容器直接初始化hashmap</span><br><span class="line">eg.</span><br><span class="line">HashMap&lt;char, int&gt; map&#123;&#123;&#x27;a&#x27;, 3&#125;, &#123;&#x27;b&#x27;, 5&#125;, &#123;&#x27;c&#x27;, 7&#125;&#125;;</span><br><span class="line"></span><br><span class="line">public:</span><br><span class="line">key-键</span><br><span class="line">mapped-被加密的值(int)</span><br><span class="line">H-哈希函数</span><br><span class="line">bucket_count(存储的键值对数组容量)</span><br><span class="line">load_factor(内联函数，返回size/bucket_count，即实际储存值的键值对)</span><br><span class="line">contains(参数const K&amp; key判断是否存在改键，返回bool值)</span><br><span class="line">at(参数k，返回mapped的引用)</span><br><span class="line">clear(清空键值对)</span><br><span class="line">insert(参数为键值对引用，返回一对pair&lt;iterator,bool&gt;,iter指向改键值对，无论是否已存在，bool表示是否成功添加，如为false则已存在该键值对)</span><br><span class="line">erase(key为参数，返回bool值)</span><br><span class="line">earse(iter为参数，返回该指针下一个位置)</span><br><span class="line">rehash(size_t为参数，重新哈希为给出的新的指针数组大小)</span><br><span class="line">begin(根据hashmap是否为const给出iter或const iter)</span><br><span class="line">end(返回伪指针)</span><br><span class="line">debug(打印所有哈希键值对以及哈希表所有参数，注意，必须基于重载&lt;&lt;运算符的基础)</span><br><span class="line"></span><br><span class="line">符号重载：</span><br><span class="line">M&amp; [](const key&amp; ,返回insert(key)的返回pair的first成员的second成员，即mapped值)</span><br><span class="line">//用于给key对应的value(mapped)赋值</span><br><span class="line"></span><br><span class="line">private:</span><br><span class="line">node(struct，包含next指针和value)</span><br><span class="line">nodepair(前后node的pair)</span><br><span class="line">findnode(参数key，返回指针对&lt;prev,curr&gt;)</span><br><span class="line">first_not_empty_bucket()</span><br><span class="line">make_iterator(参数node*curr)</span><br><span class="line">_bucket_array(vector&lt;node*&gt;,其中一个node*为ptr,则ptr-&gt;value为&lt;key ,mapped&gt;)</span><br><span class="line"></span><br><span class="line">//指针构造</span><br><span class="line"></span><br><span class="line">_bucket_array：由指针组成的数组,每个成员都是一个指针</span><br><span class="line">储存的值为next指针和一个pair&lt;key,mapped&gt;</span><br><span class="line">operator-&gt; is a bit of an odd-ball. When you write p-&gt;m, it is interpreted as (p.operator-&gt;())-&gt;m.</span><br><span class="line"></span><br><span class="line">- This means operator-&gt; should return a pointer to the object that has the field m.</span><br></pre></td></tr></table></figure>
+<h3 id="涉及的c特性">涉及的c++特性</h3>
+<p>匿名函数 基本lambda语法 基本形式如下： 【capture】（parameters）-&gt;return-type {body}</p>
+<p>typename function() return {x,y,z} 即用{}的参数初始化原函数返回的类型</p>
+<p>ptrdiff_t:用于储存两个指针的差</p>
+<p>conditional_t&lt;func,x,y&gt;如果func为true则x，为false则y</p>
+<p>forward_iterator_tag：单方向迭代器（可读写） ++iter，iter+=1随后返回对自身的引用 iter++，先返回一个对自身的复制，随后iter+=1</p>
+<p>std::move并不能移动任何东西，它唯一的功能是将一个左值强制转化为右值引用，继而可以通过右值引用使用该值，以用于移动语义。从实现上讲，std::move基本等同于一个类型转换：static_cast&lt;T&amp;&amp;&gt;(lvalue);</p>
+<p>ate：从文件尾部开始 strsub(start,length) 移动语义(c++11新特性) clss(classname &amp;&amp;) 利用右值引用的部分数据直接初始化新的类，并在初始化之后将右值删除，可以通过std::move()强制转化左值为右值。</p>
+]]></content>
+      <categories>
+        <category>课程笔记</category>
+        <category>数据结构与算法</category>
+      </categories>
+      <tags>
+        <tag>课程笔记</tag>
+        <tag>c++</tag>
+        <tag>斯坦福</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>基于斯坦福cs106b的c++数据结构笔记</title>
     <url>/thinklive/16615/</url>
     <content><![CDATA[<h2 id="一些查找和排序算法">一些查找和排序算法</h2>
@@ -7780,68 +7842,6 @@ Inexpensive Disk）由美国加州大学伯克利分校提出。<br />
       <tags>
         <tag>课程笔记</tag>
         <tag>数据结构与算法</tag>
-        <tag>c++</tag>
-        <tag>斯坦福</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>基于斯坦福cs106l的c++编程规范笔记</title>
-    <url>/thinklive/48468/</url>
-    <content><![CDATA[<h2 id="c特性">c++特性</h2>
-<ul>
-<li>更好的C C++支持<code>命令式编程</code>，一种编程风格，其中程序按顺序执行的命令序列。从这个意义上讲，C++ 可以看作是对C 编程语言，使日常命令式编程更加直观和更容易使用。课程阅读器的这一部分介绍了一些 C++ 最常用的库,包括标准模板库，并展示了如何使用这些库来构建命令程式。 此外，它探索了最初出现在 C++ 语言中的新原语。C 编程语言，即指针、C 字符串和预处理器。 <span id="more"></span></li>
-<li>数据抽象</li>
-</ul>
-<p>C++与其兄弟C的最大区别在于_数据抽象_,程序执行的方式可以与程序执行的方式分开 程序员谈论那个程序。</p>
-<ul>
-<li>面向对象编程</li>
-</ul>
-<p>. 面向对象编程是一种完全不同的方式考虑程序设计，可以极大地简化复杂的软件系统。 钥匙 面向对象背后的概念很简单，但要真正体会到面向对象的力量 编程，您将需要一次又一次地看到它的运行情况。 这部分课程 读者探索了面向对象编程中的主要概念以及如何在 C++ 中实现它继承和多态。</p>
-<ul>
-<li>泛型编程</li>
-</ul>
-<p>泛型编程是一种编程风格，旨在构建可以解决一系列远远超出最初设想的问题的软件<br />
-履行。 虽然泛型编程的完整处理远远超出了介绍性的范围C++ 编程课，泛型编程的许多思想都可以访问并且可以从根本上改变了您对 C++ 编程的看法。</p>
-<h2 id="const">const</h2>
-<p>Can’t declare non-const reference to const variable Can’t declare non-const reference to const vari</p>
-<p><img src="/images/obsidian/20230215213916.png" title="image" alt="图片" /> <img src="/images/obsidian/20230215214023.png" title="image" alt="图片" /></p>
-<h2 id="模板">模板</h2>
-<p><img src="/images/obsidian/20230215215043.png" title="image" alt="图片" /> 函数指针：将函数作为对象传递</p>
-<h2 id="stl">stl</h2>
-<p>sequence:线性，有顺序 associative:不一定线性，有索引机制(map)</p>
-<p>vector:有顺序的相同类型的数据集合，大小可控制 ---子属性：<em>size:元素数量 ---capacity</em>:单个元素大小 <img src="/images/obsidian/20230214194657.png" title="image" alt="图片" /> vector最常用，deque用于首部插入场合，list用于多种列表</p>
-<p>associative(关联数组):有顺序的需要有比较方法，无序的需要哈希函数（更快） iterators（迭代器）：用于访问容器中的所有数据 --常用函数，begin(),end(),iter++,*(pointer),== !=,=（赋值,复制）, <img src="/images/obsidian/20230214200501.png" title="image" alt="图片" /> <img src="/images/obsidian/20230214200805.png" title="image" alt="图片" /> <img src="/images/obsidian/20230214201819.png" title="image" alt="图片" /></p>
-<h2 id="输入输出流">输入输出流</h2>
-<p>First call to std::cin &gt;&gt; creates a command line<br />
-prompt that allows the user to type until they hit enter</p>
-<ul>
-<li>Each &gt;&gt; ONLY reads until the next whitespace<br />
-</li>
-<li>Whitespace = tab, space, newline<br />
-</li>
-<li>Everything after the first whitespace gets saved and<br />
-used the next time std::cin &gt;&gt; is called<br />
-</li>
-<li>The place its saved is called a buffer <img src="/images/obsidian/20230213213832.png" title="image" alt="图片" /> <img src="/images/obsidian/20230213214430.png" title="image" alt="图片" /> <img src="/images/obsidian/20230213214751.png" title="image" alt="图片" /> <img src="/images/obsidian/20230214102508.png" title="image" alt="图片" /> <img src="/images/obsidian/20230214104421.png" title="image" alt="图片" /> <img src="/images/obsidian/20230214162731.png" title="image" alt="图片" /> <img src="/images/obsidian/20230214162820.png" title="image" alt="图片" /></li>
-</ul>
-<h2 id="hashmap的c实现">hashmap的c++实现</h2>
-<h3 id="相关函数">相关函数</h3>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">构造函数HashMap():</span><br><span class="line">接受参数count(值的个数),hash function(有默认值)</span><br><span class="line"></span><br><span class="line">参数(typename fitst,typename last,bucket_count,H)</span><br><span class="line">//用一个容器首尾指针初始化hashmap</span><br><span class="line">eg.</span><br><span class="line">hashmap&lt;k,m&gt; map&#123;vec.begin(),vec.end()&#125;</span><br><span class="line"></span><br><span class="line">参数(init_list init,bucket_count,H)</span><br><span class="line">//用容器直接初始化hashmap</span><br><span class="line">eg.</span><br><span class="line">HashMap&lt;char, int&gt; map&#123;&#123;&#x27;a&#x27;, 3&#125;, &#123;&#x27;b&#x27;, 5&#125;, &#123;&#x27;c&#x27;, 7&#125;&#125;;</span><br><span class="line"></span><br><span class="line">public:</span><br><span class="line">key-键</span><br><span class="line">mapped-被加密的值(int)</span><br><span class="line">H-哈希函数</span><br><span class="line">bucket_count(存储的键值对数组容量)</span><br><span class="line">load_factor(内联函数，返回size/bucket_count，即实际储存值的键值对)</span><br><span class="line">contains(参数const K&amp; key判断是否存在改键，返回bool值)</span><br><span class="line">at(参数k，返回mapped的引用)</span><br><span class="line">clear(清空键值对)</span><br><span class="line">insert(参数为键值对引用，返回一对pair&lt;iterator,bool&gt;,iter指向改键值对，无论是否已存在，bool表示是否成功添加，如为false则已存在该键值对)</span><br><span class="line">erase(key为参数，返回bool值)</span><br><span class="line">earse(iter为参数，返回该指针下一个位置)</span><br><span class="line">rehash(size_t为参数，重新哈希为给出的新的指针数组大小)</span><br><span class="line">begin(根据hashmap是否为const给出iter或const iter)</span><br><span class="line">end(返回伪指针)</span><br><span class="line">debug(打印所有哈希键值对以及哈希表所有参数，注意，必须基于重载&lt;&lt;运算符的基础)</span><br><span class="line"></span><br><span class="line">符号重载：</span><br><span class="line">M&amp; [](const key&amp; ,返回insert(key)的返回pair的first成员的second成员，即mapped值)</span><br><span class="line">//用于给key对应的value(mapped)赋值</span><br><span class="line"></span><br><span class="line">private:</span><br><span class="line">node(struct，包含next指针和value)</span><br><span class="line">nodepair(前后node的pair)</span><br><span class="line">findnode(参数key，返回指针对&lt;prev,curr&gt;)</span><br><span class="line">first_not_empty_bucket()</span><br><span class="line">make_iterator(参数node*curr)</span><br><span class="line">_bucket_array(vector&lt;node*&gt;,其中一个node*为ptr,则ptr-&gt;value为&lt;key ,mapped&gt;)</span><br><span class="line"></span><br><span class="line">//指针构造</span><br><span class="line"></span><br><span class="line">_bucket_array：由指针组成的数组,每个成员都是一个指针</span><br><span class="line">储存的值为next指针和一个pair&lt;key,mapped&gt;</span><br><span class="line">operator-&gt; is a bit of an odd-ball. When you write p-&gt;m, it is interpreted as (p.operator-&gt;())-&gt;m.</span><br><span class="line"></span><br><span class="line">- This means operator-&gt; should return a pointer to the object that has the field m.</span><br></pre></td></tr></table></figure>
-<h3 id="涉及的c特性">涉及的c++特性</h3>
-<p>匿名函数 基本lambda语法 基本形式如下： 【capture】（parameters）-&gt;return-type {body}</p>
-<p>typename function() return {x,y,z} 即用{}的参数初始化原函数返回的类型</p>
-<p>ptrdiff_t:用于储存两个指针的差</p>
-<p>conditional_t&lt;func,x,y&gt;如果func为true则x，为false则y</p>
-<p>forward_iterator_tag：单方向迭代器（可读写） ++iter，iter+=1随后返回对自身的引用 iter++，先返回一个对自身的复制，随后iter+=1</p>
-<p>std::move并不能移动任何东西，它唯一的功能是将一个左值强制转化为右值引用，继而可以通过右值引用使用该值，以用于移动语义。从实现上讲，std::move基本等同于一个类型转换：static_cast&lt;T&amp;&amp;&gt;(lvalue);</p>
-<p>ate：从文件尾部开始 strsub(start,length) 移动语义(c++11新特性) clss(classname &amp;&amp;) 利用右值引用的部分数据直接初始化新的类，并在初始化之后将右值删除，可以通过std::move()强制转化左值为右值。</p>
-]]></content>
-      <categories>
-        <category>课程笔记</category>
-        <category>数据结构与算法</category>
-      </categories>
-      <tags>
-        <tag>课程笔记</tag>
         <tag>c++</tag>
         <tag>斯坦福</tag>
       </tags>
