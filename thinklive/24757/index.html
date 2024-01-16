@@ -30,7 +30,7 @@
 <meta property="og:description" content="wsl 更新wsl后，发现ps定位不到wsl，cmd却可以，查到这个网址 wsl未被识别为内部或外部命令 Common problem when trying to access 64-bit tools from 32-bit processes. wsl.exe is in System32. But if your script happens to run as a 32-bit proc">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-12-28T14:53:48.367Z">
-<meta property="article:modified_time" content="2024-01-16T10:45:48.348Z">
+<meta property="article:modified_time" content="2024-01-16T11:24:28.288Z">
 <meta property="article:author" content="thinklive">
 <meta property="article:tag" content="编程工具">
 <meta name="twitter:card" content="summary">
@@ -178,7 +178,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#wsl"><span class="nav-number">1.</span> <span class="nav-text">wsl</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#mysql"><span class="nav-number">2.</span> <span class="nav-text">mysql</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#hexo"><span class="nav-number">3.</span> <span class="nav-text">hexo</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#wsl"><span class="nav-number">1.</span> <span class="nav-text">wsl</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#mysql"><span class="nav-number">2.</span> <span class="nav-text">mysql</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#hexo"><span class="nav-number">3.</span> <span class="nav-text">hexo</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#gitbub"><span class="nav-number">4.</span> <span class="nav-text">gitbub</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -286,7 +286,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-01-16 18:45:48" itemprop="dateModified" datetime="2024-01-16T18:45:48+08:00">2024-01-16</time>
+      <time title="修改时间：2024-01-16 19:24:28" itemprop="dateModified" datetime="2024-01-16T19:24:28+08:00">2024-01-16</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -312,7 +312,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>531</span>
+      <span>674</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -351,6 +351,12 @@
 这样一来的问题是，标签功能就无法使用了<br />
 也可以用这样的标签括起来,但会麻烦一点<br />
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;% raw %&#125;</span><br><span class="line"></span><br><span class="line">$$</span><br><span class="line">V=&#123;A_&#123;\mathrm&#123;s&#125;&#125;&#125;&#123;B_&#123;\mathrm&#123;s&#125;&#125;&#125;&#123;\overline&#123;&#123;S_&#123;\mathrm&#123;s&#125;&#125;&#125;&#125;&#125;+\overline&#123;&#123;A_&#123;\mathrm&#123;s&#125;&#125;B_&#123;\mathrm&#123;s&#125;&#125;&#125;&#125;S_&#123;\mathrm&#123;s&#125;&#125;</span><br><span class="line">$$  </span><br><span class="line"></span><br><span class="line">&#123;% endraw %&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="gitbub">gitbub</h1>
+<p>有时，防火墙完全拒绝允许 SSH 连接。 也就是用22端口连接github被拒绝，特点是此时用<code>ssh -T -p 443 git@ssh.github.com</code>连接成功，但默认端口无法连接<br />
+如果能够通过 SSH 进入 git@ssh.github.com通过端口 443，可以覆盖 SSH 设置，以强制与 GitHub.com 的任何连接通过该服务器和端口运行。</p>
+<p>要在 SSH 配置文件中进行设置，编辑该文件： ~/.ssh/config，并添加此部分：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Host github.com</span><br><span class="line">    Hostname ssh.github.com</span><br><span class="line">    Port 443</span><br><span class="line">    User git</span><br></pre></td></tr></table></figure>
+<p>这样一来就可以用https和github连接</p>
 
     </div>
 
