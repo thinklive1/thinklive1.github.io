@@ -55,10 +55,8 @@
       };
       binft(document.getElementById('binft'));
   </script>
-<iframe src="//player.bilibili.com/player.html?aid=331669798&amp;bvid=BV19A411T7Q7&amp;cid=296746151&amp;p=1" width="480" height="320" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true">
-</iframe>
-<!-- <video src="/images/thinklive.mp4" autoplay >
-</video> -->
+<p><img src="/images/jaber.jpg" alt="贺图" /> <!-- <video src="/images/thinklive.mp4" autoplay >
+</video> --></p>
 <h1 id="欢迎来到迪瑞克拉">欢迎来到迪瑞克拉</h1>
 <p>这里是thinklive的个人博客，不定时地会发一些个人技术学习心得和生活体会,申请友链可邮件联系<br />
 使用左侧的分类来定位内容<br />
