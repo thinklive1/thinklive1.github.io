@@ -1,5 +1,5 @@
-var OriginTitle = document.title;
- var titleTime;
+let OriginTitle = document.title;
+let titleTime;
  document.addEventListener('visibilitychange', function () {
      if (document.hidden) {
          document.title = '繧「繝ェ繧ケ繧呈尔縺励※缧ゅい繝ェ繧ケ繧呈?';

@@ -52,7 +52,8 @@
  <!--js: 线条特效-->
   <script type="text/javascript" color="255,255,255" opacity='1' zIndex="-1" count="300" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
 <script type="text/javascript" async src="/js/fairyDustCursor.js"></script>
-<!-- <script type="text/javascript" async src="/js/click-text.js"></script> --》
+<script type="text/javascript" async src="/js/tab-title.js"></script>
+<script type="text/javascript" async src="/js/text.js"></script> 
   <noscript>
     <link rel="stylesheet" href="/css/noscript.css">
   </noscript>
@@ -263,7 +264,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/thinklive/3852/" class="post-title-link" itemprop="url">thinklive的迪瑞克拉图书馆</a>
+          <a href="/thinklive/3852/" class="post-title-link" itemprop="url">thinklive的迪瑞克拉图书馆(新年特别版)</a>
         </h2>
 
         <div class="post-meta-container">
@@ -281,7 +282,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-01-27 22:45:19" itemprop="dateModified" datetime="2024-01-27T22:45:19+08:00">2024-01-27</time>
+      <time title="修改时间：2024-02-03 12:52:35" itemprop="dateModified" datetime="2024-02-03T12:52:35+08:00">2024-02-03</time>
     </span>
 
   
@@ -291,14 +292,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>1.2k</span>
+      <span>1.4k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>4 分钟</span>
+      <span>5 分钟</span>
     </span>
 </div>
 
@@ -315,8 +316,62 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <video src="/images/thinklive.mp4" autoplay>
-</video>
+          <div id="binft" style="text-align: center; color: red;">
+
+</div>
+<script>
+    let showed = false;
+    var binft = function (r) {
+      function t() {
+        return b[Math.floor(Math.random() * b.length)]
+      }  
+      function e() {
+        return String.fromCharCode(94 * Math.random() + 33)
+      }
+      function n(r) {
+        for (var n = document.createDocumentFragment(), i = 0; r > i; i++) {
+          var l = document.createElement("span");
+          l.style.fontSize = "80px"; 
+          l.textContent = e(), l.style.color = t(), n.appendChild(l)
+        }
+        return n
+      }
+      function i() {
+         if(showed) {
+          return
+        }
+        let fontSize = c.fontSize;
+        r.style.fontSize = fontSize;
+        var t = o[c.skillI];
+        c.step ? c.step-- : (c.step = g, c.prefixP < l.length ? (c.prefixP >= 0 && (c.text += l[c.prefixP]), c.prefixP++) : "forward" === c.direction ? c.skillP < t.length ? (c.text += t[c.skillP], c.skillP++) : c.delay ? c.delay-- : (c.direction = "backward", c.delay = a) : c.skillP > 0 ? (c.text = c.text.slice(0, -1), c.skillP--) : (c.skillI = (c.skillI + 1) % o.length, c.direction = "forward")), r.textContent = c.text, r.appendChild(n(c.prefixP < l.length ? Math.min(s, s + c.prefixP) : Math.min(s, t.length - c.skillP))), setTimeout(i, d)
+      }
+      var l = "",
+      o = ["新年快乐"].map(function (r) {
+      return r + ""
+      }),
+      a = 1,
+      g = 4,
+      s = 5,
+      d = 40,
+      b = ["rgb(100,10,10)"],
+      c = {
+        text: "",
+        prefixP: -s,  
+        skillI: 0,
+        skillP: 0,
+        direction: "forward",
+        delay: a,
+        step: g,
+        fontSize: "80px" 
+      };
+      i()
+      };
+      binft(document.getElementById('binft'));
+  </script>
+<iframe src="//player.bilibili.com/player.html?aid=331669798&amp;bvid=BV19A411T7Q7&amp;cid=296746151&amp;p=1" width="480" height="320" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true">
+</iframe>
+<!-- <video src="/images/thinklive.mp4" autoplay >
+</video> -->
 <h1 id="欢迎来到迪瑞克拉">欢迎来到迪瑞克拉</h1>
 <p>这里是thinklive的个人博客，不定时地会发一些个人技术学习心得和生活体会,申请友链可邮件联系<br />
 使用左侧的分类来定位内容<br />
@@ -1413,7 +1468,7 @@
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">16:40</span>
+    <span title="站点阅读时长">16:41</span>
   </span>
 </div>
 <div class="busuanzi-count">
