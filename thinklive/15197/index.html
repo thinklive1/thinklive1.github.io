@@ -57,7 +57,6 @@
   <script type="text/javascript" color="255,255,255" opacity='1' zIndex="-1" count="300" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
 <script type="text/javascript" async src="/js/fairyDustCursor.js"></script>
 <script type="text/javascript" async src="/js/tab-title.js"></script>
-<script type="text/javascript" async src="/js/text.js"></script> 
   <noscript>
     <link rel="stylesheet" href="/css/noscript.css">
   </noscript>
@@ -461,8 +460,8 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/thinklive/48468/" rel="prev" title="基于斯坦福cs106l的c++编程规范笔记">
-                  <i class="fa fa-angle-left"></i> 基于斯坦福cs106l的c++编程规范笔记
+                <a href="/thinklive/16615/" rel="prev" title="基于斯坦福cs106b的c++数据结构笔记">
+                  <i class="fa fa-angle-left"></i> 基于斯坦福cs106b的c++数据结构笔记
                 </a>
             </div>
             <div class="post-nav-item">
@@ -508,7 +507,7 @@
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">16:40</span>
+    <span title="站点阅读时长">16:41</span>
   </span>
 </div>
 <div class="busuanzi-count">
@@ -590,6 +589,62 @@
 <script src="/js/third-party/comments/utterances.js"></script>
 <script z-index=-1 opacity='0.5' color="0,0,0"  type="text/javascript" src="/js/three-waves.min.js"></script>
 <script z-index=-1 type="text/javascript" src="/js/three.min.js"></script>
+<script>
+    const snowflakes = ["❄", "❄", "❆", "❅", "✥","❄", "❄", "❆", "❅", "✥"];
+    // 创建雪花
+    function createSnowflake() {
+        const snowflake = document.createElement("span");
+        snowflake.classList.add("snowflake");
+        const randomIndex = Math.floor(Math.random() * snowflakes.length);
+        snowflake.textContent = snowflakes[randomIndex];
+        
+        // 起始位置
+        /* 80%概率 生成在页面两侧 30% 的位置
+        const probability = Math.random();
+        let startPosition = Math.random() * 100;
+
+        if (probability < 0.8) {
+            startPosition = Math.random() < 0.5 ? Math.random() * 30 : (Math.random() * 30) + 70;
+        }
+        snowflake.style.left = `${startPosition}vw`;
+        */
+        snowflake.style.left = `${Math.random() * 100}vw`;
+        snowflake.style.top = `-30px`;
+        // 雪花大小与透明度
+        const size = Math.random() * 18 + 10;
+        snowflake.style.fontSize = `${size}px`;
+        const opacity = Math.random() * 0.6 + (size > 18 ? 0.4 : 0);
+        snowflake.style.setProperty("--opacity", opacity);
+        // 动画持续时间
+        const fallDuration = Math.random() * 10 + 10;
+        // 旋转持续时间
+        const rotateDuration = Math.random() * 3 + 1;
+
+        snowflake.style.animationDuration = `${fallDuration}s, ${fallDuration}s`; // 向 CSS 添加淡出动画的持续时间
+        // 横向幅度
+        const translateX = (Math.random() * 500 - 200);
+        snowflake.style.setProperty("--translateX", `${translateX}px`);
+        // 纵向幅度
+        snowflake.style.setProperty("--translateY", `${window.innerHeight}px`);
+
+        document.body.appendChild(snowflake);
+        // 移除雪花
+        setTimeout(() => {
+            snowflake.remove();
+        }, fallDuration * 1000);
+    }
+    
+    function snowfallAnimation() {
+        // 载入时若边栏是隐藏状态则不加载雪花
+        const sidebarnav = document.querySelector('.sidebar');
+        const sidebarnavdisplay = window.getComputedStyle(sidebarnav).getPropertyValue('display'); 
+        if (sidebarnavdisplay !== 'none') {
+            createSnowflake();
+        }
+        setTimeout(snowfallAnimation, 150); // 生成速度，毫秒
+    }
+    snowfallAnimation();
+</script>
 
    <!--js: 线条特效-->
   <script type="text/javascript" color="255,255,255" opacity='1' zIndex="-1" count="300" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>

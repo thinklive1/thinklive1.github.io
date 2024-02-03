@@ -2792,6 +2792,20 @@ body {
 .new-content .border__run::after {
   animation: clippath 8s infinite -4s linear;
 }
+/* 雪花 */
+.snowflake {
+  position: fixed;
+  pointer-events: none;
+  animation-name: snowflakeFallRotate, snowflakeFadeOut;
+  animation-timing-function: linear;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  color: #fff;
+  pointer-events: none;
+  z-index: -1;
+  text-shadow: 0 0 1px rgba(255,255,255,0.8), 0 0 5px rgba(255,255,255,0.8);
+}
+/* 雪花 END */
 @keyframes clippath {
   0%, 100% {
     clip-path: inset(0 0 98% 0);
@@ -2804,5 +2818,24 @@ body {
   }
   75% {
     clip-path: inset(0 0 0 98%);
+  }
+}
+@keyframes snowflakeFallRotate {
+  0% {
+    transform: translateY(0) translateX(0) rotate(0);
+  }
+  70% {
+    transform: translateY(var(--translateY)) translateX(var(--translateX)) rotate(720deg);
+  }
+  100% {
+    transform: translateY(var(--translateY)) translateX(var(--translateX)) rotate(800deg);
+  }
+}
+@keyframes snowflakeFadeOut {
+  0%, 90% {
+    opacity: var(--opacity);
+  }
+  100% {
+    opacity: 0;
   }
 }
