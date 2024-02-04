@@ -412,3 +412,6 @@ body.night .go-up a:hover {
 .sidebar-menu .main-menu a>i{
   width: 16px;
 }
+body {
+    background-color: #e4ecf3;
+}
