@@ -33,14 +33,12 @@ function loadWidget(config) {
     })();
 
     function welcomeMessage(time) {
-        if (location.pathname === "/") { // 如果是主页
-            for (let { hour, text } of time) {
-                const now = new Date(),
-                    after = hour.split("-")[0],
-                    before = hour.split("-")[1] || after;
-                if (after <= now.getHours() && now.getHours() <= before) {
-                    return text;
-                }
+        for (let { hour, text } of time) {
+            const now = new Date(),
+                after = hour.split("-")[0],
+                before = hour.split("-")[1] || after;
+            if (after <= now.getHours() && now.getHours() <= before) {
+                return text;
             }
         }
         const text = `欢迎阅读<span>「${document.title.split(" - ")[0]}」</span>`;
