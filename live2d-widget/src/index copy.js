@@ -3,6 +3,7 @@ import showMessage from "./message.js";
 import randomSelection from "./utils.js";
 import tools from "./tools.js";
 
+console.log("hello")
 function loadWidget(config) {
     const model = new Model(config);
     localStorage.removeItem("waifu-display");
@@ -101,10 +102,16 @@ function loadWidget(config) {
             }
         });
         result.seasons.forEach(({ date, text }) => {
-            const now = new Date(),
-                after = date.split("-")[0],
-                before = date.split("-")[1] || after;
-            if ((after.split("/")[0] <= now.getMonth() + 1 && now.getMonth() + 1 <= before.split("/")[0]) && (after.split("/")[1] <= now.getDate() && now.getDate() <= before.split("/")[1])) {
+            console.log("begin")
+            const now = new Date()
+            datestr = date.toDateString()
+            dmonth = date.toDateString().split(" ")[1]
+            dday = date.toDateString().split(" ")[2]
+            day=now.toDateString().split(" ")[2]
+            month=now.toDateString().split(" ")[1]
+            day=now.toDateString().split(" ")[2]
+            if (day==dday && dmonth == month) {
+                console.log("success")
                 text = randomSelection(text);
                 text = text.replace("{year}", now.getFullYear());
                 messageArray.push(text);

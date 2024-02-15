@@ -2,6 +2,7 @@
 //const live2d_path = "https://fastly.jsdelivr.net/gh/stevenjoezhang/live2d-widget@latest/";
 const live2d_path = "/live2d-widget/";
 
+console.log("hello")
 // 封装异步加载资源的方法
 function loadExternalResource(url, type) {
 	return new Promise((resolve, reject) => {
