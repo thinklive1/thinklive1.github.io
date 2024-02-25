@@ -2,6 +2,24 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://thinklive1.github.io/thinklive/47457/</loc>
+    
+    <lastmod>2024-02-25</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://thinklive1.github.io/thinklive/24155/</loc>
+    
+    <lastmod>2024-02-25</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://thinklive1.github.io/thinklive/26286/</loc>
     
     <lastmod>2024-02-25</lastmod>
@@ -68,15 +86,6 @@
     <loc>https://thinklive1.github.io/photos/index.html</loc>
     
     <lastmod>2024-02-11</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://thinklive1.github.io/thinklive/47457/</loc>
-    
-    <lastmod>2024-02-06</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -164,15 +173,6 @@
   </url>
   
   <url>
-    <loc>https://thinklive1.github.io/thinklive/24155/</loc>
-    
-    <lastmod>2023-12-12</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://thinklive1.github.io/thinklive/8605/</loc>
     
     <lastmod>2023-12-03</lastmod>
@@ -209,7 +209,7 @@
   </url>
   
   <url>
-    <loc>https://thinklive1.github.io/thinklive/59126/</loc>
+    <loc>https://thinklive1.github.io/thinklive/28990/</loc>
     
     <lastmod>2023-11-27</lastmod>
     
@@ -218,7 +218,7 @@
   </url>
   
   <url>
-    <loc>https://thinklive1.github.io/thinklive/28990/</loc>
+    <loc>https://thinklive1.github.io/thinklive/59126/</loc>
     
     <lastmod>2023-11-27</lastmod>
     
@@ -236,7 +236,7 @@
   </url>
   
   <url>
-    <loc>https://thinklive1.github.io/thinklive/14434/</loc>
+    <loc>https://thinklive1.github.io/thinklive/3998/</loc>
     
     <lastmod>2023-11-27</lastmod>
     
@@ -245,7 +245,7 @@
   </url>
   
   <url>
-    <loc>https://thinklive1.github.io/thinklive/3998/</loc>
+    <loc>https://thinklive1.github.io/thinklive/14434/</loc>
     
     <lastmod>2023-11-27</lastmod>
     
@@ -367,7 +367,7 @@
   </url>
   
   <url>
-    <loc>https://thinklive1.github.io/tags/JAVA/</loc>
+    <loc>https://thinklive1.github.io/tags/python/</loc>
     <lastmod>2024-02-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -381,7 +381,7 @@
   </url>
   
   <url>
-    <loc>https://thinklive1.github.io/tags/python/</loc>
+    <loc>https://thinklive1.github.io/tags/JAVA/</loc>
     <lastmod>2024-02-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
