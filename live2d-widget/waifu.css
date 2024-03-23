@@ -58,6 +58,7 @@
 }
 
 #waifu-tips.waifu-tips-active {
+	color: #000;
 	opacity: 1;
 	transition: opacity .2s;
 }
