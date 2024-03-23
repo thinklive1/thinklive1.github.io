@@ -4161,8 +4161,8 @@ public  int[] findVerticalSeam() &#123;
         <category>数据结构与算法</category>
       </categories>
       <tags>
-        <tag>课程笔记</tag>
         <tag>伯克利</tag>
+        <tag>课程笔记</tag>
         <tag>数据结构与算法</tag>
         <tag>JAVA</tag>
       </tags>
@@ -8641,8 +8641,8 @@ val（r1，c1）&lt; val（r1，c2）≤ val（r2，c2）&lt; val（r2，c1）<b
       </categories>
       <tags>
         <tag>课程笔记</tag>
-        <tag>中科大</tag>
         <tag>计算机网络</tag>
+        <tag>中科大</tag>
       </tags>
   </entry>
   <entry>
@@ -8717,8 +8717,8 @@ val（r1，c1）&lt; val（r1，c2）≤ val（r2，c2）&lt; val（r2，c1）<b
         <category>数据科学</category>
       </categories>
       <tags>
-        <tag>课程笔记</tag>
         <tag>伯克利</tag>
+        <tag>课程笔记</tag>
         <tag>python</tag>
         <tag>数据科学</tag>
         <tag>pandas</tag>
@@ -8871,8 +8871,8 @@ Vim还提供了列选择模式，在Normal模式下键入<code>&lt;C-V&gt;</code
         <category>数据科学</category>
       </categories>
       <tags>
-        <tag>课程笔记</tag>
         <tag>伯克利</tag>
+        <tag>课程笔记</tag>
         <tag>python</tag>
         <tag>数据科学</tag>
         <tag>pandas</tag>
@@ -9471,8 +9471,8 @@ Vim还提供了列选择模式，在Normal模式下键入<code>&lt;C-V&gt;</code
         <category>操作系统</category>
       </categories>
       <tags>
-        <tag>课程笔记</tag>
         <tag>伯克利</tag>
+        <tag>课程笔记</tag>
         <tag>linux</tag>
         <tag>系统管理</tag>
       </tags>
@@ -10349,68 +10349,6 @@ Inexpensive Disk）由美国加州大学伯克利分校提出。<br />
       </tags>
   </entry>
   <entry>
-    <title>基于斯坦福cs106l的c++编程规范笔记</title>
-    <url>/thinklive/48468/</url>
-    <content><![CDATA[<h2 id="c特性">c++特性</h2>
-<ul>
-<li>更好的C C++支持<code>命令式编程</code>，一种编程风格，其中程序按顺序执行的命令序列。从这个意义上讲，C++ 可以看作是对C 编程语言，使日常命令式编程更加直观和更容易使用。课程阅读器的这一部分介绍了一些 C++ 最常用的库,包括标准模板库，并展示了如何使用这些库来构建命令程式。 此外，它探索了最初出现在 C++ 语言中的新原语。C 编程语言，即指针、C 字符串和预处理器。 <span id="more"></span></li>
-<li>数据抽象</li>
-</ul>
-<p>C++与其兄弟C的最大区别在于_数据抽象_,程序执行的方式可以与程序执行的方式分开 程序员谈论那个程序。</p>
-<ul>
-<li>面向对象编程</li>
-</ul>
-<p>. 面向对象编程是一种完全不同的方式考虑程序设计，可以极大地简化复杂的软件系统。 钥匙 面向对象背后的概念很简单，但要真正体会到面向对象的力量 编程，您将需要一次又一次地看到它的运行情况。 这部分课程 读者探索了面向对象编程中的主要概念以及如何在 C++ 中实现它继承和多态。</p>
-<ul>
-<li>泛型编程</li>
-</ul>
-<p>泛型编程是一种编程风格，旨在构建可以解决一系列远远超出最初设想的问题的软件<br />
-履行。 虽然泛型编程的完整处理远远超出了介绍性的范围C++ 编程课，泛型编程的许多思想都可以访问并且可以从根本上改变了您对 C++ 编程的看法。</p>
-<h2 id="const">const</h2>
-<p>Can’t declare non-const reference to const variable Can’t declare non-const reference to const vari</p>
-<p><img src="/images/obsidian/20230215213916.png" title="image" alt="图片" /> <img src="/images/obsidian/20230215214023.png" title="image" alt="图片" /></p>
-<h2 id="模板">模板</h2>
-<p><img src="/images/obsidian/20230215215043.png" title="image" alt="图片" /> 函数指针：将函数作为对象传递</p>
-<h2 id="stl">stl</h2>
-<p>sequence:线性，有顺序 associative:不一定线性，有索引机制(map)</p>
-<p>vector:有顺序的相同类型的数据集合，大小可控制 ---子属性：<em>size:元素数量 ---capacity</em>:单个元素大小 <img src="/images/obsidian/20230214194657.png" title="image" alt="图片" /> vector最常用，deque用于首部插入场合，list用于多种列表</p>
-<p>associative(关联数组):有顺序的需要有比较方法，无序的需要哈希函数（更快） iterators（迭代器）：用于访问容器中的所有数据 --常用函数，begin(),end(),iter++,*(pointer),== !=,=（赋值,复制）, <img src="/images/obsidian/20230214200501.png" title="image" alt="图片" /> <img src="/images/obsidian/20230214200805.png" title="image" alt="图片" /> <img src="/images/obsidian/20230214201819.png" title="image" alt="图片" /></p>
-<h2 id="输入输出流">输入输出流</h2>
-<p>First call to std::cin &gt;&gt; creates a command line<br />
-prompt that allows the user to type until they hit enter</p>
-<ul>
-<li>Each &gt;&gt; ONLY reads until the next whitespace<br />
-</li>
-<li>Whitespace = tab, space, newline<br />
-</li>
-<li>Everything after the first whitespace gets saved and<br />
-used the next time std::cin &gt;&gt; is called<br />
-</li>
-<li>The place its saved is called a buffer <img src="/images/obsidian/20230213213832.png" title="image" alt="图片" /> <img src="/images/obsidian/20230213214430.png" title="image" alt="图片" /> <img src="/images/obsidian/20230213214751.png" title="image" alt="图片" /> <img src="/images/obsidian/20230214102508.png" title="image" alt="图片" /> <img src="/images/obsidian/20230214104421.png" title="image" alt="图片" /> <img src="/images/obsidian/20230214162731.png" title="image" alt="图片" /> <img src="/images/obsidian/20230214162820.png" title="image" alt="图片" /></li>
-</ul>
-<h2 id="hashmap的c实现">hashmap的c++实现</h2>
-<h3 id="相关函数">相关函数</h3>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">构造函数HashMap():</span><br><span class="line">接受参数count(值的个数),hash function(有默认值)</span><br><span class="line"></span><br><span class="line">参数(typename fitst,typename last,bucket_count,H)</span><br><span class="line">//用一个容器首尾指针初始化hashmap</span><br><span class="line">eg.</span><br><span class="line">hashmap&lt;k,m&gt; map&#123;vec.begin(),vec.end()&#125;</span><br><span class="line"></span><br><span class="line">参数(init_list init,bucket_count,H)</span><br><span class="line">//用容器直接初始化hashmap</span><br><span class="line">eg.</span><br><span class="line">HashMap&lt;char, int&gt; map&#123;&#123;&#x27;a&#x27;, 3&#125;, &#123;&#x27;b&#x27;, 5&#125;, &#123;&#x27;c&#x27;, 7&#125;&#125;;</span><br><span class="line"></span><br><span class="line">public:</span><br><span class="line">key-键</span><br><span class="line">mapped-被加密的值(int)</span><br><span class="line">H-哈希函数</span><br><span class="line">bucket_count(存储的键值对数组容量)</span><br><span class="line">load_factor(内联函数，返回size/bucket_count，即实际储存值的键值对)</span><br><span class="line">contains(参数const K&amp; key判断是否存在改键，返回bool值)</span><br><span class="line">at(参数k，返回mapped的引用)</span><br><span class="line">clear(清空键值对)</span><br><span class="line">insert(参数为键值对引用，返回一对pair&lt;iterator,bool&gt;,iter指向改键值对，无论是否已存在，bool表示是否成功添加，如为false则已存在该键值对)</span><br><span class="line">erase(key为参数，返回bool值)</span><br><span class="line">earse(iter为参数，返回该指针下一个位置)</span><br><span class="line">rehash(size_t为参数，重新哈希为给出的新的指针数组大小)</span><br><span class="line">begin(根据hashmap是否为const给出iter或const iter)</span><br><span class="line">end(返回伪指针)</span><br><span class="line">debug(打印所有哈希键值对以及哈希表所有参数，注意，必须基于重载&lt;&lt;运算符的基础)</span><br><span class="line"></span><br><span class="line">符号重载：</span><br><span class="line">M&amp; [](const key&amp; ,返回insert(key)的返回pair的first成员的second成员，即mapped值)</span><br><span class="line">//用于给key对应的value(mapped)赋值</span><br><span class="line"></span><br><span class="line">private:</span><br><span class="line">node(struct，包含next指针和value)</span><br><span class="line">nodepair(前后node的pair)</span><br><span class="line">findnode(参数key，返回指针对&lt;prev,curr&gt;)</span><br><span class="line">first_not_empty_bucket()</span><br><span class="line">make_iterator(参数node*curr)</span><br><span class="line">_bucket_array(vector&lt;node*&gt;,其中一个node*为ptr,则ptr-&gt;value为&lt;key ,mapped&gt;)</span><br><span class="line"></span><br><span class="line">//指针构造</span><br><span class="line"></span><br><span class="line">_bucket_array：由指针组成的数组,每个成员都是一个指针</span><br><span class="line">储存的值为next指针和一个pair&lt;key,mapped&gt;</span><br><span class="line">operator-&gt; is a bit of an odd-ball. When you write p-&gt;m, it is interpreted as (p.operator-&gt;())-&gt;m.</span><br><span class="line"></span><br><span class="line">- This means operator-&gt; should return a pointer to the object that has the field m.</span><br></pre></td></tr></table></figure>
-<h3 id="涉及的c特性">涉及的c++特性</h3>
-<p>匿名函数 基本lambda语法 基本形式如下： 【capture】（parameters）-&gt;return-type {body}</p>
-<p>typename function() return {x,y,z} 即用{}的参数初始化原函数返回的类型</p>
-<p>ptrdiff_t:用于储存两个指针的差</p>
-<p>conditional_t&lt;func,x,y&gt;如果func为true则x，为false则y</p>
-<p>forward_iterator_tag：单方向迭代器（可读写） ++iter，iter+=1随后返回对自身的引用 iter++，先返回一个对自身的复制，随后iter+=1</p>
-<p>std::move并不能移动任何东西，它唯一的功能是将一个左值强制转化为右值引用，继而可以通过右值引用使用该值，以用于移动语义。从实现上讲，std::move基本等同于一个类型转换：static_cast&lt;T&amp;&amp;&gt;(lvalue);</p>
-<p>ate：从文件尾部开始 strsub(start,length) 移动语义(c++11新特性) clss(classname &amp;&amp;) 利用右值引用的部分数据直接初始化新的类，并在初始化之后将右值删除，可以通过std::move()强制转化左值为右值。</p>
-]]></content>
-      <categories>
-        <category>课程笔记</category>
-        <category>数据结构与算法</category>
-      </categories>
-      <tags>
-        <tag>斯坦福</tag>
-        <tag>课程笔记</tag>
-        <tag>c++</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>基于伯克利cs61a的python笔记</title>
     <url>/thinklive/28549/</url>
     <content><![CDATA[<h2 id="python语言特性">python语言特性</h2>
@@ -10667,10 +10605,277 @@ used the next time std::cin &gt;&gt; is called<br />
         <category>数据结构与算法</category>
       </categories>
       <tags>
-        <tag>课程笔记</tag>
         <tag>伯克利</tag>
+        <tag>课程笔记</tag>
         <tag>python</tag>
         <tag>数据结构与算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>基于c++ primer plus的读书笔记</title>
+    <url>/thinklive/15197/</url>
+    <content><![CDATA[<h1 id="c语言部分">c语言部分</h1>
+<h2 id="基本函数构成">基本函数构成</h2>
+<p>将数组传递为函数参数</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int fcname(int arg[],int n)</span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+<h2 id="基本输入输出">基本输入输出</h2>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">- cin及其衍生函数返回一个iostream函数的引用，即支持</span><br><span class="line">cin,get().get()</span><br><span class="line">iostream的其他成员</span><br><span class="line">- cout.put()显示字符</span><br><span class="line">- cout.write()显示字符串</span><br><span class="line">- cout&lt;&lt;flush刷新缓冲区</span><br><span class="line">- cout&lt;&lt;endl刷新缓冲区并提供换行符</span><br><span class="line">- dec,hex,oct控制输出数制</span><br><span class="line">hex(cout)控制cout为16进制</span><br><span class="line">- int width()返回字段宽度当前设置</span><br><span class="line"> int width(int i)设置字段宽度，返回以前字段宽度 </span><br><span class="line"> 只影响下一次输出</span><br><span class="line"> - fill()设置填充用字符</span><br><span class="line"> - precision()设置精度，即保留几位小数</span><br><span class="line"> - setf()设置各种输出格式</span><br><span class="line"> - 流状态stream_state(eof,fail,bad)</span><br><span class="line"> - cin.get(ch)读取下一个字符，跳过换行符和空白</span><br><span class="line"> - cin.get()读取空白和换行符</span><br><span class="line"> - cin.get()get的基础上读取到换行符并丢弃</span><br><span class="line"> - cin.read()读取内容，但不会在末尾加空字符</span><br><span class="line"> - cin.peek()读取输入流下一个字符但不抽取</span><br><span class="line"> - cin.putback(ch)把一个字符放到输入流最前</span><br></pre></td></tr></table></figure>
+<h3 id="文件输入输出">文件输入输出</h3>
+<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">写入文件</span><br><span class="line">ofstream fout;//ofstream继承ostream</span><br><span class="line">fout.open(&quot;hello.txt&quot;);</span><br><span class="line">fout &lt;&lt; &quot;i&#x27;m adding sth&quot;</span><br><span class="line">|| ofstream fout(&quot;hello.txt&quot;);</span><br><span class="line">读取文件也类似</span><br><span class="line">fin &gt;&gt; ch||string</span><br><span class="line">关闭流</span><br><span class="line">fout.close()</span><br><span class="line">fin.close()</span><br><span class="line">检测文件是否打开</span><br><span class="line">if (!fin.is_open())</span><br><span class="line">设置文件输入输出格式</span><br><span class="line">ios_base::</span><br></pre></td></tr></table></figure></p>
+<h2 id="基本逻辑运算符">基本逻辑运算符</h2>
+<p>break打断循环 continue，跳到更新表达式前开始执行 非const引用的函数不接受const参数</p>
+<h2 id="基本数据类型">基本数据类型</h2>
+<p>结构数组</p>
+<figure class="highlight plaintext"><figcaption><span>stname;</span></figcaption><table><tr><td class="code"><pre><span class="line">stname stobj\[int x] =</span><br><span class="line">&#123;</span><br><span class="line">&#123;&#125;</span><br><span class="line">&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line">union(类似结构，但相同数据类型只存一种)</span><br><span class="line">每个指针需要一个*用于初始化</span><br><span class="line">int * intlist=new int [10]</span><br><span class="line">delete-new</span><br><span class="line">delete []-new []</span><br><span class="line">typedef typename aliasname</span><br></pre></td></tr></table></figure>
+<h2 id="名称空间">名称空间</h2>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#ifndef HNAME_H</span><br><span class="line">#define HNAME_H</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#endif</span><br></pre></td></tr></table></figure>
+<p>如果在遇到另一个定义HNAME_H的头文件时，将他忽略</p>
+<p>作用域： 1默认情况下，函数中声明的变量作用域位于代码块内，如果函数内外都声明一个同名变量，运行至内部代码块使用内部，离开代码块使用外部 2静态变量存在于整个程序运行周期，脱离作用域后只是无法使用并不消失 代码块外声明且不带static关键字：链接性外部，可以在其他程序使用 代码块外声明，且使用static：链接性内部，可以在整个程序使用 代码块内声明，且使用static：作用域于代码块内，但始终存在//由于静态变量只可以定义一次，所以即使离开代码块后变量依旧存在，且值不变，直到下一次修改 3运算符::放置于变量前时，使用同名变量（如果有）的全局版本 4namespace{</p>
+<p>} 无法放置于代码块内，因此默认为全局名称，可以囊括声明和定义，可以随时添加 定义于类声明的函数自动成为内联函数</p>
+<h1 id="c特性">c++特性</h1>
+<h2 id="class">class</h2>
+<p>1声明构造函数时，尽量使用explicit(显性转换)前缀，防止隐性转换带来的问题 mutable(摆动的)前缀声明变量，表示这些变量可能在const成员函数内被更改 用const_cast&lt;&gt;和static_cast&lt;&gt;与this指针可以实现const成员函数向非const的转变，反之则是错误的</p>
+<p>2class初始化成员时，按构造函数声明变量的顺序，因此初始化成员时最好也以此顺序初始化 如果不希望class有copy和赋值(=)操作，则应该在private里定义copy和=运算符</p>
+<p>3基类引用可以指向派生类对象，无需进行强制类型转换</p>
+<p>4定义于类声明的函数自动成为内联函数</p>
+<p>5类的函数对所有对象共用，但数据则各自私有</p>
+<p>6要创造类对象数组，该类必须有默认构造函数</p>
+<p>7只有一个构造函数参数的构造函数可以用于类的自动转换 classname t; t=20; 如果想禁止这种转换，可以声明explicit给构造函数</p>
+<p>8类声明中可定义对于某种基本类型的转换函数 operator int();//可声明为显式转换，尽量避免过多的转换造成二义性</p>
+<p>9如果定义类成员参数为static，则它在程序中只有一个地址，可以被所有类成员共享 但通过static实现共享成员时，需要重新定义复制和赋值函数来避免问题</p>
+<h3 id="动态类的注意事项">动态类的注意事项</h3>
+<p>*构造函数中如果用new初始化指针成员，则应该在析构函数中使用delete new对应delete,new[]对应delete[] 对多个构造函数，应用和析构函数兼容的new来初始化成员 重构复制和赋值运算符来实现深复制</p>
+<p>10对于使用new创建的类，使用delete时其析构函数才会被调用 如果在使用new时，将对象地址赋予一个指针时，如果删除指针，则对应的对象会调用自己的析构函数 对与使用定位new创建的类对象，需要显式调用析构函数 object-&gt;~classname(); 且应该以创建顺序的相反顺序调用，因为后创建的对象可能依赖于前者</p>
+<h3 id="类继承">类继承</h3>
+<h4 id="公有继承">公有继承</h4>
+<p>class sonclassname: public fatherclassname 派生类继承了基类的公有接口和数据 但只能用基类public和protected函数访问基类私有数据 派生类可添加函数和数据成员 派生类需要自己的构造函数，并由于权限问题，其构造函数必须包括基类构造函数，并且同样可以使用成员初始化列表 <code>指针</code> 基类指针和引用可以在不显式转化的情况下指向派生类对象反过来却不行 <code>虚函数</code></p>
+<ul>
+<li>对于基类和派生类的同名函数： 如果函数通过引用或指针调用，将确定使用哪种方法 ￥如果没有使用关键字virual，将根据引用类型或指针类型选择方法。 如果使用了关键字virtual，将根据引用或指针指向对象的类型选择方法</li>
+<li>构造函数不能为虚函数</li>
+<li>析构函数应当为虚函数</li>
+<li>友元函数并非类成员，但可以使用虚函数</li>
+<li>**重新定义继承方式（虚实）并非重载，会覆盖掉原先的虚函数定义，如果必须重新定义，则需要重新定义使用基类虚函数</li>
+</ul>
+<p><code>纯虚函数</code> virual typename func() const=0; 含有虚函数的类不能创建实例，只能用作基类</p>
+<p><code>访问控制（protected）</code> 派生类成员函数可以访问protected成员，不能访问private成员</p>
+<h4 id="私有继承">私有继承</h4>
+<p>使用私有继承，基类的公有成员和保护成员都成为派生类的私有成员，只可以在派生类的成员函数中使用，可以实现has_a关系 私有继承访问基类方法时需要调动基类的命名空间 <code>访问基类对象</code> 如果要直接访问基类对象，则需要调用强制类型转化将派生类转化为基类</p>
+<h4 id="保护继承">保护继承</h4>
+<p>保护继承时，基类的公有和保护成员都成为派生类的保护成员，基类接口在派生类中可用</p>
+<p>通过using指令可以让私有函数被当前作用域可用</p>
+<h2 id="命令行参数">命令行参数</h2>
+<p>int main(int argc,char* argv[]) argc为参数个数 argv为参数组成的字符串</p>
+<h2 id="字符输入">字符输入</h2>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cin &gt;&gt; ***(读取输入中的结束字符为结束标志，会将换行符留在输入流)</span><br><span class="line">getline(stringname,length)通过换行符确定输入结束点</span><br><span class="line">cin.get()读取到换行符之前，不带参数则读取下一个字符(用于清除换行符)</span><br><span class="line">cin.clear()清空输入流</span><br><span class="line">&lt;string&gt;</span><br><span class="line">重载符号+实现拼接</span><br><span class="line">str.size()</span><br><span class="line">输入字符串使用getline(cin,str)</span><br><span class="line">结构数组</span><br><span class="line">struct stname;</span><br><span class="line">stname stobj[int x] =</span><br><span class="line">&#123;</span><br><span class="line">&#123;&#125;</span><br><span class="line">&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line">字符函数库&lt;cctype&gt;</span><br><span class="line">isspace(ch)测试是否空白</span><br><span class="line">isalpha(ch)是否字符</span><br><span class="line">isdigit()是否数字</span><br><span class="line">ispunct()是否标点</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cin &gt;&gt; ***(读取输入中的结束字符为结束标志，会将换行符留在输入流)</span><br><span class="line">getline(stringname,length)通过换行符确定输入结束点</span><br><span class="line">cin.get()读取到换行符之前，不带参数则读取下一个字符(用于清除换行符)</span><br><span class="line">cin.clear()清空输入流</span><br></pre></td></tr></table></figure>
+<p>&lt;string&gt; 重载符号+实现拼接 str.size() 输入字符串使用getline(cin,str) 结构数组 struct stname; stname stobj[int x] = { {} {} } 字符函数库&lt;cctype&gt; isspace(ch)测试是否空白 isalpha(ch)是否字符 isdigit()是否数字 ispunct()是否标点</p>
+<h2 id="指针">指针</h2>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1，c++没有溢出检测机制，</span><br><span class="line">char name[]=&quot;hello&quot;;</span><br><span class="line">char c =name[10]导致未定义行为</span><br><span class="line">2，用一个常量指针指向常量需要两次const</span><br><span class="line">const char* const name=&quot;hhh&quot;</span><br><span class="line">如果需要一个class专属常量，则使用</span><br><span class="line">static const ***</span><br><span class="line">实现文件中，const int classname:: ***</span><br><span class="line">对于宏：</span><br><span class="line">template &lt;typename T&gt;</span><br><span class="line">inline functionname</span><br><span class="line">3,const 出现在*左侧表示被指物为常量，右侧表示指针为常量指针</span><br><span class="line">4,函数名就是函数的地址</span><br><span class="line">double pam(int);</span><br><span class="line">double(*pt)(int);</span><br><span class="line">pt即为函数指针</span><br><span class="line">如果需要一个函数以相同相同返回值和参数的函数为一个参数，则可以考虑函数指针</span><br><span class="line">5，内联函数不能递归</span><br><span class="line">6,引用容器时，如果迭代器不引用，仍然传递临时副本o</span><br><span class="line">7,函数传递指针时按值传递，当向函数传递指针时，指针是按值传递的！这意味着你可以改变被指向的数组内容，因为在调用函数时，这些元素不会被复制！这意味着你可以改变被指向的数组的内容，因为这些元素在函数被调用时并没有被复制。另一方面，如果你改变了所指向的数组，这种改变在函数之外不会持续，因为你只改变了指针的拷贝，而不是原来的指针本身。</span><br></pre></td></tr></table></figure>
+<h3 id="智能指针">智能指针</h3>
+<p>auto_ptr&lt;string&gt; 和&lt;unique_ptr&gt;指针采用所有权模型，对特定对象只有一个智能指针可以拥有它，只有拥有它的指针可以删除它 shared_ptr&lt;string&gt;追踪引用对象的智能指针数量，最后一个指针过期时才会调用delete 使用new分配内存才能使用auto_ptr,unique_ptr</p>
+<h2 id="异常">异常</h2>
+<h3 id="try_catch">try_catch</h3>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">try&#123;</span><br><span class="line"> func();</span><br><span class="line">&#125;</span><br><span class="line">catch(errortype e1)&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">func()</span><br><span class="line">&#123;</span><br><span class="line"> do sth;</span><br><span class="line"> throw(error_type e1);8</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>栈解退</code> 假设try块没有直接调用引发异常的函数，而是调用对引发异常的函数进行调用的函数，则程序从引发异常的函数跳到包含try块和处理程序的函数（追踪到一个地址位于try块的返回地址） <code>其他异常特性</code></p>
+<ul>
+<li>throw-catch类似函数参数和返回，但函数返回语句将控制器交给调用函数的函数，但throw语句将控制权向上返回到第一个这样的函数，包含能捕获相应异常的try-catch组合</li>
+<li>throw语句总是生成副本，但catch参数使用基类引用能捕获所有派生类的异常对象</li>
+</ul>
+<h4 id="exception类">exception类</h4>
+<p>exception类可作为其他异常类的基类，用what的虚函数（返回一个字符串）重载来指示错误类型 <code>失败时返回空指针的语法</code></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int * pi= new (std::nothrow) int;</span><br></pre></td></tr></table></figure>
+<h3 id="未捕获异常">未捕获异常</h3>
+<p>未捕获的异常会使程序调用函数terminate(),默认情况下，terminate()调用abort()函数，可以指定terminate()调用的函数来修改其行为</p>
+<h2 id="一些新特性">一些新特性</h2>
+<h3 id="关键字">关键字</h3>
+<p>关键字nullptr表示空指针</p>
+<h3 id="rtti运行阶段类型识别">RTTI(运行阶段类型识别)</h3>
+<h4 id="dynamiccast">dynamic——cast</h4>
+<p>danamic_cast&lt;type *&gt; (pt) 如果可以安全将pt转化为type*指针，返回对象地址，否则返回空指针 如果对引用使用，错误时返回bad_cast异常</p>
+<h4 id="typeid和type_info">typeid和type_info</h4>
+<p>typeid返回对type_info对象的引用，type_ifo是定义在typeinfo的类，重载==和!=预算符，例如 typeid(obj1)==typeid(obj2)</p>
+<h3 id="类型转换运算符">类型转换运算符</h3>
+<ul>
+<li>dynamic_cast</li>
+<li>const_cast</li>
+<li>static_cast</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//用于执行各种类型的数值转换static_cast &lt;typename&gt; (expression)</span><br><span class="line">//转换是允许隐式转换时才能通过（派生类和基类可以互相转换）</span><br></pre></td></tr></table></figure>
+<ul>
+<li>reinterpret_cast /执行危险的转换</li>
+</ul>
+<p>移动语义 通过指针转移右值的地址给新对象 或通过std::move()将左值转化为右值</p>
+<p>someclass()=default default关键字显式声明编译器创建默认构造函数，复制构造函数 delete用于禁止类中的函数</p>
+<p>关键字override可用于覆盖虚函数定义</p>
+<h3 id="匿名函数">匿名函数</h3>
+<p>返回类型编译器自动确定，可直接作为函数指针使用</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[] (double x) &#123;return x%3==0;&#125; </span><br></pre></td></tr></table></figure>
+<p>可以返回类型后置</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[] (double x)-&gt; double&#123;int y = x;return y-x;&#125;</span><br></pre></td></tr></table></figure>
+<p>可以给匿名函数命名</p>
+]]></content>
+      <categories>
+        <category>课程笔记</category>
+        <category>其他</category>
+      </categories>
+      <tags>
+        <tag>读书笔记</tag>
+        <tag>c++</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>基于斯坦福cs106b的c++数据结构笔记</title>
+    <url>/thinklive/16615/</url>
+    <content><![CDATA[<h2 id="一些查找和排序算法">一些查找和排序算法</h2>
+<p>二分查找法 <img src="/images/obsidian/20230226101843.png" title="image" alt="图片" /> 最坏情况：log2n <span id="more"></span> 寻找最小排序 <img src="/images/obsidian/20230224172126.png" title="image" alt="图片" /> 向前插入算法 <img src="/images/obsidian/20230226090109.png" title="image" alt="图片" /></p>
+<p>合并算法接受两个排序的 列出并将它们组合成一个 排序列表。 ● 虽然两个列表都是非空的，但比较它们的 第一要素。 删除较小的元素 并将其附加到输出。 ● 一旦一个列表为空，添加所有元素 另一个列表输出。 ● 它运行时间为 O(n)，其中 n 是总数 合并的元素数量。 <img src="/images/obsidian/20230226090958.png" title="image" alt="图片" /> 无限递归后的合并算法 <img src="/images/obsidian/20230226093232.png" title="image" alt="图片" /> 复杂度：nlog2n</p>
+<h2 id="容器类">容器类</h2>
+<p><code>set（集合）：无序不允许重复的容器类，可以添加删除元素 You can add a value to a Set by writing   set += value;  s. ● You can remove a value from a Set by writing   set -= value;   ● You can check if a value exists in a Set by writing   set.contains(value)</code>map(键值对的集合) 如果没有对应key的value，返回默认值（见定义文件） `vector vector的remove根据移除元素的索引有1-n的复杂度，移除尾部为O(1)，如果不在意索引，可以交换要移除元素和尾部元素再移除</p>
+<h1 id="哈希表">哈希表</h1>
+<p>哈希表的负载因子α表示元素和表格键数量的比，决定了查找速度</p>
+<h2 id="检查表中是否存在元素">检查表中是否存在元素</h2>
+<p>● 计算元素的散列码。 ● 跳转到表格中的那个位置。 ● 向前扫描——必要时环绕——直到项目或一个 发现空插槽。</p>
+<h2 id="将元素插入表中">将元素插入表中</h2>
+<p>● 如果项目已经存在，什么也不做。 ● 否则，跳转到元素哈希码给定的槽。 向前走——必要时环绕——直到一个空白点或 找到墓碑插槽。 然后，将项目放在那里。</p>
+<h2 id="从表中删除一个元素">从表中删除一个元素</h2>
+<p>● 跳转到由元素的散列码给定的槽。 ● 向前走——必要时环绕——直到物品或 发现空插槽。 如果找到该项目，请将其替换为 墓碑。</p>
+<h2 id="罗宾汉哈希表">“罗宾汉哈希表”</h2>
+<ul>
+<li>如果插入的值比其将插入的位置的值距离索引更远，则替换插入值和当前值</li>
+<li>删除值时，将后其离原键远的元素前移</li>
+<li>★ 罗宾汉哈希一览 ★</li>
+<li>检查表中是否存在元素：</li>
+<li>● 跳转到表中由元素的散列码给出的位置。</li>
+<li>● 向前扫描——如有必要环绕——记录有多少步 你拿走了。 当您找到该项目、找到一个空白槽或找到一个 离家更近的空位比你走的步数还多。</li>
+<li>将元素插入表中：</li>
+<li>● 如果该元素已在表中，则什么也不做。</li>
+<li>● 跳转到由元素的散列码给出的表槽。 向前扫描 - 换行 如有必要，四处走走——记录所走的步数。 如果你找到一个 空插槽，将元素放在那里。 否则，如果当前插槽已满并且 比您插入的元素更靠近家，将要插入的项目放在那里， 替换那个位置的元素，然后继续插入，就好像你 正在插入被置换的元素。</li>
+<li>从表中删除一个元素：</li>
+<li>● 跳转到由元素的散列码给定的槽。</li>
+<li>● 向前走——如有必要，环绕——直到物品或空槽被放置 成立。 如果找到该项目，请将其删除。 然后，继续前进——包裹 around as necessary – 将表中的元素向后移动一个槽位，直到 找到空插槽或位于其原始位置的项目</li>
+</ul>
+<h2 id="string类">string类</h2>
+<p>str::npos表示容器的最后一个成员位置 if (s.find("e") != string::npos) //find函数找不到时返回npos if s in str: string obj; obj.substr(int pos) //pos为要包含的第一个字符串的位置 <a href="http://en.cppreference.com/w/cpp/string/basic_string">std::string</a> a = "0123456789abcdefghij";</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">    // count is npos, returns [pos, size())</span><br><span class="line">    [std::string](http://en.cppreference.com/w/cpp/string/basic_string) sub1 = a.substr(10);</span><br><span class="line">    [std::cout](http://en.cppreference.com/w/cpp/io/cout) &lt;&lt; sub1 &lt;&lt; &#x27;\n&#x27;;</span><br><span class="line"></span><br><span class="line">    // both pos and pos+count are within bounds, returns [pos, pos+count)</span><br><span class="line">    [std::string](http://en.cppreference.com/w/cpp/string/basic_string) sub2 = a.substr(5, 3);</span><br><span class="line">    [std::cout](http://en.cppreference.com/w/cpp/io/cout) &lt;&lt; sub2 &lt;&lt; &#x27;\n&#x27;;</span><br><span class="line"></span><br><span class="line">    // pos is within bounds, pos+count is not, returns [pos, size())</span><br><span class="line">    [std::string](http://en.cppreference.com/w/cpp/string/basic_string) sub4 = a.substr(a.size()-3, 50);</span><br><span class="line">    // this is effectively equivalent to</span><br><span class="line">    // std::string sub4 = a.substr(17, 3);</span><br><span class="line">    // since a.size() == 20, pos == a.size()-3 == 17, and a.size()-pos == 3</span><br><span class="line"></span><br><span class="line">    [std::cout](http://en.cppreference.com/w/cpp/io/cout) &lt;&lt; sub4 &lt;&lt; &#x27;\n&#x27;;</span><br><span class="line"></span><br><span class="line">    try &#123;</span><br><span class="line">        // pos is out of bounds, throws</span><br><span class="line">        [std::string](http://en.cppreference.com/w/cpp/string/basic_string) sub5 = a.substr(a.size()+3, 50);</span><br><span class="line">        [std::cout](http://en.cppreference.com/w/cpp/io/cout) &lt;&lt; sub5 &lt;&lt; &#x27;\n&#x27;;</span><br><span class="line">    &#125; catch(const [std::out_of_range](http://en.cppreference.com/w/cpp/error/out_of_range)&amp; e) &#123;</span><br><span class="line">        [std::cout](http://en.cppreference.com/w/cpp/io/cout) &lt;&lt; &quot;pos exceeds string size\n&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">输出：</span><br><span class="line">abcdefghij</span><br><span class="line">567</span><br><span class="line">hij</span><br><span class="line">pos exceeds string size</span><br></pre></td></tr></table></figure>
+<p>`replace和insert str1.insert(start, str2) str1.replace(start, length, str2)</p>
+<h2 id="一些实现">一些实现</h2>
+<h3 id="优先队列">优先队列</h3>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># include &quot;HeapPQueue.h&quot;</span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">HeapPQueue::HeapPQueue() &#123;</span><br><span class="line">    elems = new DataPoint[INITIAL_SIZE] &#123;&#125;;</span><br><span class="line">    for (int i=0;i&lt;INITIAL_SIZE;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        elems[i].weight=0;</span><br><span class="line">    &#125;</span><br><span class="line">    allocatedSize=INITIAL_SIZE;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">HeapPQueue::~HeapPQueue() &#123;</span><br><span class="line">    delete [] elems;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int HeapPQueue::size() const &#123;</span><br><span class="line">    return logicalSize;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">bool HeapPQueue::isEmpty() const &#123;</span><br><span class="line">    return logicalSize==0;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void HeapPQueue::enqueue(const DataPoint&amp; data) &#123;</span><br><span class="line">    if (logicalSize+1&lt;allocatedSize)</span><br><span class="line">    &#123;</span><br><span class="line">        if (logicalSize==0)</span><br><span class="line">        &#123;</span><br><span class="line">            elems[1]=data;</span><br><span class="line">            logicalSize++;</span><br><span class="line">        &#125;</span><br><span class="line">        else</span><br><span class="line">        &#123;</span><br><span class="line">            logicalSize++;</span><br><span class="line">            int i=1;</span><br><span class="line">            while (data.weight&gt;elems[i].weight &amp;&amp; i&lt;=logicalSize &amp;&amp; elems[i].weight!=0)</span><br><span class="line">            &#123;</span><br><span class="line">                i++;</span><br><span class="line">            &#125;</span><br><span class="line">            if (i&lt;logicalSize)</span><br><span class="line">            &#123;</span><br><span class="line">                DataPoint temp=elems[i];</span><br><span class="line">                elems[i]=data;</span><br><span class="line">                for(i;i&lt;logicalSize;i++)</span><br><span class="line">                &#123;</span><br><span class="line">                    DataPoint temp_plus=elems[i+1];</span><br><span class="line">                    elems[i+1]=temp;</span><br><span class="line">                    temp=temp_plus;</span><br><span class="line"></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            else</span><br><span class="line">            &#123;</span><br><span class="line">                elems[i]=data;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">DataPoint HeapPQueue::peek() const &#123;</span><br><span class="line">    return elems[logicalSize];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">DataPoint HeapPQueue::dequeue() &#123;</span><br><span class="line">    DataPoint to_return=elems[1];</span><br><span class="line">    if(!isEmpty())</span><br><span class="line">    &#123;</span><br><span class="line"></span><br><span class="line">        for (int i=1;i&lt;logicalSize;i++)</span><br><span class="line">        &#123;</span><br><span class="line">            elems[i]=elems[i+1];</span><br><span class="line">        &#125;</span><br><span class="line">        elems[logicalSize]=&#123;&#125;;</span><br><span class="line">        logicalSize--;</span><br><span class="line">    &#125;</span><br><span class="line">    return to_return;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="计数排序">计数排序</h3>
+<p>首先算出最大值，然后用一个数组的索引存储待排序数组的成员，其索引对应值存储出现次数，然后用两个同步的for循环和递增的next参数表示排序中的索引值来进行排序（也就是重新赋值）</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/* Given a Vector&lt;int&gt;, returns the largest number in that Vector. */</span><br><span class="line">int maxOf(const Vector&lt;int&gt;&amp; values) &#123;</span><br><span class="line">    /* Bounds-check inputs. */</span><br><span class="line">    if (values.isEmpty()) &#123;</span><br><span class="line">        error(&quot;Can&#x27;t find the maximum of no values.&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    int result = values[0];</span><br><span class="line">    for (int i = 1; i &lt; values.size(); i++) &#123;</span><br><span class="line">        result = max(result, values[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    return result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/* Given a list of numbers, creates a histogram from those numbers. */</span><br><span class="line">Vector&lt;int&gt; histogramFor(const Vector&lt;int&gt;&amp; values) &#123;</span><br><span class="line">    /* Create a histogram with the right number of slots. Initially, all values</span><br><span class="line">     * in the histogram will be zero.</span><br><span class="line">     */</span><br><span class="line">    Vector&lt;int&gt; histogram(maxOf(values) + 1);</span><br><span class="line">    </span><br><span class="line">    /* Scan across the input vector, incrementing the histogram values. */</span><br><span class="line">    for (int value: values) &#123;</span><br><span class="line">        histogram[value]++;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    return histogram;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void countingSort(Vector&lt;int&gt;&amp; values) &#123;</span><br><span class="line">    /* Edge Case: If the array is empty, then it&#x27;s already sorted. This is</span><br><span class="line">     * needed because we can&#x27;t take the maximum value of an empty vector.</span><br><span class="line">     */</span><br><span class="line">    if (values.isEmpty()) &#123;</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    /* Form the histogram. */</span><br><span class="line">    auto histogram = histogramFor(values);</span><br><span class="line">    </span><br><span class="line">    /* Scan across the histogram writing out the appropriate number of copies</span><br><span class="line">     * of each value. We track the index of the next free spot to write to,</span><br><span class="line">     * as it varies based on how many items we&#x27;ve written out so far.</span><br><span class="line">     */</span><br><span class="line">    int next = 0;</span><br><span class="line">    for (int value = 0; value &lt; histogram.size(); value++) &#123;</span><br><span class="line">        /* Write out the right number of copies. */</span><br><span class="line">        for (int copy = 0; copy &lt; histogram[value]; copy++) &#123;</span><br><span class="line">            values[next] = value;</span><br><span class="line">            next++;    </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="错题集">错题集</h2>
+<h3 id="递归的效率优化">递归的效率优化</h3>
+<p>每次递归都会创造所有变量的临时复制 基于递归的这种性质，它会需要巨大的时间和空间来完成任务，并且会造成算力上的浪费。 通过记忆表机制能部分解决这个问题，方法是每次递归的返回值都会按索引存入一个表格，并且每次递归前查询表格中是否有结果，这样可以让每个临时副本的运算结果能被所有函数共享。</p>
+<h3 id="递归计算给定元素的不同结构哈夫曼树的数量">递归计算给定元素的不同结构哈夫曼树的数量</h3>
+<p>对每个给定元素集来说，首先要做到是确定根节点元素是第几个大的元素，确定之后，左子树和右子树的元素数也随之确定，在此之后分别对左节点和右节点作为根节点做同样的递归</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">int numBSTsOfSize(int n) &#123;</span><br><span class="line"></span><br><span class="line">  /* Base case: There’s only one tree of size 0, namely, the empty BST. */</span><br><span class="line">  if (n == 0) return 1;</span><br><span class="line">  </span><br><span class="line">  /* Recursive case: Imagine all possible ways to choose a root and build the</span><br><span class="line">   * left and right subtrees.</span><br><span class="line">  */</span><br><span class="line">  int result = 0;</span><br><span class="line">  </span><br><span class="line">  /* Put the the nodes at indices 0, 1, 2, ..., n-1 up at the root. */</span><br><span class="line">  for (int i = 0; i &lt; n; i++) &#123;</span><br><span class="line">    /* Each combination of a BST of i elements and a BST of n - 1 - i elements</span><br><span class="line">     * can be used to build one BST of n elements. The number of pairs of</span><br><span class="line">     * trees we can make this way is given by the product of the number of</span><br><span class="line">     * trees of each type.</span><br><span class="line">     */</span><br><span class="line">     result += numBSTsOfSize(i) * numBSTsOfSize(n - 1 - i);</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  return result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="递归解决吃巧克力问题">递归解决吃巧克力问题</h3>
+<h1 id="求出吃法数量">求出吃法数量</h1>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">if (numSquares&lt;0)</span><br><span class="line">&#123;</span><br><span class="line">    error(&quot;输入数据不能为负数&quot;);</span><br><span class="line">&#125;</span><br><span class="line">else if (numSquares&lt;=1)</span><br><span class="line">&#123;</span><br><span class="line">    return 1;</span><br><span class="line">&#125;</span><br><span class="line">else</span><br><span class="line">&#123;</span><br><span class="line">    return numWaysToEat(numSquares-1)+numWaysToEat(numSquares-2);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="打印每种吃法">打印每种吃法</h1>
+<p>`需要一个辅助向量储存历史记录</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/* Print all ways to eat numSquares more squares, given that we&#x27;ve</span><br><span class="line"> * already taken the bites given in soFar.</span><br><span class="line"> */</span><br><span class="line">void printWaysToEatRec(int numSquares, const Vector&lt;int&gt;&amp; soFar) &#123;</span><br><span class="line">    /* Base Case: If there are no squares left, the only option is to use</span><br><span class="line">     * the bites we&#x27;ve taken already in soFar.</span><br><span class="line">     */</span><br><span class="line">    if (numSquares == 0) &#123;</span><br><span class="line">        cout &lt;&lt; soFar &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    /* Base Case: If there is one square lfet, the only option is to eat</span><br><span class="line">     * that square.</span><br><span class="line">     */</span><br><span class="line">    else if (numSquares == 1) &#123;</span><br><span class="line">        cout &lt;&lt; soFar + 1 &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    /* Otherwise, we take take bites of size one or of size two. */</span><br><span class="line">    else &#123;</span><br><span class="line">        printWaysToEatRec(numSquares - 1, soFar + 1);</span><br><span class="line">        printWaysToEatRec(numSquares - 2, soFar + 2);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void printWaysToEat(int numSquares) &#123;</span><br><span class="line">    if (numSquares &lt; 0) &#123;</span><br><span class="line">        error(&quot;You owe me some chocolate!&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /* We begin without having made any bites. */</span><br><span class="line">    printWaysToEatRec(numSquares, &#123;&#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="递归解决翻煎饼问题">递归解决翻煎饼问题</h3>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">bool isSorted(Stack&lt;double&gt; pancakes) &#123;</span><br><span class="line">    double last = -1; // No pancakes have negative size;</span><br><span class="line"></span><br><span class="line">    while (!pancakes.isEmpty()) &#123;</span><br><span class="line">        /* Check the next pancake. */</span><br><span class="line">        double next = pancakes.pop();</span><br><span class="line">        if (next &lt; last) &#123;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        last = next;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /* Pancakes are in increasing order! */</span><br><span class="line">    return true;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/* Given a stack of pancakes and a flip size, flips that many pancakes</span><br><span class="line"> * on the top of the stack.</span><br><span class="line"> */</span><br><span class="line">Stack&lt;double&gt; flip(Stack&lt;double&gt; pancakes, int numToFlip) &#123;</span><br><span class="line">    /* Take the top pancakes off the stack and run them into a queue.</span><br><span class="line">     * This preserves the order in which they were removed.</span><br><span class="line">     */</span><br><span class="line">    Queue&lt;double&gt; buffer;</span><br><span class="line">    for (int i = 0; i &lt; numToFlip; i++) &#123;</span><br><span class="line">        buffer.enqueue(pancakes.pop());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /* Move the pancakes back. */</span><br><span class="line">    while (!buffer.isEmpty()) &#123;</span><br><span class="line">        pancakes.push(buffer.dequeue());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return pancakes;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Optional&lt;Vector&lt;int&gt;&gt; sortStack(Stack&lt;double&gt; pancakes, int numFlips) &#123;</span><br><span class="line">    /* Base Case: If the stack is sorted, great! We&#x27;re done, and no flips</span><br><span class="line">     * were needed.</span><br><span class="line">     */</span><br><span class="line">    if (isSorted(pancakes)) &#123;</span><br><span class="line">        return &#123; &#125;; // No flips</span><br><span class="line">    &#125;</span><br><span class="line">    /* Base Case: If the stack isn&#x27;t sorted and we&#x27;re out of flips, then</span><br><span class="line">     * there is no way to sort things.</span><br><span class="line">     */</span><br><span class="line">    else if (numFlips == 0) &#123;</span><br><span class="line">        return Nothing;</span><br><span class="line">    &#125;</span><br><span class="line">    /* Recursive Case: The stack isn&#x27;t sorted and we still have flips left.</span><br><span class="line">     * The next flip could flip 1, 2, 3, ..., or all N of the pancakes.</span><br><span class="line">     * Try each option and see whether any of them work.</span><br><span class="line">     */</span><br><span class="line">    for (int numToFlip = 1; numToFlip &lt;= pancakes.size(); numToFlip++) &#123;</span><br><span class="line">        /* Make the flip and see if it works. */</span><br><span class="line">        auto result = sortStack(flip(pancakes, numToFlip), numFlips - 1);</span><br><span class="line">        if (result != Nothing) &#123;</span><br><span class="line">            /* The result holds all the remaining flips but doesn&#x27;t know about</span><br><span class="line">             * the flip we just did. Insert that flip at the beginning.</span><br><span class="line">             */</span><br><span class="line">            result.value().insert(0, numToFlip);</span><br><span class="line">            return result;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /* If we&#x27;re here, then no matter which flip we make first, we cannot</span><br><span class="line">     * get the pancakes sorted. Give up.</span><br><span class="line">     */</span><br><span class="line">    return Nothing;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="递归解决天平问题">递归解决天平问题</h3>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">bool isMeasurableRec(int amount, const Vector&lt;int&gt;&amp; weights, int index) &#123;</span><br><span class="line">  if (index == weights.size()) &#123;</span><br><span class="line">      return amount == 0;</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">      return isMeasurableRec(amount,                  weights, index + 1) ||</span><br><span class="line">             isMeasurableRec(amount + weights[index], weights, index + 1) ||</span><br><span class="line">             isMeasurableRec(amount - weights[index], weights, index + 1);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">bool isMeasurable(int amount, const Vector&lt;int&gt;&amp; weights) &#123;</span><br><span class="line">    return isMeasurableRec(amount, weights, 0);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>想象一下，我们首先将要测量的数量（称为 <em>n</em> ）放在天平的左侧。 这使得规模上的不平衡等于 <em>n</em> 。 想象一下，有某种方法可以测量 <em>n</em> 。 如果我们一次将一个重量放在秤上，我们可以查看第一个重量的放置位置（假设它的重量为 <em>w</em> ）。 它必须：</p>
+<ul>
+<li>向左走，使规模上的净不平衡 <em>n + w</em> ，或</li>
+<li>向右走，使规模上的净不平衡 <em>n – w</em> ，或</li>
+<li>根本不习惯，留下净不平衡 <em>n</em> 。</li>
+</ul>
+<p>如果确实有可能测量 <em>n</em> ，那么这三个选项之一必须是实现它的方法，即使我们不知道它是哪一个。 然后我们要问的问题是，是否有可能使用剩余的权重来衡量新的净失衡——我们可以递归地确定！ 另一方面，如果无法测量 <em>n</em> ，那么无论我们选择哪个选项，我们都会发现没有办法使用剩余的权重来使一切平衡！</p>
+<p>如果我们递归地进行，我们在这里，我们需要考虑我们的基本情况。 我们可以选择的选项有很多。 一个简单的方法如下：假设我们根本没有任何重量，我们被要求查看是否可以不使用重量来测量某些重量。 在什么情况下我们可以这样做？ 好吧，如果我们称重的东西有一个非零重量，我们就不可能测量它——把它放在秤上会使它倾斜到某一边，但这并不能告诉我们它有多少重量。 另一方面，如果我们称量的东西是完全失重的，那么把它放在秤上也不会导致它倾斜，让我们相信它确实是失重的！ 因此，作为我们的基本情况，我们会说当我们减少到没有剩余权重时， <em>，我们可以精确测量n</em> 如果 <em>n = 0</em> 。 考虑到这一点，这是我们的代码：</p>
+<h3 id="递归解决找零问题">递归解决找零问题</h3>
+<h1 id="不使用记忆的情况">不使用记忆的情况</h1>
+<p>`从第一个硬币开始遍历，并穷举它的所有枚数，将其作为下一枚硬币的参数传递</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int fewestCoinsFor(int cents, const Set&lt;int&gt;&amp; coins) &#123;</span><br><span class="line">    /* Can&#x27;t have a negative number of cents. */</span><br><span class="line">    if (cents &lt; 0) &#123;</span><br><span class="line">        error(&quot;You owe me money, not the other way around!&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    /* Base case: You need no coins to give change for no cents. */</span><br><span class="line">    else if (cents == 0) &#123;</span><br><span class="line">        return 0;</span><br><span class="line">    &#125;</span><br><span class="line">    /* Base case: No coins exist. Then it&#x27;s not possible to make the</span><br><span class="line">     * amount. In that case, give back a really large value as a</span><br><span class="line">     * sentinel.</span><br><span class="line">     */</span><br><span class="line">    else if (coins.isEmpty()) &#123;</span><br><span class="line">        return cents + 1;</span><br><span class="line">    &#125;</span><br><span class="line">    /* Recursive case: Pick a coin, then try using each distinct number of</span><br><span class="line">     * copies of it that we can.</span><br><span class="line">     */</span><br><span class="line">    else &#123;</span><br><span class="line">        /* The best we&#x27;ve found so far. We initialize this to a large value so</span><br><span class="line">         * that it&#x27;s replaced on the first iteration of the loop. Do you see</span><br><span class="line">         * why cents + 1 is a good choice?</span><br><span class="line">         */</span><br><span class="line">        int bestSoFar = cents + 1;</span><br><span class="line">        /* Pick a coin. */</span><br><span class="line">        int coin = coins.first();</span><br><span class="line">        /* Try all amounts of it. */</span><br><span class="line">        for (int copies = 0; copies * coin &lt;= cents; copies++) &#123;</span><br><span class="line">            /* See what happens if we make this choice. Once we use this</span><br><span class="line">             * coin, we won&#x27;t use the same coin again in the future.</span><br><span class="line">             */</span><br><span class="line">            int thisChoice = copies + fewestCoinsFor(cents - copies * coin,</span><br><span class="line">                                                     coins - coin);</span><br><span class="line">          /* Is this better than what we have so far? */</span><br><span class="line">            if (thisChoice &lt; bestSoFar) &#123;</span><br><span class="line">                bestSoFar = thisChoice;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        /* Return whatever worked best. */</span><br><span class="line">        return bestSoFar;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h1 id="使用记忆进行优化">使用记忆进行优化</h1>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/* How few coins are needed to make the total, given that we can only use</span><br><span class="line"> * coins from index startIndex and onward?</span><br><span class="line"> */</span><br><span class="line">int fewestCoinsRec(int cents, const Vector&lt;int&gt;&amp; coins, int startIndex,Grid&lt;int&gt;&amp; memo) &#123;</span><br><span class="line">    /* Base case: You need no coins to give change for no cents. */</span><br><span class="line">    if (cents == 0) &#123;</span><br><span class="line">        return 0;</span><br><span class="line">    &#125;</span><br><span class="line">    /* Base case: No coins exist. Then it&#x27;s not possible to make the</span><br><span class="line">     * amount. In that case, give back a really large value as a</span><br><span class="line">     * sentinel.</span><br><span class="line">     */</span><br><span class="line">    else if (startIndex == coins.size()) &#123;</span><br><span class="line">        return cents + 1;</span><br><span class="line">    &#125;</span><br><span class="line">    /* Base case: We already know the answer. */</span><br><span class="line">    else if (memo[cents][startIndex] != -1) &#123;</span><br><span class="line">        return memo[cents][startIndex];</span><br><span class="line">    &#125;</span><br><span class="line">    /* Recursive case: Pick a coin, then try using each distinct number of</span><br><span class="line">     * copies of it that we can.</span><br><span class="line">     */</span><br><span class="line">    else &#123;</span><br><span class="line">        /* The best we&#x27;ve found so far. We initialize this to a large value so</span><br><span class="line">         * that it&#x27;s replaced on the first iteration of the loop. Do you see</span><br><span class="line">         * why cents + 1 is a good choice?</span><br><span class="line">         */</span><br><span class="line">        int bestSoFar = cents + 1;</span><br><span class="line"></span><br><span class="line">        /* Pick a coin. */</span><br><span class="line">        int coin = coins[startIndex];</span><br><span class="line"></span><br><span class="line">        /* Try all amounts of it. */</span><br><span class="line">        for (int copies = 0; copies * coin &lt;= cents; copies++) &#123;</span><br><span class="line">            /* See what happens if we make this choice. Once we use this</span><br><span class="line">             * coin, we won&#x27;t use the same coin again in the future.</span><br><span class="line">             */</span><br><span class="line">            int thisChoice = copies + fewestCoinsRec(cents - copies * coin,</span><br><span class="line">                                                     coins, startIndex + 1,</span><br><span class="line">                                                     memo);</span><br><span class="line"></span><br><span class="line">            /* Is this better than what we have so far? */</span><br><span class="line">            if (thisChoice &lt; bestSoFar) &#123;</span><br><span class="line">                bestSoFar = thisChoice;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        /* Return whatever worked best. */</span><br><span class="line">        memo[cents][startIndex] = bestSoFar;</span><br><span class="line">        return bestSoFar;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int fewestCoinsFor(int cents, const Set&lt;int&gt;&amp; coins) &#123;</span><br><span class="line">    /* Can&#x27;t have a negative number of cents. */</span><br><span class="line">    if (cents &lt; 0) &#123;</span><br><span class="line">        error(&quot;You owe me money, not the other way around!&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /* Convert from a Set&lt;int&gt; to a Vector&lt;int&gt; so we have a nice ordering</span><br><span class="line">     * on things.</span><br><span class="line">     */</span><br><span class="line">    Vector&lt;int&gt; coinVec;</span><br><span class="line">    for (int coin: coins) &#123;</span><br><span class="line">        coinVec += coin;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /* Build our memoization table. Since the number of cents left ranges from</span><br><span class="line">     * 0 to cents, we need cents+1 rows. Since the start index of the coin</span><br><span class="line">     * ranges from 0 to coins.size(), we make coins.size() + 1 columns.</span><br><span class="line">     *</span><br><span class="line">     * -1 is used as a sentinel to indicate &quot;nothing has been computed here</span><br><span class="line">     * yet.&quot;</span><br><span class="line">     */</span><br><span class="line">    Grid&lt;int&gt; memo(cents + 1, coins.size() + 1, -1);</span><br><span class="line"></span><br><span class="line">    /* Now ask how many coins are needed to make the total, using any coins</span><br><span class="line">     * from index 0 onward.</span><br><span class="line">     */</span><br><span class="line">    return fewestCoinsRec(cents, coinVec, 0, memo);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="递归穷举付账单">递归穷举付账单</h3>
+<p>递归机制：对第一个人来说，0-total所有金额都会付一遍，随后传递给下一个人，当只有一人时，付清所有余额并打印账单 传递参数：string,int的映射存储目前为止的账单，string集合存储所有付账者</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">void listPossiblePaymentsRec(int total, const Set&lt;string&gt;&amp; people,const Map&lt;string, int&gt;&amp; payments) &#123;</span><br><span class="line">    /* Base case: if there&#x27;s one person left, they have to pay the whole bill. */</span><br><span class="line">    if (people.size() == 1) &#123;</span><br><span class="line">        Map&lt;string, int&gt; finalPayments = payments;</span><br><span class="line">        finalPayments[people.first()] = total;</span><br><span class="line">        cout &lt;&lt; finalPayments &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    /* Recursive case: The first person has to pay some amount between 0 and the</span><br><span class="line">     * total amount. Try all of those possibilities.</span><br><span class="line">     */</span><br><span class="line">    else &#123;</span><br><span class="line">        for (int payment = 0; payment &lt;= total; payment++) &#123;</span><br><span class="line">            /* Create a new assignment of people to payments in which this first</span><br><span class="line">             * person pays this amount.</span><br><span class="line">             */</span><br><span class="line">            Map&lt;string, int&gt; updatedPayments = payments;</span><br><span class="line">            updatedPayments[people.first()] = payment;</span><br><span class="line">            listPossiblePaymentsRec(total - payment, people - people.first(),updatedPayments);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">void listPossiblePayments(int total, const Set&lt;string&gt;&amp; people) &#123;</span><br><span class="line">    /* Edge cases: we can&#x27;t pay a negative total, and there must be at least one</span><br><span class="line">     * person.</span><br><span class="line">     */</span><br><span class="line">    if (total &lt; 0) error(&quot;Guess you&#x27;re an employee?&quot;);</span><br><span class="line">    if (people.isEmpty()) error(&quot;Dine and dash?&quot;);</span><br><span class="line"> listPossiblePaymentsRec(total, people, &#123;&#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="递归寻找完全平方数列">递归寻找完全平方数列</h3>
+<p>主要参数为sofar——用于存储目前的序列和一个set用于存储还没放入数列的数字，`确保这两者同时被传递，且其并集为所有数字</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Optional&lt;Vector&lt;int&gt;&gt; findSquareSequence(int n) &#123;</span><br><span class="line">    /*Validate input.*/</span><br><span class="line">    if (n &lt; 0) &#123;</span><br><span class="line">        error(&quot;Don&#x27;t be so negative!&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /* Build a set of the numbers 1, 2, 3, ..., n. */</span><br><span class="line">    Set&lt;int&gt; options;</span><br><span class="line">    for (int i = 1; i &lt;= n; i++) &#123;</span><br><span class="line">        options += i;</span><br><span class="line">    &#125;</span><br><span class="line">    return findSequenceRec(options, &#123; &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Optional&lt;Vector&lt;int&gt;&gt; findSequenceRec(const Set&lt;int&gt;&amp; unused,</span><br><span class="line">                                      const Vector&lt;int&gt;&amp; soFar) &#123;</span><br><span class="line">    /*Base Case: If all numbers are used, we have our sequence!*/</span><br><span class="line">    if (unused.isEmpty()) &#123;</span><br><span class="line">        return soFar;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /* Recursive Case: Some number comes next. Try each of them and see which</span><br><span class="line">     * one we should pick.</span><br><span class="line">     */</span><br><span class="line">    for (int next: unused) &#123;</span><br><span class="line">        /* We can use this if either</span><br><span class="line">         *</span><br><span class="line">         * 1. the sequence is empty, so we&#x27;re first in line, or</span><br><span class="line">         * 2. the sequence is not empty, but we sum to a perfect square</span><br><span class="line">         *    with the previous term.</span><br><span class="line">         */</span><br><span class="line">        if (soFar.isEmpty() ||</span><br><span class="line">            isPerfectSquare(next + soFar[soFar.size() - 1])) &#123;</span><br><span class="line">            /* See what happens if we extend with this number. */</span><br><span class="line">            auto result = findSequenceRec(unused - next, soFar + next);</span><br><span class="line">            if (result != Nothing) &#123;</span><br><span class="line">                return result;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /* Tried all options and none of them worked. Oh well! */</span><br><span class="line">    return Nothing;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="汉诺塔递归">汉诺塔递归</h3>
+<p>假设有三座汉诺塔，<code>start ,temp ,finish</code> 对n层的汉诺塔问题，先考虑n-1层的，随后考虑n-2层，到最后只需要考虑两层问题，两层的汉诺塔非常容易解决，起点为start,终点是temp,临时塔为finish，最后我们得到temp上的两层汉诺塔 这时将start的3移动到finish塔，这时只要将两层汉诺塔转移到finish则完成了三层汉诺塔，这个过程中的起点为temp,终点是finish,临时塔是start 以此类推，四层塔基于三层塔，<code>n</code>层塔基于<code>n-1</code>塔，汉诺塔问题解决</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int moveTower(int numDisks, char start, char finish, char temp) &#123;</span><br><span class="line">    if (numDisks == 0) &#123;</span><br><span class="line">        return 0;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        int movesOne = moveTower(numDisks - 1, start, temp, finish);</span><br><span class="line">        moveSingleDisk(start, finish);</span><br><span class="line">        int movesTwo = moveTower(numDisks - 1, temp, finish, start);</span><br><span class="line"></span><br><span class="line">        return 1 + movesOne + movesTwo;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>课程笔记</category>
+        <category>数据结构与算法</category>
+      </categories>
+      <tags>
+        <tag>课程笔记</tag>
+        <tag>数据结构与算法</tag>
+        <tag>c++</tag>
+        <tag>斯坦福</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>基于斯坦福cs106l的c++编程规范笔记</title>
+    <url>/thinklive/48468/</url>
+    <content><![CDATA[<h2 id="c特性">c++特性</h2>
+<ul>
+<li>更好的C C++支持<code>命令式编程</code>，一种编程风格，其中程序按顺序执行的命令序列。从这个意义上讲，C++ 可以看作是对C 编程语言，使日常命令式编程更加直观和更容易使用。课程阅读器的这一部分介绍了一些 C++ 最常用的库,包括标准模板库，并展示了如何使用这些库来构建命令程式。 此外，它探索了最初出现在 C++ 语言中的新原语。C 编程语言，即指针、C 字符串和预处理器。 <span id="more"></span></li>
+<li>数据抽象</li>
+</ul>
+<p>C++与其兄弟C的最大区别在于_数据抽象_,程序执行的方式可以与程序执行的方式分开 程序员谈论那个程序。</p>
+<ul>
+<li>面向对象编程</li>
+</ul>
+<p>. 面向对象编程是一种完全不同的方式考虑程序设计，可以极大地简化复杂的软件系统。 钥匙 面向对象背后的概念很简单，但要真正体会到面向对象的力量 编程，您将需要一次又一次地看到它的运行情况。 这部分课程 读者探索了面向对象编程中的主要概念以及如何在 C++ 中实现它继承和多态。</p>
+<ul>
+<li>泛型编程</li>
+</ul>
+<p>泛型编程是一种编程风格，旨在构建可以解决一系列远远超出最初设想的问题的软件<br />
+履行。 虽然泛型编程的完整处理远远超出了介绍性的范围C++ 编程课，泛型编程的许多思想都可以访问并且可以从根本上改变了您对 C++ 编程的看法。</p>
+<h2 id="const">const</h2>
+<p>Can’t declare non-const reference to const variable Can’t declare non-const reference to const vari</p>
+<p><img src="/images/obsidian/20230215213916.png" title="image" alt="图片" /> <img src="/images/obsidian/20230215214023.png" title="image" alt="图片" /></p>
+<h2 id="模板">模板</h2>
+<p><img src="/images/obsidian/20230215215043.png" title="image" alt="图片" /> 函数指针：将函数作为对象传递</p>
+<h2 id="stl">stl</h2>
+<p>sequence:线性，有顺序 associative:不一定线性，有索引机制(map)</p>
+<p>vector:有顺序的相同类型的数据集合，大小可控制 ---子属性：<em>size:元素数量 ---capacity</em>:单个元素大小 <img src="/images/obsidian/20230214194657.png" title="image" alt="图片" /> vector最常用，deque用于首部插入场合，list用于多种列表</p>
+<p>associative(关联数组):有顺序的需要有比较方法，无序的需要哈希函数（更快） iterators（迭代器）：用于访问容器中的所有数据 --常用函数，begin(),end(),iter++,*(pointer),== !=,=（赋值,复制）, <img src="/images/obsidian/20230214200501.png" title="image" alt="图片" /> <img src="/images/obsidian/20230214200805.png" title="image" alt="图片" /> <img src="/images/obsidian/20230214201819.png" title="image" alt="图片" /></p>
+<h2 id="输入输出流">输入输出流</h2>
+<p>First call to std::cin &gt;&gt; creates a command line<br />
+prompt that allows the user to type until they hit enter</p>
+<ul>
+<li>Each &gt;&gt; ONLY reads until the next whitespace<br />
+</li>
+<li>Whitespace = tab, space, newline<br />
+</li>
+<li>Everything after the first whitespace gets saved and<br />
+used the next time std::cin &gt;&gt; is called<br />
+</li>
+<li>The place its saved is called a buffer <img src="/images/obsidian/20230213213832.png" title="image" alt="图片" /> <img src="/images/obsidian/20230213214430.png" title="image" alt="图片" /> <img src="/images/obsidian/20230213214751.png" title="image" alt="图片" /> <img src="/images/obsidian/20230214102508.png" title="image" alt="图片" /> <img src="/images/obsidian/20230214104421.png" title="image" alt="图片" /> <img src="/images/obsidian/20230214162731.png" title="image" alt="图片" /> <img src="/images/obsidian/20230214162820.png" title="image" alt="图片" /></li>
+</ul>
+<h2 id="hashmap的c实现">hashmap的c++实现</h2>
+<h3 id="相关函数">相关函数</h3>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">构造函数HashMap():</span><br><span class="line">接受参数count(值的个数),hash function(有默认值)</span><br><span class="line"></span><br><span class="line">参数(typename fitst,typename last,bucket_count,H)</span><br><span class="line">//用一个容器首尾指针初始化hashmap</span><br><span class="line">eg.</span><br><span class="line">hashmap&lt;k,m&gt; map&#123;vec.begin(),vec.end()&#125;</span><br><span class="line"></span><br><span class="line">参数(init_list init,bucket_count,H)</span><br><span class="line">//用容器直接初始化hashmap</span><br><span class="line">eg.</span><br><span class="line">HashMap&lt;char, int&gt; map&#123;&#123;&#x27;a&#x27;, 3&#125;, &#123;&#x27;b&#x27;, 5&#125;, &#123;&#x27;c&#x27;, 7&#125;&#125;;</span><br><span class="line"></span><br><span class="line">public:</span><br><span class="line">key-键</span><br><span class="line">mapped-被加密的值(int)</span><br><span class="line">H-哈希函数</span><br><span class="line">bucket_count(存储的键值对数组容量)</span><br><span class="line">load_factor(内联函数，返回size/bucket_count，即实际储存值的键值对)</span><br><span class="line">contains(参数const K&amp; key判断是否存在改键，返回bool值)</span><br><span class="line">at(参数k，返回mapped的引用)</span><br><span class="line">clear(清空键值对)</span><br><span class="line">insert(参数为键值对引用，返回一对pair&lt;iterator,bool&gt;,iter指向改键值对，无论是否已存在，bool表示是否成功添加，如为false则已存在该键值对)</span><br><span class="line">erase(key为参数，返回bool值)</span><br><span class="line">earse(iter为参数，返回该指针下一个位置)</span><br><span class="line">rehash(size_t为参数，重新哈希为给出的新的指针数组大小)</span><br><span class="line">begin(根据hashmap是否为const给出iter或const iter)</span><br><span class="line">end(返回伪指针)</span><br><span class="line">debug(打印所有哈希键值对以及哈希表所有参数，注意，必须基于重载&lt;&lt;运算符的基础)</span><br><span class="line"></span><br><span class="line">符号重载：</span><br><span class="line">M&amp; [](const key&amp; ,返回insert(key)的返回pair的first成员的second成员，即mapped值)</span><br><span class="line">//用于给key对应的value(mapped)赋值</span><br><span class="line"></span><br><span class="line">private:</span><br><span class="line">node(struct，包含next指针和value)</span><br><span class="line">nodepair(前后node的pair)</span><br><span class="line">findnode(参数key，返回指针对&lt;prev,curr&gt;)</span><br><span class="line">first_not_empty_bucket()</span><br><span class="line">make_iterator(参数node*curr)</span><br><span class="line">_bucket_array(vector&lt;node*&gt;,其中一个node*为ptr,则ptr-&gt;value为&lt;key ,mapped&gt;)</span><br><span class="line"></span><br><span class="line">//指针构造</span><br><span class="line"></span><br><span class="line">_bucket_array：由指针组成的数组,每个成员都是一个指针</span><br><span class="line">储存的值为next指针和一个pair&lt;key,mapped&gt;</span><br><span class="line">operator-&gt; is a bit of an odd-ball. When you write p-&gt;m, it is interpreted as (p.operator-&gt;())-&gt;m.</span><br><span class="line"></span><br><span class="line">- This means operator-&gt; should return a pointer to the object that has the field m.</span><br></pre></td></tr></table></figure>
+<h3 id="涉及的c特性">涉及的c++特性</h3>
+<p>匿名函数 基本lambda语法 基本形式如下： 【capture】（parameters）-&gt;return-type {body}</p>
+<p>typename function() return {x,y,z} 即用{}的参数初始化原函数返回的类型</p>
+<p>ptrdiff_t:用于储存两个指针的差</p>
+<p>conditional_t&lt;func,x,y&gt;如果func为true则x，为false则y</p>
+<p>forward_iterator_tag：单方向迭代器（可读写） ++iter，iter+=1随后返回对自身的引用 iter++，先返回一个对自身的复制，随后iter+=1</p>
+<p>std::move并不能移动任何东西，它唯一的功能是将一个左值强制转化为右值引用，继而可以通过右值引用使用该值，以用于移动语义。从实现上讲，std::move基本等同于一个类型转换：static_cast&lt;T&amp;&amp;&gt;(lvalue);</p>
+<p>ate：从文件尾部开始 strsub(start,length) 移动语义(c++11新特性) clss(classname &amp;&amp;) 利用右值引用的部分数据直接初始化新的类，并在初始化之后将右值删除，可以通过std::move()强制转化左值为右值。</p>
+]]></content>
+      <categories>
+        <category>课程笔记</category>
+        <category>数据结构与算法</category>
+      </categories>
+      <tags>
+        <tag>课程笔记</tag>
+        <tag>c++</tag>
+        <tag>斯坦福</tag>
       </tags>
   </entry>
   <entry>
@@ -10988,211 +11193,6 @@ used the next time std::cin &gt;&gt; is called<br />
         <tag>北京大学</tag>
         <tag>linux</tag>
         <tag>编程工具</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>基于c++ primer plus的读书笔记</title>
-    <url>/thinklive/15197/</url>
-    <content><![CDATA[<h1 id="c语言部分">c语言部分</h1>
-<h2 id="基本函数构成">基本函数构成</h2>
-<p>将数组传递为函数参数</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int fcname(int arg[],int n)</span><br></pre></td></tr></table></figure>
-<span id="more"></span>
-<h2 id="基本输入输出">基本输入输出</h2>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">- cin及其衍生函数返回一个iostream函数的引用，即支持</span><br><span class="line">cin,get().get()</span><br><span class="line">iostream的其他成员</span><br><span class="line">- cout.put()显示字符</span><br><span class="line">- cout.write()显示字符串</span><br><span class="line">- cout&lt;&lt;flush刷新缓冲区</span><br><span class="line">- cout&lt;&lt;endl刷新缓冲区并提供换行符</span><br><span class="line">- dec,hex,oct控制输出数制</span><br><span class="line">hex(cout)控制cout为16进制</span><br><span class="line">- int width()返回字段宽度当前设置</span><br><span class="line"> int width(int i)设置字段宽度，返回以前字段宽度 </span><br><span class="line"> 只影响下一次输出</span><br><span class="line"> - fill()设置填充用字符</span><br><span class="line"> - precision()设置精度，即保留几位小数</span><br><span class="line"> - setf()设置各种输出格式</span><br><span class="line"> - 流状态stream_state(eof,fail,bad)</span><br><span class="line"> - cin.get(ch)读取下一个字符，跳过换行符和空白</span><br><span class="line"> - cin.get()读取空白和换行符</span><br><span class="line"> - cin.get()get的基础上读取到换行符并丢弃</span><br><span class="line"> - cin.read()读取内容，但不会在末尾加空字符</span><br><span class="line"> - cin.peek()读取输入流下一个字符但不抽取</span><br><span class="line"> - cin.putback(ch)把一个字符放到输入流最前</span><br></pre></td></tr></table></figure>
-<h3 id="文件输入输出">文件输入输出</h3>
-<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">写入文件</span><br><span class="line">ofstream fout;//ofstream继承ostream</span><br><span class="line">fout.open(&quot;hello.txt&quot;);</span><br><span class="line">fout &lt;&lt; &quot;i&#x27;m adding sth&quot;</span><br><span class="line">|| ofstream fout(&quot;hello.txt&quot;);</span><br><span class="line">读取文件也类似</span><br><span class="line">fin &gt;&gt; ch||string</span><br><span class="line">关闭流</span><br><span class="line">fout.close()</span><br><span class="line">fin.close()</span><br><span class="line">检测文件是否打开</span><br><span class="line">if (!fin.is_open())</span><br><span class="line">设置文件输入输出格式</span><br><span class="line">ios_base::</span><br></pre></td></tr></table></figure></p>
-<h2 id="基本逻辑运算符">基本逻辑运算符</h2>
-<p>break打断循环 continue，跳到更新表达式前开始执行 非const引用的函数不接受const参数</p>
-<h2 id="基本数据类型">基本数据类型</h2>
-<p>结构数组</p>
-<figure class="highlight plaintext"><figcaption><span>stname;</span></figcaption><table><tr><td class="code"><pre><span class="line">stname stobj\[int x] =</span><br><span class="line">&#123;</span><br><span class="line">&#123;&#125;</span><br><span class="line">&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line">union(类似结构，但相同数据类型只存一种)</span><br><span class="line">每个指针需要一个*用于初始化</span><br><span class="line">int * intlist=new int [10]</span><br><span class="line">delete-new</span><br><span class="line">delete []-new []</span><br><span class="line">typedef typename aliasname</span><br></pre></td></tr></table></figure>
-<h2 id="名称空间">名称空间</h2>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#ifndef HNAME_H</span><br><span class="line">#define HNAME_H</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#endif</span><br></pre></td></tr></table></figure>
-<p>如果在遇到另一个定义HNAME_H的头文件时，将他忽略</p>
-<p>作用域： 1默认情况下，函数中声明的变量作用域位于代码块内，如果函数内外都声明一个同名变量，运行至内部代码块使用内部，离开代码块使用外部 2静态变量存在于整个程序运行周期，脱离作用域后只是无法使用并不消失 代码块外声明且不带static关键字：链接性外部，可以在其他程序使用 代码块外声明，且使用static：链接性内部，可以在整个程序使用 代码块内声明，且使用static：作用域于代码块内，但始终存在//由于静态变量只可以定义一次，所以即使离开代码块后变量依旧存在，且值不变，直到下一次修改 3运算符::放置于变量前时，使用同名变量（如果有）的全局版本 4namespace{</p>
-<p>} 无法放置于代码块内，因此默认为全局名称，可以囊括声明和定义，可以随时添加 定义于类声明的函数自动成为内联函数</p>
-<h1 id="c特性">c++特性</h1>
-<h2 id="class">class</h2>
-<p>1声明构造函数时，尽量使用explicit(显性转换)前缀，防止隐性转换带来的问题 mutable(摆动的)前缀声明变量，表示这些变量可能在const成员函数内被更改 用const_cast&lt;&gt;和static_cast&lt;&gt;与this指针可以实现const成员函数向非const的转变，反之则是错误的</p>
-<p>2class初始化成员时，按构造函数声明变量的顺序，因此初始化成员时最好也以此顺序初始化 如果不希望class有copy和赋值(=)操作，则应该在private里定义copy和=运算符</p>
-<p>3基类引用可以指向派生类对象，无需进行强制类型转换</p>
-<p>4定义于类声明的函数自动成为内联函数</p>
-<p>5类的函数对所有对象共用，但数据则各自私有</p>
-<p>6要创造类对象数组，该类必须有默认构造函数</p>
-<p>7只有一个构造函数参数的构造函数可以用于类的自动转换 classname t; t=20; 如果想禁止这种转换，可以声明explicit给构造函数</p>
-<p>8类声明中可定义对于某种基本类型的转换函数 operator int();//可声明为显式转换，尽量避免过多的转换造成二义性</p>
-<p>9如果定义类成员参数为static，则它在程序中只有一个地址，可以被所有类成员共享 但通过static实现共享成员时，需要重新定义复制和赋值函数来避免问题</p>
-<h3 id="动态类的注意事项">动态类的注意事项</h3>
-<p>*构造函数中如果用new初始化指针成员，则应该在析构函数中使用delete new对应delete,new[]对应delete[] 对多个构造函数，应用和析构函数兼容的new来初始化成员 重构复制和赋值运算符来实现深复制</p>
-<p>10对于使用new创建的类，使用delete时其析构函数才会被调用 如果在使用new时，将对象地址赋予一个指针时，如果删除指针，则对应的对象会调用自己的析构函数 对与使用定位new创建的类对象，需要显式调用析构函数 object-&gt;~classname(); 且应该以创建顺序的相反顺序调用，因为后创建的对象可能依赖于前者</p>
-<h3 id="类继承">类继承</h3>
-<h4 id="公有继承">公有继承</h4>
-<p>class sonclassname: public fatherclassname 派生类继承了基类的公有接口和数据 但只能用基类public和protected函数访问基类私有数据 派生类可添加函数和数据成员 派生类需要自己的构造函数，并由于权限问题，其构造函数必须包括基类构造函数，并且同样可以使用成员初始化列表 <code>指针</code> 基类指针和引用可以在不显式转化的情况下指向派生类对象反过来却不行 <code>虚函数</code></p>
-<ul>
-<li>对于基类和派生类的同名函数： 如果函数通过引用或指针调用，将确定使用哪种方法 ￥如果没有使用关键字virual，将根据引用类型或指针类型选择方法。 如果使用了关键字virtual，将根据引用或指针指向对象的类型选择方法</li>
-<li>构造函数不能为虚函数</li>
-<li>析构函数应当为虚函数</li>
-<li>友元函数并非类成员，但可以使用虚函数</li>
-<li>**重新定义继承方式（虚实）并非重载，会覆盖掉原先的虚函数定义，如果必须重新定义，则需要重新定义使用基类虚函数</li>
-</ul>
-<p><code>纯虚函数</code> virual typename func() const=0; 含有虚函数的类不能创建实例，只能用作基类</p>
-<p><code>访问控制（protected）</code> 派生类成员函数可以访问protected成员，不能访问private成员</p>
-<h4 id="私有继承">私有继承</h4>
-<p>使用私有继承，基类的公有成员和保护成员都成为派生类的私有成员，只可以在派生类的成员函数中使用，可以实现has_a关系 私有继承访问基类方法时需要调动基类的命名空间 <code>访问基类对象</code> 如果要直接访问基类对象，则需要调用强制类型转化将派生类转化为基类</p>
-<h4 id="保护继承">保护继承</h4>
-<p>保护继承时，基类的公有和保护成员都成为派生类的保护成员，基类接口在派生类中可用</p>
-<p>通过using指令可以让私有函数被当前作用域可用</p>
-<h2 id="命令行参数">命令行参数</h2>
-<p>int main(int argc,char* argv[]) argc为参数个数 argv为参数组成的字符串</p>
-<h2 id="字符输入">字符输入</h2>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cin &gt;&gt; ***(读取输入中的结束字符为结束标志，会将换行符留在输入流)</span><br><span class="line">getline(stringname,length)通过换行符确定输入结束点</span><br><span class="line">cin.get()读取到换行符之前，不带参数则读取下一个字符(用于清除换行符)</span><br><span class="line">cin.clear()清空输入流</span><br><span class="line">&lt;string&gt;</span><br><span class="line">重载符号+实现拼接</span><br><span class="line">str.size()</span><br><span class="line">输入字符串使用getline(cin,str)</span><br><span class="line">结构数组</span><br><span class="line">struct stname;</span><br><span class="line">stname stobj[int x] =</span><br><span class="line">&#123;</span><br><span class="line">&#123;&#125;</span><br><span class="line">&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line">字符函数库&lt;cctype&gt;</span><br><span class="line">isspace(ch)测试是否空白</span><br><span class="line">isalpha(ch)是否字符</span><br><span class="line">isdigit()是否数字</span><br><span class="line">ispunct()是否标点</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cin &gt;&gt; ***(读取输入中的结束字符为结束标志，会将换行符留在输入流)</span><br><span class="line">getline(stringname,length)通过换行符确定输入结束点</span><br><span class="line">cin.get()读取到换行符之前，不带参数则读取下一个字符(用于清除换行符)</span><br><span class="line">cin.clear()清空输入流</span><br></pre></td></tr></table></figure>
-<p>&lt;string&gt; 重载符号+实现拼接 str.size() 输入字符串使用getline(cin,str) 结构数组 struct stname; stname stobj[int x] = { {} {} } 字符函数库&lt;cctype&gt; isspace(ch)测试是否空白 isalpha(ch)是否字符 isdigit()是否数字 ispunct()是否标点</p>
-<h2 id="指针">指针</h2>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1，c++没有溢出检测机制，</span><br><span class="line">char name[]=&quot;hello&quot;;</span><br><span class="line">char c =name[10]导致未定义行为</span><br><span class="line">2，用一个常量指针指向常量需要两次const</span><br><span class="line">const char* const name=&quot;hhh&quot;</span><br><span class="line">如果需要一个class专属常量，则使用</span><br><span class="line">static const ***</span><br><span class="line">实现文件中，const int classname:: ***</span><br><span class="line">对于宏：</span><br><span class="line">template &lt;typename T&gt;</span><br><span class="line">inline functionname</span><br><span class="line">3,const 出现在*左侧表示被指物为常量，右侧表示指针为常量指针</span><br><span class="line">4,函数名就是函数的地址</span><br><span class="line">double pam(int);</span><br><span class="line">double(*pt)(int);</span><br><span class="line">pt即为函数指针</span><br><span class="line">如果需要一个函数以相同相同返回值和参数的函数为一个参数，则可以考虑函数指针</span><br><span class="line">5，内联函数不能递归</span><br><span class="line">6,引用容器时，如果迭代器不引用，仍然传递临时副本o</span><br><span class="line">7,函数传递指针时按值传递，当向函数传递指针时，指针是按值传递的！这意味着你可以改变被指向的数组内容，因为在调用函数时，这些元素不会被复制！这意味着你可以改变被指向的数组的内容，因为这些元素在函数被调用时并没有被复制。另一方面，如果你改变了所指向的数组，这种改变在函数之外不会持续，因为你只改变了指针的拷贝，而不是原来的指针本身。</span><br></pre></td></tr></table></figure>
-<h3 id="智能指针">智能指针</h3>
-<p>auto_ptr&lt;string&gt; 和&lt;unique_ptr&gt;指针采用所有权模型，对特定对象只有一个智能指针可以拥有它，只有拥有它的指针可以删除它 shared_ptr&lt;string&gt;追踪引用对象的智能指针数量，最后一个指针过期时才会调用delete 使用new分配内存才能使用auto_ptr,unique_ptr</p>
-<h2 id="异常">异常</h2>
-<h3 id="try_catch">try_catch</h3>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">try&#123;</span><br><span class="line"> func();</span><br><span class="line">&#125;</span><br><span class="line">catch(errortype e1)&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">func()</span><br><span class="line">&#123;</span><br><span class="line"> do sth;</span><br><span class="line"> throw(error_type e1);8</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><code>栈解退</code> 假设try块没有直接调用引发异常的函数，而是调用对引发异常的函数进行调用的函数，则程序从引发异常的函数跳到包含try块和处理程序的函数（追踪到一个地址位于try块的返回地址） <code>其他异常特性</code></p>
-<ul>
-<li>throw-catch类似函数参数和返回，但函数返回语句将控制器交给调用函数的函数，但throw语句将控制权向上返回到第一个这样的函数，包含能捕获相应异常的try-catch组合</li>
-<li>throw语句总是生成副本，但catch参数使用基类引用能捕获所有派生类的异常对象</li>
-</ul>
-<h4 id="exception类">exception类</h4>
-<p>exception类可作为其他异常类的基类，用what的虚函数（返回一个字符串）重载来指示错误类型 <code>失败时返回空指针的语法</code></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int * pi= new (std::nothrow) int;</span><br></pre></td></tr></table></figure>
-<h3 id="未捕获异常">未捕获异常</h3>
-<p>未捕获的异常会使程序调用函数terminate(),默认情况下，terminate()调用abort()函数，可以指定terminate()调用的函数来修改其行为</p>
-<h2 id="一些新特性">一些新特性</h2>
-<h3 id="关键字">关键字</h3>
-<p>关键字nullptr表示空指针</p>
-<h3 id="rtti运行阶段类型识别">RTTI(运行阶段类型识别)</h3>
-<h4 id="dynamiccast">dynamic——cast</h4>
-<p>danamic_cast&lt;type *&gt; (pt) 如果可以安全将pt转化为type*指针，返回对象地址，否则返回空指针 如果对引用使用，错误时返回bad_cast异常</p>
-<h4 id="typeid和type_info">typeid和type_info</h4>
-<p>typeid返回对type_info对象的引用，type_ifo是定义在typeinfo的类，重载==和!=预算符，例如 typeid(obj1)==typeid(obj2)</p>
-<h3 id="类型转换运算符">类型转换运算符</h3>
-<ul>
-<li>dynamic_cast</li>
-<li>const_cast</li>
-<li>static_cast</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">//用于执行各种类型的数值转换static_cast &lt;typename&gt; (expression)</span><br><span class="line">//转换是允许隐式转换时才能通过（派生类和基类可以互相转换）</span><br></pre></td></tr></table></figure>
-<ul>
-<li>reinterpret_cast /执行危险的转换</li>
-</ul>
-<p>移动语义 通过指针转移右值的地址给新对象 或通过std::move()将左值转化为右值</p>
-<p>someclass()=default default关键字显式声明编译器创建默认构造函数，复制构造函数 delete用于禁止类中的函数</p>
-<p>关键字override可用于覆盖虚函数定义</p>
-<h3 id="匿名函数">匿名函数</h3>
-<p>返回类型编译器自动确定，可直接作为函数指针使用</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[] (double x) &#123;return x%3==0;&#125; </span><br></pre></td></tr></table></figure>
-<p>可以返回类型后置</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[] (double x)-&gt; double&#123;int y = x;return y-x;&#125;</span><br></pre></td></tr></table></figure>
-<p>可以给匿名函数命名</p>
-]]></content>
-      <categories>
-        <category>课程笔记</category>
-        <category>其他</category>
-      </categories>
-      <tags>
-        <tag>c++</tag>
-        <tag>读书笔记</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>基于斯坦福cs106b的c++数据结构笔记</title>
-    <url>/thinklive/16615/</url>
-    <content><![CDATA[<h2 id="一些查找和排序算法">一些查找和排序算法</h2>
-<p>二分查找法 <img src="/images/obsidian/20230226101843.png" title="image" alt="图片" /> 最坏情况：log2n <span id="more"></span> 寻找最小排序 <img src="/images/obsidian/20230224172126.png" title="image" alt="图片" /> 向前插入算法 <img src="/images/obsidian/20230226090109.png" title="image" alt="图片" /></p>
-<p>合并算法接受两个排序的 列出并将它们组合成一个 排序列表。 ● 虽然两个列表都是非空的，但比较它们的 第一要素。 删除较小的元素 并将其附加到输出。 ● 一旦一个列表为空，添加所有元素 另一个列表输出。 ● 它运行时间为 O(n)，其中 n 是总数 合并的元素数量。 <img src="/images/obsidian/20230226090958.png" title="image" alt="图片" /> 无限递归后的合并算法 <img src="/images/obsidian/20230226093232.png" title="image" alt="图片" /> 复杂度：nlog2n</p>
-<h2 id="容器类">容器类</h2>
-<p><code>set（集合）：无序不允许重复的容器类，可以添加删除元素 You can add a value to a Set by writing   set += value;  s. ● You can remove a value from a Set by writing   set -= value;   ● You can check if a value exists in a Set by writing   set.contains(value)</code>map(键值对的集合) 如果没有对应key的value，返回默认值（见定义文件） `vector vector的remove根据移除元素的索引有1-n的复杂度，移除尾部为O(1)，如果不在意索引，可以交换要移除元素和尾部元素再移除</p>
-<h1 id="哈希表">哈希表</h1>
-<p>哈希表的负载因子α表示元素和表格键数量的比，决定了查找速度</p>
-<h2 id="检查表中是否存在元素">检查表中是否存在元素</h2>
-<p>● 计算元素的散列码。 ● 跳转到表格中的那个位置。 ● 向前扫描——必要时环绕——直到项目或一个 发现空插槽。</p>
-<h2 id="将元素插入表中">将元素插入表中</h2>
-<p>● 如果项目已经存在，什么也不做。 ● 否则，跳转到元素哈希码给定的槽。 向前走——必要时环绕——直到一个空白点或 找到墓碑插槽。 然后，将项目放在那里。</p>
-<h2 id="从表中删除一个元素">从表中删除一个元素</h2>
-<p>● 跳转到由元素的散列码给定的槽。 ● 向前走——必要时环绕——直到物品或 发现空插槽。 如果找到该项目，请将其替换为 墓碑。</p>
-<h2 id="罗宾汉哈希表">“罗宾汉哈希表”</h2>
-<ul>
-<li>如果插入的值比其将插入的位置的值距离索引更远，则替换插入值和当前值</li>
-<li>删除值时，将后其离原键远的元素前移</li>
-<li>★ 罗宾汉哈希一览 ★</li>
-<li>检查表中是否存在元素：</li>
-<li>● 跳转到表中由元素的散列码给出的位置。</li>
-<li>● 向前扫描——如有必要环绕——记录有多少步 你拿走了。 当您找到该项目、找到一个空白槽或找到一个 离家更近的空位比你走的步数还多。</li>
-<li>将元素插入表中：</li>
-<li>● 如果该元素已在表中，则什么也不做。</li>
-<li>● 跳转到由元素的散列码给出的表槽。 向前扫描 - 换行 如有必要，四处走走——记录所走的步数。 如果你找到一个 空插槽，将元素放在那里。 否则，如果当前插槽已满并且 比您插入的元素更靠近家，将要插入的项目放在那里， 替换那个位置的元素，然后继续插入，就好像你 正在插入被置换的元素。</li>
-<li>从表中删除一个元素：</li>
-<li>● 跳转到由元素的散列码给定的槽。</li>
-<li>● 向前走——如有必要，环绕——直到物品或空槽被放置 成立。 如果找到该项目，请将其删除。 然后，继续前进——包裹 around as necessary – 将表中的元素向后移动一个槽位，直到 找到空插槽或位于其原始位置的项目</li>
-</ul>
-<h2 id="string类">string类</h2>
-<p>str::npos表示容器的最后一个成员位置 if (s.find("e") != string::npos) //find函数找不到时返回npos if s in str: string obj; obj.substr(int pos) //pos为要包含的第一个字符串的位置 <a href="http://en.cppreference.com/w/cpp/string/basic_string">std::string</a> a = "0123456789abcdefghij";</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">    // count is npos, returns [pos, size())</span><br><span class="line">    [std::string](http://en.cppreference.com/w/cpp/string/basic_string) sub1 = a.substr(10);</span><br><span class="line">    [std::cout](http://en.cppreference.com/w/cpp/io/cout) &lt;&lt; sub1 &lt;&lt; &#x27;\n&#x27;;</span><br><span class="line"></span><br><span class="line">    // both pos and pos+count are within bounds, returns [pos, pos+count)</span><br><span class="line">    [std::string](http://en.cppreference.com/w/cpp/string/basic_string) sub2 = a.substr(5, 3);</span><br><span class="line">    [std::cout](http://en.cppreference.com/w/cpp/io/cout) &lt;&lt; sub2 &lt;&lt; &#x27;\n&#x27;;</span><br><span class="line"></span><br><span class="line">    // pos is within bounds, pos+count is not, returns [pos, size())</span><br><span class="line">    [std::string](http://en.cppreference.com/w/cpp/string/basic_string) sub4 = a.substr(a.size()-3, 50);</span><br><span class="line">    // this is effectively equivalent to</span><br><span class="line">    // std::string sub4 = a.substr(17, 3);</span><br><span class="line">    // since a.size() == 20, pos == a.size()-3 == 17, and a.size()-pos == 3</span><br><span class="line"></span><br><span class="line">    [std::cout](http://en.cppreference.com/w/cpp/io/cout) &lt;&lt; sub4 &lt;&lt; &#x27;\n&#x27;;</span><br><span class="line"></span><br><span class="line">    try &#123;</span><br><span class="line">        // pos is out of bounds, throws</span><br><span class="line">        [std::string](http://en.cppreference.com/w/cpp/string/basic_string) sub5 = a.substr(a.size()+3, 50);</span><br><span class="line">        [std::cout](http://en.cppreference.com/w/cpp/io/cout) &lt;&lt; sub5 &lt;&lt; &#x27;\n&#x27;;</span><br><span class="line">    &#125; catch(const [std::out_of_range](http://en.cppreference.com/w/cpp/error/out_of_range)&amp; e) &#123;</span><br><span class="line">        [std::cout](http://en.cppreference.com/w/cpp/io/cout) &lt;&lt; &quot;pos exceeds string size\n&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">输出：</span><br><span class="line">abcdefghij</span><br><span class="line">567</span><br><span class="line">hij</span><br><span class="line">pos exceeds string size</span><br></pre></td></tr></table></figure>
-<p>`replace和insert str1.insert(start, str2) str1.replace(start, length, str2)</p>
-<h2 id="一些实现">一些实现</h2>
-<h3 id="优先队列">优先队列</h3>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># include &quot;HeapPQueue.h&quot;</span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">HeapPQueue::HeapPQueue() &#123;</span><br><span class="line">    elems = new DataPoint[INITIAL_SIZE] &#123;&#125;;</span><br><span class="line">    for (int i=0;i&lt;INITIAL_SIZE;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        elems[i].weight=0;</span><br><span class="line">    &#125;</span><br><span class="line">    allocatedSize=INITIAL_SIZE;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">HeapPQueue::~HeapPQueue() &#123;</span><br><span class="line">    delete [] elems;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int HeapPQueue::size() const &#123;</span><br><span class="line">    return logicalSize;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">bool HeapPQueue::isEmpty() const &#123;</span><br><span class="line">    return logicalSize==0;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void HeapPQueue::enqueue(const DataPoint&amp; data) &#123;</span><br><span class="line">    if (logicalSize+1&lt;allocatedSize)</span><br><span class="line">    &#123;</span><br><span class="line">        if (logicalSize==0)</span><br><span class="line">        &#123;</span><br><span class="line">            elems[1]=data;</span><br><span class="line">            logicalSize++;</span><br><span class="line">        &#125;</span><br><span class="line">        else</span><br><span class="line">        &#123;</span><br><span class="line">            logicalSize++;</span><br><span class="line">            int i=1;</span><br><span class="line">            while (data.weight&gt;elems[i].weight &amp;&amp; i&lt;=logicalSize &amp;&amp; elems[i].weight!=0)</span><br><span class="line">            &#123;</span><br><span class="line">                i++;</span><br><span class="line">            &#125;</span><br><span class="line">            if (i&lt;logicalSize)</span><br><span class="line">            &#123;</span><br><span class="line">                DataPoint temp=elems[i];</span><br><span class="line">                elems[i]=data;</span><br><span class="line">                for(i;i&lt;logicalSize;i++)</span><br><span class="line">                &#123;</span><br><span class="line">                    DataPoint temp_plus=elems[i+1];</span><br><span class="line">                    elems[i+1]=temp;</span><br><span class="line">                    temp=temp_plus;</span><br><span class="line"></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            else</span><br><span class="line">            &#123;</span><br><span class="line">                elems[i]=data;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">DataPoint HeapPQueue::peek() const &#123;</span><br><span class="line">    return elems[logicalSize];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">DataPoint HeapPQueue::dequeue() &#123;</span><br><span class="line">    DataPoint to_return=elems[1];</span><br><span class="line">    if(!isEmpty())</span><br><span class="line">    &#123;</span><br><span class="line"></span><br><span class="line">        for (int i=1;i&lt;logicalSize;i++)</span><br><span class="line">        &#123;</span><br><span class="line">            elems[i]=elems[i+1];</span><br><span class="line">        &#125;</span><br><span class="line">        elems[logicalSize]=&#123;&#125;;</span><br><span class="line">        logicalSize--;</span><br><span class="line">    &#125;</span><br><span class="line">    return to_return;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h3 id="计数排序">计数排序</h3>
-<p>首先算出最大值，然后用一个数组的索引存储待排序数组的成员，其索引对应值存储出现次数，然后用两个同步的for循环和递增的next参数表示排序中的索引值来进行排序（也就是重新赋值）</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/* Given a Vector&lt;int&gt;, returns the largest number in that Vector. */</span><br><span class="line">int maxOf(const Vector&lt;int&gt;&amp; values) &#123;</span><br><span class="line">    /* Bounds-check inputs. */</span><br><span class="line">    if (values.isEmpty()) &#123;</span><br><span class="line">        error(&quot;Can&#x27;t find the maximum of no values.&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    int result = values[0];</span><br><span class="line">    for (int i = 1; i &lt; values.size(); i++) &#123;</span><br><span class="line">        result = max(result, values[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    return result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/* Given a list of numbers, creates a histogram from those numbers. */</span><br><span class="line">Vector&lt;int&gt; histogramFor(const Vector&lt;int&gt;&amp; values) &#123;</span><br><span class="line">    /* Create a histogram with the right number of slots. Initially, all values</span><br><span class="line">     * in the histogram will be zero.</span><br><span class="line">     */</span><br><span class="line">    Vector&lt;int&gt; histogram(maxOf(values) + 1);</span><br><span class="line">    </span><br><span class="line">    /* Scan across the input vector, incrementing the histogram values. */</span><br><span class="line">    for (int value: values) &#123;</span><br><span class="line">        histogram[value]++;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    return histogram;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void countingSort(Vector&lt;int&gt;&amp; values) &#123;</span><br><span class="line">    /* Edge Case: If the array is empty, then it&#x27;s already sorted. This is</span><br><span class="line">     * needed because we can&#x27;t take the maximum value of an empty vector.</span><br><span class="line">     */</span><br><span class="line">    if (values.isEmpty()) &#123;</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    /* Form the histogram. */</span><br><span class="line">    auto histogram = histogramFor(values);</span><br><span class="line">    </span><br><span class="line">    /* Scan across the histogram writing out the appropriate number of copies</span><br><span class="line">     * of each value. We track the index of the next free spot to write to,</span><br><span class="line">     * as it varies based on how many items we&#x27;ve written out so far.</span><br><span class="line">     */</span><br><span class="line">    int next = 0;</span><br><span class="line">    for (int value = 0; value &lt; histogram.size(); value++) &#123;</span><br><span class="line">        /* Write out the right number of copies. */</span><br><span class="line">        for (int copy = 0; copy &lt; histogram[value]; copy++) &#123;</span><br><span class="line">            values[next] = value;</span><br><span class="line">            next++;    </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h2 id="错题集">错题集</h2>
-<h3 id="递归的效率优化">递归的效率优化</h3>
-<p>每次递归都会创造所有变量的临时复制 基于递归的这种性质，它会需要巨大的时间和空间来完成任务，并且会造成算力上的浪费。 通过记忆表机制能部分解决这个问题，方法是每次递归的返回值都会按索引存入一个表格，并且每次递归前查询表格中是否有结果，这样可以让每个临时副本的运算结果能被所有函数共享。</p>
-<h3 id="递归计算给定元素的不同结构哈夫曼树的数量">递归计算给定元素的不同结构哈夫曼树的数量</h3>
-<p>对每个给定元素集来说，首先要做到是确定根节点元素是第几个大的元素，确定之后，左子树和右子树的元素数也随之确定，在此之后分别对左节点和右节点作为根节点做同样的递归</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">int numBSTsOfSize(int n) &#123;</span><br><span class="line"></span><br><span class="line">  /* Base case: There’s only one tree of size 0, namely, the empty BST. */</span><br><span class="line">  if (n == 0) return 1;</span><br><span class="line">  </span><br><span class="line">  /* Recursive case: Imagine all possible ways to choose a root and build the</span><br><span class="line">   * left and right subtrees.</span><br><span class="line">  */</span><br><span class="line">  int result = 0;</span><br><span class="line">  </span><br><span class="line">  /* Put the the nodes at indices 0, 1, 2, ..., n-1 up at the root. */</span><br><span class="line">  for (int i = 0; i &lt; n; i++) &#123;</span><br><span class="line">    /* Each combination of a BST of i elements and a BST of n - 1 - i elements</span><br><span class="line">     * can be used to build one BST of n elements. The number of pairs of</span><br><span class="line">     * trees we can make this way is given by the product of the number of</span><br><span class="line">     * trees of each type.</span><br><span class="line">     */</span><br><span class="line">     result += numBSTsOfSize(i) * numBSTsOfSize(n - 1 - i);</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  return result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="递归解决吃巧克力问题">递归解决吃巧克力问题</h3>
-<h1 id="求出吃法数量">求出吃法数量</h1>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">if (numSquares&lt;0)</span><br><span class="line">&#123;</span><br><span class="line">    error(&quot;输入数据不能为负数&quot;);</span><br><span class="line">&#125;</span><br><span class="line">else if (numSquares&lt;=1)</span><br><span class="line">&#123;</span><br><span class="line">    return 1;</span><br><span class="line">&#125;</span><br><span class="line">else</span><br><span class="line">&#123;</span><br><span class="line">    return numWaysToEat(numSquares-1)+numWaysToEat(numSquares-2);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="打印每种吃法">打印每种吃法</h1>
-<p>`需要一个辅助向量储存历史记录</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/* Print all ways to eat numSquares more squares, given that we&#x27;ve</span><br><span class="line"> * already taken the bites given in soFar.</span><br><span class="line"> */</span><br><span class="line">void printWaysToEatRec(int numSquares, const Vector&lt;int&gt;&amp; soFar) &#123;</span><br><span class="line">    /* Base Case: If there are no squares left, the only option is to use</span><br><span class="line">     * the bites we&#x27;ve taken already in soFar.</span><br><span class="line">     */</span><br><span class="line">    if (numSquares == 0) &#123;</span><br><span class="line">        cout &lt;&lt; soFar &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    /* Base Case: If there is one square lfet, the only option is to eat</span><br><span class="line">     * that square.</span><br><span class="line">     */</span><br><span class="line">    else if (numSquares == 1) &#123;</span><br><span class="line">        cout &lt;&lt; soFar + 1 &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    /* Otherwise, we take take bites of size one or of size two. */</span><br><span class="line">    else &#123;</span><br><span class="line">        printWaysToEatRec(numSquares - 1, soFar + 1);</span><br><span class="line">        printWaysToEatRec(numSquares - 2, soFar + 2);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void printWaysToEat(int numSquares) &#123;</span><br><span class="line">    if (numSquares &lt; 0) &#123;</span><br><span class="line">        error(&quot;You owe me some chocolate!&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /* We begin without having made any bites. */</span><br><span class="line">    printWaysToEatRec(numSquares, &#123;&#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="递归解决翻煎饼问题">递归解决翻煎饼问题</h3>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">bool isSorted(Stack&lt;double&gt; pancakes) &#123;</span><br><span class="line">    double last = -1; // No pancakes have negative size;</span><br><span class="line"></span><br><span class="line">    while (!pancakes.isEmpty()) &#123;</span><br><span class="line">        /* Check the next pancake. */</span><br><span class="line">        double next = pancakes.pop();</span><br><span class="line">        if (next &lt; last) &#123;</span><br><span class="line">            return false;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        last = next;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /* Pancakes are in increasing order! */</span><br><span class="line">    return true;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/* Given a stack of pancakes and a flip size, flips that many pancakes</span><br><span class="line"> * on the top of the stack.</span><br><span class="line"> */</span><br><span class="line">Stack&lt;double&gt; flip(Stack&lt;double&gt; pancakes, int numToFlip) &#123;</span><br><span class="line">    /* Take the top pancakes off the stack and run them into a queue.</span><br><span class="line">     * This preserves the order in which they were removed.</span><br><span class="line">     */</span><br><span class="line">    Queue&lt;double&gt; buffer;</span><br><span class="line">    for (int i = 0; i &lt; numToFlip; i++) &#123;</span><br><span class="line">        buffer.enqueue(pancakes.pop());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /* Move the pancakes back. */</span><br><span class="line">    while (!buffer.isEmpty()) &#123;</span><br><span class="line">        pancakes.push(buffer.dequeue());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return pancakes;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Optional&lt;Vector&lt;int&gt;&gt; sortStack(Stack&lt;double&gt; pancakes, int numFlips) &#123;</span><br><span class="line">    /* Base Case: If the stack is sorted, great! We&#x27;re done, and no flips</span><br><span class="line">     * were needed.</span><br><span class="line">     */</span><br><span class="line">    if (isSorted(pancakes)) &#123;</span><br><span class="line">        return &#123; &#125;; // No flips</span><br><span class="line">    &#125;</span><br><span class="line">    /* Base Case: If the stack isn&#x27;t sorted and we&#x27;re out of flips, then</span><br><span class="line">     * there is no way to sort things.</span><br><span class="line">     */</span><br><span class="line">    else if (numFlips == 0) &#123;</span><br><span class="line">        return Nothing;</span><br><span class="line">    &#125;</span><br><span class="line">    /* Recursive Case: The stack isn&#x27;t sorted and we still have flips left.</span><br><span class="line">     * The next flip could flip 1, 2, 3, ..., or all N of the pancakes.</span><br><span class="line">     * Try each option and see whether any of them work.</span><br><span class="line">     */</span><br><span class="line">    for (int numToFlip = 1; numToFlip &lt;= pancakes.size(); numToFlip++) &#123;</span><br><span class="line">        /* Make the flip and see if it works. */</span><br><span class="line">        auto result = sortStack(flip(pancakes, numToFlip), numFlips - 1);</span><br><span class="line">        if (result != Nothing) &#123;</span><br><span class="line">            /* The result holds all the remaining flips but doesn&#x27;t know about</span><br><span class="line">             * the flip we just did. Insert that flip at the beginning.</span><br><span class="line">             */</span><br><span class="line">            result.value().insert(0, numToFlip);</span><br><span class="line">            return result;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /* If we&#x27;re here, then no matter which flip we make first, we cannot</span><br><span class="line">     * get the pancakes sorted. Give up.</span><br><span class="line">     */</span><br><span class="line">    return Nothing;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="递归解决天平问题">递归解决天平问题</h3>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">bool isMeasurableRec(int amount, const Vector&lt;int&gt;&amp; weights, int index) &#123;</span><br><span class="line">  if (index == weights.size()) &#123;</span><br><span class="line">      return amount == 0;</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">      return isMeasurableRec(amount,                  weights, index + 1) ||</span><br><span class="line">             isMeasurableRec(amount + weights[index], weights, index + 1) ||</span><br><span class="line">             isMeasurableRec(amount - weights[index], weights, index + 1);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">bool isMeasurable(int amount, const Vector&lt;int&gt;&amp; weights) &#123;</span><br><span class="line">    return isMeasurableRec(amount, weights, 0);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>想象一下，我们首先将要测量的数量（称为 <em>n</em> ）放在天平的左侧。 这使得规模上的不平衡等于 <em>n</em> 。 想象一下，有某种方法可以测量 <em>n</em> 。 如果我们一次将一个重量放在秤上，我们可以查看第一个重量的放置位置（假设它的重量为 <em>w</em> ）。 它必须：</p>
-<ul>
-<li>向左走，使规模上的净不平衡 <em>n + w</em> ，或</li>
-<li>向右走，使规模上的净不平衡 <em>n – w</em> ，或</li>
-<li>根本不习惯，留下净不平衡 <em>n</em> 。</li>
-</ul>
-<p>如果确实有可能测量 <em>n</em> ，那么这三个选项之一必须是实现它的方法，即使我们不知道它是哪一个。 然后我们要问的问题是，是否有可能使用剩余的权重来衡量新的净失衡——我们可以递归地确定！ 另一方面，如果无法测量 <em>n</em> ，那么无论我们选择哪个选项，我们都会发现没有办法使用剩余的权重来使一切平衡！</p>
-<p>如果我们递归地进行，我们在这里，我们需要考虑我们的基本情况。 我们可以选择的选项有很多。 一个简单的方法如下：假设我们根本没有任何重量，我们被要求查看是否可以不使用重量来测量某些重量。 在什么情况下我们可以这样做？ 好吧，如果我们称重的东西有一个非零重量，我们就不可能测量它——把它放在秤上会使它倾斜到某一边，但这并不能告诉我们它有多少重量。 另一方面，如果我们称量的东西是完全失重的，那么把它放在秤上也不会导致它倾斜，让我们相信它确实是失重的！ 因此，作为我们的基本情况，我们会说当我们减少到没有剩余权重时， <em>，我们可以精确测量n</em> 如果 <em>n = 0</em> 。 考虑到这一点，这是我们的代码：</p>
-<h3 id="递归解决找零问题">递归解决找零问题</h3>
-<h1 id="不使用记忆的情况">不使用记忆的情况</h1>
-<p>`从第一个硬币开始遍历，并穷举它的所有枚数，将其作为下一枚硬币的参数传递</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int fewestCoinsFor(int cents, const Set&lt;int&gt;&amp; coins) &#123;</span><br><span class="line">    /* Can&#x27;t have a negative number of cents. */</span><br><span class="line">    if (cents &lt; 0) &#123;</span><br><span class="line">        error(&quot;You owe me money, not the other way around!&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    /* Base case: You need no coins to give change for no cents. */</span><br><span class="line">    else if (cents == 0) &#123;</span><br><span class="line">        return 0;</span><br><span class="line">    &#125;</span><br><span class="line">    /* Base case: No coins exist. Then it&#x27;s not possible to make the</span><br><span class="line">     * amount. In that case, give back a really large value as a</span><br><span class="line">     * sentinel.</span><br><span class="line">     */</span><br><span class="line">    else if (coins.isEmpty()) &#123;</span><br><span class="line">        return cents + 1;</span><br><span class="line">    &#125;</span><br><span class="line">    /* Recursive case: Pick a coin, then try using each distinct number of</span><br><span class="line">     * copies of it that we can.</span><br><span class="line">     */</span><br><span class="line">    else &#123;</span><br><span class="line">        /* The best we&#x27;ve found so far. We initialize this to a large value so</span><br><span class="line">         * that it&#x27;s replaced on the first iteration of the loop. Do you see</span><br><span class="line">         * why cents + 1 is a good choice?</span><br><span class="line">         */</span><br><span class="line">        int bestSoFar = cents + 1;</span><br><span class="line">        /* Pick a coin. */</span><br><span class="line">        int coin = coins.first();</span><br><span class="line">        /* Try all amounts of it. */</span><br><span class="line">        for (int copies = 0; copies * coin &lt;= cents; copies++) &#123;</span><br><span class="line">            /* See what happens if we make this choice. Once we use this</span><br><span class="line">             * coin, we won&#x27;t use the same coin again in the future.</span><br><span class="line">             */</span><br><span class="line">            int thisChoice = copies + fewestCoinsFor(cents - copies * coin,</span><br><span class="line">                                                     coins - coin);</span><br><span class="line">          /* Is this better than what we have so far? */</span><br><span class="line">            if (thisChoice &lt; bestSoFar) &#123;</span><br><span class="line">                bestSoFar = thisChoice;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        /* Return whatever worked best. */</span><br><span class="line">        return bestSoFar;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h1 id="使用记忆进行优化">使用记忆进行优化</h1>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/* How few coins are needed to make the total, given that we can only use</span><br><span class="line"> * coins from index startIndex and onward?</span><br><span class="line"> */</span><br><span class="line">int fewestCoinsRec(int cents, const Vector&lt;int&gt;&amp; coins, int startIndex,Grid&lt;int&gt;&amp; memo) &#123;</span><br><span class="line">    /* Base case: You need no coins to give change for no cents. */</span><br><span class="line">    if (cents == 0) &#123;</span><br><span class="line">        return 0;</span><br><span class="line">    &#125;</span><br><span class="line">    /* Base case: No coins exist. Then it&#x27;s not possible to make the</span><br><span class="line">     * amount. In that case, give back a really large value as a</span><br><span class="line">     * sentinel.</span><br><span class="line">     */</span><br><span class="line">    else if (startIndex == coins.size()) &#123;</span><br><span class="line">        return cents + 1;</span><br><span class="line">    &#125;</span><br><span class="line">    /* Base case: We already know the answer. */</span><br><span class="line">    else if (memo[cents][startIndex] != -1) &#123;</span><br><span class="line">        return memo[cents][startIndex];</span><br><span class="line">    &#125;</span><br><span class="line">    /* Recursive case: Pick a coin, then try using each distinct number of</span><br><span class="line">     * copies of it that we can.</span><br><span class="line">     */</span><br><span class="line">    else &#123;</span><br><span class="line">        /* The best we&#x27;ve found so far. We initialize this to a large value so</span><br><span class="line">         * that it&#x27;s replaced on the first iteration of the loop. Do you see</span><br><span class="line">         * why cents + 1 is a good choice?</span><br><span class="line">         */</span><br><span class="line">        int bestSoFar = cents + 1;</span><br><span class="line"></span><br><span class="line">        /* Pick a coin. */</span><br><span class="line">        int coin = coins[startIndex];</span><br><span class="line"></span><br><span class="line">        /* Try all amounts of it. */</span><br><span class="line">        for (int copies = 0; copies * coin &lt;= cents; copies++) &#123;</span><br><span class="line">            /* See what happens if we make this choice. Once we use this</span><br><span class="line">             * coin, we won&#x27;t use the same coin again in the future.</span><br><span class="line">             */</span><br><span class="line">            int thisChoice = copies + fewestCoinsRec(cents - copies * coin,</span><br><span class="line">                                                     coins, startIndex + 1,</span><br><span class="line">                                                     memo);</span><br><span class="line"></span><br><span class="line">            /* Is this better than what we have so far? */</span><br><span class="line">            if (thisChoice &lt; bestSoFar) &#123;</span><br><span class="line">                bestSoFar = thisChoice;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        /* Return whatever worked best. */</span><br><span class="line">        memo[cents][startIndex] = bestSoFar;</span><br><span class="line">        return bestSoFar;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int fewestCoinsFor(int cents, const Set&lt;int&gt;&amp; coins) &#123;</span><br><span class="line">    /* Can&#x27;t have a negative number of cents. */</span><br><span class="line">    if (cents &lt; 0) &#123;</span><br><span class="line">        error(&quot;You owe me money, not the other way around!&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /* Convert from a Set&lt;int&gt; to a Vector&lt;int&gt; so we have a nice ordering</span><br><span class="line">     * on things.</span><br><span class="line">     */</span><br><span class="line">    Vector&lt;int&gt; coinVec;</span><br><span class="line">    for (int coin: coins) &#123;</span><br><span class="line">        coinVec += coin;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /* Build our memoization table. Since the number of cents left ranges from</span><br><span class="line">     * 0 to cents, we need cents+1 rows. Since the start index of the coin</span><br><span class="line">     * ranges from 0 to coins.size(), we make coins.size() + 1 columns.</span><br><span class="line">     *</span><br><span class="line">     * -1 is used as a sentinel to indicate &quot;nothing has been computed here</span><br><span class="line">     * yet.&quot;</span><br><span class="line">     */</span><br><span class="line">    Grid&lt;int&gt; memo(cents + 1, coins.size() + 1, -1);</span><br><span class="line"></span><br><span class="line">    /* Now ask how many coins are needed to make the total, using any coins</span><br><span class="line">     * from index 0 onward.</span><br><span class="line">     */</span><br><span class="line">    return fewestCoinsRec(cents, coinVec, 0, memo);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="递归穷举付账单">递归穷举付账单</h3>
-<p>递归机制：对第一个人来说，0-total所有金额都会付一遍，随后传递给下一个人，当只有一人时，付清所有余额并打印账单 传递参数：string,int的映射存储目前为止的账单，string集合存储所有付账者</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">void listPossiblePaymentsRec(int total, const Set&lt;string&gt;&amp; people,const Map&lt;string, int&gt;&amp; payments) &#123;</span><br><span class="line">    /* Base case: if there&#x27;s one person left, they have to pay the whole bill. */</span><br><span class="line">    if (people.size() == 1) &#123;</span><br><span class="line">        Map&lt;string, int&gt; finalPayments = payments;</span><br><span class="line">        finalPayments[people.first()] = total;</span><br><span class="line">        cout &lt;&lt; finalPayments &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    /* Recursive case: The first person has to pay some amount between 0 and the</span><br><span class="line">     * total amount. Try all of those possibilities.</span><br><span class="line">     */</span><br><span class="line">    else &#123;</span><br><span class="line">        for (int payment = 0; payment &lt;= total; payment++) &#123;</span><br><span class="line">            /* Create a new assignment of people to payments in which this first</span><br><span class="line">             * person pays this amount.</span><br><span class="line">             */</span><br><span class="line">            Map&lt;string, int&gt; updatedPayments = payments;</span><br><span class="line">            updatedPayments[people.first()] = payment;</span><br><span class="line">            listPossiblePaymentsRec(total - payment, people - people.first(),updatedPayments);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">void listPossiblePayments(int total, const Set&lt;string&gt;&amp; people) &#123;</span><br><span class="line">    /* Edge cases: we can&#x27;t pay a negative total, and there must be at least one</span><br><span class="line">     * person.</span><br><span class="line">     */</span><br><span class="line">    if (total &lt; 0) error(&quot;Guess you&#x27;re an employee?&quot;);</span><br><span class="line">    if (people.isEmpty()) error(&quot;Dine and dash?&quot;);</span><br><span class="line"> listPossiblePaymentsRec(total, people, &#123;&#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="递归寻找完全平方数列">递归寻找完全平方数列</h3>
-<p>主要参数为sofar——用于存储目前的序列和一个set用于存储还没放入数列的数字，`确保这两者同时被传递，且其并集为所有数字</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Optional&lt;Vector&lt;int&gt;&gt; findSquareSequence(int n) &#123;</span><br><span class="line">    /*Validate input.*/</span><br><span class="line">    if (n &lt; 0) &#123;</span><br><span class="line">        error(&quot;Don&#x27;t be so negative!&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /* Build a set of the numbers 1, 2, 3, ..., n. */</span><br><span class="line">    Set&lt;int&gt; options;</span><br><span class="line">    for (int i = 1; i &lt;= n; i++) &#123;</span><br><span class="line">        options += i;</span><br><span class="line">    &#125;</span><br><span class="line">    return findSequenceRec(options, &#123; &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Optional&lt;Vector&lt;int&gt;&gt; findSequenceRec(const Set&lt;int&gt;&amp; unused,</span><br><span class="line">                                      const Vector&lt;int&gt;&amp; soFar) &#123;</span><br><span class="line">    /*Base Case: If all numbers are used, we have our sequence!*/</span><br><span class="line">    if (unused.isEmpty()) &#123;</span><br><span class="line">        return soFar;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /* Recursive Case: Some number comes next. Try each of them and see which</span><br><span class="line">     * one we should pick.</span><br><span class="line">     */</span><br><span class="line">    for (int next: unused) &#123;</span><br><span class="line">        /* We can use this if either</span><br><span class="line">         *</span><br><span class="line">         * 1. the sequence is empty, so we&#x27;re first in line, or</span><br><span class="line">         * 2. the sequence is not empty, but we sum to a perfect square</span><br><span class="line">         *    with the previous term.</span><br><span class="line">         */</span><br><span class="line">        if (soFar.isEmpty() ||</span><br><span class="line">            isPerfectSquare(next + soFar[soFar.size() - 1])) &#123;</span><br><span class="line">            /* See what happens if we extend with this number. */</span><br><span class="line">            auto result = findSequenceRec(unused - next, soFar + next);</span><br><span class="line">            if (result != Nothing) &#123;</span><br><span class="line">                return result;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /* Tried all options and none of them worked. Oh well! */</span><br><span class="line">    return Nothing;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h3 id="汉诺塔递归">汉诺塔递归</h3>
-<p>假设有三座汉诺塔，<code>start ,temp ,finish</code> 对n层的汉诺塔问题，先考虑n-1层的，随后考虑n-2层，到最后只需要考虑两层问题，两层的汉诺塔非常容易解决，起点为start,终点是temp,临时塔为finish，最后我们得到temp上的两层汉诺塔 这时将start的3移动到finish塔，这时只要将两层汉诺塔转移到finish则完成了三层汉诺塔，这个过程中的起点为temp,终点是finish,临时塔是start 以此类推，四层塔基于三层塔，<code>n</code>层塔基于<code>n-1</code>塔，汉诺塔问题解决</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">int moveTower(int numDisks, char start, char finish, char temp) &#123;</span><br><span class="line">    if (numDisks == 0) &#123;</span><br><span class="line">        return 0;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        int movesOne = moveTower(numDisks - 1, start, temp, finish);</span><br><span class="line">        moveSingleDisk(start, finish);</span><br><span class="line">        int movesTwo = moveTower(numDisks - 1, temp, finish, start);</span><br><span class="line"></span><br><span class="line">        return 1 + movesOne + movesTwo;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>课程笔记</category>
-        <category>数据结构与算法</category>
-      </categories>
-      <tags>
-        <tag>斯坦福</tag>
-        <tag>课程笔记</tag>
-        <tag>c++</tag>
-        <tag>数据结构与算法</tag>
       </tags>
   </entry>
 </search>
