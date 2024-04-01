@@ -586,13 +586,6 @@
   </url>
   
   <url>
-    <loc>https://thinklive1.github.io/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/</loc>
-    <lastmod>2024-04-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://thinklive1.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/</loc>
     <lastmod>2024-04-01</lastmod>
     <changefreq>weekly</changefreq>
@@ -601,6 +594,13 @@
   
   <url>
     <loc>https://thinklive1.github.io/tags/%E7%A7%98%E5%AF%86/</loc>
+    <lastmod>2024-04-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://thinklive1.github.io/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/</loc>
     <lastmod>2024-04-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -635,14 +635,14 @@
   </url>
   
   <url>
-    <loc>https://thinklive1.github.io/tags/%E8%BF%AA%E7%91%9E%E5%85%8B%E6%8B%89/</loc>
+    <loc>https://thinklive1.github.io/tags/%E4%B8%AD%E7%A7%91%E5%A4%A7/</loc>
     <lastmod>2024-04-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://thinklive1.github.io/tags/%E4%B8%AD%E7%A7%91%E5%A4%A7/</loc>
+    <loc>https://thinklive1.github.io/tags/%E8%BF%AA%E7%91%9E%E5%85%8B%E6%8B%89/</loc>
     <lastmod>2024-04-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -742,14 +742,14 @@
   </url>
   
   <url>
-    <loc>https://thinklive1.github.io/categories/%E8%BF%AA%E7%91%9E%E5%85%8B%E6%8B%89/</loc>
+    <loc>https://thinklive1.github.io/categories/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</loc>
     <lastmod>2024-04-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://thinklive1.github.io/categories/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</loc>
+    <loc>https://thinklive1.github.io/categories/%E8%BF%AA%E7%91%9E%E5%85%8B%E6%8B%89/</loc>
     <lastmod>2024-04-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
