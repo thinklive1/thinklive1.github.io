@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://thinklive1.github.io/thinklive/3852/</loc>
+    
+    <lastmod>2024-04-06</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://thinklive1.github.io/thinklive/24155/</loc>
     
     <lastmod>2024-04-06</lastmod>
@@ -14,15 +23,6 @@
     <loc>https://thinklive1.github.io/thinklive/52285/</loc>
     
     <lastmod>2024-04-06</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://thinklive1.github.io/thinklive/3852/</loc>
-    
-    <lastmod>2024-04-04</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -236,7 +236,7 @@
   </url>
   
   <url>
-    <loc>https://thinklive1.github.io/thinklive/28990/</loc>
+    <loc>https://thinklive1.github.io/thinklive/59126/</loc>
     
     <lastmod>2023-11-27</lastmod>
     
@@ -245,7 +245,7 @@
   </url>
   
   <url>
-    <loc>https://thinklive1.github.io/thinklive/59126/</loc>
+    <loc>https://thinklive1.github.io/thinklive/28990/</loc>
     
     <lastmod>2023-11-27</lastmod>
     
@@ -376,7 +376,7 @@
   </url>
   
   <url>
-    <loc>https://thinklive1.github.io/tags/JAVA/</loc>
+    <loc>https://thinklive1.github.io/tags/python/</loc>
     <lastmod>2024-04-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -390,7 +390,7 @@
   </url>
   
   <url>
-    <loc>https://thinklive1.github.io/tags/python/</loc>
+    <loc>https://thinklive1.github.io/tags/JAVA/</loc>
     <lastmod>2024-04-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
