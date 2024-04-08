@@ -290,7 +290,7 @@
   </url>
   
   <url>
-    <loc>https://thinklive1.github.io/thinklive/48468/</loc>
+    <loc>https://thinklive1.github.io/thinklive/16615/</loc>
     
     <lastmod>2023-11-27</lastmod>
     
@@ -299,7 +299,7 @@
   </url>
   
   <url>
-    <loc>https://thinklive1.github.io/thinklive/16615/</loc>
+    <loc>https://thinklive1.github.io/thinklive/48468/</loc>
     
     <lastmod>2023-11-27</lastmod>
     
@@ -432,6 +432,20 @@
   </url>
   
   <url>
+    <loc>https://thinklive1.github.io/tags/java/</loc>
+    <lastmod>2024-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://thinklive1.github.io/tags/web%E5%BC%80%E5%8F%91/</loc>
+    <lastmod>2024-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://thinklive1.github.io/tags/%E6%95%B0%E6%8D%AE%E7%A7%91%E5%AD%A6/</loc>
     <lastmod>2024-04-08</lastmod>
     <changefreq>weekly</changefreq>
@@ -468,20 +482,6 @@
   
   <url>
     <loc>https://thinklive1.github.io/tags/%E7%BC%96%E7%A8%8B%E5%B7%A5%E5%85%B7/</loc>
-    <lastmod>2024-04-08</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://thinklive1.github.io/tags/java/</loc>
-    <lastmod>2024-04-08</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://thinklive1.github.io/tags/web%E5%BC%80%E5%8F%91/</loc>
     <lastmod>2024-04-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -686,6 +686,13 @@
   </url>
   
   <url>
+    <loc>https://thinklive1.github.io/categories/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/web%E5%BC%80%E5%8F%91/</loc>
+    <lastmod>2024-04-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://thinklive1.github.io/categories/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%95%B0%E6%8D%AE%E7%A7%91%E5%AD%A6/</loc>
     <lastmod>2024-04-08</lastmod>
     <changefreq>weekly</changefreq>
@@ -700,7 +707,7 @@
   </url>
   
   <url>
-    <loc>https://thinklive1.github.io/categories/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/web%E5%BC%80%E5%8F%91/</loc>
+    <loc>https://thinklive1.github.io/categories/%E5%A4%87%E5%BF%98%E5%BD%95/</loc>
     <lastmod>2024-04-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -708,13 +715,6 @@
   
   <url>
     <loc>https://thinklive1.github.io/categories/%E5%BB%BA%E7%AB%99%E7%BB%8F%E9%AA%8C/</loc>
-    <lastmod>2024-04-08</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://thinklive1.github.io/categories/%E5%A4%87%E5%BF%98%E5%BD%95/</loc>
     <lastmod>2024-04-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
