@@ -75,7 +75,8 @@
   <entry>
     <title>pdfs</title>
     <url>/thinklive/23089/</url>
-    <content><![CDATA[<div class="pdf-container" data-target="/assets/beiyou.pdf" data-height="2000px"></div>
+    <content><![CDATA[<span id="more"></span>
+<div class="pdf-container" data-target="/assets/beiyou.pdf" data-height="2000px"></div>
 ]]></content>
   </entry>
   <entry>

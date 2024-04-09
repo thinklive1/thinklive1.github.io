@@ -6,7 +6,7 @@
   <link href="https://thinklive1.github.io/atom.xml" rel="self"/>
   
   <link href="https://thinklive1.github.io/"/>
-  <updated>2024-04-09T12:29:42.966Z</updated>
+  <updated>2024-04-09T15:06:13.508Z</updated>
   <id>https://thinklive1.github.io/</id>
   
   <author>
@@ -21,18 +21,12 @@
     <link href="https://thinklive1.github.io/thinklive/23089/"/>
     <id>https://thinklive1.github.io/thinklive/23089/</id>
     <published>2024-04-09T12:21:01.336Z</published>
-    <updated>2024-04-09T12:29:42.966Z</updated>
+    <updated>2024-04-09T15:06:13.508Z</updated>
     
-    <content type="html"><![CDATA[<div class="pdf-container" data-target="/assets/beiyou.pdf" data-height="2000px"></div>]]></content>
+    <content type="html"><![CDATA[<span id="more"></span><div class="pdf-container" data-target="/assets/beiyou.pdf" data-height="2000px"></div>]]></content>
     
     
-      
-      
-        
-        
-    <summary type="html">&lt;div class=&quot;pdf-container&quot; data-target=&quot;/assets/beiyou.pdf&quot;</summary>
-        
-      
+    <summary type="html">一些pdf</summary>
     
     
     
