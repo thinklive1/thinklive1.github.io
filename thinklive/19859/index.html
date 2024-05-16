@@ -22,34 +22,30 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"thinklive1.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.18.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"flat"},"fold":{"enable":true,"height":500},"bookmark":{"enable":true,"color":"#66CCFF","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":true,"motion":{"enable":true,"async":true,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="第一章——概论 互联网 链路层相邻节点传输数据 网络层提供源主机到目标主机之间(端到端end to end)的服务(没有保障)  传统方式：IP协议，路由协议（路由器交换路由信息，根据算法算出路由表，由ip协议根据目标ip查询路由表确定找到合适端口，进行转发） SDN(数据平面：交换机，控制平面：网络操作系统)，控制平面中的网络应用根据信息算出有大量字段的流表给交换机，根据字段匹配相应表项 传输层">
+    <meta name="description" content="在TCP&#x2F;IP协议族的层次中，解决计算机之间通信问题的是在哪个层次 网际层 IP协议提供的服务类型是什么 为IP数据报提供无连接，不可靠，尽力交付的路由选择和传输服务 IPv4向IPv6过渡时，可以采用什么策略 1.隧道技术，将ipv6数据报作为ipv4数据报的数据部分传递 2.双协议栈，设备可以同时提供两种协议的服务，按需选择 IPv4首部长度字段的数值范围 最短为20B，使用可选字段最长可以">
 <meta property="og:type" content="article">
-<meta property="og:title" content="基于中科大郑烇老师授课的计算机网络笔记(待续)">
+<meta property="og:title" content="苏州大学计算机网络复习70问">
 <meta property="og:url" content="https://thinklive1.github.io/thinklive/19859/index.html">
 <meta property="og:site_name" content="thinklive">
-<meta property="og:description" content="第一章——概论 互联网 链路层相邻节点传输数据 网络层提供源主机到目标主机之间(端到端end to end)的服务(没有保障)  传统方式：IP协议，路由协议（路由器交换路由信息，根据算法算出路由表，由ip协议根据目标ip查询路由表确定找到合适端口，进行转发） SDN(数据平面：交换机，控制平面：网络操作系统)，控制平面中的网络应用根据信息算出有大量字段的流表给交换机，根据字段匹配相应表项 传输层">
+<meta property="og:description" content="在TCP&#x2F;IP协议族的层次中，解决计算机之间通信问题的是在哪个层次 网际层 IP协议提供的服务类型是什么 为IP数据报提供无连接，不可靠，尽力交付的路由选择和传输服务 IPv4向IPv6过渡时，可以采用什么策略 1.隧道技术，将ipv6数据报作为ipv4数据报的数据部分传递 2.双协议栈，设备可以同时提供两种协议的服务，按需选择 IPv4首部长度字段的数值范围 最短为20B，使用可选字段最长可以">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://thinklive1.github.io/assets/%E8%AE%A1%E7%BD%91/image-20231010191525639.png">
-<meta property="og:image" content="https://thinklive1.github.io/assets/%E8%AE%A1%E7%BD%91/image-20231013084440297.png">
-<meta property="og:image" content="https://thinklive1.github.io/assets/%E8%AE%A1%E7%BD%91/image-20231013103915204.png">
 <meta property="article:published_time" content="2024-01-20T11:53:48.573Z">
-<meta property="article:modified_time" content="2023-12-03T01:25:58.654Z">
+<meta property="article:modified_time" content="2024-05-16T15:18:02.276Z">
 <meta property="article:author" content="thinklive">
 <meta property="article:tag" content="课程笔记">
+<meta property="article:tag" content="苏州大学">
 <meta property="article:tag" content="计算机网络">
-<meta property="article:tag" content="中科大">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://thinklive1.github.io/assets/%E8%AE%A1%E7%BD%91/image-20231010191525639.png">
 
 
 <link rel="canonical" href="https://thinklive1.github.io/thinklive/19859/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://thinklive1.github.io/thinklive/19859/","path":"thinklive/19859/","title":"基于中科大郑烇老师授课的计算机网络笔记(待续)"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://thinklive1.github.io/thinklive/19859/","path":"thinklive/19859/","title":"苏州大学计算机网络复习70问"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>基于中科大郑烇老师授课的计算机网络笔记(待续) | thinklive</title>
+<title>苏州大学计算机网络复习70问 | thinklive</title>
   
 
 
@@ -169,7 +165,7 @@
     preload="auto"
     lrc-type="2"
     mutex="true">
-    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+    <div class="sidebar-inner sidebar-overview-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -182,7 +178,6 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E7%AB%A0%E6%A6%82%E8%AE%BA"><span class="nav-number">1.</span> <span class="nav-text">第一章——概论</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%92%E8%81%94%E7%BD%91"><span class="nav-number">1.1.</span> <span class="nav-text">互联网</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E8%BE%B9%E7%BC%98"><span class="nav-number">1.2.</span> <span class="nav-text">网络边缘</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E6%A0%B8%E5%BF%83"><span class="nav-number">1.3.</span> <span class="nav-text">网络核心</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -208,7 +203,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">41</span>
+        <span class="site-state-item-count">40</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -270,12 +265,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="基于中科大郑烇老师授课的计算机网络笔记(待续) | thinklive">
+      <meta itemprop="name" content="苏州大学计算机网络复习70问 | thinklive">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          基于中科大郑烇老师授课的计算机网络笔记(待续)
+          苏州大学计算机网络复习70问
         </h1>
 
         <div class="post-meta-container">
@@ -293,7 +288,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-12-03 09:25:58" itemprop="dateModified" datetime="2023-12-03T09:25:58+08:00">2023-12-03</time>
+      <time title="修改时间：2024-05-16 23:18:02" itemprop="dateModified" datetime="2024-05-16T23:18:02+08:00">2024-05-16</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -323,14 +318,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>1.1k</span>
+      <span>2.2k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>4 分钟</span>
+      <span>8 分钟</span>
     </span>
 </div>
 
@@ -342,48 +337,158 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><h2 id="第一章概论">第一章——概论</h2>
-<h3 id="互联网">互联网</h3>
-<p><code>链路层</code>相邻节点传输数据 <code>网络层</code>提供源主机到目标主机之间(端到端end to end)的服务(没有保障)</p>
-<ol type="1">
-<li>传统方式：IP协议，路由协议（路由器交换路由信息，根据算法算出路由表，由ip协议根据目标ip查询路由表确定找到合适端口，进行转发）</li>
-<li>SDN(数据平面：交换机，控制平面：网络操作系统)，控制平面中的网络应用根据信息算出有大量字段的流表给交换机，根据字段匹配相应表项 <code>传输层</code>区分进程，为进程中多个应用提供服务 <code>传输协议</code>:tcp提供可靠的数据传输，udp更强调实时性 <code>tcp</code>：往返建立连接得到响应后再传输 <code>udp</code>：不会先建立连接再传输 <code>应用层协议</code>：客户端，服务器等应用之间如何交互来实现功能 <code>网络</code>：节点和边的形成的拓扑结构 <code>计算机网络</code>：</li>
+    <div class="post-body" itemprop="articleBody"><ol type="1">
+<li><p>在TCP/IP协议族的层次中，解决计算机之间通信问题的是在哪个层次<br />
+网际层</p></li>
+<li><p>IP协议提供的服务类型是什么<br />
+为IP数据报提供无连接，不可靠，尽力交付的路由选择和传输服务</p></li>
+<li><p>IPv4向IPv6过渡时，可以采用什么策略<br />
+1.隧道技术，将ipv6数据报作为ipv4数据报的数据部分传递<br />
+2.双协议栈，设备可以同时提供两种协议的服务，按需选择</p></li>
+<li><p>IPv4首部长度字段的数值范围<br />
+最短为20B，使用可选字段最长可以拓展到60B</p></li>
+<li><p>合法的电子邮件地址<br />
+邮箱名@邮箱所在主机的域名<br />
+其中邮箱名对于这个邮箱范围唯一，域名在全球唯一</p></li>
+<li><p>路由信息协议（RIP）使用的路由算法是什么<br />
+距离向量算法:从路由器自身到其他每个目的网络的距离，记为距离向量，任意两个路由固定时间交换路由表，如果有更短路径就更新</p></li>
+<li><p>默认的HTTP服务的端口号<br />
+80</p></li>
+<li><p>IP地址为140.111.0.0的B类网络，若要分为9个子网，子网掩码应为什么<br />
+255.255.240.0</p></li>
+<li><p>IPv6的基本首部长度为多少个字节<br />
+40B</p></li>
+<li><p>如果访问Internet时只能使用IP地址，可能是因为没有配置<br />
+dns解析服务器</p></li>
+<li><p>传输层向上层提供的是什么样的数据传输服务<br />
+分为UDP和TCP;<br />
+UDP提供无连接不可靠服务<br />
+TCP提供有连接的可靠服务</p></li>
+<li><p>数据通信系统有哪三个子系统构成<br />
+1、中央计算机系统：由通信控制器（或前置处理机）、主机及其外围设备组成，具有处理从数据终端设备输入的数据信息，并将处理结果向相应的数据终端设备输出的功能。<br />
+2、数据终端设备（DTE）：由数据输入设备（产生数据的数据源）、数据输出设备（接收数据的数据宿）和传输控制器组成。<br />
+3、数据电路：由传输信道（传输线路）及其两端的数据电路终接设备（DCE）组成。传输信道可以是专用信道或交换信道，也可以是模拟信道或数字信道。</p></li>
+<li><p>对于带有回路的互连局域网，网桥执行什么算法来消除回路<br />
+生成树协议（SPT）</p></li>
+<li><p>IEEE 802委员会规定的VLAN标准是什么<br />
+IEEE 802.1Q<br />
+标准以太网帧插入 4 字节的 VLAN 标记成为 802.1Q 帧</p></li>
+<li><p>物理层的网络互连设备主要包括哪些<br />
+集线器hub,相当于一个多端口的中继器。一个端口接收到数据信号后，hub将其整型放大，转发到其他所有工作端口，没有定向传送功能，是共享设备<br />
+也就是无法划分冲突域</p></li>
+<li><p>负责互联网有关协议开发的国际组织叫什么<br />
+互联网协会 ISOC</p></li>
+<li><p>在OSI参考模型中，负责提供可靠的端到端数据传输的是哪个层次<br />
+传输层</p></li>
+<li><p>IP数据报的总长度理论上最大为多少字节<br />
+65535B，但无法超过以太网MTU</p></li>
+<li><p>在一个不划分VLAN的局域网中，以太网帧的最小和最大长度是多少<br />
+最小64B(包括FCS)，最大1518B</p></li>
+<li><p>合法的域名<br />
+最多四级，各级之间用<code>.</code>隔开，每级不超过 63 个字符,不区分大小写字母，必须唯一</p></li>
+<li><p>根据提示，补齐图中TCP连接双方的数据传递过程。(示例)</p></li>
+<li><p>一TCP连接发送4个TCP报文段，每个报文段中的数据字段皆为10个字节，第1个TCP报文段首部中的序列号为XXX。那么，接收端为表明其接收到第1、2两个报文段而返回的一个确认号是多少？<br />
+XXX+2</p></li>
+<li><p>IPv6地址的合法性<br />
+使用冒号十六进制记法,16 位的值用十六进制值表示，各值之间用冒号分隔<br />
+一串连续的零可以用一对冒号取代,但一个地址只能使用一次零压缩</p></li>
+<li><p>每一个Web页面，包括主页都有一个唯一的地址，通常称该地址为<br />
+统一资源定界符(url)</p></li>
+<li><p>从FTP服务器下载文件，则对数据进行封装的五个转换步骤是什么</p></li>
+<li><p>TCP/IP协议栈中，保证可靠通信的是哪一层<br />
+传输层</p></li>
+<li><p>计算机网络采用的数据交换方式是什么<br />
+电路交换，分组交换，报文交换中的分组交换最常用</p></li>
+<li><p>数据链路层的网络互连设备主要包括哪些<br />
+网桥和交换机</p></li>
+<li><p>TCP/IP协议栈提供了哪两个传输层协议<br />
+TCP/UDP</p></li>
+<li><p>在长距离数据传输时，更适合采用的导向性传输介质是什么<br />
+光纤</p></li>
+<li><p>网络协议三要素中，规定数据与控制信息的结构或格式的要素是什么<br />
+语法<br />
+其他两个为语义和时序</p></li>
+<li><p>光纤通信中会用到单模和多模光纤，其中存在多条不同入射角度光线的光纤属于什么光纤<br />
+多模光纤</p></li>
+<li><p>在物理层，数据传输的基本单位<br />
+bit</p></li>
+<li><p>100M以太网的争用期的长度为多少μs<br />
+0.64μs</p></li>
+<li><p>对于术语10base-T，其中base表示传输介质上的信号是什么信号<br />
+基带信号<br />
+10 表示传输速率为 10 Mbps。<br />
+base 表示采用基带信号传输。<br />
+T 表示使用的传输介质是双绞线电缆。</p></li>
+<li><p>IP数据报封装成帧的时候，其总长度不能超过数据链路层什么值的限制。<br />
+</p></li>
+<li><p>某个IP数据报首部MF标志为1时，则DF标志为多少。<br />
+</p></li>
+<li><p>在OSI参考模型中，网络节点中的最高层是什么。<br />
+</p></li>
+<li><p>TCP的流量控制和拥塞控制都是基于什么机制实现的。<br />
+</p></li>
+<li><p>在Internet中能够提供任意两台计算机之间传输文件的协议是什么。<br />
+</p></li>
+<li><p>计算机网络采用分组交换的方式，其本质与什么方式是一致的。<br />
+</p></li>
+<li><p>划分VLAN之后，以太网最大帧长增加了多少个字节。<br />
+</p></li>
+<li><p>UDP的首部长度为多少字节。<br />
+</p></li>
+<li><p>IP数据报中的TTL字段规定了一个数据报在被丢弃之前所允许经过的什么。<br />
+</p></li>
+<li><p>在数据链路层，数据传输的基本单位是什么。<br />
+</p></li>
+<li><p>TCP/IP把物理层和数据链路层合称为什么。<br />
+</p></li>
+<li><p>网络中每个独立主机的每个网络接口，以及路由器的每个端口必须有一个唯一的互联网地址，也称什么。<br />
+</p></li>
+<li><p>CIDR地址块0.0.0.0/0，表示什么。<br />
+</p></li>
+<li><p>DNS系统中，主机在本地域名服务器的查询一般采用什么方式。<br />
+</p></li>
+<li><p>互联网完整域名总共不超过多少个字符。<br />
+</p></li>
+<li><p>P2P<br />
+</p></li>
+<li><p>多路复用技术<br />
+</p></li>
+<li><p>Email系统<br />
+</p></li>
+<li><p>ARP协议<br />
+</p></li>
+<li><p>端口<br />
+</p></li>
+<li><p>TCP/IP协议栈<br />
+</p></li>
+<li><p>数据通信系统<br />
+</p></li>
+<li><p>拥塞控制和流量控制<br />
+</p></li>
+<li><p>RIP协议<br />
+</p></li>
+<li><p>DNS系统<br />
+</p></li>
+<li><p>面向连接服务与无连接服务各自的特点是什么？<br />
+</p></li>
+<li><p>当前网络的体系结构结合OSI和TCP/IP两种体系结构将网络分为五层，论述一下各层的作用。<br />
+</p></li>
+<li><p>用图示法简述TCP连接的拆除过程<br />
+</p></li>
+<li><p>比较拥塞控制和流量控制的相同点与不同点<br />
+</p></li>
+<li><p>使用比特填充的起止标记法组帧时，帧边界是怎样的比特序列？若接收方从链路上收到的比特序列为：XXXXXXXXXX，给出去掉填充比特之后的原始比特序列。<br />
+</p></li>
+<li><p>根据Wireshark捕获的数据包原始内容（从帧开始，不含前导码和定界符），试分析该数据包。<br />
+</p></li>
+<li><p>论述并对比IPv4到IPv6的两种过渡策略<br />
+</p></li>
+<li><p>TCP建立连接的过程称为三次握手，能否改成四次握手？画图说明<br />
+</p></li>
+<li><p>接收端接收到的PPP信息字段的十六进制数为：XXXXXXXX，试根据字节填充规则还原出发送的数据。<br />
+</p></li>
+<li><p>为了防止网络拥塞，TCP/IP协议采取了哪些措施？</p></li>
 </ol>
-<ul>
-<li>节点：主机节点，数据交换节点（转发数据，交换机，路由器等等）</li>
-<li>边被称为链路：接入网链路（主机连接到互联网），主干链路（路由器之间）</li>
-<li>协议：网络设备的工作标准 <code>互联网</code>：世界上最大的互联计算机网络，网络的网络 <span id="more"></span></li>
-<li>节点：数以亿计的互联设备，主机(host/end system),一般方节点是主机，圆节点是交换机</li>
-<li>通信链路(link)：光纤，卫星，无线电等，传输速率 = 带宽(bps每秒传输的位)</li>
-<li>分组交换设备(packets):路由器和交换机</li>
-<li>协议和标准(tcp,ip,udp,)：不同实体之间通讯方式的规定(在RFC官网公布) 协议定义了发送信息的格式，次序，动作等</li>
-</ul>
-<p>从服务角度：应用层以下是基础设施，为其上的分布式应用提供通讯，两者一起组成了互联网 提供通讯使用操作系统提供的网络api(socket)和其他节点建立连接和通讯</p>
-<h3 id="网络边缘">网络边缘</h3>
-<p><img src="/assets/计网/image-20231010191525639.png" /> 互联网的三个子系统</p>
-<ul>
-<li><code>网络边缘</code>：主机和应用程序</li>
-<li><code>网络核心</code>：实现大规模的数据交换，互联的路由器（网络的网络）</li>
-<li><code>网络的接入</code>:把边缘接入到核心</li>
-</ul>
-<p>边缘的模式</p>
-<ol type="1">
-<li>C/S模式(主从模式)，客户端-服务器(客户端发送请求，服务器响应请求，并把结果发送给客户端) 缺点：可扩展性较差，负载达到一定阈值，响应能力断崖式下降</li>
-<li>P2P模式(Peer to Peer)，对等模式，每个节点既是客户端又是服务器，分布式通信 可以在不同的节点上得到分段的资源</li>
-</ol>
-<p>通信方式</p>
-<ol type="1">
-<li>面向连接的通讯方式，先建立连接(发送连接请求，响应请求，准备好缓冲区等)，再相互通讯 特点：连接状态仅仅是端系统维持 eg. tcp协议（流量控制）</li>
-<li>无连接通信，不建立连接 eg. udp协议（无流量控制）</li>
-</ol>
-<h3 id="网络核心">网络核心</h3>
-<p>路由器的网状网络 <img src="/assets/计网/image-20231013084440297.png" /> 网络资源可以被分成片，给每个呼叫分配片，如果没有数据交换，则可以不占用资源片（频分，波分等） 资源交换除了时间还有电磁波的传播延迟 <img src="/assets/计网/image-20231013103915204.png" /> 电路交换不适合计算机通信（计算机通信有突发性）</p>
-<p>分组交换(共享性)：交换节点存储数据包，并分组转发，从而实现通信，按需使用网络资源 由于中间节点的存在，延迟比线路交换更高 可能出现分组的排队，甚至丢失 路由：决定源主机到目标主机的路径 转发：把输入链路转移到输出链路 <code>复用方式</code>：时分复用（时间片），统计多路复用(不固定) 问题：流媒体等需要速度保证的场景有更高的性能需求</p>
-<p>分组交换网络：</p>
-<ul>
-<li>数据报网络：两主机不需要建立连接，不需要维护通信状态，每个主机都有目标主机的地址，可以独立路由地运作，路由器根据分组的目标地址进行路由</li>
-<li>虚电路网络：两个主机通信前建立连接，每个分组有一个虚电路表，按照虚电路号标识进行存储转发，过程中虚电路号可能变化</li>
-</ul>
 
     </div>
 
@@ -394,8 +499,8 @@
     <footer class="post-footer">
           <div class="post-tags">
               <a href="/tags/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" rel="tag"><i class="fa fa-tag"></i> 课程笔记</a>
+              <a href="/tags/%E8%8B%8F%E5%B7%9E%E5%A4%A7%E5%AD%A6/" rel="tag"><i class="fa fa-tag"></i> 苏州大学</a>
               <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="tag"><i class="fa fa-tag"></i> 计算机网络</a>
-              <a href="/tags/%E4%B8%AD%E7%A7%91%E5%A4%A7/" rel="tag"><i class="fa fa-tag"></i> 中科大</a>
           </div>
 
         
@@ -449,14 +554,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">365k</span>
+    <span title="站点总字数">367k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">22:09</span>
+    <span title="站点阅读时长">22:13</span>
   </span>
 </div>
 <div class="busuanzi-count">
