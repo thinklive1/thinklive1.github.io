@@ -34,7 +34,7 @@
 <meta property="og:image" content="https://thinklive1.github.io/assets/resources/Pasted%20image%2020240518210545.png">
 <meta property="og:image" content="https://thinklive1.github.io/assets/resources/Pasted%20image%2020240518210650.png">
 <meta property="article:published_time" content="2024-01-20T11:53:48.573Z">
-<meta property="article:modified_time" content="2024-05-18T13:15:55.954Z">
+<meta property="article:modified_time" content="2024-05-18T14:29:53.914Z">
 <meta property="article:author" content="thinklive">
 <meta property="article:tag" content="课程笔记">
 <meta property="article:tag" content="苏州大学">
@@ -293,7 +293,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-05-18 21:15:55" itemprop="dateModified" datetime="2024-05-18T21:15:55+08:00">2024-05-18</time>
+      <time title="修改时间：2024-05-18 22:29:53" itemprop="dateModified" datetime="2024-05-18T22:29:53+08:00">2024-05-18</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -323,14 +323,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>3.9k</span>
+      <span>4.2k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>14 分钟</span>
+      <span>15 分钟</span>
     </span>
 </div>
 
@@ -542,9 +542,192 @@ TCP/UDP/IP/SMTP/FTP……</p></li>
 <li><p>使用比特填充的起止标记法组帧时，帧边界是怎样的比特序列？若接收方从链路上收到的比特序列为：XXXXXXXXXX，给出去掉填充比特之后的原始比特序列。<br />
 <code>01111110 (数据部分) 01111110</code><br />
 数据的5个1后添加一个0</p></li>
-<li><p>根据Wireshark捕获的数据包原始内容（从帧开始，不含前导码和定界符），试分析该数据包。</p></li>
+<li><p>根据Wireshark捕获的数据包原始内容（从帧开始，不含前导码和定界符），试分析该数据包。<br />
+<img src="/assets/resources/Pasted%20image%2020240518210354.png" alt="arp" /></p></li>
 </ol>
-<p><img src="/assets/resources/Pasted%20image%2020240518210354.png" alt="arp" /> <img src="/assets/resources/Pasted%20image%2020240518210545.png" alt="tcp" /> <img src="/assets/resources/Pasted%20image%2020240518210650.png" alt="udp" /></p>
+<p>ARP数据报格式:</p>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 9%" />
+<col style="width: 8%" />
+<col style="width: 8%" />
+<col style="width: 14%" />
+<col style="width: 13%" />
+<col style="width: 7%" />
+<col style="width: 7%" />
+<col style="width: 7%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>6B</th>
+<th>6B</th>
+<th>2B</th>
+<th>2B</th>
+<th>2B</th>
+<th>1B</th>
+<th>1B</th>
+<th>2B</th>
+<th>6B</th>
+<th>4B</th>
+<th>6B</th>
+<th>4B</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>目的mac地址(6B)</td>
+<td>源mac地址(6B)</td>
+<td>协议类型(0806)</td>
+<td>硬件类型(以太网 0x0001)</td>
+<td>协议类型(ipv4 0x0800)</td>
+<td>硬件地址长度</td>
+<td>协议地址长度</td>
+<td>可选字段代码</td>
+<td>源mac地址</td>
+<td>源ip地址</td>
+<td>目的mac地址</td>
+<td>目的ip地址</td>
+</tr>
+</tbody>
+</table>
+<figure>
+<img src="/assets/resources/Pasted%20image%2020240518210545.png" alt="" /><figcaption>tcp</figcaption>
+</figure>
+<p>以太网帧头部格式:</p>
+<table>
+<thead>
+<tr class="header">
+<th>6B</th>
+<th>6B</th>
+<th>2B</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>目的 MAC 地址</td>
+<td>源 MAC 地址</td>
+<td>协议类型</td>
+</tr>
+</tbody>
+</table>
+<p>IP 头部格式:</p>
+<table>
+<colgroup>
+<col style="width: 6%" />
+<col style="width: 8%" />
+<col style="width: 8%" />
+<col style="width: 7%" />
+<col style="width: 7%" />
+<col style="width: 6%" />
+<col style="width: 7%" />
+<col style="width: 8%" />
+<col style="width: 6%" />
+<col style="width: 6%" />
+<col style="width: 10%" />
+<col style="width: 13%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>4 bits</th>
+<th>4 bits</th>
+<th>8 bits</th>
+<th>16 bits</th>
+<th>16 bits</th>
+<th>3 bits</th>
+<th>13 bits</th>
+<th>8 bits</th>
+<th>8 bits</th>
+<th>16 bit</th>
+<th>32 bits</th>
+<th>32 bits</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>版本</td>
+<td>头部长度</td>
+<td>服务类型</td>
+<td>总长度</td>
+<td>标识</td>
+<td>标志</td>
+<td>片偏移</td>
+<td>生存时间</td>
+<td>协议</td>
+<td>协议和</td>
+<td>源 IP 地址</td>
+<td>目的 IP 地址</td>
+</tr>
+</tbody>
+</table>
+<p>TCP 报文格式:</p>
+<table>
+<thead>
+<tr class="header">
+<th>14B</th>
+<th>20B</th>
+<th>2B</th>
+<th>2B</th>
+<th>4B</th>
+<th>4B</th>
+<th>4bit</th>
+<th>6bit</th>
+<th>6bit</th>
+<th>2B</th>
+<th>2B</th>
+<th>2B</th>
+<th>可变</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>以太网帧头部(14B)</td>
+<td>IP 头部(20B)</td>
+<td>源端口号</td>
+<td>目的端口号</td>
+<td>序列号</td>
+<td>确认号</td>
+<td>数据偏移</td>
+<td>保留</td>
+<td>标志位</td>
+<td>窗口大小</td>
+<td>TCP 校验和</td>
+<td>紧急指针</td>
+<td>数据部分</td>
+</tr>
+</tbody>
+</table>
+<figure>
+<img src="/assets/resources/Pasted%20image%2020240518210650.png" alt="" /><figcaption>udp</figcaption>
+</figure>
+<p>UDP 用户数据报格式:</p>
+<table>
+<thead>
+<tr class="header">
+<th>14B</th>
+<th>8B</th>
+<th>2B</th>
+<th>2B</th>
+<th>2B</th>
+<th>2B</th>
+<th>可变</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>以太网帧头部(14B)</td>
+<td>IP 头部(20B)</td>
+<td>源端口号</td>
+<td>目的端口号</td>
+<td>UDP 长度</td>
+<td>UDP 检验和</td>
+<td>数据部分</td>
+</tr>
+</tbody>
+</table>
 <ol start="67" type="1">
 <li>论述并对比IPv4到IPv6的两种过渡策略</li>
 </ol>
@@ -631,13 +814,13 @@ TCP/UDP/IP/SMTP/FTP……</p></li>
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/thinklive/3998/" rel="prev" title="迪瑞克拉世界观设定集">
-                  <i class="fa fa-angle-left"></i> 迪瑞克拉世界观设定集
+                <a href="/thinklive/14434/" rel="prev" title="迪瑞克拉世界观轶事集">
+                  <i class="fa fa-angle-left"></i> 迪瑞克拉世界观轶事集
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/thinklive/59610/" rel="next" title="基于中科大linux101和苏大ppt的linux笔记">
-                  基于中科大linux101和苏大ppt的linux笔记 <i class="fa fa-angle-right"></i>
+                <a href="/thinklive/3998/" rel="next" title="迪瑞克拉世界观设定集">
+                  迪瑞克拉世界观设定集 <i class="fa fa-angle-right"></i>
                 </a>
             </div>
           </div>
@@ -678,7 +861,7 @@ TCP/UDP/IP/SMTP/FTP……</p></li>
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">22:21</span>
+    <span title="站点阅读时长">22:22</span>
   </span>
 </div>
 <div class="busuanzi-count">
