@@ -2826,6 +2826,10 @@ body {
   text-shadow: 0 0 1px rgba(255,255,255,0.8), 0 0 5px rgba(255,255,255,0.8);
 }
 /* 雪花 END */
+.post-body .note.warning {
+  background: --content-bg-color;
+  border-left-color: #f0ad4e;
+}
 @keyframes clippath {
   0%, 100% {
     clip-path: inset(0 0 98% 0);

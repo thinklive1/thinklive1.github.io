@@ -52,25 +52,7 @@
 <script type="text/javascript" async src="/js/fairyDustCursor.js"></script>
 <script type="text/javascript" async src="/js/tab-title.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
-<script>
-  function addDarkmodeWidget() {
-    var options = {
-  bottom: '64px', // default: '32px'
-  right: 'unset', // default: '32px'
-  left: '32px', // default: 'unset'
-  time: '0.5s', // default: '0.3s'
-  mixColor: '#fff', // default: '#fff'
-  backgroundColor: '#fff',  // default: '#fff'
-  buttonColorDark: '#100f2c',  // default: '#100f2c'
-  buttonColorLight: '#fff', // default: '#fff'
-  saveInCookies: true, // default: true,
-  label: '🌓', // default: ''
-  autoMatchOsTheme: true // default: true
-}
-    new Darkmode(options).showWidget();
-  }
-  window.addEventListener('load', addDarkmodeWidget);
-</script>
+
   <noscript>
     <link rel="stylesheet" href="/css/noscript.css">
   </noscript>
@@ -260,7 +242,7 @@ const darkmode = new Darkmode(options);
   </div>
 
 <div style="Text-align:center;width:100%"><div style="margin:0 auto"><canvas id="canvas" style="width:60%" height="100" width="700">当前浏览器不支持canvas，请更换浏览器后再试</canvas></div><script>!function(){function t(t,e){for(var a=0;a<l[e].length;a++)for(var n=0;n<l[e][a].length;n++)1==l[e][a][n]&&(h.beginPath(),h.arc(14*(g+2)*t+2*n*(g+1)+(g+1),2*a*(g+1)+(g+1),g,0,2*Math.PI),h.closePath(),h.fill())}function e(){var t=[],e=/(\d)(\d):(\d)(\d):(\d)(\d)/.exec(new Date),a=[];a.push(e[1],e[2],10,e[3],e[4],10,e[5],e[6]);for(var r=c.length-1;r>=0;r--)a[r]!==c[r]&&t.push(r+"_"+(Number(c[r])+1)%10);for(var r=0;r<t.length;r++)n.apply(this,t[r].split("_"));c=a.concat()}function a(){for(var t=0;t<d.length;t++)d[t].stepY+=d[t].disY,d[t].x+=d[t].stepX,d[t].y+=d[t].stepY,(d[t].x>i+g||d[t].y>f+g)&&(d.splice(t,1),t--)}function n(t,e){for(var a=[1,2,3],n=["#3BE","#09C","#A6C","#93C","#9C0","#690","#FB3","#F80","#F44","#C00"],r=0;r<l[e].length;r++)for(var o=0;o<l[e][r].length;o++)if(1==l[e][r][o]){var h={x:14*(g+2)*t+2*o*(g+1)+(g+1),y:2*r*(g+1)+(g+1),stepX:Math.floor(4*Math.random()-2),stepY:-2*a[Math.floor(Math.random()*a.length)],color:n[Math.floor(Math.random()*n.length)],disY:1};d.push(h)}}function r(){o.height=100;for(var e=0;e<c.length;e++)t(e,c[e]);for(var e=0;e<d.length;e++)h.beginPath(),h.arc(d[e].x,d[e].y,g,0,2*Math.PI),h.fillStyle=d[e].color,h.closePath(),h.fill()}var l=[[[0,0,1,1,1,0,0],[0,1,1,0,1,1,0],[1,1,0,0,0,1,1],[1,1,0,0,0,1,1],[1,1,0,0,0,1,1],[1,1,0,0,0,1,1],[1,1,0,0,0,1,1],[1,1,0,0,0,1,1],[0,1,1,0,1,1,0],[0,0,1,1,1,0,0]],[[0,0,0,1,1,0,0],[0,1,1,1,1,0,0],[0,0,0,1,1,0,0],[0,0,0,1,1,0,0],[0,0,0,1,1,0,0],[0,0,0,1,1,0,0],[0,0,0,1,1,0,0],[0,0,0,1,1,0,0],[0,0,0,1,1,0,0],[1,1,1,1,1,1,1]],[[0,1,1,1,1,1,0],[1,1,0,0,0,1,1],[0,0,0,0,0,1,1],[0,0,0,0,1,1,0],[0,0,0,1,1,0,0],[0,0,1,1,0,0,0],[0,1,1,0,0,0,0],[1,1,0,0,0,0,0],[1,1,0,0,0,1,1],[1,1,1,1,1,1,1]],[[1,1,1,1,1,1,1],[0,0,0,0,0,1,1],[0,0,0,0,1,1,0],[0,0,0,1,1,0,0],[0,0,1,1,1,0,0],[0,0,0,0,1,1,0],[0,0,0,0,0,1,1],[0,0,0,0,0,1,1],[1,1,0,0,0,1,1],[0,1,1,1,1,1,0]],[[0,0,0,0,1,1,0],[0,0,0,1,1,1,0],[0,0,1,1,1,1,0],[0,1,1,0,1,1,0],[1,1,0,0,1,1,0],[1,1,1,1,1,1,1],[0,0,0,0,1,1,0],[0,0,0,0,1,1,0],[0,0,0,0,1,1,0],[0,0,0,1,1,1,1]],[[1,1,1,1,1,1,1],[1,1,0,0,0,0,0],[1,1,0,0,0,0,0],[1,1,1,1,1,1,0],[0,0,0,0,0,1,1],[0,0,0,0,0,1,1],[0,0,0,0,0,1,1],[0,0,0,0,0,1,1],[1,1,0,0,0,1,1],[0,1,1,1,1,1,0]],[[0,0,0,0,1,1,0],[0,0,1,1,0,0,0],[0,1,1,0,0,0,0],[1,1,0,0,0,0,0],[1,1,0,1,1,1,0],[1,1,0,0,0,1,1],[1,1,0,0,0,1,1],[1,1,0,0,0,1,1],[1,1,0,0,0,1,1],[0,1,1,1,1,1,0]],[[1,1,1,1,1,1,1],[1,1,0,0,0,1,1],[0,0,0,0,1,1,0],[0,0,0,0,1,1,0],[0,0,0,1,1,0,0],[0,0,0,1,1,0,0],[0,0,1,1,0,0,0],[0,0,1,1,0,0,0],[0,0,1,1,0,0,0],[0,0,1,1,0,0,0]],[[0,1,1,1,1,1,0],[1,1,0,0,0,1,1],[1,1,0,0,0,1,1],[1,1,0,0,0,1,1],[0,1,1,1,1,1,0],[1,1,0,0,0,1,1],[1,1,0,0,0,1,1],[1,1,0,0,0,1,1],[1,1,0,0,0,1,1],[0,1,1,1,1,1,0]],[[0,1,1,1,1,1,0],[1,1,0,0,0,1,1],[1,1,0,0,0,1,1],[1,1,0,0,0,1,1],[0,1,1,1,0,1,1],[0,0,0,0,0,1,1],[0,0,0,0,0,1,1],[0,0,0,0,1,1,0],[0,0,0,1,1,0,0],[0,1,1,0,0,0,0]],[[0,0,0,0,0,0,0],[0,0,1,1,1,0,0],[0,0,1,1,1,0,0],[0,0,1,1,1,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,1,1,1,0,0],[0,0,1,1,1,0,0],[0,0,1,1,1,0,0],[0,0,0,0,0,0,0]]],o=document.getElementById("canvas");if(o.getContext){var h=o.getContext("2d"),f=100,i=700;o.height=f,o.width=i,h.fillStyle="#f00",h.fillRect(10,10,50,50);var c=[],d=[],g=o.height/20-1;!function(){var t=/(\d)(\d):(\d)(\d):(\d)(\d)/.exec(new Date);c.push(t[1],t[2],10,t[3],t[4],10,t[5],t[6])}(),clearInterval(v);var v=setInterval(function(){e(),a(),r()},50)}}()</script></div>
-<img src="/images/thinklive_cyber.png"; z-index: 0; style="max-width: 100%; width: auto; height: auto;background-color: #fff;">
+<img class= 'logo' src="/images/thinklive_cyber.png"; z-index: '0'; style="max-width: 100%; width: auto; height: auto;background-color: --content-bg-color;">
 
         </div>
       </div>
@@ -320,7 +302,7 @@ const darkmode = new Darkmode(options);
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-05-30 22:17:39" itemprop="dateModified" datetime="2024-05-30T22:17:39+08:00">2024-05-30</time>
+      <time title="修改时间：2024-06-25 00:10:30" itemprop="dateModified" datetime="2024-06-25T00:10:30+08:00">2024-06-25</time>
     </span>
 
   
@@ -330,7 +312,7 @@ const darkmode = new Darkmode(options);
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>1.4k</span>
+      <span>1.5k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -361,6 +343,7 @@ const darkmode = new Darkmode(options);
 使用左侧的分类来定位内容<br />
 为了响应环保号召，并且给你的电脑省点电，推荐<strong>禁止浏览器的js功能</strong>，例如firefox浏览器可下载<code>disable javascript</code>插件禁用js<br />
 这意味着该网站的动态功能全部瘫痪，包括背景动效，加密页面，左侧的时钟，游戏等页面，但浏览普通博文的功能保持正常<br />
+可以通过左下角的"🌓"按钮切换白天/黑夜模式,由于某些原因，使用next标签功能的页面，需要手动再次进入黑夜模式，才能把标签内的内容切换成黑色背景，该问题可能某天会优化<br />
 有时可能出现latex数学公式不渲染的bug，这时一般刷新页面就可以解决</p>
 <p><a href="./thinklive/22586/">建站指北</a></p>
 <p>菜单的<a href="./webstack">资源地图</a>和<a href="./cyberblog">神龛</a>是迪瑞克拉子站，分别用于存放资源网站和随笔,主站主要存放学习笔记或者一些公开的创作</p>
@@ -371,6 +354,144 @@ const darkmode = new Darkmode(options);
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/thinklive/3852/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://thinklive1.github.io/thinklive/54551/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/thive.png">
+      <meta itemprop="name" content="thinklive">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="thinklive">
+      <meta itemprop="description" content="起初，世界是一团思索，它向所有的方向迈了一步，于是万物由此而生">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | thinklive">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/thinklive/54551/" class="post-title-link" itemprop="url">暑期复习日活</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-06-17 16:27:18" itemprop="dateCreated datePublished" datetime="2024-06-17T16:27:18+08:00">2024-06-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-06-24 20:13:23" itemprop="dateModified" datetime="2024-06-24T20:13:23+08:00">2024-06-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">考研笔记</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>213</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        
+        </div>
+      </header>
+   
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p><del>删除线</del>表示完成，未完成日后补上视为完成</p>
+<p>2024/6/17<br />
+<del>单词200次</del><br />
+<del>操作系统二轮复习——80%</del><br />
+<del>计算机网络二轮复习——20%</del><br />
+<del>英语真题训练</del></p>
+<p>2024/6/18<br />
+<del>单词200次</del><br />
+<del>李永乐线代——矩阵部分例题50%</del><br />
+<del>操作系统二轮复习——90%</del><br />
+<del>英语真题训练</del></p>
+<p>2024/6/19<br />
+<del>单词200次</del> <del>操作系统二轮复习——100%</del><br />
+<del>李永乐线代——矩阵部分例题75%</del></p>
+<p>2024/6/20 <del>单词200次</del><br />
+<del>计算机网络二轮复习——40%</del><br />
+<del>李永乐线代——矩阵部分例题100%</del></p>
+<p>2024/6/20 <del>单词200次</del><br />
+<del>计算机网络二轮复习——60%</del></p>
+<p>2024/6/21<br />
+<del>单词150次</del><br />
+计算机网络二轮复习——80%~~<br />
+<del>英语真题训练</del></p>
+<p>2024/6/22<br />
+<del>单词150次</del><br />
+计算机网络二轮复习——100%~~</p>
+<p>2024/6/23<br />
+<del>课程作业</del></p>
+<p>2024/6/24<br />
+<del>课程作业</del></p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/thinklive/54551/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -731,140 +852,6 @@ const darkmode = new Darkmode(options);
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/thinklive/26286/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://thinklive1.github.io/thinklive/54551/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/thive.png">
-      <meta itemprop="name" content="thinklive">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="thinklive">
-      <meta itemprop="description" content="起初，世界是一团思索，它向所有的方向迈了一步，于是万物由此而生">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | thinklive">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/thinklive/54551/" class="post-title-link" itemprop="url">暑期复习日活</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2024-06-17 16:27:18" itemprop="dateCreated datePublished" datetime="2024-06-17T16:27:18+08:00">2024-06-17</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-06-22 22:09:53" itemprop="dateModified" datetime="2024-06-22T22:09:53+08:00">2024-06-22</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">考研笔记</span></a>
-        </span>
-    </span>
-
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>199</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
-    </span>
-</div>
-
-        
-        </div>
-      </header>
-   
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p><del>删除线</del>表示完成，未完成日后补上视为完成</p>
-<p>2024/6/17<br />
-<del>单词200次</del><br />
-<del>操作系统二轮复习——80%</del><br />
-<del>计算机网络二轮复习——20%</del><br />
-<del>英语真题训练</del></p>
-<p>2024/6/18<br />
-<del>单词200次</del><br />
-<del>李永乐线代——矩阵部分例题50%</del><br />
-<del>操作系统二轮复习——90%</del><br />
-<del>英语真题训练</del></p>
-<p>2024/6/19<br />
-<del>单词200次</del> <del>操作系统二轮复习——100%</del><br />
-<del>李永乐线代——矩阵部分例题75%</del></p>
-<p>2024/6/20 <del>单词200次</del><br />
-<del>计算机网络二轮复习——40%</del><br />
-<del>李永乐线代——矩阵部分例题100%</del></p>
-<p>2024/6/20 <del>单词200次</del><br />
-<del>计算机网络二轮复习——60%</del></p>
-<p>2024/6/21<br />
-<del>单词150次</del><br />
-计算机网络二轮复习——80%~~<br />
-<del>英语真题训练</del></p>
-<p>2024/6/20<br />
-<del>单词150次</del><br />
-计算机网络二轮复习——100%~~</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/thinklive/54551/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1480,7 +1467,7 @@ const darkmode = new Darkmode(options);
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">22:49</span>
+    <span title="站点阅读时长">22:50</span>
   </span>
 </div>
 <div class="busuanzi-count">
@@ -1642,10 +1629,63 @@ darkmode.showWidget();
         setTimeout(snowfallAnimation, 150); // 生成速度，毫秒
     }
     snowfallAnimation();
+function toggleMode() {
+    console.log("change!");
+    const root1 = document.documentElement;
+
+    // 检查当前 color-scheme
+    const isLightMode = getComputedStyle(root1).getPropertyValue('--content-bg-color').trim() === '#fff';
+
+    if (isLightMode) {
+        // 切换到暗模式
+        root1.style.setProperty('--content-bg-color', '#000');
+        root1.style.setProperty('--text-color', '#fff');
+        root1.style.setProperty('--highlight-background', '#444');
+        root1.style.setProperty('--highlight-foreground', '#bbb');
+        root1.style.setProperty('--btn-default-bg', '#777');
+        root1.style.setProperty('--menu-item-bg-color', '#777');
+        root1.style.setProperty('.post-body .note.warning', 'background: #777');
+        root1.style.transition = 'all 0.5s ease';
+
+        const warningNotes = document.querySelectorAll('.post-body .note.warning');
+        // 修改背景颜色
+        warningNotes.forEach(note => {
+        note.style.background = '#666';
+        });
+
+        const infoNotes = document.querySelectorAll('.post-body .note.info');
+        // 修改背景颜色
+        infoNotes.forEach(note => {
+        note.style.background = '#666';
+        });
+    }
+
+    else {
+        root1.style.setProperty('--content-bg-color', '#fff');
+        root1.style.setProperty('--text-color', '#111');
+    }
+}
+
 </script>
 
  <!--js: 线条特效-->
   <script type="text/javascript" color="255,255,255" opacity='1' zIndex="-1" count="300" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+<button style="background: #868686;
+  width: 3rem;
+  height: 3rem;
+  position: fixed;
+  border-radius: 50%;
+  border: none;
+  right: unset;
+  bottom: 2rem;
+  left: 2rem;
+  cursor: pointer;
+  transition: all 0.5s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;" class="darkmode-toggle" role="checkbox" onclick="toggleMode()">🌓</button>
+
 
   <video autoplay loop muted playsinline style="position:fixed;top:50%;opacity: 0.8;left:50%;min-width:100%;min-height:100%;transform:translateX(-50%)translateY(-50%);z-index:-2;">
   <source src="/images/red.mp4" type="video/mp4">
