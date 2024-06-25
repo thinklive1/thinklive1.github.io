@@ -2280,7 +2280,7 @@ public  int[] findVerticalSeam() &#123;
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">22:50</span>
+    <span title="站点阅读时长">22:49</span>
   </span>
 </div>
 <div class="busuanzi-count">
@@ -2457,9 +2457,24 @@ function toggleMode() {
         root1.style.setProperty('--highlight-foreground', '#bbb');
         root1.style.setProperty('--btn-default-bg', '#777');
         root1.style.setProperty('--menu-item-bg-color', '#777');
-        root1.style.setProperty('.post-body .note.warning', 'background: #777');
+        root1.style.setProperty('--note-warning-bg-color', '#777');
+        root1.style.setProperty('--note-info-bg-color', '#777');
         root1.style.transition = 'all 0.5s ease';
 
+    }
+
+    else {
+        root1.style.setProperty('--content-bg-color', '#fff');
+        root1.style.setProperty('--text-color', '#111');
+    }
+}
+
+function DarkTrigger() {
+    console.log('dark!!')
+    let isDarkMode = getComputedStyle(document.documentElement).getPropertyValue('--content-bg-color').trim() === '#000';
+    console.log(isDarkMode)
+    if (isDarkMode) {
+        // 切换到暗模式
         const warningNotes = document.querySelectorAll('.post-body .note.warning');
         // 修改背景颜色
         warningNotes.forEach(note => {
@@ -2472,12 +2487,8 @@ function toggleMode() {
         note.style.background = '#666';
         });
     }
-
-    else {
-        root1.style.setProperty('--content-bg-color', '#fff');
-        root1.style.setProperty('--text-color', '#111');
-    }
 }
+
 
 </script>
 
