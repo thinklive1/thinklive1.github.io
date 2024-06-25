@@ -22,25 +22,28 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"thinklive1.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.18.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"flat"},"fold":{"enable":true,"height":500},"bookmark":{"enable":true,"color":"#66CCFF","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":true,"motion":{"enable":true,"async":true,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="起初，世界是一团思索，它向所有的方向迈了一步，于是万物由此而生">
-<meta property="og:type" content="website">
-<meta property="og:title" content="thinklive">
-<meta property="og:url" content="https://thinklive1.github.io/tags/%E7%BC%96%E7%A8%8B%E5%B7%A5%E5%85%B7/index.html">
+    <meta name="description" content="计组 概论部分 问题：  硬件系统的五个组成部分 指令和数据怎么被cpu区分 控制器怎么取指和译码 三种语言类型，汇编解释和编译的区别 硬软件逻辑功能等价性 计算机的五级层次结构 指令集ISA是软硬的界限,是一种接口不是实现 以c语言为例，怎么最后得到可执行文件 ALU,CU,IR，M,MAR,MDR,OP,PC等组件的英文简称 相联存储器的特点 常见性能指标，字长，数据容量带宽,基准程序等 存储">
+<meta property="og:type" content="article">
+<meta property="og:title" content="研distance——408关键问题辨析">
+<meta property="og:url" content="https://thinklive1.github.io/thinklive/25833/index.html">
 <meta property="og:site_name" content="thinklive">
-<meta property="og:description" content="起初，世界是一团思索，它向所有的方向迈了一步，于是万物由此而生">
+<meta property="og:description" content="计组 概论部分 问题：  硬件系统的五个组成部分 指令和数据怎么被cpu区分 控制器怎么取指和译码 三种语言类型，汇编解释和编译的区别 硬软件逻辑功能等价性 计算机的五级层次结构 指令集ISA是软硬的界限,是一种接口不是实现 以c语言为例，怎么最后得到可执行文件 ALU,CU,IR，M,MAR,MDR,OP,PC等组件的英文简称 相联存储器的特点 常见性能指标，字长，数据容量带宽,基准程序等 存储">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-06-25T13:27:44.780Z">
+<meta property="article:modified_time" content="2024-06-25T13:52:32.230Z">
 <meta property="article:author" content="thinklive">
+<meta property="article:tag" content="研distance">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://thinklive1.github.io/tags/%E7%BC%96%E7%A8%8B%E5%B7%A5%E5%85%B7/">
+<link rel="canonical" href="https://thinklive1.github.io/thinklive/25833/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":false,"lang":"zh-CN","comments":"","permalink":"","path":"tags/编程工具/index.html","title":""}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://thinklive1.github.io/thinklive/25833/","path":"thinklive/25833/","title":"研distance——408关键问题辨析"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>标签: 编程工具 | thinklive</title>
+<title>研distance——408关键问题辨析 | thinklive</title>
   
 
 
@@ -74,7 +77,7 @@ const options = {
 
 const darkmode = new Darkmode(options);
 </script>
-<link rel="alternate" href="/atom.xml" title="thinklive" type="application/atom+xml">
+<!-- hexo injector head_end start --><script> let HEXO_MMEDIA_DATA = { js: [], css: [], aplayerData: [], metingData: [], artPlayerData: [], dplayerData: []}; </script><!-- hexo injector head_end end --><link rel="alternate" href="/atom.xml" title="thinklive" type="application/atom+xml">
 </head>
 <script src="/js/tab-title.js"></script>
 <script type="text/javascript" async src="/js/text.js"></script>
@@ -180,7 +183,7 @@ const darkmode = new Darkmode(options);
     preload="auto"
     lrc-type="2"
     mutex="true">
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -193,6 +196,7 @@ const darkmode = new Darkmode(options);
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%A1%E7%BB%84"><span class="nav-number">1.</span> <span class="nav-text">计组</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A6%82%E8%AE%BA%E9%83%A8%E5%88%86"><span class="nav-number">1.1.</span> <span class="nav-text">概论部分</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE"><span class="nav-number">1.2.</span> <span class="nav-text">数据</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F"><span class="nav-number">2.</span> <span class="nav-text">操作系统</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%A1%E7%BD%91"><span class="nav-number">3.</span> <span class="nav-text">计网</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-number">4.</span> <span class="nav-text">数据结构</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -256,91 +260,173 @@ const darkmode = new Darkmode(options);
 
     </div>
 
-    <div class="main-inner tag posts-collapse">
+    <div class="main-inner post posts-expand">
 
 
   
+
+
+<div class="post-block">
   
   
-  <div class="post-block">
-    <div class="post-content">
-      <div class="collection-title">
-        <h1 class="collection-header">编程工具
-          <small>标签</small>
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://thinklive1.github.io/thinklive/25833/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/thive.png">
+      <meta itemprop="name" content="thinklive">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="thinklive">
+      <meta itemprop="description" content="起初，世界是一团思索，它向所有的方向迈了一步，于是万物由此而生">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="研distance——408关键问题辨析 | thinklive">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          研distance——408关键问题辨析
         </h1>
-      </div>
 
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
       
-    <div class="collection-year">
-      <span class="collection-header">2024</span>
+
+      <time title="创建时间：2024-06-25 21:27:44 / 修改时间：21:52:32" itemprop="dateCreated datePublished" datetime="2024-06-25T21:27:44+08:00">2024-06-25</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">考研笔记</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>395</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        
+        </div>
+      </header>
+   
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="计组">计组</h1>
+<h2 id="概论部分">概论部分</h2>
+<p>问题：</p>
+<ol type="1">
+<li>硬件系统的五个组成部分</li>
+<li>指令和数据怎么被cpu区分</li>
+<li>控制器怎么取指和译码</li>
+<li>三种语言类型，汇编解释和编译的区别</li>
+<li>硬软件逻辑功能等价性</li>
+<li>计算机的五级层次结构</li>
+<li>指令集ISA是软硬的界限,是一种接口不是实现</li>
+<li>以c语言为例，怎么最后得到可执行文件</li>
+<li>ALU,CU,IR，M,MAR,MDR,OP,PC等组件的英文简称</li>
+<li>相联存储器的特点</li>
+<li>常见性能指标，字长，数据容量带宽,基准程序等</li>
+<li>存储，数据，机器，指令字长分别是什么</li>
+<li>提高cpu速度具体机制</li>
+</ol>
+<span id="more"></span>
+<p>Tips:</p>
+<ol type="1">
+<li>冯•诺依曼机基本工作方式是控制流驱动方式</li>
+<li>地址译码器是主存的构成部分，不属于CPU(但一般现代cpu也集成)</li>
+<li>MIPS:美妙执行几百万指令</li>
+<li>毫微纳皮mμnp：依次更小</li>
+<li>MGTPEZ(FLOPS)；浮点操作次数，依次更大，M对应10 ^ 6</li>
+<li>固件：固化于ROM的程序</li>
+</ol>
+<h2 id="数据">数据</h2>
+<p>问题：</p>
+<ol type="1">
+<li>BCD码是什么</li>
+<li>浮点数的本质:将数据分布得更散，但不会改变一定二进制位能表示的状态数上限</li>
+<li>补码，原码，移码的转化，逻辑移位时补0还是1</li>
+<li>进制之间的转化和舍入</li>
+<li>一位全加器，串行加法，并行加分器等原理</li>
+<li></li>
+</ol>
+<h1 id="操作系统">操作系统</h1>
+<h1 id="计网">计网</h1>
+<h1 id="数据结构">数据结构</h1>
+
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2024-01-20T19:53:48+08:00"
-              content="2024-01-20">
-          01-20
-        </time>
-      </div>
+    
+    
+    
 
-      <div class="post-title">
-        <a class="post-title-link" href="/thinklive/11069/" itemprop="url">
-          <span itemprop="name">基于北大前沿计算实践课和missing semester的linux等编程工具笔记</span>
-        </a>
-      </div>
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%A0%94distance/" rel="tag"><i class="fa fa-tag"></i> 研distance</a>
+          </div>
 
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2024-01-20T19:53:48+08:00"
-              content="2024-01-20">
-          01-20
-        </time>
-      </div>
-
-      <div class="post-title">
-        <a class="post-title-link" href="/thinklive/11086/" itemprop="url">
-          <span itemprop="name">基于北大前沿计算实践课和missing semester的vim笔记</span>
-        </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2024-01-20T19:53:48+08:00"
-              content="2024-01-20">
-          01-20
-        </time>
-      </div>
-
-      <div class="post-title">
-        <a class="post-title-link" href="/thinklive/24757/" itemprop="url">
-          <span itemprop="name">一些工具的使用备忘录</span>
-        </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-    </div>
+        
+  <div class="social-like a2a_kit a2a_kit_size_32 a2a_default_style">
+    <a class="a2a_dd" target="_blank" rel="noopener" href="https://www.addtoany.com/share"></a>
+      <a class="a2a_button_facebook"></a>
+      <a class="a2a_button_twitter"></a>
+      <a class="a2a_button_wechat"></a>
+      <a class="a2a_button_qzone"></a>
   </div>
-  
-  
-  
 
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/thinklive/54551/" rel="prev" title="暑期复习日活">
+                  <i class="fa fa-angle-left"></i> 暑期复习日活
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
 </div>
   </main>
 
@@ -471,7 +557,7 @@ darkmode.showWidget();
 
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/quicklink/2.3.0/quicklink.umd.js" integrity="sha256-yvJQOINiH9fWemHn0vCA5lsHWJaHs6/ZmO+1Ft04SvM=" crossorigin="anonymous"></script>
-  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":false,"archive":false,"delay":true,"timeout":3000,"priority":true,"url":"https://thinklive1.github.io/tags/%E7%BC%96%E7%A8%8B%E5%B7%A5%E5%85%B7/"}</script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":false,"archive":false,"delay":true,"timeout":3000,"priority":true,"url":"https://thinklive1.github.io/thinklive/25833/"}</script>
   <script src="/js/third-party/quicklink.js"></script>
 <script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"thinklive1/blog_comments","issue_term":"pathname","theme":"photon-dark"}</script>
 <script src="/js/third-party/comments/utterances.js"></script>
@@ -601,5 +687,5 @@ function DarkTrigger() {
 
   <video autoplay loop muted playsinline style="position:fixed;top:50%;opacity: 0.8;left:50%;min-width:100%;min-height:100%;transform:translateX(-50%)translateY(-50%);z-index:-2;">
   <source src="/images/red.mp4" type="video/mp4">
-</body>
+<!-- hexo injector body_end start --><script src="/assets/mmedia/mmedia-loader.js"></script><!-- hexo injector body_end end --></body>
 </html>
