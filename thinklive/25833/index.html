@@ -30,7 +30,7 @@
 <meta property="og:description" content="计组 概论部分 问题：  硬件系统的五个组成部分 指令和数据怎么被cpu区分 控制器怎么取指和译码 三种语言类型，汇编解释和编译的区别 硬软件逻辑功能等价性 计算机的五级层次结构 指令集ISA是软硬的界限,是一种接口不是实现 以c语言为例，怎么最后得到可执行文件 ALU,CU,IR，M,MAR,MDR,OP,PC等组件是什么 相联存储器的特点 常见性能指标，字长，数据容量带宽,基准程序等 存储，数">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-06-25T13:27:44.780Z">
-<meta property="article:modified_time" content="2024-06-28T04:50:30.815Z">
+<meta property="article:modified_time" content="2024-06-28T06:55:58.575Z">
 <meta property="article:author" content="thinklive">
 <meta property="article:tag" content="研distance">
 <meta name="twitter:card" content="summary">
@@ -78,7 +78,7 @@ const options = {
 const darkmode = new Darkmode(options);
 </script>
 <!-- hexo injector head_end start --><script> let HEXO_MMEDIA_DATA = { js: [], css: [], aplayerData: [], metingData: [], artPlayerData: [], dplayerData: []}; </script><!-- hexo injector head_end end --><link rel="alternate" href="/atom.xml" title="thinklive" type="application/atom+xml">
-</head>
+<style>.darkmode--activated{--body-bg-color:#282828;--content-bg-color:#333;--card-bg-color:#555;--text-color:#ccc;--blockquote-color:#bbb;--link-color:#ccc;--link-hover-color:#eee;--brand-color:#ddd;--brand-hover-color:#ddd;--table-row-odd-bg-color:#282828;--table-row-hover-bg-color:#363636;--menu-item-bg-color:#555;--btn-default-bg:#222;--btn-default-color:#ccc;--btn-default-border-color:#555;--btn-default-hover-bg:#666;--btn-default-hover-color:#ccc;--btn-default-hover-border-color:#666;--highlight-background:#282b2e;--highlight-foreground:#a9b7c6;--highlight-gutter-background:#34393d;--highlight-gutter-foreground:#9ca9b6}.darkmode--activated img{opacity:.75}.darkmode--activated img:hover{opacity:.9}.darkmode--activated code{color:#69dbdc;background:0 0}button.darkmode-toggle{z-index:9999}.darkmode-ignore,img{display:flex!important}.beian img{display:inline-block!important}</style></head>
 <script src="/js/tab-title.js"></script>
 <script type="text/javascript" async src="/js/text.js"></script>
 
@@ -196,7 +196,7 @@ const darkmode = new Darkmode(options);
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%A1%E7%BB%84"><span class="nav-number">1.</span> <span class="nav-text">计组</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A6%82%E8%AE%BA%E9%83%A8%E5%88%86"><span class="nav-number">1.1.</span> <span class="nav-text">概论部分</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE"><span class="nav-number">1.2.</span> <span class="nav-text">数据</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E7%82%B9%E6%95%B0"><span class="nav-number">1.2.1.</span> <span class="nav-text">定点数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%AE%E7%82%B9%E6%95%B0"><span class="nav-number">1.2.2.</span> <span class="nav-text">浮点数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%98%E5%82%A8%E5%99%A8"><span class="nav-number">1.2.3.</span> <span class="nav-text">存储器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%AB%98%E9%80%9F%E7%BC%93%E5%86%B2%E5%AD%98%E5%82%A8%E5%99%A8"><span class="nav-number">1.2.4.</span> <span class="nav-text">高速缓冲存储器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%99%9A%E6%8B%9F%E5%AD%98%E5%82%A8%E5%99%A8"><span class="nav-number">1.2.5.</span> <span class="nav-text">虚拟存储器</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F"><span class="nav-number">2.</span> <span class="nav-text">操作系统</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%A1%E7%BD%91"><span class="nav-number">3.</span> <span class="nav-text">计网</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-number">4.</span> <span class="nav-text">数据结构</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%A1%E7%BB%84"><span class="nav-number">1.</span> <span class="nav-text">计组</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A6%82%E8%AE%BA%E9%83%A8%E5%88%86"><span class="nav-number">1.1.</span> <span class="nav-text">概论部分</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE"><span class="nav-number">1.2.</span> <span class="nav-text">数据</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E7%82%B9%E6%95%B0"><span class="nav-number">1.2.1.</span> <span class="nav-text">定点数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%AE%E7%82%B9%E6%95%B0"><span class="nav-number">1.2.2.</span> <span class="nav-text">浮点数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%98%E5%82%A8%E5%99%A8"><span class="nav-number">1.2.3.</span> <span class="nav-text">存储器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%AB%98%E9%80%9F%E7%BC%93%E5%86%B2%E5%AD%98%E5%82%A8%E5%99%A8"><span class="nav-number">1.2.4.</span> <span class="nav-text">高速缓冲存储器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%99%9A%E6%8B%9F%E5%AD%98%E5%82%A8%E5%99%A8"><span class="nav-number">1.2.5.</span> <span class="nav-text">虚拟存储器</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F"><span class="nav-number">2.</span> <span class="nav-text">操作系统</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%A1%E7%BD%91"><span class="nav-number">3.</span> <span class="nav-text">计网</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%89%A9%E7%90%86%E5%B1%82"><span class="nav-number">3.1.</span> <span class="nav-text">物理层</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-number">4.</span> <span class="nav-text">数据结构</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -307,7 +307,7 @@ const darkmode = new Darkmode(options);
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-06-28 12:50:30" itemprop="dateModified" datetime="2024-06-28T12:50:30+08:00">2024-06-28</time>
+      <time title="修改时间：2024-06-28 14:55:58" itemprop="dateModified" datetime="2024-06-28T14:55:58+08:00">2024-06-28</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -333,14 +333,14 @@ const darkmode = new Darkmode(options);
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>1.1k</span>
+      <span>1.3k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>4 分钟</span>
+      <span>5 分钟</span>
     </span>
 </div>
 
@@ -444,7 +444,6 @@ const darkmode = new Darkmode(options);
 <li>主存访问过程</li>
 <li>引脚复用技术，及其适用范围</li>
 <li>多模块存储器的种类，运作原理</li>
-<li></li>
 </ol>
 <p>Tips:</p>
 <ol type="1">
@@ -463,6 +462,33 @@ const darkmode = new Darkmode(options);
 <p>Tips:</p>
 <h1 id="操作系统">操作系统</h1>
 <h1 id="计网">计网</h1>
+<p>问题:</p>
+<ol type="1">
+<li>主流定义</li>
+<li>硬件软件协议；语法语义同步</li>
+<li>资源子网和通信子网</li>
+<li>边缘系统和核心</li>
+<li>主要功能</li>
+<li>几种分类；拓扑结构有几种</li>
+<li>三种交换方式及其优缺点</li>
+<li>主要传输介质</li>
+<li>主要性能指标，时延的组成</li>
+<li>实体，<strong>协议，接口，服务</strong>，SDU,PCI,PDU等概念</li>
+<li>OSI和TCP/IP异同</li>
+</ol>
+<h2 id="物理层">物理层</h2>
+<p>问题：</p>
+<ol type="1">
+<li>物理媒体的四种特性</li>
+<li>模拟/数据信号及其转化</li>
+<li>宽带和绩点信号</li>
+<li>信道的三种交互方式及例子</li>
+<li>计网的带宽指什么</li>
+<li>奈氏准则和香农定理</li>
+<li>编码和调制方式</li>
+<li>采样编码</li>
+<li></li>
+</ol>
 <h1 id="数据结构">数据结构</h1>
 
     </div>
@@ -531,7 +557,7 @@ const darkmode = new Darkmode(options);
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">22:57</span>
+    <span title="站点阅读时长">22:58</span>
   </span>
 </div>
 <div class="busuanzi-count">
@@ -578,7 +604,7 @@ const darkmode = new Darkmode(options);
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
 
 
-  <script src="[object Object]"></script>
+  <script src=""></script>
   <script src="/%5Bobject%20Object%5D"></script>
   <script src="/%5Bobject%20Object%5D"></script>
   <script src="/%5Bobject%20Object%5D"></script>
@@ -636,6 +662,26 @@ darkmode.showWidget();
   <script src="https://cdnjs.cloudflare.com/ajax/libs/quicklink/2.3.0/quicklink.umd.js" integrity="sha256-yvJQOINiH9fWemHn0vCA5lsHWJaHs6/ZmO+1Ft04SvM=" crossorigin="anonymous"></script>
   <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":false,"archive":false,"delay":true,"timeout":3000,"priority":true,"url":"https://thinklive1.github.io/thinklive/25833/"}</script>
   <script src="/js/third-party/quicklink.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
+
+<script>
+var options = {
+  bottom: '64px',
+  right: '32px',
+  left: 'unset',
+  time: '0.5s',
+  mixColor: 'transparent',
+  backgroundColor: 'transparent',
+  buttonColorDark: '#100f2c',
+  buttonColorLight: '#fff',
+  saveInCookies: true,
+  label: '🌓',
+  autoMatchOsTheme: true
+}
+const darkmode = new Darkmode(options);
+window.darkmode = darkmode;
+darkmode.showWidget();
+</script>
 <script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"thinklive1/blog_comments","issue_term":"pathname","theme":"photon-dark"}</script>
 <script src="/js/third-party/comments/utterances.js"></script>
 <script>
@@ -717,6 +763,13 @@ function toggleMode() {
     else {
         root1.style.setProperty('--content-bg-color', '#fff');
         root1.style.setProperty('--text-color', '#111');
+        root1.style.setProperty('--highlight-background', '#444');
+        root1.style.setProperty('--highlight-foreground', '#bbb');
+        root1.style.setProperty('--btn-default-bg', '#777');
+        root1.style.setProperty('--menu-item-bg-color', '#777');
+        root1.style.setProperty('--note-warning-bg-color', '#777');
+        root1.style.setProperty('--note-info-bg-color', '#777');
+        root1.style.transition = 'all 0.5s ease';
     }
 }
 
@@ -760,7 +813,6 @@ function DarkTrigger() {
   display: flex;
   justify-content: center;
   align-items: center;" class="darkmode-toggle" role="checkbox" onclick="toggleMode()">🌓</button>
-
 
   <video autoplay loop muted playsinline style="position:fixed;top:50%;opacity: 0.8;left:50%;min-width:100%;min-height:100%;transform:translateX(-50%)translateY(-50%);z-index:-2;">
   <source src="/images/red.mp4" type="video/mp4">
