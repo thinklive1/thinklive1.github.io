@@ -30,7 +30,7 @@
 <meta property="og:description" content="计组 概论部分 问题：  硬件系统的五个组成部分 指令和数据怎么被cpu区分 控制器怎么取指和译码 三种语言类型，汇编解释和编译的区别 硬软件逻辑功能等价性 计算机的五级层次结构 指令集ISA是软硬的界限,是一种接口不是实现 以c语言为例，怎么最后得到可执行文件 ALU,CU,IR，M,MAR,MDR,OP,PC等组件是什么 相联存储器的特点 常见性能指标，字长，数据容量带宽,基准程序等 存储，数">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-06-25T13:27:44.780Z">
-<meta property="article:modified_time" content="2024-06-29T11:49:55.516Z">
+<meta property="article:modified_time" content="2024-06-30T11:21:05.882Z">
 <meta property="article:author" content="thinklive">
 <meta property="article:tag" content="研distance">
 <meta name="twitter:card" content="summary">
@@ -196,7 +196,7 @@ const darkmode = new Darkmode(options);
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%A1%E7%BB%84"><span class="nav-number">1.</span> <span class="nav-text">计组</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A6%82%E8%AE%BA%E9%83%A8%E5%88%86"><span class="nav-number">1.1.</span> <span class="nav-text">概论部分</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE"><span class="nav-number">1.2.</span> <span class="nav-text">数据</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E7%82%B9%E6%95%B0"><span class="nav-number">1.2.1.</span> <span class="nav-text">定点数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%AE%E7%82%B9%E6%95%B0"><span class="nav-number">1.2.2.</span> <span class="nav-text">浮点数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%98%E5%82%A8%E5%99%A8"><span class="nav-number">1.2.3.</span> <span class="nav-text">存储器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%AB%98%E9%80%9F%E7%BC%93%E5%86%B2%E5%AD%98%E5%82%A8%E5%99%A8"><span class="nav-number">1.2.4.</span> <span class="nav-text">高速缓冲存储器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%99%9A%E6%8B%9F%E5%AD%98%E5%82%A8%E5%99%A8"><span class="nav-number">1.2.5.</span> <span class="nav-text">虚拟存储器</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F"><span class="nav-number">2.</span> <span class="nav-text">操作系统</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B"><span class="nav-number">2.1.</span> <span class="nav-text">进程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E5%AD%98"><span class="nav-number">2.2.</span> <span class="nav-text">内存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E4%BB%B6"><span class="nav-number">2.3.</span> <span class="nav-text">文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#io"><span class="nav-number">2.4.</span> <span class="nav-text">I&#x2F;O</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%A1%E7%BD%91"><span class="nav-number">3.</span> <span class="nav-text">计网</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%89%A9%E7%90%86%E5%B1%82"><span class="nav-number">3.1.</span> <span class="nav-text">物理层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82"><span class="nav-number">3.2.</span> <span class="nav-text">数据链路层</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-number">4.</span> <span class="nav-text">数据结构</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%A1%E7%BB%84"><span class="nav-number">1.</span> <span class="nav-text">计组</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A6%82%E8%AE%BA%E9%83%A8%E5%88%86"><span class="nav-number">1.1.</span> <span class="nav-text">概论部分</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE"><span class="nav-number">1.2.</span> <span class="nav-text">数据</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E7%82%B9%E6%95%B0"><span class="nav-number">1.2.1.</span> <span class="nav-text">定点数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%AE%E7%82%B9%E6%95%B0"><span class="nav-number">1.2.2.</span> <span class="nav-text">浮点数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%98%E5%82%A8%E5%99%A8"><span class="nav-number">1.2.3.</span> <span class="nav-text">存储器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%AB%98%E9%80%9F%E7%BC%93%E5%86%B2%E5%AD%98%E5%82%A8%E5%99%A8"><span class="nav-number">1.2.4.</span> <span class="nav-text">高速缓冲存储器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%99%9A%E6%8B%9F%E5%AD%98%E5%82%A8%E5%99%A8"><span class="nav-number">1.2.5.</span> <span class="nav-text">虚拟存储器</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F"><span class="nav-number">2.</span> <span class="nav-text">操作系统</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B"><span class="nav-number">2.1.</span> <span class="nav-text">进程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E5%AD%98"><span class="nav-number">2.2.</span> <span class="nav-text">内存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E4%BB%B6"><span class="nav-number">2.3.</span> <span class="nav-text">文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#io"><span class="nav-number">2.4.</span> <span class="nav-text">I&#x2F;O</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%A1%E7%BD%91"><span class="nav-number">3.</span> <span class="nav-text">计网</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%89%A9%E7%90%86%E5%B1%82"><span class="nav-number">3.1.</span> <span class="nav-text">物理层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82"><span class="nav-number">3.2.</span> <span class="nav-text">数据链路层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8B%E8%B4%A8"><span class="nav-number">3.3.</span> <span class="nav-text">介质</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B1%80%E5%9F%9F%E5%B9%BF%E5%9F%9F%E7%BD%91%E5%8F%8A%E5%85%B6%E8%AE%BE%E5%A4%87"><span class="nav-number">3.4.</span> <span class="nav-text">局域&#x2F;广域网及其设备</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-number">4.</span> <span class="nav-text">数据结构</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -307,7 +307,7 @@ const darkmode = new Darkmode(options);
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-06-29 19:49:55" itemprop="dateModified" datetime="2024-06-29T19:49:55+08:00">2024-06-29</time>
+      <time title="修改时间：2024-06-30 19:21:05" itemprop="dateModified" datetime="2024-06-30T19:21:05+08:00">2024-06-30</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -333,14 +333,14 @@ const darkmode = new Darkmode(options);
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>1.7k</span>
+      <span>2.1k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>6 分钟</span>
+      <span>8 分钟</span>
     </span>
 </div>
 
@@ -472,8 +472,15 @@ const darkmode = new Darkmode(options);
 <li>5种结构</li>
 <li>引导过程</li>
 <li>两种虚拟机</li>
+<li>机制与策略</li>
 </ol>
 <h2 id="进程">进程</h2>
+<p>问题：</p>
+<ol type="1">
+<li>进程和线程，进程和程序辨析</li>
+<li>进程和线程的唯一标志</li>
+<li>五种状态，生命周期</li>
+</ol>
 <h2 id="内存">内存</h2>
 <h2 id="文件">文件</h2>
 <h2 id="io">I/O</h2>
@@ -528,12 +535,42 @@ const darkmode = new Darkmode(options);
 <li>传输基本单位，有何特点</li>
 <li>定界符的4种实现</li>
 <li>检错(2种)和纠错(海明)编码</li>
-<li></li>
+<li>该层内流量控制和可靠传输合一，其具体机制是？</li>
+<li>自动重传请求ARQ的三种机制</li>
 </ol>
 <p>Tips:</p>
 <ol type="1">
 <li>正如字面意义上所言，传输数据奇数时，奇校验检不出错</li>
+<li>为了区分正常帧和重传帧，选择重传协议的窗口大小不超过序号范围一半(即 <span class="math inline">\(2^{n-1}\)</span> )</li>
+<li></li>
 </ol>
+<h2 id="介质">介质</h2>
+<p>问题：</p>
+<ol type="1">
+<li>信道效率的定义(计算)</li>
+<li>多路复用介质的四种方式及其简称</li>
+<li>随机访问介质的4种协议(争用型)</li>
+<li>CSMA的全称，或者说具体意思</li>
+<li>最小帧长的确认，单程传播时延和争用期定义(<strong>与帧间最小间隔不同</strong>)</li>
+<li>二进制指数退避算法，适用哪个协议</li>
+<li>CA的隐蔽站问题</li>
+<li>802.11规定的三种帧间间隔IFS</li>
+<li>CA在何时使用退避算法，具体机制</li>
+<li>CA的信道预约机制</li>
+<li>CA和CD的具体区别</li>
+<li>令牌轮询机制</li>
+</ol>
+<p>Tips:</p>
+<ol type="1">
+<li>码分向量利用的是一系列两两正交的向量，其内积均为0不会相互影响，因此可以同时传输</li>
+</ol>
+<div class="note info"><p>没什么用的冷知识：</p>
+<ul>
+<li>ALOHA网络（英语：ALOHAnet，或ALOHA），世界上第一个无线资料网络，是由美国夏威夷大学所开发的实验性电脑网络系统，Aloha在夏威夷语中有希望、爱、和平以及幸福等意思。 因为比较早所以协议比较简单，不觉得这很酷吗？很符合我对过去科技的想象。</li>
+<li>话说这么多碰撞的协议怎么传达爱与和平的意思啊，虚假宣传</li>
+</ul>
+</div>
+<h2 id="局域广域网及其设备">局域/广域网及其设备</h2>
 <h1 id="数据结构">数据结构</h1>
 
     </div>
@@ -602,7 +639,7 @@ const darkmode = new Darkmode(options);
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">23:01</span>
+    <span title="站点阅读时长">23:03</span>
   </span>
 </div>
 <div class="busuanzi-count">
