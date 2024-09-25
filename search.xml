@@ -5748,9 +5748,9 @@ public  int[] findVerticalSeam() &#123;
         <category>数据结构与算法</category>
       </categories>
       <tags>
-        <tag>伯克利</tag>
         <tag>课程笔记</tag>
         <tag>数据结构与算法</tag>
+        <tag>伯克利</tag>
         <tag>JAVA</tag>
       </tags>
   </entry>
@@ -7042,9 +7042,9 @@ x(i,j) =
         <category>数据结构与算法</category>
       </categories>
       <tags>
+        <tag>麻省理工</tag>
         <tag>课程笔记</tag>
         <tag>数据结构与算法</tag>
-        <tag>麻省理工</tag>
       </tags>
   </entry>
   <entry>
@@ -9779,8 +9779,8 @@ K_neighbours
         <category>数据科学</category>
       </categories>
       <tags>
-        <tag>python</tag>
         <tag>数据科学</tag>
+        <tag>python</tag>
       </tags>
   </entry>
   <entry>
@@ -9944,9 +9944,9 @@ val（r1，c1）&lt; val（r1，c2）≤ val（r2，c2）&lt; val（r2，c1）<b
         <category>数据结构与算法</category>
       </categories>
       <tags>
+        <tag>麻省理工</tag>
         <tag>课程笔记</tag>
         <tag>数据结构与算法</tag>
-        <tag>麻省理工</tag>
       </tags>
   </entry>
   <entry>
@@ -10021,11 +10021,11 @@ val（r1，c1）&lt; val（r1，c2）≤ val（r2，c2）&lt; val（r2，c1）<b
         <category>数据科学</category>
       </categories>
       <tags>
-        <tag>伯克利</tag>
         <tag>课程笔记</tag>
-        <tag>python</tag>
+        <tag>伯克利</tag>
         <tag>数据科学</tag>
         <tag>pandas</tag>
+        <tag>python</tag>
       </tags>
   </entry>
   <entry>
@@ -10111,11 +10111,11 @@ Vim还提供了列选择模式，在Normal模式下键入<code>&lt;C-V&gt;</code
         <category>其他</category>
       </categories>
       <tags>
-        <tag>课程笔记</tag>
         <tag>麻省理工</tag>
+        <tag>课程笔记</tag>
         <tag>北京大学</tag>
-        <tag>编程工具</tag>
         <tag>vim</tag>
+        <tag>编程工具</tag>
       </tags>
   </entry>
   <entry>
@@ -10175,11 +10175,11 @@ Vim还提供了列选择模式，在Normal模式下键入<code>&lt;C-V&gt;</code
         <category>数据科学</category>
       </categories>
       <tags>
-        <tag>伯克利</tag>
         <tag>课程笔记</tag>
-        <tag>python</tag>
+        <tag>伯克利</tag>
         <tag>数据科学</tag>
         <tag>pandas</tag>
+        <tag>python</tag>
       </tags>
   </entry>
   <entry>
@@ -10775,8 +10775,8 @@ Vim还提供了列选择模式，在Normal模式下键入<code>&lt;C-V&gt;</code
         <category>操作系统</category>
       </categories>
       <tags>
-        <tag>伯克利</tag>
         <tag>课程笔记</tag>
+        <tag>伯克利</tag>
         <tag>linux</tag>
         <tag>系统管理</tag>
       </tags>
@@ -11909,10 +11909,10 @@ Inexpensive Disk）由美国加州大学伯克利分校提出。<br />
         <category>数据结构与算法</category>
       </categories>
       <tags>
-        <tag>伯克利</tag>
         <tag>课程笔记</tag>
-        <tag>python</tag>
         <tag>数据结构与算法</tag>
+        <tag>伯克利</tag>
+        <tag>python</tag>
       </tags>
   </entry>
   <entry>
@@ -12492,10 +12492,10 @@ used the next time std::cin &gt;&gt; is called<br />
         <category>操作系统</category>
       </categories>
       <tags>
-        <tag>课程笔记</tag>
         <tag>麻省理工</tag>
-        <tag>北京大学</tag>
+        <tag>课程笔记</tag>
         <tag>linux</tag>
+        <tag>北京大学</tag>
         <tag>编程工具</tag>
       </tags>
   </entry>
