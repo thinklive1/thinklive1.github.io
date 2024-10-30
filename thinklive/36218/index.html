@@ -30,7 +30,7 @@
 <meta property="og:description" content="本文是对游戏杂谈的一个汇总  thinklive的游戏簿 |表示续作或dlc,||表示同作者或同系列">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-07-06T03:26:40.508Z">
-<meta property="article:modified_time" content="2024-10-25T06:54:27.115Z">
+<meta property="article:modified_time" content="2024-10-30T14:22:19.529Z">
 <meta property="article:author" content="thinklive">
 <meta property="article:tag" content="游戏杂谈">
 <meta property="article:tag" content="wrpg">
@@ -313,7 +313,7 @@ const darkmode = new Darkmode(options);
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-10-25 14:54:27" itemprop="dateModified" datetime="2024-10-25T14:54:27+08:00">2024-10-25</time>
+      <time title="修改时间：2024-10-30 22:22:19" itemprop="dateModified" datetime="2024-10-30T22:22:19+08:00">2024-10-30</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -488,6 +488,7 @@ const darkmode = new Darkmode(options);
 <li>素晴日(前三章)</li>
 <li>ultrakill</li>
 <li>slay the princess</li>
+<li>废墟图书馆</li>
 </ol>
 <h2 id="to-do-list">To Do List</h2>
 <ol type="1">
@@ -1189,6 +1190,7 @@ function toggleMode() {
         root1.style.setProperty('--btn-default-bg', '#777');
         root1.style.setProperty('--menu-item-bg-color', '#777');
         root1.style.setProperty('--note-warning-bg-color', '#777');
+        root1.style.setProperty('--note-bg-color', '#555');
         root1.style.setProperty('--note-info-bg-color', '#777');
         root1.style.transition = 'all 0.5s ease';
 
@@ -1196,12 +1198,13 @@ function toggleMode() {
 
     else {
         root1.style.setProperty('--content-bg-color', '#fff');
-        root1.style.setProperty('--text-color', '#111');
+        root1.style.setProperty('--text-color', '#555');
         root1.style.setProperty('--highlight-background', '#eaeef3');
         root1.style.setProperty('--highlight-foreground', '#00193a');
         root1.style.setProperty('--btn-default-bg', '#fff');
         root1.style.setProperty('--menu-item-bg-color', '#f5f5f5');
         root1.style.setProperty('--note-warning-bg-color', '#fdf8ea');
+        root1.style.setProperty('--note-bg-color', '#f9f9f9');
         root1.style.setProperty('--note-info-bg-color', '#eef7fa');
         root1.style.transition = 'all 0.5s ease';
     }

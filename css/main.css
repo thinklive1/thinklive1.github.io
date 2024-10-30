@@ -2817,12 +2817,16 @@ body {
 :root {
   --note-warning-bg-color: #fdf8ea;
   --note-info-bg-color: #eef7fa;
+  --note-bg-color: #f9f9f9;
 }
 .post-body .note.warning {
   background: var(--note-warning-bg-color);
 }
 .post-body .note.info {
   background: var(--note-info-bg-color);
+}
+.post-body .note {
+  background: var(--note-bg-color);
 }
 @keyframes clippath {
   0%, 100% {

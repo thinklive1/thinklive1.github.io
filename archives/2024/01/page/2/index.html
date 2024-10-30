@@ -285,8 +285,8 @@ const darkmode = new Darkmode(options);
       </div>
 
       <div class="post-title">
-        <a class="post-title-link" href="/thinklive/42594/" itemprop="url">
-          <span itemprop="name">基于mit6.006和hello-algo的算法笔记</span>
+        <a class="post-title-link" href="/thinklive/8605/" itemprop="url">
+          <span itemprop="name">基于mit6.006的作业解析</span>
         </a>
       </div>
 
@@ -305,8 +305,8 @@ const darkmode = new Darkmode(options);
       </div>
 
       <div class="post-title">
-        <a class="post-title-link" href="/thinklive/8605/" itemprop="url">
-          <span itemprop="name">基于mit6.006的作业解析</span>
+        <a class="post-title-link" href="/thinklive/11069/" itemprop="url">
+          <span itemprop="name">基于北大前沿计算实践课和missing semester的linux等编程工具笔记</span>
         </a>
       </div>
 
@@ -345,8 +345,8 @@ const darkmode = new Darkmode(options);
       </div>
 
       <div class="post-title">
-        <a class="post-title-link" href="/thinklive/11069/" itemprop="url">
-          <span itemprop="name">基于北大前沿计算实践课和missing semester的linux等编程工具笔记</span>
+        <a class="post-title-link" href="/thinklive/42594/" itemprop="url">
+          <span itemprop="name">基于mit6.006和hello-algo的算法笔记</span>
         </a>
       </div>
 
@@ -445,8 +445,8 @@ const darkmode = new Darkmode(options);
       </div>
 
       <div class="post-title">
-        <a class="post-title-link" href="/thinklive/2910/" itemprop="url">
-          <span itemprop="name">基于恐龙书和苏大ppt的操作系统笔记</span>
+        <a class="post-title-link" href="/thinklive/22586/" itemprop="url">
+          <span itemprop="name">hexo建立个人博客指北</span>
         </a>
       </div>
 
@@ -465,8 +465,8 @@ const darkmode = new Darkmode(options);
       </div>
 
       <div class="post-title">
-        <a class="post-title-link" href="/thinklive/22586/" itemprop="url">
-          <span itemprop="name">hexo建立个人博客指北</span>
+        <a class="post-title-link" href="/thinklive/33908/" itemprop="url">
+          <span itemprop="name">基于苏大ppt的计算机硬件笔记</span>
         </a>
       </div>
 
@@ -709,6 +709,7 @@ function toggleMode() {
         root1.style.setProperty('--btn-default-bg', '#777');
         root1.style.setProperty('--menu-item-bg-color', '#777');
         root1.style.setProperty('--note-warning-bg-color', '#777');
+        root1.style.setProperty('--note-bg-color', '#555');
         root1.style.setProperty('--note-info-bg-color', '#777');
         root1.style.transition = 'all 0.5s ease';
 
@@ -716,12 +717,13 @@ function toggleMode() {
 
     else {
         root1.style.setProperty('--content-bg-color', '#fff');
-        root1.style.setProperty('--text-color', '#111');
+        root1.style.setProperty('--text-color', '#555');
         root1.style.setProperty('--highlight-background', '#eaeef3');
         root1.style.setProperty('--highlight-foreground', '#00193a');
         root1.style.setProperty('--btn-default-bg', '#fff');
         root1.style.setProperty('--menu-item-bg-color', '#f5f5f5');
         root1.style.setProperty('--note-warning-bg-color', '#fdf8ea');
+        root1.style.setProperty('--note-bg-color', '#f9f9f9');
         root1.style.setProperty('--note-info-bg-color', '#eef7fa');
         root1.style.transition = 'all 0.5s ease';
     }
