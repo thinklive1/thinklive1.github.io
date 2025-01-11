@@ -208,26 +208,29 @@
 </ul>
 <h2 id="隐私安全">隐私安全</h2>
 <ul>
-<li><p>浏览历史记录既是一种功能，也是对隐私的潜在威胁</p></li>
-<li><p>服务器通常具有 <em>用户活动日志</em> 。因此，即使您清除浏览器历史记录，服务器也会跟踪您访问过的内容。</p></li>
-<li><p>当你通过href标签访问链接时，浏览器默认向跳转网站提供将您引向该网站的链接，也就是跳转到的网站的来源信息，包括您之前进行的搜索即搜索内容等来源</p></li>
-<li><p>可以将以下元标记添加到您的网站，以限制仅发送来源域名或不提供来源信息。更多相关元标记可自行谷歌 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;meta name=&quot;referrer&quot; content=&quot;origin&quot;&gt; </span><br><span class="line"></span><br><span class="line">&lt;meta name=&quot;referrer&quot; content=&quot;none&quot;&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure></p></li>
-<li><p>每个浏览器都会提供有关您的身份和行为的信息，无论您选择哪种浏览器，服务器都会记录您的活动。</p></li>
-<li><p><em>指纹识别</em> 是第三方可以根据可用线索识别您身份的一种方式，即使您已限制浏览器共享尽可能少的有关您的信息。</p></li>
-<li><p>您的 IP 地址，屏幕分辨率、安装的扩展、安装的字体，常用语言，可以被逐渐收集，让您越来越容易被识别</p></li>
-<li><p><em>Session cookie</em> 是服务器放置在您的计算机上用于识别您身份的信息，每个会话编号对于每个用户来说都是唯一的，通常有过期时间</p></li>
-<li><p>第三方使用追踪 cookie 来跟踪您在网站上的行为，例如设定将这个cookie信息发给每个你访问的网站</p></li>
-<li><p>url中可以设置特殊参数来追踪用户, 如<code>https://example.com/ad_engagement?click_id=YmVhODI1MmZmNGU4&amp;campaign_id=23</code>中<code>click_id</code>用户追踪用户， 因此浏览器越来越倾向于清理跟踪参数</p></li>
-<li><p>第三方（即其他服务器或公司）想要了解您如何在网站之间移动，例如在a网站的第三方广告设置一个cookie,b网站也有这个广告，发现你的cookie，说明访问ab网站的事同一个用户</p></li>
-<li><p>保护您的活动的一种方法是 <em>私密浏览</em> 。</p></li>
-<li><p>在私人浏览窗口或选项卡中，过去的 cookie 将被删除。但新的cookie依旧可以生效</p></li>
-<li><p>无论谁为您提供互联网服务，都可以在您不知情的情况下将他们自己的 cookie 注入到您的 HTTP 标头中</p></li>
-<li><p><em>域名系统</em> DNS <em>是</em> 一种服务将域名转化为特定ip地址，按照惯例，到 DNS 的流量完全未加密。因此，您正在向全世界宣布您正在尝试访问哪个网站，您的互联网服务提供商和 DNS 服务确切地知道您尝试访问的位置</p></li>
-<li><p><em>DNS over HTTPS</em> 或 <em>DoH</em> 以及 <em>DNS over TLS</em> 或 <em>DoT</em> 是您可以加密 DNS 请求的服务</p></li>
-<li><p><em>Tor</em> 是一款将您的流量重定向到 Tor 服务器节点的软件。流量通过许多加密节点进行引导。根据设计，该软件不会记住您的大部分活动。使用此类服务​​很可能无法识别您的身份。</p></li>
-<li><p>但请注意，如果您是工作地点或学校本地网络上唯一使用 Tor 的人，则很可能通过其他方式识别您的身份。</p></li>
-<li><p><em>基于位置的服务</em> 提供您的地理位置。最好记住，如果您向 Apple 地图和 Google 地图提供此类权限，它们就非常清楚您在任何给定时间所在的位置</p></li>
-<li><p>没有任何技术可以为您提供绝对的保护。</p></li>
+<li>浏览历史记录既是一种功能，也是对隐私的潜在威胁</li>
+<li>服务器通常具有 <em>用户活动日志</em> 。因此，即使您清除浏览器历史记录，服务器也会跟踪您访问过的内容</li>
+<li>当你通过href标签访问链接时，浏览器默认向跳转网站提供将您引向该网站的链接，也就是跳转到的网站的来源信息，包括您之前进行的搜索即搜索内容等来源</li>
+<li>可以将以下元标记添加到您的网站，以限制仅发送来源域名或不提供来源信息。更多相关元标记可自行谷歌</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;meta name=&quot;referrer&quot; content=&quot;origin&quot;&gt; </span><br><span class="line">&lt;meta name=&quot;referrer&quot; content=&quot;none&quot;&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<ul>
+<li>每个浏览器都会提供有关您的身份和行为的信息，无论您选择哪种浏览器，服务器都会记录您的活动。</li>
+<li><em>指纹识别</em> 是第三方可以根据可用线索识别您身份的一种方式，即使您已限制浏览器共享尽可能少的有关您的信息。</li>
+<li>您的 IP 地址，屏幕分辨率、安装的扩展、安装的字体，常用语言，可以被逐渐收集，让您越来越容易被识别</li>
+<li><em>Session cookie</em> 是服务器放置在您的计算机上用于识别您身份的信息，每个会话编号对于每个用户来说都是唯一的，通常有过期时间</li>
+<li>第三方使用追踪 cookie 来跟踪您在网站上的行为，例如设定将这个cookie信息发给每个你访问的网站</li>
+<li>url中可以设置特殊参数来追踪用户, 如<code>https://example.com/ad_engagement?click_id=YmVhODI1MmZmNGU4&amp;campaign_id=23</code>中<code>click_id</code>用户追踪用户， 因此浏览器越来越倾向于清理跟踪参数</li>
+<li>第三方（即其他服务器或公司）想要了解您如何在网站之间移动，例如在a网站的第三方广告设置一个cookie,b网站也有这个广告，发现你的cookie，说明访问ab网站的事同一个用户</li>
+<li>保护您的活动的一种方法是 <em>私密浏览</em> 。</li>
+<li>在私人浏览窗口或选项卡中，过去的 cookie 将被删除。但新的cookie依旧可以生效</li>
+<li>无论谁为您提供互联网服务，都可以在您不知情的情况下将他们自己的 cookie 注入到您的 HTTP 标头中</li>
+<li><em>域名系统</em> DNS <em>是</em> 一种服务将域名转化为特定ip地址，按照惯例，到 DNS 的流量完全未加密。因此，您正在向全世界宣布您正在尝试访问哪个网站，您的互联网服务提供商和 DNS 服务确切地知道您尝试访问的位置</li>
+<li><em>DNS over HTTPS</em> 或 <em>DoH</em> 以及 <em>DNS over TLS</em> 或 <em>DoT</em> 是您可以加密 DNS 请求的服务</li>
+<li><em>Tor</em> 是一款将您的流量重定向到 Tor 服务器节点的软件。流量通过许多加密节点进行引导。根据设计，该软件不会记住您的大部分活动。使用此类服务​​很可能无法识别您的身份。</li>
+<li>但请注意，如果您是工作地点或学校本地网络上唯一使用 Tor 的人，则很可能通过其他方式识别您的身份。</li>
+<li><em>基于位置的服务</em> 提供您的地理位置。最好记住，如果您向 Apple 地图和 Google 地图提供此类权限，它们就非常清楚您在任何给定时间所在的位置</li>
+<li>没有任何技术可以为您提供绝对的保护。</li>
 </ul>
 ]]></content>
       <categories>
