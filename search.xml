@@ -230,7 +230,6 @@
 <li>夏暮岛</li>
 <li>龙之牙</li>
 <li>瑞驰之外</li>
-<li>fear and hungre 1|2</li>
 <li>开拓者: 正义之怒</li>
 </ol>
 <h2 id="出必入">出必入</h2>
@@ -3253,8 +3252,8 @@ bfs和dfs都是无信息算法，实际情况下，我们可以估计哪种搜�
       <tags>
         <tag>课程笔记</tag>
         <tag>数据结构与算法</tag>
-        <tag>c++</tag>
         <tag>斯坦福</tag>
+        <tag>c++</tag>
       </tags>
   </entry>
   <entry>
@@ -14471,8 +14470,8 @@ Inexpensive Disk）由美国加州大学伯克利分校提出。<br />
         <category>其他</category>
       </categories>
       <tags>
-        <tag>读书笔记</tag>
         <tag>c++</tag>
+        <tag>读书笔记</tag>
       </tags>
   </entry>
   <entry>
@@ -14533,8 +14532,8 @@ used the next time std::cin &gt;&gt; is called<br />
       </categories>
       <tags>
         <tag>课程笔记</tag>
-        <tag>c++</tag>
         <tag>斯坦福</tag>
+        <tag>c++</tag>
       </tags>
   </entry>
   <entry>
