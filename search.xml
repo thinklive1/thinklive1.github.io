@@ -80,6 +80,481 @@
 ]]></content>
   </entry>
   <entry>
+    <title>基于哈佛cs50的计算机通识笔记</title>
+    <url>/thinklive/16959/</url>
+    <content><![CDATA[<h1 id="计算机安全常识">计算机安全常识</h1>
+<h2 id="账户安全">账户安全</h2>
+<p>美国国家标准与技术研究院 (NIST)的建议：</p>
+<ul>
+<li>密码长度应至少为八个字符</li>
+<li>验证者应规定所有打印的 ASCII 字符和 Unicode 符号的长度最多为 64 个字符</li>
+<li>验证者应该将预期的密码与可用的字典单词、重复序列、被破坏的密码列表和上下文特定的单词进行比较</li>
+<li>验证者不应允许未经身份验证的用户访问密码提示</li>
+<li>验证者不应要求定期更改密码</li>
+<li>验证者应限制失败的身份验证尝试次数并锁定潜在的攻击者</li>
+</ul>
+<span id="more"></span>
+<p>多重身份验证(2fa)由三个组成部分组成。</p>
+<ul>
+<li>知识：只有你知道的东西</li>
+<li>所有物：仅由授权用户拥有的物品或设备</li>
+<li>固有物：仅是您可以获得的一个因素，例如您的指纹、面部或其他生物识别信息</li>
+</ul>
+<p>一次性密码OTP:</p>
+<ul>
+<li>人们可以获得一种特殊的密钥卡或提供一次性密码的设备</li>
+<li>OTP 通常是从设备或应用程序获取的</li>
+<li>基于短信的 OTP 很容易通过 SIM 交换而被欺骗，攻击者会获取并克隆 SIM 卡并访问您的短信,因此验证器类型的验证应用程序更安全(比如需要指纹验证的)</li>
+</ul>
+<p>键盘记录：</p>
+<ul>
+<li>用户名、密码和 OTP 很容易被攻击者记录您的击键</li>
+<li>键盘记录是通过在计算机上安装恶意软件来完成的</li>
+<li>最好确保您仅登录您只能访问的设备</li>
+</ul>
+<p>社会工程/钓鱼：</p>
+<ul>
+<li>懂得都懂，点击url时需要谨慎再谨慎，收到任何可能泄露信息的请求时核对对方身份</li>
+</ul>
+<p>单点登录SSO:</p>
+<ul>
+<li>SSO 允许您使用 Google 或 Facebook 登录来访问 Google 或 Facebook 未提供的服务</li>
+<li>因此，您能够以更少的摩擦和更高的安全性轻松访问其他服务</li>
+</ul>
+<p>密码管理器：</p>
+<ul>
+<li>把鸡蛋放在一个篮子里，但是相对能提高安全性</li>
+<li>推荐keepass</li>
+</ul>
+<h2 id="数据安全">数据安全</h2>
+<p>哈希：将一些纯文本转换为可读性较差的散列值输出的方法，常存储密码的哈希值从而降低风险</p>
+<ul>
+<li><em>字典攻击</em> 仍然可以将字典中的一个又一个值输入到哈希函数中，作为破解它的一种方式。</li>
+<li><em>彩虹表</em> 是另一种威胁，对手拥有哈希表中所有潜在哈希值的表。然而，这需要数 TB（甚至 PB）的存储容量才能完成</li>
+<li><em>单向哈希函数</em> 用代码编写，接收任意长度的字符串并输出固定长度的哈希值。</li>
+<li>利用这样的功能，哈希值和哈希函数的持有者将永远不会知道原始密码。</li>
+</ul>
+<p>盐：<em>加盐</em> 是将附加值“撒”到哈希函数中，从而使哈希值发生变化的过程，几乎可以保证用户提供的哈希值（即使是具有相同密码的用户）也会收到不同的哈希密码</p>
+<p>非对称加密：你需要一个公钥一个私钥，例如公钥是两个素数的乘积，私钥是其中一个因数，私钥被收发双方共用</p>
+<ul>
+<li>发送者使用公钥和明文并将其输入算法中。这会产生密文</li>
+<li>接收者将私钥和密文输入到算法中。这会产生破译的文本</li>
+<li>消息（文档的内容）被传递给哈希函数，从而产生哈希值，私钥和哈希值被传递给数字签名算法，从而产生数字签名；接收者将公钥和提供给解密算法的签名传递给解密算法，从而产生应与先前计算的哈希值相匹配的哈希值，验证签名</li>
+</ul>
+<p>硬盘加密：</p>
+<ul>
+<li>操作系统删除文件时，事实上只释放了空间，原有文件内容有可能留存一段时间，因此需要 <em>安全删除</em> ，将已删除文件的所有剩余部分更改为零、一或零和一的随机序列</li>
+<li><em>全盘加密</em> 或 <em>静态加密</em> 可完全加密硬盘驱动器的内容。</li>
+<li>如果您的设备被盗或您出售了设备，任何人都将无法访问您的加密数据。</li>
+<li>然而，它的缺点是，如果您丢失密码或脸部发生足够大的变化，您将无法访问您的数据。</li>
+<li>另一个缺点是黑客可能通过 <em>勒索软件</em> 使用相同类型的技术来加密您的硬盘并将其劫为人质</li>
+<li>例如veracrypt之类的软件可以实现硬盘级或者文件级(将一个文件虚拟成硬盘分区)的加密，微软的bitlock配合部分硬件功能甚至可以实现硬件级加密(范围是卷)</li>
+</ul>
+<p>量子计算：新兴的计算机技术，可能彻底颠覆目前的计算机密码学</p>
+<h2 id="系统安全">系统安全</h2>
+<ul>
+<li><em>超文本传输​​协议</em> （ <em>HTTP</em> ）是一种未加密的数据传输方式。</li>
+<li>使用 HTTP，人们很容易受到 <em>中间人</em> 攻击，攻击者可能会在下载的内容中注入额外的 HTML 代码。广告可以被注入到您通过 HTTP 访问的所有网页中。此外，还可以插入恶意代码。</li>
+<li>事实上，还存在其他威胁。 <em>数据包嗅探</em> 是攻击者查看双方之间传输的数据内部的一种方式。可以想象，放置在不安全数据包中的信用卡号会被攻击者检测到并窃取。</li>
+<li><em>Cookie</em> 是网站放置在您计算机上的小文件。网站可能会使用 Cookie 来跟踪您的身份、显示您的电子邮件或跟踪您的购物车。 Cookie 使人容易受到 <em>会话劫持</em> ，对手可以通过注入 <em>超级 cookie</em> 来跟踪您。</li>
+<li><em>HTTPS</em> 是 HTTP 的安全协议。传输中加密流量(使用上一章提及的公钥加密技术)</li>
+<li><em>CA</em> 是颁发证书的受信任的第三方公司</li>
+<li>当访问网站时，浏览器会下载该网站的证书，并创建哈希值。</li>
+<li>然后，它使用网站的公钥和提供给算法的证书签名来验证哈希值是否符合</li>
+<li>如果哈希匹配，则网络浏览器应用程序确信这是一个安全网站</li>
+<li><em>SSL Stripping</em> 是一种攻击者在网站上使用 HTTP 将流量重定向到恶意网站的攻击。攻击者甚至可能将其重定向到非预期网站的 HTTPS 安全域。</li>
+<li>减轻这种威胁的一种方法是实施 <em>HSTS</em> 或 <em>HTTP 严格传输安全</em> ，服务器告诉浏览器将所有流量引导到安全连接</li>
+<li>攻击者可能会对服务器进行 <em>端口扫描</em> ，尝试所有潜在端口以查看它们是否正在接受流量</li>
+<li>防火墙是一种软件，通过阻止未经授权的访问（包括设备上受损的服务）来保护各种服务</li>
+<li>防火墙利用 <em>IP 地址</em> （分配给网络上每台计算机的唯一编号）来防止外部人员攻击</li>
+<li>防火墙还可以使用 <em>深度数据包检查</em> ，检查数据包中的数据以查找您的公司可能感兴趣的材料。这可以用来检查您是否正在向媒体或可能被您公司视为对手的其他方发送电子邮件。</li>
+<li>使用 <em>深度数据包检测通过代理</em> ，其中中间的设备用作流量传入和传出网络的路径。您的学校或公司可能会在此代理上更改 URL、记录您尝试浏览的 URL，并希望保护您免受潜在有害行为的影响。</li>
+<li><em>蠕虫病毒</em> 是一种恶意软件，可以通过安全漏洞从一台计算机转移到另一台计算机。</li>
+<li><em>僵尸网络</em> 是一种恶意软件，一旦安装在您的计算机上，就会感染其他计算机，并且攻击者可以利用它向数千台受感染的计算机发出命令。</li>
+<li>受僵尸网络感染的计算机可用于发出 <em>拒绝服务攻击dos</em> ，从而可以向服务器发出大量请求，以减慢或关闭服务器。由于僵尸网络中有如此多的计算机，因此这种类型的攻击可以称为 <em>分布式拒绝服务攻击ddos</em></li>
+<li><em>零日攻击</em> ，这种攻击会在杀毒软件公司有机会创建修复程序之前利用软件中的未知漏洞</li>
+</ul>
+<h2 id="软件安全">软件安全</h2>
+<ul>
+<li>攻击者可能会利用您不注意的情况，声称您正在链接到一个网页，而实际上您正在链接到另一个网页，如 <code>&lt;a href="https://yale.edu"&gt;https://harvard.edu&lt;/a&gt;</code></li>
+<li>攻击者经常创建虚假版本的网站，其唯一目的是诱骗用户在这些网站中输入敏感信息。例如，如果您是一名哈佛学生，访问此类假哈佛网站，您可能会尝试登录并向对手提供您的用户名和密码</li>
+<li><ul>
+<li><em>跨站点脚本攻击</em> （ <em>XSS</em> ）是一种攻击形式，攻击者将代码附加到合法网站上,通过用户的输入诱骗网站运行恶意代码。当受害者加载网站时，代码就会执行。</li>
+</ul></li>
+<li><em>反射攻击</em> 一种利用网站接受输入的方式来欺骗用户浏览器发送导致攻击的信息请求的攻击，如伪造了请求数据包的源 IP，接受请求的主机被诱骗将其UDP响应数据包发送到目标受害者 IP，而不是发送回攻击者的 IP 地址</li>
+<li><em>存储攻击</em> 网站可能容易受到攻击，被诱骗存储恶意代码。</li>
+<li><em>字符逃脱</em> 一些特殊字符如<code>&lt;&gt;</code>可用于注入恶意代码，对于特殊字符安全软件应该进行转义</li>
+<li>常见的转义字符包括：
+<ul>
+<li><code>&amp;lt;</code>，“&lt;”</li>
+<li><code>&amp;gt;</code>，“&gt;”</li>
+<li><code>&amp;amp;</code>，“&amp;”</li>
+<li><code>&amp;quot;</code>，“</li>
+<li><code>&amp;apos;</code>，'</li>
+</ul></li>
+<li>可通过html标头仅允许通过单独的文件加载js或css,避免被注入标签执行恶意代码</li>
+<li><em>SQL注入</em> 利用sql语法注入代码并执行语句，类似字符逃脱，永远不要相信用户的输入，需要转义整个用户输入信息</li>
+<li>现代常用的防止sql注入方法：预制sql模板，部分信息接收用户输入前必须转义输入</li>
+<li>命令 <em>注入</em> 攻击是一种对底层系统本身发出命令的攻击。</li>
+<li>如果命令从用户输入传递到命令行，效果可能是灾难性的。需要阅读编程语言系统接口的文档了解如何转义</li>
+<li>不要相信html部分的验证，通过开发者工具可以随时更改，验证应该在服务端进行</li>
+<li><em>跨站点请求伪造</em> / <em>CSRF</em> 诱骗用户在另一个网站上执行命令，如伪造一个亚马逊网站，用户点击网站购买的请求被攻击者转发给亚马逊，在此过程中攻击者可以得到受害人和亚马逊之间的所有收发数据</li>
+<li>防止此类攻击的一种方法是使用 <em>CSRF 令牌</em> ，其中服务器为每个用户生成一个凭证令牌，令牌无法验证通过的请求是非法的</li>
+<li>令牌通常通过 HTML 标头提交。</li>
+<li><em>任意代码执行</em> （ <em>ACE</em> ）是执行不属于软件内预期代码的代码的行为。有时，此类攻击可用于 <em>破解</em> 或绕过注册或支付软件费用的需要或者逆向工程</li>
+<li>应用程序商店采用加密技术，仅接受由授权开发人员签名的软件或代码。作为回应，应用程序商店使用数字签名对软件进行签名。因此，操作系统可以确保只安装经过授权、签名的软件。</li>
+<li><em>包管理器</em> 采用类似的签名机制来确保您从第三方下载的内容是值得信赖的。但是，上游开源软件仍是有可能注入恶意代码的</li>
+<li><em>common vulnerabilities and exposures</em> or <em>CVE</em> 是全球开发者可以查看的漏洞表，使其进行安全维护并确认安全优先级</li>
+</ul>
+<h2 id="隐私安全">隐私安全</h2>
+<ul>
+<li>浏览历史记录既是一种功能，也是对隐私的潜在威胁</li>
+<li>服务器通常具有 <em>用户活动日志</em> 。因此，即使您清除浏览器历史记录，服务器也会跟踪您访问过的内容</li>
+<li>当你通过href标签访问链接时，浏览器默认向跳转网站提供将您引向该网站的链接，也就是跳转到的网站的来源信息，包括您之前进行的搜索即搜索内容等来源</li>
+<li>可以将以下元标记添加到您的网站，以限制仅发送来源域名或不提供来源信息。更多相关元标记可自行谷歌</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;meta name=&quot;referrer&quot; content=&quot;origin&quot;&gt; </span><br><span class="line">&lt;meta name=&quot;referrer&quot; content=&quot;none&quot;&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<ul>
+<li>每个浏览器都会提供有关您的身份和行为的信息，无论您选择哪种浏览器，服务器都会记录您的活动。</li>
+<li><em>指纹识别</em> 是第三方可以根据可用线索识别您身份的一种方式，即使您已限制浏览器共享尽可能少的有关您的信息。</li>
+<li>您的 IP 地址，屏幕分辨率、安装的扩展、安装的字体，常用语言，可以被逐渐收集，让您越来越容易被识别</li>
+<li><em>Session cookie</em> 是服务器放置在您的计算机上用于识别您身份的信息，每个会话编号对于每个用户来说都是唯一的，通常有过期时间</li>
+<li>第三方使用追踪 cookie 来跟踪您在网站上的行为，例如设定将这个cookie信息发给每个你访问的网站</li>
+<li>url中可以设置特殊参数来追踪用户, 如<code>https://example.com/ad_engagement?click_id=YmVhODI1MmZmNGU4&amp;campaign_id=23</code>中<code>click_id</code>用户追踪用户， 因此浏览器越来越倾向于清理跟踪参数</li>
+<li>第三方（即其他服务器或公司）想要了解您如何在网站之间移动，例如在a网站的第三方广告设置一个cookie,b网站也有这个广告，发现你的cookie，说明访问ab网站的事同一个用户</li>
+<li>保护您的活动的一种方法是 <em>私密浏览</em> 。</li>
+<li>在私人浏览窗口或选项卡中，过去的 cookie 将被删除。但新的cookie依旧可以生效</li>
+<li>无论谁为您提供互联网服务，都可以在您不知情的情况下将他们自己的 cookie 注入到您的 HTTP 标头中</li>
+<li><em>域名系统</em> DNS <em>是</em> 一种服务将域名转化为特定ip地址，按照惯例，到 DNS 的流量完全未加密。因此，您正在向全世界宣布您正在尝试访问哪个网站，您的互联网服务提供商和 DNS 服务确切地知道您尝试访问的位置</li>
+<li><em>DNS over HTTPS</em> 或 <em>DoH</em> 以及 <em>DNS over TLS</em> 或 <em>DoT</em> 是您可以加密 DNS 请求的服务</li>
+<li><em>Tor</em> 是一款将您的流量重定向到 Tor 服务器节点的软件。流量通过许多加密节点进行引导。根据设计，该软件不会记住您的大部分活动。使用此类服务​​很可能无法识别您的身份。</li>
+<li>但请注意，如果您是工作地点或学校本地网络上唯一使用 Tor 的人，则很可能通过其他方式识别您的身份。</li>
+<li><em>基于位置的服务</em> 提供您的地理位置。最好记住，如果您向 Apple 地图和 Google 地图提供此类权限，它们就非常清楚您在任何给定时间所在的位置</li>
+<li>没有任何技术可以为您提供绝对的保护。</li>
+</ul>
+<h1 id="人工智能">人工智能</h1>
+<h2 id="搜索">搜索</h2>
+<p>常见的搜索问题可由以下成分组成：</p>
+<ul>
+<li>问题状态</li>
+<li>行动</li>
+<li>代理人:采取行动的实体</li>
+<li>转换模型:给出一对给定状态和行动产生的新状态</li>
+<li>状态空间:通过任何操作序列从初始状态可到达的所有状态的集合</li>
+<li>目标测试:判断是否已经达成目标</li>
+<li>路径成本</li>
+</ul>
+<p>经典的搜索算法:dfs,bfs(略)</p>
+<ul>
+<li>非穷举情况下dfs无法保证最优解</li>
+<li>bfs保证最优解</li>
+</ul>
+<p>贪心最佳优先搜索:<br />
+bfs和dfs都是无信息算法，实际情况下，我们可以估计哪种搜索行动更优，例如曼哈顿距离(当前位置和目标在x,y轴距离的绝对值之和)更少的行动优先进行<br />
+这种估算成为启发式函数，一般不保证最优</p>
+<p>A star算法:</p>
+<ul>
+<li>不仅考虑 <em>h(n)</em> （从当前位置到目标的估计成本），还考虑 <em>g(n)</em> （直到当前位置为止累积的成本）</li>
+<li>如果估计成本h(n) +g(n) 超过某个先前选项的估计成本，这条路径就会被放弃</li>
+<li>为了使这种搜索最佳，需要:
+<ul>
+<li>估计成本小于等于真实成本</li>
+<li>新节点到目标的估计路径成本+从前一个节点转移到该新节点的成本大于或等于前一个节点到目标的估计路径成本，即若n'是n的前置节点且c是n'到n的成本，<em>h(n) ≤ h(n’) + c</em></li>
+<li>根据以上条件，算法将优先向估计成本(实际成本上界)最小的方向逼近</li>
+</ul></li>
+</ul>
+<h3 id="对抗性搜索">对抗性搜索</h3>
+<p>在这种搜索中算法面临着试图实现相反目标的对手。通常，在一些竞技游戏里会有对抗性ai，例如井字棋</p>
+<p><strong>极小极大</strong>: 将获胜条件表示为一侧 (-1) 和另一侧 (+1),最小化一方试图获得最低分数，最大化一方试图获得最高分数</p>
+<ul>
+<li><em>S₀</em> ：初始状态（一个空的 3X3 板）</li>
+<li><em>Players(s)</em> ：一个函数，给定状态 <em>s</em> ，返回轮到哪个玩家（X 或 O）</li>
+<li><em>Actions(s)</em> ：一个函数，给定一个状态 <em>s</em> ，返回该状态下的所有合法动作（棋盘上哪些位置是空闲的）</li>
+<li><em>Result(s, a)</em> ：一个函数，给定状态 <em>s</em> 和操作 <em>a</em> ，返回一个新状态。</li>
+<li><em>Terminal(s)</em> ：一个函数，给定状态 <em>s</em> ，检查是否有人获胜或平局, 有则返回 True ， 否则返回False</li>
+<li><em>Utility(s)</em> : 一个函数, <em>给定最终状态s</em> ，返回该状态的效用值：-1、0 或 1</li>
+</ul>
+<p>用伪代码表示，Minimax 算法的工作原理如下：</p>
+<ul>
+<li>给定一个状态 <em>s</em>
+<ul>
+<li>最大化玩家 <em>动作a</em> 在 <em>Actions(s)</em> 最高值的 <em>中选择产生Min-Value(Result(s, a))</em></li>
+<li>最小化玩家 <em>动作a</em> 中 <em>在Actions(s)</em> 最小值的 <em>选择产生Max-Value(Result(s, a))</em></li>
+</ul></li>
+<li>Function <em>Max-Value(state)</em>
+<ul>
+<li><em>v = -∞</em></li>
+<li>if <em>Terminal(state)</em>: ​ return <em>Utility(state)</em></li>
+<li>for <em>action</em> in <em>Actions(state)</em>: ​ <em>v = Max(v, Min-Value(Result(state, action)))</em>; return <em>v</em></li>
+</ul></li>
+<li>Function <em>Min-Value(state)</em>:
+<ul>
+<li><em>v = ∞</em></li>
+<li>if <em>Terminal(state)</em>: ​ return <em>Utility(state)</em></li>
+<li>for <em>action</em> in <em>Actions(state)</em>: ​ <em>v = Min(v, Max-Value(Result(state, action)))</em> ; return <em>v</em></li>
+</ul></li>
+</ul>
+<h4 id="alpha-beta-修剪">Alpha-Beta 修剪</h4>
+<p>跳过一些明显不利的递归计算。在确定一个行动的价值后，如果有初步证据表明接下来的行动可以使对手获得比已经建立的行动更好的分数，则无需进一步调查该行动，因为它肯定会不如先前的行动</p>
+<h4 id="深度限制">深度限制</h4>
+<p>设置一定的深度限制，到达限制就退出计算，并通过一个评估函数计算一名玩家相对于另一名玩家的有利程度</p>
+<h2 id="知识">知识</h2>
+<p>ai使用逻辑来分析总结知识，关于世界的知识却体现在各种命题的真值中 命题P→Q表示若P必然有Q，若非P对任何Q成立</p>
+<table>
+<thead>
+<tr class="header">
+<th>P</th>
+<th>Q</th>
+<th>P → Q</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>false</td>
+<td>false</td>
+<td>true</td>
+</tr>
+<tr class="even">
+<td>false</td>
+<td>true</td>
+<td>true</td>
+</tr>
+<tr class="odd">
+<td>true</td>
+<td>false</td>
+<td>false</td>
+</tr>
+<tr class="even">
+<td>true</td>
+<td>true</td>
+<td>true</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr class="header">
+<th>P</th>
+<th>Q</th>
+<th>P ↔︎ Q</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>false</td>
+<td>false</td>
+<td>true</td>
+</tr>
+<tr class="even">
+<td>false</td>
+<td>true</td>
+<td>false</td>
+</tr>
+<tr class="odd">
+<td>true</td>
+<td>false</td>
+<td>false</td>
+</tr>
+<tr class="even">
+<td>true</td>
+<td>true</td>
+<td>true</td>
+</tr>
+</tbody>
+</table>
+<p>如果 α ⊨ β （α 蕴涵(Entailment) β），那么在任何 α 为真的世界中，β 也为真 eg: 如果 α：“这是一月的星期二” 并且 β：“这是星期二”，那么 α ⊨ β 与→不同的是：→表示命题之间的逻辑连接，与其连接的PQ组合成一个新的命题；⊨表示命题间的关系，在语义上可以表示为两个信息集合之间的关系</p>
+<h3 id="推理">推理</h3>
+<p>最简单的推理方法莫过于穷举一个模型内所有条件的搭配,</p>
+<p>如下图：</p>
+<table>
+<thead>
+<tr class="header">
+<th>P</th>
+<th>Q</th>
+<th>R</th>
+<th>KB</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>false</td>
+<td>false</td>
+<td>false</td>
+<td>false</td>
+</tr>
+<tr class="even">
+<td>false</td>
+<td>false</td>
+<td>true</td>
+<td>false</td>
+</tr>
+<tr class="odd">
+<td>false</td>
+<td>true</td>
+<td>false</td>
+<td>false</td>
+</tr>
+<tr class="even">
+<td>false</td>
+<td>true</td>
+<td>true</td>
+<td>false</td>
+</tr>
+<tr class="odd">
+<td>true</td>
+<td>false</td>
+<td>false</td>
+<td>false</td>
+</tr>
+<tr class="even">
+<td>true</td>
+<td>false</td>
+<td>true</td>
+<td>true</td>
+</tr>
+<tr class="odd">
+<td>true</td>
+<td>true</td>
+<td>false</td>
+<td>false</td>
+</tr>
+<tr class="even">
+<td>true</td>
+<td>true</td>
+<td>true</td>
+<td>false</td>
+</tr>
+</tbody>
+</table>
+<p>根据此表可确认KB ⊨ R</p>
+<p>对逻辑的代码表示</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> logic <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="comment"># Create new classes, each having a name, or a symbol, representing each proposition.</span></span><br><span class="line">rain = Symbol(<span class="string">&quot;rain&quot;</span>)  <span class="comment"># It is raining.</span></span><br><span class="line">hagrid = Symbol(<span class="string">&quot;hagrid&quot;</span>)  <span class="comment"># Harry visited Hagrid</span></span><br><span class="line">dumbledore = Symbol(<span class="string">&quot;dumbledore&quot;</span>)  <span class="comment"># Harry visited Dumbledore</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Save sentences into the KB</span></span><br><span class="line">knowledge = And(  <span class="comment"># 以下每个命题真值为True，因此由And开始</span></span><br><span class="line">    Implication(Not(rain), hagrid),  <span class="comment"># ¬(It is raining) → (Harry visited Hagrid)</span></span><br><span class="line">    Or(hagrid, dumbledore),  <span class="comment"># (Harry visited Hagrid) ∨ (Harry visited Dumbledore).</span></span><br><span class="line">    Not(And(hagrid, dumbledore)),  <span class="comment"># ¬(Harry visited Hagrid ∧ Harry visited Dumbledore) i.e. Harry did not visit both Hagrid and Dumbledore.</span></span><br><span class="line">    dumbledore  <span class="comment"># Harry visited Dumbledore. Note that while previous propositions contained multiple symbols with connectors, this is a proposition consisting of one symbol. This means that we take as a fact that, in this KB, Harry visited Dumbledore.</span></span><br><span class="line">    )</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">check_all</span>(<span class="params">knowledge, query, symbols, model</span>):</span><br><span class="line">    <span class="comment"># If model has an assignment for each symbol</span></span><br><span class="line">    <span class="comment"># (The logic below might be a little confusing: we start with a list of symbols. The function is recursive, and every time it calls itself it pops one symbol from the symbols list and generates models from it. Thus, when the symbols list is empty, we know that we finished generating models with every possible truth assignment of symbols.)</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> symbols:</span><br><span class="line">        <span class="comment"># If knowledge base is true in model, then query must also be true</span></span><br><span class="line">        <span class="keyword">if</span> knowledge.evaluate(model):</span><br><span class="line">            <span class="keyword">return</span> query.evaluate(model)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="comment"># Choose one of the remaining unused symbols</span></span><br><span class="line">        remaining = symbols.copy()</span><br><span class="line">        p = remaining.pop()</span><br><span class="line">        <span class="comment"># Create a model where the symbol is true</span></span><br><span class="line">        model_true = model.copy()</span><br><span class="line">        model_true[p] = <span class="literal">True</span></span><br><span class="line">        <span class="comment"># Create a model where the symbol is false</span></span><br><span class="line">        model_false = model.copy()</span><br><span class="line">        model_false[p] = <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+<p><code>check_all</code> 函数是递归的。也就是说，它选择一个符号，创建两个模型，其中一个该符号为真，另一个该符号为假，然后再次调用自身，现在有两个模型，两者真值分配不同。循环直到模型中的所有符号都被分配了真值即<code>symbols</code>为空</p>
+<h3 id="知识工程">知识工程</h3>
+<p>知识工程是关于如何在人工智能中表示命题和逻辑的过程<br />
+假设我们有三个人：Mustard、Plum 和 Scarlet，三种工具：小刀、左轮手枪和扳手，以及三个地点：舞厅、厨房和图书馆，需要推理when who how三个问题<br />
+游戏一开始，每个玩家都会看到一个人、一件工具和一个地点，从而知道他们与谋杀案无关。玩家不会分享在这些卡片中看到的信息</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Add the clues to the KB</span></span><br><span class="line">knowledge = And(</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Start with the game conditions: one item in each of the three categories has to be true.</span></span><br><span class="line">    Or(mustard, plum, scarlet),</span><br><span class="line">    Or(ballroom, kitchen, library),</span><br><span class="line">    Or(knife, revolver, wrench),</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Add the information from the three initial cards we saw</span></span><br><span class="line">    Not(mustard),</span><br><span class="line">    Not(kitchen),</span><br><span class="line">    Not(revolver),</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 一个猜测如果错误可以表示为以下形式</span></span><br><span class="line">    Or(Not(scarlet), Not(library), Not(wrench)),</span><br><span class="line"></span><br><span class="line">    <span class="comment">#假设别人向我们出示他们的信息:</span></span><br><span class="line">    Not(plum),</span><br><span class="line">    Not(ballroom)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>考虑以下示例：四个不同的人，吉德罗、波莫娜、密涅瓦和霍勒斯，被分配到四个不同的学院：格兰芬多、赫奇帕奇、拉文克劳和斯莱特林。每栋房子里只有一个人<br />
+假设使用命题逻辑，我们将编写:<br />
+(密涅瓦·格兰芬多 → ¬ 米勒娃·赫奇帕奇) ∧ (密涅瓦·格兰芬多 → ¬ 米勒娃·拉文克劳) ∧ (密涅瓦·格兰芬多 → ¬ 米勒娃·斯莱特林) ∧ (密涅瓦·赫奇帕奇 → ¬ 米勒娃·格兰芬多)…</p>
+<div class="note info"><p>面对较为复杂的问题，一阶逻辑是另一种类型的逻辑，可以让我们比命题逻辑更简洁地表达更复杂的想法,使用两种类型的符号： <em>常量符号</em> 和 <em>谓词符号</em><br />
+我们可以使用 Person(Minerva) 句子来表达 Minerva 是一个人的命题。类似地，我们可以使用句子 House(Gryffindor) 来表达格兰芬多是一所房子的命题<br />
+谓词符号还可以采用两个或多个参数并表达它们之间的关系。例如，BelongsTo 表达两个参数（人和该人所属的房屋）之间的关系,米勒娃属于格兰芬多的想法可以表达为BelongsTo(米勒娃，格兰芬多)<br />
+量化是一种可以在一阶逻辑中使用来表示句子的工具，而无需使用特定的常量符号。通用量化使用符号∀来表达“对于所有人”<br />
+存在量化用于创建对至少一个 x 成立的句子。用符号∃表示<br />
+存在量化和全称量化可以在同一句话中使用。例如，句子<code>∀x。 Person(x) → (∃y.House(y) ∧ BelongsTo(x, y))</code>表达了这样的想法：如果 x 是一个人，则至少有一个房子 y 是这个人所属的。换句话说，这句话的意思是每个人都至少属于一所房子</p>
+</div>
+<p><strong>Mastermind 游戏</strong><br />
+在这个游戏中，玩家一按照一定的顺序排列颜色，然后玩家二必须猜测这个顺序。每回合，玩家二进行猜测，玩家一给出一个数字，表明玩家二猜对了多少种颜色，假设有四个颜色需要猜测</p>
+<p><img src="https://cs50.harvard.edu/ai/2020/notes/1/mastermind3.png" /></p>
+<p>用命题 red0、red1、red2、red3、blue0… 代表颜色和位置，用命题逻辑表示游戏规则（每个位置只有一种颜色并且没有颜色重复）并将它们添加到知识库中，随后不断补充线索，随后模型检查算法可以为我们提供难题的解决方案</p>
+<h3 id="推理规则">推理规则</h3>
+<p>模型检查不是一种高效的算法，因为它必须在给出答案之前考虑每个可能的模型<br />
+推理规则使我们能够根据现有知识生成新信息，而无需考虑每种可能的模型<br />
+假设：</p>
+<ul>
+<li>如果下雨，那么哈利在屋子里</li>
+<li>正在下雨</li>
+</ul>
+<p>基于此，理性的人都可以得出这样的结论：</p>
+<ul>
+<li>哈利在屋里</li>
+</ul>
+<p>一些基本的推理规则: <img src="https://cs50.harvard.edu/ai/2020/notes/1/modusponens.png" /></p>
+<p><img src="https://cs50.harvard.edu/ai/2020/notes/1/implicationelimination.png" /></p>
+<p><img src="https://cs50.harvard.edu/ai/2020/notes/1/demorgans1.png" /></p>
+<p><img src="https://cs50.harvard.edu/ai/2020/notes/1/demorgans2.png" /></p>
+<p>具有用 And 或 Or 连接词分组的两个元素的命题可以分解为由 And 和 Or 组成的更小的单元</p>
+<p><img src="https://cs50.harvard.edu/ai/2020/notes/1/distributive1.png" /></p>
+<p><img src="https://cs50.harvard.edu/ai/2020/notes/1/distributive2.png" /></p>
+<p>推理可以被视为具有以下属性的搜索问题：</p>
+<ul>
+<li>初始状态：启动知识库</li>
+<li>动作：推理规则</li>
+<li>转换模型：推理后的新知识库</li>
+<li>目标测试：检查我们要证明的语句是否在知识库中</li>
+<li>路径成本函数：证明中的步骤数</li>
+</ul>
+<p>析取由与Or 逻辑连接词连接的命题组成,子句<strong>clause</strong>是对文字(命题符号或命题符号的否定)的析取<strong>disjunction</strong>,如 (P ∨ Q ∨ ¬R)<br />
+由And 逻辑连接词 (P ∧ Q ∧ R) 连接的子句允许我们将任何逻辑语句转换为 <strong>合取范式</strong> （CNF Conjunctive Normal Form），即子句的合取，例如：(A ∨ B ∨ C) ∧ (D ∨ ¬E) ∧ (F ∨ G)<br />
+求合取范式的过程:</p>
+<ul>
+<li>消除双条件句
+<ul>
+<li>Turn (α ↔︎ β) into (α → β) ∧ (β → α).</li>
+</ul></li>
+<li>消除条件句
+<ul>
+<li>Turn (α → β) into ¬α ∨ β.</li>
+</ul></li>
+<li>使用德摩根定律，将否定向内移动
+<ul>
+<li>Turn ¬(α ∧ β) into ¬α ∨ ¬β</li>
+</ul></li>
+</ul>
+<p>将 (P ∨ Q) → R 转换为合取范式的示例：</p>
+<ul>
+<li>(P ∨ Q) → R</li>
+<li>¬(P ∨ Q) ∨ R</li>
+<li>(¬P ∧ ¬Q) ∨ R</li>
+<li>(¬P ∨ R) ∧ (¬Q ∨ R)</li>
+</ul>
+<p>得到的合区范式可以继续简化，如(P ∨ Q ∨ S) ∧ (¬P ∨ R ∨ S) 可化为 (Q ∨ R ∨ S)</p>
+<p>要确定 KB ⊨ α 是否为真：</p>
+<ul>
+<li>检查：(KB ∧ ¬α) 是否矛盾？
+<ul>
+<li>如果是这样，则 KB ⊨ α</li>
+<li>否则，无蕴涵</li>
+</ul></li>
+</ul>
+<p>就计算机算法而言，可使用以下步骤:</p>
+<ul>
+<li>将 (KB ∧ ¬α) 转换为合取范式</li>
+<li>检查是否可以生成新的子句</li>
+<li>如果产生空子句（相当于 False），那么得出矛盾，从而证明了 KB ⊨ α</li>
+<li>然而，如果没有矛盾并且不能推断出更多的子句，则不存在蕴涵</li>
+</ul>
+<p>示例:(A ∨ B) ∧ (¬B ∨ C) ∧ (¬C) 是否蕴含 A？</p>
+<ul>
+<li>首先，为了反证，我们假设A是假的。因此，我们得到 (A ∨ B) ∧ (¬B ∨ C) ∧ (¬C) ∧ (¬A)</li>
+<li>现在，我们可以开始生成新信息。因为我们知道 C 是假的 (¬C)，所以 (¬B ∨ C) 为真的唯一方法是 B 也为假。因此，我们可以将 (¬B) 添加到我们的知识库中</li>
+<li>接下来，由于知道 (¬B)，所以 (A ∨ B) 为真的唯一方法是 A 为真。因此可以将 (A) 添加到知识库中</li>
+<li>现在我们的知识库有两个互补的文字：(A) 和 (¬A)。抵消得到空集（）。根据定义，空集是假的，因此遇到了矛盾</li>
+</ul>
+<h2 id="概率">概率</h2>
+<p><code>0 &lt;p（ ω ）&lt;1</code>：代表概率的值必须在0到1之间。零是不可能的事件,如扔1-6的骰子扔出7。<br />
+<code>p(a|b)</code>表示给定b条件下a的概率<br />
+可以用向量表示一系列事件的概率，如<code>P(Flight) = &lt;0.6, 0.3, 0.1&gt;  (准时，延误，取消)</code></p>
+<ul>
+<li>P(¬a) = 1 - P(a)</li>
+<li>P(a ∨ b) = P(a) + P(b) - P(a ∧ b)</li>
+<li>P(a) = P(a, b) + P(a, ¬b)</li>
+<li>独立性:P(a ∧ b) = P(a)P(b)<br />
+</li>
+<li>贝叶斯:P(a|b) = P(a ∧ b)P(b) 其中:P(a ∧ b)= p(a|b)p(b)</li>
+</ul>
+<p>贝叶斯网络:</p>
+<ul>
+<li>用定向图表示</li>
+<li>图上的每个节点代表一个随机变量</li>
+<li>从x到y的箭头表示x是y的父节点。也就是说，y的概率分布取决于x的值</li>
+<li>每个节点X具有概率分布P(X | Parents(X))</li>
+</ul>
+<p><img src="https://cs50.harvard.edu/ai/2020/notes/2/bayesiannetwork.png" /></p>
+]]></content>
+      <categories>
+        <category>课程笔记</category>
+        <category>通识</category>
+      </categories>
+      <tags>
+        <tag>课程笔记</tag>
+        <tag>python</tag>
+        <tag>哈佛</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>一些剧情向游戏杂谈</title>
     <url>/thinklive/36218/</url>
     <content><![CDATA[<p>本文是对游戏杂谈的一个汇总</p>
@@ -216,7 +691,7 @@
 <li>近畿霊務局</li>
 <li>2236 A.D.(hime线)</li>
 <li>秘封祭</li>
-<li>无冬之夜2: 背叛者的面具</li>
+<li>无冬之夜2资料片 背叛者的面具</li>
 <li>逐光: 致监星官</li>
 <li>都市传说解体中心</li>
 <li>噩梦摇篮:献花与你</li>
@@ -673,466 +1148,6 @@ wrpg玩家的噩梦:新生软的建模，杯赛的优化，cdpr的首发……<b
         <tag>影子工厂</tag>
         <tag>不予播出</tag>
         <tag>步行模拟器</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>基于哈佛cs50的计算机通识笔记</title>
-    <url>/thinklive/16959/</url>
-    <content><![CDATA[<h1 id="计算机安全常识">计算机安全常识</h1>
-<h2 id="账户安全">账户安全</h2>
-<p>美国国家标准与技术研究院 (NIST)的建议：</p>
-<ul>
-<li>密码长度应至少为八个字符</li>
-<li>验证者应规定所有打印的 ASCII 字符和 Unicode 符号的长度最多为 64 个字符</li>
-<li>验证者应该将预期的密码与可用的字典单词、重复序列、被破坏的密码列表和上下文特定的单词进行比较</li>
-<li>验证者不应允许未经身份验证的用户访问密码提示</li>
-<li>验证者不应要求定期更改密码</li>
-<li>验证者应限制失败的身份验证尝试次数并锁定潜在的攻击者</li>
-</ul>
-<span id="more"></span>
-<p>多重身份验证(2fa)由三个组成部分组成。</p>
-<ul>
-<li>知识：只有你知道的东西</li>
-<li>所有物：仅由授权用户拥有的物品或设备</li>
-<li>固有物：仅是您可以获得的一个因素，例如您的指纹、面部或其他生物识别信息</li>
-</ul>
-<p>一次性密码OTP:</p>
-<ul>
-<li>人们可以获得一种特殊的密钥卡或提供一次性密码的设备</li>
-<li>OTP 通常是从设备或应用程序获取的</li>
-<li>基于短信的 OTP 很容易通过 SIM 交换而被欺骗，攻击者会获取并克隆 SIM 卡并访问您的短信,因此验证器类型的验证应用程序更安全(比如需要指纹验证的)</li>
-</ul>
-<p>键盘记录：</p>
-<ul>
-<li>用户名、密码和 OTP 很容易被攻击者记录您的击键</li>
-<li>键盘记录是通过在计算机上安装恶意软件来完成的</li>
-<li>最好确保您仅登录您只能访问的设备</li>
-</ul>
-<p>社会工程/钓鱼：</p>
-<ul>
-<li>懂得都懂，点击url时需要谨慎再谨慎，收到任何可能泄露信息的请求时核对对方身份</li>
-</ul>
-<p>单点登录SSO:</p>
-<ul>
-<li>SSO 允许您使用 Google 或 Facebook 登录来访问 Google 或 Facebook 未提供的服务</li>
-<li>因此，您能够以更少的摩擦和更高的安全性轻松访问其他服务</li>
-</ul>
-<p>密码管理器：</p>
-<ul>
-<li>把鸡蛋放在一个篮子里，但是相对能提高安全性</li>
-<li>推荐keepass</li>
-</ul>
-<h2 id="数据安全">数据安全</h2>
-<p>哈希：将一些纯文本转换为可读性较差的散列值输出的方法，常存储密码的哈希值从而降低风险</p>
-<ul>
-<li><em>字典攻击</em> 仍然可以将字典中的一个又一个值输入到哈希函数中，作为破解它的一种方式。</li>
-<li><em>彩虹表</em> 是另一种威胁，对手拥有哈希表中所有潜在哈希值的表。然而，这需要数 TB（甚至 PB）的存储容量才能完成</li>
-<li><em>单向哈希函数</em> 用代码编写，接收任意长度的字符串并输出固定长度的哈希值。</li>
-<li>利用这样的功能，哈希值和哈希函数的持有者将永远不会知道原始密码。</li>
-</ul>
-<p>盐：<em>加盐</em> 是将附加值“撒”到哈希函数中，从而使哈希值发生变化的过程，几乎可以保证用户提供的哈希值（即使是具有相同密码的用户）也会收到不同的哈希密码</p>
-<p>非对称加密：你需要一个公钥一个私钥，例如公钥是两个素数的乘积，私钥是其中一个因数，私钥被收发双方共用</p>
-<ul>
-<li>发送者使用公钥和明文并将其输入算法中。这会产生密文</li>
-<li>接收者将私钥和密文输入到算法中。这会产生破译的文本</li>
-<li>消息（文档的内容）被传递给哈希函数，从而产生哈希值，私钥和哈希值被传递给数字签名算法，从而产生数字签名；接收者将公钥和提供给解密算法的签名传递给解密算法，从而产生应与先前计算的哈希值相匹配的哈希值，验证签名</li>
-</ul>
-<p>硬盘加密：</p>
-<ul>
-<li>操作系统删除文件时，事实上只释放了空间，原有文件内容有可能留存一段时间，因此需要 <em>安全删除</em> ，将已删除文件的所有剩余部分更改为零、一或零和一的随机序列</li>
-<li><em>全盘加密</em> 或 <em>静态加密</em> 可完全加密硬盘驱动器的内容。</li>
-<li>如果您的设备被盗或您出售了设备，任何人都将无法访问您的加密数据。</li>
-<li>然而，它的缺点是，如果您丢失密码或脸部发生足够大的变化，您将无法访问您的数据。</li>
-<li>另一个缺点是黑客可能通过 <em>勒索软件</em> 使用相同类型的技术来加密您的硬盘并将其劫为人质</li>
-<li>例如veracrypt之类的软件可以实现硬盘级或者文件级(将一个文件虚拟成硬盘分区)的加密，微软的bitlock配合部分硬件功能甚至可以实现硬件级加密(范围是卷)</li>
-</ul>
-<p>量子计算：新兴的计算机技术，可能彻底颠覆目前的计算机密码学</p>
-<h2 id="系统安全">系统安全</h2>
-<ul>
-<li><em>超文本传输​​协议</em> （ <em>HTTP</em> ）是一种未加密的数据传输方式。</li>
-<li>使用 HTTP，人们很容易受到 <em>中间人</em> 攻击，攻击者可能会在下载的内容中注入额外的 HTML 代码。广告可以被注入到您通过 HTTP 访问的所有网页中。此外，还可以插入恶意代码。</li>
-<li>事实上，还存在其他威胁。 <em>数据包嗅探</em> 是攻击者查看双方之间传输的数据内部的一种方式。可以想象，放置在不安全数据包中的信用卡号会被攻击者检测到并窃取。</li>
-<li><em>Cookie</em> 是网站放置在您计算机上的小文件。网站可能会使用 Cookie 来跟踪您的身份、显示您的电子邮件或跟踪您的购物车。 Cookie 使人容易受到 <em>会话劫持</em> ，对手可以通过注入 <em>超级 cookie</em> 来跟踪您。</li>
-<li><em>HTTPS</em> 是 HTTP 的安全协议。传输中加密流量(使用上一章提及的公钥加密技术)</li>
-<li><em>CA</em> 是颁发证书的受信任的第三方公司</li>
-<li>当访问网站时，浏览器会下载该网站的证书，并创建哈希值。</li>
-<li>然后，它使用网站的公钥和提供给算法的证书签名来验证哈希值是否符合</li>
-<li>如果哈希匹配，则网络浏览器应用程序确信这是一个安全网站</li>
-<li><em>SSL Stripping</em> 是一种攻击者在网站上使用 HTTP 将流量重定向到恶意网站的攻击。攻击者甚至可能将其重定向到非预期网站的 HTTPS 安全域。</li>
-<li>减轻这种威胁的一种方法是实施 <em>HSTS</em> 或 <em>HTTP 严格传输安全</em> ，服务器告诉浏览器将所有流量引导到安全连接</li>
-<li>攻击者可能会对服务器进行 <em>端口扫描</em> ，尝试所有潜在端口以查看它们是否正在接受流量</li>
-<li>防火墙是一种软件，通过阻止未经授权的访问（包括设备上受损的服务）来保护各种服务</li>
-<li>防火墙利用 <em>IP 地址</em> （分配给网络上每台计算机的唯一编号）来防止外部人员攻击</li>
-<li>防火墙还可以使用 <em>深度数据包检查</em> ，检查数据包中的数据以查找您的公司可能感兴趣的材料。这可以用来检查您是否正在向媒体或可能被您公司视为对手的其他方发送电子邮件。</li>
-<li>使用 <em>深度数据包检测通过代理</em> ，其中中间的设备用作流量传入和传出网络的路径。您的学校或公司可能会在此代理上更改 URL、记录您尝试浏览的 URL，并希望保护您免受潜在有害行为的影响。</li>
-<li><em>蠕虫病毒</em> 是一种恶意软件，可以通过安全漏洞从一台计算机转移到另一台计算机。</li>
-<li><em>僵尸网络</em> 是一种恶意软件，一旦安装在您的计算机上，就会感染其他计算机，并且攻击者可以利用它向数千台受感染的计算机发出命令。</li>
-<li>受僵尸网络感染的计算机可用于发出 <em>拒绝服务攻击dos</em> ，从而可以向服务器发出大量请求，以减慢或关闭服务器。由于僵尸网络中有如此多的计算机，因此这种类型的攻击可以称为 <em>分布式拒绝服务攻击ddos</em></li>
-<li><em>零日攻击</em> ，这种攻击会在杀毒软件公司有机会创建修复程序之前利用软件中的未知漏洞</li>
-</ul>
-<h2 id="软件安全">软件安全</h2>
-<ul>
-<li>攻击者可能会利用您不注意的情况，声称您正在链接到一个网页，而实际上您正在链接到另一个网页，如 <code>&lt;a href="https://yale.edu"&gt;https://harvard.edu&lt;/a&gt;</code></li>
-<li>攻击者经常创建虚假版本的网站，其唯一目的是诱骗用户在这些网站中输入敏感信息。例如，如果您是一名哈佛学生，访问此类假哈佛网站，您可能会尝试登录并向对手提供您的用户名和密码</li>
-<li><ul>
-<li><em>跨站点脚本攻击</em> （ <em>XSS</em> ）是一种攻击形式，攻击者将代码附加到合法网站上,通过用户的输入诱骗网站运行恶意代码。当受害者加载网站时，代码就会执行。</li>
-</ul></li>
-<li><em>反射攻击</em> 一种利用网站接受输入的方式来欺骗用户浏览器发送导致攻击的信息请求的攻击，如伪造了请求数据包的源 IP，接受请求的主机被诱骗将其UDP响应数据包发送到目标受害者 IP，而不是发送回攻击者的 IP 地址</li>
-<li><em>存储攻击</em> 网站可能容易受到攻击，被诱骗存储恶意代码。</li>
-<li><em>字符逃脱</em> 一些特殊字符如<code>&lt;&gt;</code>可用于注入恶意代码，对于特殊字符安全软件应该进行转义</li>
-<li>常见的转义字符包括：
-<ul>
-<li><code>&amp;lt;</code>，“&lt;”</li>
-<li><code>&amp;gt;</code>，“&gt;”</li>
-<li><code>&amp;amp;</code>，“&amp;”</li>
-<li><code>&amp;quot;</code>，“</li>
-<li><code>&amp;apos;</code>，'</li>
-</ul></li>
-<li>可通过html标头仅允许通过单独的文件加载js或css,避免被注入标签执行恶意代码</li>
-<li><em>SQL注入</em> 利用sql语法注入代码并执行语句，类似字符逃脱，永远不要相信用户的输入，需要转义整个用户输入信息</li>
-<li>现代常用的防止sql注入方法：预制sql模板，部分信息接收用户输入前必须转义输入</li>
-<li>命令 <em>注入</em> 攻击是一种对底层系统本身发出命令的攻击。</li>
-<li>如果命令从用户输入传递到命令行，效果可能是灾难性的。需要阅读编程语言系统接口的文档了解如何转义</li>
-<li>不要相信html部分的验证，通过开发者工具可以随时更改，验证应该在服务端进行</li>
-<li><em>跨站点请求伪造</em> / <em>CSRF</em> 诱骗用户在另一个网站上执行命令，如伪造一个亚马逊网站，用户点击网站购买的请求被攻击者转发给亚马逊，在此过程中攻击者可以得到受害人和亚马逊之间的所有收发数据</li>
-<li>防止此类攻击的一种方法是使用 <em>CSRF 令牌</em> ，其中服务器为每个用户生成一个凭证令牌，令牌无法验证通过的请求是非法的</li>
-<li>令牌通常通过 HTML 标头提交。</li>
-<li><em>任意代码执行</em> （ <em>ACE</em> ）是执行不属于软件内预期代码的代码的行为。有时，此类攻击可用于 <em>破解</em> 或绕过注册或支付软件费用的需要或者逆向工程</li>
-<li>应用程序商店采用加密技术，仅接受由授权开发人员签名的软件或代码。作为回应，应用程序商店使用数字签名对软件进行签名。因此，操作系统可以确保只安装经过授权、签名的软件。</li>
-<li><em>包管理器</em> 采用类似的签名机制来确保您从第三方下载的内容是值得信赖的。但是，上游开源软件仍是有可能注入恶意代码的</li>
-<li><em>common vulnerabilities and exposures</em> or <em>CVE</em> 是全球开发者可以查看的漏洞表，使其进行安全维护并确认安全优先级</li>
-</ul>
-<h2 id="隐私安全">隐私安全</h2>
-<ul>
-<li>浏览历史记录既是一种功能，也是对隐私的潜在威胁</li>
-<li>服务器通常具有 <em>用户活动日志</em> 。因此，即使您清除浏览器历史记录，服务器也会跟踪您访问过的内容</li>
-<li>当你通过href标签访问链接时，浏览器默认向跳转网站提供将您引向该网站的链接，也就是跳转到的网站的来源信息，包括您之前进行的搜索即搜索内容等来源</li>
-<li>可以将以下元标记添加到您的网站，以限制仅发送来源域名或不提供来源信息。更多相关元标记可自行谷歌</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;meta name=&quot;referrer&quot; content=&quot;origin&quot;&gt; </span><br><span class="line">&lt;meta name=&quot;referrer&quot; content=&quot;none&quot;&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<ul>
-<li>每个浏览器都会提供有关您的身份和行为的信息，无论您选择哪种浏览器，服务器都会记录您的活动。</li>
-<li><em>指纹识别</em> 是第三方可以根据可用线索识别您身份的一种方式，即使您已限制浏览器共享尽可能少的有关您的信息。</li>
-<li>您的 IP 地址，屏幕分辨率、安装的扩展、安装的字体，常用语言，可以被逐渐收集，让您越来越容易被识别</li>
-<li><em>Session cookie</em> 是服务器放置在您的计算机上用于识别您身份的信息，每个会话编号对于每个用户来说都是唯一的，通常有过期时间</li>
-<li>第三方使用追踪 cookie 来跟踪您在网站上的行为，例如设定将这个cookie信息发给每个你访问的网站</li>
-<li>url中可以设置特殊参数来追踪用户, 如<code>https://example.com/ad_engagement?click_id=YmVhODI1MmZmNGU4&amp;campaign_id=23</code>中<code>click_id</code>用户追踪用户， 因此浏览器越来越倾向于清理跟踪参数</li>
-<li>第三方（即其他服务器或公司）想要了解您如何在网站之间移动，例如在a网站的第三方广告设置一个cookie,b网站也有这个广告，发现你的cookie，说明访问ab网站的事同一个用户</li>
-<li>保护您的活动的一种方法是 <em>私密浏览</em> 。</li>
-<li>在私人浏览窗口或选项卡中，过去的 cookie 将被删除。但新的cookie依旧可以生效</li>
-<li>无论谁为您提供互联网服务，都可以在您不知情的情况下将他们自己的 cookie 注入到您的 HTTP 标头中</li>
-<li><em>域名系统</em> DNS <em>是</em> 一种服务将域名转化为特定ip地址，按照惯例，到 DNS 的流量完全未加密。因此，您正在向全世界宣布您正在尝试访问哪个网站，您的互联网服务提供商和 DNS 服务确切地知道您尝试访问的位置</li>
-<li><em>DNS over HTTPS</em> 或 <em>DoH</em> 以及 <em>DNS over TLS</em> 或 <em>DoT</em> 是您可以加密 DNS 请求的服务</li>
-<li><em>Tor</em> 是一款将您的流量重定向到 Tor 服务器节点的软件。流量通过许多加密节点进行引导。根据设计，该软件不会记住您的大部分活动。使用此类服务​​很可能无法识别您的身份。</li>
-<li>但请注意，如果您是工作地点或学校本地网络上唯一使用 Tor 的人，则很可能通过其他方式识别您的身份。</li>
-<li><em>基于位置的服务</em> 提供您的地理位置。最好记住，如果您向 Apple 地图和 Google 地图提供此类权限，它们就非常清楚您在任何给定时间所在的位置</li>
-<li>没有任何技术可以为您提供绝对的保护。</li>
-</ul>
-<h1 id="人工智能">人工智能</h1>
-<h2 id="搜索">搜索</h2>
-<p>常见的搜索问题可由以下成分组成：</p>
-<ul>
-<li>问题状态</li>
-<li>行动</li>
-<li>代理人:采取行动的实体</li>
-<li>转换模型:给出一对给定状态和行动产生的新状态</li>
-<li>状态空间:通过任何操作序列从初始状态可到达的所有状态的集合</li>
-<li>目标测试:判断是否已经达成目标</li>
-<li>路径成本</li>
-</ul>
-<p>经典的搜索算法:dfs,bfs(略)</p>
-<ul>
-<li>非穷举情况下dfs无法保证最优解</li>
-<li>bfs保证最优解</li>
-</ul>
-<p>贪心最佳优先搜索:<br />
-bfs和dfs都是无信息算法，实际情况下，我们可以估计哪种搜索行动更优，例如曼哈顿距离(当前位置和目标在x,y轴距离的绝对值之和)更少的行动优先进行<br />
-这种估算成为启发式函数，一般不保证最优</p>
-<p>A star算法:</p>
-<ul>
-<li>不仅考虑 <em>h(n)</em> （从当前位置到目标的估计成本），还考虑 <em>g(n)</em> （直到当前位置为止累积的成本）</li>
-<li>如果估计成本h(n) +g(n) 超过某个先前选项的估计成本，这条路径就会被放弃</li>
-<li>为了使这种搜索最佳，需要:
-<ul>
-<li>估计成本小于等于真实成本</li>
-<li>新节点到目标的估计路径成本+从前一个节点转移到该新节点的成本大于或等于前一个节点到目标的估计路径成本，即若n'是n的前置节点且c是n'到n的成本，<em>h(n) ≤ h(n’) + c</em></li>
-<li>根据以上条件，算法将优先向估计成本(实际成本上界)最小的方向逼近</li>
-</ul></li>
-</ul>
-<h3 id="对抗性搜索">对抗性搜索</h3>
-<p>在这种搜索中算法面临着试图实现相反目标的对手。通常，在一些竞技游戏里会有对抗性ai，例如井字棋</p>
-<p><strong>极小极大</strong>: 将获胜条件表示为一侧 (-1) 和另一侧 (+1),最小化一方试图获得最低分数，最大化一方试图获得最高分数</p>
-<ul>
-<li><em>S₀</em> ：初始状态（一个空的 3X3 板）</li>
-<li><em>Players(s)</em> ：一个函数，给定状态 <em>s</em> ，返回轮到哪个玩家（X 或 O）</li>
-<li><em>Actions(s)</em> ：一个函数，给定一个状态 <em>s</em> ，返回该状态下的所有合法动作（棋盘上哪些位置是空闲的）</li>
-<li><em>Result(s, a)</em> ：一个函数，给定状态 <em>s</em> 和操作 <em>a</em> ，返回一个新状态。</li>
-<li><em>Terminal(s)</em> ：一个函数，给定状态 <em>s</em> ，检查是否有人获胜或平局, 有则返回 True ， 否则返回False</li>
-<li><em>Utility(s)</em> : 一个函数, <em>给定最终状态s</em> ，返回该状态的效用值：-1、0 或 1</li>
-</ul>
-<p>用伪代码表示，Minimax 算法的工作原理如下：</p>
-<ul>
-<li>给定一个状态 <em>s</em>
-<ul>
-<li>最大化玩家 <em>动作a</em> 在 <em>Actions(s)</em> 最高值的 <em>中选择产生Min-Value(Result(s, a))</em></li>
-<li>最小化玩家 <em>动作a</em> 中 <em>在Actions(s)</em> 最小值的 <em>选择产生Max-Value(Result(s, a))</em></li>
-</ul></li>
-<li>Function <em>Max-Value(state)</em>
-<ul>
-<li><em>v = -∞</em></li>
-<li>if <em>Terminal(state)</em>: ​ return <em>Utility(state)</em></li>
-<li>for <em>action</em> in <em>Actions(state)</em>: ​ <em>v = Max(v, Min-Value(Result(state, action)))</em>; return <em>v</em></li>
-</ul></li>
-<li>Function <em>Min-Value(state)</em>:
-<ul>
-<li><em>v = ∞</em></li>
-<li>if <em>Terminal(state)</em>: ​ return <em>Utility(state)</em></li>
-<li>for <em>action</em> in <em>Actions(state)</em>: ​ <em>v = Min(v, Max-Value(Result(state, action)))</em> ; return <em>v</em></li>
-</ul></li>
-</ul>
-<h4 id="alpha-beta-修剪">Alpha-Beta 修剪</h4>
-<p>跳过一些明显不利的递归计算。在确定一个行动的价值后，如果有初步证据表明接下来的行动可以使对手获得比已经建立的行动更好的分数，则无需进一步调查该行动，因为它肯定会不如先前的行动</p>
-<h4 id="深度限制">深度限制</h4>
-<p>设置一定的深度限制，到达限制就退出计算，并通过一个评估函数计算一名玩家相对于另一名玩家的有利程度</p>
-<h2 id="知识">知识</h2>
-<p>ai使用逻辑来分析总结知识，关于世界的知识却体现在各种命题的真值中 命题P→Q表示若P必然有Q，若非P对任何Q成立</p>
-<table>
-<thead>
-<tr class="header">
-<th>P</th>
-<th>Q</th>
-<th>P → Q</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>false</td>
-<td>false</td>
-<td>true</td>
-</tr>
-<tr class="even">
-<td>false</td>
-<td>true</td>
-<td>true</td>
-</tr>
-<tr class="odd">
-<td>true</td>
-<td>false</td>
-<td>false</td>
-</tr>
-<tr class="even">
-<td>true</td>
-<td>true</td>
-<td>true</td>
-</tr>
-</tbody>
-</table>
-<table>
-<thead>
-<tr class="header">
-<th>P</th>
-<th>Q</th>
-<th>P ↔︎ Q</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>false</td>
-<td>false</td>
-<td>true</td>
-</tr>
-<tr class="even">
-<td>false</td>
-<td>true</td>
-<td>false</td>
-</tr>
-<tr class="odd">
-<td>true</td>
-<td>false</td>
-<td>false</td>
-</tr>
-<tr class="even">
-<td>true</td>
-<td>true</td>
-<td>true</td>
-</tr>
-</tbody>
-</table>
-<p>如果 α ⊨ β （α 蕴涵(Entailment) β），那么在任何 α 为真的世界中，β 也为真 eg: 如果 α：“这是一月的星期二” 并且 β：“这是星期二”，那么 α ⊨ β 与→不同的是：→表示命题之间的逻辑连接，与其连接的PQ组合成一个新的命题；⊨表示命题间的关系，在语义上可以表示为两个信息集合之间的关系</p>
-<h3 id="推理">推理</h3>
-<p>最简单的推理方法莫过于穷举一个模型内所有条件的搭配,</p>
-<p>如下图：</p>
-<table>
-<thead>
-<tr class="header">
-<th>P</th>
-<th>Q</th>
-<th>R</th>
-<th>KB</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>false</td>
-<td>false</td>
-<td>false</td>
-<td>false</td>
-</tr>
-<tr class="even">
-<td>false</td>
-<td>false</td>
-<td>true</td>
-<td>false</td>
-</tr>
-<tr class="odd">
-<td>false</td>
-<td>true</td>
-<td>false</td>
-<td>false</td>
-</tr>
-<tr class="even">
-<td>false</td>
-<td>true</td>
-<td>true</td>
-<td>false</td>
-</tr>
-<tr class="odd">
-<td>true</td>
-<td>false</td>
-<td>false</td>
-<td>false</td>
-</tr>
-<tr class="even">
-<td>true</td>
-<td>false</td>
-<td>true</td>
-<td>true</td>
-</tr>
-<tr class="odd">
-<td>true</td>
-<td>true</td>
-<td>false</td>
-<td>false</td>
-</tr>
-<tr class="even">
-<td>true</td>
-<td>true</td>
-<td>true</td>
-<td>false</td>
-</tr>
-</tbody>
-</table>
-<p>根据此表可确认KB ⊨ R</p>
-<p>对逻辑的代码表示</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> logic <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="comment"># Create new classes, each having a name, or a symbol, representing each proposition.</span></span><br><span class="line">rain = Symbol(<span class="string">&quot;rain&quot;</span>)  <span class="comment"># It is raining.</span></span><br><span class="line">hagrid = Symbol(<span class="string">&quot;hagrid&quot;</span>)  <span class="comment"># Harry visited Hagrid</span></span><br><span class="line">dumbledore = Symbol(<span class="string">&quot;dumbledore&quot;</span>)  <span class="comment"># Harry visited Dumbledore</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Save sentences into the KB</span></span><br><span class="line">knowledge = And(  <span class="comment"># 以下每个命题真值为True，因此由And开始</span></span><br><span class="line">    Implication(Not(rain), hagrid),  <span class="comment"># ¬(It is raining) → (Harry visited Hagrid)</span></span><br><span class="line">    Or(hagrid, dumbledore),  <span class="comment"># (Harry visited Hagrid) ∨ (Harry visited Dumbledore).</span></span><br><span class="line">    Not(And(hagrid, dumbledore)),  <span class="comment"># ¬(Harry visited Hagrid ∧ Harry visited Dumbledore) i.e. Harry did not visit both Hagrid and Dumbledore.</span></span><br><span class="line">    dumbledore  <span class="comment"># Harry visited Dumbledore. Note that while previous propositions contained multiple symbols with connectors, this is a proposition consisting of one symbol. This means that we take as a fact that, in this KB, Harry visited Dumbledore.</span></span><br><span class="line">    )</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">check_all</span>(<span class="params">knowledge, query, symbols, model</span>):</span><br><span class="line">    <span class="comment"># If model has an assignment for each symbol</span></span><br><span class="line">    <span class="comment"># (The logic below might be a little confusing: we start with a list of symbols. The function is recursive, and every time it calls itself it pops one symbol from the symbols list and generates models from it. Thus, when the symbols list is empty, we know that we finished generating models with every possible truth assignment of symbols.)</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> symbols:</span><br><span class="line">        <span class="comment"># If knowledge base is true in model, then query must also be true</span></span><br><span class="line">        <span class="keyword">if</span> knowledge.evaluate(model):</span><br><span class="line">            <span class="keyword">return</span> query.evaluate(model)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="comment"># Choose one of the remaining unused symbols</span></span><br><span class="line">        remaining = symbols.copy()</span><br><span class="line">        p = remaining.pop()</span><br><span class="line">        <span class="comment"># Create a model where the symbol is true</span></span><br><span class="line">        model_true = model.copy()</span><br><span class="line">        model_true[p] = <span class="literal">True</span></span><br><span class="line">        <span class="comment"># Create a model where the symbol is false</span></span><br><span class="line">        model_false = model.copy()</span><br><span class="line">        model_false[p] = <span class="literal">False</span></span><br></pre></td></tr></table></figure>
-<p><code>check_all</code> 函数是递归的。也就是说，它选择一个符号，创建两个模型，其中一个该符号为真，另一个该符号为假，然后再次调用自身，现在有两个模型，两者真值分配不同。循环直到模型中的所有符号都被分配了真值即<code>symbols</code>为空</p>
-<h3 id="知识工程">知识工程</h3>
-<p>知识工程是关于如何在人工智能中表示命题和逻辑的过程<br />
-假设我们有三个人：Mustard、Plum 和 Scarlet，三种工具：小刀、左轮手枪和扳手，以及三个地点：舞厅、厨房和图书馆，需要推理when who how三个问题<br />
-游戏一开始，每个玩家都会看到一个人、一件工具和一个地点，从而知道他们与谋杀案无关。玩家不会分享在这些卡片中看到的信息</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Add the clues to the KB</span></span><br><span class="line">knowledge = And(</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Start with the game conditions: one item in each of the three categories has to be true.</span></span><br><span class="line">    Or(mustard, plum, scarlet),</span><br><span class="line">    Or(ballroom, kitchen, library),</span><br><span class="line">    Or(knife, revolver, wrench),</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Add the information from the three initial cards we saw</span></span><br><span class="line">    Not(mustard),</span><br><span class="line">    Not(kitchen),</span><br><span class="line">    Not(revolver),</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 一个猜测如果错误可以表示为以下形式</span></span><br><span class="line">    Or(Not(scarlet), Not(library), Not(wrench)),</span><br><span class="line"></span><br><span class="line">    <span class="comment">#假设别人向我们出示他们的信息:</span></span><br><span class="line">    Not(plum),</span><br><span class="line">    Not(ballroom)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-<p>考虑以下示例：四个不同的人，吉德罗、波莫娜、密涅瓦和霍勒斯，被分配到四个不同的学院：格兰芬多、赫奇帕奇、拉文克劳和斯莱特林。每栋房子里只有一个人<br />
-假设使用命题逻辑，我们将编写:<br />
-(密涅瓦·格兰芬多 → ¬ 米勒娃·赫奇帕奇) ∧ (密涅瓦·格兰芬多 → ¬ 米勒娃·拉文克劳) ∧ (密涅瓦·格兰芬多 → ¬ 米勒娃·斯莱特林) ∧ (密涅瓦·赫奇帕奇 → ¬ 米勒娃·格兰芬多)…</p>
-<div class="note info"><p>面对较为复杂的问题，一阶逻辑是另一种类型的逻辑，可以让我们比命题逻辑更简洁地表达更复杂的想法,使用两种类型的符号： <em>常量符号</em> 和 <em>谓词符号</em><br />
-我们可以使用 Person(Minerva) 句子来表达 Minerva 是一个人的命题。类似地，我们可以使用句子 House(Gryffindor) 来表达格兰芬多是一所房子的命题<br />
-谓词符号还可以采用两个或多个参数并表达它们之间的关系。例如，BelongsTo 表达两个参数（人和该人所属的房屋）之间的关系,米勒娃属于格兰芬多的想法可以表达为BelongsTo(米勒娃，格兰芬多)<br />
-量化是一种可以在一阶逻辑中使用来表示句子的工具，而无需使用特定的常量符号。通用量化使用符号∀来表达“对于所有人”<br />
-存在量化用于创建对至少一个 x 成立的句子。用符号∃表示<br />
-存在量化和全称量化可以在同一句话中使用。例如，句子<code>∀x。 Person(x) → (∃y.House(y) ∧ BelongsTo(x, y))</code>表达了这样的想法：如果 x 是一个人，则至少有一个房子 y 是这个人所属的。换句话说，这句话的意思是每个人都至少属于一所房子</p>
-</div>
-<p><strong>Mastermind 游戏</strong><br />
-在这个游戏中，玩家一按照一定的顺序排列颜色，然后玩家二必须猜测这个顺序。每回合，玩家二进行猜测，玩家一给出一个数字，表明玩家二猜对了多少种颜色，假设有四个颜色需要猜测</p>
-<p><img src="https://cs50.harvard.edu/ai/2020/notes/1/mastermind3.png" /></p>
-<p>用命题 red0、red1、red2、red3、blue0… 代表颜色和位置，用命题逻辑表示游戏规则（每个位置只有一种颜色并且没有颜色重复）并将它们添加到知识库中，随后不断补充线索，随后模型检查算法可以为我们提供难题的解决方案</p>
-<h3 id="推理规则">推理规则</h3>
-<p>模型检查不是一种高效的算法，因为它必须在给出答案之前考虑每个可能的模型<br />
-推理规则使我们能够根据现有知识生成新信息，而无需考虑每种可能的模型<br />
-假设：</p>
-<ul>
-<li>如果下雨，那么哈利在屋子里</li>
-<li>正在下雨</li>
-</ul>
-<p>基于此，理性的人都可以得出这样的结论：</p>
-<ul>
-<li>哈利在屋里</li>
-</ul>
-<p>一些基本的推理规则: <img src="https://cs50.harvard.edu/ai/2020/notes/1/modusponens.png" /></p>
-<p><img src="https://cs50.harvard.edu/ai/2020/notes/1/implicationelimination.png" /></p>
-<p><img src="https://cs50.harvard.edu/ai/2020/notes/1/demorgans1.png" /></p>
-<p><img src="https://cs50.harvard.edu/ai/2020/notes/1/demorgans2.png" /></p>
-<p>具有用 And 或 Or 连接词分组的两个元素的命题可以分解为由 And 和 Or 组成的更小的单元</p>
-<p><img src="https://cs50.harvard.edu/ai/2020/notes/1/distributive1.png" /></p>
-<p><img src="https://cs50.harvard.edu/ai/2020/notes/1/distributive2.png" /></p>
-<p>推理可以被视为具有以下属性的搜索问题：</p>
-<ul>
-<li>初始状态：启动知识库</li>
-<li>动作：推理规则</li>
-<li>转换模型：推理后的新知识库</li>
-<li>目标测试：检查我们要证明的语句是否在知识库中</li>
-<li>路径成本函数：证明中的步骤数</li>
-</ul>
-<p>析取由与Or 逻辑连接词连接的命题组成,子句<strong>clause</strong>是对文字(命题符号或命题符号的否定)的析取<strong>disjunction</strong>,如 (P ∨ Q ∨ ¬R)<br />
-由And 逻辑连接词 (P ∧ Q ∧ R) 连接的子句允许我们将任何逻辑语句转换为 <strong>合取范式</strong> （CNF Conjunctive Normal Form），即子句的合取，例如：(A ∨ B ∨ C) ∧ (D ∨ ¬E) ∧ (F ∨ G)<br />
-求合取范式的过程:</p>
-<ul>
-<li>消除双条件句
-<ul>
-<li>Turn (α ↔︎ β) into (α → β) ∧ (β → α).</li>
-</ul></li>
-<li>消除条件句
-<ul>
-<li>Turn (α → β) into ¬α ∨ β.</li>
-</ul></li>
-<li>使用德摩根定律，将否定向内移动
-<ul>
-<li>Turn ¬(α ∧ β) into ¬α ∨ ¬β</li>
-</ul></li>
-</ul>
-<p>将 (P ∨ Q) → R 转换为合取范式的示例：</p>
-<ul>
-<li>(P ∨ Q) → R</li>
-<li>¬(P ∨ Q) ∨ R</li>
-<li>(¬P ∧ ¬Q) ∨ R</li>
-<li>(¬P ∨ R) ∧ (¬Q ∨ R)</li>
-</ul>
-<p>得到的合区范式可以继续简化，如(P ∨ Q ∨ S) ∧ (¬P ∨ R ∨ S) 可化为 (Q ∨ R ∨ S)</p>
-<p>要确定 KB ⊨ α 是否为真：</p>
-<ul>
-<li>检查：(KB ∧ ¬α) 是否矛盾？
-<ul>
-<li>如果是这样，则 KB ⊨ α</li>
-<li>否则，无蕴涵</li>
-</ul></li>
-</ul>
-<p>就计算机算法而言，可使用以下步骤:</p>
-<ul>
-<li>将 (KB ∧ ¬α) 转换为合取范式</li>
-<li>检查是否可以生成新的子句</li>
-<li>如果产生空子句（相当于 False），那么得出矛盾，从而证明了 KB ⊨ α</li>
-<li>然而，如果没有矛盾并且不能推断出更多的子句，则不存在蕴涵</li>
-</ul>
-<p>示例:(A ∨ B) ∧ (¬B ∨ C) ∧ (¬C) 是否蕴含 A？</p>
-<ul>
-<li>首先，为了反证，我们假设A是假的。因此，我们得到 (A ∨ B) ∧ (¬B ∨ C) ∧ (¬C) ∧ (¬A)</li>
-<li>现在，我们可以开始生成新信息。因为我们知道 C 是假的 (¬C)，所以 (¬B ∨ C) 为真的唯一方法是 B 也为假。因此，我们可以将 (¬B) 添加到我们的知识库中</li>
-<li>接下来，由于知道 (¬B)，所以 (A ∨ B) 为真的唯一方法是 A 为真。因此可以将 (A) 添加到知识库中</li>
-<li>现在我们的知识库有两个互补的文字：(A) 和 (¬A)。抵消得到空集（）。根据定义，空集是假的，因此遇到了矛盾</li>
-</ul>
-<h2 id="概率">概率</h2>
-<p><code>0 &lt;p（ ω ）&lt;1</code>：代表概率的值必须在0到1之间。零是不可能的事件,如扔1-6的骰子扔出7。<br />
-<code>p(a|b)</code>表示给定b条件下a的概率<br />
-可以用向量表示一系列事件的概率，如<code>P(Flight) = &lt;0.6, 0.3, 0.1&gt;  (准时，延误，取消)</code><br />
-独立性:P(a ∧ b) = P(a)P(b)</p>
-]]></content>
-      <categories>
-        <category>课程笔记</category>
-        <category>通识</category>
-      </categories>
-      <tags>
-        <tag>课程笔记</tag>
-        <tag>python</tag>
-        <tag>哈佛</tag>
       </tags>
   </entry>
   <entry>
