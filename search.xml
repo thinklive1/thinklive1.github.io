@@ -543,6 +543,12 @@ bfs和dfs都是无信息算法，实际情况下，我们可以估计哪种搜�
 <li>每个节点X具有概率分布P(X | Parents(X))</li>
 </ul>
 <p><img src="https://cs50.harvard.edu/ai/2020/notes/2/bayesiannetwork.png" /></p>
+<p>例如，如果想得到P(小雨,不维护，列车推迟，错过会议)，就可以通过P(light)P(no | light)P(delayed | light, no)P(miss | delayed)得到<br />
+实际情况中，部分变量可能难以观察到</p>
+<p><img src="https://cs50.harvard.edu/ai/2020/notes/2/inferencebyenumeration.png" /> 如图，X是被观察的变量，e是可见的证据，y则是隐藏变量的所有可能取值，α归一化结果，使最终得到的概率总计为1<br />
+例如 P(Appointment, light, no) = α[P(Appointment, light, no, delayed) + P(Appointment, light, no, on time)]<br />
+因此，在不知道y的分布情况下也可以根据e进行分布推断</p>
+<h3 id="采样">采样</h3>
 ]]></content>
       <categories>
         <category>课程笔记</category>
