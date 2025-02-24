@@ -527,6 +527,7 @@ bfs和dfs都是无信息算法，实际情况下，我们可以估计哪种搜�
 <p><code>0 &lt;p（ ω ）&lt;1</code>：代表概率的值必须在0到1之间。零是不可能的事件,如扔1-6的骰子扔出7。<br />
 <code>p(a|b)</code>表示给定b条件下a的概率<br />
 可以用向量表示一系列事件的概率，如<code>P(Flight) = &lt;0.6, 0.3, 0.1&gt;  (准时，延误，取消)</code></p>
+<p>概率规则：</p>
 <ul>
 <li>P(¬a) = 1 - P(a)</li>
 <li>P(a ∨ b) = P(a) + P(b) - P(a ∧ b)</li>
@@ -535,6 +536,58 @@ bfs和dfs都是无信息算法，实际情况下，我们可以估计哪种搜�
 </li>
 <li>贝叶斯:P(a|b) = P(a ∧ b)P(b) 其中:P(a ∧ b)= p(a|b)p(b)</li>
 </ul>
+<p>联合概率：</p>
+<table>
+<thead>
+<tr class="header">
+<th>C = <em>cloud</em></th>
+<th>C = <em>¬cloud</em></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0.4</td>
+<td>0.6</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr class="header">
+<th>R = <em>rain</em></th>
+<th>R = <em>¬rain</em></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0.1</td>
+<td>0.9</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr class="header">
+<th>R = <em>rain</em></th>
+<th>R = <em>¬rain</em></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>C = <em>cloud</em></td>
+<td>0.08</td>
+<td>0.32</td>
+</tr>
+<tr class="even">
+<td>C = <em>¬cloud</em></td>
+<td>0.02</td>
+<td>0.58</td>
+</tr>
+</tbody>
+</table>
+<p>联立不同条件的情况下， P(C, rain) = P(C ∧ rain)，P(C | rain) = P(C ∧ rain)/P(rain)<br />
+此时，可写作P(C, rain)/P(rain) = αP(C, rain), 或 α&lt;0.08, 0.02&gt; ，即规定rain的情况下c的分布，我们知道c的所有分布和为1，因此需要一个α系数将其化1</p>
 <p>贝叶斯网络:</p>
 <ul>
 <li>用定向图表示</li>
@@ -549,6 +602,22 @@ bfs和dfs都是无信息算法，实际情况下，我们可以估计哪种搜�
 例如 P(Appointment, light, no) = α[P(Appointment, light, no, delayed) + P(Appointment, light, no, on time)]<br />
 因此，在不知道y的分布情况下也可以根据e进行分布推断</p>
 <h3 id="采样">采样</h3>
+<p>通过对一个变量多次采样，可以估算其概率分布，如果想得到例如p(a|b)的概率，可以简单地用p(a)/p(b)估算，对非b条件的情况可以直接忽略<br />
+也可以计算基于附加变量的概率分布，固定证据变量a，使用贝叶斯网络中的条件概率对非证据变量加权，例如，例如a是列车准时(直接赋予on time这个值)，对所有样本按贝叶斯网络加权，如小雨且维护的样本需要加权P(Train = on time | light, yes)</p>
+<h3 id="马尔代夫模型">马尔代夫模型</h3>
+<p>马尔可夫假设： 当前状态只取决于以前有限个且固定个的状态<br />
+马尔可夫链是一个随机变量的序列，其中每个变量的分布遵循马尔可夫假设。也就是说，链中的每个事件都基于之前事件发生的概率</p>
+<p><img src="https://cs50.harvard.edu/ai/2020/notes/2/transitionmodel.png" /></p>
+<p>隐藏的马尔可夫模型：现实世界有很多无法被观察的变量影响发生的事件，在这些情况下，世界状态称为隐藏状态 ，而AI可以访问的数据是观察结果，基于这个假设的马儿可夫模型<br />
+例如：</p>
+<ul>
+<li>对于探索未知地形的机器人，隐藏的状态是其位置，观察对象是机器人传感器记录的数据。</li>
+<li>在语音识别中，隐藏状态是所说的单词，观察对象是音频波形。</li>
+<li>评估用户在网站上的参与度时，隐藏的状态是用户的参与度，并且观察对象是网站或应用存储的数据。</li>
+</ul>
+<p>传感器马尔可夫假设：证据变量仅取决于相应状态的假设。例如，上方例子假设人们是否将雨伞带到办公室仅取决于天气，人们可能的其他特点(例如皮肤不好不能晒太阳)则是隐藏状态，并不被纳入考虑 假设ai想观测天气，但传感器只有一个监控器可以判断人们有没有带伞,通过观察人们是否带来了雨伞，可以合理猜测外面的天气 <img src="https://cs50.harvard.edu/ai/2020/notes/2/sensormodel.png" /></p>
+<p>通过对证据变量的记录和学习，可以推测过去，现在，未来的隐藏变量状态</p>
+<h2 id="优化">优化</h2>
 ]]></content>
       <categories>
         <category>课程笔记</category>
