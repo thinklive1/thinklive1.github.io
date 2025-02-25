@@ -80,6 +80,63 @@
 ]]></content>
   </entry>
   <entry>
+    <title>基于赫尔辛基大学《深入浅出现代Web编程》的web笔记</title>
+    <url>/thinklive/3231/</url>
+    <content><![CDATA[<h1 id="基础知识">基础知识</h1>
+<h2 id="html">html</h2>
+<p>浏览器在获取到http文档后，根据所需要的资源依次发送请求<br />
+响应头Response headers告诉我们，例如，响应的字节大小，以及响应的确切时间<br />
+文档对象模型Document Object Model，或<a href="https://en.wikipedia.org/wiki/Document_Object_Model">DOM</a>，是一个应用编程接口(<em>API</em>)，它能够对与网页相对应的元素树进行程序化修改<br />
+<span id="more"></span> 一个HTML文档的DOM树的最顶端节点被称为document对象。我们可以使用DOM-API在网页上执行各种操作。你可以通过在控制台标签中输入document来访问document对象<br />
+利用js在控制台更改页面元素的内容是非持久的，重新加载依旧是原有页面</p>
+<h2 id="css">css</h2>
+<p>CSS属性可以在控制台的_elements_标签中检查<br />
+形如：</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.container</span> &#123;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">10px</span>;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">1px</span> solid;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.notes</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: blue;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>的css样式称为<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Class_selectors">class selectors类选择器</a>；一个类选择器的定义总是以句号开始，并包含类的名称。代码块中的这两个选择器用于选择页面的某些部分，并对它们定义样式规则，来装饰它们<br />
+这些类是<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/class">属性</a>，它可以被添加到HTML元素中</p>
+<!-- more -->
+<h2 id="react">react</h2>
+<p>React组件的布局大多是用JSX编写的。底层上，由React组件返回的JSX被编译成JavaScript。<br />
+JSX是"XML-like"语言,每个标签都需要被关闭。JSX很像HTML，区别在于使用JSX，你可以通过在大括号内编写适当的JavaScript来轻松嵌入动态内容。</p>
+<ul>
+<li>React组件的内容（通常）需要包含一个根元素,在DOM树中有 "额外的 "div-elements。这可以通过使用fragments来避免，即用一个空元素来包装组件要返回的元素<br />
+</li>
+<li><strong>React组件名称必须大写</strong></li>
+</ul>
+<h3 id="js">js</h3>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> x = <span class="number">1</span></span><br><span class="line"><span class="keyword">let</span> y = <span class="number">5</span></span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(x, y)   <span class="comment">// 1 5 are printed</span></span><br><span class="line">y += <span class="number">10</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(x, y)   <span class="comment">// 1 15 are printed</span></span><br><span class="line">y = <span class="string">&#x27;sometext&#x27;</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(x, y)   <span class="comment">// 1 sometext are printed</span></span><br><span class="line">x = <span class="number">4</span>               <span class="comment">// causes an error</span></span><br></pre></td></tr></table></figure>
+<p>const和let是最近才在ES6版本中加入的。<a href="https://medium.com/podiihq/javascript-variables-should-you-use-let-var-or-const-394f7645c88f">JavaScript变量--你应该使用let、var还是const? on Medium</a><br />
+普通而言推荐let(var的使用范围可能溢出你想使用的范围)</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> t = [<span class="number">1</span>, -<span class="number">1</span>, <span class="number">3</span>]</span><br><span class="line"></span><br><span class="line">t.<span class="title function_">push</span>(<span class="number">5</span>)</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(t.<span class="property">length</span>) <span class="comment">// 4 is printed</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(t[<span class="number">1</span>])     <span class="comment">// -1 is printed</span></span><br><span class="line"></span><br><span class="line">t.<span class="title function_">forEach</span>(<span class="function"><span class="params">value</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(value)  <span class="comment">// numbers 1, -1, 3, 5 are printed, each to own line</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>声明为const的数组也可以修改，遍历函数forEach接受一个单参数的函数</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> t = [<span class="number">1</span>, -<span class="number">1</span>, <span class="number">3</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> t2 = t.<span class="title function_">concat</span>(<span class="number">5</span>)</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(t)  <span class="comment">// [1, -1, 3] is printed</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(t2) <span class="comment">// [1, -1, 3, 5] is printed</span></span><br></pre></td></tr></table></figure>
+<p>在使用React时，经常使用函数式编程的技术。函数式编程范式的一个特点是使用不可变的数据结构。在React代码中，最好使用concat方法，该方法不会将项目添加到数组中，而是创建一个新的数组，其中同时包含旧数组和新项目的内容</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//其他用法</span></span><br><span class="line"><span class="keyword">const</span> t = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line"><span class="keyword">const</span> m1 = t.<span class="title function_">map</span>(<span class="function"><span class="params">value</span> =&gt;</span> value * <span class="number">2</span>)</span><br><span class="line"><span class="keyword">const</span> m2 = t.<span class="title function_">map</span>(<span class="function"><span class="params">value</span> =&gt;</span> <span class="string">&#x27;&lt;li&gt;&#x27;</span> + value + <span class="string">&#x27;&lt;/li&gt;&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">//解构赋值</span></span><br><span class="line"><span class="keyword">const</span> t = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>]</span><br><span class="line"><span class="keyword">const</span> [first, second, ...rest] = t</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(first, second)  <span class="comment">// 1 2 is printed</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(rest)          <span class="comment">// [3, 4, 5] is printed</span></span><br></pre></td></tr></table></figure>
+<p>定义对象：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> object3 = &#123;</span><br><span class="line">  <span class="attr">name</span>: &#123;</span><br><span class="line">    <span class="attr">first</span>: <span class="string">&#x27;Dan&#x27;</span>,</span><br><span class="line">    <span class="attr">last</span>: <span class="string">&#x27;Abramov&#x27;</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">grades</span>: [<span class="number">2</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">3</span>],</span><br><span class="line">  <span class="attr">department</span>: <span class="string">&#x27;Stanford University&#x27;</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//可以通过使用点符号或方括号来为一个对象即时添加属性</span></span><br><span class="line">object1.<span class="property">address</span> = <span class="string">&#x27;Helsinki&#x27;</span></span><br><span class="line">object1[<span class="string">&#x27;secret number&#x27;</span>] = <span class="number">12341</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>函数:</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//匿名函数</span></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">sum</span> = (<span class="params">p1, p2</span>) =&gt; &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(p1)</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(p2)</span><br><span class="line">  <span class="keyword">return</span> p1 + p2</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//如果只有一个参数，可以在定义中排除括号。</span></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">square</span> = p =&gt; &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(p)</span><br><span class="line">  <span class="keyword">return</span> p * p</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//如果函数只包含一个表达式，那么大括号就不需要了</span></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">square</span> = p =&gt; p * p</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">product</span>(<span class="params">a, b</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> a * b</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//函数表达式</span></span><br><span class="line"><span class="keyword">const</span> average = <span class="keyword">function</span>(<span class="params">a, b</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> (a + b) / <span class="number">2</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>匿名函数也是版本ES6新增的<br />
+函数作为一个对象可在对象内部声明，或者在之后附加给对象，并可以使用外部变量引用对象内部的函数 与其他语言相反，在JavaScript中，this的值是根据方法的调用方式定义的。当通过引用调用方法时，this的值就变成了所谓的全局对象，最终的结果往往不是开发者最初的意图。<br />
+可以使用bind方法强行将This绑定到某个对象</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> arto = &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&#x27;Arto Hellas&#x27;</span>,</span><br><span class="line">  <span class="attr">age</span>: <span class="number">35</span>,</span><br><span class="line">  <span class="attr">education</span>: <span class="string">&#x27;PhD&#x27;</span>,</span><br><span class="line">  <span class="attr">greet</span>: <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;hello, my name is &#x27;</span> + <span class="variable language_">this</span>.<span class="property">name</span>)</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="attr">doAddition</span>: <span class="keyword">function</span>(<span class="params">a, b</span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(a + b)</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">arto.<span class="title function_">doAddition</span>(<span class="number">1</span>, <span class="number">4</span>)        <span class="comment">// 5 is printed</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> referenceToAddition = arto.<span class="property">doAddition</span></span><br><span class="line"><span class="title function_">referenceToAddition</span>(<span class="number">10</span>, <span class="number">15</span>)   <span class="comment">// 25 is printed</span></span><br><span class="line"></span><br><span class="line">arto.<span class="title function_">greet</span>()       <span class="comment">// &quot;hello, my name is Arto Hellas&quot; gets printed</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> referenceToGreet = arto.<span class="property">greet</span></span><br><span class="line"><span class="title function_">referenceToGreet</span>() <span class="comment">// prints &quot;hello, my name is undefined&quot;</span></span><br></pre></td></tr></table></figure>
+<p>类：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Person</span> &#123;</span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params">name, age</span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">name</span> = name</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">age</span> = age</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="title function_">greet</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;hello, my name is &#x27;</span> + <span class="variable language_">this</span>.<span class="property">name</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> adam = <span class="keyword">new</span> <span class="title class_">Person</span>(<span class="string">&#x27;Adam Ondra&#x27;</span>, <span class="number">35</span>)</span><br><span class="line">adam.<span class="title function_">greet</span>()</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> janja = <span class="keyword">new</span> <span class="title class_">Person</span>(<span class="string">&#x27;Janja Garnbret&#x27;</span>, <span class="number">22</span>)</span><br><span class="line">janja.<span class="title function_">greet</span>()</span><br></pre></td></tr></table></figure>
+<p>js中的类依旧是Object(JavaScript基本上只定义了Boolean, Null, Undefined, Number, String, Symbol, BigInt, and Object)</p>
+<p>拓展资料:<br />
+<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Language_overview">JavaScript再认识（JS教程）</a></p>
+]]></content>
+      <categories>
+        <category>课程笔记</category>
+      </categories>
+      <tags>
+        <tag>课程笔记</tag>
+        <tag>web开发</tag>
+        <tag>赫尔辛基大学</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>基于哈佛cs50的计算机通识笔记</title>
     <url>/thinklive/16959/</url>
     <content><![CDATA[<h1 id="计算机安全常识">计算机安全常识</h1>
@@ -618,6 +675,24 @@ bfs和dfs都是无信息算法，实际情况下，我们可以估计哪种搜�
 <p>传感器马尔可夫假设：证据变量仅取决于相应状态的假设。例如，上方例子假设人们是否将雨伞带到办公室仅取决于天气，人们可能的其他特点(例如皮肤不好不能晒太阳)则是隐藏状态，并不被纳入考虑 假设ai想观测天气，但传感器只有一个监控器可以判断人们有没有带伞,通过观察人们是否带来了雨伞，可以合理猜测外面的天气 <img src="https://cs50.harvard.edu/ai/2020/notes/2/sensormodel.png" /></p>
 <p>通过对证据变量的记录和学习，可以推测过去，现在，未来的隐藏变量状态</p>
 <h2 id="优化">优化</h2>
+<p>优化是从一组可能的选项中选择最佳选项。<br />
+例如曼哈顿距离就是计算当前位置与目标点xy坐标差的绝对值之和来估计成本</p>
+<p>爬山算法：给定当前状态，寻找一个最佳邻居状态，若这个邻居比当前后，转移到邻居，如此循环。最后会到达一个极值<br />
+问题在于，极值未必是最大值，且如果两个邻居和当前一样，算法什么都不会做<br />
+改进：以随机初始状态重复几次，或者每次可以选k个邻居进行比较(k&gt;=2)</p>
+<p>退火是使被加热的金属缓慢冷却的过程，这可以使金属变硬。模拟算法指的是：从高温开始，更有可能做出随机决策，并且随着温度降低，越来越不可能做出随机决策<br />
+算法有一个max参数规定最多可以比较的次数，t函数每次返回一个温度值，温度初期较高，逐渐降低，ΔE表示目前和邻居状态的差值，大于0是直接移到邻居位置，否则以e^(ΔE/T)的概率移动。即温度和状态差同时影响移动概率</p>
+<p>约束满意度问题：在满足某些条件的同时分配变量 例如：学生学习的课程有A，B，…，G。每个课程都需要考试，考试的可能日子是星期一，星期二和星期三。但是，同一学生不能在同一天进行两次考试。在这种情况下，变量是课程，域是日子，而限制是不能安排在同一天进行考试的限制因素<br />
+<img src="https://cs50.harvard.edu/ai/2020/notes/3/constraintsatisfaction1.png" /></p>
+<p>图上的每个节点都是一门课程，如有两门课不能安排在同一天，就添加一条弧<br />
+<img src="https://cs50.harvard.edu/ai/2020/notes/3/constraintsatisfaction2.png" /></p>
+<ul>
+<li>硬约束：在正确解决方案中必须满足的约束。</li>
+<li>软约束：表示解决方案的优劣性</li>
+<li>单元约束：仅涉及一个变量的约束。如课程在星期一不能进行考试{ a≠星期一 }。</li>
+<li>二元约束:涉及两个变量的约束。如两个课程不能具有相同的值{ a≠b }。</li>
+</ul>
+<p>节点的一致性</p>
 ]]></content>
       <categories>
         <category>课程笔记</category>
@@ -3350,33 +3425,6 @@ wrpg玩家的噩梦:新生软的建模，杯赛的优化，cdpr的首发……<b
         <tag>数据结构与算法</tag>
         <tag>c++</tag>
         <tag>斯坦福</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>基于赫尔辛基大学《深入浅出现代Web编程》的web笔记</title>
-    <url>/thinklive/3231/</url>
-    <content><![CDATA[<h1 id="基础知识">基础知识</h1>
-<h2 id="html">html</h2>
-<p>浏览器在获取到http文档后，根据所需要的资源依次发送请求<br />
-响应头Response headers告诉我们，例如，响应的字节大小，以及响应的确切时间<br />
-文档对象模型Document Object Model，或<a href="https://en.wikipedia.org/wiki/Document_Object_Model">DOM</a>，是一个应用编程接口(<em>API</em>)，它能够对与网页相对应的元素树进行程序化修改<br />
-<span id="more"></span> 一个HTML文档的DOM树的最顶端节点被称为document对象。我们可以使用DOM-API在网页上执行各种操作。你可以通过在控制台标签中输入document来访问document对象<br />
-利用js在控制台更改页面元素的内容是非持久的，重新加载依旧是原有页面</p>
-<h2 id="css">css</h2>
-<p>CSS属性可以在控制台的_elements_标签中检查<br />
-形如：</p>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.container</span> &#123;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">10px</span>;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">1px</span> solid;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.notes</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: blue;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>的css样式称为<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Class_selectors">class selectors类选择器</a>；一个类选择器的定义总是以句号开始，并包含类的名称。代码块中的这两个选择器用于选择页面的某些部分，并对它们定义样式规则，来装饰它们<br />
-这些类是<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/class">属性</a>，它可以被添加到HTML元素中</p>
-<!-- more -->
-]]></content>
-      <categories>
-        <category>课程笔记</category>
-      </categories>
-      <tags>
-        <tag>课程笔记</tag>
-        <tag>web开发</tag>
-        <tag>赫尔辛基大学</tag>
       </tags>
   </entry>
   <entry>
