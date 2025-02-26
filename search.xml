@@ -126,6 +126,33 @@ JSX是"XML-like"语言,每个标签都需要被关闭。JSX很像HTML，区别�
 <p>js中的类依旧是Object(JavaScript基本上只定义了Boolean, Null, Undefined, Number, String, Symbol, BigInt, and Object)</p>
 <p>拓展资料:<br />
 <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Language_overview">JavaScript再认识（JS教程）</a></p>
+<h3 id="typescript">typescript</h3>
+<p>由微软开发的开源类型化的JavaScript超集，可以编译成普通JavaScript。换句话说，所有现有的JavaScript代码实际上是有效的TypeScript。<br />
+微软的Azure管理门户（120万行代码）和Visual Studio代码（30万行代码）都是用TypeScript编写的<br />
+TypeScript提供了诸如更好的开发时工具、静态代码分析、编译时类型检查和代码级文档等功能。</p>
+<p>TypeScript由语言，编译器，语言服务三个部分组成。</p>
+<ul>
+<li>语言由语法、关键字和类型注释组成。</li>
+<li>编译器负责类型信息的清除（即删除类型信息）和代码转换。使TypeScript代码被转译成可执行的JavaScript。所有与类型相关的东西都在编译时被移除，所以TypeScript实际上并不是真正的静态类型代码。这不是传统意义的编译，可能称为翻译更合适<br />
+</li>
+<li>语言服务从源代码中收集类型信息。开发工具可以使用这些类型信息来提供智能提示、类型提示和可能的重构替代方案。</li>
+</ul>
+<p>TypeScript中的类型注解是一种轻量级的方式来记录函数或变量的预期契约。 <figure class="highlight ts"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> birthdayGreeter = (<span class="attr">name</span>: <span class="built_in">string</span>, <span class="attr">age</span>: <span class="built_in">number</span>): <span class="function"><span class="params">string</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="string">`Happy birthday <span class="subst">$&#123;name&#125;</span>, you are now <span class="subst">$&#123;age&#125;</span> years old!`</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> birthdayHero = <span class="string">&quot;Jane User&quot;</span>;</span><br><span class="line"><span class="keyword">const</span> age = <span class="number">22</span>;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">birthdayGreeter</span>(birthdayHero, age));</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>Structural typing:TypeScript是一种结构化类型的语言。在结构化类型中，如果第一个元素的类型中的每一个特征，在第二个元素的类型中存在一个相应的和相同的特征，那么两个元素被认为是彼此兼容的。如果两个类型相互兼容，则被认为是相同的</li>
+<li>Type inference:如果没有指定类型，TypeScript编译器可以尝试推断出类型信息。变量的类型可以根据它的分配值和它的用途来推断。类型推断发生在初始化变量和成员、设置参数默认值和确定函数返回类型时</li>
+<li>TypeScript在编译过程中删除了所有类型系统结构，即在运行时没有类型信息</li>
+<li>TypeScript提供类型检查和静态代码分析，代码中的类型注释可以作为一种类型的代码级文档发挥作用(原生js可使用类似java注释的jsdoc来实现类似功能，但还是没那么直观)</li>
+<li>ts的类型系统无法规避运行时问题，且类型声明，推理之间可能存在问题，有时会需要手动转换</li>
+</ul>
+<p>TypeScript关于<a href="https://www.typescriptlang.org/docs/handbook/basic-types.html#type-assertions">类型断言</a>和<a href="https://www.typescriptlang.org/docs/handbook/advanced-types.html#type-guards-and-differentiating-types">类型守卫</a>的文档。</p>
+<h1 id="工具">工具</h1>
+<h2 id="cicd">CI/CD</h2>
+<p>在协调开发场景中，如何协调开发和部署关系？<br />
+Git允许代码的多个副本、流或版本共存而不互相覆盖。每个提交都可以附上不同的签名，是分布式开发的标准解决方案之一。<br />
+在GitHub中，将一个分支合并到软件的主干分支，通常是通过一个叫做pull request的机制实现的，在这个机制中，做了一些修改的开发者要求将这些修改合并到主干分支。一旦提出了拉动请求，也就是通常所说的PR，或者打开了，另一个开发者就会检查是否一切正常，然后合并PR。</p>
+<h2 id="容器">容器</h2>
+<h2 id="关系型数据库">关系型数据库</h2>
 ]]></content>
       <categories>
         <category>课程笔记</category>
