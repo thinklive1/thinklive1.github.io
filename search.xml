@@ -674,6 +674,33 @@ bfs和dfs都是无信息算法，实际情况下，我们可以估计哪种搜�
 </li>
 <li>当我们从变量的域中选择一个值时，使算法更有效的另一种方法是采用另一种启发式Least Constraining Values(最少限制值) ,选一个能约束最少其他变量的变量值，也就是说，我们想定位最大的麻烦来源（最高度数的变量），然后使其成为最不麻烦的问题（为其分配最小约束值）</li>
 </ul>
+<h2 id="学习">学习</h2>
+<h2 id="机器学习">机器学习</h2>
+<p>最大的概念，为计算机提供数据，通过学习这些数据让计算机学会识别模式并执行任务</p>
+<h3 id="监督学习">监督学习</h3>
+<p>计算机基于一个函数对数据集将输入映射到输出的任务，监督学习有多个任务，其中之一是分类，即用函数将输入映射到离散输出的任务<br />
+例如输入温度，湿度和气压，输出下雨或者不下雨。<br />
+如下图红色代表不下雨，蓝色表示下雨，白色需要映射:<br />
+<img src="https://cs50.harvard.edu/ai/2020/notes/4/nearestneighbor.png" /></p>
+<p>最简单的策略莫过于直接选一个最近点作为输出，但如上图可能出现不准确问题，对其的改进可以是k-邻近算法，选k个最近点的最多输出作为输出<br />
+缺点在于计算距离开销较大</p>
+<h3 id="感知机学习">感知机学习</h3>
+<p>简单地说就是画出一条分界线，说起来简单，实际上很难选出最好的分界线<br />
+在这个例子里，判断数据在边界哪侧只需要用一个线性方程，属于初中数学范畴，不多赘述<br />
+<span class="math inline">\(\ {h}_{\mathrm{W}}({\bf x})={\begin{array}{l}{1\,\mathrm{if}\;{ W}\ {\cdot\;{\bf X}}\geq0}\\ {0\,\mathrm{otherwise}}\end{array}}\,\)</span></p>
+<p><img src="https://cs50.harvard.edu/ai/2020/notes/4/decisionboundary.png" /><br />
+感知机的重点是，找到最好的权重，其学习规则是:<br />
+<span class="math inline">\(w_{i}=w_{i}+α(y-h_{w}({\bf x}))\times x_{1}\)</span><br />
+对于每个数据点，我们调整权重以使函数更加准确，y表示观察到的值，h(假设函数)表示估计值，如果观察下雨但估计没下，括号里的参数设1，相反的情况下设-1，α则表示新数据对总体权值的影响力<br />
+这种离散输出模型的缺点是，无法表示不确定性，可以将其平滑化，使用软阈值，最后输出一个估计概率</p>
+<h3 id="支持向量机">支持向量机</h3>
+<p>该方法在决策边界附近使用额外的向量（支持向量），以在分离数据时做出最佳决策。考虑下面的示例。</p>
+<h3 id="回归">回归</h3>
+<h3 id="损失函数">损失函数</h3>
+<h3 id="过拟合">过拟合</h3>
+<h3 id="正则化">正则化</h3>
+<h3 id="强化学习">强化学习</h3>
+<h3 id="q学习">q学习</h3>
 ]]></content>
       <categories>
         <category>课程笔记</category>
@@ -707,8 +734,8 @@ bfs和dfs都是无信息算法，实际情况下，我们可以估计哪种搜�
         <category>考研笔记</category>
       </categories>
       <tags>
-        <tag>研distance</tag>
         <tag>数据结构与算法</tag>
+        <tag>研distance</tag>
         <tag>秘密</tag>
       </tags>
   </entry>
@@ -8529,8 +8556,8 @@ public  int[] findVerticalSeam() &#123;
       <tags>
         <tag>伯克利</tag>
         <tag>课程笔记</tag>
-        <tag>JAVA</tag>
         <tag>数据结构与算法</tag>
+        <tag>JAVA</tag>
       </tags>
   </entry>
   <entry>
@@ -14690,8 +14717,8 @@ Inexpensive Disk）由美国加州大学伯克利分校提出。<br />
       <tags>
         <tag>伯克利</tag>
         <tag>课程笔记</tag>
-        <tag>数据结构与算法</tag>
         <tag>python</tag>
+        <tag>数据结构与算法</tag>
       </tags>
   </entry>
   <entry>
