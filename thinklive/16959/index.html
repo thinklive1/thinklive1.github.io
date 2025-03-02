@@ -44,8 +44,13 @@
 <meta property="og:image" content="https://cs50.harvard.edu/ai/2020/notes/3/constraintsatisfaction2.png">
 <meta property="og:image" content="https://cs50.harvard.edu/ai/2020/notes/4/nearestneighbor.png">
 <meta property="og:image" content="https://cs50.harvard.edu/ai/2020/notes/4/decisionboundary.png">
+<meta property="og:image" content="https://cs50.harvard.edu/ai/2020/notes/4/supportvector.png">
+<meta property="og:image" content="https://cs50.harvard.edu/ai/2020/notes/4/circleboundary.png">
+<meta property="og:image" content="https://cs50.harvard.edu/ai/2020/notes/4/regression.png">
+<meta property="og:image" content="https://cs50.harvard.edu/ai/2020/notes/4/overfitting.png">
+<meta property="og:image" content="https://cs50.harvard.edu/ai/2020/notes/4/reinforcement.png">
 <meta property="article:published_time" content="2025-01-05T09:22:13.905Z">
-<meta property="article:modified_time" content="2025-03-01T15:24:40.926Z">
+<meta property="article:modified_time" content="2025-03-02T02:51:46.807Z">
 <meta property="article:author" content="thinklive">
 <meta property="article:tag" content="课程笔记">
 <meta property="article:tag" content="python">
@@ -214,7 +219,7 @@ const darkmode = new Darkmode(options);
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%AE%89%E5%85%A8%E5%B8%B8%E8%AF%86"><span class="nav-number">1.</span> <span class="nav-text">计算机安全常识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B4%A6%E6%88%B7%E5%AE%89%E5%85%A8"><span class="nav-number">1.1.</span> <span class="nav-text">账户安全</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%AE%89%E5%85%A8"><span class="nav-number">1.2.</span> <span class="nav-text">数据安全</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E5%AE%89%E5%85%A8"><span class="nav-number">1.3.</span> <span class="nav-text">系统安全</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8"><span class="nav-number">1.4.</span> <span class="nav-text">软件安全</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9A%90%E7%A7%81%E5%AE%89%E5%85%A8"><span class="nav-number">1.5.</span> <span class="nav-text">隐私安全</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD"><span class="nav-number">2.</span> <span class="nav-text">人工智能</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%90%9C%E7%B4%A2"><span class="nav-number">2.1.</span> <span class="nav-text">搜索</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E6%8A%97%E6%80%A7%E6%90%9C%E7%B4%A2"><span class="nav-number">2.1.1.</span> <span class="nav-text">对抗性搜索</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#alpha-beta-%E4%BF%AE%E5%89%AA"><span class="nav-number">2.1.1.1.</span> <span class="nav-text">Alpha-Beta 修剪</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B7%B1%E5%BA%A6%E9%99%90%E5%88%B6"><span class="nav-number">2.1.1.2.</span> <span class="nav-text">深度限制</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86"><span class="nav-number">2.2.</span> <span class="nav-text">知识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A8%E7%90%86"><span class="nav-number">2.2.1.</span> <span class="nav-text">推理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%B7%A5%E7%A8%8B"><span class="nav-number">2.2.2.</span> <span class="nav-text">知识工程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A8%E7%90%86%E8%A7%84%E5%88%99"><span class="nav-number">2.2.3.</span> <span class="nav-text">推理规则</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A6%82%E7%8E%87"><span class="nav-number">2.3.</span> <span class="nav-text">概率</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%87%E6%A0%B7"><span class="nav-number">2.3.1.</span> <span class="nav-text">采样</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A9%AC%E5%B0%94%E4%BB%A3%E5%A4%AB%E6%A8%A1%E5%9E%8B"><span class="nav-number">2.3.2.</span> <span class="nav-text">马尔代夫模型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%98%E5%8C%96-optimization"><span class="nav-number">2.4.</span> <span class="nav-text">优化 Optimization</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%A6%E6%9D%9F%E6%BB%A1%E6%84%8F%E5%BA%A6-constraint-satisfaction"><span class="nav-number">2.4.1.</span> <span class="nav-text">约束满意度 Constraint Satisfaction</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9E%E6%BA%AF%E6%90%9C%E7%B4%A2-backtracking-search"><span class="nav-number">2.4.2.</span> <span class="nav-text">回溯搜索 Backtracking Search</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%A6%E4%B9%A0"><span class="nav-number">2.5.</span> <span class="nav-text">学习</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0"><span class="nav-number">2.6.</span> <span class="nav-text">机器学习</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0"><span class="nav-number">2.6.1.</span> <span class="nav-text">监督学习</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%84%9F%E7%9F%A5%E6%9C%BA%E5%AD%A6%E4%B9%A0"><span class="nav-number">2.6.2.</span> <span class="nav-text">感知机学习</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA"><span class="nav-number">2.6.3.</span> <span class="nav-text">支持向量机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9E%E5%BD%92"><span class="nav-number">2.6.4.</span> <span class="nav-text">回归</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0"><span class="nav-number">2.6.5.</span> <span class="nav-text">损失函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%87%E6%8B%9F%E5%90%88"><span class="nav-number">2.6.6.</span> <span class="nav-text">过拟合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A3%E5%88%99%E5%8C%96"><span class="nav-number">2.6.7.</span> <span class="nav-text">正则化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0"><span class="nav-number">2.6.8.</span> <span class="nav-text">强化学习</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#q%E5%AD%A6%E4%B9%A0"><span class="nav-number">2.6.9.</span> <span class="nav-text">q学习</span></a></li></ol></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%AE%89%E5%85%A8%E5%B8%B8%E8%AF%86"><span class="nav-number">1.</span> <span class="nav-text">计算机安全常识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B4%A6%E6%88%B7%E5%AE%89%E5%85%A8"><span class="nav-number">1.1.</span> <span class="nav-text">账户安全</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%AE%89%E5%85%A8"><span class="nav-number">1.2.</span> <span class="nav-text">数据安全</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E5%AE%89%E5%85%A8"><span class="nav-number">1.3.</span> <span class="nav-text">系统安全</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8"><span class="nav-number">1.4.</span> <span class="nav-text">软件安全</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9A%90%E7%A7%81%E5%AE%89%E5%85%A8"><span class="nav-number">1.5.</span> <span class="nav-text">隐私安全</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD"><span class="nav-number">2.</span> <span class="nav-text">人工智能</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%90%9C%E7%B4%A2"><span class="nav-number">2.1.</span> <span class="nav-text">搜索</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E6%8A%97%E6%80%A7%E6%90%9C%E7%B4%A2"><span class="nav-number">2.1.1.</span> <span class="nav-text">对抗性搜索</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#alpha-beta-%E4%BF%AE%E5%89%AA"><span class="nav-number">2.1.1.1.</span> <span class="nav-text">Alpha-Beta 修剪</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B7%B1%E5%BA%A6%E9%99%90%E5%88%B6"><span class="nav-number">2.1.1.2.</span> <span class="nav-text">深度限制</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86"><span class="nav-number">2.2.</span> <span class="nav-text">知识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A8%E7%90%86"><span class="nav-number">2.2.1.</span> <span class="nav-text">推理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%B7%A5%E7%A8%8B"><span class="nav-number">2.2.2.</span> <span class="nav-text">知识工程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A8%E7%90%86%E8%A7%84%E5%88%99"><span class="nav-number">2.2.3.</span> <span class="nav-text">推理规则</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A6%82%E7%8E%87"><span class="nav-number">2.3.</span> <span class="nav-text">概率</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%87%E6%A0%B7"><span class="nav-number">2.3.1.</span> <span class="nav-text">采样</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A9%AC%E5%B0%94%E4%BB%A3%E5%A4%AB%E6%A8%A1%E5%9E%8B"><span class="nav-number">2.3.2.</span> <span class="nav-text">马尔代夫模型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%98%E5%8C%96-optimization"><span class="nav-number">2.4.</span> <span class="nav-text">优化 Optimization</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%A6%E6%9D%9F%E6%BB%A1%E6%84%8F%E5%BA%A6-constraint-satisfaction"><span class="nav-number">2.4.1.</span> <span class="nav-text">约束满意度 Constraint Satisfaction</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9E%E6%BA%AF%E6%90%9C%E7%B4%A2-backtracking-search"><span class="nav-number">2.4.2.</span> <span class="nav-text">回溯搜索 Backtracking Search</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-machine-learning"><span class="nav-number">2.5.</span> <span class="nav-text">机器学习 Machine Learning</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0-supervised-learning"><span class="nav-number">2.5.1.</span> <span class="nav-text">监督学习 Supervised Learning</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%84%9F%E7%9F%A5%E6%9C%BA%E5%AD%A6%E4%B9%A0-perceptron-learning"><span class="nav-number">2.5.2.</span> <span class="nav-text">感知机学习 Perceptron Learning</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA-support-vector-machines"><span class="nav-number">2.5.3.</span> <span class="nav-text">支持向量机 Support Vector Machines</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9E%E5%BD%92-regression"><span class="nav-number">2.5.4.</span> <span class="nav-text">回归 Regression</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0-loss-functions"><span class="nav-number">2.5.5.</span> <span class="nav-text">损失函数 Loss Functions</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%87%E6%8B%9F%E5%90%88-overfitting"><span class="nav-number">2.5.6.</span> <span class="nav-text">过拟合 Overfitting</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A3%E5%88%99%E5%8C%96-regularization"><span class="nav-number">2.5.7.</span> <span class="nav-text">正则化 Regularization</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0-reinforcement-learning"><span class="nav-number">2.5.8.</span> <span class="nav-text">强化学习 Reinforcement Learning</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E5%86%B3%E7%AD%96%E8%BF%87%E7%A8%8B-markov-decision-processes"><span class="nav-number">2.5.9.</span> <span class="nav-text">马尔可夫决策过程 Markov Decision Processes</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#q%E5%AD%A6%E4%B9%A0-q-learning"><span class="nav-number">2.5.10.</span> <span class="nav-text">Q学习 Q-Learning</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%A0%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0-unsupervised-learning"><span class="nav-number">2.5.11.</span> <span class="nav-text">无监督学习 Unsupervised Learning</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#k-%E5%9D%87%E5%80%BC%E8%81%9A%E7%B1%BB-k-means-clustering"><span class="nav-number">2.5.12.</span> <span class="nav-text">K-均值聚类 k-means Clustering</span></a></li></ol></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -325,7 +330,7 @@ const darkmode = new Darkmode(options);
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-03-01 23:24:40" itemprop="dateModified" datetime="2025-03-01T23:24:40+08:00">2025-03-01</time>
+      <time title="修改时间：2025-03-02 10:51:46" itemprop="dateModified" datetime="2025-03-02T10:51:46+08:00">2025-03-02</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -362,7 +367,7 @@ const darkmode = new Darkmode(options);
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>39 分钟</span>
+      <span>42 分钟</span>
     </span>
 </div>
 
@@ -966,17 +971,17 @@ bfs和dfs都是无信息算法，实际情况下，我们可以估计哪种搜�
 </li>
 <li>当我们从变量的域中选择一个值时，使算法更有效的另一种方法是采用另一种启发式Least Constraining Values(最少限制值) ,选一个能约束最少其他变量的变量值，也就是说，我们想定位最大的麻烦来源（最高度数的变量），然后使其成为最不麻烦的问题（为其分配最小约束值）</li>
 </ul>
-<h2 id="学习">学习</h2>
-<h2 id="机器学习">机器学习</h2>
+<h2 id="机器学习-machine-learning">机器学习 Machine Learning</h2>
 <p>最大的概念，为计算机提供数据，通过学习这些数据让计算机学会识别模式并执行任务</p>
-<h3 id="监督学习">监督学习</h3>
-<p>计算机基于一个函数对数据集将输入映射到输出的任务，监督学习有多个任务，其中之一是分类，即用函数将输入映射到离散输出的任务<br />
+<h3 id="监督学习-supervised-learning">监督学习 Supervised Learning</h3>
+<p>计算机基于一个函数对数据集进行输入映射到输出的任务，监督学习有多个任务，其中之一是分类，即用函数将输入映射到离散输出的任务<br />
 例如输入温度，湿度和气压，输出下雨或者不下雨。<br />
 如下图红色代表不下雨，蓝色表示下雨，白色需要映射:<br />
 <img src="https://cs50.harvard.edu/ai/2020/notes/4/nearestneighbor.png" /></p>
-<p>最简单的策略莫过于直接选一个最近点作为输出，但如上图可能出现不准确问题，对其的改进可以是k-邻近算法，选k个最近点的最多输出作为输出<br />
+<p>最简单的策略莫过于直接选一个最近点作为输出，即Nearest-Neighbor Classification，但如上图可能出现不准确问题，对其的改进可以是k-邻近算法，选k个最近点的最多输出作为输出<br />
 缺点在于计算距离开销较大</p>
-<h3 id="感知机学习">感知机学习</h3>
+<p>常用的库是scikit-learn,常叫sklearn</p>
+<h3 id="感知机学习-perceptron-learning">感知机学习 Perceptron Learning</h3>
 <p>简单地说就是画出一条分界线，说起来简单，实际上很难选出最好的分界线<br />
 在这个例子里，判断数据在边界哪侧只需要用一个线性方程，属于初中数学范畴，不多赘述<br />
 <span class="math inline">\(\ {h}_{\mathrm{W}}({\bf x})={\begin{array}{l}{1\,\mathrm{if}\;{ W}\ {\cdot\;{\bf X}}\geq0}\\ {0\,\mathrm{otherwise}}\end{array}}\,\)</span></p>
@@ -985,14 +990,33 @@ bfs和dfs都是无信息算法，实际情况下，我们可以估计哪种搜�
 <span class="math inline">\(w_{i}=w_{i}+α(y-h_{w}({\bf x}))\times x_{1}\)</span><br />
 对于每个数据点，我们调整权重以使函数更加准确，y表示观察到的值，h(假设函数)表示估计值，如果观察下雨但估计没下，括号里的参数设1，相反的情况下设-1，α则表示新数据对总体权值的影响力<br />
 这种离散输出模型的缺点是，无法表示不确定性，可以将其平滑化，使用软阈值，最后输出一个估计概率</p>
-<h3 id="支持向量机">支持向量机</h3>
-<p>该方法在决策边界附近使用额外的向量（支持向量），以在分离数据时做出最佳决策。考虑下面的示例。</p>
-<h3 id="回归">回归</h3>
-<h3 id="损失函数">损失函数</h3>
-<h3 id="过拟合">过拟合</h3>
-<h3 id="正则化">正则化</h3>
-<h3 id="强化学习">强化学习</h3>
-<h3 id="q学习">q学习</h3>
+<h3 id="支持向量机-support-vector-machines">支持向量机 Support Vector Machines</h3>
+<p>该方法在决策边界附近使用额外的向量（支持向量），以在分离数据时做出最佳决策。 <img src="https://cs50.harvard.edu/ai/2020/notes/4/supportvector.png" /> <img src="https://cs50.harvard.edu/ai/2020/notes/4/circleboundary.png" /><br />
+例如,直觉来说最好的划分应该离两个每个组有相同的距离，即边界离其所分离的两组尽可能远，这被称为最大边缘分离器Maximum Margin Separator<br />
+以及，支持向量机可以在复数维度上创建分界线</p>
+<h3 id="回归-regression">回归 Regression</h3>
+<p>回归是一项函数的监督学习任务，该任务将输入点映射到连续值 <img src="https://cs50.harvard.edu/ai/2020/notes/4/regression.png" /> 最经典的线性回归在线代课里讲过，简单地说就是找到距离平方和最小的直线来拟合输出<br />
+给定一组输入特征 X = [x1, x2, ..., xn] 和相应的目标输出 y。<br />
+目标是找到一个线性函数 h(X) = θ0 + θ1<em>x1 + θ2</em>x2 + ... + θn*xn 来拟合数据。<br />
+其他比较常见的回归有随机森林，决策树等</p>
+<h3 id="损失函数-loss-functions">损失函数 Loss Functions</h3>
+<p>损失函数用于评估以上决策规则的准确度 对分类问题，可以简单地用01二分法；而连续值可以用l₁和l₂损失函数，前者为线性差值的绝对值，在坐标轴上就是y轴上的距离，后者为差值平方，很明显，l2更为严格</p>
+<h3 id="过拟合-overfitting">过拟合 Overfitting</h3>
+<p>模型过于适配训练数据集以至于无法推广其他训练集<br />
+测试过拟合的常用方法是<strong>交叉验证Cross Validation</strong>,如最简单的holdout交叉验证，只分一次训练和验证集；而k折交叉验证就是将训练集分为k份，每次选一份用于验证，其他k-1份用于训练,这样一共能验证k次<br />
+<img src="https://cs50.harvard.edu/ai/2020/notes/4/overfitting.png" /></p>
+<h3 id="正则化-regularization">正则化 Regularization</h3>
+<p>正则化在损失函数中加入一个惩罚项,降低模型复杂度,限制模型参数的大小或数量,从而防止过拟合,提高模型的泛化能力。<br />
+cost(h) = loss(h) + λcomplexity(h)<br />
+lambda（λ）是一个常数，我们可以用它来调节对我们成本功能的复杂性的惩罚程度。 λ越高，复杂性的惩罚越强<br />
+常用l1(Lasso回归),l2(Ridge回归) 正则化，即复杂度用权重矩阵绝对值和或平方和表示<br />
+一般来说l1适合让参数稀疏化(部分权值会被降到0)，适合特征选择；l2相对会惩罚高权重从而更能防止过拟合(但不会降到0)</p>
+<h3 id="强化学习-reinforcement-learning">强化学习 Reinforcement Learning</h3>
+<p>强化学习是一种用于机器学习的方法，在每个动作之后，代理在奖励或惩罚的形式（正值或负值）获得反馈。 <img src="https://cs50.harvard.edu/ai/2020/notes/4/reinforcement.png" /></p>
+<h3 id="马尔可夫决策过程-markov-decision-processes">马尔可夫决策过程 Markov Decision Processes</h3>
+<h3 id="q学习-q-learning">Q学习 Q-Learning</h3>
+<h3 id="无监督学习-unsupervised-learning">无监督学习 Unsupervised Learning</h3>
+<h3 id="k-均值聚类-k-means-clustering">K-均值聚类 k-means Clustering</h3>
 
     </div>
 
@@ -1065,7 +1089,7 @@ bfs和dfs都是无信息算法，实际情况下，我们可以估计哪种搜�
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">28:50</span>
+    <span title="站点阅读时长">28:52</span>
   </span>
 </div>
 <div class="busuanzi-count">
