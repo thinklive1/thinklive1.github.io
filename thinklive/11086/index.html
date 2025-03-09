@@ -22,17 +22,17 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"thinklive1.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.18.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"flat"},"fold":{"enable":true,"height":500},"bookmark":{"enable":true,"color":"#66CCFF","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":true,"motion":{"enable":true,"async":true,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="you are your dotfiles  帮助 按f1或命令行输入help开启在线帮助 &lt;Cw&gt;切换到另一个窗口q关闭窗口">
+    <meta name="description" content="you are your dotfiles  帮助 按f1或命令行输入help开启在线帮助 &lt;Cw&gt;切换到另一个窗口,q关闭窗口">
 <meta property="og:type" content="article">
 <meta property="og:title" content="基于北大前沿计算实践课和missing semester的vim笔记">
 <meta property="og:url" content="https://thinklive1.github.io/thinklive/11086/index.html">
 <meta property="og:site_name" content="thinklive">
-<meta property="og:description" content="you are your dotfiles  帮助 按f1或命令行输入help开启在线帮助 &lt;Cw&gt;切换到另一个窗口q关闭窗口">
+<meta property="og:description" content="you are your dotfiles  帮助 按f1或命令行输入help开启在线帮助 &lt;Cw&gt;切换到另一个窗口,q关闭窗口">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://www.runoob.com/wp-content/uploads/2015/10/vi-vim-cheat-sheet-sch1.gif">
 <meta property="og:image" content="https://thinklive1.github.io/images/obsidian/vim-mode.jpg">
 <meta property="article:published_time" content="2024-01-20T11:53:48.573Z">
-<meta property="article:modified_time" content="2023-12-02T12:18:54.114Z">
+<meta property="article:modified_time" content="2025-03-09T12:34:16.347Z">
 <meta property="article:author" content="thinklive">
 <meta property="article:tag" content="课程笔记">
 <meta property="article:tag" content="麻省理工">
@@ -314,7 +314,7 @@ const darkmode = new Darkmode(options);
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-12-02 20:18:54" itemprop="dateModified" datetime="2023-12-02T20:18:54+08:00">2023-12-02</time>
+      <time title="修改时间：2025-03-09 20:34:16" itemprop="dateModified" datetime="2025-03-09T20:34:16+08:00">2025-03-09</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -366,7 +366,7 @@ const darkmode = new Darkmode(options);
     <div class="post-body" itemprop="articleBody"><h1 id="you-are-your-dotfiles">you are your dotfiles</h1>
 <p><img src="https://www.runoob.com/wp-content/uploads/2015/10/vi-vim-cheat-sheet-sch1.gif" /></p>
 <h2 id="帮助">帮助</h2>
-<p>按f1或命令行输入help开启在线帮助 &lt;Cw&gt;切换到另一个窗口q关闭窗口 <span id="more"></span></p>
+<p>按f1或命令行输入help开启在线帮助 <code>&lt;Cw&gt;</code>切换到另一个窗口,q关闭窗口 <span id="more"></span></p>
 <h2 id="编辑">编辑</h2>
 <p>如之前所述，Vim最主要的编辑模式是Insert模式，想要修改文本，先将光标在Normal模式下移动到对应位置，然后再键入<code>i</code>进入Insert模式，在这个模式下添加或者删除文本。但是当我们需要修改的地方非常多时，每次都需要先移动光标再输入<code>i</code>就是一个相对麻烦的操作，因而Vim提供了一些命令将移动光标和进入Insert模式合成一步：</p>
 <ul>
@@ -380,7 +380,9 @@ const darkmode = new Darkmode(options);
 </ul>
 <p>进入Insert模式之后，Vim也有一些奇奇怪怪的命令，比如<code>&lt;C-h&gt;</code>等同于删除键，会删除前一个字符，<code>&lt;C-j&gt;</code>等同于回车键，将光标后的文本移到下一行，但是否要这样做就全凭个人喜好了。<br />
 其实在Normal模式下也能进行一些删除操作，<code>x</code>会删除当前字符，<code>d</code>+光标移动命令会删除对应文本，与<code>s</code>以及<code>c</code>命令的区别仅仅在于<code>x</code>和<code>d</code>操作完之后依然处在Normal模式，所以<code>s</code>也等同于<code>xi</code>。此外，<code>r</code>的作用也是替换当前字符，键入<code>r</code>之后会提示输入一个字符，输入完成之后自动回到Normal模式，想要替换长文本就需要键入<code>R</code>进入Replace模式。因此如果想要替换一个字符成x，最快的方法是<code>r</code>+x，也可以<code>s</code>+x+<code>&lt;ESC&gt;</code>，也可以<code>xi</code>+x+<code>&lt;ESC&gt;</code>，也可以<code>cl</code>+x+<code>&lt;ESC&gt;</code>。<br />
-撤销和重做也是非常常用的编辑命令，在Vim中分别对应Normal模式下的<code>u</code>(undo)和<code>U</code>，同时<code>.</code>可以重复之前最后一个命令。 “U”（行撤销）。恢复整行的所有操作 &lt;C-r&gt;重做上一个 被撤销的命令</p>
+撤销和重做也是非常常用的编辑命令，在Vim中分别对应Normal模式下的<code>u</code>(undo)和<code>U</code>，同时<code>.</code>可以重复之前最后一个命令。<br />
+“U”（行撤销）。恢复整行的所有操作<br />
+<code>&lt;C-r&gt;</code>重做上一个 被撤销的命令</p>
 <h2 id="命令行">命令行</h2>
 <p>在Normal模式下键入<code>:</code>就会进入命令行模式，此时光标已经移动到了最下面。命令行中可以输入的命令种类非常多：</p>
 <ul>
@@ -396,15 +398,26 @@ const darkmode = new Darkmode(options);
 <li><code>%s/old/new/g</code>搜索所有<code>old</code>并替代成<code>new</code>，支持正则表达式o 命令行界面输入&lt;Cd&gt;显示可以选择的命令，tab自动补全o</li>
 </ul>
 <h2 id="搜索">搜索</h2>
-<p>除了这些直接跳转命令，Vim也提供了搜索机制。 首先是行内的搜索，<code>f</code>、<code>t</code>、<code>F</code>、<code>T</code>后面加上任意字符x，代表跳转到当前光标下一个x、跳转到下一个x之前、跳转到上一个x、跳转到上一个x之后，搜索到了之后也可以继续按<code>,</code>和<code>;</code>在搜索结果之间前后移动。 然后是文件内的搜索， 直接键入<code>/</code>或者<code>?</code>会进入命令行搜索模式，<code>/</code>是从开头开始搜索，<code>?</code>是从结尾开始搜索，后面可以加上任意长度的字符 然后键入<code>&lt;CR&gt;</code>就可以高亮显示所有的搜索结果，按<code>n</code>和<code>N</code>就可以在搜索结果之间向前和向后移动。 输入:set ic(ignore case)忽略大小写搜索 set noic取消 仅搜索一次忽略大小写:/search_sth\s 输入:set hls is高亮搜索结果 //'ic' 'ignorecase' ignore upper/lower case when searching</p>
+<p>除了这些直接跳转命令，Vim也提供了搜索机制。<br />
+首先是行内的搜索，<code>f</code>、<code>t</code>、<code>F</code>、<code>T</code>后面加上任意字符x，代表跳转到当前光标下一个x、跳转到下一个x之前、跳转到上一个x、跳转到上一个x之后，搜索到了之后也可以继续按<code>,</code>和<code>;</code>在搜索结果之间前后移动。 然后是文件内的搜索:<br />
+直接键入<code>/</code>或者<code>?</code>会进入命令行搜索模式，<code>/</code>是从开头开始搜索，<code>?</code>是从结尾开始搜索，后面可以加上任意长度的字符<br />
+然后键入<code>&lt;CR&gt;</code>就可以高亮显示所有的搜索结果，按<code>n</code>和<code>N</code>就可以在搜索结果之间向前和向后移动。<br />
+输入:set ic(ignore case)忽略大小写搜索 set noic取消<br />
+仅搜索一次忽略大小写:/search_sth\s<br />
+输入:set hls is高亮搜索结果<br />
+//'ic' 'ignorecase' ignore upper/lower case when searching</p>
 <p>'is' 'incsearch' show partial matches for a search phrase</p>
-<p>'hls' 'hlsearch' highlight all matching phrases 搜索模式支持正则表达式。最后如果想要关闭搜索结果的高亮，需要借助命令行命令，输入<code>:noh</code>即可关闭高亮。 type :#,#s/old/new/g where #,# are the line numbers of the range</p>
+<p>'hls' 'hlsearch' highlight all matching phrases<br />
+搜索模式支持正则表达式。最后如果想要关闭搜索结果的高亮，需要借助命令行命令，输入<code>:noh</code>即可关闭高亮。<br />
+type :#,#s/old/new/g where #,# are the line numbers of the range</p>
 <p>of lines where the substitution is to be done.</p>
 <p>Type :%s/old/new/g to change every occurrence in the whole file.</p>
 <p>Type :%s/old/new/gc to find every occurrence in the whole file,</p>
 <p>with a prompt whether to substitute or not.</p>
 <h2 id="选择">选择</h2>
-<p>编辑文本和代码难免要复制和粘贴，复制操作涉及到选择需要复制的文本，在Vim中这需要在Visual模式下进行。在Normal模式中键入<code>v</code>进入选择模式，可以跟在Normal模式下一样移动光标，被选择的文本就会高亮。 或者在Normal模式中键入<code>V</code>进入行选择模式，被选择的行会高亮。选择完成后，如果直接按<code>&lt;ESC&gt;</code>就会返回Normal模式，并且选择的内容高亮消失，因此不应该这么做，而应该直接在Visual模式下键入<code>y</code>(yank)复制高亮的文本，如果输入的是<code>d</code>则会删除被选择的文本，此时会自动回到Normal模式。 不管是<code>y</code>还是<code>d</code>操作，被选择的文本都会被操作到Vim的缓存中，在Normal模式下按<code>p</code>就会粘贴其中的文本到当前位置。与之前介绍的<code>cc</code>、<code>dd</code>类似，也可以直接在Normal模式下输入<code>yy</code>，对应复制当前行。<br />
+<p>编辑文本和代码难免要复制和粘贴，复制操作涉及到选择需要复制的文本，在Vim中这需要在Visual模式下进行。在Normal模式中键入<code>v</code>进入选择模式，可以跟在Normal模式下一样移动光标，被选择的文本就会高亮。<br />
+或者在Normal模式中键入<code>V</code>进入行选择模式，被选择的行会高亮。选择完成后，如果直接按<code>&lt;ESC&gt;</code>就会返回Normal模式，并且选择的内容高亮消失，因此不应该这么做，而应该直接在Visual模式下键入<code>y</code>(yank)复制高亮的文本，如果输入的是<code>d</code>则会删除被选择的文本，此时会自动回到Normal模式。<br />
+不管是<code>y</code>还是<code>d</code>操作，被选择的文本都会被操作到Vim的缓存中，在Normal模式下按<code>p</code>就会粘贴其中的文本到当前位置。与之前介绍的<code>cc</code>、<code>dd</code>类似，也可以直接在Normal模式下输入<code>yy</code>，对应复制当前行。<br />
 Vim还提供了列选择模式，在Normal模式下键入<code>&lt;C-V&gt;</code>进入，选择完列之后可以跟Normal模式一样进行<code>r</code>、<code>d</code>等操作，这在制表、注释中非常有用。</p>
 <h2 id="移动">移动</h2>
 <p>Vim中所有键盘输入都可以视为命令，可以被记录下来映射到快捷键。在Normal模式下，最基本的命令是控制光标移动的命令<code>hjkl</code>，其中<code>jk</code>控制上下(大写状态下删除行间空格)，<code>hl</code>控制左右，方向键同样可以控制光标，但是因为方向键盘离打字的范围比较远，所以推荐大家熟悉<code>hjkl</code>这四个键。在没有鼠标的情况下想实现长距离的光标跳转，每次只能移动一个单位显然是低效的，好在Vim为光标跳转提供了多种命令：</p>
@@ -413,18 +426,22 @@ Vim还提供了列选择模式，在Normal模式下键入<code>&lt;C-V&gt;</code
 <blockquote>
 <p>遗憾的是中文很难分词，所以在中文中键入<code>w</code>会跳转到下一个短句</p>
 </blockquote></li>
-<li><p>括号、引号间：如果光标在括号或者引号中间，<code>%</code>会高亮显示括号或引号，继续按会在头和尾反复横跳</p></li>
-<li><p>行内：<code>0</code>跳转到行的开头，<code>^</code>跳转到行的第一个非空格的字符，<code>$</code>跳转到行的结尾</p></li>
+<li><p>括号、引号间：如果光标在括号或者引号中间，<code>%</code>会高亮显示括号或引号，继续按会在头和尾反复横跳<br />
+</p></li>
+<li><p>行内：<code>0</code>跳转到行的开头，<code>^</code>跳转到行的第一个非空格的字符，<code>$</code>跳转到行的结尾<br />
+</p></li>
 <li><p>段落间：<code>&#123;</code>跳转到上一段，<code>&#125;</code>跳转到下一段</p></li>
 <li><p>屏幕内：<code>H</code>跳转到屏幕最上面，<code>M</code>跳转到屏幕最中间，<code>L</code>跳转到屏幕最下面</p></li>
 <li><p>屏幕滑动：<code>&lt;C-u&gt;</code>向上滑动，<code>&lt;C-d&gt;</code>向下滑动</p></li>
 <li><p>文件内：<code>gg</code>跳转到文件开头，<code>G</code>跳转到文件结尾,</p></li>
-<li><p>&lt;CG&gt;显示当前行数，数字G跳转到对应行</p></li>
+<li><p><code>&lt;CG&gt;</code>显示当前行数，数字G跳转到对应行</p></li>
 <li><p>其他：<code>zz</code>会将光标置于屏幕中心</p></li>
 </ul>
 <p>这些基本命令可以和数字进行组合，输入任意数字（默认情况下显示在右下角），然后输入<code>j</code>就会向下移动对应行数，同理，如果是数字+<code>w</code>，就会移动对应单词数。另外，数字+<code>&lt;CR&gt;</code>等同于数字+<code>j</code>，数字+<code>G</code>会跳转到整个文件的第几行。</p>
 <h2 id="模式">模式</h2>
-<p>Normal模式是最基本的模式，在这个模式下基本只能移动光标，不能直接输入文本，因为此时键入任何字符都会被当成是Vim的命令而非插入到文本中。想要输入文本需要切换到Insert模式，可以直接键入<code>i</code>进入Insert模式，此时输入任何字符都会插入到光标所在位置。想从输入模式中返回Normal模式，只需要键入<code>&lt;ESC&gt;</code>。事实上，在任何模式下键入<code>&lt;ESC&gt;</code>都 能回到Normal模式。Normal模式和Insert模式是Vim中最常用的两种模式，理论上我们只需要这两种模式就能完成修改文本的所有操作，其他 模式和命令都是用来更快地完成一些任务。默认情况下，所处模式会显示在Vim窗口的左下角，Normal模式没有显示，Insert模式会显示<code>--INSERT--</code>，Command-line模式会显示所输入的命令等等。在Normal模式下键入<code>R</code>进入Replace模式，用于替换当前光标处的文本，键入<code>v</code>进入Visual模式，用于选择文本。</p>
+<p>Normal模式是最基本的模式，在这个模式下基本只能移动光标，不能直接输入文本，因为此时键入任何字符都会被当成是Vim的命令而非插入到文本中。 想要输入文本需要切换到Insert模式，可以直接键入<code>i</code>进入Insert模式，此时输入任何字符都会插入到光标所在位置。想从输入模式中返回Normal模式，只需要键入<code>&lt;ESC&gt;</code>。事实上，在任何模式下键入<code>&lt;ESC&gt;</code>都 能回到Normal模式。<br />
+Normal模式和Insert模式是Vim中最常用的两种模式，理论上我们只需要这两种模式就能完成修改文本的所有操作，其他模式和命令都是用来更快地完成一些任务。默认情况下，所处模式会显示在Vim窗口的左下角，Normal模式没有显示，Insert模式会显示<code>--INSERT--</code>，Command-line模式会显示所输入的命令等等。<br />
+在Normal模式下键入<code>R</code>进入Replace模式，用于替换当前光标处的文本，键入<code>v</code>进入Visual模式，用于选择文本。</p>
 <figure>
 <img src="/images/obsidian/vim-mode.jpg" title="image" alt="" /><figcaption>图片</figcaption>
 </figure>
@@ -464,13 +481,13 @@ Vim还提供了列选择模式，在Normal模式下键入<code>&lt;C-V&gt;</code
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/thinklive/39056/" rel="prev" title="基于加州房地产数据集的数据分析项目">
-                  <i class="fa fa-angle-left"></i> 基于加州房地产数据集的数据分析项目
+                <a href="/thinklive/28990/" rel="prev" title="基于伯克利Sysadmin decal的linux笔记">
+                  <i class="fa fa-angle-left"></i> 基于伯克利Sysadmin decal的linux笔记
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/thinklive/28990/" rel="next" title="基于伯克利Sysadmin decal的linux笔记">
-                  基于伯克利Sysadmin decal的linux笔记 <i class="fa fa-angle-right"></i>
+                <a href="/thinklive/59126/" rel="next" title="基于伯克利ds100和cs231n的numpy笔记">
+                  基于伯克利ds100和cs231n的numpy笔记 <i class="fa fa-angle-right"></i>
                 </a>
             </div>
           </div>
