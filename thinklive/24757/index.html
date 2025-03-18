@@ -31,7 +31,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://thinklive1.github.io/assets/resources/vim_key.gif">
 <meta property="article:published_time" content="2024-01-20T11:53:48.573Z">
-<meta property="article:modified_time" content="2025-03-18T09:00:52.041Z">
+<meta property="article:modified_time" content="2025-03-18T13:36:59.319Z">
 <meta property="article:author" content="thinklive">
 <meta property="article:tag" content="编程工具">
 <meta name="twitter:card" content="summary">
@@ -309,7 +309,7 @@ const darkmode = new Darkmode(options);
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-03-18 17:00:52" itemprop="dateModified" datetime="2025-03-18T17:00:52+08:00">2025-03-18</time>
+      <time title="修改时间：2025-03-18 21:36:59" itemprop="dateModified" datetime="2025-03-18T21:36:59+08:00">2025-03-18</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -414,7 +414,7 @@ clash verge rev 贴心地给了全局拓展配置功能，因此只需要加入�
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="attr">copyq</span>:</span><br><span class="line"><span class="comment">// 定义要删除的最后 n 行</span></span><br><span class="line"><span class="keyword">var</span> n = <span class="number">4</span>;</span><br><span class="line"><span class="comment">// 获取当前剪贴板内容</span></span><br><span class="line"><span class="keyword">var</span> clipboardText = <span class="title function_">str</span>(<span class="title function_">clipboard</span>());</span><br><span class="line"><span class="comment">// 按行分割剪贴板内容</span></span><br><span class="line"><span class="keyword">var</span> lines = clipboardText.<span class="title function_">split</span>(<span class="string">&#x27;\n&#x27;</span>);</span><br><span class="line"><span class="comment">// 如果剪贴板的行数大于 n，删除最后 n 行</span></span><br><span class="line"><span class="keyword">if</span> (lines.<span class="property">length</span> &gt; n) &#123;</span><br><span class="line">    <span class="comment">// 删除最后 n 行，并将剩余内容重新组合为字符串</span></span><br><span class="line">    <span class="keyword">var</span> updatedText = lines.<span class="title function_">slice</span>(<span class="number">0</span>, -n).<span class="title function_">join</span>(<span class="string">&#x27;\n&#x27;</span>);</span><br><span class="line">    <span class="comment">// 更新剪贴板内容</span></span><br><span class="line">    <span class="title function_">copy</span>(updatedText);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <p>好，大功告成，，了吗？并没有，这样一来力扣以外的粘贴也会被删掉末尾4行，总不能只有写力扣时才开启其他时候关闭吧<br />
 我们需要加一个检测，例如被删掉的第一行行首等于“作者”时才删掉</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">copyq</span>:</span><br><span class="line"><span class="comment">// 定义要删除的最后 n 行</span></span><br><span class="line"><span class="keyword">var</span> n = <span class="number">4</span>;</span><br><span class="line"><span class="comment">// 获取当前剪贴板内容</span></span><br><span class="line"><span class="keyword">var</span> clipboardText = <span class="title function_">str</span>(<span class="title function_">clipboard</span>());</span><br><span class="line"><span class="comment">// 按行分割剪贴板内容</span></span><br><span class="line"><span class="keyword">var</span> lines = clipboardText.<span class="title function_">split</span>(<span class="string">&#x27;\n&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (lines.<span class="property">length</span> &gt; n) &#123;</span><br><span class="line">    <span class="comment">// 获取要被删除的第一行</span></span><br><span class="line">    <span class="keyword">var</span> firstLineToDelete = lines[lines.<span class="property">length</span> - n];</span><br><span class="line">    <span class="comment">// 检查第一行是否以 str1 开头</span></span><br><span class="line">    <span class="keyword">if</span> (firstLineToDelete.<span class="title function_">startsWith</span>(<span class="string">&quot;作者&quot;</span>)) &#123;</span><br><span class="line">        <span class="comment">// 删除最后 n 行，并将剩余内容重新组合为字符串</span></span><br><span class="line">        <span class="keyword">var</span> updatedText = lines.<span class="title function_">slice</span>(<span class="number">0</span>, -n).<span class="title function_">join</span>(<span class="string">&#x27;\n&#x27;</span>);</span><br><span class="line">        <span class="title function_">copy</span>(updatedText);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">copyq</span>:</span><br><span class="line"><span class="comment">// 定义要删除的最后 n 行</span></span><br><span class="line"><span class="keyword">var</span> n = <span class="number">4</span>;</span><br><span class="line"><span class="comment">// 获取当前剪贴板内容</span></span><br><span class="line"><span class="keyword">var</span> clipboardText = <span class="title function_">str</span>(<span class="title function_">clipboard</span>());</span><br><span class="line"><span class="comment">// 按行分割剪贴板内容</span></span><br><span class="line"><span class="keyword">var</span> lines = clipboardText.<span class="title function_">split</span>(<span class="string">&#x27;\n&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (lines.<span class="property">length</span> &gt; n) &#123;</span><br><span class="line">    <span class="keyword">var</span> firstLineToDelete = lines[lines.<span class="property">length</span> - n];</span><br><span class="line">    <span class="comment">// 检查第一行是否以某个str开头</span></span><br><span class="line">    <span class="keyword">if</span> (firstLineToDelete.<span class="title function_">startsWith</span>(<span class="string">&quot;作者&quot;</span>)) &#123;</span><br><span class="line">        <span class="comment">// 删除最后n行，并将剩余内容重新组合为字符串</span></span><br><span class="line">        <span class="keyword">var</span> updatedText = lines.<span class="title function_">slice</span>(<span class="number">0</span>, -n).<span class="title function_">join</span>(<span class="string">&#x27;\n&#x27;</span>);</span><br><span class="line">        <span class="title function_">copy</span>(updatedText);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
     </div>
 
@@ -438,13 +438,13 @@ clash verge rev 贴心地给了全局拓展配置功能，因此只需要加入�
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/thinklive/39056/" rel="prev" title="基于加州房地产数据集的数据分析项目">
-                  <i class="fa fa-angle-left"></i> 基于加州房地产数据集的数据分析项目
+                <a href="/thinklive/22586/" rel="prev" title="hexo建立个人博客指北">
+                  <i class="fa fa-angle-left"></i> hexo建立个人博客指北
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/thinklive/11086/" rel="next" title="基于北大前沿计算实践课和missing semester的vim笔记">
-                  基于北大前沿计算实践课和missing semester的vim笔记 <i class="fa fa-angle-right"></i>
+                <a href="/thinklive/39056/" rel="next" title="基于加州房地产数据集的数据分析项目">
+                  基于加州房地产数据集的数据分析项目 <i class="fa fa-angle-right"></i>
                 </a>
             </div>
           </div>
@@ -478,14 +478,14 @@ clash verge rev 贴心地给了全局拓展配置功能，因此只需要加入�
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">525k</span>
+    <span title="站点总字数">526k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">31:50</span>
+    <span title="站点阅读时长">31:52</span>
   </span>
 </div>
 <div class="busuanzi-count">
