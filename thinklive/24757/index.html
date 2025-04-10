@@ -31,7 +31,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://thinklive1.github.io/assets/resources/vim_key.gif">
 <meta property="article:published_time" content="2025-04-08T06:47:09.506Z">
-<meta property="article:modified_time" content="2025-04-10T14:50:02.802Z">
+<meta property="article:modified_time" content="2025-04-10T14:52:46.459Z">
 <meta property="article:author" content="thinklive">
 <meta property="article:tag" content="编程工具">
 <meta name="twitter:card" content="summary">
@@ -308,7 +308,7 @@ const darkmode = new Darkmode(options);
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-04-10 22:50:02" itemprop="dateModified" datetime="2025-04-10T22:50:02+08:00">2025-04-10</time>
+      <time title="修改时间：2025-04-10 22:52:46" itemprop="dateModified" datetime="2025-04-10T22:52:46+08:00">2025-04-10</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -334,7 +334,7 @@ const darkmode = new Darkmode(options);
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>2.7k</span>
+      <span>2.8k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -491,6 +491,7 @@ clash verge rev 贴心地给了全局拓展配置功能，因此只需要加入�
 <p>在处理完上述问题后，发现用powershell调用neofetch有口口口问题，而且识别不出windows操作系统版本，怎么办呢？答案是换成fastfetch<br />
 <code>scoop install fastfetch</code><br />
 fastfetch默认用的是新版windows平面风格logo,也就是四个方块，个人来说真不喜欢这个毫无特点的logo，怎么换成neofetch那个经典四色logo呢，只需要创建一个txt文件，把下列内容复制粘贴进去，然后以形如<code>fastfetch -l "%logopath%" --logo-color-1 red --logo-color-2 green --logo-color-3 blue --logo-color-4 yellow</code>的形式调用fastfetch就行了，"%logopath%"是刚刚保存的txt文件绝对路径，看上去很长，但有新版psh自带的自动补全很方便就能调用</p>
+<p>如果不想要颜色的话，用vsc之类编辑器的替换功能把<code>$N</code>(N是数字)删掉即可，想要单色就删完<code>$N</code>后在文件开头放个$1,然后<code>--logo-color-1</code>后跟想要的颜色就行了</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">                         $2 ....iilll</span><br><span class="line">                $2....iilllllllllllll</span><br><span class="line">    $1....iillll  $2lllllllllllllllllll</span><br><span class="line">$1iillllllllllll  $2lllllllllllllllllll</span><br><span class="line">$1llllllllllllll  $2lllllllllllllllllll</span><br><span class="line">$1llllllllllllll  $2lllllllllllllllllll</span><br><span class="line">$1llllllllllllll  $2lllllllllllllllllll</span><br><span class="line">$1llllllllllllll  $2lllllllllllllllllll</span><br><span class="line">$1llllllllllllll  $2lllllllllllllllllll</span><br><span class="line"></span><br><span class="line">$3llllllllllllll  $4lllllllllllllllllll</span><br><span class="line">$3llllllllllllll  $4lllllllllllllllllll</span><br><span class="line">$3llllllllllllll  $4lllllllllllllllllll</span><br><span class="line">$3llllllllllllll  $4lllllllllllllllllll</span><br><span class="line">$3llllllllllllll  $4lllllllllllllllllll</span><br><span class="line">$3`^^^^^^lllllll  $4lllllllllllllllllll</span><br><span class="line">     $3 ````^^^^  $4^^lllllllllllllllll</span><br><span class="line">                     $4````^^^^^^llll</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <p>顺便一提新版logo长这样:</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">/////////////////  /////////////////</span><br><span class="line">/////////////////  /////////////////</span><br><span class="line">/////////////////  /////////////////</span><br><span class="line">/////////////////  /////////////////</span><br><span class="line">/////////////////  /////////////////</span><br><span class="line">/////////////////  /////////////////</span><br><span class="line">/////////////////  /////////////////</span><br><span class="line">/////////////////  /////////////////</span><br><span class="line"></span><br><span class="line">/////////////////  /////////////////</span><br><span class="line">/////////////////  /////////////////</span><br><span class="line">/////////////////  /////////////////</span><br><span class="line">/////////////////  /////////////////</span><br><span class="line">/////////////////  /////////////////</span><br><span class="line">/////////////////  /////////////////</span><br><span class="line">/////////////////  /////////////////</span><br><span class="line">/////////////////  /////////////////</span><br><span class="line"></span><br></pre></td></tr></table></figure>
@@ -523,8 +524,8 @@ fastfetch默认用的是新版windows平面风格logo,也就是四个方块，�
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/thinklive/22586/" rel="prev" title="hexo建立个人博客指北">
-                  <i class="fa fa-angle-left"></i> hexo建立个人博客指北
+                <a href="/thinklive/48061/" rel="prev" title="基于国立台湾大学李宏毅机器学习的课程笔记">
+                  <i class="fa fa-angle-left"></i> 基于国立台湾大学李宏毅机器学习的课程笔记
                 </a>
             </div>
             <div class="post-nav-item">
