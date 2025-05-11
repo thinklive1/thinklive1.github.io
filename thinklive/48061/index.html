@@ -33,7 +33,7 @@
 <meta property="og:image" content="https://thinklive1.github.io/assets/ml/Pasted%20image%2020250402152918.png">
 <meta property="og:image" content="https://thinklive1.github.io/assets/ml/Pasted%20image%2020250402152932.png">
 <meta property="article:published_time" content="2025-04-08T06:47:09.506Z">
-<meta property="article:modified_time" content="2025-05-08T11:32:43.646Z">
+<meta property="article:modified_time" content="2025-05-11T15:35:49.015Z">
 <meta property="article:author" content="thinklive">
 <meta property="article:tag" content="课程笔记">
 <meta property="article:tag" content="python">
@@ -314,7 +314,7 @@ const darkmode = new Darkmode(options);
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-05-08 19:32:43" itemprop="dateModified" datetime="2025-05-08T19:32:43+08:00">2025-05-08</time>
+      <time title="修改时间：2025-05-11 23:35:49" itemprop="dateModified" datetime="2025-05-11T23:35:49+08:00">2025-05-11</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -340,14 +340,14 @@ const darkmode = new Darkmode(options);
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>1.1k</span>
+      <span>2.1k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>4 分钟</span>
+      <span>8 分钟</span>
     </span>
 </div>
 
@@ -419,22 +419,39 @@ torch.Size([3, 2])</code></pre>
 <ul>
 <li> $ f(x)=\frac{1}{1+e^{-x}} $  </li>
 </ul></li>
-<li>ReLU函数又称为修正线性单元（Rectified Linear Unit），是一种分段线性函数，弥补了sigmoid函数的梯度消失问题:
+<li>ReLU函数又称为修正线性单元（Rectified Linear Unit），是一种分段线性函数，弥补了sigmoid函数的梯度消失问题(即该函数两端非常平滑，导数趋近0，遇到数值偏两端的数据，loss很难传播):
 <ul>
 <li> $f(x)={\left\{\begin{array}{l l}{x}&{,x\gt =0}\\ {0}&{,x\lt 0}\end{array}\right.} $ </li>
 </ul></li>
 </ul>
 <p><img src="/assets/ml/Pasted%20image%2020250402152918.png" /> <img src="/assets/ml/Pasted%20image%2020250402152932.png" /></p>
-<p><strong>梯度下降法</strong>有点类似于牛顿法，所谓的梯度就是一个多元函数中，对一个点求各个元的偏导数取指组成的一个表示方向的向量(即偏导数乘对应元的单位向量)<br />
+<p><strong>梯度下降法 </strong>有点类似于牛顿法，所谓的梯度就是一个多元函数中，对一个点求各个元的偏导数取值组成的一个表示方向的向量(即偏导数乘对应元的单位向量)<br />
 这个梯度一般指向当前点增加最快的方向，把他乘以-1就会得到下降最快的方向(一般用于最小化损失函数)，梯度只表示方向，因此还需要选择合适的步长α，乘以方向向量后就得到移动的路径，步长太长了会跨过极小值然后来回震荡，太短了效率会很差</p>
-<p><strong>损失函数</strong>：评估训练成果的一个标准，常见有:</p>
+<p><strong>损失函数loss function</strong>：评估训练成果的一个标准，常见有:</p>
 <ul>
 <li><code>criterion = nn.MSELoss()</code>:Mean Squared Error</li>
-<li><code>criterion = nn.CrossEntropyLoss()</code>:Cross Entropy</li>
+<li><code>criterion = nn.CrossEntropyLoss()</code>:Cross Entropy 交叉熵</li>
 </ul>
+<div class="note info"><p>在不同的领域中，熵被表示为混乱程度，不确定性，惊奇程度，不可预测性，信息量等，但在机器学习中我们只需要对信息论中的熵有基本了解<br />
+信息论中熵的概念首次被香农提出，目的是寻找一种高效/无损地编码信息的方法，即<strong>无损编码事件信息的最小平均编码长度</strong> 即信息熵H(X) = -Σ p(x) log2 p(x) (p为概率)</p>
+<p>接下来说明这个公式，假设我们用二进制的哈夫曼编码，一个信息出现概率是1/2,即其他所有情况加起来也是1/2，那么我们会发现其编码长度必然是-log(1/2),也就是1，恰好和我们的香农熵定义一致了，这是为什么呢？<br />
+严谨的数学证明超出了cs专业范围，这里只说一下直观理解，熵有两个性质：</p>
+<ul>
+<li>概率越小信息量越大(如果一个小概率事件发生了，就排除了非常多其他可能性)</li>
+<li>假设两个随机变量x,y相互独立，那么分别观测两个变量得到的信息量应该和同时观测两个变量的信息量是相同的，<code>h(x+y)=h(x)+h(y)</code></li>
+</ul>
+<p>如此一来对数函数的负数完美符合条件，基数则无所谓，直观地理解，基数对应用几进制编码，而要最短化编码，越小概率就应该用更长的位数，把短位数腾出来给大概率事件用，当然实际中编码的位数是离散的，而且相比对数取负只能多不能少，因此香农熵是一个理论最优值，熵编码就指无损情况下的编码方式，最常用的就是哈夫曼编码，所有熵编码方式的编码长度大于等于香农熵</p>
+<p>现实中常用二进制编码信息，例如对8种不同的信息，最直观的编码是三位二进制，每三位表示一个独特信息。<br />
+我们可以用概率表示每种信息出现的可能，例如8种信息，每个都等可能出现，那么以概率为权的哈夫曼编码就会用所有的3位二进制编码这8种信息，熵就是3，而其他情况熵可以当做哈夫曼树的总编码长度算<br />
+那么如何理解熵能反映混乱度呢？如果熵比较大(即平均编码长度较长)，意味着这一信息有较多的可能状态，相应的每个状态的可能性比较低；因此每当来了一个新的信息，我们很难对其作出准确预测，即有着比较大的混乱程度/不确定性/不可预测性</p>
+<p><strong>交叉熵</strong>：<br />
+交叉熵用于评估估计概率得到的熵与真实熵的差距，交叉的含义很直观，就是使用P计算期望，使用Q计算编码长度<br />
+为什么这么选而不是反过来呢？这取决于我们的目的，一般来说，我们希望估计的编码长度和理论最优的熵差距较小，要比对取优的主要是模型的编码长度即logQ，可以这么理解，熵公式中的对数函数视为视为对一个特定概率事件的编码长度，由于现实的概率分布实际上是确定的，那么需要评估的也就是编码方式的效率<br />
+由于熵是给定概率分布下的最优值，<strong>交叉熵只可能大于等于熵</strong>，两者差越小或者说交叉熵越小表示模型估计越准</p>
+</div>
 <p>nn:neural network<br />
 loss = criterion(model_output, expected_value)</p>
-<p><strong>优化算法</strong>：</p>
+<p><strong>优化算法 optimizer</strong>：</p>
 <p><a target="_blank" rel="noopener" href="https://pytorch.org/docs/stable/optim.html">torch.optim</a></p>
 <p>e.g.:</p>
 <ol type="1">
@@ -476,13 +493,13 @@ loss = criterion(model_output, expected_value)</p>
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/thinklive/33908/" rel="prev" title="基于苏大ppt的计算机硬件笔记">
-                  <i class="fa fa-angle-left"></i> 基于苏大ppt的计算机硬件笔记
+                <a href="/thinklive/2910/" rel="prev" title="基于恐龙书和苏大ppt的操作系统笔记">
+                  <i class="fa fa-angle-left"></i> 基于恐龙书和苏大ppt的操作系统笔记
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/thinklive/24757/" rel="next" title="一些工具的使用备忘录">
-                  一些工具的使用备忘录 <i class="fa fa-angle-right"></i>
+                <a href="/thinklive/22586/" rel="next" title="hexo建立个人博客指北">
+                  hexo建立个人博客指北 <i class="fa fa-angle-right"></i>
                 </a>
             </div>
           </div>
@@ -516,14 +533,14 @@ loss = criterion(model_output, expected_value)</p>
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">555k</span>
+    <span title="站点总字数">556k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">33:39</span>
+    <span title="站点阅读时长">33:43</span>
   </span>
 </div>
 <div class="busuanzi-count">
