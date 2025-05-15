@@ -33,7 +33,7 @@
 <meta property="og:image" content="https://thinklive1.github.io/assets/ml/Pasted%20image%2020250402152918.png">
 <meta property="og:image" content="https://thinklive1.github.io/assets/ml/Pasted%20image%2020250402152932.png">
 <meta property="article:published_time" content="2025-04-08T06:47:09.506Z">
-<meta property="article:modified_time" content="2025-05-11T15:35:49.015Z">
+<meta property="article:modified_time" content="2025-05-14T08:47:41.131Z">
 <meta property="article:author" content="thinklive">
 <meta property="article:tag" content="课程笔记">
 <meta property="article:tag" content="python">
@@ -314,7 +314,7 @@ const darkmode = new Darkmode(options);
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-05-11 23:35:49" itemprop="dateModified" datetime="2025-05-11T23:35:49+08:00">2025-05-11</time>
+      <time title="修改时间：2025-05-14 16:47:41" itemprop="dateModified" datetime="2025-05-14T16:47:41+08:00">2025-05-14</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -340,14 +340,14 @@ const darkmode = new Darkmode(options);
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>2.1k</span>
+      <span>2.7k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>8 分钟</span>
+      <span>10 分钟</span>
     </span>
 </div>
 
@@ -390,8 +390,8 @@ docker是处理复杂环境问题的良策，比虚拟机更为轻量<br />
 <p><a target="_blank" rel="noopener" href="https://pytorch.org/docs/stable/tensors.html">官方文档</a><br />
 <a target="_blank" rel="noopener" href="https://pytorch.org/tutorials/index.html">Official Pytorch Tutorials</a><br />
 <a target="_blank" rel="noopener" href="https://github.com/wkentaro/pytorch-for-numpy-users">pytorch-for-numpy-users</a></p>
-<p>张量tensor:用于表示n维数据的一种概念，例如一维张量是向量，二维是矩阵……<br />
-<code>dim in PyTorch == axis in NumPy</code></p>
+<p><strong>张量tensor</strong>:用于表示n维数据的一种概念，例如一维张量是向量，二维是矩阵……</p>
+<p><code>dim in PyTorch == axis in NumPy</code></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br></pre></td></tr></table></figure>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">test</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;&quot;</span>, torch.cuda.is_available())</span><br><span class="line">    <span class="keyword">if</span> torch.cuda.is_available():</span><br><span class="line">        device = torch.device(<span class="string">&quot;cuda&quot;</span>)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;There are <span class="subst">&#123;torch.cuda.device_count()&#125;</span> GPU(s) available.&quot;</span>)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;Device name:&quot;</span>, torch.cuda.get_device_name(<span class="number">0</span>))</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;No GPU available, using the CPU instead.&quot;</span>)</span><br><span class="line">        device = torch.device(<span class="string">&quot;cpu&quot;</span>)</span><br><span class="line">test()</span><br></pre></td></tr></table></figure>
 <pre><code> True
@@ -413,7 +413,9 @@ tensor([[[1., 1., 1., 1., 1.],
 torch.Size([3, 2])</code></pre>
 <p>对每一层神经网络，输入的x乘以权重向量w(eight)，加上一个标量b(ias)后就是输出y<br />
 下图中我们训练一个将32维向量转化为64维向量输出的模型，因此权值矩阵规模是64×32,输入向量是32×1，输出是64×1<br />
-算出线性的权值和之后，还可以增加一层激活函数<strong>Activation Function</strong></p>
+算出线性的权值和之后，增加一层激活函数<strong>Activation Function</strong>,激活函数常是非线性的，用于增强网络学习能力，如果没有激活函数，网络就是单纯的有很多层数的线性回归<br />
+<strong>全连接前馈神经网络(fully-connected feed-forward network)</strong>:前馈表示从前到后训练，全连接表示相邻的两层中，所有的神经元都是相连的;网络第一层称为输入层（input layer），最后一层称为输出层（output layer），中间的层数被称为隐藏层(hidden layer)<br />
+深度学习：这个定义非常简单粗暴，意思是隐藏层很多，一般可能有三位数起步，并非越多层就越好，这需要合适的数据集，合适的提取特征方式，即<strong>feature engineering</strong>，才能定义一个较好的网络</p>
 <ul>
 <li>Sigmoid函数也叫Logistic函数，用于隐层神经元输出，取值范围为(0,1)，它可以将一个实数映射到(0,1)的区间，可以用来做二分类。在特征相差比较复杂或是相差不是特别大时效果比较好，图像类似一个S形曲线:
 <ul>
@@ -425,8 +427,11 @@ torch.Size([3, 2])</code></pre>
 </ul></li>
 </ul>
 <p><img src="/assets/ml/Pasted%20image%2020250402152918.png" /> <img src="/assets/ml/Pasted%20image%2020250402152932.png" /></p>
-<p><strong>梯度下降法 </strong>有点类似于牛顿法，所谓的梯度就是一个多元函数中，对一个点求各个元的偏导数取值组成的一个表示方向的向量(即偏导数乘对应元的单位向量)<br />
-这个梯度一般指向当前点增加最快的方向，把他乘以-1就会得到下降最快的方向(一般用于最小化损失函数)，梯度只表示方向，因此还需要选择合适的步长α，乘以方向向量后就得到移动的路径，步长太长了会跨过极小值然后来回震荡，太短了效率会很差</p>
+<p><strong>梯度下降法</strong>：<br />
+有点类似于牛顿法(牛顿法理论是二阶收敛，梯度则为一阶，牛顿法速度更快计算量更大)，所谓的梯度就是一个多元函数中，对一个点求各个元的偏导数取值组成的一个表示方向的向量(即偏导数乘对应元的单位向量)<br />
+这个梯度一般指向当前点增加最快的方向，把他乘以-1就会得到下降最快的方向(一般用于最小化损失函数)，梯度只表示方向，因此还需要选择合适的步长α，乘以方向向量后就得到移动的路径，步长太长了会跨过极小值然后来回震荡，太短了效率会很差<br />
+梯度下降算法需要设置一个<strong>学习率(learning rate)</strong>，每次迭代中，未知参数的梯度下降的步长取决于学习率的设置，这种由人为设定的参数被称为<strong>超参（hyperparameters）</strong><br />
+如果我们的数据集很大，计算梯度会相当复杂，则可以分为n个batch,每个batch有B个资料，即 <strong>mini-batch 梯度下降（MBGD，Mini-Batch GradientDescent</strong></p>
 <p><strong>损失函数loss function</strong>：评估训练成果的一个标准，常见有:</p>
 <ul>
 <li><code>criterion = nn.MSELoss()</code>:Mean Squared Error</li>
@@ -449,13 +454,15 @@ torch.Size([3, 2])</code></pre>
 为什么这么选而不是反过来呢？这取决于我们的目的，一般来说，我们希望估计的编码长度和理论最优的熵差距较小，要比对取优的主要是模型的编码长度即logQ，可以这么理解，熵公式中的对数函数视为视为对一个特定概率事件的编码长度，由于现实的概率分布实际上是确定的，那么需要评估的也就是编码方式的效率<br />
 由于熵是给定概率分布下的最优值，<strong>交叉熵只可能大于等于熵</strong>，两者差越小或者说交叉熵越小表示模型估计越准</p>
 </div>
-<p>nn:neural network<br />
+<p>eg.<br />
+nn:neural network<br />
 loss = criterion(model_output, expected_value)</p>
 <p><strong>优化算法 optimizer</strong>：</p>
 <p><a target="_blank" rel="noopener" href="https://pytorch.org/docs/stable/optim.html">torch.optim</a></p>
+<p>最流行的优化就是反向传播，即与前向训练过程相反，用结果的损失值修正训练中的权值，在数学上就是求损失对前一层权重的偏导数</p>
 <p>e.g.:</p>
 <ol type="1">
-<li>optimizer.zero_grad()：重设梯度</li>
+<li>optimizer.zero_grad()：重设梯度(即训练完一段后梯度置0,截断反向传播再继续训练)</li>
 <li>Call loss.backward() 反向传播以减少损失</li>
 <li>Call optimizer.step() 调整模型参数</li>
 </ol>
@@ -466,6 +473,9 @@ loss = criterion(model_output, expected_value)</p>
 <li><a target="_blank" rel="noopener" href="https://github.com/pytorch/fairseq">Fairse</a> (sequence modeling for NLP &amp; speech)</li>
 <li><a target="_blank" rel="noopener" href="https://github.com/espnet/espnet">ESPnet</a> (speech recognition, translation, synthesis, ...)</li>
 </ul>
+<p><code>DataLoader(train_date,shuffle=True)</code>中shuffle表示打乱数据集，符合直觉的想法是：这对避免过拟合有帮助</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">My_model</span>(nn.Module):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self，inputdim</span>):</span><br><span class="line">        <span class="built_in">super</span>(My_model,self).__init__()</span><br><span class="line">        self.layers=nn.sequential(<span class="comment">#将多个层按顺序组合在一起</span></span><br><span class="line">            nn.Linear(input_dim,<span class="number">64</span>), </span><br><span class="line">            nn.ReLU(),</span><br><span class="line">            nn.Linear(<span class="number">64</span>，<span class="number">32</span>),</span><br><span class="line">            nn.ReLU(),</span><br><span class="line">            nn.Linear(<span class="number">32</span>，<span class="number">1</span>)</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, x</span>):</span><br><span class="line">        x = self.layers(x)</span><br><span class="line">        x = x.sgueeze(<span class="number">1</span>)<span class="comment">#(B,l) -&gt; B</span></span><br><span class="line">        <span class="keyword">return</span> x</span><br><span class="line"></span><br><span class="line"><span class="comment">#Training loop</span></span><br><span class="line"><span class="keyword">for</span> epoch <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3000</span>):</span><br><span class="line">    model.train() <span class="comment"># Set your model to train mode.</span></span><br><span class="line">    <span class="comment"># tgdm is a package to visualize your training progress</span></span><br><span class="line">    train_pbar = tqdm(train_loader, position=<span class="number">0</span>, leave=<span class="literal">True</span>)</span><br><span class="line">    <span class="keyword">for</span> x, y <span class="keyword">in</span> train_pbar:</span><br><span class="line">        x, y = x.to(<span class="string">&#x27;cuda&#x27;</span>), y.to(<span class="string">&#x27;cuda&#x27;</span>)</span><br><span class="line">        pred = model(x)</span><br><span class="line">        loss = criterion(pred, y)</span><br><span class="line">        loss.backward()<span class="comment"># Compute gradient(backpropagation).</span></span><br><span class="line">        optimizer.step()<span class="comment"># Update parameters.</span></span><br><span class="line">        optimizer.zero_grad() <span class="comment"># Set gradient to zero.</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://pytorch.org/docs/stable/">PyTorch Documentation</a></p>
 
     </div>
 
@@ -493,13 +503,13 @@ loss = criterion(model_output, expected_value)</p>
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/thinklive/2910/" rel="prev" title="基于恐龙书和苏大ppt的操作系统笔记">
-                  <i class="fa fa-angle-left"></i> 基于恐龙书和苏大ppt的操作系统笔记
+                <a href="/thinklive/33908/" rel="prev" title="基于苏大ppt的计算机硬件笔记">
+                  <i class="fa fa-angle-left"></i> 基于苏大ppt的计算机硬件笔记
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/thinklive/22586/" rel="next" title="hexo建立个人博客指北">
-                  hexo建立个人博客指北 <i class="fa fa-angle-right"></i>
+                <a href="/thinklive/2910/" rel="next" title="基于恐龙书和苏大ppt的操作系统笔记">
+                  基于恐龙书和苏大ppt的操作系统笔记 <i class="fa fa-angle-right"></i>
                 </a>
             </div>
           </div>
@@ -533,14 +543,14 @@ loss = criterion(model_output, expected_value)</p>
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">556k</span>
+    <span title="站点总字数">557k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">33:43</span>
+    <span title="站点阅读时长">33:45</span>
   </span>
 </div>
 <div class="busuanzi-count">
