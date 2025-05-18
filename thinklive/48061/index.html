@@ -37,7 +37,7 @@
 <meta property="og:image" content="https://www.zhihu.com/equation?tex=%5Csigma_x%5E2%3D%5Cfrac%7B1%7D%7Bn-1%7D%5Csum_%7Bi%3D1%7D%5En%5Cleft%28x_i-%5Cbar%7Bx%7D%5Cright%29%5E2&amp;consumer=ZHI_MENG">
 <meta property="og:image" content="https://www.zhihu.com/equation?tex=%5Csigma%5Cleft%28x%2Cy%5Cright%29%3D%5Cfrac%7B1%7D%7Bn-1%7D%5Csum_%7Bi%3D1%7D%5E%7Bn%7D%5Cleft%28x_i-%5Cbar%7Bx%7D%5Cright%29%5Cleft%28y_i-%5Cbar%7By%7D%5Cright%29&amp;consumer=ZHI_MENG">
 <meta property="article:published_time" content="2025-04-08T06:47:09.506Z">
-<meta property="article:modified_time" content="2025-05-17T08:22:57.072Z">
+<meta property="article:modified_time" content="2025-05-18T13:47:46.858Z">
 <meta property="article:author" content="thinklive">
 <meta property="article:tag" content="课程笔记">
 <meta property="article:tag" content="python">
@@ -207,7 +207,7 @@ const darkmode = new Darkmode(options);
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E6%9C%9F%E5%B7%A5%E4%BD%9C"><span class="nav-number">1.</span> <span class="nav-text">前期工作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#cuda"><span class="nav-number">1.1.</span> <span class="nav-text">cuda</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%B9%E5%99%A8"><span class="nav-number">1.2.</span> <span class="nav-text">容器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%90%86%E8%AE%BA"><span class="nav-number">1.3.</span> <span class="nav-text">理论</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98"><span class="nav-number">1.3.1.</span> <span class="nav-text">常见问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A3%E5%88%99%E5%8C%96"><span class="nav-number">1.3.2.</span> <span class="nav-text">正则化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.4.</span> <span class="nav-text">神经网络模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.4.1.</span> <span class="nav-text">线性模型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9B%9E%E5%BD%92"><span class="nav-number">1.4.1.1.</span> <span class="nav-text">回归</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%86%E7%B1%BB"><span class="nav-number">1.4.1.2.</span> <span class="nav-text">分类</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E6%9C%9F%E5%B7%A5%E4%BD%9C"><span class="nav-number">1.</span> <span class="nav-text">前期工作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#cuda"><span class="nav-number">1.1.</span> <span class="nav-text">cuda</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%B9%E5%99%A8"><span class="nav-number">1.2.</span> <span class="nav-text">容器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%90%86%E8%AE%BA"><span class="nav-number">1.3.</span> <span class="nav-text">理论</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98"><span class="nav-number">1.3.1.</span> <span class="nav-text">常见问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A3%E5%88%99%E5%8C%96"><span class="nav-number">1.3.2.</span> <span class="nav-text">正则化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.4.</span> <span class="nav-text">神经网络模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.4.1.</span> <span class="nav-text">线性模型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9B%9E%E5%BD%92"><span class="nav-number">1.4.1.1.</span> <span class="nav-text">回归</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92"><span class="nav-number">1.4.1.1.1.</span> <span class="nav-text">逻辑回归</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%86%E7%B1%BB"><span class="nav-number">1.4.1.2.</span> <span class="nav-text">分类</span></a></li></ol></li></ol></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -318,7 +318,7 @@ const darkmode = new Darkmode(options);
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-05-17 16:22:57" itemprop="dateModified" datetime="2025-05-17T16:22:57+08:00">2025-05-17</time>
+      <time title="修改时间：2025-05-18 21:47:46" itemprop="dateModified" datetime="2025-05-18T21:47:46+08:00">2025-05-18</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -344,14 +344,14 @@ const darkmode = new Darkmode(options);
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>4.8k</span>
+      <span>10k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>18 分钟</span>
+      <span>9 分钟</span>
     </span>
 </div>
 
@@ -529,9 +529,23 @@ loss = criterion(model_output, expected_value)</p>
 <p>线性回归，即y = wx + b ,是最简单的回归模型，但纯一次项的拟合能力较为受限，这种情况下就需要多项式回归<br />
 我们将w视为权值向量，x视为从一次x'到n次x'组成的向量，那么多项式模型依旧可以用原先的线性公式表示<br />
 增加多项式的次数可以更好拟合训练集，但对测试集的效果就未必了，很容易出现过拟合问题,如果出现，依旧需要正则化，增加数据数量或者维度等优化</p>
+<h5 id="逻辑回归">逻辑回归</h5>
 <h4 id="分类">分类</h4>
 <p>分类问题最简单的解决方法莫过于对回归产生的结果进行筛选，一个区间对应一个类别，但这么做会很难处理区间的划分情况，因此需要其他的处理方法<br />
-分类问题的损失函数与回归不同，可以单纯用分类错误的数量计算，解决分类问题有两者常见模型：感知机（Perceptron）和支持向量机（SVM）</p>
+分类问题的损失函数与回归不同，可以单纯用分类错误率计算，解决分类问题有两种常见模型：感知机（Perceptron）和支持向量机（SVM）<br />
+如果我们用最简单的感知机(依旧输出一个连续值，通过激活函数产生分类)，那么分类任务的重点就是找的一个合适的门槛值threshold</p>
+<p>基于概率的分类方法：<br />
+如果有两个类c1,c2用于分类，抽到一个样本x,这就像高中数学地抽小球问题，随机抽个样本是某类小球的概率取决于在抽取的黑盒子里不同类别的分布。<br />
+此时我们的目的是根据参数预测分类，也就是说不同类别的分布只能猜想，于是假设在最简单的两个参数情况下，概率密度函数满足基于这两个参数的高斯(正态)分布，训练时，我们希望分别通过样本得到两类各自的分布情况，也就是这个高斯分布的均值和协方差矩阵</p>
+<div class="note info"><p>极大似然估计可以理解为利用已知的样本结果信息，反推最具有可能（最大概率）导致这些样本结果出现的模型参数值，例如抽球(放回式)问题中抽一百次，七十次是白球,三十次为黑球，若抽到白球的概率是p，这个结果的概率是p<sup>70(1-p)</sup>30，符合直觉的猜想是p=0.7，这是因为我们下意识用了极大似然估计。<br />
+要令出现此情况的概率最大，只需要求导算一次极值就会得到p=0.7，由此产生了一个估计</p>
+</div>
+<p>使用极大似然估计，类似抽球问题，得到目前结果的概率其实结果所有取样点概率的积，省略怎么计算，最后我们能得到两组(μ, ∑)<br />
+此时模型确定了，我们可以得到P(x|Ci), i = 1, 2，这是种先验概率（Prior Probability），通过贝叶斯公式就能算出后验概率（Posterior Probability）：P(Ci|x)<br />
+这么一来，分类就可以根据后验概率的最大种类来选<br />
+优化：<br />
+为了避免过拟合可以统一∑，模型概率变为： 协方差矩阵可以直接按样本数量加权和<br />
+统一协方差矩阵后，其实此时依旧是一个线性模型，即wx+b形式的模型</p>
 <div class="note info"><p>在统计学中，方差是用来度量单个随机变量的离散程度，而协方差则一般用来刻画两个随机变量的相似程度<br />
 <img src="https://www.zhihu.com/equation?tex=%5Csigma_x%5E2%3D%5Cfrac%7B1%7D%7Bn-1%7D%5Csum_%7Bi%3D1%7D%5En%5Cleft%28x_i-%5Cbar%7Bx%7D%5Cright%29%5E2&amp;consumer=ZHI_MENG" /> <img src="https://www.zhihu.com/equation?tex=%5Csigma%5Cleft%28x%2Cy%5Cright%29%3D%5Cfrac%7B1%7D%7Bn-1%7D%5Csum_%7Bi%3D1%7D%5E%7Bn%7D%5Cleft%28x_i-%5Cbar%7Bx%7D%5Cright%29%5Cleft%28y_i-%5Cbar%7By%7D%5Cright%29&amp;consumer=ZHI_MENG" /></p>
 <p><span class="math display">\[ P(A | B) = \frac{P(B | A) \cdot P(A)}{P(B)} \]</span></p>
@@ -565,13 +579,13 @@ loss = criterion(model_output, expected_value)</p>
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/thinklive/33908/" rel="prev" title="基于苏大ppt的计算机硬件笔记">
-                  <i class="fa fa-angle-left"></i> 基于苏大ppt的计算机硬件笔记
+                <a href="/thinklive/2910/" rel="prev" title="基于恐龙书和苏大ppt的操作系统笔记">
+                  <i class="fa fa-angle-left"></i> 基于恐龙书和苏大ppt的操作系统笔记
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/thinklive/2910/" rel="next" title="基于恐龙书和苏大ppt的操作系统笔记">
-                  基于恐龙书和苏大ppt的操作系统笔记 <i class="fa fa-angle-right"></i>
+                <a href="/thinklive/22586/" rel="next" title="hexo建立个人博客指北">
+                  hexo建立个人博客指北 <i class="fa fa-angle-right"></i>
                 </a>
             </div>
           </div>
@@ -605,14 +619,14 @@ loss = criterion(model_output, expected_value)</p>
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">559k</span>
+    <span title="站点总字数">1.1m</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">33:53</span>
+    <span title="站点阅读时长">16:21</span>
   </span>
 </div>
 <div class="busuanzi-count">
