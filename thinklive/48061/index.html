@@ -37,7 +37,7 @@
 <meta property="og:image" content="https://www.zhihu.com/equation?tex=%5Csigma_x%5E2%3D%5Cfrac%7B1%7D%7Bn-1%7D%5Csum_%7Bi%3D1%7D%5En%5Cleft%28x_i-%5Cbar%7Bx%7D%5Cright%29%5E2&amp;consumer=ZHI_MENG">
 <meta property="og:image" content="https://www.zhihu.com/equation?tex=%5Csigma%5Cleft%28x%2Cy%5Cright%29%3D%5Cfrac%7B1%7D%7Bn-1%7D%5Csum_%7Bi%3D1%7D%5E%7Bn%7D%5Cleft%28x_i-%5Cbar%7Bx%7D%5Cright%29%5Cleft%28y_i-%5Cbar%7By%7D%5Cright%29&amp;consumer=ZHI_MENG">
 <meta property="article:published_time" content="2025-04-08T06:47:09.506Z">
-<meta property="article:modified_time" content="2025-05-19T07:04:45.119Z">
+<meta property="article:modified_time" content="2025-05-19T14:54:18.343Z">
 <meta property="article:author" content="thinklive">
 <meta property="article:tag" content="课程笔记">
 <meta property="article:tag" content="python">
@@ -318,7 +318,7 @@ const darkmode = new Darkmode(options);
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-05-19 15:04:45" itemprop="dateModified" datetime="2025-05-19T15:04:45+08:00">2025-05-19</time>
+      <time title="修改时间：2025-05-19 22:54:18" itemprop="dateModified" datetime="2025-05-19T22:54:18+08:00">2025-05-19</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -541,7 +541,7 @@ loss = criterion(model_output, expected_value)</p>
 </div>
 <p>使用极大似然估计，类似抽球问题，得到目前结果的概率其实结果所有取样点概率的积，省略怎么计算，最后我们能得到两组(μ, ∑)<br />
 此时模型确定了，我们可以得到P(x|Ci), i = 1, 2，这是种先验概率（Prior Probability），通过贝叶斯公式就能算出后验概率（Posterior Probability）：P(Ci|x)<br />
-这么一来，分类就可以根据后验概率的最大种类来选<br />
+这么一来，分类就可以根据最大后验概率对应的种类来选<br />
 优化：<br />
 为了避免过拟合可以统一∑，模型概率变为： <span class="math display">\[\operatorname{L}(u^{1},\vert u^{2},\Sigma)=\prod_{i=1}^{79}f_{\mu^{1},\Sigma}(x^{i})\times\prod_{j=1}^{61}f_{\mu^{2},\Sigma}(x^{79+j})\]</span></p>
 <p>协方差矩阵可以直接按样本数量加权和<br />
@@ -584,8 +584,8 @@ loss = criterion(model_output, expected_value)</p>
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/thinklive/2910/" rel="next" title="基于恐龙书和苏大ppt的操作系统笔记">
-                  基于恐龙书和苏大ppt的操作系统笔记 <i class="fa fa-angle-right"></i>
+                <a href="/thinklive/22586/" rel="next" title="hexo建立个人博客指北">
+                  hexo建立个人博客指北 <i class="fa fa-angle-right"></i>
                 </a>
             </div>
           </div>
