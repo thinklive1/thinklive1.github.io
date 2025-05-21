@@ -22,12 +22,12 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"thinklive1.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.18.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"flat"},"fold":{"enable":true,"height":500},"bookmark":{"enable":true,"color":"#66CCFF","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":true,"motion":{"enable":true,"async":true,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="前期工作 cuda Compute Unified Device Architecture (CUDA):简单地说，就是允许软件调用gpu来计算的一个接口 CUDA Runtime API vs. CUDA Driver API  驱动版本需要≥运行时api版本 driver user-space modules需要和driver kernel modules版本一致 当我们谈论cuda时，往往是">
+    <meta name="description" content="前期工作 工具 cuda Compute Unified Device Architecture (CUDA):简单地说，就是允许软件调用gpu来计算的一个接口 CUDA Runtime API vs. CUDA Driver API  驱动版本需要≥运行时api版本 driver user-space modules需要和driver kernel modules版本一致 当我们谈论cuda时，">
 <meta property="og:type" content="article">
-<meta property="og:title" content="基于国立台湾大学李宏毅机器学习的课程笔记">
+<meta property="og:title" content="机器学习笔记 all in one">
 <meta property="og:url" content="https://thinklive1.github.io/thinklive/48061/index.html">
 <meta property="og:site_name" content="thinklive">
-<meta property="og:description" content="前期工作 cuda Compute Unified Device Architecture (CUDA):简单地说，就是允许软件调用gpu来计算的一个接口 CUDA Runtime API vs. CUDA Driver API  驱动版本需要≥运行时api版本 driver user-space modules需要和driver kernel modules版本一致 当我们谈论cuda时，往往是">
+<meta property="og:description" content="前期工作 工具 cuda Compute Unified Device Architecture (CUDA):简单地说，就是允许软件调用gpu来计算的一个接口 CUDA Runtime API vs. CUDA Driver API  驱动版本需要≥运行时api版本 driver user-space modules需要和driver kernel modules版本一致 当我们谈论cuda时，">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://thinklive1.github.io/assets/ml/Pasted%20image%2020250401210138.png">
 <meta property="og:image" content="https://thinklive1.github.io/assets/ml/Pasted%20image%2020250402152918.png">
@@ -37,7 +37,7 @@
 <meta property="og:image" content="https://www.zhihu.com/equation?tex=%5Csigma_x%5E2%3D%5Cfrac%7B1%7D%7Bn-1%7D%5Csum_%7Bi%3D1%7D%5En%5Cleft%28x_i-%5Cbar%7Bx%7D%5Cright%29%5E2&amp;consumer=ZHI_MENG">
 <meta property="og:image" content="https://www.zhihu.com/equation?tex=%5Csigma%5Cleft%28x%2Cy%5Cright%29%3D%5Cfrac%7B1%7D%7Bn-1%7D%5Csum_%7Bi%3D1%7D%5E%7Bn%7D%5Cleft%28x_i-%5Cbar%7Bx%7D%5Cright%29%5Cleft%28y_i-%5Cbar%7By%7D%5Cright%29&amp;consumer=ZHI_MENG">
 <meta property="article:published_time" content="2025-04-08T06:47:09.506Z">
-<meta property="article:modified_time" content="2025-05-19T14:54:18.343Z">
+<meta property="article:modified_time" content="2025-05-21T08:35:44.384Z">
 <meta property="article:author" content="thinklive">
 <meta property="article:tag" content="课程笔记">
 <meta property="article:tag" content="python">
@@ -52,10 +52,10 @@
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://thinklive1.github.io/thinklive/48061/","path":"thinklive/48061/","title":"基于国立台湾大学李宏毅机器学习的课程笔记"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://thinklive1.github.io/thinklive/48061/","path":"thinklive/48061/","title":"机器学习笔记 all in one"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>基于国立台湾大学李宏毅机器学习的课程笔记 | thinklive</title>
+<title>机器学习笔记 all in one | thinklive</title>
   
 
 
@@ -207,7 +207,7 @@ const darkmode = new Darkmode(options);
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E6%9C%9F%E5%B7%A5%E4%BD%9C"><span class="nav-number">1.</span> <span class="nav-text">前期工作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#cuda"><span class="nav-number">1.1.</span> <span class="nav-text">cuda</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%B9%E5%99%A8"><span class="nav-number">1.2.</span> <span class="nav-text">容器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%90%86%E8%AE%BA"><span class="nav-number">1.3.</span> <span class="nav-text">理论</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98"><span class="nav-number">1.3.1.</span> <span class="nav-text">常见问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A3%E5%88%99%E5%8C%96"><span class="nav-number">1.3.2.</span> <span class="nav-text">正则化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.4.</span> <span class="nav-text">神经网络模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.4.1.</span> <span class="nav-text">线性模型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9B%9E%E5%BD%92"><span class="nav-number">1.4.1.1.</span> <span class="nav-text">回归</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92"><span class="nav-number">1.4.1.1.1.</span> <span class="nav-text">逻辑回归</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%86%E7%B1%BB"><span class="nav-number">1.4.1.2.</span> <span class="nav-text">分类</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E6%9C%9F%E5%B7%A5%E4%BD%9C"><span class="nav-number">1.</span> <span class="nav-text">前期工作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B7%A5%E5%85%B7"><span class="nav-number">1.1.</span> <span class="nav-text">工具</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#cuda"><span class="nav-number">1.1.1.</span> <span class="nav-text">cuda</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%B9%E5%99%A8"><span class="nav-number">1.1.2.</span> <span class="nav-text">容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#plt"><span class="nav-number">1.1.3.</span> <span class="nav-text">plt</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%90%86%E8%AE%BA"><span class="nav-number">1.2.</span> <span class="nav-text">理论</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98"><span class="nav-number">1.2.1.</span> <span class="nav-text">常见问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A3%E5%88%99%E5%8C%96"><span class="nav-number">1.2.2.</span> <span class="nav-text">正则化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.3.</span> <span class="nav-text">神经网络模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.3.1.</span> <span class="nav-text">线性模型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9B%9E%E5%BD%92"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">回归</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92"><span class="nav-number">1.3.1.1.1.</span> <span class="nav-text">逻辑回归</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%86%E7%B1%BB"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">分类</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%84%9F%E7%9F%A5%E6%9C%BA"><span class="nav-number">1.3.1.2.1.</span> <span class="nav-text">感知机</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E6%A6%82%E7%8E%87%E7%9A%84%E5%88%86%E7%B1%BB%E6%96%B9%E6%B3%95"><span class="nav-number">1.3.1.2.2.</span> <span class="nav-text">基于概率的分类方法</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -295,12 +295,12 @@ const darkmode = new Darkmode(options);
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="基于国立台湾大学李宏毅机器学习的课程笔记 | thinklive">
+      <meta itemprop="name" content="机器学习笔记 all in one | thinklive">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          基于国立台湾大学李宏毅机器学习的课程笔记
+          机器学习笔记 all in one
         </h1>
 
         <div class="post-meta-container">
@@ -318,7 +318,7 @@ const darkmode = new Darkmode(options);
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-05-19 22:54:18" itemprop="dateModified" datetime="2025-05-19T22:54:18+08:00">2025-05-19</time>
+      <time title="修改时间：2025-05-21 16:35:44" itemprop="dateModified" datetime="2025-05-21T16:35:44+08:00">2025-05-21</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -344,14 +344,14 @@ const darkmode = new Darkmode(options);
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>5.5k</span>
+      <span>6k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>20 分钟</span>
+      <span>22 分钟</span>
     </span>
 </div>
 
@@ -364,7 +364,8 @@ const darkmode = new Darkmode(options);
     
     
     <div class="post-body" itemprop="articleBody"><h1 id="前期工作">前期工作</h1>
-<h2 id="cuda">cuda</h2>
+<h2 id="工具">工具</h2>
+<h3 id="cuda">cuda</h3>
 <p>Compute Unified Device Architecture (CUDA):简单地说，就是允许软件调用gpu来计算的一个接口<br />
 CUDA Runtime API vs. CUDA Driver API</p>
 <ul>
@@ -383,13 +384,15 @@ CUDA Runtime API vs. CUDA Driver API</p>
 <p>In contrast, the CUDA driver API requires more code, is harder to program and debug, but offers a better level of control and is language-independent since it only deals with cubin objects (see Section 4.2.5). In particular, it is more difficult to configure and launch kernels using the CUDA driver API, since the execution configuration and kernel parameters must be specified with explicit function calls instead of the execution configuration syntax described in Section 4.2.3. Also, device emulation (see Section 4.5.2.9) does not work with the CUDA driver API.</p>
 </div>
 <p>简单地说,driver更底层，更抽象但性能和自由度更好，runtime则相反</p>
-<h2 id="容器">容器</h2>
+<h3 id="容器">容器</h3>
 <p><img src="/assets/ml/Pasted%20image%2020250401210138.png" /><br />
 infrastructure(基础设施)<br />
 简单地说，虚拟机的隔离级别比容器更高，虚拟机会模拟出一个系统及其系统api，而docker依旧调用宿主机的api，因此docker更为轻量级<br />
 docker是处理复杂环境问题的良策，比虚拟机更为轻量<br />
 其他常用的容器:Slurm and Kubernetes</p>
 <p><a target="_blank" rel="noopener" href="https://hub.docker.com/r/pytorch/pytorch/tags">Docker Hub repository of PyTorch</a></p>
+<h3 id="plt">plt</h3>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np </span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt  </span><br><span class="line"><span class="comment"># 生成数据  x = np.arange(0, 6, 0.1) # 以 0.1 为单位,生成 0 到 6 的数据 </span></span><br><span class="line"></span><br><span class="line">y1 = np.sin(x)</span><br><span class="line">y2 = np.cos(x)  </span><br><span class="line"></span><br><span class="line"><span class="comment"># 绘制图形  </span></span><br><span class="line">plt.plot(x, y1, label=<span class="string">&quot;sin&quot;</span>) plt.plot(x, y2, linestyle = <span class="string">&quot;--&quot;</span>, label=<span class="string">&quot;cos&quot;</span>) </span><br><span class="line"><span class="comment"># 用虚线绘制 </span></span><br><span class="line">plt.xlabel(<span class="string">&quot;x&quot;</span>) </span><br><span class="line"><span class="comment"># x 轴标签 </span></span><br><span class="line">plt.ylabel(<span class="string">&quot;y&quot;</span>) </span><br><span class="line"><span class="comment"># y 轴标签 </span></span><br><span class="line">plt.title(<span class="string">&#x27;sin &amp; cos&#x27;</span>) </span><br><span class="line"><span class="comment"># 标题 plt.legend() </span></span><br><span class="line">plt.show()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <h2 id="理论">理论</h2>
 <p><a target="_blank" rel="noopener" href="https://pytorch.org/docs/stable/tensors.html">官方文档</a><br />
 <a target="_blank" rel="noopener" href="https://pytorch.org/tutorials/index.html">Official Pytorch Tutorials</a><br />
@@ -505,6 +508,8 @@ loss = criterion(model_output, expected_value)</p>
 这种激活函数的缺点是，梯度非负数，对于一层所有的w，梯度的符号都是一样的，只能一起增大或者减小，这可能减少模型的准确度<br />
 通常，激活函数的输入值有一项偏置项(bias)，假设bias变得太小，以至于输入激活函数的值总是负的，那么反向传播过程经过该处的梯度恒为0,对应的权重和偏置参数此次无法得到更新。如果对于所有的样本输入，该激活函数的输入都是负的，那么该神经元再也无法学习，称为神经元”死亡“问题</p>
 <p>LeakyReLU的提出就是为了解决神经元”死亡“问题，其输入小于0的部分，值为负，且有微小的梯度，除了避免死亡还有一个可能的好处是，该微小的梯度可能让训练有一些微小的振动，在特定情况能跳出局部最优解</p>
+<p>python实现:</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">sigmoid</span>(<span class="params">x</span>): </span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span> / (<span class="number">1</span> + np.exp(-x)) <span class="comment">#NumPy的广播特性:如果在标量和 NumPy 数组之间进行运算,则标量会和 NumPy 数组的各个元素进行运算</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">relu</span>(<span class="params">x</span>): </span><br><span class="line">    <span class="keyword">return</span> np.maximum(<span class="number">0</span>, x)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 </div>
 <h3 id="正则化">正则化</h3>
 <p>正则化指为解决适定性问题或过拟合而加入额外信息的过程，在机器学习中，常见的就是为损失函数添加一些调整项<br />
@@ -531,10 +536,23 @@ loss = criterion(model_output, expected_value)</p>
 <h5 id="逻辑回归">逻辑回归</h5>
 <h4 id="分类">分类</h4>
 <p>分类问题最简单的解决方法莫过于对回归产生的结果进行筛选，一个区间对应一个类别，但这么做会很难处理区间的划分情况，因此需要其他的处理方法<br />
-分类问题的损失函数与回归不同，可以单纯用分类错误率计算，解决分类问题有两种常见模型：感知机（Perceptron）和支持向量机（SVM）<br />
-如果我们用最简单的感知机(依旧输出一个连续值，通过激活函数产生分类)，那么分类任务的重点就是找的一个合适的门槛值threshold</p>
-<p>基于概率的分类方法：<br />
-如果有两个类c1,c2用于分类，抽到一个样本x,这就像高中数学地抽小球问题，随机抽个样本是某类小球的概率取决于在抽取的黑盒子里不同类别的分布。<br />
+分类问题的损失函数与回归不同，可以单纯用分类错误率计算，解决分类问题有两种常见模型：感知机（Perceptron）和支持向量机（SVM）</p>
+<h5 id="感知机">感知机</h5>
+<p>感知机接收多个输入信号,根据权重输出一个信号，例如0和1<br />
+如果我们用最简单的感知机(依旧输出一个连续值，通过激活函数产生分类)，那么分类任务的重点就是找的一个合适的门槛值threshold<br />
+需要注意的是，感知机本质上是个线性的界限，通过权重向量和偏置值划分不同的输入，设想这样的情况：</p>
+<ol type="1">
+<li>有多种输入需要分成两类</li>
+<li>其中一类有两个输入连成直线L1,另一类中有两个输入可以连成直线L2</li>
+<li>如果L1和L2相交，那么我们不可能在中间画一条线把两个直线分开(证明就不管了)</li>
+</ol>
+<p>事实上，例如异或门就无法通过感知机实现，因为我们要分开(1,0)(0,1)以及(0,0)(1,1)，这两类的连线相交，准确地说，这是说单层感知机，因为曲线就可以划分这两类，也就是“<strong>单层感知机无法分离非线性空间</strong>”<br />
+例如，对异或门这个问题。加一层感知机就能叫分界线拓展为抛物线，也就是次数+1，这样就能进行非线性划分</p>
+<div class="note info"><p>python中定义阶跃函数(输入超过阈值,就切换输出):</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">step_function</span>(<span class="params">x</span>): </span><br><span class="line">    y=x&gt;<span class="number">0</span> <span class="keyword">return</span> <span class="comment">#产生bool数组</span></span><br><span class="line">    y.astype(np.<span class="built_in">int</span>) <span class="comment"># 将bool数组转换为1与0的int数组</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">step_function</span>(<span class="params">x</span>): </span><br><span class="line">    <span class="keyword">return</span> np.array(x &gt; <span class="number">0</span>, dtype=np.<span class="built_in">int</span>) </span><br><span class="line"></span><br><span class="line">x = np.arange(-<span class="number">5.0</span>, <span class="number">5.0</span>, <span class="number">0.1</span>) </span><br><span class="line">y = step_function(x) </span><br><span class="line">plt.plot(x, y) </span><br><span class="line">plt.ylim(-<span class="number">0.1</span>, <span class="number">1.1</span>) <span class="comment"># 指定 y 轴的范围 </span></span><br><span class="line">plt.show()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</div>
+<h5 id="基于概率的分类方法">基于概率的分类方法</h5>
+<p>如果有两个类c1,c2用于分类，抽到一个样本x,这就像高中数学地抽小球问题，随机抽个样本是某类小球的概率取决于在抽取的黑盒子里不同类别的分布。<br />
 此时我们的目的是根据参数预测分类，也就是说不同类别的分布只能猜想，于是假设在最简单的两个参数情况下，概率密度函数满足基于这两个参数的高斯(正态)分布，训练时，我们希望分别通过样本得到两类各自的分布情况，也就是这个高斯分布的均值和协方差矩阵</p>
 <div class="note info"><p>极大似然估计可以理解为利用已知的样本结果信息，反推最具有可能（最大概率）导致这些样本结果出现的模型参数值，例如抽球(放回式)问题中抽一百次，七十次是白球,三十次为黑球，若抽到白球的概率是p，这个结果的概率是p<sup>70(1-p)</sup>30，符合直觉的猜想是p=0.7，这是因为我们下意识用了极大似然估计。<br />
 要令出现此情况的概率最大，只需要求导算一次极值就会得到p=0.7，由此产生了一个估计</p>
@@ -584,8 +602,8 @@ loss = criterion(model_output, expected_value)</p>
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/thinklive/2910/" rel="next" title="基于恐龙书和苏大ppt的操作系统笔记">
-                  基于恐龙书和苏大ppt的操作系统笔记 <i class="fa fa-angle-right"></i>
+                <a href="/thinklive/22586/" rel="next" title="hexo建立个人博客指北">
+                  hexo建立个人博客指北 <i class="fa fa-angle-right"></i>
                 </a>
             </div>
           </div>
@@ -626,7 +644,7 @@ loss = criterion(model_output, expected_value)</p>
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">33:55</span>
+    <span title="站点阅读时长">33:57</span>
   </span>
 </div>
 <div class="busuanzi-count">
