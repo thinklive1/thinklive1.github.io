@@ -37,7 +37,7 @@
 <meta property="og:image" content="https://www.zhihu.com/equation?tex=%5Csigma_x%5E2%3D%5Cfrac%7B1%7D%7Bn-1%7D%5Csum_%7Bi%3D1%7D%5En%5Cleft%28x_i-%5Cbar%7Bx%7D%5Cright%29%5E2&amp;consumer=ZHI_MENG">
 <meta property="og:image" content="https://www.zhihu.com/equation?tex=%5Csigma%5Cleft%28x%2Cy%5Cright%29%3D%5Cfrac%7B1%7D%7Bn-1%7D%5Csum_%7Bi%3D1%7D%5E%7Bn%7D%5Cleft%28x_i-%5Cbar%7Bx%7D%5Cright%29%5Cleft%28y_i-%5Cbar%7By%7D%5Cright%29&amp;consumer=ZHI_MENG">
 <meta property="article:published_time" content="2025-04-08T06:47:09.506Z">
-<meta property="article:modified_time" content="2025-05-22T16:08:05.841Z">
+<meta property="article:modified_time" content="2025-05-25T07:29:31.641Z">
 <meta property="article:author" content="thinklive">
 <meta property="article:tag" content="课程笔记">
 <meta property="article:tag" content="python">
@@ -207,7 +207,7 @@ const darkmode = new Darkmode(options);
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E6%9C%9F%E5%B7%A5%E4%BD%9C"><span class="nav-number">1.</span> <span class="nav-text">前期工作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B7%A5%E5%85%B7"><span class="nav-number">1.1.</span> <span class="nav-text">工具</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#cuda"><span class="nav-number">1.1.1.</span> <span class="nav-text">cuda</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%B9%E5%99%A8"><span class="nav-number">1.1.2.</span> <span class="nav-text">容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#python"><span class="nav-number">1.1.3.</span> <span class="nav-text">python</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%90%86%E8%AE%BA"><span class="nav-number">1.2.</span> <span class="nav-text">理论</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98"><span class="nav-number">1.2.1.</span> <span class="nav-text">常见问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A3%E5%88%99%E5%8C%96"><span class="nav-number">1.2.2.</span> <span class="nav-text">正则化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.3.</span> <span class="nav-text">神经网络模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.3.1.</span> <span class="nav-text">线性模型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9B%9E%E5%BD%92"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">回归</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92"><span class="nav-number">1.3.1.1.1.</span> <span class="nav-text">逻辑回归</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%86%E7%B1%BB"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">分类</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%84%9F%E7%9F%A5%E6%9C%BA"><span class="nav-number">1.3.1.2.1.</span> <span class="nav-text">感知机</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E6%A6%82%E7%8E%87%E7%9A%84%E5%88%86%E7%B1%BB%E6%96%B9%E6%B3%95"><span class="nav-number">1.3.1.2.2.</span> <span class="nav-text">基于概率的分类方法</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E6%9C%9F%E5%B7%A5%E4%BD%9C"><span class="nav-number">1.</span> <span class="nav-text">前期工作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B7%A5%E5%85%B7"><span class="nav-number">1.1.</span> <span class="nav-text">工具</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#cuda"><span class="nav-number">1.1.1.</span> <span class="nav-text">cuda</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%B9%E5%99%A8"><span class="nav-number">1.1.2.</span> <span class="nav-text">容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#python"><span class="nav-number">1.1.3.</span> <span class="nav-text">python</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%90%86%E8%AE%BA"><span class="nav-number">1.2.</span> <span class="nav-text">理论</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%A0%E9%87%8F"><span class="nav-number">1.2.1.</span> <span class="nav-text">张量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="nav-number">1.2.2.</span> <span class="nav-text">神经网络的定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98"><span class="nav-number">1.2.3.</span> <span class="nav-text">常见问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95-optimizer"><span class="nav-number">1.2.4.</span> <span class="nav-text">优化算法 optimizer</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D"><span class="nav-number">1.2.4.1.</span> <span class="nav-text">梯度下降</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD"><span class="nav-number">1.2.4.2.</span> <span class="nav-text">反向传播</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A3%E5%88%99%E5%8C%96"><span class="nav-number">1.2.5.</span> <span class="nav-text">正则化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.3.</span> <span class="nav-text">神经网络模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#python-%E7%9B%B8%E5%85%B3"><span class="nav-number">1.3.1.</span> <span class="nav-text">python 相关</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.3.2.</span> <span class="nav-text">线性模型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9B%9E%E5%BD%92"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">回归</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92"><span class="nav-number">1.3.2.1.1.</span> <span class="nav-text">逻辑回归</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%86%E7%B1%BB"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">分类</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%84%9F%E7%9F%A5%E6%9C%BA"><span class="nav-number">1.3.2.2.1.</span> <span class="nav-text">感知机</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E6%A6%82%E7%8E%87%E7%9A%84%E5%88%86%E7%B1%BB%E6%96%B9%E6%B3%95"><span class="nav-number">1.3.2.2.2.</span> <span class="nav-text">基于概率的分类方法</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -318,7 +318,7 @@ const darkmode = new Darkmode(options);
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-05-23 00:08:05" itemprop="dateModified" datetime="2025-05-23T00:08:05+08:00">2025-05-23</time>
+      <time title="修改时间：2025-05-25 15:29:31" itemprop="dateModified" datetime="2025-05-25T15:29:31+08:00">2025-05-25</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -344,7 +344,7 @@ const darkmode = new Darkmode(options);
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>6.2k</span>
+      <span>6.3k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -397,6 +397,7 @@ docker是处理复杂环境问题的良策，比虚拟机更为轻量<br />
 <p><a target="_blank" rel="noopener" href="https://pytorch.org/docs/stable/tensors.html">官方文档</a><br />
 <a target="_blank" rel="noopener" href="https://pytorch.org/tutorials/index.html">Official Pytorch Tutorials</a><br />
 <a target="_blank" rel="noopener" href="https://github.com/wkentaro/pytorch-for-numpy-users">pytorch-for-numpy-users</a></p>
+<h3 id="张量">张量</h3>
 <p><strong>张量tensor</strong>:用于表示n维数据的一种概念，例如一维张量是向量，二维是矩阵……</p>
 <p><code>dim in PyTorch == axis in NumPy</code></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br></pre></td></tr></table></figure>
@@ -418,11 +419,15 @@ tensor([[[1., 1., 1., 1., 1.],
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">x = torch.zeros([<span class="number">2</span>, <span class="number">3</span>])</span><br><span class="line"><span class="built_in">print</span>(x.shape)</span><br><span class="line"></span><br><span class="line">x = x.transpose(<span class="number">0</span>, <span class="number">1</span>)</span><br><span class="line"><span class="built_in">print</span>(x.shape)</span><br></pre></td></tr></table></figure>
 <pre><code>torch.Size([2, 3])  
 torch.Size([3, 2])</code></pre>
+<h3 id="神经网络的定义">神经网络的定义</h3>
 <p>对每一层神经网络，输入的x乘以权重向量w(eight)，加上一个标量b(ias)后就是输出y<br />
-下图中我们训练一个将32维向量转化为64维向量输出的模型，因此权值矩阵规模是64×32,输入向量是32×1，输出是64×1<br />
+例如训练一个将32维向量转化为64维向量输出的模型，权值矩阵规模是64×32,输入向量是32×1，输出是64×1<br />
 算出线性的权值和之后，增加一层激活函数<strong>Activation Function</strong>,激活函数常是非线性的，用于增强网络学习能力，如果没有激活函数，网络就是单纯的有很多层数的线性回归<br />
-<strong>全连接前馈神经网络(fully-connected feed-forward network)</strong>:前馈表示从前到后训练，全连接表示相邻的两层中，所有的神经元都是相连的;网络第一层称为输入层（input layer），最后一层称为输出层（output layer），中间的层数被称为隐藏层(hidden layer)<br />
-深度学习：这个定义非常简单粗暴，意思是隐藏层很多，一般可能有三位数起步，并非越多层就越好，这需要合适的数据集，合适的提取特征方式，即<strong>feature engineering</strong>，才能定义一个较好的网络</p>
+最基础的神经网络是<strong>全连接前馈神经网络(fully-connected feed-forward network)</strong>:前馈表示从前到后训练，全连接表示相邻的两层中，所有的神经元都是相连的;网络第一层称为输入层（input layer），最后一层称为输出层（output layer），中间的层数被称为隐藏层(hidden layer)</p>
+<div class="note info"><p><em>前向和反向，forward &amp;&amp; backward:理解这两个词应该看英文，forward这个前指的是时间上从前往后，也就是训练时的正常时间顺序，backward与其相反，就是从结果推开头</em></p>
+</div>
+<p>深度学习：这个定义非常简单粗暴，意思是隐藏层很多，一般可能有三位数起步，并非越多层就越好，这需要合适的数据集，合适的提取特征方式，即<strong>特征工程feature engineering</strong>，才能定义一个较好的网络</p>
+<p>常见激活函数：</p>
 <ul>
 <li>Sigmoid函数也叫Logistic函数，用于隐层神经元输出，取值范围为(0,1)，它可以将一个实数映射到(0,1)的区间，可以用来做二分类。在特征相差比较复杂或是相差不是特别大时效果比较好，图像类似一个S形曲线:
 <ul>
@@ -434,13 +439,8 @@ torch.Size([3, 2])</code></pre>
 </ul></li>
 </ul>
 <p><img src="/assets/ml/Pasted%20image%2020250402152918.png" /> <img src="/assets/ml/Pasted%20image%2020250402152932.png" /></p>
-<p><strong>梯度下降法</strong>：<br />
-有点类似于牛顿法(牛顿法理论是二阶收敛，梯度则为一阶，牛顿法速度更快计算量更大)，所谓的梯度就是一个多元函数中，对一个点求各个元的偏导数取值组成的一个表示方向的向量(即偏导数乘对应元的单位向量)<br />
-这个梯度一般指向当前点增加最快的方向，把他乘以-1就会得到下降最快的方向(一般用于最小化损失函数)，梯度只表示方向，因此还需要选择合适的步长α，乘以方向向量后就得到移动的路径，步长太长了会跨过极小值然后来回震荡，太短了效率会很差<br />
-梯度下降算法需要设置一个<strong>学习率(learning rate)</strong>，每次迭代中，未知参数的梯度下降的步长取决于学习率的设置，这种由人为设定的参数被称为<strong>超参（hyperparameters）</strong><br />
-如果我们的数据集很大，计算梯度会相当复杂，则可以分为n个batch,每个batch有B个资料，即 <strong>mini-batch 梯度下降（MBGD，Mini-Batch GradientDescent</strong><br />
-在numpy里用形如<code>np.random.choice(scope, num)</code>的方法就可以在scope内随机选取num个索引作为mini batch</p>
-<p><strong>损失函数loss function</strong>：评估训练成果的一个标准，常见有:</p>
+<p><strong>损失函数loss function</strong>：评估训练成果的一个标准，越小越好<br />
+loss = criterion(model_output, expected_value) #nn:neural network</p>
 <ul>
 <li><code>criterion = nn.MSELoss()</code>:Mean Squared Error</li>
 <li><code>criterion = nn.CrossEntropyLoss()</code>:Cross Entropy 交叉熵</li>
@@ -463,35 +463,6 @@ torch.Size([3, 2])</code></pre>
 由于熵是给定概率分布下的最优值，<strong>交叉熵只可能大于等于熵</strong>，两者差越小或者说交叉熵越小表示模型估计越准<br />
 例如在最极端的one-hot编码中，交叉熵等价于<strong>对应正确解标签的输出的自然对数</strong></p>
 </div>
-<p>eg.<br />
-nn:neural network<br />
-loss = criterion(model_output, expected_value)</p>
-<p><strong>优化算法 optimizer</strong>：</p>
-<p><a target="_blank" rel="noopener" href="https://pytorch.org/docs/stable/optim.html">torch.optim</a><br />
-<a target="_blank" rel="noopener" href="https://www.cnblogs.com/charlotte77/p/5629865.html">通俗讲解反向传播</a></p>
-<p>最流行的优化就是反向传播，即与前向训练过程相反，用结果的损失值修正训练中的权值，在数学上就是求损失对前一层权重的偏导数<br />
-但是损失函数的参数是本层的输出值，因此需要链式法则求偏导，先求出损失函数对输出的偏导，再乘以本层输出对前一层权重的偏导(当然我们知道本层神经元收到上层的输出后还要算个激活函数才能得到最后的输出，因此中间还有一步本层输出对上层输出求偏导，只有上层输出直接和上层权重有关)</p>
-<p><img src="/assets/ml/pk7amw95.png" /> 如图，权重结合上层out得到net,net经过激活函数得到本层out，本层out用来计算损失值，因此反向传播会反过来算<br />
-对着这些复杂的名称求偏导数看起来有点奇怪，但这和常见的yx没什么不同<br />
-得到偏导函数后，接下来正如在梯度下降中学到的，我们希望通过不断调整上层权重来最小化结果层的损失函数，每次用一个“学习速率 <span class="math inline">\(\eta\)</span> ”乘以偏导数来更新权重</p>
-<p><img src="/assets/ml/o7aq5jae.png" /></p>
-<p>涉及隐藏层时稍微有所不同，在由于隐藏层的下一层会连到不同的结果，也就会产生多个损失值，在out部分需要对不同的损失值求偏导，即总误差对outh1的偏导是E(o1)和E(o2)对outh1偏导的和</p>
-<p>e.g.:</p>
-<ol type="1">
-<li>optimizer.zero_grad()：重设梯度(即训练完一段后梯度置0,截断反向传播再继续训练)</li>
-<li>Call loss.backward() 反向传播以减少损失</li>
-<li>Call optimizer.step() 调整模型参数</li>
-</ol>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">dataset = MyDataset(file)</span><br><span class="line">tr_set = DataLoader(dataset, <span class="number">16</span>, shuffle=<span class="literal">True</span>)</span><br><span class="line">model = MyModel().to(device)</span><br><span class="line">criterion = nn.MSELoss()</span><br><span class="line">optimizer = torch.optim.SGD(model.parameters(), <span class="number">0.1</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> epoch <span class="keyword">in</span> <span class="built_in">range</span>(n_epochs):</span><br><span class="line">    model.train()</span><br><span class="line">    <span class="keyword">for</span> x, y <span class="keyword">in</span> tr_set:</span><br><span class="line">        optimizer.zero_grad()</span><br><span class="line">        x, y = x.to(device), y.to(device)</span><br><span class="line">        pred = model(x)</span><br><span class="line">        loss = criterion(pred, y)</span><br><span class="line">        loss.backward()</span><br><span class="line">        optimizer.step()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>参考项目:</p>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://github.com/huggingface/transformers">Huggingface Transformers</a> (transformer models: BERT, GPT, ...)</li>
-<li><a target="_blank" rel="noopener" href="https://github.com/pytorch/fairseq">Fairse</a> (sequence modeling for NLP &amp; speech)</li>
-<li><a target="_blank" rel="noopener" href="https://github.com/espnet/espnet">ESPnet</a> (speech recognition, translation, synthesis, ...)</li>
-</ul>
-<p><code>DataLoader(train_date,shuffle=True)</code>中shuffle表示打乱数据集，符合直觉的想法是：这对避免过拟合有帮助</p>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">My_model</span>(nn.Module):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self，inputdim</span>):</span><br><span class="line">        <span class="built_in">super</span>(My_model,self).__init__()</span><br><span class="line">        self.layers=nn.sequential(<span class="comment">#将多个层按顺序组合在一起</span></span><br><span class="line">            nn.Linear(input_dim,<span class="number">64</span>), </span><br><span class="line">            nn.ReLU(),</span><br><span class="line">            nn.Linear(<span class="number">64</span>，<span class="number">32</span>),</span><br><span class="line">            nn.ReLU(),</span><br><span class="line">            nn.Linear(<span class="number">32</span>，<span class="number">1</span>)</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, x</span>):</span><br><span class="line">        x = self.layers(x)</span><br><span class="line">        x = x.sgueeze(<span class="number">1</span>)<span class="comment">#(B,l) -&gt; B</span></span><br><span class="line">        <span class="keyword">return</span> x</span><br><span class="line"></span><br><span class="line"><span class="comment">#Training loop</span></span><br><span class="line"><span class="keyword">for</span> epoch <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3000</span>):</span><br><span class="line">    model.train() <span class="comment"># Set your model to train mode.</span></span><br><span class="line">    <span class="comment"># tgdm is a package to visualize your training progress</span></span><br><span class="line">    train_pbar = tqdm(train_loader, position=<span class="number">0</span>, leave=<span class="literal">True</span>)</span><br><span class="line">    <span class="keyword">for</span> x, y <span class="keyword">in</span> train_pbar:</span><br><span class="line">        x, y = x.to(<span class="string">&#x27;cuda&#x27;</span>), y.to(<span class="string">&#x27;cuda&#x27;</span>)</span><br><span class="line">        pred = model(x)</span><br><span class="line">        loss = criterion(pred, y)</span><br><span class="line">        loss.backward()<span class="comment"># Compute gradient(backpropagation).</span></span><br><span class="line">        optimizer.step()<span class="comment"># Update parameters.</span></span><br><span class="line">        optimizer.zero_grad() <span class="comment"># Set gradient to zero.</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p><a target="_blank" rel="noopener" href="https://pytorch.org/docs/stable/">PyTorch Documentation</a></p>
 <h3 id="常见问题">常见问题</h3>
 <ol type="1">
 <li>模型偏差：模型在训练资料上的损失函数很大时，可能是因为在这个问题中选择的模型太过简单，以至于无论用这个给模型选择什么样的参数θ，损失函数f(θ)都不会变得很小</li>
@@ -503,6 +474,31 @@ loss = criterion(model_output, expected_value)</p>
 <li>增加对模型的限制，常见如早停止，正则化，丢弃部分不合理数据等等</li>
 </ol></li>
 </ol>
+<h3 id="优化算法-optimizer">优化算法 optimizer</h3>
+<p><a target="_blank" rel="noopener" href="https://pytorch.org/docs/stable/optim.html">torch.optim</a><br />
+e.g.</p>
+<ol type="1">
+<li>optimizer.zero_grad()：重设梯度(即训练完一段后梯度置0,截断反向传播再继续训练)</li>
+<li>Call loss.backward() 反向传播以减少损失</li>
+<li>Call optimizer.step() 调整模型参数</li>
+</ol>
+<h4 id="梯度下降">梯度下降</h4>
+<p><strong>梯度下降法</strong>：<br />
+有点类似于牛顿法(牛顿法理论是二阶收敛，梯度则为一阶，牛顿法速度更快计算量更大)，所谓的梯度就是一个多元函数中，对一个点求各个元的偏导数取值组成的一个表示方向的向量(即偏导数乘对应元的单位向量)<br />
+这个梯度一般指向当前点增加最快的方向，把他乘以-1就会得到下降最快的方向(一般用于最小化损失函数)，梯度只表示方向，因此还需要选择合适的步长α，乘以方向向量后就得到移动的路径，步长太长了会跨过极小值然后来回震荡，太短了效率会很差<br />
+梯度下降算法需要设置一个<strong>学习率(learning rate)</strong>，每次迭代中，未知参数的梯度下降的步长取决于学习率的设置，这种由人为设定的参数被称为<strong>超参（hyperparameters）</strong><br />
+如果我们的数据集很大，计算梯度会相当复杂，则可以分为n个batch,每个batch有B个资料，即 <strong>mini-batch 梯度下降（MBGD，Mini-Batch GradientDescent</strong><br />
+在numpy里用形如<code>np.random.choice(scope, num)</code>的方法就可以在scope内随机选取num个索引作为mini batch</p>
+<h4 id="反向传播">反向传播</h4>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/charlotte77/p/5629865.html">通俗讲解反向传播</a><br />
+反向传播是梯度下降在神经网络上的具体实现方式，与前向训练过程相反，用结果的损失值修正训练中的权值，在数学上就是求损失对前一层权重的偏导数<br />
+但是损失函数的参数是本层的输出值，因此需要链式法则求偏导，先求出损失函数对输出的偏导，再乘以本层输出对前一层权重的偏导(当然我们知道本层神经元收到上层的输出后还要算个激活函数才能得到最后的输出，因此中间还有一步本层输出对上层输出求偏导，只有上层输出直接和上层权重有关)</p>
+<p><img src="/assets/ml/pk7amw95.png" /> 如图，权重结合上层out得到net,net经过激活函数得到本层out，本层out用来计算损失值，因此反向传播会反过来算<br />
+对着这些复杂的名称求偏导数看起来有点奇怪，但这和常见的yx没什么不同<br />
+得到偏导函数后，接下来正如在梯度下降中学到的，我们希望通过不断调整上层权重来最小化结果层的损失函数，每次用一个“学习速率 <span class="math inline">\(\eta\)</span> ”乘以偏导数来更新权重</p>
+<p><img src="/assets/ml/o7aq5jae.png" /></p>
+<p>涉及隐藏层时稍微有所不同，在由于隐藏层的下一层会连到不同的结果，也就会产生多个损失值，在out部分需要对不同的损失值求偏导，即总误差对outh1的偏导是E(o1)和E(o2)对outh1偏导的和</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">dataset = MyDataset(file)</span><br><span class="line">tr_set = DataLoader(dataset, <span class="number">16</span>, shuffle=<span class="literal">True</span>)</span><br><span class="line">model = MyModel().to(device)</span><br><span class="line">criterion = nn.MSELoss()</span><br><span class="line">optimizer = torch.optim.SGD(model.parameters(), <span class="number">0.1</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> epoch <span class="keyword">in</span> <span class="built_in">range</span>(n_epochs):</span><br><span class="line">    model.train()</span><br><span class="line">    <span class="keyword">for</span> x, y <span class="keyword">in</span> tr_set:</span><br><span class="line">        optimizer.zero_grad()</span><br><span class="line">        x, y = x.to(device), y.to(device)</span><br><span class="line">        pred = model(x)</span><br><span class="line">        loss = criterion(pred, y)</span><br><span class="line">        loss.backward()</span><br><span class="line">        optimizer.step() <span class="comment">#更新模型的参数</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <div class="note info"><p><strong>梯度消失</strong>：</p>
 <p>如果我们用最常见的sigmoid函数，且在某层上输入值在函数的两端，此时导数非常小，也就是梯度非常小，这层上的反向传播几乎无法更新，不仅如此，更之前的层级也很难继续传播，这就是所谓的梯度消失问题。<br />
 除了更新缓慢问题外，这还会导致浅层和深层的更新程度区别巨大，让模型变得“不均匀”，此外，由于sig函数的梯度区间较小，模型深了几乎必然有这种问题</p>
@@ -512,14 +508,13 @@ loss = criterion(model_output, expected_value)</p>
 <p>LeakyReLU的提出就是为了解决神经元”死亡“问题，其输入小于0的部分，值为负，且有微小的梯度，除了避免死亡还有一个可能的好处是，该微小的梯度可能让训练有一些微小的振动，在特定情况能跳出局部最优解</p>
 <p>python实现:</p>
 <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">sigmoid</span>(<span class="params">x</span>): </span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span> / (<span class="number">1</span> + np.exp(-x)) <span class="comment">#NumPy的广播特性:如果在标量和 NumPy 数组之间进行运算,则标量会和 NumPy 数组的各个元素进行运算</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">relu</span>(<span class="params">x</span>): </span><br><span class="line">    <span class="keyword">return</span> np.maximum(<span class="number">0</span>, x)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>广播机制(broadcasting mechanism):</p>
-<ol type="1">
-<li>通过适当复制元素来扩展一个或两个数组,以便操作的不同张量具有相同的形状;<br />
-</li>
-<li>对生成的数组执行按元素操作</li>
-</ol>
-<p>例如，a和b分别是3 × 1和1 × 2矩阵，广播会成为一个更大的3 × 2矩阵:矩阵a将复制列,矩阵b将复制行,然后再按元素相加</p>
 </div>
+<p>参考项目:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/huggingface/transformers">Huggingface Transformers</a> (transformer models: BERT, GPT, ...)</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/pytorch/fairseq">Fairse</a> (sequence modeling for NLP &amp; speech)</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/espnet/espnet">ESPnet</a> (speech recognition, translation, synthesis, ...)</li>
+</ul>
 <h3 id="正则化">正则化</h3>
 <p>正则化指为解决适定性问题或过拟合而加入额外信息的过程，在机器学习中，常见的就是为损失函数添加一些调整项<br />
 根据前文所述，学习的过程就是根据损失函数与权重的关系不断调整权重以最小化损失，而正则化的目的是不要让权重关系太复杂以致于没有普适性。我们将原始的损失函数画一个图，正则项再画一个图，需要找的就是两个函数同样权重基础上的最小和<br />
@@ -536,6 +531,17 @@ loss = criterion(model_output, expected_value)</p>
 顺便一提a star算法也会用类似的测度估计距离</p>
 </div>
 <h2 id="神经网络模型">神经网络模型</h2>
+<h3 id="python-相关">python 相关</h3>
+<p><code>DataLoader(train_date,shuffle=True)</code>中shuffle表示打乱数据集，符合直觉的想法是：这对避免过拟合有帮助</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">My_model</span>(nn.Module):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self，inputdim</span>):</span><br><span class="line">        <span class="built_in">super</span>(My_model,self).__init__()</span><br><span class="line">        self.layers=nn.sequential(<span class="comment">#将多个层按顺序组合在一起</span></span><br><span class="line">            nn.Linear(input_dim,<span class="number">64</span>), </span><br><span class="line">            nn.ReLU(),</span><br><span class="line">            nn.Linear(<span class="number">64</span>，<span class="number">32</span>),</span><br><span class="line">            nn.ReLU(),</span><br><span class="line">            nn.Linear(<span class="number">32</span>，<span class="number">1</span>)</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, x</span>):</span><br><span class="line">        x = self.layers(x)</span><br><span class="line">        x = x.sgueeze(<span class="number">1</span>)<span class="comment">#(B,l) -&gt; B</span></span><br><span class="line">        <span class="keyword">return</span> x</span><br><span class="line"></span><br><span class="line"><span class="comment">#Training loop</span></span><br><span class="line"><span class="keyword">for</span> epoch <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3000</span>):</span><br><span class="line">    model.train() <span class="comment"># Set your model to train mode.</span></span><br><span class="line">    <span class="comment"># tgdm is a package to visualize your training progress</span></span><br><span class="line">    train_pbar = tqdm(train_loader, position=<span class="number">0</span>, leave=<span class="literal">True</span>)</span><br><span class="line">    <span class="keyword">for</span> x, y <span class="keyword">in</span> train_pbar:</span><br><span class="line">        x, y = x.to(<span class="string">&#x27;cuda&#x27;</span>), y.to(<span class="string">&#x27;cuda&#x27;</span>)</span><br><span class="line">        pred = model(x)</span><br><span class="line">        loss = criterion(pred, y)</span><br><span class="line">        loss.backward()<span class="comment"># Compute gradient(backpropagation).</span></span><br><span class="line">        optimizer.step()<span class="comment"># Update parameters.</span></span><br><span class="line">        optimizer.zero_grad() <span class="comment"># Set gradient to zero.</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://pytorch.org/docs/stable/">PyTorch Documentation</a></p>
+<p>广播机制(broadcasting mechanism):</p>
+<ol type="1">
+<li>通过适当复制元素来扩展一个或两个数组,以便操作的不同张量具有相同的形状;<br />
+</li>
+<li>对生成的数组执行按元素操作</li>
+</ol>
+<p>例如，a和b分别是3 × 1和1 × 2矩阵，广播会成为一个更大的3 × 2矩阵:矩阵a将复制列,矩阵b将复制行,然后再按元素相加</p>
 <h3 id="线性模型">线性模型</h3>
 <p>回归问题常常用若干输入产生一个连续值作为输出，线性回归（Linear Regression）和逻辑回归（Logistics Regression）是常见的线性模型</p>
 <h4 id="回归">回归</h4>
@@ -567,8 +573,9 @@ loss = criterion(model_output, expected_value)</p>
 要令出现此情况的概率最大，只需要求导算一次极值就会得到p=0.7，由此产生了一个估计</p>
 </div>
 <p>使用极大似然估计，类似抽球问题，得到目前结果的概率其实结果所有取样点概率的积，省略怎么计算，最后我们能得到两组(μ, ∑)<br />
-此时模型确定了，我们可以得到P(x|Ci), i = 1, 2，这是种先验概率（Prior Probability），通过贝叶斯公式就能算出后验概率（Posterior Probability）：P(Ci|x)<br />
-这么一来，分类就可以根据最大后验概率对应的种类来选<br />
+此时模型确定了，我们可以得到P(x|Ci), i = 1, 2，这是种先验概率（Prior Probability），通过贝叶斯公式就能算出后验概率（Posterior Probability）：P(Ci|x)</p>
+<p><span class="math display">\[ P(A | B) = \frac{P(B | A) \cdot P(A)}{P(B)} \]</span></p>
+<p>这么一来，分类就可以根据最大后验概率对应的种类来选<br />
 优化：<br />
 为了避免过拟合可以统一∑，模型概率变为： <span class="math display">\[\operatorname{L}(u^{1},\vert u^{2},\Sigma)=\prod_{i=1}^{79}f_{\mu^{1},\Sigma}(x^{i})\times\prod_{j=1}^{61}f_{\mu^{2},\Sigma}(x^{79+j})\]</span></p>
 <p>协方差矩阵可以直接按样本数量加权和<br />
@@ -576,7 +583,6 @@ loss = criterion(model_output, expected_value)</p>
 <div class="note info"><p>epoch是一个单位。一个epoch表示学习中所有训练数据均被使用过一次时的更新次数。比如,对于 10000 笔训练数据,用大小为100笔数据的mini-batch进行学习时,重复随机梯度下降法100次,所有的训练数据就都被“看过”了。此时,100次就是一个epoch</p>
 <p>在统计学中，方差是用来度量单个随机变量的离散程度，而协方差则一般用来刻画两个随机变量的相似程度<br />
 <img src="https://www.zhihu.com/equation?tex=%5Csigma_x%5E2%3D%5Cfrac%7B1%7D%7Bn-1%7D%5Csum_%7Bi%3D1%7D%5En%5Cleft%28x_i-%5Cbar%7Bx%7D%5Cright%29%5E2&amp;consumer=ZHI_MENG" /> <img src="https://www.zhihu.com/equation?tex=%5Csigma%5Cleft%28x%2Cy%5Cright%29%3D%5Cfrac%7B1%7D%7Bn-1%7D%5Csum_%7Bi%3D1%7D%5E%7Bn%7D%5Cleft%28x_i-%5Cbar%7Bx%7D%5Cright%29%5Cleft%28y_i-%5Cbar%7By%7D%5Cright%29&amp;consumer=ZHI_MENG" /></p>
-<p><span class="math display">\[ P(A | B) = \frac{P(B | A) \cdot P(A)}{P(B)} \]</span></p>
 </div>
 <div class="note info">
 </div>
@@ -607,13 +613,13 @@ loss = criterion(model_output, expected_value)</p>
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/thinklive/44308/" rel="prev" title="计算机专业英语术语表">
-                  <i class="fa fa-angle-left"></i> 计算机专业英语术语表
+                <a href="/thinklive/22586/" rel="prev" title="hexo建立个人博客指北">
+                  <i class="fa fa-angle-left"></i> hexo建立个人博客指北
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/thinklive/33908/" rel="next" title="基于苏大ppt的计算机硬件笔记">
-                  基于苏大ppt的计算机硬件笔记 <i class="fa fa-angle-right"></i>
+                <a href="/thinklive/24757/" rel="next" title="一些工具的使用备忘录">
+                  一些工具的使用备忘录 <i class="fa fa-angle-right"></i>
                 </a>
             </div>
           </div>
