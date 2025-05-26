@@ -204,6 +204,17 @@ e.g.</p>
 <li>Call loss.backward() 反向传播以减少损失</li>
 <li>Call optimizer.step() 调整模型参数</li>
 </ol>
+<h4 id="归一化-normalization">归一化 Normalization</h4>
+<p>训练中的数据很多情况下大小完全不统一，基于直觉的想法是：同一维度的数据我们只关心其相对大小关系，不同维度的数据我们认为它们的地位平等，尺度应到一致，所以需要归一化<br />
+简单地说就是把一个维度的数据大小都调整到<code>[0-1]</code>这个区间，例如softmax函数就用于将一个向量转化成概率分布(令其总和为1)</p>
+<div class="note info"><p>归一化<strong>normalization</strong>容易和正则化<strong>regularization</strong>搞混，来看看词典解释：</p>
+<ul>
+<li>normalization: to start to consider something as normal, or to make something start to be considered as normal</li>
+<li>regularization: the act of changing a situation or system so that it follows laws or rules, or is based on reason</li>
+</ul>
+<p>也就是，归一化偏向于“正常”，正则化偏向于“规则”，差别非常微妙，但硬要说的话，0-1的数据看起来是比其他的更“正常”一点</p>
+<p>神经网络中进行的处理有推理(inference)和学习两个阶段。神经网络中未被正规 化(归一化)的输出结果有时被称为“得分”。也就是说,当神经网络的推理只需要给出一个答案的情况下,因为此时只对得分最大值感兴趣,所以不需要 Softmax 层。 不过,神经网络的学习阶段则需要 Softmax 层</p>
+</div>
 <h4 id="梯度下降">梯度下降</h4>
 <p><strong>梯度下降法</strong>：<br />
 有点类似于牛顿法(牛顿法理论是二阶收敛，梯度则为一阶，牛顿法速度更快计算量更大)，所谓的梯度就是一个多元函数中，对一个点求各个元的偏导数取值组成的一个表示方向的向量(即偏导数乘对应元的单位向量)<br />
@@ -237,6 +248,15 @@ e.g.</p>
 <li><a href="https://github.com/pytorch/fairseq">Fairse</a> (sequence modeling for NLP &amp; speech)</li>
 <li><a href="https://github.com/espnet/espnet">ESPnet</a> (speech recognition, translation, synthesis, ...)</li>
 </ul>
+<h4 id="momentum">Momentum</h4>
+<p>梯度下降简单易懂，但当然也存在问题，考虑如下的函数：</p>
+<p><span class="math display">\[f(x,y)=\frac{1}{20}x^{2}+y^{2}\]</span></p>
+<p>其x轴梯度远小于y轴梯度，函数像一个山岭，但底部是个起伏不大的抛物线，更新路径是一个个之字形，y轴更新地快不断震荡，x轴则慢慢向真正的底部前进<br />
+也就是说，对非均向(anisotropic)的函数，梯度下降效率有限</p>
+<p>Momentum(动量)是一种改进的优化方式，这里不管其物理含义，具体更新方法如下所示：</p>
+<p><span class="math display">\[v\leftarrow\alpha v-\eta{\frac{\partial L}{\partial W}}\]</span> <span class="math display">\[W\leftarrow W+v\]</span></p>
+<p>其他变量我们都知道了，这个v对应物理上的速度，表示物体在梯度方向受力，α模拟类似摩擦力导致的减速，一般比1略小，如0.9，也就是说，原来的梯度下降可视为无阻力的运动，动量法让其速度越来越慢，这可以有效减少路径的折线情况</p>
+<h4 id="adagrad">AdaGrad</h4>
 <h3 id="正则化">正则化</h3>
 <p>正则化指为解决适定性问题或过拟合而加入额外信息的过程，在机器学习中，常见的就是为损失函数添加一些调整项<br />
 根据前文所述，学习的过程就是根据损失函数与权重的关系不断调整权重以最小化损失，而正则化的目的是不要让权重关系太复杂以致于没有普适性。我们将原始的损失函数画一个图，正则项再画一个图，需要找的就是两个函数同样权重基础上的最小和<br />
@@ -257,9 +277,7 @@ e.g.</p>
 <ul>
 <li><code>DataLoader(train_date,shuffle=True)</code>中shuffle表示打乱数据集，符合直觉的想法是：这对避免过拟合有帮助<br />
 </li>
-<li>epoch是一个单位。一个epoch表示学习中所有训练数据均被使用过一次时的更新次数。比如,对于 10000 笔训练数据,用大小为100笔数据的mini-batch进行学习时,重复随机梯度下降法100次,所有的训练数据就都被“看过”了。此时,100次就是一个epoch<br />
-</li>
-<li></li>
+<li>epoch是一个单位。一个epoch表示学习中所有训练数据均被使用过一次时的更新次数。比如,对于 10000 笔训练数据,用大小为100笔数据的mini-batch进行学习时,重复随机梯度下降法100次,所有的训练数据就都被“看过”了。此时,100次就是一个epoch</li>
 </ul>
 <figure class="highlight py"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">My_model</span>(nn.Module):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self，inputdim</span>):</span><br><span class="line">        <span class="built_in">super</span>(My_model,self).__init__()</span><br><span class="line">        self.layers=nn.sequential(<span class="comment">#将多个层按顺序组合在一起</span></span><br><span class="line">            nn.Linear(input_dim,<span class="number">64</span>), </span><br><span class="line">            nn.ReLU(),</span><br><span class="line">            nn.Linear(<span class="number">64</span>，<span class="number">32</span>),</span><br><span class="line">            nn.ReLU(),</span><br><span class="line">            nn.Linear(<span class="number">32</span>，<span class="number">1</span>)</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, x</span>):</span><br><span class="line">        x = self.layers(x)</span><br><span class="line">        x = x.sgueeze(<span class="number">1</span>)<span class="comment">#(B,l) -&gt; B</span></span><br><span class="line">        <span class="keyword">return</span> x</span><br><span class="line"></span><br><span class="line"><span class="comment">#Training loop</span></span><br><span class="line"><span class="keyword">for</span> epoch <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3000</span>):</span><br><span class="line">    model.train() <span class="comment"># Set your model to train mode.</span></span><br><span class="line">    <span class="comment"># tgdm is a package to visualize your training progress</span></span><br><span class="line">    train_pbar = tqdm(train_loader, position=<span class="number">0</span>, leave=<span class="literal">True</span>)</span><br><span class="line">    <span class="keyword">for</span> x, y <span class="keyword">in</span> train_pbar:</span><br><span class="line">        x, y = x.to(<span class="string">&#x27;cuda&#x27;</span>), y.to(<span class="string">&#x27;cuda&#x27;</span>)</span><br><span class="line">        pred = model(x)</span><br><span class="line">        loss = criterion(pred, y)</span><br><span class="line">        loss.backward()<span class="comment"># Compute gradient(backpropagation).</span></span><br><span class="line">        optimizer.step()<span class="comment"># Update parameters.</span></span><br><span class="line">        optimizer.zero_grad() <span class="comment"># Set gradient to zero.</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <p><a href="https://pytorch.org/docs/stable/">PyTorch Documentation</a></p>
@@ -20392,8 +20410,8 @@ Inexpensive Disk）由美国加州大学伯克利分校提出。<br />
       <tags>
         <tag>课程笔记</tag>
         <tag>数据结构与算法</tag>
-        <tag>c++</tag>
         <tag>斯坦福</tag>
+        <tag>c++</tag>
       </tags>
   </entry>
   <entry>
@@ -30192,8 +30210,8 @@ val（r1，c1）&lt; val（r1，c2）≤ val（r2，c2）&lt; val（r2，c1）<b
         <category>其他</category>
       </categories>
       <tags>
-        <tag>读书笔记</tag>
         <tag>c++</tag>
+        <tag>读书笔记</tag>
       </tags>
   </entry>
   <entry>
@@ -30254,8 +30272,8 @@ used the next time std::cin &gt;&gt; is called<br />
       </categories>
       <tags>
         <tag>课程笔记</tag>
-        <tag>c++</tag>
         <tag>斯坦福</tag>
+        <tag>c++</tag>
       </tags>
   </entry>
   <entry>
