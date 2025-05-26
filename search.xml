@@ -279,7 +279,7 @@ e.g.</p>
 </div>
 <h3 id="训练技巧">训练技巧</h3>
 <h4 id="初始权值">初始权值</h4>
-<p>如何选取合适的初始权值</p>
+<p>如何选取合适的初始权值呢？</p>
 <h2 id="神经网络模型">神经网络模型</h2>
 <h3 id="python-相关">python 相关</h3>
 <ul>
@@ -20420,8 +20420,8 @@ Inexpensive Disk）由美国加州大学伯克利分校提出。<br />
       <tags>
         <tag>课程笔记</tag>
         <tag>数据结构与算法</tag>
-        <tag>斯坦福</tag>
         <tag>c++</tag>
+        <tag>斯坦福</tag>
       </tags>
   </entry>
   <entry>
@@ -24884,8 +24884,8 @@ public  int[] findVerticalSeam() &#123;
       <tags>
         <tag>伯克利</tag>
         <tag>课程笔记</tag>
-        <tag>JAVA</tag>
         <tag>数据结构与算法</tag>
+        <tag>JAVA</tag>
       </tags>
   </entry>
   <entry>
@@ -30107,8 +30107,8 @@ val（r1，c1）&lt; val（r1，c2）≤ val（r2，c2）&lt; val（r2，c1）<b
       <tags>
         <tag>伯克利</tag>
         <tag>课程笔记</tag>
-        <tag>数据结构与算法</tag>
         <tag>python</tag>
+        <tag>数据结构与算法</tag>
       </tags>
   </entry>
   <entry>
@@ -30220,8 +30220,8 @@ val（r1，c1）&lt; val（r1，c2）≤ val（r2，c2）&lt; val（r2，c1）<b
         <category>其他</category>
       </categories>
       <tags>
-        <tag>c++</tag>
         <tag>读书笔记</tag>
+        <tag>c++</tag>
       </tags>
   </entry>
   <entry>
@@ -30282,8 +30282,8 @@ used the next time std::cin &gt;&gt; is called<br />
       </categories>
       <tags>
         <tag>课程笔记</tag>
-        <tag>斯坦福</tag>
         <tag>c++</tag>
+        <tag>斯坦福</tag>
       </tags>
   </entry>
   <entry>
