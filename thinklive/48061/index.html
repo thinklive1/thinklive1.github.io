@@ -37,7 +37,7 @@
 <meta property="og:image" content="https://www.zhihu.com/equation?tex=%5Csigma_x%5E2%3D%5Cfrac%7B1%7D%7Bn-1%7D%5Csum_%7Bi%3D1%7D%5En%5Cleft%28x_i-%5Cbar%7Bx%7D%5Cright%29%5E2&amp;consumer=ZHI_MENG">
 <meta property="og:image" content="https://www.zhihu.com/equation?tex=%5Csigma%5Cleft%28x%2Cy%5Cright%29%3D%5Cfrac%7B1%7D%7Bn-1%7D%5Csum_%7Bi%3D1%7D%5E%7Bn%7D%5Cleft%28x_i-%5Cbar%7Bx%7D%5Cright%29%5Cleft%28y_i-%5Cbar%7By%7D%5Cright%29&amp;consumer=ZHI_MENG">
 <meta property="article:published_time" content="2025-04-08T06:47:09.506Z">
-<meta property="article:modified_time" content="2025-05-26T07:28:23.005Z">
+<meta property="article:modified_time" content="2025-05-26T07:57:57.159Z">
 <meta property="article:author" content="thinklive">
 <meta property="article:tag" content="课程笔记">
 <meta property="article:tag" content="python">
@@ -207,7 +207,7 @@ const darkmode = new Darkmode(options);
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E6%9C%9F%E5%B7%A5%E4%BD%9C"><span class="nav-number">1.</span> <span class="nav-text">前期工作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B7%A5%E5%85%B7"><span class="nav-number">1.1.</span> <span class="nav-text">工具</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#cuda"><span class="nav-number">1.1.1.</span> <span class="nav-text">cuda</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%B9%E5%99%A8"><span class="nav-number">1.1.2.</span> <span class="nav-text">容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#python"><span class="nav-number">1.1.3.</span> <span class="nav-text">python</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%90%86%E8%AE%BA"><span class="nav-number">1.2.</span> <span class="nav-text">理论</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%A0%E9%87%8F"><span class="nav-number">1.2.1.</span> <span class="nav-text">张量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="nav-number">1.2.2.</span> <span class="nav-text">神经网络的定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98"><span class="nav-number">1.2.3.</span> <span class="nav-text">常见问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95-optimizer"><span class="nav-number">1.2.4.</span> <span class="nav-text">优化算法 optimizer</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BD%92%E4%B8%80%E5%8C%96-normalization"><span class="nav-number">1.2.4.1.</span> <span class="nav-text">归一化 Normalization</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D"><span class="nav-number">1.2.4.2.</span> <span class="nav-text">梯度下降</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD"><span class="nav-number">1.2.4.3.</span> <span class="nav-text">反向传播</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#momentum"><span class="nav-number">1.2.4.4.</span> <span class="nav-text">Momentum</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#adagrad"><span class="nav-number">1.2.4.5.</span> <span class="nav-text">AdaGrad</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A3%E5%88%99%E5%8C%96"><span class="nav-number">1.2.5.</span> <span class="nav-text">正则化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.3.</span> <span class="nav-text">神经网络模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#python-%E7%9B%B8%E5%85%B3"><span class="nav-number">1.3.1.</span> <span class="nav-text">python 相关</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.3.2.</span> <span class="nav-text">线性模型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9B%9E%E5%BD%92"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">回归</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92"><span class="nav-number">1.3.2.1.1.</span> <span class="nav-text">逻辑回归</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%86%E7%B1%BB"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">分类</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%84%9F%E7%9F%A5%E6%9C%BA"><span class="nav-number">1.3.2.2.1.</span> <span class="nav-text">感知机</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E6%A6%82%E7%8E%87%E7%9A%84%E5%88%86%E7%B1%BB%E6%96%B9%E6%B3%95"><span class="nav-number">1.3.2.2.2.</span> <span class="nav-text">基于概率的分类方法</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E6%9C%9F%E5%B7%A5%E4%BD%9C"><span class="nav-number">1.</span> <span class="nav-text">前期工作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B7%A5%E5%85%B7"><span class="nav-number">1.1.</span> <span class="nav-text">工具</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#cuda"><span class="nav-number">1.1.1.</span> <span class="nav-text">cuda</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%B9%E5%99%A8"><span class="nav-number">1.1.2.</span> <span class="nav-text">容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#python"><span class="nav-number">1.1.3.</span> <span class="nav-text">python</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%90%86%E8%AE%BA"><span class="nav-number">1.2.</span> <span class="nav-text">理论</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%A0%E9%87%8F"><span class="nav-number">1.2.1.</span> <span class="nav-text">张量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="nav-number">1.2.2.</span> <span class="nav-text">神经网络的定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98"><span class="nav-number">1.2.3.</span> <span class="nav-text">常见问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95-optimizer"><span class="nav-number">1.2.4.</span> <span class="nav-text">优化算法 optimizer</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BD%92%E4%B8%80%E5%8C%96-normalization"><span class="nav-number">1.2.4.1.</span> <span class="nav-text">归一化 Normalization</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D"><span class="nav-number">1.2.4.2.</span> <span class="nav-text">梯度下降</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD"><span class="nav-number">1.2.4.3.</span> <span class="nav-text">反向传播</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#momentum"><span class="nav-number">1.2.4.4.</span> <span class="nav-text">Momentum</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#adagrad"><span class="nav-number">1.2.4.5.</span> <span class="nav-text">AdaGrad</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A3%E5%88%99%E5%8C%96"><span class="nav-number">1.2.5.</span> <span class="nav-text">正则化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%AD%E7%BB%83%E6%8A%80%E5%B7%A7"><span class="nav-number">1.2.6.</span> <span class="nav-text">训练技巧</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%9D%E5%A7%8B%E6%9D%83%E5%80%BC"><span class="nav-number">1.2.6.1.</span> <span class="nav-text">初始权值</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.3.</span> <span class="nav-text">神经网络模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#python-%E7%9B%B8%E5%85%B3"><span class="nav-number">1.3.1.</span> <span class="nav-text">python 相关</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.3.2.</span> <span class="nav-text">线性模型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9B%9E%E5%BD%92"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">回归</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92"><span class="nav-number">1.3.2.1.1.</span> <span class="nav-text">逻辑回归</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%86%E7%B1%BB"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">分类</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%84%9F%E7%9F%A5%E6%9C%BA"><span class="nav-number">1.3.2.2.1.</span> <span class="nav-text">感知机</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E6%A6%82%E7%8E%87%E7%9A%84%E5%88%86%E7%B1%BB%E6%96%B9%E6%B3%95"><span class="nav-number">1.3.2.2.2.</span> <span class="nav-text">基于概率的分类方法</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -318,7 +318,7 @@ const darkmode = new Darkmode(options);
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-05-26 15:28:23" itemprop="dateModified" datetime="2025-05-26T15:28:23+08:00">2025-05-26</time>
+      <time title="修改时间：2025-05-26 15:57:57" itemprop="dateModified" datetime="2025-05-26T15:57:57+08:00">2025-05-26</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -344,14 +344,14 @@ const darkmode = new Darkmode(options);
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>7.4k</span>
+      <span>7.6k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>27 分钟</span>
+      <span>28 分钟</span>
     </span>
 </div>
 
@@ -538,6 +538,11 @@ e.g.</p>
 <p><span class="math display">\[v\leftarrow\alpha v-\eta{\frac{\partial L}{\partial W}}\]</span> <span class="math display">\[W\leftarrow W+v\]</span></p>
 <p>其他变量我们都知道了，这个v对应物理上的速度，表示物体在梯度方向受力，α模拟类似摩擦力导致的减速，一般比1略小，如0.9，也就是说，原来的梯度下降可视为无阻力的运动，动量法让其速度越来越慢，这可以有效减少路径的折线情况</p>
 <h4 id="adagrad">AdaGrad</h4>
+<p>学习率衰减(learning rate decay),即随着学习的进行,使学习率逐渐减小是一种常见的思路；AdaGrad进一步发展了这个想法,针对不同参数,赋予相互独立的学习率，即Adaptive Grad</p>
+<p><span class="math display">\[h\leftarrow h+{\frac{\partial L}{\partial W}}\leftarrow{\frac{\partial L}{\partial W}}\]</span> <span class="math display">\[W\leftarrow W-\eta\frac{1}{\sqrt{h}}\frac{\partial L}{\partial W}\]</span></p>
+<p>h保存了以前的所有梯度值的平方和,这样能够按参数的元素进行学习率衰减,使变动大的参数的学习率逐渐减小，直至无限接近0；RMSProp 方法会舍弃一些比较早的梯度避免这个问题<br />
+为了避免棘手的除0问题，h的平方根可以加一个微小值如1e-7</p>
+<p><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1412.6980">adam</a>是2015年提出的新方法,直观但不准确地说就是融合了 Momentum 和 AdaGrad 的方法</p>
 <h3 id="正则化">正则化</h3>
 <p>正则化指为解决适定性问题或过拟合而加入额外信息的过程，在机器学习中，常见的就是为损失函数添加一些调整项<br />
 根据前文所述，学习的过程就是根据损失函数与权重的关系不断调整权重以最小化损失，而正则化的目的是不要让权重关系太复杂以致于没有普适性。我们将原始的损失函数画一个图，正则项再画一个图，需要找的就是两个函数同样权重基础上的最小和<br />
@@ -553,6 +558,8 @@ e.g.</p>
 <p>正则化的目的可以理解为限制权重向量的复杂度，实际做法为在损失函数中加入与权重向量复杂度有关的惩罚项，而范数在某种意义上可以反映这点，因此可作为选取正则项的依据<br />
 顺便一提a star算法也会用类似的测度估计距离</p>
 </div>
+<h3 id="训练技巧">训练技巧</h3>
+<h4 id="初始权值">初始权值</h4>
 <h2 id="神经网络模型">神经网络模型</h2>
 <h3 id="python-相关">python 相关</h3>
 <ul>
@@ -640,13 +647,13 @@ e.g.</p>
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/thinklive/44308/" rel="prev" title="计算机专业英语术语表">
-                  <i class="fa fa-angle-left"></i> 计算机专业英语术语表
+                <a href="/thinklive/33908/" rel="prev" title="基于苏大ppt的计算机硬件笔记">
+                  <i class="fa fa-angle-left"></i> 基于苏大ppt的计算机硬件笔记
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/thinklive/33908/" rel="next" title="基于苏大ppt的计算机硬件笔记">
-                  基于苏大ppt的计算机硬件笔记 <i class="fa fa-angle-right"></i>
+                <a href="/thinklive/22586/" rel="next" title="hexo建立个人博客指北">
+                  hexo建立个人博客指北 <i class="fa fa-angle-right"></i>
                 </a>
             </div>
           </div>
@@ -687,7 +694,7 @@ e.g.</p>
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">34:04</span>
+    <span title="站点阅读时长">34:05</span>
   </span>
 </div>
 <div class="busuanzi-count">

@@ -257,6 +257,11 @@ e.g.</p>
 <p><span class="math display">\[v\leftarrow\alpha v-\eta{\frac{\partial L}{\partial W}}\]</span> <span class="math display">\[W\leftarrow W+v\]</span></p>
 <p>其他变量我们都知道了，这个v对应物理上的速度，表示物体在梯度方向受力，α模拟类似摩擦力导致的减速，一般比1略小，如0.9，也就是说，原来的梯度下降可视为无阻力的运动，动量法让其速度越来越慢，这可以有效减少路径的折线情况</p>
 <h4 id="adagrad">AdaGrad</h4>
+<p>学习率衰减(learning rate decay),即随着学习的进行,使学习率逐渐减小是一种常见的思路；AdaGrad进一步发展了这个想法,针对不同参数,赋予相互独立的学习率，即Adaptive Grad</p>
+<p><span class="math display">\[h\leftarrow h+{\frac{\partial L}{\partial W}}\leftarrow{\frac{\partial L}{\partial W}}\]</span> <span class="math display">\[W\leftarrow W-\eta\frac{1}{\sqrt{h}}\frac{\partial L}{\partial W}\]</span></p>
+<p>h保存了以前的所有梯度值的平方和,这样能够按参数的元素进行学习率衰减,使变动大的参数的学习率逐渐减小，直至无限接近0；RMSProp 方法会舍弃一些比较早的梯度避免这个问题<br />
+为了避免棘手的除0问题，h的平方根可以加一个微小值如1e-7</p>
+<p><a href="https://arxiv.org/abs/1412.6980">adam</a>是2015年提出的新方法,直观但不准确地说就是融合了 Momentum 和 AdaGrad 的方法</p>
 <h3 id="正则化">正则化</h3>
 <p>正则化指为解决适定性问题或过拟合而加入额外信息的过程，在机器学习中，常见的就是为损失函数添加一些调整项<br />
 根据前文所述，学习的过程就是根据损失函数与权重的关系不断调整权重以最小化损失，而正则化的目的是不要让权重关系太复杂以致于没有普适性。我们将原始的损失函数画一个图，正则项再画一个图，需要找的就是两个函数同样权重基础上的最小和<br />
@@ -272,6 +277,8 @@ e.g.</p>
 <p>正则化的目的可以理解为限制权重向量的复杂度，实际做法为在损失函数中加入与权重向量复杂度有关的惩罚项，而范数在某种意义上可以反映这点，因此可作为选取正则项的依据<br />
 顺便一提a star算法也会用类似的测度估计距离</p>
 </div>
+<h3 id="训练技巧">训练技巧</h3>
+<h4 id="初始权值">初始权值</h4>
 <h2 id="神经网络模型">神经网络模型</h2>
 <h3 id="python-相关">python 相关</h3>
 <ul>
@@ -20410,8 +20417,8 @@ Inexpensive Disk）由美国加州大学伯克利分校提出。<br />
       <tags>
         <tag>课程笔记</tag>
         <tag>数据结构与算法</tag>
-        <tag>斯坦福</tag>
         <tag>c++</tag>
+        <tag>斯坦福</tag>
       </tags>
   </entry>
   <entry>
@@ -30210,8 +30217,8 @@ val（r1，c1）&lt; val（r1，c2）≤ val（r2，c2）&lt; val（r2，c1）<b
         <category>其他</category>
       </categories>
       <tags>
-        <tag>c++</tag>
         <tag>读书笔记</tag>
+        <tag>c++</tag>
       </tags>
   </entry>
   <entry>
@@ -30272,8 +30279,8 @@ used the next time std::cin &gt;&gt; is called<br />
       </categories>
       <tags>
         <tag>课程笔记</tag>
-        <tag>斯坦福</tag>
         <tag>c++</tag>
+        <tag>斯坦福</tag>
       </tags>
   </entry>
   <entry>
