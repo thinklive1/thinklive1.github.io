@@ -197,7 +197,7 @@ vim的<code>[[</code>,<code>]]</code>跳转到行首第一个<code>&#123;</code>
 检查一下workflow的action和页面一致，但有一点不同就是第四点<code>In your GitHub repo’s setting, navigate to Settings &gt; Pages &gt; Source. Change the source to GitHub Actions and save.</code><br />
 这里我的设置是deploy from a branch,改成action就能正常部署了<br />
 下一个问题是为什么突然这样了？但实在摸不着头脑，因为hexo的官方推荐是一键部署，不需要自己改仓库设置<br />
-猜测官方脚本每次改完这个设置会改回来，但上次出了点问题没执行完就被我<code>ctrl c</code>打断了？那至少应该提醒一下这是个原子操作啊</p>
+猜测官方脚本每次改完这个设置会改回来，但上次出了点问题没执行完就被我<code>ctrl c</code>打断了？那应该提醒一下这是个原子操作啊</p>
 <h1 id="gitbub">gitbub</h1>
 <p>有时，防火墙完全拒绝允许 SSH 连接。 也就是用22端口连接github被拒绝，特点是此时用<code>ssh -T -p 443 git@ssh.github.com</code>连接成功，但默认端口无法连接<br />
 如果能够通过 SSH 进入 git@ssh.github.com通过端口 443，可以覆盖 SSH 设置，以强制与 GitHub.com 的任何连接通过该服务器和端口运行。</p>
