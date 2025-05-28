@@ -82,12 +82,13 @@
   <entry>
     <title>机器学习笔记 all in one</title>
     <url>/thinklive/48061/</url>
-    <content><![CDATA[<h1 id="前期工作">前期工作</h1>
+    <content><![CDATA[<p><a href="https://speech.ee.ntu.edu.tw/~hylee/ml/2022-spring.php">李宏毅机器学习</a> <a href="https://zh.d2l.ai/">动手学深度学习</a></p>
+<h1 id="前期工作">前期工作</h1>
 <h2 id="数学">数学</h2>
 <h3 id="概率论">概率论</h3>
 <p>数学期望:</p>
 <p><span class="math display">\[E[X]=\sum_{x}x P(X=x).\]</span></p>
-<p>当函数f (x)的输入是从分布P 中抽取的随机变量时,f (x)的期望值为:</p>
+<p>当函数f(x)的输入是从分布P中抽取的随机变量时,f(x)的期望值为:</p>
 <p><span class="math display">\[E_{x\sim P}[f(x)]=\sum_{x}f(x)P(x).\]</span></p>
 <p>方差：</p>
 <p><span class="math display">\[\operatorname{Var}[X]=E\left[(X-E[X])^{2}\right]=E[X^{2}]-E[X]^{2}.\]</span></p>
@@ -310,7 +311,8 @@ e.g.</p>
 <h4 id="回归">回归</h4>
 <p>线性回归，即y = wx + b ,是最简单的回归模型，但纯一次项的拟合能力较为受限，这种情况下就需要多项式回归<br />
 我们将w视为权值向量，x视为从一次x'到n次x'组成的向量，那么多项式模型依旧可以用原先的线性公式表示<br />
-增加多项式的次数可以更好拟合训练集，但对测试集的效果就未必了，很容易出现过拟合问题,如果出现，依旧需要正则化，增加数据数量或者维度等优化</p>
+增加多项式的次数可以更好拟合训练集，但对测试集的效果就未必了，很容易出现过拟合问题,如果出现，依旧需要正则化，增加数据数量或者维度等优化 线性模型优化是个纯粹的数学问题，其解析解在线代课上就会讲到，即：</p>
+<p><span class="math display">\[\mathbf{w}^{*}=(\mathbf{X}^{\mathsf{T}}\mathbf{X})^{-1}\mathbf{X}^{\mathsf{T}}\mathbf{y}.\]</span></p>
 <h5 id="逻辑回归">逻辑回归</h5>
 <h4 id="分类">分类</h4>
 <p>分类问题最简单的解决方法莫过于对回归产生的结果进行筛选，一个区间对应一个类别，但这么做会很难处理区间的划分情况，因此需要其他的处理方法<br />
