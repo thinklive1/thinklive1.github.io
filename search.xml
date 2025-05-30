@@ -288,9 +288,16 @@ e.g.</p>
 </div>
 <h3 id="训练技巧">训练技巧</h3>
 <h4 id="初始权值">初始权值</h4>
-<p>那如何选取合适的初始权值呢？</p>
-<h2 id="神经网络模型">神经网络模型</h2>
-<h3 id="python-相关">python 相关</h3>
+<p>什么是最好的初始权重？这个问题很难回答，不如反过来举一些反例<br />
+相同的权重肯定是最坏的选择，由于随机梯度下降法对相同或者相似的权值会有非常相似的传导效果，最终模型的权值也会趋同，降低其表达力</p>
+<p>一般来说，我们用高斯分布来初始权重，例如常用的Xavier初始值根据上层(以及下层)的节点数量确定初始权重的分布，例如在与前一层有n个节点连接时,初始值使用标准差为 <span class="math inline">\(\frac{1}{\sqrt{n}}\)</span> 的分布<br />
+Xavier初始值是以激活函数是线性函数为前提而推导出来的。因为sigmoid函数和tanh函数左右对称,且中央附近可以视作线性函数,所以适合使用Xavier初始值。但当激活函数使用ReLU时,一般推荐使用ReLU专用的初始值,也就是Kaiming He等人推荐的初始值,也称为“He初始值”<br />
+当前一层的节点数为n时,He初始值使用标准差为 <span class="math inline">\(\sqrt{\frac{2}{n}}\)</span> 的高斯分布。当Xavier初始值是 <span class="math inline">\({\sqrt{\frac{1}{n}}}\)</span> 时,(直观上)可以解释为,因为ReLU的负值区域的值为0,为了使它更有广度,所以需要2倍的系数</p>
+<h4 id="batch-normalization">Batch Normalization</h4>
+<p>Batch Norm的思路是调整各层的激活值分布使其拥有适当的广度,</p>
+<p><span class="math display">\[\mu_{B}\,\leftarrow\,\frac{1}{m}\sum_{i=1}^{m}x_{i}\]</span> <span class="math display">\[\sigma_{B}^{2}\iff\sum_{i=1}^{m}(x_{i}-\mu_{B})^{2}\]</span> <span class="math display">\[\hat{x}_{i}\enspace\leftarrow\ \frac{x_{i}\leftarrow\mu_{B}}{\sqrt{\sigma_{B}^{2}\,+\,\varepsilon}}\,\]</span></p>
+<h1 id="神经网络模型">神经网络模型</h1>
+<h2 id="python-相关">python 相关</h2>
 <ul>
 <li><code>DataLoader(train_date,shuffle=True)</code>中shuffle表示打乱数据集，符合直觉的想法是：这对避免过拟合有帮助<br />
 </li>
@@ -306,18 +313,39 @@ e.g.</p>
 </ol>
 <p>例如，a和b分别是3 × 1和1 × 2矩阵，广播会成为一个更大的3 × 2矩阵:矩阵a将复制列,矩阵b将复制行,然后再按元素相加 广播机制有一些实用的技巧:</p>
 <figure class="highlight py"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">A = torch.arange(<span class="number">20</span>, dtype=torch.float32).reshape(<span class="number">5</span>, <span class="number">4</span>) </span><br><span class="line">sum_A = A.<span class="built_in">sum</span>(axis=<span class="number">1</span>, keepdims=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">A / sum_A <span class="comment">#sum_A没有降维，仍然是个矩阵，可以通过广播将A除以sum_A。</span></span><br><span class="line"></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">结果如下：</span></span><br><span class="line"><span class="string">tensor([[0.0000, 0.1667, 0.3333, 0.5000],  </span></span><br><span class="line"><span class="string">        [0.1818, 0.2273, 0.2727, 0.3182],</span></span><br><span class="line"><span class="string">        [0.2105, 0.2368, 0.2632, 0.2895],  </span></span><br><span class="line"><span class="string">        [0.2222, 0.2407, 0.2593, 0.2778],  </span></span><br><span class="line"><span class="string">        [0.2286, 0.2429, 0.2571, 0.2714]])</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">这是一种很方便的归一化操作</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
-<h3 id="线性模型">线性模型</h3>
+<h2 id="线性模型">线性模型</h2>
 <p>回归问题常常用若干输入产生一个连续值作为输出，线性回归（Linear Regression）和逻辑回归（Logistics Regression）是常见的线性模型</p>
-<h4 id="回归">回归</h4>
+<h3 id="回归">回归</h3>
 <p>线性回归，即y = wx + b ,是最简单的回归模型，但纯一次项的拟合能力较为受限，这种情况下就需要多项式回归<br />
 我们将w视为权值向量，x视为从一次x'到n次x'组成的向量，那么多项式模型依旧可以用原先的线性公式表示<br />
 增加多项式的次数可以更好拟合训练集，但对测试集的效果就未必了，很容易出现过拟合问题,如果出现，依旧需要正则化，增加数据数量或者维度等优化 线性模型优化是个纯粹的数学问题，其解析解在线代课上就会讲到，即：</p>
 <p><span class="math display">\[\mathbf{w}^{*}=(\mathbf{X}^{\mathsf{T}}\mathbf{X})^{-1}\mathbf{X}^{\mathsf{T}}\mathbf{y}.\]</span></p>
-<h5 id="逻辑回归">逻辑回归</h5>
-<h4 id="分类">分类</h4>
+<h4 id="python实现">python实现</h4>
+<p>求梯度更像一个数学问题，这里就用pytorch的自动求导功能，实际上也可以自己通过计算图实现<br />
+简单生成一个有噪声项 <span class="math inline">\(\epsilon\)</span> 的数据集，噪声项有标准差0.01,均值为0的正态分布生成</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">synthetic_data</span>(<span class="params">w, b, num_examples</span>):  <span class="comment">#@save</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;生成y=Xw+b+噪声&quot;&quot;&quot;</span></span><br><span class="line">    X = torch.normal(<span class="number">0</span>, <span class="number">1</span>, (num_examples, <span class="built_in">len</span>(w)))根据正态分布随机计算初始权值向量</span><br><span class="line">    y = torch.matmul(X, w) + b</span><br><span class="line">    y += torch.normal(<span class="number">0</span>, <span class="number">0.01</span>, y.shape)</span><br><span class="line">    <span class="keyword">return</span> X, y.reshape(-<span class="number">1</span>,<span class="number">1</span>)<span class="comment">#-1表示不固定形状，根据总元素数和其他维度数量计算该维度</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">true_w = torch.tensor([<span class="number">2</span>, -<span class="number">3.4</span>])<span class="comment">#w形状与features单行的形状相同</span></span><br><span class="line">true_b = <span class="number">4.2</span></span><br><span class="line">features, labels = synthetic_data(true_w, true_b, <span class="number">1000</span>)<span class="comment">#labels被reshape为单列的向量</span></span><br><span class="line">labels.shape</span><br></pre></td></tr></table></figure>
+<pre><code>torch.Size([1000])</code></pre>
+<p>通过生成第二个特征<code>features[:, 1]</code>和<code>labels</code>的散点图， 可以直观观察到两者之间的线性关系。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">d2l.set_figsize()<span class="comment">#控制图像大小</span></span><br><span class="line">d2l.plt.scatter(features[:, <span class="number">1</span>].detach().numpy(), labels.detach().numpy(), <span class="number">1</span>);<span class="comment">#detach() 用于从计算图中分离张量</span></span><br></pre></td></tr></table></figure>
+<figure>
+<img src="/assets/ml/output_8_0.svg" alt="" /><figcaption>svg</figcaption>
+</figure>
+<p>为了提高效率，设置一个划分小批量的工具函数：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">data_iter</span>(<span class="params">batch_size, features, labels</span>):</span><br><span class="line">    num_examples = <span class="built_in">len</span>(features)</span><br><span class="line">    indices = <span class="built_in">list</span>(<span class="built_in">range</span>(num_examples))</span><br><span class="line">    <span class="comment"># 这些样本是随机读取的，没有特定的顺序</span></span><br><span class="line">    random.shuffle(indices)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, num_examples, batch_size):</span><br><span class="line">        batch_indices = torch.tensor(</span><br><span class="line">            indices[i: <span class="built_in">min</span>(i + batch_size, num_examples)])</span><br><span class="line">        <span class="keyword">yield</span> features[batch_indices], labels[batch_indices]</span><br></pre></td></tr></table></figure>
+<p>定义模型：</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">linreg</span>(<span class="params">X, w, b</span>): </span><br><span class="line">    <span class="string">&quot;&quot;&quot;线性回归模型&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">return</span> torch.matmul(X, w) + b</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">squared_loss</span>(<span class="params">y_hat, y</span>): </span><br><span class="line">    <span class="string">&quot;&quot;&quot;均方损失&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">return</span> (y_hat - y.reshape(y_hat.shape)) ** <span class="number">2</span> / <span class="number">2</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">sgd</span>(<span class="params">params, lr, batch_size</span>):  </span><br><span class="line">    <span class="string">&quot;&quot;&quot;小批量随机梯度下降&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">with</span> torch.no_grad():</span><br><span class="line">        <span class="keyword">for</span> param <span class="keyword">in</span> params:</span><br><span class="line">            param -= lr * param.grad / batch_size</span><br><span class="line">            param.grad.zero_()</span><br><span class="line"></span><br><span class="line">w = torch.normal(<span class="number">0</span>, <span class="number">0.01</span>, size=(<span class="number">2</span>,<span class="number">1</span>), requires_grad=<span class="literal">True</span>)</span><br><span class="line">b = torch.zeros(<span class="number">1</span>, requires_grad=<span class="literal">True</span>)</span><br><span class="line">lr = <span class="number">0.03</span></span><br><span class="line">num_epochs = <span class="number">3</span></span><br><span class="line">net = linreg</span><br><span class="line">loss = squared_loss</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> epoch <span class="keyword">in</span> <span class="built_in">range</span>(num_epochs):    <span class="keyword">for</span> X, y <span class="keyword">in</span> data_iter(batch_size, features, labels):</span><br><span class="line">        l = loss(net(X, w, b), y)  <span class="comment"># X和y的小批量损失</span></span><br><span class="line">        <span class="comment"># 因为l形状是(batch_size,1)，而不是一个标量。l中的所有元素被加到一起， 并以此计算关于[w,b]的梯度</span></span><br><span class="line">        l.<span class="built_in">sum</span>().backward()</span><br><span class="line">        sgd([w, b], lr, batch_size)  <span class="comment"># 使用参数的梯度更新参数</span></span><br><span class="line">    <span class="keyword">with</span> torch.no_grad():</span><br><span class="line">        train_l = loss(net(features, w, b), labels)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&#x27;epoch <span class="subst">&#123;epoch + <span class="number">1</span>&#125;</span>, loss <span class="subst">&#123;<span class="built_in">float</span>(train_l.mean()):f&#125;</span>&#x27;</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<pre><code>epoch 1, loss 0.030660
+epoch 2, loss 0.000105
+epoch 3, loss 0.000046</code></pre>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;w的估计误差: <span class="subst">&#123;true_w - w.reshape(true_w.shape)&#125;</span>&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;b的估计误差: <span class="subst">&#123;true_b - b&#125;</span>&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<pre><code>w的估计误差: tensor([ 0.0001, -0.0006], grad_fn=&lt;SubBackward0&gt;)
+b的估计误差: tensor([0.0004], grad_fn=&lt;RsubBackward1&gt;)</code></pre>
+<h4 id="逻辑回归">逻辑回归</h4>
+<h3 id="分类">分类</h3>
 <p>分类问题最简单的解决方法莫过于对回归产生的结果进行筛选，一个区间对应一个类别，但这么做会很难处理区间的划分情况，因此需要其他的处理方法<br />
 分类问题的损失函数与回归不同，可以单纯用分类错误率计算，解决分类问题有两种常见模型：感知机（Perceptron）和支持向量机（SVM）</p>
-<h5 id="感知机">感知机</h5>
+<h4 id="感知机">感知机</h4>
 <p>感知机接收多个输入信号,根据权重输出一个信号，例如0和1<br />
 如果我们用最简单的感知机(依旧输出一个连续值，通过激活函数产生分类)，那么分类任务的重点就是找的一个合适的门槛值threshold<br />
 需要注意的是，感知机本质上是个线性的界限，通过权重向量和偏置值划分不同的输入，设想这样的情况：</p>
@@ -331,7 +359,7 @@ e.g.</p>
 <div class="note info"><p>python中定义阶跃函数(输入超过阈值,就切换输出):</p>
 <figure class="highlight py"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">step_function</span>(<span class="params">x</span>): </span><br><span class="line">    y=x&gt;<span class="number">0</span> <span class="keyword">return</span> <span class="comment">#产生bool数组</span></span><br><span class="line">    y.astype(np.<span class="built_in">int</span>) <span class="comment"># 将bool数组转换为1与0的int数组</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">step_function</span>(<span class="params">x</span>): </span><br><span class="line">    <span class="keyword">return</span> np.array(x &gt; <span class="number">0</span>, dtype=np.<span class="built_in">int</span>) </span><br><span class="line"></span><br><span class="line">x = np.arange(-<span class="number">5.0</span>, <span class="number">5.0</span>, <span class="number">0.1</span>) </span><br><span class="line">y = step_function(x) </span><br><span class="line">plt.plot(x, y) </span><br><span class="line">plt.ylim(-<span class="number">0.1</span>, <span class="number">1.1</span>) <span class="comment"># 指定 y 轴的范围 </span></span><br><span class="line">plt.show()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 </div>
-<h5 id="基于概率的分类方法">基于概率的分类方法</h5>
+<h4 id="基于概率的分类方法">基于概率的分类方法</h4>
 <p>如果有两个类c1,c2用于分类，抽到一个样本x,这就像高中数学地抽小球问题，随机抽个样本是某类小球的概率取决于在抽取的黑盒子里不同类别的分布。<br />
 此时我们的目的是根据参数预测分类，也就是说不同类别的分布只能猜想，于是假设在最简单的两个参数情况下，概率密度函数满足基于这两个参数的高斯(正态)分布，训练时，我们希望分别通过样本得到两类各自的分布情况，也就是这个高斯分布的均值和协方差矩阵</p>
 <div class="note info"><p>极大似然估计可以理解为利用已知的样本结果信息，反推最具有可能（最大概率）导致这些样本结果出现的模型参数值，例如抽球(放回式)问题中抽一百次，七十次是白球,三十次为黑球，若抽到白球的概率是p，这个结果的概率是p<sup>70(1-p)</sup>30，符合直觉的猜想是p=0.7，这是因为我们下意识用了极大似然估计。<br />
@@ -382,7 +410,7 @@ e.g.</p>
 <li>sample space 样本空间</li>
 <li>outcome space 结果空间</li>
 <li>mutually exclusive 互斥</li>
-<li></li>
+<li>stochastic gradient descent 随机梯度下降法</li>
 </ul>
 <h1 id="算法与数据结构常用术语">算法与数据结构常用术语</h1>
 <span id="more"></span>
