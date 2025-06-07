@@ -38,7 +38,7 @@
 <meta property="og:image" content="https://www.zhihu.com/equation?tex=%5Csigma_x%5E2%3D%5Cfrac%7B1%7D%7Bn-1%7D%5Csum_%7Bi%3D1%7D%5En%5Cleft%28x_i-%5Cbar%7Bx%7D%5Cright%29%5E2&amp;consumer=ZHI_MENG">
 <meta property="og:image" content="https://www.zhihu.com/equation?tex=%5Csigma%5Cleft%28x%2Cy%5Cright%29%3D%5Cfrac%7B1%7D%7Bn-1%7D%5Csum_%7Bi%3D1%7D%5E%7Bn%7D%5Cleft%28x_i-%5Cbar%7Bx%7D%5Cright%29%5Cleft%28y_i-%5Cbar%7By%7D%5Cright%29&amp;consumer=ZHI_MENG">
 <meta property="article:published_time" content="2025-04-08T06:47:09.506Z">
-<meta property="article:modified_time" content="2025-06-03T09:05:57.203Z">
+<meta property="article:modified_time" content="2025-06-03T14:52:50.893Z">
 <meta property="article:author" content="thinklive">
 <meta property="article:tag" content="课程笔记">
 <meta property="article:tag" content="python">
@@ -208,7 +208,7 @@ const darkmode = new Darkmode(options);
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E6%9C%9F%E5%B7%A5%E4%BD%9C"><span class="nav-number">1.</span> <span class="nav-text">前期工作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E5%AD%A6"><span class="nav-number">1.1.</span> <span class="nav-text">数学</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A6%82%E7%8E%87%E8%AE%BA"><span class="nav-number">1.1.1.</span> <span class="nav-text">概率论</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B7%A5%E5%85%B7"><span class="nav-number">1.2.</span> <span class="nav-text">工具</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#cuda"><span class="nav-number">1.2.1.</span> <span class="nav-text">cuda</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%B9%E5%99%A8"><span class="nav-number">1.2.2.</span> <span class="nav-text">容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#python"><span class="nav-number">1.2.3.</span> <span class="nav-text">python</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%90%86%E8%AE%BA"><span class="nav-number">1.3.</span> <span class="nav-text">理论</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%A0%E9%87%8F"><span class="nav-number">1.3.1.</span> <span class="nav-text">张量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="nav-number">1.3.2.</span> <span class="nav-text">神经网络的定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98"><span class="nav-number">1.3.3.</span> <span class="nav-text">常见问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95-optimizer"><span class="nav-number">1.3.4.</span> <span class="nav-text">优化算法 optimizer</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BD%92%E4%B8%80%E5%8C%96-normalization"><span class="nav-number">1.3.4.1.</span> <span class="nav-text">归一化 Normalization</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D"><span class="nav-number">1.3.4.2.</span> <span class="nav-text">梯度下降</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD"><span class="nav-number">1.3.4.3.</span> <span class="nav-text">反向传播</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#momentum"><span class="nav-number">1.3.4.4.</span> <span class="nav-text">Momentum</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#adagrad"><span class="nav-number">1.3.4.5.</span> <span class="nav-text">AdaGrad</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A3%E5%88%99%E5%8C%96"><span class="nav-number">1.3.5.</span> <span class="nav-text">正则化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%AD%E7%BB%83%E6%8A%80%E5%B7%A7"><span class="nav-number">1.3.6.</span> <span class="nav-text">训练技巧</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%9D%E5%A7%8B%E6%9D%83%E5%80%BC"><span class="nav-number">1.3.6.1.</span> <span class="nav-text">初始权值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#batch-normalization"><span class="nav-number">1.3.6.2.</span> <span class="nav-text">Batch Normalization</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8A%91%E5%88%B6%E8%BF%87%E6%8B%9F%E5%90%88"><span class="nav-number">1.3.6.3.</span> <span class="nav-text">抑制过拟合</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B6%85%E5%8F%82%E6%95%B0"><span class="nav-number">1.3.6.4.</span> <span class="nav-text">超参数</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9E%8B"><span class="nav-number">2.</span> <span class="nav-text">神经网络模型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#python-%E7%9B%B8%E5%85%B3"><span class="nav-number">2.1.</span> <span class="nav-text">python 相关</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E8%AE%AD%E7%BB%83%E6%96%B9%E6%B3%95%E7%A4%BA%E4%BE%8B"><span class="nav-number">2.1.1.</span> <span class="nav-text">基础训练方法示例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B"><span class="nav-number">2.2.</span> <span class="nav-text">线性模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9E%E5%BD%92"><span class="nav-number">2.2.1.</span> <span class="nav-text">回归</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#python%E5%AE%9E%E7%8E%B0"><span class="nav-number">2.2.1.1.</span> <span class="nav-text">python实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92"><span class="nav-number">2.2.1.2.</span> <span class="nav-text">逻辑回归</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E7%B1%BB"><span class="nav-number">2.2.2.</span> <span class="nav-text">分类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%84%9F%E7%9F%A5%E6%9C%BA"><span class="nav-number">2.2.2.1.</span> <span class="nav-text">感知机</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E6%A6%82%E7%8E%87%E7%9A%84%E5%88%86%E7%B1%BB%E6%96%B9%E6%B3%95"><span class="nav-number">2.2.2.2.</span> <span class="nav-text">基于概率的分类方法</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E6%9C%9F%E5%B7%A5%E4%BD%9C"><span class="nav-number">1.</span> <span class="nav-text">前期工作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E5%AD%A6"><span class="nav-number">1.1.</span> <span class="nav-text">数学</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A6%82%E7%8E%87%E8%AE%BA"><span class="nav-number">1.1.1.</span> <span class="nav-text">概率论</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%86%E5%B8%83"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">分布</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%A1%E6%81%AF%E8%AE%BA"><span class="nav-number">1.1.2.</span> <span class="nav-text">信息论</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%86%B5"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">熵</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0"><span class="nav-number">1.1.3.</span> <span class="nav-text">线性代数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%8C%83%E6%95%B0"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">范数</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B7%A5%E5%85%B7"><span class="nav-number">1.2.</span> <span class="nav-text">工具</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#cuda"><span class="nav-number">1.2.1.</span> <span class="nav-text">cuda</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%B9%E5%99%A8"><span class="nav-number">1.2.2.</span> <span class="nav-text">容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#python"><span class="nav-number">1.2.3.</span> <span class="nav-text">python</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%90%86%E8%AE%BA"><span class="nav-number">1.3.</span> <span class="nav-text">理论</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%A0%E9%87%8F"><span class="nav-number">1.3.1.</span> <span class="nav-text">张量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="nav-number">1.3.2.</span> <span class="nav-text">神经网络的定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98"><span class="nav-number">1.3.3.</span> <span class="nav-text">常见问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95-optimizer"><span class="nav-number">1.3.4.</span> <span class="nav-text">优化算法 optimizer</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BD%92%E4%B8%80%E5%8C%96-normalization"><span class="nav-number">1.3.4.1.</span> <span class="nav-text">归一化 Normalization</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D"><span class="nav-number">1.3.4.2.</span> <span class="nav-text">梯度下降</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD"><span class="nav-number">1.3.4.3.</span> <span class="nav-text">反向传播</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#momentum"><span class="nav-number">1.3.4.4.</span> <span class="nav-text">Momentum</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#adagrad"><span class="nav-number">1.3.4.5.</span> <span class="nav-text">AdaGrad</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A3%E5%88%99%E5%8C%96"><span class="nav-number">1.3.5.</span> <span class="nav-text">正则化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%AD%E7%BB%83%E6%8A%80%E5%B7%A7"><span class="nav-number">1.3.6.</span> <span class="nav-text">训练技巧</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%9D%E5%A7%8B%E6%9D%83%E5%80%BC"><span class="nav-number">1.3.6.1.</span> <span class="nav-text">初始权值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#batch-normalization"><span class="nav-number">1.3.6.2.</span> <span class="nav-text">Batch Normalization</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8A%91%E5%88%B6%E8%BF%87%E6%8B%9F%E5%90%88"><span class="nav-number">1.3.6.3.</span> <span class="nav-text">抑制过拟合</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B6%85%E5%8F%82%E6%95%B0"><span class="nav-number">1.3.6.4.</span> <span class="nav-text">超参数</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9E%8B"><span class="nav-number">2.</span> <span class="nav-text">神经网络模型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#python-%E7%9B%B8%E5%85%B3"><span class="nav-number">2.1.</span> <span class="nav-text">python 相关</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E8%AE%AD%E7%BB%83%E6%96%B9%E6%B3%95%E7%A4%BA%E4%BE%8B"><span class="nav-number">2.1.1.</span> <span class="nav-text">基础训练方法示例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B"><span class="nav-number">2.2.</span> <span class="nav-text">线性模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92"><span class="nav-number">2.2.1.</span> <span class="nav-text">线性回归</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#python%E5%AE%9E%E7%8E%B0"><span class="nav-number">2.2.1.1.</span> <span class="nav-text">python实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92"><span class="nav-number">2.2.1.2.</span> <span class="nav-text">逻辑回归</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E7%B1%BB"><span class="nav-number">2.2.2.</span> <span class="nav-text">分类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%84%9F%E7%9F%A5%E6%9C%BA"><span class="nav-number">2.2.2.1.</span> <span class="nav-text">感知机</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#softmax"><span class="nav-number">2.2.2.2.</span> <span class="nav-text">softmax</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E6%A6%82%E7%8E%87%E7%9A%84%E5%88%86%E7%B1%BB%E6%96%B9%E6%B3%95"><span class="nav-number">2.2.2.3.</span> <span class="nav-text">基于概率的分类方法</span></a></li></ol></li></ol></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -319,7 +319,7 @@ const darkmode = new Darkmode(options);
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-06-03 17:05:57" itemprop="dateModified" datetime="2025-06-03T17:05:57+08:00">2025-06-03</time>
+      <time title="修改时间：2025-06-03 22:52:50" itemprop="dateModified" datetime="2025-06-03T22:52:50+08:00">2025-06-03</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -345,14 +345,14 @@ const darkmode = new Darkmode(options);
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>9.8k</span>
+      <span>10k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>36 分钟</span>
+      <span>37 分钟</span>
     </span>
 </div>
 
@@ -374,6 +374,37 @@ const darkmode = new Darkmode(options);
 <p><span class="math display">\[E_{x\sim P}[f(x)]=\sum_{x}f(x)P(x).\]</span></p>
 <p>方差：</p>
 <p><span class="math display">\[\operatorname{Var}[X]=E\left[(X-E[X])^{2}\right]=E[X^{2}]-E[X]^{2}.\]</span></p>
+<h4 id="分布"><a target="_blank" rel="noopener" href="https://d2l.ai/chapter_appendix-mathematics-for-deep-learning/distributions.html">分布</a></h4>
+<h3 id="信息论"><a target="_blank" rel="noopener" href="https://d2l.ai/chapter_appendix-mathematics-for-deep-learning/information-theory.html">信息论</a></h3>
+<h4 id="熵">熵</h4>
+<p>在不同的领域中，熵被表示为混乱程度，不确定性，惊奇程度，不可预测性，信息量等，但在机器学习中我们只需要对信息论中的熵有基本了解<br />
+信息论中熵的概念首次被香农提出，目的是寻找一种高效/无损地编码信息的方法，即<strong>无损编码事件信息的最小平均编码长度</strong> 即信息熵H(X) = -Σ p(x) log2 p(x) (p为概率)</p>
+<p>接下来说明这个公式，假设我们用二进制的哈夫曼编码，一个信息出现概率是1/2,即其他所有情况加起来也是1/2，那么我们会发现其编码长度必然是-log(1/2),也就是1，恰好和我们的香农熵定义一致了，这是为什么呢？<br />
+严谨的数学证明超出了cs专业范围，这里只说一下直观理解，熵有两个性质：</p>
+<ul>
+<li>概率越小信息量越大(如果一个小概率事件发生了，就排除了非常多其他可能性)</li>
+<li>假设两个随机变量x,y相互独立，那么分别观测两个变量得到的信息量应该和同时观测两个变量的信息量是相同的，<code>h(x+y)=h(x)+h(y)</code></li>
+</ul>
+<p>如此一来对数函数的负数完美符合条件，基数则无所谓，直观地理解，基数对应用几进制编码，而要最短化编码，越小概率就应该用更长的位数，把短位数腾出来给大概率事件用，当然实际中编码的位数是离散的，而且相比对数取负只能多不能少，因此香农熵是一个理论最优值，熵编码就指无损情况下的编码方式，最常用的就是哈夫曼编码，所有熵编码方式的编码长度大于等于香农熵</p>
+<p>现实中常用二进制编码信息，例如对8种不同的信息，最直观的编码是三位二进制，每三位表示一个独特信息。<br />
+我们可以用概率表示每种信息出现的可能，例如8种信息，每个都等可能出现，那么以概率为权的哈夫曼编码就会用所有的3位二进制编码这8种信息，熵就是3，而其他情况熵可以当做哈夫曼树的总编码长度算<br />
+那么如何理解熵能反映混乱度呢？如果熵比较大(即平均编码长度较长)，意味着这一信息有较多的可能状态，相应的每个状态的可能性比较低；因此每当来了一个新的信息，我们很难对其作出准确预测，即有着比较大的混乱程度/不确定性/不可预测性</p>
+<p><strong>交叉熵</strong>：<br />
+交叉熵用于评估估计概率得到的熵与真实熵的差距，交叉的含义很直观，就是使用P计算期望，使用Q计算编码长度<br />
+为什么这么选而不是反过来呢？这取决于我们的目的，一般来说，我们希望估计的编码长度和理论最优的熵差距较小，要比对取优的主要是模型的编码长度即logQ，可以这么理解，熵公式中的对数函数视为视为对一个特定概率事件的编码长度，由于现实的概率分布实际上是确定的，那么需要评估的也就是编码方式的效率<br />
+由于熵是给定概率分布下的最优值，<strong>交叉熵只可能大于等于熵</strong>，两者差越小或者说交叉熵越小表示模型估计越准<br />
+例如在最极端的one-hot编码中，交叉熵等价于<strong>对应正确解标签的输出的自然对数</strong></p>
+<h3 id="线性代数">线性代数</h3>
+<h4 id="范数">范数</h4>
+<p>范数是具有“长度”概念的函数，用于衡量一个矢量的大小（测量矢量的测度）<br />
+由于不是数学系的，这里就极为不严谨地记录一下范数的理解：</p>
+<ul>
+<li>0范数，向量中非零元素的个数</li>
+<li>1范数，为绝对值之和</li>
+<li>2范数，就是通常意义上的模</li>
+</ul>
+<p>正则化的目的可以理解为限制权重向量的复杂度，实际做法为在损失函数中加入与权重向量复杂度有关的惩罚项，而范数在某种意义上可以反映这点，因此可作为选取正则项的依据<br />
+顺便一提a star算法也会用类似的测度估计距离</p>
 <h2 id="工具">工具</h2>
 <h3 id="cuda">cuda</h3>
 <p>Compute Unified Device Architecture (CUDA):简单地说，就是允许软件调用gpu来计算的一个接口<br />
@@ -458,24 +489,6 @@ loss = criterion(model_output, expected_value) #nn:neural network</p>
 <li><code>criterion = nn.MSELoss()</code>:Mean Squared Error</li>
 <li><code>criterion = nn.CrossEntropyLoss()</code>:Cross Entropy 交叉熵</li>
 </ul>
-<div class="note info"><p>在不同的领域中，熵被表示为混乱程度，不确定性，惊奇程度，不可预测性，信息量等，但在机器学习中我们只需要对信息论中的熵有基本了解<br />
-信息论中熵的概念首次被香农提出，目的是寻找一种高效/无损地编码信息的方法，即<strong>无损编码事件信息的最小平均编码长度</strong> 即信息熵H(X) = -Σ p(x) log2 p(x) (p为概率)</p>
-<p>接下来说明这个公式，假设我们用二进制的哈夫曼编码，一个信息出现概率是1/2,即其他所有情况加起来也是1/2，那么我们会发现其编码长度必然是-log(1/2),也就是1，恰好和我们的香农熵定义一致了，这是为什么呢？<br />
-严谨的数学证明超出了cs专业范围，这里只说一下直观理解，熵有两个性质：</p>
-<ul>
-<li>概率越小信息量越大(如果一个小概率事件发生了，就排除了非常多其他可能性)</li>
-<li>假设两个随机变量x,y相互独立，那么分别观测两个变量得到的信息量应该和同时观测两个变量的信息量是相同的，<code>h(x+y)=h(x)+h(y)</code></li>
-</ul>
-<p>如此一来对数函数的负数完美符合条件，基数则无所谓，直观地理解，基数对应用几进制编码，而要最短化编码，越小概率就应该用更长的位数，把短位数腾出来给大概率事件用，当然实际中编码的位数是离散的，而且相比对数取负只能多不能少，因此香农熵是一个理论最优值，熵编码就指无损情况下的编码方式，最常用的就是哈夫曼编码，所有熵编码方式的编码长度大于等于香农熵</p>
-<p>现实中常用二进制编码信息，例如对8种不同的信息，最直观的编码是三位二进制，每三位表示一个独特信息。<br />
-我们可以用概率表示每种信息出现的可能，例如8种信息，每个都等可能出现，那么以概率为权的哈夫曼编码就会用所有的3位二进制编码这8种信息，熵就是3，而其他情况熵可以当做哈夫曼树的总编码长度算<br />
-那么如何理解熵能反映混乱度呢？如果熵比较大(即平均编码长度较长)，意味着这一信息有较多的可能状态，相应的每个状态的可能性比较低；因此每当来了一个新的信息，我们很难对其作出准确预测，即有着比较大的混乱程度/不确定性/不可预测性</p>
-<p><strong>交叉熵</strong>：<br />
-交叉熵用于评估估计概率得到的熵与真实熵的差距，交叉的含义很直观，就是使用P计算期望，使用Q计算编码长度<br />
-为什么这么选而不是反过来呢？这取决于我们的目的，一般来说，我们希望估计的编码长度和理论最优的熵差距较小，要比对取优的主要是模型的编码长度即logQ，可以这么理解，熵公式中的对数函数视为视为对一个特定概率事件的编码长度，由于现实的概率分布实际上是确定的，那么需要评估的也就是编码方式的效率<br />
-由于熵是给定概率分布下的最优值，<strong>交叉熵只可能大于等于熵</strong>，两者差越小或者说交叉熵越小表示模型估计越准<br />
-例如在最极端的one-hot编码中，交叉熵等价于<strong>对应正确解标签的输出的自然对数</strong></p>
-</div>
 <h3 id="常见问题">常见问题</h3>
 <ol type="1">
 <li>模型偏差：模型在训练资料上的损失函数很大时，可能是因为在这个问题中选择的模型太过简单，以至于无论用这个给模型选择什么样的参数θ，损失函数f(θ)都不会变得很小</li>
@@ -558,16 +571,6 @@ e.g.</p>
 根据前文所述，学习的过程就是根据损失函数与权重的关系不断调整权重以最小化损失，而正则化的目的是不要让权重关系太复杂以致于没有普适性。我们将原始的损失函数画一个图，正则项再画一个图，需要找的就是两个函数同样权重基础上的最小和<br />
 用比较简单的双权重，均方误差损失函数来说，w1,w2就是xy轴，最后的loss作为z轴，原始损失函数L可能千奇百怪，但最后要找的是其与正则项的最小和.这个值通常在两个函数的交点取，而(二维层面上)L1的图像是菱形，l2是个圆，符合直观地推导，前者交点很容易在坐标轴上取，后者容易在离坐标轴近的地方取，即l1容易让权重稀疏，L2容易让它们的值的绝对值较小且分布均匀<br />
 数学上讲，抛开不确定的损失函数，l1正则项的导数是w×正负信号量，迭代时如果w大于0会减少，大于0会增加，最后很容易变成0；而l2的导数是w的一次函数且一次项系数小于1，迭代让w不断减小，这个减小量与w本身有关，因此一般来说不容易减到0</p>
-<div class="note info"><p>范数是具有“长度”概念的函数，用于衡量一个矢量的大小（测量矢量的测度）<br />
-由于不是数学系的，这里就极为不严谨地记录一下范数的理解：</p>
-<ul>
-<li>0范数，向量中非零元素的个数</li>
-<li>1范数，为绝对值之和</li>
-<li>2范数，就是通常意义上的模</li>
-</ul>
-<p>正则化的目的可以理解为限制权重向量的复杂度，实际做法为在损失函数中加入与权重向量复杂度有关的惩罚项，而范数在某种意义上可以反映这点，因此可作为选取正则项的依据<br />
-顺便一提a star算法也会用类似的测度估计距离</p>
-</div>
 <h3 id="训练技巧">训练技巧</h3>
 <h4 id="初始权值">初始权值</h4>
 <p>什么是最好的初始权重？这个问题很难回答，不如反过来举一些反例<br />
@@ -660,7 +663,7 @@ epoch 3, loss 0.000110</code></pre>
 b的估计误差： tensor([0.0006])</code></pre>
 <h2 id="线性模型">线性模型</h2>
 <p>回归问题常常用若干输入产生一个连续值作为输出，线性回归（Linear Regression）和逻辑回归（Logistics Regression）是常见的线性模型</p>
-<h3 id="回归">回归</h3>
+<h3 id="线性回归">线性回归</h3>
 <p>线性回归，即y = wx + b ,是最简单的回归模型，但纯一次项的拟合能力较为受限，这种情况下就需要多项式回归<br />
 我们将w视为权值向量，x视为从一次x'到n次x'组成的向量，那么多项式模型依旧可以用原先的线性公式表示<br />
 增加多项式的次数可以更好拟合训练集，但对测试集的效果就未必了，很容易出现过拟合问题,如果出现，依旧需要正则化，增加数据数量或者维度等优化 线性模型优化是个纯粹的数学问题，其解析解在线代课上就会讲到，即：</p>
@@ -689,7 +692,7 @@ b的估计误差: tensor([0.0004], grad_fn=&lt;RsubBackward1&gt;)</code></pre>
 <h4 id="逻辑回归">逻辑回归</h4>
 <h3 id="分类">分类</h3>
 <p>分类问题最简单的解决方法莫过于对回归产生的结果进行筛选，一个区间对应一个类别，但这么做会很难处理区间的划分情况，因此需要其他的处理方法<br />
-分类问题的损失函数与回归不同，可以单纯用分类错误率计算，解决分类问题有两种常见模型：感知机（Perceptron）和支持向量机（SVM）</p>
+分类问题的损失函数与回归不同，可以单纯用分类错误率计算，常用模型有感知机、支持向量机等</p>
 <h4 id="感知机">感知机</h4>
 <p>感知机接收多个输入信号,根据权重输出一个信号，例如0和1<br />
 如果我们用最简单的感知机(依旧输出一个连续值，通过激活函数产生分类)，那么分类任务的重点就是找的一个合适的门槛值threshold<br />
@@ -704,6 +707,29 @@ b的估计误差: tensor([0.0004], grad_fn=&lt;RsubBackward1&gt;)</code></pre>
 <div class="note info"><p>python中定义阶跃函数(输入超过阈值,就切换输出):</p>
 <figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">step_function</span>(<span class="params">x</span>): </span><br><span class="line">    y=x&gt;<span class="number">0</span> <span class="keyword">return</span> <span class="comment">#产生bool数组</span></span><br><span class="line">    y.astype(np.<span class="built_in">int</span>) <span class="comment"># 将bool数组转换为1与0的int数组</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">step_function</span>(<span class="params">x</span>): </span><br><span class="line">    <span class="keyword">return</span> np.array(x &gt; <span class="number">0</span>, dtype=np.<span class="built_in">int</span>) </span><br><span class="line"></span><br><span class="line">x = np.arange(-<span class="number">5.0</span>, <span class="number">5.0</span>, <span class="number">0.1</span>) </span><br><span class="line">y = step_function(x) </span><br><span class="line">plt.plot(x, y) </span><br><span class="line">plt.ylim(-<span class="number">0.1</span>, <span class="number">1.1</span>) <span class="comment"># 指定 y 轴的范围 </span></span><br><span class="line">plt.show()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 </div>
+<h4 id="softmax">softmax</h4>
+<p>我们希望能得到分到相应类别的概率，选一个最高的作为输出；问题变成了了如何得到概率，这可以用<strong>softmax回归方法</strong> 对每个输出值 <span class="math inline">\(o_j\)</span> 预测概率值 <span class="math inline">\(\hat y_j\)</span> 可以这么得到：<br />
+<span class="math display">\[ {\hat{y} }_{j}={\frac{\exp(o_{j})}{\sum_{k}\exp(o_{k})} } \]</span><br />
+<span class="math inline">\(\hat y_j\)</span> 可以视为对给定任意输入x的每个类的条件概率，即P(y = 某类 | x)<br />
+整个数据集的条件概率为：<br />
+<span class="math display">\[P({\bf Y}\mid{\bf X})=\prod_{i-1}^{n}P({\bf y}^{(i)}\mid{\bf x}^{(i)}).\]</span><br />
+根据最大似然估计,我们最大化P(Y|X),相当于最小化所有子概率的负对数和<br />
+<span class="math display">\[-\log P(\mathbf{Y}\mid\mathbf{X})=\sum_{i=1}^{n}-\log P(\mathbf{y}^{(i)}\mid\mathbf{x}^{(i)})=\sum_{i=1}^{n}l(\mathbf{y}^{(i)},{\hat{\mathbf{y}}}^{(i)})\]</span><br />
+其中的损失函数是交叉熵<br />
+<span class="math display">\[l({\bf y},\hat{\bf y})=-\sum_{j=1}^{q}y_{j}\log\hat{y}_{j}.\]</span> 
+
+$$\begin{align}
+l({\bf y},\hat{\bf y})=  -\sum_{j=1}^{q}y_{j}\log{\frac{\exp(o_{j})}{\sum_{k=1}^{q}\exp(o_{k})}}   \\ 
+=\sum_{j=1}^{q}y_{j}\log\sum_{k=1}^{q}\exp(o_{k})-\sum_{j=1}^{q}y_{j}o_{j} \\
+=\log\sum_{k=1}^{q}\exp(o_{k})-\sum_{j=1}^{q}y_{j}o_{j}.
+
+\end{align}$$
+
+$$ \partial_{o_{j}l}({\bf y},\hat{\bf y})=\frac{\exp(o_{j})}{\sum_{k=1}^{q}\exp(o_{k})}-y_{j}=\mathrm{sofmax}({\bf o})_{j}-y_{j} $$
+
+</p>
+<p>softmax是一个非线性函数,但softmax回归的输出仍然由输入特征的仿射变换(保持点、直线和面之间相对关系的变换)决定，因此,softmax回 归是一个线性模型<br />
+看上去很巧，导数就是softmax模型分配的概率与实际发生的情况(由独热标签向量表示)之间的差异 <a href="./#分布">数学原理</a></p>
 <h4 id="基于概率的分类方法">基于概率的分类方法</h4>
 <p>如果有两个类c1,c2用于分类，抽到一个样本x,这就像高中数学地抽小球问题，随机抽个样本是某类小球的概率取决于在抽取的黑盒子里不同类别的分布。<br />
 此时我们的目的是根据参数预测分类，也就是说不同类别的分布只能猜想，于是假设在最简单的两个参数情况下，概率密度函数满足基于这两个参数的高斯(正态)分布，训练时，我们希望分别通过样本得到两类各自的分布情况，也就是这个高斯分布的均值和协方差矩阵</p>
@@ -797,7 +823,7 @@ b的估计误差: tensor([0.0004], grad_fn=&lt;RsubBackward1&gt;)</code></pre>
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">34:15</span>
+    <span title="站点阅读时长">34:16</span>
   </span>
 </div>
 <div class="busuanzi-count">
