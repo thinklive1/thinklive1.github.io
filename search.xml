@@ -84,6 +84,10 @@
     <url>/thinklive/52409/</url>
     <content><![CDATA[<p><strong>A Survey on RAG Meeting LLMs: Towards Retrieval-Augmented Large Language Models</strong></p>
 <p>检索技术被用来面对输入查询时提取相关的外部信息，其典型的应用场景就是谷歌百度这样的搜索引擎。而近来火热的生成式模型面临的场景问题——幻觉，也可以一定程度上用检索技术解决</p>
+<p>retrieval 可分为 sparse and dense, 标准是对信息的编码方式，前者基于词语，也就是直接当做文本信息，后者会使用词嵌入，将信息编码进向量空间，更为复杂<br />
+spares: 常用的方法是使用术语和逆文档频率排序，选取相关度最高的，也会被用于提供上下文学习的证明，缺点是对术语的依赖性较强<br />
+dense: 与前者不同，以词嵌入为搜索标准，例如依据semantic similarity，选取最相似的，实例有BERT-based backbone 等</p>
+<p>Retrieval Granularity:</p>
 ]]></content>
       <categories>
         <category>课程笔记</category>
@@ -116,6 +120,7 @@
 <li>stochastic gradient descent 随机梯度下降法</li>
 <li>granularity 粒度</li>
 <li>Cross-site scripting 跨站脚本</li>
+<li>off-the-shelf 现成的</li>
 </ul>
 <h1 id="算法与数据结构常用术语">算法与数据结构常用术语</h1>
 <span id="more"></span>
