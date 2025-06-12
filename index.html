@@ -413,7 +413,7 @@ const darkmode = new Darkmode(options);
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2025-06-12 17:02:09 / 修改时间：21:33:58" itemprop="dateCreated datePublished" datetime="2025-06-12T17:02:09+08:00">2025-06-12</time>
+      <time title="创建时间：2025-06-12 17:02:09 / 修改时间：21:54:23" itemprop="dateCreated datePublished" datetime="2025-06-12T17:02:09+08:00">2025-06-12</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -432,7 +432,7 @@ const darkmode = new Darkmode(options);
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>238</span>
+      <span>352</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -457,7 +457,9 @@ const darkmode = new Darkmode(options);
 <p>retrieval 可分为 sparse and dense, 标准是对信息的编码方式，前者基于词语，也就是直接当做文本信息，后者会使用词嵌入，将信息编码进向量空间，更为复杂<br />
 spares: 常用的方法是使用术语和逆文档频率排序，选取相关度最高的，也会被用于提供上下文学习的证明，缺点是对术语的依赖性较强<br />
 dense: 与前者不同，以词嵌入为搜索标准，例如依据semantic similarity，选取最相似的，实例有BERT-based backbone 等</p>
-<p>Retrieval Granularity:</p>
+<p>Retrieval Granularity: 粒度的选取非常重要，会影响模型的性能和效率表现，数据库的检索和计算开销等<br />
+早期的检索增强语言模型倾向于检索出整段文档，模型学习检索到的文档，并在其中定位答案<br />
+近年常用的有Chunk retrieval, token retrieval(检索更快，但数据库压力较大，适合模式稀有且需要不常用领域数据的情况)</p>
 
       
     </div>
