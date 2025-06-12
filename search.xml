@@ -80,6 +80,20 @@
 ]]></content>
   </entry>
   <entry>
+    <title>论文阅读笔记</title>
+    <url>/thinklive/52409/</url>
+    <content><![CDATA[<p><strong>A Survey on RAG Meeting LLMs: Towards Retrieval-Augmented Large Language Models</strong></p>
+<p>检索技术被用来面对输入查询时提取相关的外部信息，其典型的应用场景就是谷歌百度这样的搜索引擎。而近来火热的生成式模型面临的场景问题——幻觉，也可以一定程度上用检索技术解决</p>
+]]></content>
+      <categories>
+        <category>课程笔记</category>
+      </categories>
+      <tags>
+        <tag>人工智能</tag>
+        <tag>机器学习</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>计算机专业英语术语表</title>
     <url>/thinklive/44308/</url>
     <content><![CDATA[<h1 id="机器学习">机器学习</h1>
@@ -101,6 +115,7 @@
 <li>mutually exclusive 互斥</li>
 <li>stochastic gradient descent 随机梯度下降法</li>
 <li>granularity 粒度</li>
+<li>Cross-site scripting 跨站脚本</li>
 </ul>
 <h1 id="算法与数据结构常用术语">算法与数据结构常用术语</h1>
 <span id="more"></span>
