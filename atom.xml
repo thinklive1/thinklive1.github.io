@@ -6,7 +6,7 @@
   <link href="https://thinklive1.github.io/atom.xml" rel="self"/>
   
   <link href="https://thinklive1.github.io/"/>
-  <updated>2025-07-10T08:09:35.954Z</updated>
+  <updated>2025-07-13T07:35:46.127Z</updated>
   <id>https://thinklive1.github.io/</id>
   
   <author>
@@ -15,6 +15,60 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>强化学习笔记 all in one</title>
+    <link href="https://thinklive1.github.io/thinklive/37185/"/>
+    <id>https://thinklive1.github.io/thinklive/37185/</id>
+    <published>2025-07-12T07:18:16.680Z</published>
+    <updated>2025-07-13T07:35:46.127Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="基础概念">基础概念</h1><p>强化学习和监督学习的区别：</p><ol type="1"><li>强化学习输入的样本是序列数据,监督学习的样本之间相互独立</li><li>没有明确的监督者，通过奖励机制进行学习，但回馈可能是长期的，模糊的</li></ol><p>一些强化学习的演示视频中，ai会做一些人类看来无意义的动作，正是这种“玄学”的回馈机制导致的</p><ul><li>actor: 行为主体<ul><li>action则可分为离散和连续，例如2d游戏中走格子迷宫就是一个典型的离散动作空间</li></ul></li><li>observaton o /states s: 观测与状态<ul><li>观测到的情况o和现实情况（状态s）其实有可能不同，假设可以观察到全景，rl则成为一个马尔科夫决策过程</li></ul></li><li>policy π: 行为策略<ul><li>带有参数θ</li></ul></li><li>reward：反馈<ul><li>baseline: 避免总是正值的reward,增加的偏置值，例如取期望</li></ul></li><li>episode: 一轮行动</li><li>trajectory τ: <span class="math inline">\(\tau=\{s_{1},a_{1},s_{2},a_{2},\cdots,s_{T},a_{T}\}\)</span> <span id="more"></span></li></ul><p>流程： env(s1)-&gt;actor(a1)-&gt;env(s2)……<br />$\begin{array}{l}{{p_{\theta}(\tau)}}{{{}=p(s_{1})p_{\theta}(a_{1}|s_{1})p(s_{2}|s_{1},a_{1})p_{\theta}(a_{2}|s_{2})p(s_{3}|s_{2},a_{2})\cdots}} \\   =p(s_{1})\prod_{t=1}^{T}p_{\theta}(a_{t}|s_{t})p(s_{t+1}|s_{t},a_{t})\end{array}$  </p><p>同一轮中每对(s,a)产生一个reward，其期望为: <span class="math inline">\(\bar{R}_{\theta}=\sum_{\tau}R(\tau)p_{\theta}(\tau)=E_{\tau\cap P_{\theta}(\tau)}[R(\tau)]\)</span></p><p>取梯度</p>$$ \begin{align*}{r l}{\nabla{\bar{R}}_{\theta} \\ =\sum_{\tau}R(\tau)\nabla p_{\theta}(\tau)}&{{} \\ =\sum_{\tau}R(\tau)p_{\theta}(\tau){\frac{\nabla p_{\theta}(\tau)}{p_{\theta}(\tau)}}} \\ &=\sum_{\tau}R(\tau)p_{\theta}(\tau){\nabla}l o g p_{\theta}(\tau) \\ &=E_{\tau \sim p_{\theta}(\tau)}[R(\tau)\nabla l o g p_{\theta}(\tau)]\approx\frac{1}{N}\sum_{n=1}^{N}R(\tau^{n})\nabla \log p_{\theta}(\tau^{n}) \\ &={\frac{1}{N}}\sum_{n=1}^{N}\sum_{t=1}^{T_n}R(\tau^{n})\nabla l o g p_{\theta}(a_{t}^{n}|s_{t}^{n}) \end{align*} $$<p>类似于机器学习的梯度下降，我们通过梯度计算寻找最大化reward的参数</p>]]></content>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;基础概念&quot;&gt;基础概念&lt;/h1&gt;
+&lt;p&gt;强化学习和监督学习的区别：&lt;/p&gt;
+&lt;ol type=&quot;1&quot;&gt;
+&lt;li&gt;强化学习输入的样本是序列数据,监督学习的样本之间相互独立&lt;/li&gt;
+&lt;li&gt;没有明确的监督者，通过奖励机制进行学习，但回馈可能是长期的，模糊的&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;一些强化学习的演示视频中，ai会做一些人类看来无意义的动作，正是这种“玄学”的回馈机制导致的&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;actor: 行为主体
+&lt;ul&gt;
+&lt;li&gt;action则可分为离散和连续，例如2d游戏中走格子迷宫就是一个典型的离散动作空间&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;observaton o /states s: 观测与状态
+&lt;ul&gt;
+&lt;li&gt;观测到的情况o和现实情况（状态s）其实有可能不同，假设可以观察到全景，rl则成为一个马尔科夫决策过程&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;policy π: 行为策略
+&lt;ul&gt;
+&lt;li&gt;带有参数θ&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;reward：反馈
+&lt;ul&gt;
+&lt;li&gt;baseline: 避免总是正值的reward,增加的偏置值，例如取期望&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;episode: 一轮行动&lt;/li&gt;
+&lt;li&gt;trajectory τ: &lt;span class=&quot;math inline&quot;&gt;&#92;(&#92;tau=&#92;{s_{1},a_{1},s_{2},a_{2},&#92;cdots,s_{T},a_{T}&#92;}&#92;)&lt;/span&gt;</summary>
+    
+    
+    
+    <category term="课程笔记" scheme="https://thinklive1.github.io/categories/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/"/>
+    
+    
+    <category term="课程笔记" scheme="https://thinklive1.github.io/tags/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/"/>
+    
+    <category term="python" scheme="https://thinklive1.github.io/tags/python/"/>
+    
+    <category term="人工智能" scheme="https://thinklive1.github.io/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
+    
+    <category term="国立台湾大学" scheme="https://thinklive1.github.io/tags/%E5%9B%BD%E7%AB%8B%E5%8F%B0%E6%B9%BE%E5%A4%A7%E5%AD%A6/"/>
+    
+    <category term="强化学习" scheme="https://thinklive1.github.io/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/"/>
+    
+  </entry>
   
   <entry>
     <title>基于vue文档的笔记</title>
@@ -445,9 +499,9 @@ NAT即网络地址转换（Network Address Translation），是一种将IP数据
     <category term="研distance" scheme="https://thinklive1.github.io/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/%E7%A0%94distance/"/>
     
     
-    <category term="研distance" scheme="https://thinklive1.github.io/tags/%E7%A0%94distance/"/>
-    
     <category term="计算机网络" scheme="https://thinklive1.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
+    
+    <category term="研distance" scheme="https://thinklive1.github.io/tags/%E7%A0%94distance/"/>
     
   </entry>
   
@@ -586,9 +640,9 @@ NAT即网络地址转换（Network Address Translation），是一种将IP数据
     <category term="计组" scheme="https://thinklive1.github.io/categories/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E8%AE%A1%E7%BB%84/"/>
     
     
-    <category term="课程笔记" scheme="https://thinklive1.github.io/tags/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/"/>
-    
     <category term="苏州大学" scheme="https://thinklive1.github.io/tags/%E8%8B%8F%E5%B7%9E%E5%A4%A7%E5%AD%A6/"/>
+    
+    <category term="课程笔记" scheme="https://thinklive1.github.io/tags/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/"/>
     
     <category term="计算机组成" scheme="https://thinklive1.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/"/>
     
@@ -737,9 +791,9 @@ NAT即网络地址转换（Network Address Translation），是一种将IP数据
     <category term="计算机网络" scheme="https://thinklive1.github.io/categories/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
     
     
-    <category term="课程笔记" scheme="https://thinklive1.github.io/tags/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/"/>
-    
     <category term="苏州大学" scheme="https://thinklive1.github.io/tags/%E8%8B%8F%E5%B7%9E%E5%A4%A7%E5%AD%A6/"/>
+    
+    <category term="课程笔记" scheme="https://thinklive1.github.io/tags/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/"/>
     
     <category term="计算机网络" scheme="https://thinklive1.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
     
@@ -889,9 +943,9 @@ CPU, memory, I/O devices
     <category term="操作系统" scheme="https://thinklive1.github.io/categories/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
     
     
-    <category term="课程笔记" scheme="https://thinklive1.github.io/tags/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/"/>
-    
     <category term="苏州大学" scheme="https://thinklive1.github.io/tags/%E8%8B%8F%E5%B7%9E%E5%A4%A7%E5%AD%A6/"/>
+    
+    <category term="课程笔记" scheme="https://thinklive1.github.io/tags/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/"/>
     
     <category term="操作系统" scheme="https://thinklive1.github.io/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
     
@@ -964,9 +1018,9 @@ A.L.I.C.E(原曲：不可思议之国的爱丽丝)&lt;br /&gt;
     <category term="数据结构与算法" scheme="https://thinklive1.github.io/categories/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
     
     
-    <category term="伯克利" scheme="https://thinklive1.github.io/tags/%E4%BC%AF%E5%85%8B%E5%88%A9/"/>
-    
     <category term="课程笔记" scheme="https://thinklive1.github.io/tags/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/"/>
+    
+    <category term="伯克利" scheme="https://thinklive1.github.io/tags/%E4%BC%AF%E5%85%8B%E5%88%A9/"/>
     
     <category term="数据结构与算法" scheme="https://thinklive1.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
     
@@ -1119,11 +1173,11 @@ A.L.I.C.E(原曲：不可思议之国的爱丽丝)&lt;br /&gt;
     <category term="操作系统" scheme="https://thinklive1.github.io/categories/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
     
     
+    <category term="苏州大学" scheme="https://thinklive1.github.io/tags/%E8%8B%8F%E5%B7%9E%E5%A4%A7%E5%AD%A6/"/>
+    
     <category term="课程笔记" scheme="https://thinklive1.github.io/tags/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/"/>
     
     <category term="linux" scheme="https://thinklive1.github.io/tags/linux/"/>
-    
-    <category term="苏州大学" scheme="https://thinklive1.github.io/tags/%E8%8B%8F%E5%B7%9E%E5%A4%A7%E5%AD%A6/"/>
     
     <category term="中国科学技术大学" scheme="https://thinklive1.github.io/tags/%E4%B8%AD%E5%9B%BD%E7%A7%91%E5%AD%A6%E6%8A%80%E6%9C%AF%E5%A4%A7%E5%AD%A6/"/>
     
@@ -1256,9 +1310,9 @@ A.L.I.C.E(原曲：不可思议之国的爱丽丝)&lt;br /&gt;
     <category term="数据科学" scheme="https://thinklive1.github.io/categories/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%95%B0%E6%8D%AE%E7%A7%91%E5%AD%A6/"/>
     
     
-    <category term="伯克利" scheme="https://thinklive1.github.io/tags/%E4%BC%AF%E5%85%8B%E5%88%A9/"/>
-    
     <category term="课程笔记" scheme="https://thinklive1.github.io/tags/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/"/>
+    
+    <category term="伯克利" scheme="https://thinklive1.github.io/tags/%E4%BC%AF%E5%85%8B%E5%88%A9/"/>
     
     <category term="python" scheme="https://thinklive1.github.io/tags/python/"/>
     
@@ -1289,9 +1343,9 @@ A.L.I.C.E(原曲：不可思议之国的爱丽丝)&lt;br /&gt;
     <category term="数据科学" scheme="https://thinklive1.github.io/categories/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%95%B0%E6%8D%AE%E7%A7%91%E5%AD%A6/"/>
     
     
-    <category term="伯克利" scheme="https://thinklive1.github.io/tags/%E4%BC%AF%E5%85%8B%E5%88%A9/"/>
-    
     <category term="课程笔记" scheme="https://thinklive1.github.io/tags/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/"/>
+    
+    <category term="伯克利" scheme="https://thinklive1.github.io/tags/%E4%BC%AF%E5%85%8B%E5%88%A9/"/>
     
     <category term="python" scheme="https://thinklive1.github.io/tags/python/"/>
     
@@ -1322,9 +1376,9 @@ A.L.I.C.E(原曲：不可思议之国的爱丽丝)&lt;br /&gt;
     <category term="操作系统" scheme="https://thinklive1.github.io/categories/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
     
     
-    <category term="伯克利" scheme="https://thinklive1.github.io/tags/%E4%BC%AF%E5%85%8B%E5%88%A9/"/>
-    
     <category term="课程笔记" scheme="https://thinklive1.github.io/tags/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/"/>
+    
+    <category term="伯克利" scheme="https://thinklive1.github.io/tags/%E4%BC%AF%E5%85%8B%E5%88%A9/"/>
     
     <category term="linux" scheme="https://thinklive1.github.io/tags/linux/"/>
     
@@ -1375,9 +1429,9 @@ A.L.I.C.E(原曲：不可思议之国的爱丽丝)&lt;br /&gt;
     <category term="数据结构与算法" scheme="https://thinklive1.github.io/categories/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
     
     
-    <category term="伯克利" scheme="https://thinklive1.github.io/tags/%E4%BC%AF%E5%85%8B%E5%88%A9/"/>
-    
     <category term="课程笔记" scheme="https://thinklive1.github.io/tags/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/"/>
+    
+    <category term="伯克利" scheme="https://thinklive1.github.io/tags/%E4%BC%AF%E5%85%8B%E5%88%A9/"/>
     
     <category term="python" scheme="https://thinklive1.github.io/tags/python/"/>
     
