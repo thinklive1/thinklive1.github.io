@@ -108,7 +108,7 @@
 </ul></li>
 <li>episode: 一轮行动</li>
 <li>trajectory τ: <span class="math inline">\(\tau=\{s_{1},a_{1},s_{2},a_{2},\cdots,s_{T},a_{T}\}\)</span></li>
-<li>折扣γ: 直觉上，最开始的训练回馈可能更重要，越往后则训练收益越小，所以对每步的回馈需要乘以一个 <span class="math inline">\(\gamma^{t-1}\)</span>，t为训练次数，这个超参数也可以用于控制训练策略偏短期还是偏长期</li>
+<li>折扣γ: 直觉上，最开始的训练回馈可能更重要，越往后则训练收益越小，所以对每步的回馈可以乘以一个 <span class="math inline">\(\gamma^{t-1}\)</span>，t为训练次数，这个超参数也可以用于控制训练策略偏短期还是偏长期</li>
 </ul>
 <span id="more"></span>
 <p>流程： env(s1)-&gt;actor(a1)-&gt;env(s2)……<br />
@@ -123,6 +123,23 @@ $$ \begin{align*}{r l}{\nabla{\bar{R}}_{\theta} \\ =\sum_{\tau}R(\tau)\nabla p_{
 
 
 <p>类似于机器学习的梯度下降，我们通过梯度计算寻找最大化reward的参数</p>
+<h2 id="马尔可夫过程">马尔可夫过程</h2>
+<p>马尔可夫过程中，对一个特定状态则有一个特定的未来状态概率分布（可以理解为策略），很容易算出之后的期望回报<br />
+即，如果我们希望知道一个特定状态是好是坏，可以定义状态价值为其回报的期望，即从这个状态开始，折扣γ的指数与之后回报乘积的和<br />
+t时刻后的回报为：<br />
+<span class="math display">\[G_{t}=r_{t+1}+\gamma r_{t+2}+\gamma^{2}r_{t+3}+\gamma^{3}r_{t+4}+\ldots+\gamma^{T-t-1}r_{T}\]</span> 状态s的价值为：<br />
+<span class="math display">\[\begin{array}{l}{ {V^{t}(s)=\mathbb{E}\left[G_{t}\mid s_{t}=s\right]} }\\ { {\ } }\\ { {=\mathbb{E}\left[r_{t+1}+\gamma r_{t+2}+\gamma^{2}r_{t+3}+.\cdot.+\gamma^{T-t-1}r_{T}\mid s_{t}=s\right]} }\end{array}\]</span> 实际训练中我们不会知道真正的概率是什么，只能靠采样估算，也就是可以对采样的多组数据取平均值，这称为 <code>蒙特卡洛(Monte  Carlo,MC)采样</code><br />
+另一种方法是贝尔曼方程，即：<br />
+<span class="math display">\[ V(s)=R(s) + \gamma\sum_{s^{\prime}\in S}p\left(s^{\prime}\mid s\right)V\left(s^{\prime}\right)  \]</span> <code>s′</code>可以看成未来的某个状态,<code>p(s′|s)</code> 是指从当前状态转移到未来状态的概率。<code>V (s′)</code> 代表的是未来某一个状态的价值 证明：<br />
+
+$$\begin{array}{l}{{V(s)=\mathbb{E}\left[G_{t}\mid s_{t}=s\right]}}\\ {{=\mathbb{E}\left[r_{t+1}+\gamma r_{t+2}+\gamma^{2}r_{t+3}+...\mid s_{t}=s\right]}}\\ {{=\mathbb{E}\left[r_{t+1}\right|s_{t}=s]+\gamma\mathbb{E}\left[r_{t+2}+\gamma r_{t+3}+\gamma^{2}r_{t+4}+\dots\mid s_{t}=s\right]}}\\ {{=R(s)+\gamma\mathbb{E}[G_{t+1}\left|s_{t}=s\right]}}\end{array}$$
+ 下面证明: <span class="math inline">\(\mathbb{E}[V(s_{t+1})|s_{t}]=\mathbb{E}[\mathbb{E}[G_{t+1}|s_{t+1}]|s_{t}]=\mathbb{E}[G_{t+1}|s_{t}]\)</span></p>
+<p>条件期望的定义为：<br />
+<span class="math display">\[\operatorname{\mathbb{E}}[X\mid Y=y]=\sum_{x}x p(X=x\mid Y=y)\]</span></p>
+<p>具体证明：<br />
+<img src="/assets/ml/52243716-045d-4e27-ad0c-0e84593fee81.png" /></p>
+<p>带入之前的等式：</p>
+<p><span class="math display">\[\begin{array}{c}{ {V(s)=R(s)+\gamma\mathbb{E}[V(s_{t+1})]s_{t}=s]} }\\ { {=R(s)+\gamma\sum_{s^{\prime}\in S}p\left(s^{\prime}\mid s\right)V\left(s^{\prime}\right)} }\end{array}\]</span></p>
 ]]></content>
       <categories>
         <category>课程笔记</category>
