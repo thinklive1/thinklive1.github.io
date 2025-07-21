@@ -130,7 +130,8 @@ t时刻后的回报为：<br />
 <span class="math display">\[G_{t}=r_{t+1}+\gamma r_{t+2}+\gamma^{2}r_{t+3}+\gamma^{3}r_{t+4}+\ldots+\gamma^{T-t-1}r_{T}\]</span> 状态s的价值为：<br />
 <span class="math display">\[\begin{array}{l}{ {V^{t}(s)=\mathbb{E}\left[G_{t}\mid s_{t}=s\right]} }\\ { {\ } }\\ { {=\mathbb{E}\left[r_{t+1}+\gamma r_{t+2}+\gamma^{2}r_{t+3}+.\cdot.+\gamma^{T-t-1}r_{T}\mid s_{t}=s\right]} }\end{array}\]</span> 实际训练中我们不会知道真正的概率是什么，只能靠采样估算，也就是可以对采样的多组数据取平均值，这称为 <code>蒙特卡洛(Monte  Carlo,MC)采样</code><br />
 另一种方法是贝尔曼方程，即：<br />
-<span class="math display">\[ V(s)=R(s) + \gamma\sum_{s^{\prime}\in S}p\left(s^{\prime}\mid s\right)V\left(s^{\prime}\right)  \]</span> <code>s′</code>可以看成未来的某个状态,<code>p(s′|s)</code> 是指从当前状态转移到未来状态的概率。<code>V (s′)</code> 代表的是未来某一个状态的价值 证明：<br />
+<span class="math display">\[ V(s)=R(s) + \gamma\sum_{s^{\prime}\in S}p\left(s^{\prime}\mid s\right)V\left(s^{\prime}\right)  \]</span> <code>s′</code>可以看成未来的某个状态,<code>p(s′|s)</code> 是指从当前状态转移到未来状态的概率。<code>V (s′)</code> 代表的是未来某一个状态的价值,<code>R(s)</code>为后续奖励组成的向量<br />
+贝尔曼方程的证明：<br />
 
 $$\begin{array}{l}{{V(s)=\mathbb{E}\left[G_{t}\mid s_{t}=s\right]}}\\ {{=\mathbb{E}\left[r_{t+1}+\gamma r_{t+2}+\gamma^{2}r_{t+3}+...\mid s_{t}=s\right]}}\\ {{=\mathbb{E}\left[r_{t+1}\right|s_{t}=s]+\gamma\mathbb{E}\left[r_{t+2}+\gamma r_{t+3}+\gamma^{2}r_{t+4}+\dots\mid s_{t}=s\right]}}\\ {{=R(s)+\gamma\mathbb{E}[G_{t+1}\left|s_{t}=s\right]}}\end{array}$$
  下面证明: <span class="math inline">\(\mathbb{E}[V(s_{t+1})|s_{t}]=\mathbb{E}[\mathbb{E}[G_{t+1}|s_{t+1}]|s_{t}]=\mathbb{E}[G_{t+1}|s_{t}]\)</span></p>
@@ -138,8 +139,8 @@ $$\begin{array}{l}{{V(s)=\mathbb{E}\left[G_{t}\mid s_{t}=s\right]}}\\ {{=\mathbb
 <span class="math display">\[\operatorname{\mathbb{E}}[X\mid Y=y]=\sum_{x}x p(X=x\mid Y=y)\]</span></p>
 <p>具体证明：<br />
 <img src="/assets/ml/52243716-045d-4e27-ad0c-0e84593fee81.png" /></p>
-<p>带入之前的等式：</p>
-<p><span class="math display">\[\begin{array}{c}{ {V(s)=R(s)+\gamma\mathbb{E}[V(s_{t+1})]s_{t}=s]} }\\ { {=R(s)+\gamma\sum_{s^{\prime}\in S}p\left(s^{\prime}\mid s\right)V\left(s^{\prime}\right)} }\end{array}\]</span></p>
+<p>代入之前的等式，得：</p>
+<p><span class="math display">\[\begin{array}{c}{ {V(s)=R(s)+\gamma\mathbb{E}[V(s_{t+1})|s_{t}=s]} }\\ { {=R(s)+\gamma{\sum\limits_{s^{\prime}\in S}} p\left(s^{\prime}\mid s\right)V\left(s^{\prime}\right)} }\end{array}\]</span></p>
 ]]></content>
       <categories>
         <category>课程笔记</category>
