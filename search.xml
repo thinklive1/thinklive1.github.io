@@ -113,13 +113,13 @@
 <span id="more"></span>
 <p>流程： env(s1)-&gt;actor(a1)-&gt;env(s2)……<br />
 
-$\begin{array}{l}{{p_{\theta}(\tau)}}{{{}=p(s_{1})p_{\theta}(a_{1}|s_{1})p(s_{2}|s_{1},a_{1})p_{\theta}(a_{2}|s_{2})p(s_{3}|s_{2},a_{2})\cdots}} \\   =p(s_{1})\prod_{t=1}^{T}p_{\theta}(a_{t}|s_{t})p(s_{t+1}|s_{t},a_{t})\end{array}$  
+$\begin{array}{l}{ {p_{\theta}(\tau)} }{ { {}=p(s_{1})p_{\theta}(a_{1}|s_{1})p(s_{2}|s_{1},a_{1})p_{\theta}(a_{2}|s_{2})p(s_{3}|s_{2},a_{2})\cdots} } \\   =p(s_{1})\prod_{t=1}^{T}p_{\theta}(a_{t}|s_{t})p(s_{t+1}|s_{t},a_{t})\end{array}$  
 </p>
 <p>同一轮中每对(s,a)产生一个reward，其期望为: <span class="math inline">\(\bar{R}_{\theta}=\sum_{\tau}R(\tau)p_{\theta}(\tau)=E_{\tau\cap P_{\theta}(\tau)}[R(\tau)]\)</span></p>
 <p>取梯度</p>
 
 
-$$ \begin{align*}{r l}{\nabla{\bar{R}}_{\theta} \\ =\sum_{\tau}R(\tau)\nabla p_{\theta}(\tau)}&{{} \\ =\sum_{\tau}R(\tau)p_{\theta}(\tau){\frac{\nabla p_{\theta}(\tau)}{p_{\theta}(\tau)}}} \\ &=\sum_{\tau}R(\tau)p_{\theta}(\tau){\nabla}l o g p_{\theta}(\tau) \\ &=E_{\tau \sim p_{\theta}(\tau)}[R(\tau)\nabla l o g p_{\theta}(\tau)]\approx\frac{1}{N}\sum_{n=1}^{N}R(\tau^{n})\nabla \log p_{\theta}(\tau^{n}) \\ &={\frac{1}{N}}\sum_{n=1}^{N}\sum_{t=1}^{T_n}R(\tau^{n})\nabla l o g p_{\theta}(a_{t}^{n}|s_{t}^{n}) \end{align*} $$
+$$ \begin{align*}{r l}{\nabla{\bar{R} }_{\theta} \\ =\sum_{\tau}R(\tau)\nabla p_{\theta}(\tau)}&{ {} \\ =\sum_{\tau}R(\tau)p_{\theta}(\tau){\frac{\nabla p_{\theta}(\tau)}{p_{\theta}(\tau)} } } \\ &=\sum_{\tau}R(\tau)p_{\theta}(\tau){\nabla}l o g p_{\theta}(\tau) \\ &=E_{\tau \sim p_{\theta}(\tau)}[R(\tau)\nabla l o g p_{\theta}(\tau)]\approx\frac{1}{N}\sum_{n=1}^{N}R(\tau^{n})\nabla \log p_{\theta}(\tau^{n}) \\ &={\frac{1}{N} }\sum_{n=1}^{N}\sum_{t=1}^{T_n}R(\tau^{n})\nabla l o g p_{\theta}(a_{t}^{n}|s_{t}^{n}) \end{align*} $$
 
 
 <p>类似于机器学习的梯度下降，我们通过梯度计算寻找最大化reward的参数</p>
@@ -133,14 +133,22 @@ t时刻后的回报为：<br />
 <span class="math display">\[ V(s)=R(s) + \gamma\sum_{s^{\prime}\in S}p\left(s^{\prime}\mid s\right)V\left(s^{\prime}\right)  \]</span> <code>s′</code>可以看成未来的某个状态,<code>p(s′|s)</code> 是指从当前状态转移到未来状态的概率。<code>V (s′)</code> 代表的是未来某一个状态的价值,<code>R(s)</code>为后续奖励组成的向量<br />
 贝尔曼方程的证明：<br />
 
-$$\begin{array}{l}{{V(s)=\mathbb{E}\left[G_{t}\mid s_{t}=s\right]}}\\ {{=\mathbb{E}\left[r_{t+1}+\gamma r_{t+2}+\gamma^{2}r_{t+3}+...\mid s_{t}=s\right]}}\\ {{=\mathbb{E}\left[r_{t+1}\right|s_{t}=s]+\gamma\mathbb{E}\left[r_{t+2}+\gamma r_{t+3}+\gamma^{2}r_{t+4}+\dots\mid s_{t}=s\right]}}\\ {{=R(s)+\gamma\mathbb{E}[G_{t+1}\left|s_{t}=s\right]}}\end{array}$$
+$$\begin{array}{l}{ {V(s)=\mathbb{E}\left[G_{t}\mid s_{t}=s\right]} }\\ { {=\mathbb{E}\left[r_{t+1}+\gamma r_{t+2}+\gamma^{2}r_{t+3}+...\mid s_{t}=s\right]} }\\ { {=\mathbb{E}\left[r_{t+1}\right|s_{t}=s]+\gamma\mathbb{E}\left[r_{t+2}+\gamma r_{t+3}+\gamma^{2}r_{t+4}+\dots\mid s_{t}=s\right]} }\\ { {=R(s)+\gamma\mathbb{E}[G_{t+1}\left|s_{t}=s\right]} }\end{array}$$
  下面证明: <span class="math inline">\(\mathbb{E}[V(s_{t+1})|s_{t}]=\mathbb{E}[\mathbb{E}[G_{t+1}|s_{t+1}]|s_{t}]=\mathbb{E}[G_{t+1}|s_{t}]\)</span></p>
 <p>条件期望的定义为：<br />
-<span class="math display">\[\operatorname{\mathbb{E}}[X\mid Y=y]=\sum_{x}x p(X=x\mid Y=y)\]</span></p>
+<span class="math display">\[\operatorname{\mathbb{E} }[X\mid Y=y]=\sum_{x}x p(X=x\mid Y=y)\]</span></p>
 <p>具体证明：<br />
 <img src="/assets/ml/52243716-045d-4e27-ad0c-0e84593fee81.png" /></p>
 <p>代入之前的等式，得：</p>
-<p><span class="math display">\[\begin{array}{c}{ {V(s)=R(s)+\gamma\mathbb{E}[V(s_{t+1})|s_{t}=s]} }\\ { {=R(s)+\gamma{\sum\limits_{s^{\prime}\in S}} p\left(s^{\prime}\mid s\right)V\left(s^{\prime}\right)} }\end{array}\]</span></p>
+<p><span class="math display">\[\begin{array}{c}{ {V(s)=R(s)+\gamma\mathbb{E}[V(s_{t+1})|s_{t}=s]} }\\ { {=R(s)+\gamma{\sum\limits_{s^{\prime}\in S} } p\left(s^{\prime}\mid s\right)V\left(s^{\prime}\right)} }\end{array}\]</span></p>
+<p>对单个s来说，贝尔曼方程就是一个向量乘积加上偏移值，所有的s可以写成一个矩阵乘法加上奖励向量的形式:</p>
+<p><span class="math display">\[\begin{array}{c}{ {V=R+\gamma P V} }\\ { {E V=R+\gamma P V} }\\ { {(E-\gamma P)V=R} }\\ { {V=(I-\gamma P)^{-1}R} }\end{array}\]</span></p>
+<p>这个解析解看着很美好，但涉及到逆矩阵求解，这是个复杂度 <span class="math inline">\(O(N^3)\)</span> 的问题(单论常用算法)，因此对较大的模型并不实用</p>
+<p>实例：</p>
+<ul>
+<li>最简单直接的蒙特卡洛方法，只需要对某个初始状态采样大量轨迹，然后取平均值，既可作为其价值</li>
+<li>不断迭代贝尔曼方程，直到结果趋向收敛，这个收敛值即可以作为价值，即“自举”（Bootstrapping）(利用当前的估计或状态值来更新和改进自身的学习过程)</li>
+</ul>
 ]]></content>
       <categories>
         <category>课程笔记</category>
