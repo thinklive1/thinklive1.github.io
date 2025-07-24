@@ -31,7 +31,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://thinklive1.github.io/assets/ml/52243716-045d-4e27-ad0c-0e84593fee81.png">
 <meta property="article:published_time" content="2025-07-12T07:18:16.680Z">
-<meta property="article:modified_time" content="2025-07-21T08:06:51.855Z">
+<meta property="article:modified_time" content="2025-07-24T15:53:45.837Z">
 <meta property="article:author" content="thinklive">
 <meta property="article:tag" content="课程笔记">
 <meta property="article:tag" content="python">
@@ -201,7 +201,7 @@ const darkmode = new Darkmode(options);
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">基础概念</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E8%BF%87%E7%A8%8B"><span class="nav-number">1.1.</span> <span class="nav-text">马尔可夫过程</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">基础概念</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E8%BF%87%E7%A8%8B"><span class="nav-number">1.1.</span> <span class="nav-text">马尔可夫过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%B3%E7%AD%96"><span class="nav-number">1.1.1.</span> <span class="nav-text">决策</span></a></li></ol></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -312,7 +312,7 @@ const darkmode = new Darkmode(options);
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-07-21 16:06:51" itemprop="dateModified" datetime="2025-07-21T16:06:51+08:00">2025-07-21</time>
+      <time title="修改时间：2025-07-24 23:53:45" itemprop="dateModified" datetime="2025-07-24T23:53:45+08:00">2025-07-24</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -338,14 +338,14 @@ const darkmode = new Darkmode(options);
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>1.4k</span>
+      <span>1.8k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>5 分钟</span>
+      <span>6 分钟</span>
     </span>
 </div>
 
@@ -394,7 +394,7 @@ $\begin{array}{l}{ {p_{\theta}(\tau)} }{ { {}=p(s_{1})p_{\theta}(a_{1}|s_{1})p(s
 <p>取梯度</p>
 
 
-$$ \begin{align*}{r l}{\nabla{\bar{R} }_{\theta} \\ =\sum_{\tau}R(\tau)\nabla p_{\theta}(\tau)}&{ {} \\ =\sum_{\tau}R(\tau)p_{\theta}(\tau){\frac{\nabla p_{\theta}(\tau)}{p_{\theta}(\tau)} } } \\ &=\sum_{\tau}R(\tau)p_{\theta}(\tau){\nabla}l o g p_{\theta}(\tau) \\ &=E_{\tau \sim p_{\theta}(\tau)}[R(\tau)\nabla l o g p_{\theta}(\tau)]\approx\frac{1}{N}\sum_{n=1}^{N}R(\tau^{n})\nabla \log p_{\theta}(\tau^{n}) \\ &={\frac{1}{N} }\sum_{n=1}^{N}\sum_{t=1}^{T_n}R(\tau^{n})\nabla l o g p_{\theta}(a_{t}^{n}|s_{t}^{n}) \end{align*} $$
+$$ \begin{align*}{r l}{\nabla{\bar{R} }_{\theta} \\ =\sum_{\tau}R(\tau)\nabla p_{\theta}(\tau)}&{\\ =\sum_{\tau}R(\tau)p_{\theta}(\tau){\frac{\nabla p_{\theta}(\tau)}{p_{\theta}(\tau)} } } \\ &=\sum_{\tau}R(\tau)p_{\theta}(\tau){\nabla}l o g p_{\theta}(\tau) \\ &=E_{\tau \sim p_{\theta}(\tau)}[R(\tau)\nabla l o g p_{\theta}(\tau)]\approx\frac{1}{N}\sum_{n=1}^{N}R(\tau^{n})\nabla \log p_{\theta}(\tau^{n}) \\ &={\frac{1}{N} }\sum_{n=1}^{N}\sum_{t=1}^{T_n}R(\tau^{n})\nabla l o g p_{\theta}(a_{t}^{n}|s_{t}^{n}) \end{align*} $$
 
 
 <p>类似于机器学习的梯度下降，我们通过梯度计算寻找最大化reward的参数</p>
@@ -424,6 +424,12 @@ $$\begin{array}{l}{ {V(s)=\mathbb{E}\left[G_{t}\mid s_{t}=s\right]} }\\ { {=\mat
 <li>最简单直接的蒙特卡洛方法，只需要对某个初始状态采样大量轨迹，然后取平均值，既可作为其价值</li>
 <li>不断迭代贝尔曼方程，直到结果趋向收敛，这个收敛值即可以作为价值，即“自举”（Bootstrapping）(利用当前的估计或状态值来更新和改进自身的学习过程)</li>
 </ul>
+<h3 id="决策">决策</h3>
+<p>单纯的马尔可夫过程没有策略的空间，也就是同时根据当前的状态和动作决定之后的状态分布，策略可以基于概率或者直接产生特定输出，如果策略已知，依然可以通过计算 <span class="math inline">\(\sum_{a\in A}\pi(a\mid s)p\left(s^{\prime}\mid s,a\right)\)</span> 获取状态转移的概率<br />
+也就是说，通过采样行动，我们可以得到使用特定策略的特定状态的价值 由于引进了决策，定义一个Q函数，也被称为动作价值函数(action-value function)。Q 函数定义的是在某一个状态采取某一个动作,它有可能得到的回报的一个期望 <span class="math display">\[V_{\pi}(s)=\sum_{a\in A}\pi(a\mid s)Q_{\pi}(s,a)\]</span></p>
+<p><span class="math display">\[\begin{array}{r l} {Q(s,a)} &amp;=\mathbb{E}\left[G_{t}\mid s_{t}=s,a_{t}=a\right] \\ &amp;=\mathbb{E}\left[r_{t+1}+\gamma r_{t+2}+\gamma^{2}r_{t+3}+\ldots\mid s_{t}=s,a_{t}=a\right]\\ &amp;{=R(s,a)+\gamma\mathbb{E}[G_{t+1}|s_{t}=s,a_{t}=a]}\\ &amp;{=R(s,a)+\gamma\mathbb{E}[V(s_{t+1})|s_{t}=s,a_{t}=a]}\\ &amp;{=R(s,a)+\gamma\displaystyle\sum_{s^{\prime}\in S}p(s^{\prime}\mid s,a)\,V\left(s^{\prime}\right)} \end{array}\]</span></p>
+<p>可以把状态价值函数和 Q 函数拆解成两个部分:即时奖励和后续状态的折扣价值,这样分解后得到一个类似于之前马尔可夫奖励 过程的贝尔曼方程——贝尔曼期望方程(Bellman expectation equation):</p>
+<p><span class="math display">\[V_{\pi}(s)=\mathbb{E}_{\pi}\left[r_{t+1}+\gamma V_{\pi}\left(s_{t+1}\right)\mid s_{t}=s\right]\]</span> <span class="math display">\[Q_{\pi}(s,a)=\mathbb{E}_{\pi}\left[r_{t+1}+\gamma Q_{\pi}\left(s_{t+1},a_{t+1}\right)\right.\mid s_{t}=s,a_{t}=a]\]</span></p>
 
     </div>
 
@@ -495,7 +501,7 @@ $$\begin{array}{l}{ {V(s)=\mathbb{E}\left[G_{t}\mid s_{t}=s\right]} }\\ { {=\mat
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">34:29</span>
+    <span title="站点阅读时长">34:30</span>
   </span>
 </div>
 <div class="busuanzi-count">
