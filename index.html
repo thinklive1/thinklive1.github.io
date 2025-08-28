@@ -419,7 +419,7 @@ const darkmode = new Darkmode(options);
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-08-26 23:09:16" itemprop="dateModified" datetime="2025-08-26T23:09:16+08:00">2025-08-26</time>
+      <time title="修改时间：2025-08-28 22:06:23" itemprop="dateModified" datetime="2025-08-28T22:06:23+08:00">2025-08-28</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -438,14 +438,14 @@ const darkmode = new Darkmode(options);
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>11k</span>
+      <span>12k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>38 分钟</span>
+      <span>43 分钟</span>
     </span>
 </div>
 
@@ -461,6 +461,12 @@ const darkmode = new Darkmode(options);
           <p><a target="_blank" rel="noopener" href="https://speech.ee.ntu.edu.tw/~hylee/ml/2022-spring.php">李宏毅机器学习</a> <a target="_blank" rel="noopener" href="https://zh.d2l.ai/">动手学深度学习</a></p>
 <h1 id="前期工作">前期工作</h1>
 <h2 id="数学">数学</h2>
+<h3 id="统计">统计</h3>
+<p>机器学习的本质是寻找一个理想的函数,这个理想可以定义为在训练集和全集上表现几乎一致,使用统计的原理可以尽可能理解这其中的一些关系:<br />
+定义: <code>|𝐿 ℎ, 𝒟𝑡𝑟𝑎𝑖𝑛 − 𝐿 ℎ, 𝒟𝑎𝑙𝑙 | &gt; 𝜀</code>时<code>Dtrain</code>是差的,那么:</p>
+<p><span class="math display">\[P(\mathcal{D}_{t r a i n}\;i s\;b a d)\leq|\mathcal H|\cdot2e x p(-2N\varepsilon^{2})\]</span></p>
+<p>其中,N是训练样本数,H为备选函数的集合,也就是如果想要这个理想条件,H和N会存在这种约束条件<br />
+需要注意的是,这个理想条件并不包括具体的loss值,如果H过小,那么loss就可能会很大</p>
 <h3 id="概率论">概率论</h3>
 <p>数学期望:</p>
 <p><span class="math display">\[E[X]=\sum_{x}x P(X=x).\]</span></p>
@@ -1508,14 +1514,14 @@ dense: 与前者不同，以词嵌入为搜索标准，例如依据semantic simi
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">570k</span>
+    <span title="站点总字数">571k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">34:32</span>
+    <span title="站点阅读时长">34:36</span>
   </span>
 </div>
 <div class="busuanzi-count">

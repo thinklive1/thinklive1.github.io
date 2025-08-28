@@ -85,6 +85,12 @@
     <content><![CDATA[<p><a href="https://speech.ee.ntu.edu.tw/~hylee/ml/2022-spring.php">李宏毅机器学习</a> <a href="https://zh.d2l.ai/">动手学深度学习</a></p>
 <h1 id="前期工作">前期工作</h1>
 <h2 id="数学">数学</h2>
+<h3 id="统计">统计</h3>
+<p>机器学习的本质是寻找一个理想的函数,这个理想可以定义为在训练集和全集上表现几乎一致,使用统计的原理可以尽可能理解这其中的一些关系:<br />
+定义: <code>|𝐿 ℎ, 𝒟𝑡𝑟𝑎𝑖𝑛 − 𝐿 ℎ, 𝒟𝑎𝑙𝑙 | &gt; 𝜀</code>时<code>Dtrain</code>是差的,那么:</p>
+<p><span class="math display">\[P(\mathcal{D}_{t r a i n}\;i s\;b a d)\leq|\mathcal H|\cdot2e x p(-2N\varepsilon^{2})\]</span></p>
+<p>其中,N是训练样本数,H为备选函数的集合,也就是如果想要这个理想条件,H和N会存在这种约束条件<br />
+需要注意的是,这个理想条件并不包括具体的loss值,如果H过小,那么loss就可能会很大</p>
 <h3 id="概率论">概率论</h3>
 <p>数学期望:</p>
 <p><span class="math display">\[E[X]=\sum_{x}x P(X=x).\]</span></p>
@@ -475,6 +481,39 @@ $$ \partial_{o_{j}l}({\bf y},\hat{\bf y})=\frac{\exp(o_{j})}{\sum_{k=1}^{q}\exp(
 </p>
 <p>softmax是一个非线性函数,但softmax回归的输出仍然由输入特征的仿射变换(保持点、直线和面之间相对关系的变换)决定，因此,softmax回归是一个线性模型<br />
 看上去很巧，导数就是softmax模型分配的概率与实际发生的情况(由独热标签向量表示)之间的差异 <a href="./#分布">数学原理</a></p>
+<h1 id="训练">训练</h1>
+<p>训练效果取决于很多因素，常见的排查思路有：</p>
+<ul>
+<li>Model Bias: 训练数据有一定倾向性，实际的function set过于小以致于没有理想的函数，此时可能需要增加参数或者增加数据量</li>
+<li>优化问题: 函数集中其实有合适的函数，但是优化不到</li>
+<li>局部最小值和鞍点: 可以用泰勒公式估算附近的函数值，这两种点的梯度(一阶导)都是0，区别在于二阶导数，如果恒非正/非负，就是极值，否则就是鞍点
+<ul>
+<li>令附近点与求导的点之间的向量为v,泰勒公式的二阶项可以写成 <span class="math inline">\(v^THv\)</span> 的形式(H是对各个w的二阶导数项组成的句子)，用线代的指示，该式恒非正/非负等价于H的特征值恒非正/非负
+<ul>
+<li>这样一来，对鞍点，设H的特征向量为u， <span class="math inline">\(u^THu = \lambda||u||^2\)</span> , 沿着为负的特征向量方向就能继续下降</li>
+</ul></li>
+<li>另一种思路是所谓的动量，动量本质上是之前的梯度的加权和，类比物理上的动量，能一定程度上保持训练整体的倾向,将其与当前梯度相加,能一定程度上帮助跳出局部最低点</li>
+</ul></li>
+<li>有时静态的更新很难达到最低点(更新快会遇到不同参数收敛速度不同导致的震荡，慢会龟速爬行)，因此需要动态的更新机制: <span class="math inline">\(\theta_{i}^{t+1}\leftarrow\theta_{i}^{t}-\frac{\eta}{\sigma_{i}^{t} }\,g_{i}^{t}\)</span> 其中 <span class="math inline">\(\sigma_{i}^{t}=\sqrt{\frac{1}{t+1} \sum_{i=0}^{t}(g_{i}^{t})^{2} }\)</span> <span class="math inline">\(g_{i}^{t}=\frac{\partial L}{\partial\theta_{i}}|_{\theta=\theta^{t}}\)</span> (adagrad)
+<ul>
+<li>但依然有问题: 同一个参数在不同的取值范围内收敛速度也不同，因此需要进一步的动态机制(RMS Prop): <span class="math inline">\(\theta_{i}^{t+1}\leftarrow\theta_{i}^{t}-\frac{\eta}{\sigma_{i}^{t}}\,g_{i}^{t}\quad\sigma_{i}^{t}=\sqrt{\alpha\!\left(\sigma_{i}^{t-1}\right)^{2}+(1-\alpha)\!\left(g_i^{t}\right)^{2}}\)</span> 从而让最近的梯度影响更大</li>
+<li>著名的adam就是同时用了 <code>momentum</code>和 <code>RMS Prop</code>,动量与 <span class="math inline">\(\sigma\)</span> 的不同是: 动量考虑方向,而后者只考虑大小</li>
+</ul></li>
+<li>上述方法还是会有震荡,只不过震荡会最后收敛,因此考虑能否动态调整学习率
+<ul>
+<li>最常见的做法是学习率衰减<code>learning rate decay</code></li>
+<li><code>warm up</code>,也就是让学习率先快后慢,很难解释,但先快后慢的warmup在很多知名模型里表现很好</li>
+</ul></li>
+</ul>
+<p>一般来说,adam比SGDM(使用动量的sgd)速度快,但最后收敛的效果差一点,这两者可以说是两个极端,常用的优化策略会在两者间折中或者微调,但可解释性嘛,都很难说 以下简单的记录一些相关方法:</p>
+<p>adam部分:</p>
+<ul>
+<li>SWATS: 朴素的方法,先用adam快速逼近目标,再用sgdm慢慢收敛</li>
+<li>AMSGrad: 某些局部的梯度可能会超过几个数量级的高,因但由于adam算的是平方均根,这个局部梯度影响会非常有限,(例如a比b小100倍,平方根只差10倍,100个a的梯度却大于一个b的梯度) 因此可以记住一个历史最大值,从而相对扩大大梯度的影响力, 这样的话连续遇到小梯度学习率不会减少, <span class="math inline">\({ {\theta_{t}=\theta_{t-1}-\frac{p}{\sqrt{\hat{v}_{t}+\varepsilon}}m_{t}\space\space } } { {\hat{v}_{t}=\operatorname*{max}(\hat{v}_{t-1},v_{t})} }\)</span> 但这其实没有解决adagrad学习率不断衰减的问题,只是延缓了</li>
+<li>AdaBound: 给learning rate设置上下限(clip函数),简单粗暴,可解释性也很迷</li>
+<li>cyclicalLR: 让lr周期性波动,简单的线性波动或者cos函数都可以,lr大是探索性的,小是寻找收敛点,类似的有<code>SGDR</code>,<code>One-cycle LR</code>等</li>
+<li></li>
+</ul>
 <div class="note info">
 </div>
 ]]></content>
