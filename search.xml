@@ -513,11 +513,24 @@ $$ \partial_{o_{j}l}({\bf y},\hat{\bf y})=\frac{\exp(o_{j})}{\sum_{k=1}^{q}\exp(
 <li>AdaBound: 给learning rate设置上下限(clip函数),简单粗暴,可解释性也很迷</li>
 <li>cyclicalLR: 让lr周期性波动,简单的线性波动或者cos函数都可以,lr大是探索性的,小是寻找收敛点,类似的有<code>SGDR</code>,<code>One-cycle LR</code>等</li>
 </ul>
-<p>RAdam: 用于解决训练初期梯度方差大,先用sgdm积累足够的样本,再转到类似adam的方,同时让非初期的梯度有更高影响力<br />
+<p>RAdam: 用于解决训练初期梯度方差大,先用sgdm积累足够的样本,再转到类似adam的方法,同时让非初期的梯度有更高影响力<br />
 假设梯度是取样于一种分布,因此参数只和取样次数t有关,学习率满足以下条件,其中rt是恒增的</p>
 <p><span class="math display">\[\begin{array}{c}{ {\rho_{t}=\rho_{\infty}-\frac{2t\beta_{2}^{\ t} }{1-\beta_{2}^{\ 2} } } }\\ { {\rho_{\infty}=\displaystyle\frac{2}{1-\beta_{2}^{\prime} }-1} }\\ r_{t}={\sqrt{\frac{(\rho_{t}-4)(\rho_{t}-2)\rho_{\infty} } {(\rho_{\infty}-4)(\rho_{\infty}-2)\rho_{t} } } } \end{array}\]</span></p>
 <p><span class="math display">\[\theta_{t}=\theta_{t-1}-\eta\hat{m}_{t} \space when \space 𝜌𝑡 ≤ 4\]</span></p>
 <p><span class="math display">\[\theta_{t}=\theta_{t-1}-{\frac{\eta r_{t} }{ {\sqrt{\hat{v} }_{t}+\varepsilon} } }\,{\hat{m} }_{t} \space when \space 𝜌𝑡 &gt; 4\]</span></p>
+<p>这是一个比较保守的策略,防止太过激进的学习</p>
+<p>动量相关:</p>
+<ul>
+<li>Nesterov accelerated gradient (NAG): 与普通动量法区别是,用动量来预测下一个参数位置,通过预测位置的梯度更新参数 <span class="math inline">\(m_{t}={\lambda}m_{t-1}+\eta\nabla L(\theta_{t-1}-\lambda m_{t-1})\)</span></li>
+</ul>
+<p>其他:</p>
+<ul>
+<li>Lookahead: 一种很抽象的方法,不管用什么优化方法,每轮中走k步到一个理论上的终点,在起点和终点间找一个点作为实际终点<br />
+</li>
+<li>Shuffling,Dropout,Gradient noise: 这些都是增加随机性的方法</li>
+<li>Warm-up,Curriculum learning(先学容易的数据),Fine-tuning(使用预训练的模型)</li>
+</ul>
+<p>经验上,cv用sgdm多一点;nlp,gan用adam多一点</p>
 <div class="note info">
 </div>
 ]]></content>
@@ -25268,8 +25281,8 @@ public  int[] findVerticalSeam() &#123;
       <tags>
         <tag>伯克利</tag>
         <tag>课程笔记</tag>
-        <tag>JAVA</tag>
         <tag>数据结构与算法</tag>
+        <tag>JAVA</tag>
       </tags>
   </entry>
   <entry>
@@ -30491,8 +30504,8 @@ val（r1，c1）&lt; val（r1，c2）≤ val（r2，c2）&lt; val（r2，c1）<b
       <tags>
         <tag>伯克利</tag>
         <tag>课程笔记</tag>
-        <tag>数据结构与算法</tag>
         <tag>python</tag>
+        <tag>数据结构与算法</tag>
       </tags>
   </entry>
   <entry>
