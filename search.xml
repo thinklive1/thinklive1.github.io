@@ -531,7 +531,12 @@ $$ \partial_{o_{j}l}({\bf y},\hat{\bf y})=\frac{\exp(o_{j})}{\sum_{k=1}^{q}\exp(
 </ul>
 <p>经验上,cv用sgdm多一点;nlp,gan用adam多一点</p>
 <h3 id="normalization">Normalization</h3>
-<p>为了处理不同维度w规模不一的问题,需要将w归一化</p>
+<p>为了处理不同维度上输入规模不一的问题,需要归一化<br />
+Feature Normalization: 我们把统一维度的x输入视为正态分布的,令 <span class="math inline">\(\widetilde{x}_{i}^{r}\leftarrow{\frac{x_{i}^{r}-m_{i} }{\sigma_{i}} }\)</span> 其中m为平均数,𝜎是标准差<br />
+当然也可以对与w的加权和z向量做归一化: <span class="math inline">\({\tilde{z}}^{i}=\frac{z^{i}-\mu}{\sigma}\)</span><br />
+然后令 <span class="math inline">\(z^{i}=\gamma\Theta\widetilde{z}^{i}+\beta\)</span> , 其中γ初始为1,β初始为0,这两个是学习参数,用于在之后调整分布<br />
+这样的归一化计算量较大,实际中一般只对batch做归一化</p>
+<p><img src="/assets/ml/Pasted%20image%2020250902150544.png" /></p>
 <h2 id="卷积神经网络cnn">卷积神经网络CNN</h2>
 <p>名词解释:</p>
 <ul>
@@ -564,6 +569,8 @@ s-a层所做的运算如下图:</p>
 <li>CNN: cnn可以视为注意力的一种特例</li>
 <li>RNN: 相比rnn,注意力在并行性,以及对上下文信息的利用能力上都相对更好</li>
 </ul>
+<h3 id="变形金刚">变形金刚</h3>
+<p>transformer,下文简称tf,是一种seq2seq模型</p>
 <h2 id="rnn">RNN</h2>
 <p>相关场景:</p>
 <p>slot filling: 类似一个分类问题,将给定输入向量(一句话)中的词语分类到特定的槽位去</p>
