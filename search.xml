@@ -83,6 +83,7 @@
     <title>机器学习笔记 all in one</title>
     <url>/thinklive/48061/</url>
     <content><![CDATA[<p><a href="https://speech.ee.ntu.edu.tw/~hylee/ml/2022-spring.php">李宏毅机器学习</a> <a href="https://zh.d2l.ai/">动手学深度学习</a></p>
+<span id="more"></span>
 <h1 id="前期工作">前期工作</h1>
 <h2 id="数学">数学</h2>
 <h3 id="统计">统计</h3>
@@ -138,7 +139,6 @@ CUDA Runtime API vs. CUDA Driver API</p>
 <li>driver user-space modules需要和driver kernel modules版本一致</li>
 <li>当我们谈论cuda时，往往是说runtime api</li>
 </ul>
-<span id="more"></span>
 <p>以下是nvida的介绍原文：</p>
 <div class="note default"><p>It is composed of two APIs:</p>
 <ul>
@@ -530,6 +530,8 @@ $$ \partial_{o_{j}l}({\bf y},\hat{\bf y})=\frac{\exp(o_{j})}{\sum_{k=1}^{q}\exp(
 <li>Warm-up,Curriculum learning(先学容易的数据),Fine-tuning(使用预训练的模型)</li>
 </ul>
 <p>经验上,cv用sgdm多一点;nlp,gan用adam多一点</p>
+<h3 id="normalization">Normalization</h3>
+<p>为了处理不同维度w规模不一的问题,需要将w归一化</p>
 <h2 id="卷积神经网络cnn">卷积神经网络CNN</h2>
 <p>名词解释:</p>
 <ul>
@@ -593,7 +595,7 @@ s-a层所做的运算如下图:</p>
 为此需要<code>Connectionist Temporal Classification (CTC)</code>简单地说就是穷举可能的排列(实际会用dp优化),选取其中最多的一种(即概率最大的排列/对应关系)</p></li>
 </ol>
 <p>以上讨论的语音识别其实有一个预设--识别结果的字符数≤音频样本数,对没有这种条件的问题,例如机器翻译该怎么做呢?<br />
-由于是循环的,rnn可以不断地产生</p>
+由于是循环的,rnn可以不断地产生输出,只需要一个特殊的表示结束的符号就可以,例如<code>===</code></p>
 <h2 id="深度学习">深度学习</h2>
 <p>Q: 为什么要深度,为什么要用那么多隐藏层而不是一个很宽的单层网络?<br />
 A: 深度学习能增加预测函数的弹性,这是因为它可以复杂的不同线性关系去拟合数据,那么为什么要用很深的网络?实际上,相同神经数量且较浅的网络预测效果会不如dl,也就是dl能用相对更少的参数拟合数据,因此更不容易overfitting,有更好的准确率;而dl的这种高效其实类似编程中的依赖关系,例如某个节点的后继节点都可以依赖于前一个节点,而整段程序只需要保留这个被多重依赖的节点的一个副本,节省大量空间,dl中其实也可能存在对某个前继神经的依赖关系,也就是dl是一个有结构上关系的网络</p>

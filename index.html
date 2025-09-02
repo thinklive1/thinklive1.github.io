@@ -419,7 +419,7 @@ const darkmode = new Darkmode(options);
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-09-02 13:51:57" itemprop="dateModified" datetime="2025-09-02T13:51:57+08:00">2025-09-02</time>
+      <time title="修改时间：2025-09-02 14:59:19" itemprop="dateModified" datetime="2025-09-02T14:59:19+08:00">2025-09-02</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -459,61 +459,6 @@ const darkmode = new Darkmode(options);
     
     <div class="post-body" itemprop="articleBody">
           <p><a target="_blank" rel="noopener" href="https://speech.ee.ntu.edu.tw/~hylee/ml/2022-spring.php">李宏毅机器学习</a> <a target="_blank" rel="noopener" href="https://zh.d2l.ai/">动手学深度学习</a></p>
-<h1 id="前期工作">前期工作</h1>
-<h2 id="数学">数学</h2>
-<h3 id="统计">统计</h3>
-<p>机器学习的本质是寻找一个理想的函数,这个理想可以定义为在训练集和全集上表现几乎一致,使用统计的原理可以尽可能理解这其中的一些关系:<br />
-定义: <code>|𝐿 ℎ, 𝒟𝑡𝑟𝑎𝑖𝑛 − 𝐿 ℎ, 𝒟𝑎𝑙𝑙 | &gt; 𝜀</code>时<code>Dtrain</code>是差的,那么:</p>
-<p><span class="math display">\[P(\mathcal{D}_{t r a i n}\;i s\;b a d)\leq|\mathcal H|\cdot2e x p(-2N\varepsilon^{2})\]</span></p>
-<p>其中,N是训练样本数,H为备选函数的集合,也就是如果想要这个理想条件,H和N会存在这种约束条件<br />
-需要注意的是,这个理想条件并不包括具体的loss值,如果H过小,那么loss就可能会很大</p>
-<h3 id="概率论">概率论</h3>
-<p>数学期望:</p>
-<p><span class="math display">\[E[X]=\sum_{x}x P(X=x).\]</span></p>
-<p>当函数f(x)的输入是从分布P中抽取的随机变量时,f(x)的期望值为:</p>
-<p><span class="math display">\[E_{x\sim P}[f(x)]=\sum_{x}f(x)P(x).\]</span></p>
-<p>方差：</p>
-<p><span class="math display">\[\operatorname{Var}[X]=E\left[(X-E[X])^{2}\right]=E[X^{2}]-E[X]^{2}.\]</span></p>
-<h4 id="分布"><a target="_blank" rel="noopener" href="https://d2l.ai/chapter_appendix-mathematics-for-deep-learning/distributions.html">分布</a></h4>
-<h3 id="信息论"><a target="_blank" rel="noopener" href="https://d2l.ai/chapter_appendix-mathematics-for-deep-learning/information-theory.html">信息论</a></h3>
-<h4 id="熵">熵</h4>
-<p>在不同的领域中，熵被表示为混乱程度，不确定性，惊奇程度，不可预测性，信息量等，但在机器学习中我们只需要对信息论中的熵有基本了解<br />
-信息论中熵的概念首次被香农提出，目的是寻找一种高效/无损地编码信息的方法，即<strong>无损编码事件信息的最小平均编码长度</strong> 即信息熵H(X) = -Σ p(x) log2 p(x) (p为概率)</p>
-<p>接下来说明这个公式，假设我们用二进制的哈夫曼编码，一个信息出现概率是1/2,即其他所有情况加起来也是1/2，那么我们会发现其编码长度必然是-log(1/2),也就是1，恰好和我们的香农熵定义一致了，这是为什么呢？<br />
-严谨的数学证明超出了cs专业范围，这里只说一下直观理解，熵有两个性质：</p>
-<ul>
-<li>概率越小信息量越大(如果一个小概率事件发生了，就排除了非常多其他可能性)</li>
-<li>假设两个随机变量x,y相互独立，那么分别观测两个变量得到的信息量应该和同时观测两个变量的信息量是相同的，<code>h(x+y)=h(x)+h(y)</code></li>
-</ul>
-<p>如此一来对数函数的负数完美符合条件，基数则无所谓，直观地理解，基数对应用几进制编码，而要最短化编码，越小概率就应该用更长的位数，把短位数腾出来给大概率事件用，当然实际中编码的位数是离散的，而且相比对数取负只能多不能少，因此香农熵是一个理论最优值，熵编码就指无损情况下的编码方式，最常用的就是哈夫曼编码，所有熵编码方式的编码长度大于等于香农熵</p>
-<p>现实中常用二进制编码信息，例如对8种不同的信息，最直观的编码是三位二进制，每三位表示一个独特信息。<br />
-我们可以用概率表示每种信息出现的可能，例如8种信息，每个都等可能出现，那么以概率为权的哈夫曼编码就会用所有的3位二进制编码这8种信息，熵就是3，而其他情况熵可以当做哈夫曼树的总编码长度算<br />
-那么如何理解熵能反映混乱度呢？如果熵比较大(即平均编码长度较长)，意味着这一信息有较多的可能状态，相应的每个状态的可能性比较低；因此每当来了一个新的信息，我们很难对其作出准确预测，即有着比较大的混乱程度/不确定性/不可预测性</p>
-<p><strong>交叉熵</strong>：<br />
-交叉熵用于评估估计概率得到的熵与真实熵的差距，交叉的含义很直观，就是使用P计算期望，使用Q计算编码长度<br />
-为什么这么选而不是反过来呢？这取决于我们的目的，一般来说，我们希望估计的编码长度和理论最优的熵差距较小，要比对取优的主要是模型的编码长度即logQ，可以这么理解，熵公式中的对数函数视为视为对一个特定概率事件的编码长度，由于现实的概率分布实际上是确定的，那么需要评估的也就是编码方式的效率<br />
-由于熵是给定概率分布下的最优值，<strong>交叉熵只可能大于等于熵</strong>，两者差越小或者说交叉熵越小表示模型估计越准<br />
-例如在最极端的one-hot编码中，交叉熵等价于<strong>对应正确解标签的输出的自然对数</strong></p>
-<h3 id="线性代数">线性代数</h3>
-<h4 id="范数">范数</h4>
-<p>范数是具有“长度”概念的函数，用于衡量一个矢量的大小（测量矢量的测度）<br />
-由于不是数学系的，这里就极为不严谨地记录一下范数的理解：</p>
-<ul>
-<li>0范数，向量中非零元素的个数</li>
-<li>1范数，为绝对值之和</li>
-<li>2范数，就是通常意义上的模</li>
-</ul>
-<p>正则化的目的可以理解为限制权重向量的复杂度，实际做法为在损失函数中加入与权重向量复杂度有关的惩罚项，而范数在某种意义上可以反映这点，因此可作为选取正则项的依据<br />
-顺便一提a star算法也会用类似的测度估计距离</p>
-<h2 id="工具">工具</h2>
-<h3 id="cuda">cuda</h3>
-<p>Compute Unified Device Architecture (CUDA):简单地说，就是允许软件调用gpu来计算的一个接口<br />
-CUDA Runtime API vs. CUDA Driver API</p>
-<ul>
-<li>驱动版本需要≥运行时api版本</li>
-<li>driver user-space modules需要和driver kernel modules版本一致</li>
-<li>当我们谈论cuda时，往往是说runtime api</li>
-</ul>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/thinklive/48061/#more" rel="contents">
