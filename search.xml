@@ -588,6 +588,22 @@ s-a层所做的运算如下图:</p>
 <li>Scheduled Sampling: 在训练过程中,逐步减小使用真实目标序列的概率</li>
 </ul>
 <h3 id="bert">bert</h3>
+<p>bert,目前很火的预训练seq2seq模型,是一种无监督学习模型,也就是没有label数据,其特点是训练中使用掩码数据(Masking Input),也就是遮住输入的部分字词,这个被遮住的部分数据就是我们希望bert能输出的结果,而损失函数也比较方便用交叉熵(可以理解为以所有字符为类别的分类问题)<br />
+bert是基于tf的,其架构和tf类似,区别就是用掩码机制来无监督学习,由于不需要标注的数据集,bert很容易得到规模非常庞大的数据,因此有着很好的表现 除此以外有一些其他训练方法,如Next Sentence Prediction: 预测两个句子是否相接;Sentence order prediction:判断句子的顺序关系<br />
+在以下这些常见的一些基准测试中,bert都有不俗的表现:</p>
+<ul>
+<li>Corpus of Linguistic Acceptability (CoLA)</li>
+<li>Stanford Sentiment Treebank (SST-2)</li>
+<li>Microsoft Research Paraphrase Corpus (MRPC)</li>
+<li>Quora Question Pairs (QQP)</li>
+<li>Semantic Textual Similarity Benchmark (STS-B)</li>
+<li>Multi-Genre Natural Language Inference (MNLI)</li>
+<li>Question-answering NLI (QNLI)</li>
+<li>Recognizing Textual Entailment (RTE)</li>
+<li>Winograd NLI (WNLI)</li>
+</ul>
+<p>尽管 BERT 的预训练是无监督的，但在特定下游任务（如文本分类、语法分析等）中，BERT 可以进行微调，这个过程是监督学习。微调阶段使用标注好的数据集，通过已知的标签来优化模型参数<br />
+所以如果想准确一点,可以叫半监督学习(semi)</p>
 <h2 id="rnn">RNN</h2>
 <p>相关场景:</p>
 <p>slot filling: 类似一个分类问题,将给定输入向量(一句话)中的词语分类到特定的槽位去</p>
