@@ -87,7 +87,6 @@ const darkmode = new Darkmode(options);
   <div class="headband"></div>
 
 
-
   <main class="main">
     <div class="column">
       <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
@@ -207,18 +206,18 @@ const darkmode = new Darkmode(options);
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">41</span>
+          <span class="site-state-item-count">44</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-count">19</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">46</span>
+        <span class="site-state-item-count">49</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -266,7 +265,7 @@ const darkmode = new Darkmode(options);
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://thinklive1.github.io/thinklive/44308/">
+    <link itemprop="mainEntityOfPage" href="https://thinklive1.github.io/thinklive/6217/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/thive.png">
@@ -284,7 +283,7 @@ const darkmode = new Darkmode(options);
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/thinklive/44308/" class="post-title-link" itemprop="url">计算机专业英语术语表</a>
+          <a href="/thinklive/6217/" class="post-title-link" itemprop="url">基于vue文档的笔记</a>
         </h2>
 
         <div class="post-meta-container">
@@ -295,14 +294,7 @@ const darkmode = new Darkmode(options);
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2025-03-22 21:47:20" itemprop="dateCreated datePublished" datetime="2025-03-22T21:47:20+08:00">2025-03-22</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-03-26 21:33:44" itemprop="dateModified" datetime="2025-03-26T21:33:44+08:00">2025-03-26</time>
+      <time title="创建时间：2025-09-09 15:53:29" itemprop="dateCreated datePublished" datetime="2025-09-09T15:53:29+08:00">2025-09-09</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -310,7 +302,7 @@ const darkmode = new Darkmode(options);
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E8%8B%B1%E8%AF%AD%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">英语学习</span></a>
+          <a href="/categories/%E5%85%B6%E4%BB%96/" itemprop="url" rel="index"><span itemprop="name">其他</span></a>
         </span>
     </span>
 
@@ -321,14 +313,14 @@ const darkmode = new Darkmode(options);
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>10k</span>
+      <span>1.3k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>37 分钟</span>
+      <span>5 分钟</span>
     </span>
 </div>
 
@@ -341,10 +333,596 @@ const darkmode = new Darkmode(options);
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="算法与数据结构常用术语">算法与数据结构常用术语</h1>
+          <h1 id="前置知识">前置知识</h1>
+<h2 id="es">ES</h2>
+<p>ES modules 是原生 JavaScript 提供的模块功能，逐渐被更多的浏览器支持<br />
+形如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;script type=<span class="string">&quot;module&quot;</span>&gt;</span><br><span class="line">&lt;!-- something --&gt;    </span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">import &#123; x,y &#125; from &#x27;./module.js</span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h1 id="vue基础">vue基础</h1>
+<h2 id="应用">应用</h2>
+<p>每个 Vue 应用都是通过createApp函数创建一个新的应用实例，例如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createApp &#125; <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">App</span> <span class="keyword">from</span> <span class="string">&#x27;./App.vue&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> app = <span class="title function_">createApp</span>(&#123;<span class="title class_">App</span>&#125;)</span><br></pre></td></tr></table></figure>
+<p>createApp 的对象实际上是一个组件，每个应用都需要一个“根组件”，其他组件将作为其子组件，最后得到一个树状结构</p>
+<h2 id="模板">模板</h2>
+<p>当根组件没有设置 template 选项时，Vue 将自动使用容器的 innerHTML 作为模板<br />
+模板中可以使用<a target="_blank" rel="noopener" href="https://cn.vuejs.org/api/built-in-directives">指令</a>，指令由 v- 作为前缀，表明它们是一些由 Vue 提供的特殊 attribute,指令最常用的功能是绑定html属性到某个元素<br />
+双大括号会将数据解释为纯文本，而不是 HTML。若想插入 HTML，需要使用 v-html 指令：<br />
+<code>&lt;span v-html="rawHtml"&gt;&lt;/span&gt;&lt;/p&gt;</code></p>
+<p>想要响应式地绑定一个 attribute，应该使用 v-bind 指令<code>&lt;div v-bind:id="dynamicId"&gt;&lt;/div&gt;</code><br />
+简写语法为：<code>&lt;div :id="dynamicId"&gt;&lt;/div&gt;</code> 同名简写(3.4以上版本):<code>&lt;div :id&gt;&lt;/div&gt;</code> js表达式支持:<br />
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&#123;&#123; number + <span class="number">1</span> &#125;&#125;</span><br><span class="line">&#123;&#123; ok ? <span class="string">&#x27;YES&#x27;</span> : <span class="string">&#x27;NO&#x27;</span> &#125;&#125;</span><br><span class="line">&#123;&#123; message.<span class="title function_">split</span>(<span class="string">&#x27;&#x27;</span>).<span class="title function_">reverse</span>().<span class="title function_">join</span>(<span class="string">&#x27;&#x27;</span>) &#125;&#125;</span><br><span class="line">&lt;div :id=<span class="string">&quot;`list-$&#123;id&#125;`&quot;</span>&gt;&lt;/div&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
+<h2 id="响应式">响应式</h2>
+<p>选项式api使用data 选项来声明组件的响应式状态。此选项的值应为返回一个对象的函数<br />
+在 Vue 3 中，数据是基于<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Proxy">JavaScript Proxy</a> 实现响应式的,也就是通过一个代理来更新对象状态，vue3中原始对象不会变成响应式代理<br />
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="title function_">data</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      <span class="attr">count</span>: <span class="number">0</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">methods</span>: &#123;</span><br><span class="line">    <span class="title function_">increment</span>(<span class="params"></span>) &#123;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">count</span>++</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="title function_">mounted</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="comment">// 在其他方法或是生命周期中也可以调用方法</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="title function_">increment</span>()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure> Vue 自动为 methods 中的方法绑定了<strong>永远指向组件实例</strong>的 this,且嵌套的对象变化也能相应，也就是类似json的格式可以随意修改<br />
+当你修改了响应式状态时，DOM 会被自动更新。但是需要注意的是，DOM 更新不是同步的。Vue 会在“next tick”更新周期中缓冲所有状态的修改，以确保不管你进行了多少次状态修改，每个组件都只会被更新一次</p>
+<p>创建有自己状态的方法：<br />
+如果需要多个有独立状态的方法，则要在created期间创建这样的函数：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="title function_">created</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="comment">// 每个实例都有了自己的预置防抖的处理函数</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">debouncedClick</span> = _.<span class="title function_">debounce</span>(<span class="variable language_">this</span>.<span class="property">click</span>, <span class="number">500</span>)</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="title function_">unmounted</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="comment">// 最好是在组件卸载时</span></span><br><span class="line">    <span class="comment">// 清除掉防抖计时器</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">debouncedClick</span>.<span class="title function_">cancel</span>()</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">methods</span>: &#123;</span><br><span class="line">    <span class="title function_">click</span>(<span class="params"></span>) &#123;</span><br><span class="line">      <span class="comment">// ... 对点击的响应 ...</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="常用api">常用api</h2>
+<p><a target="_blank" rel="noopener" href="https://cn.vuejs.org/api/built-in-directives#v-model">vue内置指令</a> 常用的用v-bind,v-model,v-if,v-for等，语法都很符合直觉 在组合式 API 中，通过setup脚本块来初始化需要的数据和函数(包括响应式状态)，常用 <a target="_blank" rel="noopener" href="https://cn.vuejs.org/api/reactivity-core.html#ref"><code>ref()</code></a> 函数来声明响应式状态：<code>const count = ref(0)</code> 脚本中访问count的值需要解包，即通过<code>count.value</code>访问，但在模板块中可以自动解包(只有顶级的 ref 属性才会被解包，被包裹在一个列表中的ref不会解包)</p>
+<div class="note info"><p>vue3提供两种声明响应式变量的方法，reactive和ref，由于响应式都是通过某种代理变量的方法实现的，因此不严谨地说,ref的代理能力更强一点，这包括：</p>
+<ul>
+<li>ref支持基本数据类型 + 引用数据类型(对象和数组) ;reactive只支持引用数据类型</li>
+<li>ref重新分配一个新对象不会失去响应;reactive会</li>
+<li>还有其他一些场合reactive会失去响应……</li>
+</ul>
+<p>因此现在的官方文档中更推荐使用ref</p>
+</div>
+<p>要在组件模板中访问 ref，需要从组件的 <code>setup()</code> 函数中声明并返回它们：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; ref &#125; <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="comment">// `setup` 是一个特殊的钩子，专门用于组合式 API。</span></span><br><span class="line">  <span class="title function_">setup</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> count = <span class="title function_">ref</span>(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 将 ref 暴露给模板</span></span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      count</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>计算属性 ref</strong>：形如以下的ref，<code>computed()</code> 方法期望接收一个 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Functions/get#description">getter 函数</a>，返回值为一个<strong>计算属性 ref</strong>，用法类似数据的ref，与function的区别是能追踪响应式状态，且响应式状态不改变就不会重新计算</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> publishedBooksMessage = <span class="title function_">computed</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> author.<span class="property">books</span>.<span class="property">length</span> &gt; <span class="number">0</span> ? <span class="string">&#x27;Yes&#x27;</span> : <span class="string">&#x27;No&#x27;</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h2 id="路由">路由</h2>
+<p>创建： <code>history</code> 选项控制了路由和 URL 路径是如何双向映射的,详见<a target="_blank" rel="noopener" href="https://router.vuejs.org/zh/guide/essentials/history-mode.html">不同的历史记录模式</a></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createMemoryHistory, createRouter &#125; <span class="keyword">from</span> <span class="string">&#x27;vue-router&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">HomeView</span> <span class="keyword">from</span> <span class="string">&#x27;./HomeView.vue&#x27;</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">AboutView</span> <span class="keyword">from</span> <span class="string">&#x27;./AboutView.vue&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> routes = [</span><br><span class="line">  &#123; <span class="attr">path</span>: <span class="string">&#x27;/&#x27;</span>, <span class="attr">component</span>: <span class="title class_">HomeView</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">path</span>: <span class="string">&#x27;/about&#x27;</span>, <span class="attr">component</span>: <span class="title class_">AboutView</span> &#125;,</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> router = <span class="title function_">createRouter</span>(&#123;</span><br><span class="line">  <span class="attr">history</span>: <span class="title function_">createMemoryHistory</span>(),</span><br><span class="line">  routes,</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>路由作为一个插件被使用： <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> app = <span class="title function_">createApp</span>(<span class="title class_">App</span>)</span><br><span class="line">app.<span class="title function_">use</span>(router)</span><br><span class="line">app.<span class="title function_">mount</span>(<span class="string">&#x27;#app&#x27;</span>)</span><br></pre></td></tr></table></figure> 组合式api中，用<code>useRouter() ;useRoute()</code>两个函数获取路由器实例和当前路由；组件 <code>RouterView</code> 和 <code>RouterLink</code> 都是<a target="_blank" rel="noopener" href="https://cn.vuejs.org/guide/components/registration.html#global-registration">全局注册</a>的，可以直接调用，最简单地做法是APP.vue直接整个渲染当前路径的<code>RouterView</code> routes可以使用参数或者正则匹配，详见官网文档</p>
+<h2 id="pinia"><a target="_blank" rel="noopener" href="https://pinia.vuejs.org/zh/">Pinia</a></h2>
+<p>Pinia 是 Vue 的专属状态管理库,可以帮助我们管理共享状态，也就是一些我们希望定义在组件外部，全局可用的状态<br />
+引入：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createApp &#125; <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span></span><br><span class="line"><span class="keyword">import</span> &#123; createPinia &#125; <span class="keyword">from</span> <span class="string">&#x27;pinia&#x27;</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">App</span> <span class="keyword">from</span> <span class="string">&#x27;./App.vue&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> pinia = <span class="title function_">createPinia</span>()</span><br><span class="line"><span class="keyword">const</span> app = <span class="title function_">createApp</span>(<span class="title class_">App</span>)</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">use</span>(pinia)</span><br><span class="line">app.<span class="title function_">mount</span>(<span class="string">&#x27;#app&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="section"></h2>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://thinklive1.github.io/thinklive/36218/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/thive.png">
+      <meta itemprop="name" content="thinklive">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="thinklive">
+      <meta itemprop="description" content="起初，世界是一团思索，它向所有的方向迈了一步，于是万物由此而生">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | thinklive">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/thinklive/36218/" class="post-title-link" itemprop="url">一些剧情向游戏杂谈</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2025-09-09 15:53:29" itemprop="dateCreated datePublished" datetime="2025-09-09T15:53:29+08:00">2025-09-09</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%B8%B8%E6%88%8F%E6%9D%82%E8%B0%88/" itemprop="url" rel="index"><span itemprop="name">游戏杂谈</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>45k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2:42</span>
+    </span>
+</div>
+
+        
+        </div>
+      </header>
+   
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>本文是对游戏杂谈的一个汇总</p>
+<hr />
+<h1 id="thinklive的游戏簿">thinklive的游戏簿</h1>
+<p><code>|</code>表示续作或dlc,<code>||</code>表示同作者或同系列
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/thinklive/44308/#more" rel="contents">
+              <a class="btn" href="/thinklive/36218/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://thinklive1.github.io/thinklive/24757/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/thive.png">
+      <meta itemprop="name" content="thinklive">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="thinklive">
+      <meta itemprop="description" content="起初，世界是一团思索，它向所有的方向迈了一步，于是万物由此而生">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | thinklive">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/thinklive/24757/" class="post-title-link" itemprop="url">一些工具的使用备忘录</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2025-09-09 15:53:29" itemprop="dateCreated datePublished" datetime="2025-09-09T15:53:29+08:00">2025-09-09</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%A4%87%E5%BF%98%E5%BD%95/" itemprop="url" rel="index"><span itemprop="name">备忘录</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>3.7k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>13 分钟</span>
+    </span>
+</div>
+
+        
+        </div>
+      </header>
+   
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="vim">vim</h1>
+<p><img src="/assets/resources/vim_key.gif" /></p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/thinklive/24757/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://thinklive1.github.io/thinklive/48061/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/thive.png">
+      <meta itemprop="name" content="thinklive">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="thinklive">
+      <meta itemprop="description" content="起初，世界是一团思索，它向所有的方向迈了一步，于是万物由此而生">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | thinklive">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/thinklive/48061/" class="post-title-link" itemprop="url">机器学习笔记 all in one</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2025-09-09 15:53:29" itemprop="dateCreated datePublished" datetime="2025-09-09T15:53:29+08:00">2025-09-09</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">课程笔记</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>16k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>57 分钟</span>
+    </span>
+</div>
+
+        
+        </div>
+      </header>
+   
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p><a target="_blank" rel="noopener" href="https://speech.ee.ntu.edu.tw/~hylee/ml/2022-spring.php">李宏毅机器学习</a> <a target="_blank" rel="noopener" href="https://zh.d2l.ai/">动手学深度学习</a></p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/thinklive/48061/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://thinklive1.github.io/thinklive/26286/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/thive.png">
+      <meta itemprop="name" content="thinklive">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="thinklive">
+      <meta itemprop="description" content="起初，世界是一团思索，它向所有的方向迈了一步，于是万物由此而生">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | thinklive">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/thinklive/26286/" class="post-title-link" itemprop="url">研distance——操作系统部分</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-11-29 21:12:21" itemprop="dateCreated datePublished" datetime="2023-11-29T21:12:21+08:00">2023-11-29</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-09-09 15:53:29" itemprop="dateModified" datetime="2025-09-09T15:53:29+08:00">2025-09-09</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">考研笔记</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/%E7%A0%94distance/" itemprop="url" rel="index"><span itemprop="name">研distance</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>44k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2:42</span>
+    </span>
+</div>
+
+        
+        </div>
+      </header>
+   
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="概论">概论</h1>
+<p><code>操作系统</code>：控制管理计算机的硬件，协调控制资源分配，并为应用程序和用户提供接口以供使用</p>
+<h2 id="基本特征">基本特征</h2>
+<p><code>操作系统</code>的基本特征包括并发，共享，虚拟和异步</p>
+<ol type="1">
+<li><p>并发<br />
+<code>并发</code>是指两个或多个事件在同一时间间隔内发生。操作系统的并发性是指计算机系统中同时存在多个运行的程序，因此它具有处理和调度多个程序同时执行的能力。这是通过类似时间片轮转的机制实现的。<br />
+<code>并行性</code>是指系统具有同时进行运算或操作的特性，在同一时刻能完成两种或两种以上的动作，需要相关硬件的支持,如多流水线或多处理机硬件环境</p></li>
+<li><p>共享<br />
+<code>共享</code>：系统内的某些资源可以供并发的不同进程使用，分为以下几种方式<br />
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/thinklive/26286/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://thinklive1.github.io/thinklive/16959/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/thive.png">
+      <meta itemprop="name" content="thinklive">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="thinklive">
+      <meta itemprop="description" content="起初，世界是一团思索，它向所有的方向迈了一步，于是万物由此而生">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | thinklive">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/thinklive/16959/" class="post-title-link" itemprop="url">基于哈佛cs50的计算机通识笔记</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2025-02-28 21:12:21" itemprop="dateCreated datePublished" datetime="2025-02-28T21:12:21+08:00">2025-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-03-27 16:46:29" itemprop="dateModified" datetime="2025-03-27T16:46:29+08:00">2025-03-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">课程笔记</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E9%80%9A%E8%AF%86/" itemprop="url" rel="index"><span itemprop="name">通识</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>18k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1:07</span>
+    </span>
+</div>
+
+        
+        </div>
+      </header>
+   
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          縺ｫ縺ｯ繧｢繝ｪ繧ｹ縺励
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/thinklive/16959/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -837,571 +1415,6 @@ const darkmode = new Darkmode(options);
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://thinklive1.github.io/thinklive/44607/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/thive.png">
-      <meta itemprop="name" content="thinklive">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="thinklive">
-      <meta itemprop="description" content="起初，世界是一团思索，它向所有的方向迈了一步，于是万物由此而生">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | thinklive">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/thinklive/44607/" class="post-title-link" itemprop="url">迪瑞克拉rpg设定集</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2023-09-29 21:12:21" itemprop="dateCreated datePublished" datetime="2023-09-29T21:12:21+08:00">2023-09-29</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-02-09 22:46:12" itemprop="dateModified" datetime="2025-02-09T22:46:12+08:00">2025-02-09</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E8%BF%AA%E7%91%9E%E5%85%8B%E6%8B%89/" itemprop="url" rel="index"><span itemprop="name">迪瑞克拉</span></a>
-        </span>
-    </span>
-
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>19k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1:08</span>
-    </span>
-</div>
-
-        
-        </div>
-      </header>
-   
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          本文有剧透内容
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/thinklive/44607/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://thinklive1.github.io/thinklive/57068/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/thive.png">
-      <meta itemprop="name" content="thinklive">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="thinklive">
-      <meta itemprop="description" content="起初，世界是一团思索，它向所有的方向迈了一步，于是万物由此而生">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | thinklive">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/thinklive/57068/" class="post-title-link" itemprop="url">恐怖人偶剧场古兰吉涅尔</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2025-01-12 19:51:16" itemprop="dateCreated datePublished" datetime="2025-01-12T19:51:16+08:00">2025-01-12</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-02-07 11:41:45" itemprop="dateModified" datetime="2025-02-07T11:41:45+08:00">2025-02-07</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%B8%B8%E6%88%8F%E6%9D%82%E8%B0%88/" itemprop="url" rel="index"><span itemprop="name">游戏杂谈</span></a>
-        </span>
-          ，
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%B8%B8%E6%88%8F%E6%9D%82%E8%B0%88/black-souls/" itemprop="url" rel="index"><span itemprop="name">black souls</span></a>
-        </span>
-    </span>
-
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>55k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>3:19</span>
-    </span>
-</div>
-
-        
-        </div>
-      </header>
-   
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="来自20世纪的妄想堕落与疯狂揭开恐怖人偶剧场古兰.吉涅尔的帷幕">来自20世纪的妄想，堕落与疯狂——揭开恐怖人偶剧场古兰.吉涅尔的帷幕</h1>
-<p>二十世纪前夕，巴黎仍处于科技革命时期，经济文化迅速发展，拥挤的贫民窟，纸醉金迷的上层社会，工厂里挥洒汗水的工人一同构成了近现代欧洲最繁华的城市之一</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/thinklive/57068/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://thinklive1.github.io/thinklive/16615/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/thive.png">
-      <meta itemprop="name" content="thinklive">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="thinklive">
-      <meta itemprop="description" content="起初，世界是一团思索，它向所有的方向迈了一步，于是万物由此而生">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | thinklive">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/thinklive/16615/" class="post-title-link" itemprop="url">基于斯坦福cs106b的c++数据结构笔记</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2024-01-20 19:53:48" itemprop="dateCreated datePublished" datetime="2024-01-20T19:53:48+08:00">2024-01-20</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-01-05 17:22:21" itemprop="dateModified" datetime="2025-01-05T17:22:21+08:00">2025-01-05</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">课程笔记</span></a>
-        </span>
-          ，
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a>
-        </span>
-    </span>
-
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>4.2k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>15 分钟</span>
-    </span>
-</div>
-
-        
-        </div>
-      </header>
-   
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="一些查找和排序算法">一些查找和排序算法</h2>
-<p>二分查找法 <img src="/images/obsidian/20230226101843.png" title="image" alt="图片" /> 最坏情况：log2n
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/thinklive/16615/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://thinklive1.github.io/thinklive/19859/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/thive.png">
-      <meta itemprop="name" content="thinklive">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="thinklive">
-      <meta itemprop="description" content="起初，世界是一团思索，它向所有的方向迈了一步，于是万物由此而生">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | thinklive">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/thinklive/19859/" class="post-title-link" itemprop="url">苏州大学计算机网络复习70问</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2024-01-20 19:53:48" itemprop="dateCreated datePublished" datetime="2024-01-20T19:53:48+08:00">2024-01-20</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-11-07 22:37:27" itemprop="dateModified" datetime="2024-11-07T22:37:27+08:00">2024-11-07</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">课程笔记</span></a>
-        </span>
-          ，
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" itemprop="url" rel="index"><span itemprop="name">计算机网络</span></a>
-        </span>
-    </span>
-
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>4.2k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>15 分钟</span>
-    </span>
-</div>
-
-        
-        </div>
-      </header>
-   
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <ol type="1">
-<li><p>在TCP/IP协议栈的层次中，解决计算机之间通信问题的是在哪个层次<br />
-网际层</p></li>
-<li><p>IP协议提供的服务类型是什么<br />
-为IP数据报提供无连接，不可靠，尽力交付的路由选择和传输服务</p></li>
-</ol>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/thinklive/19859/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://thinklive1.github.io/thinklive/22586/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/thive.png">
-      <meta itemprop="name" content="thinklive">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="thinklive">
-      <meta itemprop="description" content="起初，世界是一团思索，它向所有的方向迈了一步，于是万物由此而生">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | thinklive">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/thinklive/22586/" class="post-title-link" itemprop="url">hexo建立个人博客指北</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2024-01-20 19:53:48" itemprop="dateCreated datePublished" datetime="2024-01-20T19:53:48+08:00">2024-01-20</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-06-29 19:39:55" itemprop="dateModified" datetime="2024-06-29T19:39:55+08:00">2024-06-29</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E5%BB%BA%E7%AB%99%E7%BB%8F%E9%AA%8C/" itemprop="url" rel="index"><span itemprop="name">建站经验</span></a>
-        </span>
-    </span>
-
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>4k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>14 分钟</span>
-    </span>
-</div>
-
-        
-        </div>
-      </header>
-   
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="概要">概要</h1>
-<p>本文用于简要阐释我个人关于使用hexo建个人博客的经验，和解释hexo的各种自定义功能，也可以说是我个人的备忘录。网上很多教程都是直接告诉你怎么做，这在建站时很方便，但如果你要自定义就要知道hexo是怎么自定义的，本文可以帮你对此有一些了解<br />
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/thinklive/22586/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
   <nav class="pagination">
     <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
@@ -1426,14 +1439,14 @@ const darkmode = new Darkmode(options);
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">554k</span>
+    <span title="站点总字数">576k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">33:36</span>
+    <span title="站点阅读时长">34:54</span>
   </span>
 </div>
 <div class="busuanzi-count">

@@ -87,7 +87,6 @@ const darkmode = new Darkmode(options);
   <div class="headband"></div>
 
 
-
   <main class="main">
     <div class="column">
       <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
@@ -207,18 +206,18 @@ const darkmode = new Darkmode(options);
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">41</span>
+          <span class="site-state-item-count">44</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-count">19</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">46</span>
+        <span class="site-state-item-count">49</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -384,7 +383,7 @@ const darkmode = new Darkmode(options);
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://thinklive1.github.io/thinklive/47457/">
+    <link itemprop="mainEntityOfPage" href="https://thinklive1.github.io/thinklive/37185/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/thive.png">
@@ -402,7 +401,7 @@ const darkmode = new Darkmode(options);
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/thinklive/47457/" class="post-title-link" itemprop="url">研distance——计算机组成部分</a>
+          <a href="/thinklive/37185/" class="post-title-link" itemprop="url">强化学习笔记 all in one</a>
         </h2>
 
         <div class="post-meta-container">
@@ -413,14 +412,14 @@ const darkmode = new Darkmode(options);
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2023-11-29 21:12:21" itemprop="dateCreated datePublished" datetime="2023-11-29T21:12:21+08:00">2023-11-29</time>
+      <time title="创建时间：2025-09-09 15:53:29" itemprop="dateCreated datePublished" datetime="2025-09-09T15:53:29+08:00">2025-09-09</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-04-02 20:09:51" itemprop="dateModified" datetime="2025-04-02T20:09:51+08:00">2025-04-02</time>
+      <time title="修改时间：2025-09-10 10:31:03" itemprop="dateModified" datetime="2025-09-10T10:31:03+08:00">2025-09-10</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -428,11 +427,7 @@ const darkmode = new Darkmode(options);
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">考研笔记</span></a>
-        </span>
-          ，
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/%E7%A0%94distance/" itemprop="url" rel="index"><span itemprop="name">研distance</span></a>
+          <a href="/categories/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">课程笔记</span></a>
         </span>
     </span>
 
@@ -443,14 +438,14 @@ const darkmode = new Darkmode(options);
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>40k</span>
+      <span>2.7k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2:25</span>
+      <span>10 分钟</span>
     </span>
 </div>
 
@@ -463,29 +458,37 @@ const darkmode = new Darkmode(options);
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="概论">概论</h1>
-<p>历史： 电子管-&gt;晶体管-&gt;集成电路 比较成熟的集成电路出现于1972</p>
-<p>冯诺依曼机：</p>
+          <h1 id="基础概念">基础概念</h1>
+<p>强化学习和监督学习的区别：</p>
 <ol type="1">
-<li>采用“存储程序”的工作方式。程序和原始数据送入主存后才能执行，计算机自动逐条执行指令，直至执行结束</li>
-<li>计算机硬件系统由运算器、存储器、控制器、输入设备和输出设备5大部件组成。
-<ul>
-<li>存储器分为主存和辅存，对应现在的内存和硬盘，由存储单元组成，存储单元可存储一串二进制代码，称这串代码为存储字，称这串代码的位数为存储字长</li>
-<li>主存由地址寄存器MAR和数据寄存器MDR以及时序控制逻辑组成，MAR用于寻址，其位数对应着存储单元的个数，存放访问地址，需要译码才能定位到存储单元，MDR的位数和存储字长相等，暂存要从存储器读写的信息，时序控制逻辑产生操作的时序信号</li>
-<li>运算器的核心是算术逻辑单元ALU，运算器包含若干通用寄存器，用于暂存操作数和中间结果，程序状态寄存器(PSW),也称标志寄存器用于存放运算中的一些状态信息</li>
-<li>控制器由程序计数器(PC)、指令寄存器(IR)和控制单元(CU)组成
-<ul>
-<li>PC用来存放当前欲执行指令的地址，可以自增1来寻址到下一个指令</li>
-<li>IR用来存放当前的指令，其内容来自主存的MDR，指令中操作码送到CU，地址码送至MAR</li>
-<li>CU通过操作码产生需要的命令序列</li>
-</ul></li>
-</ul></li>
-<li>指令和数据以同等地位存储在存储器中，形式上没有区别，CPU用<strong>指令周期的不同阶段</strong>区分他们</li>
-<li>指令和数据均用二进制代码表示。指令由操作码和地址码组成，操作码指出操作的类型,地址码指出操作数的地址</li>
+<li>强化学习输入的样本是序列数据,监督学习的样本之间相互独立</li>
+<li>没有明确的监督者，通过奖励机制进行学习，但回馈可能是长期的，模糊的</li>
 </ol>
+<p>一些强化学习的演示视频中，ai会做一些人类看来无意义的动作，正是这种“玄学”的回馈机制导致的</p>
+<ul>
+<li>actor: 行为主体
+<ul>
+<li>action则可分为离散和连续，例如2d游戏中走格子迷宫就是一个典型的离散动作空间</li>
+</ul></li>
+<li>observaton o /states s: 观测与状态
+<ul>
+<li>观测到的情况o和现实情况（状态s）其实有可能不同，假设可以观察到全景，rl则成为一个马尔科夫决策过程</li>
+</ul></li>
+<li>policy π: 行为策略
+<ul>
+<li>带有参数θ</li>
+</ul></li>
+<li>reward：反馈
+<ul>
+<li>baseline: 避免总是正值的reward,增加的偏置值，例如取期望</li>
+</ul></li>
+<li>episode: 一轮行动</li>
+<li>trajectory τ: <span class="math inline">\(\tau=\{s_{1},a_{1},s_{2},a_{2},\cdots,s_{T},a_{T}\}\)</span></li>
+<li>折扣γ: 直觉上，最开始的训练回馈可能更重要，越往后则训练收益越小，所以对每步的回馈可以乘以一个 <span class="math inline">\(\gamma^{t-1}\)</span>，t为训练次数，这个超参数也可以用于控制训练策略偏短期还是偏长期</li>
+</ul>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/thinklive/47457/#more" rel="contents">
+              <a class="btn" href="/thinklive/37185/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -552,7 +555,7 @@ const darkmode = new Darkmode(options);
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-04-02 20:09:07" itemprop="dateModified" datetime="2025-04-02T20:09:07+08:00">2025-04-02</time>
+      <time title="修改时间：2025-09-09 15:53:29" itemprop="dateModified" datetime="2025-09-09T15:53:29+08:00">2025-09-09</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -646,7 +649,7 @@ NAT即网络地址转换（Network Address Translation），是一种将IP数据
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://thinklive1.github.io/thinklive/52285/">
+    <link itemprop="mainEntityOfPage" href="https://thinklive1.github.io/thinklive/44308/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/thive.png">
@@ -664,7 +667,7 @@ NAT即网络地址转换（Network Address Translation），是一种将IP数据
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/thinklive/52285/" class="post-title-link" itemprop="url">研distance——计算机网络</a>
+          <a href="/thinklive/44308/" class="post-title-link" itemprop="url">计算机专业英语术语表</a>
         </h2>
 
         <div class="post-meta-container">
@@ -675,14 +678,7 @@ NAT即网络地址转换（Network Address Translation），是一种将IP数据
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2024-03-04 21:12:22" itemprop="dateCreated datePublished" datetime="2024-03-04T21:12:22+08:00">2024-03-04</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-04-02 20:06:01" itemprop="dateModified" datetime="2025-04-02T20:06:01+08:00">2025-04-02</time>
+      <time title="创建时间：2025-09-09 15:53:29" itemprop="dateCreated datePublished" datetime="2025-09-09T15:53:29+08:00">2025-09-09</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -690,11 +686,7 @@ NAT即网络地址转换（Network Address Translation），是一种将IP数据
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">考研笔记</span></a>
-        </span>
-          ，
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/%E7%A0%94distance/" itemprop="url" rel="index"><span itemprop="name">研distance</span></a>
+          <a href="/categories/%E8%8B%B1%E8%AF%AD%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">英语学习</span></a>
         </span>
     </span>
 
@@ -705,14 +697,14 @@ NAT即网络地址转换（Network Address Translation），是一种将IP数据
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>40k</span>
+      <span>10k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2:25</span>
+      <span>37 分钟</span>
     </span>
 </div>
 
@@ -725,21 +717,32 @@ NAT即网络地址转换（Network Address Translation），是一种将IP数据
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="概论">概论</h1>
-<h2 id="概念">概念</h2>
-<p><strong>主流定义</strong>：以能够相互共享资源的方式互连起来的自治计算机系统的集合</p>
-<ol type="1">
-<li>从组成部分上看，一个完整的计算机网络主要由硬件、软件、协议三大部分组成。其中硬件主要由主机(也称端系统)、通信链路(如双绞线、光纤)、交换设备(如路由器、交换机等)和通信处理机(如网卡)等组成<br />
-</li>
-<li>从工作方式上看，计算机网络(这里主要指Internet,即因特网)可分为边缘部分和核心部分,边缘系统是由用户主机组成用于通信和资源共享；核心系统为边缘部分提供互联服务<br />
-</li>
-<li>从功能组成上看，计算机网络由通信子网和资源子网组成。通信子网由各种传输介质、通信设备和相应的网络协议组成，实现联网计算机之间的数据通信。资源子网是实现资源共享功能的设备及其软件的集合,向网络用户提供共享服务。</li>
-</ol>
-<p><img src="/assets/resources/Pasted%20image%2020240303102036.png" /><br />
-<img src="/assets/resources/Pasted%20image%2020240303101219.png" /></p>
+          <h1 id="机器学习">机器学习</h1>
+<ul>
+<li>stochastic 随机的</li>
+<li>hallucinations 幻觉</li>
+<li>paradigm 范式</li>
+<li>Modular 模块化</li>
+<li>augmentation 增强</li>
+<li>scalability 可拓展性</li>
+<li>proprietary 专有</li>
+<li>fine-tuning 微调</li>
+<li>parameterize 参数化</li>
+<li>corpora 语料库</li>
+<li>downstream</li>
+<li>domain-specific</li>
+<li>sample space 样本空间</li>
+<li>outcome space 结果空间</li>
+<li>mutually exclusive 互斥</li>
+<li>stochastic gradient descent 随机梯度下降法</li>
+<li>granularity 粒度</li>
+<li>Cross-site scripting 跨站脚本</li>
+<li>off-the-shelf 现成的</li>
+</ul>
+<h1 id="算法与数据结构常用术语">算法与数据结构常用术语</h1>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/thinklive/52285/#more" rel="contents">
+              <a class="btn" href="/thinklive/44308/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -770,7 +773,7 @@ NAT即网络地址转换（Network Address Translation），是一种将IP数据
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://thinklive1.github.io/thinklive/26286/">
+    <link itemprop="mainEntityOfPage" href="https://thinklive1.github.io/thinklive/52409/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/thive.png">
@@ -788,7 +791,7 @@ NAT即网络地址转换（Network Address Translation），是一种将IP数据
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/thinklive/26286/" class="post-title-link" itemprop="url">研distance——操作系统部分</a>
+          <a href="/thinklive/52409/" class="post-title-link" itemprop="url">论文阅读笔记</a>
         </h2>
 
         <div class="post-meta-container">
@@ -799,14 +802,7 @@ NAT即网络地址转换（Network Address Translation），是一种将IP数据
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2023-11-29 21:12:21" itemprop="dateCreated datePublished" datetime="2023-11-29T21:12:21+08:00">2023-11-29</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-04-02 20:05:58" itemprop="dateModified" datetime="2025-04-02T20:05:58+08:00">2025-04-02</time>
+      <time title="创建时间：2025-09-09 15:53:29" itemprop="dateCreated datePublished" datetime="2025-09-09T15:53:29+08:00">2025-09-09</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -814,11 +810,7 @@ NAT即网络地址转换（Network Address Translation），是一种将IP数据
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">考研笔记</span></a>
-        </span>
-          ，
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/%E7%A0%94distance/" itemprop="url" rel="index"><span itemprop="name">研distance</span></a>
+          <a href="/categories/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">课程笔记</span></a>
         </span>
     </span>
 
@@ -829,14 +821,14 @@ NAT即网络地址转换（Network Address Translation），是一种将IP数据
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>45k</span>
+      <span>352</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2:42</span>
+      <span>1 分钟</span>
     </span>
 </div>
 
@@ -849,19 +841,119 @@ NAT即网络地址转换（Network Address Translation），是一种将IP数据
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="概论">概论</h1>
-<p><code>操作系统</code>：控制管理计算机的硬件，协调控制资源分配，并为应用程序和用户提供接口以供使用</p>
-<h2 id="基本特征">基本特征</h2>
-<p><code>操作系统</code>的基本特征包括并发，共享，虚拟和异步</p>
-<ol type="1">
-<li><p>并发<br />
-<code>并发</code>是指两个或多个事件在同一时间间隔内发生。操作系统的并发性是指计算机系统中同时存在多个运行的程序，因此它具有处理和调度多个程序同时执行的能力。这是通过类似时间片轮转的机制实现的。<br />
-<code>并行性</code>是指系统具有同时进行运算或操作的特性，在同一时刻能完成两种或两种以上的动作，需要相关硬件的支持,如多流水线或多处理机硬件环境</p></li>
-<li><p>共享<br />
-<code>共享</code>：系统内的某些资源可以供并发的不同进程使用，分为以下几种方式<br />
+          <p><strong>A Survey on RAG Meeting LLMs: Towards Retrieval-Augmented Large Language Models</strong></p>
+<p>检索技术被用来面对输入查询时提取相关的外部信息，其典型的应用场景就是谷歌百度这样的搜索引擎。而近来火热的生成式模型面临的场景问题——幻觉，也可以一定程度上用检索技术解决</p>
+<p>retrieval 可分为 sparse and dense, 标准是对信息的编码方式，前者基于词语，也就是直接当做文本信息，后者会使用词嵌入，将信息编码进向量空间，更为复杂<br />
+spares: 常用的方法是使用术语和逆文档频率排序，选取相关度最高的，也会被用于提供上下文学习的证明，缺点是对术语的依赖性较强<br />
+dense: 与前者不同，以词嵌入为搜索标准，例如依据semantic similarity，选取最相似的，实例有BERT-based backbone 等</p>
+<p>Retrieval Granularity: 粒度的选取非常重要，会影响模型的性能和效率表现，数据库的检索和计算开销等<br />
+早期的检索增强语言模型倾向于检索出整段文档，模型学习检索到的文档，并在其中定位答案<br />
+近年常用的有Chunk retrieval, token retrieval(检索更快，但数据库压力较大，适合模式稀有且需要不常用领域数据的情况)</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://thinklive1.github.io/thinklive/44607/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/thive.png">
+      <meta itemprop="name" content="thinklive">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="thinklive">
+      <meta itemprop="description" content="起初，世界是一团思索，它向所有的方向迈了一步，于是万物由此而生">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | thinklive">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/thinklive/44607/" class="post-title-link" itemprop="url">迪瑞克拉rpg设定集</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-09-29 21:12:21" itemprop="dateCreated datePublished" datetime="2023-09-29T21:12:21+08:00">2023-09-29</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-09-09 15:53:29" itemprop="dateModified" datetime="2025-09-09T15:53:29+08:00">2025-09-09</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%BF%AA%E7%91%9E%E5%85%8B%E6%8B%89/" itemprop="url" rel="index"><span itemprop="name">迪瑞克拉</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>19k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1:11</span>
+    </span>
+</div>
+
+        
+        </div>
+      </header>
+   
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          本文有剧透内容
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/thinklive/26286/#more" rel="contents">
+              <a class="btn" href="/thinklive/44607/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -928,7 +1020,7 @@ NAT即网络地址转换（Network Address Translation），是一种将IP数据
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-04-02 20:05:49" itemprop="dateModified" datetime="2025-04-02T20:05:49+08:00">2025-04-02</time>
+      <time title="修改时间：2025-09-09 15:53:29" itemprop="dateModified" datetime="2025-09-09T15:53:29+08:00">2025-09-09</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -1027,7 +1119,7 @@ NAT即网络地址转换（Network Address Translation），是一种将IP数据
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://thinklive1.github.io/thinklive/48061/">
+    <link itemprop="mainEntityOfPage" href="https://thinklive1.github.io/thinklive/47457/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/thive.png">
@@ -1045,7 +1137,7 @@ NAT即网络地址转换（Network Address Translation），是一种将IP数据
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/thinklive/48061/" class="post-title-link" itemprop="url">基于国立台湾大学李宏毅机器学习的课程笔记</a>
+          <a href="/thinklive/47457/" class="post-title-link" itemprop="url">研distance——计算机组成部分</a>
         </h2>
 
         <div class="post-meta-container">
@@ -1056,14 +1148,14 @@ NAT即网络地址转换（Network Address Translation），是一种将IP数据
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2025-03-31 17:04:16" itemprop="dateCreated datePublished" datetime="2025-03-31T17:04:16+08:00">2025-03-31</time>
+      <time title="创建时间：2023-11-29 21:12:21" itemprop="dateCreated datePublished" datetime="2023-11-29T21:12:21+08:00">2023-11-29</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-04-02 16:45:00" itemprop="dateModified" datetime="2025-04-02T16:45:00+08:00">2025-04-02</time>
+      <time title="修改时间：2025-09-09 15:53:29" itemprop="dateModified" datetime="2025-09-09T15:53:29+08:00">2025-09-09</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -1071,350 +1163,11 @@ NAT即网络地址转换（Network Address Translation），是一种将IP数据
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">课程笔记</span></a>
-        </span>
-    </span>
-
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>830</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>3 分钟</span>
-    </span>
-</div>
-
-        
-        </div>
-      </header>
-   
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="前期工作">前期工作</h1>
-<h2 id="cuda">cuda</h2>
-<p>Compute Unified Device Architecture (CUDA):简单地说，就是允许软件调用gpu来计算的一个接口<br />
-CUDA Runtime API vs. CUDA Driver API</p>
-<ul>
-<li>驱动版本需要≥运行时api版本</li>
-<li>driver user-space modules需要和driver kernel modules版本一致</li>
-<li>当我们谈论cuda时，往往是说runtime api</li>
-</ul>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/thinklive/48061/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://thinklive1.github.io/thinklive/24757/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/thive.png">
-      <meta itemprop="name" content="thinklive">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="thinklive">
-      <meta itemprop="description" content="起初，世界是一团思索，它向所有的方向迈了一步，于是万物由此而生">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | thinklive">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/thinklive/24757/" class="post-title-link" itemprop="url">一些工具的使用备忘录</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2024-01-20 19:53:48" itemprop="dateCreated datePublished" datetime="2024-01-20T19:53:48+08:00">2024-01-20</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-04-01 22:29:04" itemprop="dateModified" datetime="2025-04-01T22:29:04+08:00">2025-04-01</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E5%A4%87%E5%BF%98%E5%BD%95/" itemprop="url" rel="index"><span itemprop="name">备忘录</span></a>
-        </span>
-    </span>
-
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>2.3k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>8 分钟</span>
-    </span>
-</div>
-
-        
-        </div>
-      </header>
-   
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="vim">vim</h1>
-<p><img src="/assets/resources/vim_key.gif" /></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/thinklive/24757/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://thinklive1.github.io/thinklive/36218/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/thive.png">
-      <meta itemprop="name" content="thinklive">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="thinklive">
-      <meta itemprop="description" content="起初，世界是一团思索，它向所有的方向迈了一步，于是万物由此而生">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | thinklive">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/thinklive/36218/" class="post-title-link" itemprop="url">一些剧情向游戏杂谈</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2024-07-06 11:26:40" itemprop="dateCreated datePublished" datetime="2024-07-06T11:26:40+08:00">2024-07-06</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-03-30 10:39:23" itemprop="dateModified" datetime="2025-03-30T10:39:23+08:00">2025-03-30</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%B8%B8%E6%88%8F%E6%9D%82%E8%B0%88/" itemprop="url" rel="index"><span itemprop="name">游戏杂谈</span></a>
-        </span>
-    </span>
-
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>45k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2:42</span>
-    </span>
-</div>
-
-        
-        </div>
-      </header>
-   
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>本文是对游戏杂谈的一个汇总</p>
-<hr />
-<h1 id="thinklive的游戏簿">thinklive的游戏簿</h1>
-<p><code>|</code>表示续作或dlc,<code>||</code>表示同作者或同系列
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/thinklive/36218/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://thinklive1.github.io/thinklive/16959/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/thive.png">
-      <meta itemprop="name" content="thinklive">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="thinklive">
-      <meta itemprop="description" content="起初，世界是一团思索，它向所有的方向迈了一步，于是万物由此而生">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | thinklive">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/thinklive/16959/" class="post-title-link" itemprop="url">基于哈佛cs50的计算机通识笔记</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2025-02-28 21:12:21" itemprop="dateCreated datePublished" datetime="2025-02-28T21:12:21+08:00">2025-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-03-27 16:46:29" itemprop="dateModified" datetime="2025-03-27T16:46:29+08:00">2025-03-27</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">课程笔记</span></a>
+          <a href="/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">考研笔记</span></a>
         </span>
           ，
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E9%80%9A%E8%AF%86/" itemprop="url" rel="index"><span itemprop="name">通识</span></a>
+          <a href="/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/%E7%A0%94distance/" itemprop="url" rel="index"><span itemprop="name">研distance</span></a>
         </span>
     </span>
 
@@ -1425,14 +1178,14 @@ CUDA Runtime API vs. CUDA Driver API</p>
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>18k</span>
+      <span>40k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1:07</span>
+      <span>2:26</span>
     </span>
 </div>
 
@@ -1445,10 +1198,246 @@ CUDA Runtime API vs. CUDA Driver API</p>
     
     
     <div class="post-body" itemprop="articleBody">
-          縺ｫ縺ｯ繧｢繝ｪ繧ｹ縺励
+          <h1 id="概论">概论</h1>
+<p>历史： 电子管-&gt;晶体管-&gt;集成电路 比较成熟的集成电路出现于1972</p>
+<p>冯诺依曼机：</p>
+<ol type="1">
+<li>采用“存储程序”的工作方式。程序和原始数据送入主存后才能执行，计算机自动逐条执行指令，直至执行结束</li>
+<li>计算机硬件系统由运算器、存储器、控制器、输入设备和输出设备5大部件组成。
+<ul>
+<li>存储器分为主存和辅存，对应现在的内存和硬盘，由存储单元组成，存储单元可存储一串二进制代码，称这串代码为存储字，称这串代码的位数为存储字长</li>
+<li>主存由地址寄存器MAR和数据寄存器MDR以及时序控制逻辑组成，MAR用于寻址，其位数对应着存储单元的个数，存放访问地址，需要译码才能定位到存储单元，MDR的位数和存储字长相等，暂存要从存储器读写的信息，时序控制逻辑产生操作的时序信号</li>
+<li>运算器的核心是算术逻辑单元ALU，运算器包含若干通用寄存器，用于暂存操作数和中间结果，程序状态寄存器(PSW),也称标志寄存器用于存放运算中的一些状态信息</li>
+<li>控制器由程序计数器(PC)、指令寄存器(IR)和控制单元(CU)组成
+<ul>
+<li>PC用来存放当前欲执行指令的地址，可以自增1来寻址到下一个指令</li>
+<li>IR用来存放当前的指令，其内容来自主存的MDR，指令中操作码送到CU，地址码送至MAR</li>
+<li>CU通过操作码产生需要的命令序列</li>
+</ul></li>
+</ul></li>
+<li>指令和数据以同等地位存储在存储器中，形式上没有区别，CPU用<strong>指令周期的不同阶段</strong>区分他们</li>
+<li>指令和数据均用二进制代码表示。指令由操作码和地址码组成，操作码指出操作的类型,地址码指出操作数的地址</li>
+</ol>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/thinklive/16959/#more" rel="contents">
+              <a class="btn" href="/thinklive/47457/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://thinklive1.github.io/thinklive/52285/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/thive.png">
+      <meta itemprop="name" content="thinklive">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="thinklive">
+      <meta itemprop="description" content="起初，世界是一团思索，它向所有的方向迈了一步，于是万物由此而生">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | thinklive">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/thinklive/52285/" class="post-title-link" itemprop="url">研distance——计算机网络</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-03-04 21:12:22" itemprop="dateCreated datePublished" datetime="2024-03-04T21:12:22+08:00">2024-03-04</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-09-09 15:53:29" itemprop="dateModified" datetime="2025-09-09T15:53:29+08:00">2025-09-09</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">考研笔记</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/%E7%A0%94distance/" itemprop="url" rel="index"><span itemprop="name">研distance</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>40k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2:25</span>
+    </span>
+</div>
+
+        
+        </div>
+      </header>
+   
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="概论">概论</h1>
+<h2 id="概念">概念</h2>
+<p><strong>主流定义</strong>：以能够相互共享资源的方式互连起来的自治计算机系统的集合</p>
+<ol type="1">
+<li>从组成部分上看，一个完整的计算机网络主要由硬件、软件、协议三大部分组成。其中硬件主要由主机(也称端系统)、通信链路(如双绞线、光纤)、交换设备(如路由器、交换机等)和通信处理机(如网卡)等组成<br />
+</li>
+<li>从工作方式上看，计算机网络(这里主要指Internet,即因特网)可分为边缘部分和核心部分,边缘系统是由用户主机组成用于通信和资源共享；核心系统为边缘部分提供互联服务<br />
+</li>
+<li>从功能组成上看，计算机网络由通信子网和资源子网组成。通信子网由各种传输介质、通信设备和相应的网络协议组成，实现联网计算机之间的数据通信。资源子网是实现资源共享功能的设备及其软件的集合,向网络用户提供共享服务。</li>
+</ol>
+<p><img src="/assets/resources/Pasted%20image%2020240303102036.png" /><br />
+<img src="/assets/resources/Pasted%20image%2020240303101219.png" /></p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/thinklive/52285/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://thinklive1.github.io/thinklive/23089/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/thive.png">
+      <meta itemprop="name" content="thinklive">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="thinklive">
+      <meta itemprop="description" content="起初，世界是一团思索，它向所有的方向迈了一步，于是万物由此而生">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | thinklive">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/thinklive/23089/" class="post-title-link" itemprop="url">pdfs</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2025-09-09 15:53:29" itemprop="dateCreated datePublished" datetime="2025-09-09T15:53:29+08:00">2025-09-09</time>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>26</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        
+        </div>
+      </header>
+   
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>一些pdf</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/thinklive/23089/">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1495,14 +1484,14 @@ CUDA Runtime API vs. CUDA Driver API</p>
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">554k</span>
+    <span title="站点总字数">576k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">33:36</span>
+    <span title="站点阅读时长">34:54</span>
   </span>
 </div>
 <div class="busuanzi-count">

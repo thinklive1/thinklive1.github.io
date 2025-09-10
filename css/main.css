@@ -2828,6 +2828,9 @@ body {
 .post-body .note {
   background: var(--note-bg-color);
 }
+.post-body .note.default {
+  background: var(--note-bg-color);
+}
 @keyframes clippath {
   0%, 100% {
     clip-path: inset(0 0 98% 0);

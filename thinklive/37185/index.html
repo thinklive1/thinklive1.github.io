@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha256-CTSx/A06dm1B063156EVh15m6Y67pAjZZaQc89LLSrU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.24/fancybox/fancybox.css" integrity="sha256-vQkngPS8jiHHH0I6ABTZroZk8NPZ7b+MUReOFE9UsXQ=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"thinklive1.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.18.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"flat"},"fold":{"enable":true,"height":500},"bookmark":{"enable":true,"color":"#66CCFF","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":true,"motion":{"enable":true,"async":true,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="基础概念 强化学习和监督学习的区别：  强化学习输入的样本是序列数据,监督学习的样本之间相互独立 没有明确的监督者，通过奖励机制进行学习，但回馈可能是长期的，模糊的  一些强化学习的演示视频中，ai会做一些人类看来无意义的动作，正是这种“玄学”的回馈机制导致的  actor: 行为主体  action则可分为离散和连续，例如2d游戏中走格子迷宫就是一个典型的离散动作空间  observaton o">
+<meta property="og:type" content="article">
+<meta property="og:title" content="强化学习笔记 all in one">
+<meta property="og:url" content="https://thinklive1.github.io/thinklive/37185/index.html">
+<meta property="og:site_name" content="thinklive">
+<meta property="og:description" content="基础概念 强化学习和监督学习的区别：  强化学习输入的样本是序列数据,监督学习的样本之间相互独立 没有明确的监督者，通过奖励机制进行学习，但回馈可能是长期的，模糊的  一些强化学习的演示视频中，ai会做一些人类看来无意义的动作，正是这种“玄学”的回馈机制导致的  actor: 行为主体  action则可分为离散和连续，例如2d游戏中走格子迷宫就是一个典型的离散动作空间  observaton o">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://thinklive1.github.io/assets/ml/52243716-045d-4e27-ad0c-0e84593fee81.png">
+<meta property="article:published_time" content="2025-09-09T07:53:29.840Z">
+<meta property="article:modified_time" content="2025-09-10T02:31:03.294Z">
+<meta property="article:author" content="thinklive">
+<meta property="article:tag" content="课程笔记">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="人工智能">
+<meta property="article:tag" content="国立台湾大学">
+<meta property="article:tag" content="强化学习">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://thinklive1.github.io/assets/ml/52243716-045d-4e27-ad0c-0e84593fee81.png">
+
+
+<link rel="canonical" href="https://thinklive1.github.io/thinklive/37185/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://thinklive1.github.io/thinklive/37185/","path":"thinklive/37185/","title":"强化学习笔记 all in one"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>强化学习笔记 all in one | thinklive</title>
+  
+
+
+
+
+
+
+
+<script type="text/javascript" async src="/js/fairyDustCursor.js"></script>
+<script type="text/javascript" async src="/js/tab-title.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+  <script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
+<script>
+const options = {
+  bottom: '64px', // default: '32px'
+  right: 'unset', // default: '32px'
+  left: '32px', // default: 'unset'
+  time: '0.5s', // default: '0.3s'
+  mixColor: '#fff', // default: '#fff'
+  backgroundColor: '#fff',  // default: '#fff'
+  buttonColorDark: '#100f2c',  // default: '#100f2c'
+  buttonColorLight: '#fff', // default: '#fff'
+  saveInCookies: false, // default: true,
+  label: '🌓', // default: ''
+  autoMatchOsTheme: true // default: true
+}
+
+const darkmode = new Darkmode(options);
+</script>
+<!-- hexo injector head_end start --><script> let HEXO_MMEDIA_DATA = { js: [], css: [], aplayerData: [], metingData: [], artPlayerData: [], dplayerData: []}; </script><!-- hexo injector head_end end --><link rel="alternate" href="/atom.xml" title="thinklive" type="application/atom+xml">
+<style>.darkmode--activated{--body-bg-color:#282828;--content-bg-color:#333;--card-bg-color:#555;--text-color:#ccc;--blockquote-color:#bbb;--link-color:#ccc;--link-hover-color:#eee;--brand-color:#ddd;--brand-hover-color:#ddd;--table-row-odd-bg-color:#282828;--table-row-hover-bg-color:#363636;--menu-item-bg-color:#555;--btn-default-bg:#222;--btn-default-color:#ccc;--btn-default-border-color:#555;--btn-default-hover-bg:#666;--btn-default-hover-color:#ccc;--btn-default-hover-border-color:#666;--highlight-background:#282b2e;--highlight-foreground:#a9b7c6;--highlight-gutter-background:#34393d;--highlight-gutter-foreground:#9ca9b6}.darkmode--activated img{opacity:.75}.darkmode--activated img:hover{opacity:.9}.darkmode--activated code{color:#69dbdc;background:0 0}button.darkmode-toggle{z-index:9999}.darkmode-ignore,img{display:flex!important}.beian img{display:inline-block!important}</style></head>
+<script src="/js/tab-title.js"></script>
+<script type="text/javascript" async src="/js/text.js"></script>
+
+<!--pjax：防止跳转页面音乐暂停-->
+ <script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.js"></script>
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">thinklive</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">dirichlet library</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索 | search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-主页-|-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>主页 | home</a></li><li class="menu-item menu-item-标签-|-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签 | tags</a></li><li class="menu-item menu-item-分类-|-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类 | categories</a></li><li class="menu-item menu-item-归档-|-archive"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档 | archive</a></li><li class="menu-item menu-item-相册-|-photo"><a href="/photos/" rel="section"><i class="fa fa-camera fa-fw"></i>相册 | photo</a></li><li class="menu-item menu-item-留言-|-guestbook"><a href="/guestbook/" rel="section"><i class="fa fa-book fa-fw"></i>留言 | guestbook</a></li><li class="menu-item menu-item-感谢-|-thank"><a href="/thanks/" rel="section"><i class="fa custom thanks fa-fw"></i>感谢 | thank</a></li><li class="menu-item menu-item-游戏-|-game"><a href="/game/bad1.html" rel="section"><i class="fa fa-gamepad fa-fw"></i>游戏 | game</a></li><li class="menu-item menu-item-神龛-|-shrine"><a href="/cyberblog/" rel="section"><i class="fa fa-microchip fa-fw"></i>神龛 | shrine</a></li><li class="menu-item menu-item-资源地图-|-resourcemap"><a href="/webstack/" rel="section"><i class="fa fa-list fa-fw"></i>资源地图 | resourcemap</a></li><li class="menu-item menu-item-思维导图-|-mindmap"><a href="/mindmap/index.html" rel="section"><i class="fa fa-map fa-fw"></i>思维导图 | mindmap</a></li><li class="menu-item menu-item-网站地图-|-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>网站地图 | sitemap</a></li><li class="menu-item menu-item-蒸汽-|-steam"><a href="/steamgames/index.html" rel="section"><i class="fa fa custum steam fa-fw"></i>蒸汽 | steam</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索 | search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+
+<!--网易云音乐插件-->
+<!-- require APlayer -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
+<script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
+<!-- require MetingJS-->
+<script src="https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"></script> 
+<!--网易云playlist外链地址-->   
+<meting-js
+    server="netease"
+    type="playlist" 
+    id="2762741085"
+    mini="false"
+    fixed="false"
+    list-folded="true"
+    autoplay="false"
+    volume="0.2"
+    theme="#4c4c4c"
+    order="random"
+    loop="all"
+    preload="auto"
+    lrc-type="2"
+    mutex="true">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">基础概念</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E8%BF%87%E7%A8%8B"><span class="nav-number">1.1.</span> <span class="nav-text">马尔可夫过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%B3%E7%AD%96"><span class="nav-number">1.1.1.</span> <span class="nav-text">决策</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%90%86%E8%AE%BA%E9%97%AE%E9%A2%98"><span class="nav-number">1.2.</span> <span class="nav-text">理论问题</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B"><span class="nav-number">2.</span> <span class="nav-text">模型</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="thinklive"
+      src="/images/thive.png">
+  <p class="site-author-name" itemprop="name">thinklive</p>
+  <div class="site-description" itemprop="description">起初，世界是一团思索，它向所有的方向迈了一步，于是万物由此而生</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">44</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/thinklive1" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;thinklive1" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/t469631989@gmail.com" title="E-Mail → t469631989@gmail.com" rel="noopener me"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://space.bilibili.com/38099250?spm_id_from=333.1007.0.0" title="bilibili → https:&#x2F;&#x2F;space.bilibili.com&#x2F;38099250?spm_id_from&#x3D;333.1007.0.0" rel="noopener me" target="_blank"><i class="fa custom bilibili fa-fw"></i>bilibili</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://steamcommunity.com/id/thinkliving" title="steam → https:&#x2F;&#x2F;steamcommunity.com&#x2F;id&#x2F;thinkliving" rel="noopener me" target="_blank"><i class="fa custom steam fa-fw"></i>steam</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml" rel="noopener me"><i class="fa fa-rss fa-fw"></i>RSS</a>
+      </span>
+  </div>
+
+<div style="Text-align:center;width:100%"><div style="margin:0 auto"><canvas id="canvas" style="width:60%" height="100" width="700">当前浏览器不支持canvas，请更换浏览器后再试</canvas></div><script>!function(){function t(t,e){for(var a=0;a<l[e].length;a++)for(var n=0;n<l[e][a].length;n++)1==l[e][a][n]&&(h.beginPath(),h.arc(14*(g+2)*t+2*n*(g+1)+(g+1),2*a*(g+1)+(g+1),g,0,2*Math.PI),h.closePath(),h.fill())}function e(){var t=[],e=/(\d)(\d):(\d)(\d):(\d)(\d)/.exec(new Date),a=[];a.push(e[1],e[2],10,e[3],e[4],10,e[5],e[6]);for(var r=c.length-1;r>=0;r--)a[r]!==c[r]&&t.push(r+"_"+(Number(c[r])+1)%10);for(var r=0;r<t.length;r++)n.apply(this,t[r].split("_"));c=a.concat()}function a(){for(var t=0;t<d.length;t++)d[t].stepY+=d[t].disY,d[t].x+=d[t].stepX,d[t].y+=d[t].stepY,(d[t].x>i+g||d[t].y>f+g)&&(d.splice(t,1),t--)}function n(t,e){for(var a=[1,2,3],n=["#3BE","#09C","#A6C","#93C","#9C0","#690","#FB3","#F80","#F44","#C00"],r=0;r<l[e].length;r++)for(var o=0;o<l[e][r].length;o++)if(1==l[e][r][o]){var h={x:14*(g+2)*t+2*o*(g+1)+(g+1),y:2*r*(g+1)+(g+1),stepX:Math.floor(4*Math.random()-2),stepY:-2*a[Math.floor(Math.random()*a.length)],color:n[Math.floor(Math.random()*n.length)],disY:1};d.push(h)}}function r(){o.height=100;for(var e=0;e<c.length;e++)t(e,c[e]);for(var e=0;e<d.length;e++)h.beginPath(),h.arc(d[e].x,d[e].y,g,0,2*Math.PI),h.fillStyle=d[e].color,h.closePath(),h.fill()}var l=[[[0,0,1,1,1,0,0],[0,1,1,0,1,1,0],[1,1,0,0,0,1,1],[1,1,0,0,0,1,1],[1,1,0,0,0,1,1],[1,1,0,0,0,1,1],[1,1,0,0,0,1,1],[1,1,0,0,0,1,1],[0,1,1,0,1,1,0],[0,0,1,1,1,0,0]],[[0,0,0,1,1,0,0],[0,1,1,1,1,0,0],[0,0,0,1,1,0,0],[0,0,0,1,1,0,0],[0,0,0,1,1,0,0],[0,0,0,1,1,0,0],[0,0,0,1,1,0,0],[0,0,0,1,1,0,0],[0,0,0,1,1,0,0],[1,1,1,1,1,1,1]],[[0,1,1,1,1,1,0],[1,1,0,0,0,1,1],[0,0,0,0,0,1,1],[0,0,0,0,1,1,0],[0,0,0,1,1,0,0],[0,0,1,1,0,0,0],[0,1,1,0,0,0,0],[1,1,0,0,0,0,0],[1,1,0,0,0,1,1],[1,1,1,1,1,1,1]],[[1,1,1,1,1,1,1],[0,0,0,0,0,1,1],[0,0,0,0,1,1,0],[0,0,0,1,1,0,0],[0,0,1,1,1,0,0],[0,0,0,0,1,1,0],[0,0,0,0,0,1,1],[0,0,0,0,0,1,1],[1,1,0,0,0,1,1],[0,1,1,1,1,1,0]],[[0,0,0,0,1,1,0],[0,0,0,1,1,1,0],[0,0,1,1,1,1,0],[0,1,1,0,1,1,0],[1,1,0,0,1,1,0],[1,1,1,1,1,1,1],[0,0,0,0,1,1,0],[0,0,0,0,1,1,0],[0,0,0,0,1,1,0],[0,0,0,1,1,1,1]],[[1,1,1,1,1,1,1],[1,1,0,0,0,0,0],[1,1,0,0,0,0,0],[1,1,1,1,1,1,0],[0,0,0,0,0,1,1],[0,0,0,0,0,1,1],[0,0,0,0,0,1,1],[0,0,0,0,0,1,1],[1,1,0,0,0,1,1],[0,1,1,1,1,1,0]],[[0,0,0,0,1,1,0],[0,0,1,1,0,0,0],[0,1,1,0,0,0,0],[1,1,0,0,0,0,0],[1,1,0,1,1,1,0],[1,1,0,0,0,1,1],[1,1,0,0,0,1,1],[1,1,0,0,0,1,1],[1,1,0,0,0,1,1],[0,1,1,1,1,1,0]],[[1,1,1,1,1,1,1],[1,1,0,0,0,1,1],[0,0,0,0,1,1,0],[0,0,0,0,1,1,0],[0,0,0,1,1,0,0],[0,0,0,1,1,0,0],[0,0,1,1,0,0,0],[0,0,1,1,0,0,0],[0,0,1,1,0,0,0],[0,0,1,1,0,0,0]],[[0,1,1,1,1,1,0],[1,1,0,0,0,1,1],[1,1,0,0,0,1,1],[1,1,0,0,0,1,1],[0,1,1,1,1,1,0],[1,1,0,0,0,1,1],[1,1,0,0,0,1,1],[1,1,0,0,0,1,1],[1,1,0,0,0,1,1],[0,1,1,1,1,1,0]],[[0,1,1,1,1,1,0],[1,1,0,0,0,1,1],[1,1,0,0,0,1,1],[1,1,0,0,0,1,1],[0,1,1,1,0,1,1],[0,0,0,0,0,1,1],[0,0,0,0,0,1,1],[0,0,0,0,1,1,0],[0,0,0,1,1,0,0],[0,1,1,0,0,0,0]],[[0,0,0,0,0,0,0],[0,0,1,1,1,0,0],[0,0,1,1,1,0,0],[0,0,1,1,1,0,0],[0,0,0,0,0,0,0],[0,0,0,0,0,0,0],[0,0,1,1,1,0,0],[0,0,1,1,1,0,0],[0,0,1,1,1,0,0],[0,0,0,0,0,0,0]]],o=document.getElementById("canvas");if(o.getContext){var h=o.getContext("2d"),f=100,i=700;o.height=f,o.width=i,h.fillStyle="#f00",h.fillRect(10,10,50,50);var c=[],d=[],g=o.height/20-1;!function(){var t=/(\d)(\d):(\d)(\d):(\d)(\d)/.exec(new Date);c.push(t[1],t[2],10,t[3],t[4],10,t[5],t[6])}(),clearInterval(v);var v=setInterval(function(){e(),a(),r()},50)}}()</script></div>
+<img class= 'logo' src="/images/thinklive_cyber.png"; z-index: '0'; style="max-width: 100%; width: auto; height: auto;background-color: --content-bg-color;">
+
+        </div>
+      </div>
+    </div>
+
+    
+        <div class="pjax">
+        </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://thinklive1.github.io/thinklive/37185/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/thive.png">
+      <meta itemprop="name" content="thinklive">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="thinklive">
+      <meta itemprop="description" content="起初，世界是一团思索，它向所有的方向迈了一步，于是万物由此而生">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="强化学习笔记 all in one | thinklive">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          强化学习笔记 all in one
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2025-09-09 15:53:29" itemprop="dateCreated datePublished" datetime="2025-09-09T15:53:29+08:00">2025-09-09</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-09-10 10:31:03" itemprop="dateModified" datetime="2025-09-10T10:31:03+08:00">2025-09-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">课程笔记</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2.7k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>10 分钟</span>
+    </span>
+</div>
+
+        
+        </div>
+      </header>
+   
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h1 id="基础概念">基础概念</h1>
+<p>强化学习和监督学习的区别：</p>
+<ol type="1">
+<li>强化学习输入的样本是序列数据,监督学习的样本之间相互独立</li>
+<li>没有明确的监督者，通过奖励机制进行学习，但回馈可能是长期的，模糊的</li>
+</ol>
+<p>一些强化学习的演示视频中，ai会做一些人类看来无意义的动作，正是这种“玄学”的回馈机制导致的</p>
+<ul>
+<li>actor: 行为主体
+<ul>
+<li>action则可分为离散和连续，例如2d游戏中走格子迷宫就是一个典型的离散动作空间</li>
+</ul></li>
+<li>observaton o /states s: 观测与状态
+<ul>
+<li>观测到的情况o和现实情况（状态s）其实有可能不同，假设可以观察到全景，rl则成为一个马尔科夫决策过程</li>
+</ul></li>
+<li>policy π: 行为策略
+<ul>
+<li>带有参数θ</li>
+</ul></li>
+<li>reward：反馈
+<ul>
+<li>baseline: 避免总是正值的reward,增加的偏置值，例如取期望</li>
+</ul></li>
+<li>episode: 一轮行动</li>
+<li>trajectory τ: <span class="math inline">\(\tau=\{s_{1},a_{1},s_{2},a_{2},\cdots,s_{T},a_{T}\}\)</span></li>
+<li>折扣γ: 直觉上，最开始的训练回馈可能更重要，越往后则训练收益越小，所以对每步的回馈可以乘以一个 <span class="math inline">\(\gamma^{t-1}\)</span>，t为训练次数，这个超参数也可以用于控制训练策略偏短期还是偏长期</li>
+</ul>
+<span id="more"></span>
+<p>流程： env(s1)-&gt;actor(a1)-&gt;env(s2)……<br />
+
+$\begin{array}{l}{ {p_{\theta}(\tau)} }{ { {}=p(s_{1})p_{\theta}(a_{1}|s_{1})p(s_{2}|s_{1},a_{1})p_{\theta}(a_{2}|s_{2})p(s_{3}|s_{2},a_{2})\cdots} } \\   =p(s_{1})\prod_{t=1}^{T}p_{\theta}(a_{t}|s_{t})p(s_{t+1}|s_{t},a_{t})\end{array}$  
+</p>
+<p>同一轮中每对(s,a)产生一个reward，其期望为: <span class="math inline">\(\bar{R}_{\theta}=\sum_{\tau}R(\tau)p_{\theta}(\tau)=E_{\tau\cap P_{\theta}(\tau)}[R(\tau)]\)</span></p>
+<p>取梯度</p>
+
+
+$$ \begin{align*}{r l}{\nabla{\bar{R} }_{\theta} \\ =\sum_{\tau}R(\tau)\nabla p_{\theta}(\tau)}&{\\ =\sum_{\tau}R(\tau)p_{\theta}(\tau){\frac{\nabla p_{\theta}(\tau)}{p_{\theta}(\tau)} } } \\ &=\sum_{\tau}R(\tau)p_{\theta}(\tau){\nabla}l o g p_{\theta}(\tau) \\ &=E_{\tau \sim p_{\theta}(\tau)}[R(\tau)\nabla l o g p_{\theta}(\tau)]\approx\frac{1}{N}\sum_{n=1}^{N}R(\tau^{n})\nabla \log p_{\theta}(\tau^{n}) \\ &={\frac{1}{N} }\sum_{n=1}^{N}\sum_{t=1}^{T_n}R(\tau^{n})\nabla l o g p_{\theta}(a_{t}^{n}|s_{t}^{n}) \end{align*} $$
+
+
+<p>类似于机器学习的梯度下降，我们通过梯度计算寻找最大化reward的参数</p>
+<h2 id="马尔可夫过程">马尔可夫过程</h2>
+<p>马尔可夫过程中，对一个特定状态则有一个特定的未来状态概率分布（可以理解为策略），很容易算出之后的期望回报<br />
+即，如果我们希望知道一个特定状态是好是坏，可以定义状态价值V为其回报的期望，即从这个状态开始，折扣γ的指数与之后回报乘积的和,V与回报G的区别是，V绑定一个特定的状态s，即某个s开始的之后获取的回报的期望<br />
+t时刻后的回报为：<br />
+<span class="math display">\[G_{t}=r_{t+1}+\gamma r_{t+2}+\gamma^{2}r_{t+3}+\gamma^{3}r_{t+4}+\ldots+\gamma^{T-t-1}r_{T}\]</span> 状态s的价值为：<br />
+<span class="math display">\[\begin{array}{l}{ {V^{t}(s)=\mathbb{E}\left[G_{t}\mid s_{t}=s\right]} }\\ { {\ } }\\ { {=\mathbb{E}\left[r_{t+1}+\gamma r_{t+2}+\gamma^{2}r_{t+3}+.\cdot.+\gamma^{T-t-1}r_{T}\mid s_{t}=s\right]} }\end{array}\]</span><br />
+即给定 <span class="math inline">\(s_t = s\)</span>这个条件后的Gt期望<br />
+实际训练中概率没法直接看出来，符合常识的想法是靠采样估算，也就是可以对采样的多组数据取平均值，这称为 <code>蒙特卡洛(Monte Carlo,MC)采样</code><br />
+另一种方法是贝尔曼方程，这一方程常用于动态规划，使用下个状态的价值来更新之前状态，写作：<br />
+<span class="math display">\[ V(s)=R(s) + \gamma\sum_{s^{\prime}\in S}p\left(s^{\prime}\mid s\right)V\left(s^{\prime}\right)  \]</span> <code>s′</code>可以看成未来的某个状态,<code>p(s′|s)</code> 是指从当前状态转移到未来状态的概率。<code>V (s′)</code> 代表的是未来某一个状态的价值,<code>R(s)</code>为s的奖励组成的向量<br />
+贝尔曼方程的证明：<br />
+
+$$\begin{array}{l}{ {V(s)=\mathbb{E}\left[G_{t}\mid s_{t}=s\right]} }\\ { {=\mathbb{E}\left[r_{t+1}+\gamma r_{t+2}+\gamma^{2}r_{t+3}+...\mid s_{t}=s\right]} }\\ { {=\mathbb{E}\left[r_{t+1}\right|s_{t}=s]+\gamma\mathbb{E}\left[r_{t+2}+\gamma r_{t+3}+\gamma^{2}r_{t+4}+\dots\mid s_{t}=s\right]} }\\ { {=R(s)+\gamma\mathbb{E}[G_{t+1}\left|s_{t}=s\right]} }\end{array}$$
+ 下面证明: <span class="math inline">\(\mathbb{E}[V(s_{t+1})|s_{t}]=\mathbb{E}[\mathbb{E}[G_{t+1}|s_{t+1}]|s_{t}]=\mathbb{E}[G_{t+1}|s_{t}]\)</span></p>
+<p>条件期望的定义为：<br />
+<span class="math display">\[\operatorname{\mathbb{E} }[X\mid Y=y]=\sum_{x}x p(X=x\mid Y=y)\]</span></p>
+<p>具体证明：<br />
+<img src="/assets/ml/52243716-045d-4e27-ad0c-0e84593fee81.png" /></p>
+<p>代入之前的等式，得：</p>
+<p><span class="math display">\[\begin{array}{c}{ {V(s)=R(s)+\gamma\mathbb{E}[V(s_{t+1})|s_{t}=s]} }\\ { {=R(s)+\gamma{\sum\limits_{s^{\prime}\in S} } p\left(s^{\prime}\mid s\right)V\left(s^{\prime}\right)} }\end{array}\]</span></p>
+<p>对单个s来说，贝尔曼方程就是一个向量乘积加上偏移值，所有的s可以写成一个矩阵乘法加上奖励向量的形式:</p>
+<p><span class="math display">\[\begin{array}{c}{ {V=R+\gamma P V} }\\ { {E V=R+\gamma P V} }\\ { {(E-\gamma P)V=R} }\\ { {V=(I-\gamma P)^{-1}R} }\end{array}\]</span></p>
+<p>这个解析解看着很美好，但涉及到逆矩阵求解，这是个复杂度 <span class="math inline">\(O(N^3)\)</span> 的问题(单论常用算法)，因此对较大的模型并不实用</p>
+<p>实例：</p>
+<ul>
+<li>最简单直接的蒙特卡洛方法，只需要对某个初始状态采样大量轨迹，然后取平均值，既可作为其价值</li>
+<li>不断迭代贝尔曼方程，直到结果趋向收敛，这个收敛值即可以作为价值，即“自举”（Bootstrapping）(利用当前的估计或状态值来更新和改进自身的学习过程)</li>
+</ul>
+<h3 id="决策">决策</h3>
+<p>单纯的马尔可夫过程没有策略的空间，也就是同时根据当前的状态和动作决定之后的状态分布，策略可以基于概率或者直接产生特定输出，如果策略已知，依然可以通过计算 <span class="math inline">\(\sum_{a\in A}\pi(a\mid s)p\left(s^{\prime}\mid s,a\right)\)</span> 获取状态转移的概率<br />
+也就是说，通过采样行动，我们可以得到使用特定策略的特定状态的价值 由于引进了决策，定义一个Q函数，也被称为动作价值函数(action-value function)。Q 函数定义的是在某一个状态采取某一个动作,它有可能得到的回报的一个期望 <span class="math display">\[V_{\pi}(s)=\sum_{a\in A}\pi(a\mid s)Q_{\pi}(s,a)\]</span></p>
+<p><span class="math display">\[\begin{array}{r l} {Q(s,a)} &amp;=\mathbb{E}\left[G_{t}\mid s_{t}=s,a_{t}=a\right] \\ &amp;=\mathbb{E}\left[r_{t+1}+\gamma r_{t+2}+\gamma^{2}r_{t+3}+\ldots\mid s_{t}=s,a_{t}=a\right]\\ &amp;{=R(s,a)+\gamma\mathbb{E}[G_{t+1}|s_{t}=s,a_{t}=a]}\\ &amp;{=R(s,a)+\gamma\mathbb{E}[V(s_{t+1})|s_{t}=s,a_{t}=a]}\\ &amp;{=R(s,a)+\gamma\displaystyle\sum_{s^{\prime}\in S}p(s^{\prime}\mid s,a)\,V\left(s^{\prime}\right)} \end{array}\]</span></p>
+<p>可以把状态价值函数和 Q 函数拆解成两个部分:即时奖励和后续状态的折扣价值,这样分解后得到一个类似于之前马尔可夫奖励过程的贝尔曼方程——贝尔曼期望方程(<code>Bellman expectation equation</code>):</p>
+<p><span class="math display">\[V_{\pi}(s)=\mathbb{E}_{\pi}\left[r_{t+1}+\gamma V_{\pi}\left(s_{t+1}\right)\mid s_{t}=s\right]\]</span> <span class="math display">\[Q_{\pi}(s,a)=\mathbb{E}_{\pi}\left[r_{t+1}+\gamma Q_{\pi}\left(s_{t+1},a_{t+1}\right)\right.\mid s_{t}=s,a_{t}=a]\]</span></p>
+<p><a target="_blank" rel="noopener" href="https://cs.stanford.edu/people/karpathy/reinforcejs/gridworld_dp.html">可视化学习过程</a></p>
+<h2 id="理论问题">理论问题</h2>
+<h1 id="模型">模型</h1>
+<p>可以简单地讲选择action理解为分类问题,损失函数使用交叉熵,对不同的s,我们可能对执行的action有不同的期待,因此可以设置一个损失函数的系数用于控制倾向性<br />
+那么如何定义reward呢?最直接的即时reward肯定不是最优解,因此设置一个Gn表示an行为之后的所有回报和,但对之后的回报要乘上一个惩罚系数γ,其次数逐渐增加;此外,可以使用将G减去一个baseline的值来产生不同行为的倾向性<br />
+rl,准确地说是on-policy的rl与常见监督学习不同的是,其训练资料在更新完一次模型后就无用了,需要再次与环境互动收集资料<br />
+off-policy则有所不同,它让训练模型和互动的模型分开,从而让经验可复用,例如<code>Proximal Policy Optimization(PPO)</code></p>
+<p>Critic actor: 我们希望有一个跟模型参数以及当前状态有关的函数 $ V^(s) $ 表示这种情况下的'价值',可以理解为某个状态的预期回报<br />
+为了得到这个价值函数,可以怎么做呢:</p>
+<ul>
+<li>Monte-Carlo(MC): 较为直观的做法,先训练大量的s及其G值,然后用这些资料预测V</li>
+<li>Temporal-difference (TD): V函数有以下性质:</li>
+</ul>
+<p><span class="math display">\[\begin{array}{l}{ {V^{\theta}(s_{t})=r_{t}+\gamma r_{t+1}+\gamma^{2}r_{t+2}\ldots} }\\ { {V^{\theta}(s_{t+1})=r_{t+1}+\gamma r_{t+2}+\ldots} }\\ { {V^{\theta}(s_{t})=\gamma V^{\theta}(s_{t+1})+r_{t} } }\end{array}\]</span><br />
+那么 <span class="math display">\[V^{\theta}(s_{t})-\gamma V^{\theta}(s_{t+1})\leftrightarrow r_{t}\]</span><br />
+通过这种关系就可以训练</p>
+<p>现在我们有了G和V,两者区别是G有一个确定的a,V则假定a是随机的,那么可以对每个 <span class="math inline">\(\{s_{t},a_{t}\}\)</span> 对,可以定义一个 <span class="math inline">\(\mathrm{A}_{t}\,=\,G_{t}^{\prime}-V^{\theta}(s_{t})\)</span> ,用于表示这个行为的"表现"<br />
+也可以用 $r_{t}+V^{}(s_{t+1}) $ 代替上式的 $ G^{'}_t $ ,此式相当于采取行为 <span class="math inline">\(a_t\)</span> 后获得一个特定 <span class="math inline">\(r_t\)</span> 后的预期收益, 这称为<code>Advantage Actor-Critic</code></p>
+<p><code>Reward Shaping</code>: 对回馈比较模糊或者非常慢的场景来说,想要好的表现就需要人为规定一些回报机制,例如对游戏ai来说,就需要惩罚什么都不做的行为(否则机器为了回报不为负就可能消极游戏);其中一种机制称为<code>Curiosity</code>, 也就是奖励机器发现新信息的情况</p>
+<p>现实中不是所有情况都可以定义reward,此时只能通过人类提供示范来让机器学习,这样当然会有很多问题,比如数据集里没有错误示范等,因此,可能的思路是通过机器学习来找到reward再进行学习<br />
+<code>Inverse Reinforcement Learning</code>: 假设老师行为是最优的,在每次迭代中:</p>
+<ol type="1">
+<li>actor与环境互动</li>
+<li>定义一个奖励函数,满足老师的奖励更优这个条件</li>
+<li>actor根据这个奖励函数进行学习</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" rel="tag"><i class="fa fa-tag"></i> 课程笔记</a>
+              <a href="/tags/python/" rel="tag"><i class="fa fa-tag"></i> python</a>
+              <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" rel="tag"><i class="fa fa-tag"></i> 人工智能</a>
+              <a href="/tags/%E5%9B%BD%E7%AB%8B%E5%8F%B0%E6%B9%BE%E5%A4%A7%E5%AD%A6/" rel="tag"><i class="fa fa-tag"></i> 国立台湾大学</a>
+              <a href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" rel="tag"><i class="fa fa-tag"></i> 强化学习</a>
+          </div>
+
+        
+  <div class="social-like a2a_kit a2a_kit_size_32 a2a_default_style">
+    <a class="a2a_dd" target="_blank" rel="noopener" href="https://www.addtoany.com/share"></a>
+      <a class="a2a_button_facebook"></a>
+      <a class="a2a_button_twitter"></a>
+      <a class="a2a_button_wechat"></a>
+      <a class="a2a_button_qzone"></a>
+  </div>
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/thinklive/48061/" rel="prev" title="机器学习笔记 all in one">
+                  <i class="fa fa-angle-left"></i> 机器学习笔记 all in one
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/thinklive/24757/" rel="next" title="一些工具的使用备忘录">
+                  一些工具的使用备忘录 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments utterances-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2023 – 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">thinklive</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">576k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">34:54</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 技术支持
+  </div><script defer src="/lib/three.js"></script><script defer src="/lib/lines.js"></script><script defer src="/lib/waves.js"></script>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.24/fancybox/fancybox.umd.js" integrity="sha256-oyhjPiYRWGXaAt+ny/mTMWOnN1GBoZDUQnzzgC7FRI4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+
+
+  <script src=""></script>
+  <script src="/%5Bobject%20Object%5D"></script>
+  <script src="/%5Bobject%20Object%5D"></script>
+  <script src="/%5Bobject%20Object%5D"></script>
+  <script src="/%5Bobject%20Object%5D"></script>
+
+
+<script>
+var options = {
+  bottom: '64px', // default: '32px'
+  right: 'unset', // default: '32px'
+  left: '32px', // default: 'unset'
+  time: '0.5s', // default: '0.3s'
+  mixColor: '#fff', // default: '#fff'
+  backgroundColor: '#fff',  // default: '#fff'
+  buttonColorDark: '#100f2c',  // default: '#100f2c'
+  buttonColorLight: '#fff', // default: '#fff'
+  saveInCookies: true, // default: true,
+  label: '🌓', // default: ''
+  autoMatchOsTheme: true // default: true
+}
+const darkmode = new Darkmode(options);
+darkmode.showWidget();
+</script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+  <script class="next-config" data-name="pdf" type="application/json">{"object_url":{"url":"https://cdnjs.cloudflare.com/ajax/libs/pdfobject/2.2.12/pdfobject.min.js","integrity":"sha256-g2xji1rlE3KsGVClvuxTbcR0Kn2+wtQADSff2Tbb4zA="},"url":"/lib/pdf/web/viewer.html"}</script>
+  <script src="/js/third-party/tags/pdf.js"></script>
+
+
+  <script class="next-config" data-name="wavedrom" type="application/json">{"enable":true,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/wavedrom/3.3.0/wavedrom.min.js","integrity":"sha256-IRMDzTC+wK5stMucZ/XSXkeS5VNtxZ+/Bm8Mcqfoxdo="}}</script>
+  <script class="next-config" data-name="wavedrom_skin" type="application/json">{"enable":true,"js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/wavedrom/3.3.0/skins/default.js","integrity":"sha256-fduc/Zszk5ezWws2uInY/ALWVmIrmV6VTgXbsYSReFI="}}</script>
+  <script src="/js/third-party/tags/wavedrom.js"></script>
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  <script src="/js/third-party/addtoany.js"></script>
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/quicklink/2.3.0/quicklink.umd.js" integrity="sha256-yvJQOINiH9fWemHn0vCA5lsHWJaHs6/ZmO+1Ft04SvM=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":false,"archive":false,"delay":true,"timeout":3000,"priority":true,"url":"https://thinklive1.github.io/thinklive/37185/"}</script>
+  <script src="/js/third-party/quicklink.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
+
+<script>
+var options = {
+  bottom: '64px',
+  right: '32px',
+  left: 'unset',
+  time: '0.5s',
+  mixColor: 'transparent',
+  backgroundColor: 'transparent',
+  buttonColorDark: '#100f2c',
+  buttonColorLight: '#fff',
+  saveInCookies: true,
+  label: '🌓',
+  autoMatchOsTheme: true
+}
+const darkmode = new Darkmode(options);
+window.darkmode = darkmode;
+darkmode.showWidget();
+</script>
+<script class="next-config" data-name="utterances" type="application/json">{"enable":true,"repo":"thinklive1/blog_comments","issue_term":"pathname","theme":"photon-dark"}</script>
+<script src="/js/third-party/comments/utterances.js"></script>
+<script>
+    const snowflakes = ["❄", "❄", "❆", "❅", "✥","❄", "❄", "❆", "❅", "✥","✻"];
+    // 创建雪花
+    function createSnowflake() {
+        const snowflake = document.createElement("span");
+        snowflake.classList.add("snowflake");
+        const randomIndex = Math.floor(Math.random() * snowflakes.length);
+        snowflake.textContent = snowflakes[randomIndex];
+        
+        // 起始位置
+        /* 80%概率 生成在页面两侧 30% 的位置
+        const probability = Math.random();
+        let startPosition = Math.random() * 100;
+
+        if (probability < 0.8) {
+            startPosition = Math.random() < 0.5 ? Math.random() * 30 : (Math.random() * 30) + 70;
+        }
+        snowflake.style.left = `${startPosition}vw`;
+        */
+        snowflake.style.left = `${Math.random() * 100}vw`;
+        snowflake.style.top = `-30px`;
+        // 雪花大小与透明度
+        const size = Math.random() * 18 + 10;
+        snowflake.style.fontSize = `${size}px`;
+        const opacity = Math.random() * 0.6 + (size > 18 ? 0.4 : 0);
+        snowflake.style.setProperty("--opacity", opacity);
+        // 动画持续时间
+        const fallDuration = Math.random() * 10 + 10;
+        // 旋转持续时间
+        const rotateDuration = Math.random() * 3 + 1;
+
+        snowflake.style.animationDuration = `${fallDuration}s, ${fallDuration}s`; // 向 CSS 添加淡出动画的持续时间
+        // 横向幅度
+        const translateX = (Math.random() * 500 - 200);
+        snowflake.style.setProperty("--translateX", `${translateX}px`);
+        // 纵向幅度
+        snowflake.style.setProperty("--translateY", `${window.innerHeight}px`);
+
+        document.body.appendChild(snowflake);
+        // 移除雪花
+        setTimeout(() => {
+            snowflake.remove();
+        }, fallDuration * 1000);
+    }
+    
+    function snowfallAnimation() {
+        // 载入时若边栏是隐藏状态则不加载雪花
+        const sidebarnav = document.querySelector('.sidebar');
+        const sidebarnavdisplay = window.getComputedStyle(sidebarnav).getPropertyValue('display'); 
+        if (sidebarnavdisplay !== 'none') {
+            createSnowflake();
+        }
+        setTimeout(snowfallAnimation, 150); // 生成速度，毫秒
+    }
+    snowfallAnimation();
+function toggleMode() {
+    console.log("change color!");
+    const root1 = document.documentElement;
+
+    // 检查当前 color-scheme
+    const isLightMode = getComputedStyle(root1).getPropertyValue('--content-bg-color').trim() === '#fff';
+
+    if (isLightMode) {
+        // 切换到暗模式
+        root1.style.setProperty('--content-bg-color', '#000');
+        root1.style.setProperty('--text-color', '#fff');
+        root1.style.setProperty('--highlight-background', '#444');
+        root1.style.setProperty('--highlight-foreground', '#bbb');
+        root1.style.setProperty('--btn-default-bg', '#777');
+        root1.style.setProperty('--menu-item-bg-color', '#777');
+        root1.style.setProperty('--note-warning-bg-color', '#777');
+        root1.style.setProperty('--note-bg-color', '#555');
+        root1.style.setProperty('--note-info-bg-color', '#777');
+        root1.style.setProperty('--table-row-odd-bg-color', '#777');
+        root1.style.transition = 'all 0.5s ease';
+
+    }
+
+    else {
+        root1.style.setProperty('--content-bg-color', '#fff');
+        root1.style.setProperty('--text-color', '#555');
+        root1.style.setProperty('--highlight-background', '#eaeef3');
+        root1.style.setProperty('--highlight-foreground', '#00193a');
+        root1.style.setProperty('--btn-default-bg', '#fff');
+        root1.style.setProperty('--menu-item-bg-color', '#f5f5f5');
+        root1.style.setProperty('--note-warning-bg-color', '#fdf8ea');
+        root1.style.setProperty('--note-bg-color', '#f9f9f9');
+        root1.style.setProperty('--note-info-bg-color', '#eef7fa');
+        root1.style.setProperty('--table-row-odd-bg-color', '#f9f9f9');
+        root1.style.transition = 'all 0.5s ease';
+    }
+}
+
+function DarkTrigger() {
+    console.log('dark!!')
+    let isDarkMode = getComputedStyle(document.documentElement).getPropertyValue('--content-bg-color').trim() === '#000';
+    console.log(isDarkMode)
+    if (isDarkMode) {
+        // 切换到暗模式
+        const warningNotes = document.querySelectorAll('.post-body .note.warning');
+        // 修改背景颜色
+        warningNotes.forEach(note => {
+        note.style.background = '#666';
+        });
+
+        const infoNotes = document.querySelectorAll('.post-body .note.info');
+        // 修改背景颜色
+        infoNotes.forEach(note => {
+        note.style.background = '#666';
+        });
+    }
+}
+
+
+</script>
+
+ <!--js: 线条特效-->
+  <script type="text/javascript" color="255,255,255" opacity='1' zIndex="-1" count="300" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+<button style="background: #868686;
+  width: 3rem;
+  height: 3rem;
+  position: fixed;
+  border-radius: 50%;
+  border: none;
+  right: unset;
+  bottom: 2rem;
+  left: 2rem;
+  cursor: pointer;
+  transition: all 0.5s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;" class="darkmode-toggle" role="checkbox" onclick="toggleMode()">🌓</button>
+
+  <video autoplay loop muted playsinline style="position:fixed;top:50%;opacity: 0.8;left:50%;min-width:100%;min-height:100%;transform:translateX(-50%)translateY(-50%);z-index:-2;">
+  <source src="/images/red.mp4" type="video/mp4">
+<!-- hexo injector body_end start --><script src="/assets/mmedia/mmedia-loader.js"></script><!-- hexo injector body_end end --></body>
+</html>
