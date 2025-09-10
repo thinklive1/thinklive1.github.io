@@ -30,8 +30,9 @@
 <meta property="og:description" content="基础概念 强化学习和监督学习的区别：  强化学习输入的样本是序列数据,监督学习的样本之间相互独立 没有明确的监督者，通过奖励机制进行学习，但回馈可能是长期的，模糊的  一些强化学习的演示视频中，ai会做一些人类看来无意义的动作，正是这种“玄学”的回馈机制导致的  actor: 行为主体  action则可分为离散和连续，例如2d游戏中走格子迷宫就是一个典型的离散动作空间  observaton o">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://thinklive1.github.io/assets/ml/52243716-045d-4e27-ad0c-0e84593fee81.png">
+<meta property="og:image" content="https://datawhalechina.github.io/easy-rl/img/ch2/2.10.png">
 <meta property="article:published_time" content="2025-09-09T07:53:29.840Z">
-<meta property="article:modified_time" content="2025-09-10T02:31:03.294Z">
+<meta property="article:modified_time" content="2025-09-10T07:58:35.158Z">
 <meta property="article:author" content="thinklive">
 <meta property="article:tag" content="课程笔记">
 <meta property="article:tag" content="python">
@@ -201,7 +202,7 @@ const darkmode = new Darkmode(options);
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">基础概念</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E8%BF%87%E7%A8%8B"><span class="nav-number">1.1.</span> <span class="nav-text">马尔可夫过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%B3%E7%AD%96"><span class="nav-number">1.1.1.</span> <span class="nav-text">决策</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%90%86%E8%AE%BA%E9%97%AE%E9%A2%98"><span class="nav-number">1.2.</span> <span class="nav-text">理论问题</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B"><span class="nav-number">2.</span> <span class="nav-text">模型</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">基础概念</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E8%BF%87%E7%A8%8B"><span class="nav-number">1.1.</span> <span class="nav-text">马尔可夫过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%B3%E7%AD%96"><span class="nav-number">1.1.1.</span> <span class="nav-text">决策</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%87%E4%BB%BD%E5%9B%BE"><span class="nav-number">1.1.2.</span> <span class="nav-text">备份图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%AD%E4%BB%A3"><span class="nav-number">1.1.3.</span> <span class="nav-text">迭代</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AD%96%E7%95%A5%E8%BF%AD%E4%BB%A3"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">策略迭代</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%B7%E5%80%BC%E8%BF%AD%E4%BB%A3"><span class="nav-number">1.1.3.2.</span> <span class="nav-text">价值迭代</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AD%96%E7%95%A5%E8%BF%AD%E4%BB%A3-1"><span class="nav-number">1.1.3.3.</span> <span class="nav-text">策略迭代</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%90%86%E8%AE%BA%E9%97%AE%E9%A2%98"><span class="nav-number">1.2.</span> <span class="nav-text">理论问题</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B"><span class="nav-number">2.</span> <span class="nav-text">模型</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -312,7 +313,7 @@ const darkmode = new Darkmode(options);
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-09-10 10:31:03" itemprop="dateModified" datetime="2025-09-10T10:31:03+08:00">2025-09-10</time>
+      <time title="修改时间：2025-09-10 15:58:35" itemprop="dateModified" datetime="2025-09-10T15:58:35+08:00">2025-09-10</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -338,14 +339,14 @@ const darkmode = new Darkmode(options);
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>2.7k</span>
+      <span>3.7k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>10 分钟</span>
+      <span>14 分钟</span>
     </span>
 </div>
 
@@ -397,7 +398,10 @@ $\begin{array}{l}{ {p_{\theta}(\tau)} }{ { {}=p(s_{1})p_{\theta}(a_{1}|s_{1})p(s
 $$ \begin{align*}{r l}{\nabla{\bar{R} }_{\theta} \\ =\sum_{\tau}R(\tau)\nabla p_{\theta}(\tau)}&{\\ =\sum_{\tau}R(\tau)p_{\theta}(\tau){\frac{\nabla p_{\theta}(\tau)}{p_{\theta}(\tau)} } } \\ &=\sum_{\tau}R(\tau)p_{\theta}(\tau){\nabla}l o g p_{\theta}(\tau) \\ &=E_{\tau \sim p_{\theta}(\tau)}[R(\tau)\nabla l o g p_{\theta}(\tau)]\approx\frac{1}{N}\sum_{n=1}^{N}R(\tau^{n})\nabla \log p_{\theta}(\tau^{n}) \\ &={\frac{1}{N} }\sum_{n=1}^{N}\sum_{t=1}^{T_n}R(\tau^{n})\nabla l o g p_{\theta}(a_{t}^{n}|s_{t}^{n}) \end{align*} $$
 
 
-<p>类似于机器学习的梯度下降，我们通过梯度计算寻找最大化reward的参数</p>
+<p>虽然回报值一般是很难预测的，但是就梯度下降来说这只是个常数，这里取出一个log的微分形式，由于轨迹的概率可以用采样估算，接下来只需要处理log，这个轨迹概率 $ {P(|)=} {p(s_{1})p(a_{1}|s_{1},)p(r_{1},s_{2}|s_{1},a_{1})p(a_{2}|s_{2},)p(r_{2},s_{3}|s_{2},a_{2})} $ 事实上就是轨迹初始状态的概率与一连串的条件概率相乘，对其取微分，忽略与θ无关的项，可以将积转化为和，得到最后这个式子<br />
+类似于机器学习的梯度下降，我们通过梯度计算寻找最大化reward的参数，也就是总回报为正时让相关行动的概率增加，为负时相反<br />
+这里会用到log的微分，考虑其性质就知道，这会概率，也就是用来估算的采样到的频率，较低的极端值影响，如果运气不好没有采样到某个动作，还会让其他动作相对更高，因此可以考虑将总回报减去一个baseline（因为这里控制倾向性的其实是回报的正负以及大小<br />
+和log函数的很多应用场景一样，这里实际上可以理解为分类问题，因为模型输出的动作是有限的，策略最后产生的是动作空间中的概率分布，稍微不同的是需要乘回报值，并且要分很多轮训练</p>
 <h2 id="马尔可夫过程">马尔可夫过程</h2>
 <p>马尔可夫过程中，对一个特定状态则有一个特定的未来状态概率分布（可以理解为策略），很容易算出之后的期望回报<br />
 即，如果我们希望知道一个特定状态是好是坏，可以定义状态价值V为其回报的期望，即从这个状态开始，折扣γ的指数与之后回报乘积的和,V与回报G的区别是，V绑定一个特定的状态s，即某个s开始的之后获取的回报的期望<br />
@@ -421,7 +425,7 @@ $$\begin{array}{l}{ {V(s)=\mathbb{E}\left[G_{t}\mid s_{t}=s\right]} }\\ { {=\mat
 <p>对单个s来说，贝尔曼方程就是一个向量乘积加上偏移值，所有的s可以写成一个矩阵乘法加上奖励向量的形式:</p>
 <p><span class="math display">\[\begin{array}{c}{ {V=R+\gamma P V} }\\ { {E V=R+\gamma P V} }\\ { {(E-\gamma P)V=R} }\\ { {V=(I-\gamma P)^{-1}R} }\end{array}\]</span></p>
 <p>这个解析解看着很美好，但涉及到逆矩阵求解，这是个复杂度 <span class="math inline">\(O(N^3)\)</span> 的问题(单论常用算法)，因此对较大的模型并不实用</p>
-<p>实例：</p>
+<p>得到V的两种方法：</p>
 <ul>
 <li>最简单直接的蒙特卡洛方法，只需要对某个初始状态采样大量轨迹，然后取平均值，既可作为其价值</li>
 <li>不断迭代贝尔曼方程，直到结果趋向收敛，这个收敛值即可以作为价值，即“自举”（Bootstrapping）(利用当前的估计或状态值来更新和改进自身的学习过程)</li>
@@ -432,7 +436,32 @@ $$\begin{array}{l}{ {V(s)=\mathbb{E}\left[G_{t}\mid s_{t}=s\right]} }\\ { {=\mat
 <p><span class="math display">\[\begin{array}{r l} {Q(s,a)} &amp;=\mathbb{E}\left[G_{t}\mid s_{t}=s,a_{t}=a\right] \\ &amp;=\mathbb{E}\left[r_{t+1}+\gamma r_{t+2}+\gamma^{2}r_{t+3}+\ldots\mid s_{t}=s,a_{t}=a\right]\\ &amp;{=R(s,a)+\gamma\mathbb{E}[G_{t+1}|s_{t}=s,a_{t}=a]}\\ &amp;{=R(s,a)+\gamma\mathbb{E}[V(s_{t+1})|s_{t}=s,a_{t}=a]}\\ &amp;{=R(s,a)+\gamma\displaystyle\sum_{s^{\prime}\in S}p(s^{\prime}\mid s,a)\,V\left(s^{\prime}\right)} \end{array}\]</span></p>
 <p>可以把状态价值函数和 Q 函数拆解成两个部分:即时奖励和后续状态的折扣价值,这样分解后得到一个类似于之前马尔可夫奖励过程的贝尔曼方程——贝尔曼期望方程(<code>Bellman expectation equation</code>):</p>
 <p><span class="math display">\[V_{\pi}(s)=\mathbb{E}_{\pi}\left[r_{t+1}+\gamma V_{\pi}\left(s_{t+1}\right)\mid s_{t}=s\right]\]</span> <span class="math display">\[Q_{\pi}(s,a)=\mathbb{E}_{\pi}\left[r_{t+1}+\gamma Q_{\pi}\left(s_{t+1},a_{t+1}\right)\right.\mid s_{t}=s,a_{t}=a]\]</span></p>
+<h3 id="备份图">备份图</h3>
+<p>以上我们得到了状态和动作的价值，对某一个s，它可能对应多种a，确定一个a后得到下一个state，这其实是一种树状的关系，因此可以用树形图表示V的演变，称为备份(回溯)图<br />
+<img src="https://datawhalechina.github.io/easy-rl/img/ch2/2.10.png" /></p>
+<p>如图，每一个空心圆圈代表一个状态，每一个实心圆圈代表一个状态-动作对<br />
+从叶节点开始向上回溯，可以得到叶节点上一层的Q，然后继续递推，得到a上一层s的V，这样逐层计算就能得出整张图的状态与动作价值</p>
 <p><a target="_blank" rel="noopener" href="https://cs.stanford.edu/people/karpathy/reinforcejs/gridworld_dp.html">可视化学习过程</a></p>
+<h3 id="迭代">迭代</h3>
+<h4 id="策略迭代">策略迭代</h4>
+<p>现在我们有V和Q这两个工具，那么假设初始状态，随便选定一套参数作为策略，接下来随着训练过程，不断更新轨迹中各个状态的价值，由此再得到Q函数，利用Q函数更新策略参数，如此循环，就可以让策略收敛到较优的性能<br />
+优化过程，简单的说就是先找到所有状态的V，然后根据采样结果以及V的分布算出对于各个a的Q，那么对于一个特定的s，应该采取的策略，也就是a的选择，最好的情况就是Q最高的a有最大的概率，如果当做分类问题做，就可以以交叉熵为loss函数做梯度下降<br />
+这样的优化后，理论上，各个状态的V以及策略产生的Q都会更高，而作为表现指标的初始状态的V也会更好<br />
+收敛后，取让 Q 函数值最大化的动作，Q 函数就会直接变成价值函数,这称为<code>贝尔曼最优方程（Bellman optimality equation）</code>: <span class="math inline">\(V_{\pi}(s)=\operatorname*{max}_{a\in A}Q_{\pi}(s,a)\)</span><br />
+满足贝尔曼方程就说明，这个策略对一个状态，即使采取理论上的最佳行动，也不会有更好的效果</p>
+<h4 id="价值迭代">价值迭代</h4>
+<p><code>最优性原理定理（principle of optimality theorem）</code>: 策略在状态s达到最优价值，当且仅当对s可达的任何s'，都已经达到了最优价值，如果我们找到了初始状态s的最优价值，那么自然就得到了最佳策略<br />
+其过程为：</p>
+<ol type="1">
+<li>初始化，对所以状态，设置其价值为0</li>
+<li>循环直至收敛(k为迭代次数)：
+<ol type="1">
+<li>对所有s <span class="math inline">\(Q_{k+1}(s,a)=R(s,a)+\gamma\sum_{s^{\prime}\in S}p\left(s^{\prime}\mid s,a\right)V_{k}\left(s^{\prime}\right)\)</span></li>
+<li><span class="math inline">\(V_{k+1}(s)=\operatorname*{max}_{a}Q_{k+1}(s,a)\)</span></li>
+</ol></li>
+<li>最优策略 <span class="math inline">\(\pi(s)=\arg\operatorname*{max}_{a}\left[R(s,a)+\gamma\sum_{s^{\prime}\in S}p\left(s^{\prime}\mid s,a\right)V_{H+1}\left(s^{\prime}\right)\right]\)</span></li>
+</ol>
+<h4 id="策略迭代-1">策略迭代</h4>
 <h2 id="理论问题">理论问题</h2>
 <h1 id="模型">模型</h1>
 <p>可以简单地讲选择action理解为分类问题,损失函数使用交叉熵,对不同的s,我们可能对执行的action有不同的期待,因此可以设置一个损失函数的系数用于控制倾向性<br />
@@ -525,14 +554,14 @@ off-policy则有所不同,它让训练模型和互动的模型分开,从而让�
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">576k</span>
+    <span title="站点总字数">577k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">34:54</span>
+    <span title="站点阅读时长">34:58</span>
   </span>
 </div>
 <div class="busuanzi-count">
