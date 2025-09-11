@@ -22,16 +22,16 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"thinklive1.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.18.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"flat"},"fold":{"enable":true,"height":500},"bookmark":{"enable":true,"color":"#66CCFF","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":true,"motion":{"enable":true,"async":true,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="Embodied AI 集成了物理上的机械以及ai(一般是常用的机器学习模型)的一种智能体，这个词与robotics(机器人学)的区别是，后者较为关心硬件上的很多问题，以及操作系统等偏底层的问题；而具身智能较为关注抽象层面的智能，暂时屏蔽掉底层的一些细节">
+    <meta name="description" content="Embodied AI 集成了物理上的机械以及ai(一般是常用的机器学习模型)的一种智能体,这个词与robotics(机器人学)的区别是,后者较为关心硬件上的很多问题,以及操作系统等偏底层的问题；而具身智能较为关注抽象层面的智能,暂时屏蔽掉底层的一些细节">
 <meta property="og:type" content="article">
 <meta property="og:title" content="论文阅读笔记">
 <meta property="og:url" content="https://thinklive1.github.io/thinklive/52409/index.html">
 <meta property="og:site_name" content="thinklive">
-<meta property="og:description" content="Embodied AI 集成了物理上的机械以及ai(一般是常用的机器学习模型)的一种智能体，这个词与robotics(机器人学)的区别是，后者较为关心硬件上的很多问题，以及操作系统等偏底层的问题；而具身智能较为关注抽象层面的智能，暂时屏蔽掉底层的一些细节">
+<meta property="og:description" content="Embodied AI 集成了物理上的机械以及ai(一般是常用的机器学习模型)的一种智能体,这个词与robotics(机器人学)的区别是,后者较为关心硬件上的很多问题,以及操作系统等偏底层的问题；而具身智能较为关注抽象层面的智能,暂时屏蔽掉底层的一些细节">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://thinklive1.github.io/assets/ml/Pasted%20image%2020250911154734.png">
 <meta property="article:published_time" content="2025-09-09T07:53:29.848Z">
-<meta property="article:modified_time" content="2025-09-11T07:57:07.165Z">
+<meta property="article:modified_time" content="2025-09-11T12:42:53.815Z">
 <meta property="article:author" content="thinklive">
 <meta property="article:tag" content="人工智能">
 <meta property="article:tag" content="机器学习">
@@ -198,7 +198,7 @@ const darkmode = new Darkmode(options);
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#embodied-ai"><span class="nav-number">1.</span> <span class="nav-text">Embodied AI</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#semantic-mapping-%E8%AF%AD%E4%B9%89%E5%9C%B0%E5%9B%BE"><span class="nav-number">1.1.</span> <span class="nav-text">Semantic Mapping 语义地图</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#survey"><span class="nav-number">1.1.1.</span> <span class="nav-text">survey</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.1.2.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%AD%E4%B9%89%E5%9C%B0%E5%9B%BE"><span class="nav-number">1.1.3.</span> <span class="nav-text">语义地图</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%93%E6%9E%84"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">结构</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#spatial-grid-map"><span class="nav-number">1.1.3.1.1.</span> <span class="nav-text">Spatial grid map</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#embodied-ai"><span class="nav-number">1.</span> <span class="nav-text">Embodied AI</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#semantic-mapping-%E8%AF%AD%E4%B9%89%E5%9C%B0%E5%9B%BE"><span class="nav-number">1.1.</span> <span class="nav-text">Semantic Mapping 语义地图</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#survey"><span class="nav-number">1.1.1.</span> <span class="nav-text">survey</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%90%8D%E8%AF%8D%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">名词介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%B0%E5%9B%BE%E7%BB%93%E6%9E%84"><span class="nav-number">1.1.1.3.</span> <span class="nav-text">地图结构</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#spatial-grid-map"><span class="nav-number">1.1.1.3.1.</span> <span class="nav-text">Spatial grid map</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#topological-map"><span class="nav-number">1.1.1.3.2.</span> <span class="nav-text">Topological map</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#point-cloud-map"><span class="nav-number">1.1.1.3.3.</span> <span class="nav-text">Point-cloud map</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#hybrid-map"><span class="nav-number">1.1.1.3.4.</span> <span class="nav-text">Hybrid map</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%B0%E5%9B%BE%E7%BC%96%E7%A0%81"><span class="nav-number">1.1.1.4.</span> <span class="nav-text">地图编码</span></a></li></ol></li></ol></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -309,7 +309,7 @@ const darkmode = new Darkmode(options);
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-09-11 15:57:07" itemprop="dateModified" datetime="2025-09-11T15:57:07+08:00">2025-09-11</time>
+      <time title="修改时间：2025-09-11 20:42:53" itemprop="dateModified" datetime="2025-09-11T20:42:53+08:00">2025-09-11</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -335,14 +335,14 @@ const darkmode = new Darkmode(options);
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>2.4k</span>
+      <span>4.4k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>9 分钟</span>
+      <span>16 分钟</span>
     </span>
 </div>
 
@@ -355,90 +355,142 @@ const darkmode = new Darkmode(options);
     
     
     <div class="post-body" itemprop="articleBody"><h1 id="embodied-ai">Embodied AI</h1>
-<p>集成了物理上的机械以及ai(一般是常用的机器学习模型)的一种智能体，这个词与robotics(机器人学)的区别是，后者较为关心硬件上的很多问题，以及操作系统等偏底层的问题；而具身智能较为关注抽象层面的智能，暂时屏蔽掉底层的一些细节</p>
+<p>集成了物理上的机械以及ai(一般是常用的机器学习模型)的一种智能体,这个词与robotics(机器人学)的区别是,后者较为关心硬件上的很多问题,以及操作系统等偏底层的问题；而具身智能较为关注抽象层面的智能,暂时屏蔽掉底层的一些细节</p>
 <span id="more"></span>
 <h2 id="semantic-mapping-语义地图">Semantic Mapping 语义地图</h2>
 <h3 id="survey">survey</h3>
-<h3 id="前言">前言</h3>
-<p>语义地图以结构化的方式捕获环境信息，让代理能够利用这些信息进行推理<br />
-由于具身智能，某种意义上可以理解为机器人，面对的现实问题复杂性，它会需要很多种ai技术，单单是抓取一件物品，就需要包括视觉辨识，自然语言的理解与推理，导航，操控机械臂的能力等等<br />
-在这一系列任务中，辨识理解环境是第一步，在认知科学中，研究者发现人类和动物实际上也会将现实的空间抽象化为一种“认知地图”<br />
-为了方便，将建立(认知)地图的过程简称为建图(mapping)<br />
+<h4 id="前言">前言</h4>
+<p>语义地图以结构化的方式捕获环境信息,让代理能够利用这些信息进行推理<br />
+由于具身智能,某种意义上可以理解为机器人,面对的现实问题复杂性,它会需要很多种ai技术,单单是抓取一件物品,就需要包括视觉辨识,自然语言的理解与推理,导航,操控机械臂的能力等等<br />
+在这一系列任务中,辨识理解环境是第一步,在认知科学中,研究者发现人类和动物实际上也会将现实的空间抽象化为一种“认知地图”<br />
+为了方便,将建立(认知)地图的过程简称为建图(mapping)<br />
 而当前主流的机器人地图技术地图三步：</p>
 <ol type="1">
 <li>将当前的环境合理地建立数据模型</li>
 <li>定位自己的当前位置</li>
 <li>路径规划</li>
 </ol>
-<p>智能机器人可以分为很多种，我们只考虑不联网(用不了gps)，没有复杂传感器的一类，就叫bot吧，bot想建立地图，最直观的方法就是以自己为中心开始认知环境，这就有点类似人类的认路，对这种机器人来说,1. 2.其实可以视为一体，因为在对当前环境建模的过程中可以自然地知道自己的位置，主流的技术也是这么做的，称为<code>simultaneous localization and mapping (SLAM)</code><br />
-总结一下，之前讨论的SLAM一种对环境的不断认知几乎同时地进行地图化以及定位的一种技术<br />
-现在设想一个传统印象里的机器人，它可能有光学或者声学的某些传感器，这些传感器能很容易地捕捉到附近的障碍物，这和初中生物讲得蝙蝠超声波定位也没什么本质区别，但这些障碍物信息并不包括语义，例如一块关着的门板，确实是障碍物，但只要拧开把手就能通行了<br />
-附带语义的slam称为<code>semantic slam</code>, 常见的做法是对传感器画面做特征提取，例如可以提取成一系列词汇，这称为<code>Bag of Visual Words</code>，得到这些词后，查找词典匹配到一个具体物品；如果想要更好的效果，则可以进行深度学习</p>
-<h3 id="语义地图">语义地图</h3>
-<p>如果我们想要真正能用的机器人，就不得不想办法让它能理解概念性的东西，例如自然语言里的上下文，词义向量，而在具身智能的问题场景中，则需要带有语义的地图，例如客厅和餐厅都摆着大桌子，要区分这两种房间就需要很多上下文信息<br />
-以下开始介绍一些细节，首先是地图的表示方法，考虑室内这个场景，由于其最大高度是固定的，因此可以比较方便地使用2d的拓扑图，网格，表示，除此之后也可以使用3d的点云或者其他混合方法<br />
-我们首先做的是物体辨识和分类问题，在室内，例如普通住房中，房间、家具的种类都是有限且数量级很小的，对于机器人，用内置芯片的算力可能就能做出来，在机器人探索的过程中，得到的各个空间、物体关系可以不断存入语义地图中供之后调用，例如让机器人找一个苹果，它能发现苹果在冰箱里面，拓扑关系上可能就是客厅-冰箱-苹果，这样之后找苹果也可以跟着这条路径走</p>
+<p>智能机器人可以分为很多种,我们只考虑不联网(用不了gps),没有复杂传感器的一类,就叫bot吧,bot想建立地图,最直观的方法就是以自己为中心开始认知环境,这就有点类似人类的认路,对这种机器人来说,1. 2.其实可以视为一体,因为在对当前环境建模的过程中可以自然地知道自己的位置,主流的技术也是这么做的,称为<code>simultaneous localization and mapping (SLAM)</code><br />
+总结一下,之前讨论的SLAM一种对环境的不断认知几乎同时地进行地图化以及定位的一种技术<br />
+现在设想一个传统印象里的机器人,它可能有光学或者声学的某些传感器,这些传感器能很容易地捕捉到附近的障碍物,这和初中生物讲得蝙蝠超声波定位也没什么本质区别,但这些障碍物信息并不包括语义,例如一块关着的门板,确实是障碍物,但只要拧开把手就能通行了<br />
+附带语义的slam称为<code>semantic slam</code>, 常见的做法是对传感器画面做特征提取,例如可以提取成一系列词汇,这称为<code>Bag of Visual Words</code>,得到这些词后,查找词典匹配到一个具体物品；如果想要更好的效果,则可以进行深度学习</p>
+<h4 id="名词介绍">名词介绍</h4>
+<p>如果我们想要真正能用的机器人,就不得不想办法让它能理解概念性的东西,例如自然语言里的上下文,词义向量,而在具身智能的问题场景中,则需要带有语义的地图,例如客厅和餐厅都摆着大桌子,要区分这两种房间就需要很多上下文信息<br />
+以下开始介绍一些细节,首先是地图的表示方法,考虑室内这个场景,由于其最大高度是固定的,因此可以比较方便地使用2d的拓扑图,网格,表示,除此之后也可以使用3d的点云或者其他混合方法<br />
+我们首先做的是物体辨识和分类问题,在室内,例如普通住房中,房间、家具的种类都是有限且数量级很小的,对于机器人,用内置芯片的算力可能就能做出来,在机器人探索的过程中,得到的各个空间、物体关系可以不断存入语义地图中供之后调用,例如让机器人找一个苹果,它能发现苹果在冰箱里面,拓扑关系上可能就是客厅-冰箱-苹果,这样之后找苹果也可以跟着这条路径走</p>
 <div class="note info"><ul>
-<li><code>开放词汇语义地图（Open-Vocabulary Semantic Maps）</code>: 系统能够识别和处理未在训练中见过的新对象或特征，而不仅仅局限于预定义的类别；与其相反的情况就完全是一个分类问题</li>
-<li><code>Embodied AI tasks</code>: 大致可分为：探索、导航、操纵，更细粒度的划分可以使用目标的类型，例如图像目标比定位上的目标需要更细的信息</li>
-<li><code>End-to-end | Modular approaches</code>：前者直接用传感器信息生成行动，优点是对中小型任务效果不错，但复杂的3d空间，长期路径规划等表现不佳,以及无法复用；后者会将输入信息投入不同模块中处理例如编码器，建图，探索等，最后生成行动，优点是各个模块可以分开训练或者使用预训练模型</li>
+<li><code>开放词汇语义地图（Open-Vocabulary Semantic Maps）</code>: 系统能够识别和处理未在训练中见过的新对象或特征,而不仅仅局限于预定义的类别；与其相反的情况就完全是一个分类问题</li>
+<li><code>Embodied AI tasks</code>: 大致可分为：探索、导航、操纵,更细粒度的划分可以使用目标的类型,例如图像目标比定位上的目标需要更细的信息</li>
+<li><code>End-to-end | Modular approaches</code>：前者直接用传感器信息生成行动,优点是对中小型任务效果不错,但复杂的3d空间,长期路径规划等表现不佳,以及无法复用；后者会将输入信息投入不同模块中处理例如编码器,建图,探索等,最后生成行动,优点是各个模块可以分开训练或者使用预训练模型</li>
 <li>e2e相关
 <ul>
-<li><code>intermediate map representation</code>: 输入和输出之间的中间数据，一般用于提取关键信息</li>
+<li><code>intermediate map representation</code>: 输入和输出之间的中间数据,一般用于提取关键信息</li>
 <li><code>egocentric map</code>: 从个体的视角（通常是观察者或移动体的视角）表示环境的地图</li>
 </ul></li>
 <li>模块化相关
 <ul>
 <li>一般包括： <code>visual encoder</code>、<code>mapper</code>、<code>exploration</code>(决定去哪探索)、<code>planner</code>(决定机器采取什么动作),以上提及的这些是顺序关系</li>
-<li>视觉编码器： 将观察转化为带有语义的编码，一般使用预训练的模型,最后可以将检测到的物体放入标好名字的box</li>
-<li>建图器: 接受编码器的特征信息，构建认知地图</li>
-<li>探索：类似红警2的探图能产生信息优势，由于知道越多的地图信息应该是越好的，因此设置这个模块鼓励智能探索未知区域，优先探索哪边可以选取合适的方法，例如图文相关型，VLM输出的最佳方向</li>
-<li>计划： 在地图建后，需要指定导航路径，这部分取决于机器的运动方式等细节</li>
+<li>视觉编码器： 将观察转化为带有语义的编码,一般使用预训练的模型,最后可以将检测到的物体放入标好名字的box</li>
+<li>建图器: 接受编码器的特征信息,构建认知地图</li>
+<li>探索：类似红警2的探图能产生信息优势,由于知道越多的地图信息应该是越好的,因此设置这个模块鼓励智能探索未知区域,优先探索哪边可以选取合适的方法,例如图文相关型,VLM输出的最佳方向</li>
+<li>计划： 在地图建后,需要指定导航路径,这部分取决于机器的运动方式等细节</li>
 </ul></li>
-<li><code>Active SLAM</code>: 强调机器人自己能选择以某种方式主动收集地图信息用于建图，比如自己走几步，让摄像头拍到更多画面，也就是相比ALAM增加了planning部分。</li>
+<li><code>Active SLAM</code>: 强调机器人自己能选择以某种方式主动收集地图信息用于建图,比如自己走几步,让摄像头拍到更多画面,也就是相比ALAM增加了planning部分。</li>
 </ul>
 </div>
 <p>具体环节：</p>
 <ol type="1">
-<li>localization: 非常依赖于传感器，由于本领域相对不关注底层细节，一般假设每次采样都获得了最佳结果或者每次行动都实现了理想的位移
+<li>localization: 非常依赖于传感器,由于本领域相对不关注底层细节,一般假设每次采样都获得了最佳结果或者每次行动都实现了理想的位移
 <ol type="1">
-<li>由于现实中不可能有理想情况，我们有<code>Loop Closure</code>这样的算法来矫正误差，该算法会利用再次访问之前访问过的地点时的数据矫正对行为位移的估计值</li>
+<li>由于现实中不可能有理想情况,我们有<code>Loop Closure</code>这样的算法来矫正误差,该算法会利用再次访问之前访问过的地点时的数据矫正对行为位移的估计值</li>
 </ol></li>
-<li>feature extraction: 关键部分，后文详细介绍</li>
-<li>projection: 将三维信息添加到2维地图上，如果我们通过相机来获取空间信息，那么过程就是，根据相机的原理算出物体的世界坐标(X,Y,Z)将世界坐标投影到2维地图坐标(x,y)</li>
-<li>Accumulation: 上一步中可能遇到不同的物体堆到同一个二维点的情况，为此有很多方法，例如取最大，取平均，等，其中可学习的方法可以有带有LSTM或者GRU的RNN</li>
+<li>feature extraction: 关键部分,后文详细介绍</li>
+<li>projection: 将三维信息添加到2维地图上,如果我们通过相机来获取空间信息,那么过程就是,根据相机的原理算出物体的世界坐标(X,Y,Z)将世界坐标投影到2维地图坐标(x,y)</li>
+<li>Accumulation: 上一步中可能遇到不同的物体堆到同一个二维点的情况,为此有很多方法,例如取最大,取平均,等,其中可学习的方法可以有带有LSTM或者GRU的RNN</li>
 </ol>
 <p>此外还有一些权衡的地方：</p>
 <ul>
 <li>Egocentric vs allocentric</li>
 <li>Tracking visited areas</li>
 <li>View point selection: 固定视角的摄像头或者全局摄像头</li>
-<li>Online vs offline map building: 考虑到盲点等问题，一般online是更好的</li>
+<li>Online vs offline map building: 考虑到盲点等问题,一般online是更好的</li>
 <li>现实世界的复杂性： 例如我们以上提到的localization假设</li>
 </ul>
 <p>总结一下常见的问题：</p>
 <ul>
-<li>计算量较大：尤其对于本地模型来说，更需要优秀的算法，部分任务还会要求低延迟</li>
-<li>容量需求：对复杂的场景，传统地图已经很庞大了，加上语义，复杂度更高，储存和更新都是个问题</li>
-<li>噪声：现实世界的噪声很多，还有各种随机因素，学界目前没有很好的过滤方法</li>
-<li>动态的环境：如果环境不断变化，现有的方法可能无法有效地更新</li>
+<li>计算量较大：尤其对于本地模型来说,更需要优秀的算法,部分任务还会要求低延迟</li>
+<li>容量需求：对复杂的场景,传统地图已经很庞大了,加上语义,复杂度更高,储存和更新都是个问题</li>
+<li>噪声：现实世界的噪声很多,还有各种随机因素,学界目前没有很好的过滤方法</li>
+<li>动态的环境：如果环境不断变化,现有的方法可能无法有效地更新</li>
 <li>语义理解： 这部分依赖于cv</li>
-<li>可用性和可靠性： 事实上，目前的em-ai都很难落地</li>
+<li>可用性和可靠性： 事实上,目前的em-ai都很难落地</li>
 <li>标准化： 目前的机器人或者ai社区使用不同的系统或者平台</li>
 </ul>
-<h4 id="结构">结构</h4>
+<h4 id="地图结构">地图结构</h4>
 <ol type="1">
 <li>Spatial map building</li>
 </ol>
-<p>我们将地图做成一个(M×N×K)的网格，其中(M,N)是空间上的维度，K是语义上的channel,一般来说过程是这样的： 划分输入图片-&gt;把图片投影到自我为中心的地图 ego_map -&gt; ego_map注册进外部坐标系的allo_map -&gt; 降噪</p>
+<p>我们将地图做成一个(M×N×K)的网格,其中(M,N)是空间上的维度,K是语义上的channel,一般来说过程是这样的： 划分输入图片-&gt;把图片投影到自我为中心的地图 ego_map -&gt; ego_map注册进外部坐标系的allo_map -&gt; 降噪</p>
 <ol start="2" type="1">
 <li>Topological map building</li>
 </ol>
-<p>类似图论，用(v,e)两个集合就可以表示一个图，节点和边可以各自携带语义，agent在更新中定位或者新建自己所处node，并可以根据一轮中学习的信息对整个图进行修改</p>
+<p>类似图论,用(v,e)两个集合就可以表示一个图,节点和边可以各自携带语义,agent在更新中定位或者新建自己所处node,并可以根据一轮中学习的信息对整个图进行修改</p>
 <p><img src="/assets/ml/Pasted%20image%2020250911154734.png" /></p>
 <h5 id="spatial-grid-map">Spatial grid map</h5>
-<p>现在对室内具身智能的研究通常用MP3D,HM3D等数据集，这些都是对现实空间的3d建模，都小于1000平米，一个cell表示400-900平方厘米的空间，有时也会再拓展一个高度维<br />
-早期研究直接使用自我中心的建图，并直接端到端训练，这样的缺点是无法认知到全局的空间结构，甚至还会忘掉过去的学习结果</p>
+<p>现在对室内具身智能的研究通常用MP3D,HM3D等数据集,这些都是对现实空间的3d建模,都小于1000平米,一个cell表示400-900平方厘米的空间,有时也会再拓展一个高度维<br />
+早期研究直接使用自我中心的建图,并直接端到端训练,这样的缺点是无法认知到全局的空间结构,甚至还会忘掉过去的学习结果,于是就需要得到外部坐标系的空间地图<br />
+但由于智能体只能观察到自己传感器的部分,也就是其观察内容是自我中心的,所以想要得到外部坐标系的空间模型,就需要有一种办法通过一次次的观察结果“画”出全局的地图<br />
+我们将这种办法称为<code>registration 注册</code>,也就是将每次的自我中心观察提取到的图像特征一点点放进全局地图,这其实和人类画地图的方向比较像<br />
+每一轮中,将观察信息融入到一些特定的grid cells,如果有重叠,则通过某种方法把两个值叠加为一个结果值,这种叠加称为<code>aggregation</code>(聚合)<br />
+有一种基于注册的方法叫做<code>MapNet</code>,即通过使用已知的相机内参和对深度的测算,将egocentric图像特征投影到一个2D俯视网格上<br />
+它执行<code>注册</code>的方法是：首先获取一系列旋转多次后的egocentric地图,然后与之前allocentric地图进行<code>密集匹配</code>,以确定代理在地图上的当前位置</p>
+<p>另一种方法是： 直接通过相机内置函数将图片像素转化为（相对于相机的）3d坐标,由于相机的pose我们是知道的,所以可以直接将其转化为世界坐标,并将其体素化,投影到2d平面时,我们可以把这些体素的weight也压上去<br />
+这样的缺点就是太依赖相机功能,对于现实的噪声敏感,需要额外的降噪步骤,使用这种方法的<code>Semantic MapNet</code>和<code>MOPA</code>都各自用了一些降噪算法,前者还发现,先对图像编码,然后投影,最后执行分割会减少噪声,甚至可以不去降噪</p>
+<p>总结: 使用grid能比较方便地表示空间,也能方便gaent学习,但固定的w-h对于变化环境不太方便,而且内存占用较多</p>
+<div class="note info"><ul>
+<li>密集匹配(dense matching) : 计算机视觉和图像处理中的一种技术,用于在图像或视频序列中找到像素级别的对应关系。与稀疏匹配（只在特定特征点上进行匹配）不同,密集匹配试图为图像中的每一个像素找到对应的像素。</li>
+<li>pose: 物体在三维空间中的位置和方向</li>
+<li>体素（Voxel）：是“体积像素（volume pixel）”的缩写。它是三维空间中的最小单元,具有位置、大小和属性（如颜色、密度等）</li>
+<li>体素化(voxelized): 将三维空间中的物体或场景表示为一组<strong>体素（voxel）</strong>的过程</li>
+</ul>
+</div>
+<h5 id="topological-map">Topological map</h5>
+<p>拓扑图更注重节点(地标)之间的关系,这其实也是人类认路的一种方法,符合常识,但缺点是抽象层级较高<br />
+首先考虑怎么表示给出一个空间,怎么画它的拓扑图,什么是节点,什么是边呢？符合直觉的想法是,节点有较为重要的语义信息,例如是一种房间的典型物体,而边描述节点之间的连接性,常见方法中节点通常存储图像特征或时间信息 (访问时间戳) 等信息,而边缘可以存储一对节点之间的相对pose<br />
+实际训练中,可以让模型预先跑几遍画出一个graph,然后的规划过程寻找graph中最接近的节点,这称为 <code>Semi-Parametric Topological Memory (SPTM)</code>,这种做法有很多缺点,例如预探索可能有很多没走到的路,不适合未知场景等<br />
+为了解决这种问题,我们需要让agent能实时地感知到自己有那边不了解,应该先探索那边,也就是online学习,一种做法叫<code>Neural Topological SLAM (NTS)</code>, 它使用<code>Graph Update</code>模块更新map,<code>Global Policy</code>模块对map采样, <code>Local Policy</code>模块输出离散的导航行动；其中图更新模块作用如下：</p>
+<ol type="1">
+<li>定位：尝试将智能体在前一个时间步的图中进行定位</li>
+<li>已存在节点：
+<ol type="1">
+<li>如果智能体成功定位到一个现有节点,便在该节点与上一个时间步的节点之间添加一条边。</li>
+<li>存储两个节点之间的相对姿态</li>
+</ol></li>
+<li>如果智能体无法定位,则在图中添加一个新节点</li>
+</ol>
+<p>这就产生了另一个问题,什么情况下是在已有节点,什么情况下要新增节点呢？这需要判断两个观察值是否相似,可以视为一个分类（二分）问题,用一个既有的分类器计算,也可以用可达性估计或者一些预训练的无监督网络处理(附近拍的观察可以视为一类,这样就不用手动标注)<br />
+与网格地图相比,拓扑的空间占用少,但也因此可能漏掉信息</p>
+<h5 id="point-cloud-map">Point-cloud map</h5>
+<p>用过建模软件的都知道,出于优化性能考虑,复杂的模型经常用三角形mesh表示,由于训练智能体大多是在虚拟环境中,点云与meshes有不错的适配性<br />
+而对于语义信息,可以直接为每个点赋予一定的寓意,最后我们就得到了一个不那么传统的map,我们一般用一个神经网络来赋予每个(x,y,z)点一个语义向量，这个网络称为<code>neural field</code><br />
+这方面的应用暂时不算多，点云更多被用在场景理解或者分类上，这里暂且略过少数几个例子<br />
+光看简介就能看出来，点云的计算和存储成本都很高，并且对于稀疏的场景，提供的信息可能也不足，是一种有待探索的结构</p>
+<h5 id="hybrid-map">Hybrid map</h5>
+<p>混合方法也是常见的思路，一些相关的应用有:</p>
+<ul>
+<li>拓扑更能捕捉空间之间的关系，而grid更有距离上的细节，两者结合称为<code>topometric map</code>
+<ul>
+<li>例如，先生成一个粗糙的拓扑图，根据拓扑图完善一个细粒度的grid；实验发现，拓扑图能修正一些巨大的测量问题，也就是全局问题，而网格则能更小的解决局部问题</li>
+<li>另一篇文章中，为了处理紧凑的环境，作者将转角和走廊用拓扑表示，房间则用网格表示，由于一般来说我们只需要房间里有详细的信息，而对交通空间不关心具体情况</li>
+<li>以上两篇都比较古早，最近的一种基于bert的文章离线训练hybrid maps，然后训练一个多模态模型进行语言指导式的空间推理</li>
+</ul></li>
+<li>还有结合三者的，网格存储占用(障碍物)信息，拓扑图存储地标及其连通性，点云则存储详细的语义信息</li>
+<li>构建能够捕捉场景语义层次的地图可以实现不同层次的推理，例如不同的节点实际上在不同层级(坐标系)中而，边表示坐标系的转化关系；除了分层，还可以额外存储物体，agent之间的时空关系，实验证明分层的场景表示对复杂的环境效果更好，这样的技术甚至可以用来对城市的交通系统进行建模</li>
+</ul>
+<p>混用这些地图结构时需谨慎考虑各自的特点，例如拓扑和点云地图在大环境中比网格地图更具可扩展性，但点云需要更多存储空间，而拓扑地图所需的存储空间最少。</p>
+<h4 id="地图编码">地图编码</h4>
+<div class="note info">
+</div>
 
     </div>
 
@@ -503,14 +555,14 @@ const darkmode = new Darkmode(options);
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">580k</span>
+    <span title="站点总字数">582k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">35:08</span>
+    <span title="站点阅读时长">35:15</span>
   </span>
 </div>
 <div class="busuanzi-count">
