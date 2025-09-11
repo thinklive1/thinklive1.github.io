@@ -84,6 +84,7 @@
     <url>/thinklive/52409/</url>
     <content><![CDATA[<h1 id="embodied-ai">Embodied AI</h1>
 <p>集成了物理上的机械以及ai(一般是常用的机器学习模型)的一种智能体，这个词与robotics(机器人学)的区别是，后者较为关心硬件上的很多问题，以及操作系统等偏底层的问题；而具身智能较为关注抽象层面的智能，暂时屏蔽掉底层的一些细节</p>
+<span id="more"></span>
 <h2 id="semantic-mapping-语义地图">Semantic Mapping 语义地图</h2>
 <h3 id="survey">survey</h3>
 <h3 id="前言">前言</h3>
@@ -101,7 +102,21 @@
 总结一下，我们目前在讨论一种根据对环境的不断认知几乎同时地进行地图化以及定位的一种技术</p>
 <div class="note info"><ul>
 <li><code>开放词汇语义地图（Open-Vocabulary Semantic Maps）</code>: 系统能够识别和处理未在训练中见过的新对象或特征，而不仅仅局限于预定义的类别</li>
-<li><code>Embodied AI tasks</code>: 大致可分为：探索、导航、操纵</li>
+<li><code>Embodied AI tasks</code>: 大致可分为：探索、导航、操纵，更细粒度的划分可以使用目标的类型，例如图像目标比定位上的目标需要更细的信息</li>
+<li><code>End-to-end | Modular approaches</code>：前者直接用传感器信息生成行动，优点是对中小型任务效果不错，但复杂的3d空间，长期路径规划等表现不佳,以及无法复用；后者会将输入信息投入不同模块中处理例如编码器，建图，探索等，最后生成行动，优点是各个模块可以分开训练或者使用预训练模型</li>
+<li>e2e相关
+<ul>
+<li><code>intermediate map representation</code>: 输入和输出之间的中间数据，一般用于提取关键信息</li>
+<li><code>egocentric map</code>: 从个体的视角（通常是观察者或移动体的视角）表示环境的地图</li>
+</ul></li>
+<li>模块化相关
+<ul>
+<li>一般包括： <code>visual encoder</code>、<code>mapper</code>、<code>exploration</code>(决定去哪探索)、<code>planner</code>(决定机器采取什么动作),以上提及的这些是顺序关系</li>
+<li>视觉编码器： 将观察转化为带有语义的编码，一般使用预训练的模型,最后可以将检测到的物体放入标好名字的box</li>
+<li>建图器: 接受编码器的特征信息，构建认知地图</li>
+<li>探索：类似红警2的探图能产生信息优势，由于知道越多的地图信息应该是越好的，因此设置这个模块鼓励智能探索未知区域，优先探索哪边可以选取合适的方法，例如图文相关型，VLM输出的最佳方向</li>
+<li>计划： 在地图建后，需要指定导航路径，这部分取决于机器的运动方式等细节</li>
+</ul></li>
 <li></li>
 </ul>
 </div>
@@ -141,7 +156,9 @@
 <li>task-agnostic 与任务无关的</li>
 <li>actuators： 执行部门</li>
 <li>taxonomy: 分类学</li>
-<li></li>
+<li>finer-grained：更细粒度</li>
+<li>segmentations：分割</li>
+<li>heuristics-based: 启发式</li>
 </ul>
 <h1 id="算法与数据结构常用术语">算法与数据结构常用术语</h1>
 <span id="more"></span>

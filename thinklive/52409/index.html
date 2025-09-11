@@ -22,15 +22,15 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"thinklive1.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.18.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"flat"},"fold":{"enable":true,"height":500},"bookmark":{"enable":true,"color":"#66CCFF","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":true,"motion":{"enable":true,"async":true,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="Embodied AI 集成了物理上的机械以及ai(一般是常用的机器学习模型)的一种智能体，这个词与robotics(机器人学)的区别是，后者较为关心硬件上的很多问题，以及操作系统等偏底层的问题；而具身智能较为关注抽象层面的智能，暂时屏蔽掉底层的一些细节 Semantic Mapping 语义地图 survey 前言 语义地图以结构化的方式捕获环境信息，让代理能够利用这些信息进行推理 由于具身智能">
+    <meta name="description" content="Embodied AI 集成了物理上的机械以及ai(一般是常用的机器学习模型)的一种智能体，这个词与robotics(机器人学)的区别是，后者较为关心硬件上的很多问题，以及操作系统等偏底层的问题；而具身智能较为关注抽象层面的智能，暂时屏蔽掉底层的一些细节">
 <meta property="og:type" content="article">
 <meta property="og:title" content="论文阅读笔记">
 <meta property="og:url" content="https://thinklive1.github.io/thinklive/52409/index.html">
 <meta property="og:site_name" content="thinklive">
-<meta property="og:description" content="Embodied AI 集成了物理上的机械以及ai(一般是常用的机器学习模型)的一种智能体，这个词与robotics(机器人学)的区别是，后者较为关心硬件上的很多问题，以及操作系统等偏底层的问题；而具身智能较为关注抽象层面的智能，暂时屏蔽掉底层的一些细节 Semantic Mapping 语义地图 survey 前言 语义地图以结构化的方式捕获环境信息，让代理能够利用这些信息进行推理 由于具身智能">
+<meta property="og:description" content="Embodied AI 集成了物理上的机械以及ai(一般是常用的机器学习模型)的一种智能体，这个词与robotics(机器人学)的区别是，后者较为关心硬件上的很多问题，以及操作系统等偏底层的问题；而具身智能较为关注抽象层面的智能，暂时屏蔽掉底层的一些细节">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-09-09T07:53:29.848Z">
-<meta property="article:modified_time" content="2025-09-11T02:48:59.352Z">
+<meta property="article:modified_time" content="2025-09-11T05:06:47.900Z">
 <meta property="article:author" content="thinklive">
 <meta property="article:tag" content="人工智能">
 <meta property="article:tag" content="机器学习">
@@ -307,7 +307,7 @@ const darkmode = new Darkmode(options);
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-09-11 10:48:59" itemprop="dateModified" datetime="2025-09-11T10:48:59+08:00">2025-09-11</time>
+      <time title="修改时间：2025-09-11 13:06:47" itemprop="dateModified" datetime="2025-09-11T13:06:47+08:00">2025-09-11</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -333,14 +333,14 @@ const darkmode = new Darkmode(options);
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>587</span>
+      <span>1k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
+      <span>4 分钟</span>
     </span>
 </div>
 
@@ -354,6 +354,7 @@ const darkmode = new Darkmode(options);
     
     <div class="post-body" itemprop="articleBody"><h1 id="embodied-ai">Embodied AI</h1>
 <p>集成了物理上的机械以及ai(一般是常用的机器学习模型)的一种智能体，这个词与robotics(机器人学)的区别是，后者较为关心硬件上的很多问题，以及操作系统等偏底层的问题；而具身智能较为关注抽象层面的智能，暂时屏蔽掉底层的一些细节</p>
+<span id="more"></span>
 <h2 id="semantic-mapping-语义地图">Semantic Mapping 语义地图</h2>
 <h3 id="survey">survey</h3>
 <h3 id="前言">前言</h3>
@@ -371,7 +372,21 @@ const darkmode = new Darkmode(options);
 总结一下，我们目前在讨论一种根据对环境的不断认知几乎同时地进行地图化以及定位的一种技术</p>
 <div class="note info"><ul>
 <li><code>开放词汇语义地图（Open-Vocabulary Semantic Maps）</code>: 系统能够识别和处理未在训练中见过的新对象或特征，而不仅仅局限于预定义的类别</li>
-<li><code>Embodied AI tasks</code>: 大致可分为：探索、导航、操纵</li>
+<li><code>Embodied AI tasks</code>: 大致可分为：探索、导航、操纵，更细粒度的划分可以使用目标的类型，例如图像目标比定位上的目标需要更细的信息</li>
+<li><code>End-to-end | Modular approaches</code>：前者直接用传感器信息生成行动，优点是对中小型任务效果不错，但复杂的3d空间，长期路径规划等表现不佳,以及无法复用；后者会将输入信息投入不同模块中处理例如编码器，建图，探索等，最后生成行动，优点是各个模块可以分开训练或者使用预训练模型</li>
+<li>e2e相关
+<ul>
+<li><code>intermediate map representation</code>: 输入和输出之间的中间数据，一般用于提取关键信息</li>
+<li><code>egocentric map</code>: 从个体的视角（通常是观察者或移动体的视角）表示环境的地图</li>
+</ul></li>
+<li>模块化相关
+<ul>
+<li>一般包括： <code>visual encoder</code>、<code>mapper</code>、<code>exploration</code>(决定去哪探索)、<code>planner</code>(决定机器采取什么动作),以上提及的这些是顺序关系</li>
+<li>视觉编码器： 将观察转化为带有语义的编码，一般使用预训练的模型,最后可以将检测到的物体放入标好名字的box</li>
+<li>建图器: 接受编码器的特征信息，构建认知地图</li>
+<li>探索：类似红警2的探图能产生信息优势，由于知道越多的地图信息应该是越好的，因此设置这个模块鼓励智能探索未知区域，优先探索哪边可以选取合适的方法，例如图文相关型，VLM输出的最佳方向</li>
+<li>计划： 在地图建后，需要指定导航路径，这部分取决于机器的运动方式等细节</li>
+</ul></li>
 <li></li>
 </ul>
 </div>
@@ -399,11 +414,14 @@ const darkmode = new Darkmode(options);
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/thinklive/44308/" rel="prev" title="计算机专业英语术语表">
-                  <i class="fa fa-angle-left"></i> 计算机专业英语术语表
+                <a href="/thinklive/23089/" rel="prev" title="pdfs">
+                  <i class="fa fa-angle-left"></i> pdfs
                 </a>
             </div>
             <div class="post-nav-item">
+                <a href="/thinklive/44308/" rel="next" title="计算机专业英语术语表">
+                  计算机专业英语术语表 <i class="fa fa-angle-right"></i>
+                </a>
             </div>
           </div>
     </footer>
@@ -443,7 +461,7 @@ const darkmode = new Darkmode(options);
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">35:01</span>
+    <span title="站点阅读时长">35:03</span>
   </span>
 </div>
 <div class="busuanzi-count">
