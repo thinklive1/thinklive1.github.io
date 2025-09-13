@@ -31,7 +31,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://thinklive1.github.io/assets/ml/Pasted%20image%2020250911154734.png">
 <meta property="article:published_time" content="2025-09-09T07:53:29.848Z">
-<meta property="article:modified_time" content="2025-09-12T12:10:37.952Z">
+<meta property="article:modified_time" content="2025-09-13T03:43:57.445Z">
 <meta property="article:author" content="thinklive">
 <meta property="article:tag" content="人工智能">
 <meta property="article:tag" content="机器学习">
@@ -309,7 +309,7 @@ const darkmode = new Darkmode(options);
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-09-12 20:10:37" itemprop="dateModified" datetime="2025-09-12T20:10:37+08:00">2025-09-12</time>
+      <time title="修改时间：2025-09-13 11:43:57" itemprop="dateModified" datetime="2025-09-13T11:43:57+08:00">2025-09-13</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -335,14 +335,14 @@ const darkmode = new Darkmode(options);
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>7.7k</span>
+      <span>8.2k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>28 分钟</span>
+      <span>30 分钟</span>
     </span>
 </div>
 
@@ -451,7 +451,7 @@ const darkmode = new Darkmode(options);
 它执行<code>注册</code>的方法是:首先获取一系列旋转多次后的egocentric地图,然后与之前allocentric地图进行<code>密集匹配</code>,以确定代理在地图上的当前位置</p>
 <p>另一种方法是: 直接通过相机内置函数将图片像素转化为（相对于相机的）3d坐标,由于相机的pose我们是知道的,所以可以直接将其转化为世界坐标,并将其体素化,投影到2d平面时,我们可以把这些体素的weight也压上去<br />
 这样的缺点就是太依赖相机功能,对于现实的噪声敏感,需要额外的降噪步骤,使用这种方法的<code>Semantic MapNet</code>和<code>MOPA</code>都各自用了一些降噪算法,前者还发现,先对图像编码,然后投影,最后执行分割会减少噪声,甚至可以不去降噪</p>
-<p>总结: 使用grid能比较方便地表示空间,也能方便gaent学习,但固定的宽高对于变化环境不太方便,而且内存占用较多</p>
+<p>总结: 使用grid能比较方便地表示空间,也能方便agent学习,但固定的宽高对于变化环境不太方便,而且内存占用较多</p>
 <div class="note info"><ul>
 <li>密集匹配(dense matching) : 计算机视觉和图像处理中的一种技术,用于在图像或视频序列中找到像素级别的对应关系。与稀疏匹配（只在特定特征点上进行匹配）不同,密集匹配试图为图像中的每一个像素找到对应的像素。</li>
 <li>pose: 物体在三维空间中的位置和方向</li>
@@ -468,7 +468,7 @@ const darkmode = new Darkmode(options);
 <li>定位:尝试将智能体在前一个时间戳的图中进行定位</li>
 <li>对已存在节点:
 <ol type="1">
-<li>如果智能体成功定位到一个现有节点,便在该节点与上一个时间步的节点之间添加一条边</li>
+<li>如果智能体成功定位到一个现有节点,便在该节点与上一个时间戳的节点之间添加一条边</li>
 <li>存储两个节点之间的相对pose</li>
 </ol></li>
 <li>如果智能体无法定位,则在图中添加一个新节点</li>
@@ -504,16 +504,16 @@ const darkmode = new Darkmode(options);
 以上都是网格地图的应用，拓扑图中，可存储每次都会替换更新的访问时间戳，用来表示地点之间的时间相对关系</p>
 <p>总结: 显式编码的优点是其可解释性，对于具体的任务，我们可以选择常识上有益的信息类型并编码存储，但是这较为依赖人类对问题的理解</p>
 <h5 id="隐式编码">隐式编码</h5>
-<p>大部分的早期工作使用预训练的基于封闭词汇表的视觉模型提取特征，例如使用cnn,近年来，更多使用预训练的基于开放词汇表的大型视觉-语言模型</p>
+<p>大部分的早期工作使用预训练的基于封闭词汇表的视觉模型提取特征，例如cnn,近年来，更多使用预训练的基于开放词汇表的大型视觉-语言模型</p>
 <p>封闭词汇表:</p>
 <p>可以使用cnn或者流行的<code>vision model</code>例如<code>ResNet</code> 除了图像以外，也可以根据可微分的映射器和<code>planner</code>进行非监督学习，通过计算微分，模型可以不断优化性能,地图则可以通过<code>differentiable warp</code>不断集成</p>
 <p>开放词汇表:</p>
 <p>封闭词汇表最大的漏洞是: 无法编码不认识的特征，<code>Large Vision-Language Model (LVLM)</code>如<code>CLIP</code>可以缓解这个问题，这些模型有庞大的训练资料，对于不认识的物品，可以通过已有知识建立新的类别<br />
 <code>CLIP</code>有强大的图文匹配能力，利用这点，可以在2Dmap中存储图文相似得分(<code>value maps</code>),这在下游应用例如<code>zero-shot</code>的语言驱动的导航中表现良好，也有论文将其拓展到3D。<br />
-尽管其匹配能力相比封闭词汇表十分强大，但仅限于图片和文本的匹配，依旧缺乏更详细的语义和空间信息，因此空间推理能力依旧欠缺<br />
+尽管其匹配能力相比封闭词汇表十分强大，但仅限于图片和文本的匹配，依旧缺乏更详细的语义和空间信息，因此空间推理能力欠缺<br />
 为了增强推理能力，需要找到判断物体在图片中的位置，以及提取特征的方法，一个思路是对图片的所有像素嵌入一些特征,根据摄像头的深度信息,可以得知这些像素对应3d空间的坐标，随后投影(聚合)到2d网格上，在查询时，先从输入提取出物品名，再和这些像素匹配<br />
 这个方法的缺点是，并没有做到物体级别的语义，可能忽略了空间上的一些关系，此外很多像素可能就是空气，毫无语义信息，没有必要存储。24年(<code>OneMap</code>)的一种方法使用分层的编码器缓解了这个问题<br />
-NLMap(grid): 如果想直接辨别图像里的物品，则可以使用<code>class-agnostic region proposal network</code>来划分出感兴趣的图像区域(region)，对于这些region，提取特征并将其存入3d map(携带坐标和估计的大小信息)，这样一来，对查询(会被转化为物体名)，只要查找匹配度最高的region就可以了<br />
+NLMap(grid): 如果想直接辨别图像里的物品，则可以使用<code>class-agnostic region proposal network</code>来划分出感兴趣的图像区域(region)，对于这些region，提取特征并将其存入3d map(携带坐标和估计的大小信息)，这样一来，对每次查询(会被先转化为物体名)，只要查找匹配度最高的region就可以了<br />
 <code>ConceptGraphs(topo)</code>: 使用无类别的2d分割算法划分出物体，这些物体可以直接作为拓扑图的节点并存储一些信息，除了特征信息外，例如对其的描述，<code>Candidate Masks</code>的点云等也可以存储。接下来考虑边，在这种方法中，考察物体的点云是否有几何相似性或者重叠部分，如果一个物体的点云部分落在另一个物体的距离阈值内，则认为它们是空间相关的，从而建立边。边也可以额外存储信息，例如大模型对链接方关系的描述</p>
 <p>开放词汇表映射编码的优点是它可以一次构建，然后复用到不同的下游任务。它可以有效地使用开放词汇表进行查询，并且具有较高的可解释性<br />
 缺点是，当前阶段大模型的训练开销和计算开销都极大</p>
@@ -528,10 +528,10 @@ NLMap(grid): 如果想直接辨别图像里的物品，则可以使用<code>clas
 <ul>
 <li>Utility 实用性: 大部分工作将语义地图作为一个中间步骤，planner使用它来规划路径，产生动作指令，如果我们只用地图做这一件事，那么直接看任务完成地怎么样就是最好的评价标准了；但对一些和地图有关的任务，例如导航、勘探，则也可以用覆盖率，导航准确性等作为指标<br />
 </li>
-<li>Accuracy 准确性: 地图准确度是指与现实地形进行比较时，地图捕获语义信息的准确度，问题在于，很多时候现实的地理信息较难获取。如果只论语义的比对，则可以使用一些语义分割上的指标，与智能的语义划分进行比对；还有一个问题是，这种比较对常常种类有限的显式特征较为方便，但对隐式的特征则无从下手，对此只能再用一个分割器将隐式转化为显式，又或者人工评</li>
-<li>Completeness 完整性: 地图是否完整地表示环境，这包括了几何和语义层面。这点很大程度上取决于机器人在下游任务中探索环境的彻底程度，并且与 “停止标准 stopping criteria” 密切相关,一般来说，会在任务完成或者达到时间限制时停止；而语义上的完整则很难测算，几乎没有成熟的方法</li>
-<li>Consistency 一致性: 几何一致性指的是地图的空间结构能反映环境物理布局的准确性，不严谨的说可以视为地图内部细节(距离，角度，物体相对位置)的准确性,模拟环境下不存在传感器噪声，因此几乎可以不考虑，但实际情况中，由于各种因素影响，代理可能错估自己走过的距离，相对位置等，从而破坏一致性；语义一致性则指随着机器人运动，语义信息和物理位置能否对齐。由于当前还处于理论阶段，这方面的研究尚且不足</li>
-<li>Robustness 健壮性: 在不可预测或动态环境中的可靠性，由于现在大量使用预训练模型，可以用预测置信度来评估；此外也可以使用模型预测的方差,这方面的研究也较为缺乏</li>
+<li>Accuracy 准确性: 地图准确度是指与现实地形进行比较时，地图捕获语义信息的准确度，问题在于，很多时候现实的地理信息较难获取。如果只论语义的比对，则可以使用一些语义分割上的指标，与智能的语义划分进行比对；还有一个问题是，这种比较对常常种类有限的显式特征较为方便，但对隐式的特征则无从下手，对此只能再用一个分割器将隐式转化为显式，又或者人工评估</li>
+<li>Completeness 完整性: 地图是否完整地表示环境，这包括了几何和语义层面。这点很大程度上取决于机器人在下游任务中探索环境的彻底程度，并且与 “停止标准 <code>stopping criteria</code>” 密切相关,一般来说，会在任务完成或者达到时间限制时停止；而语义上的完整则很难测算，几乎没有成熟的方法</li>
+<li>Consistency 一致性: 几何一致性指的是地图的空间结构能反映环境物理布局的准确性，不严谨的说可以视为地图局部细节(距离，角度，物体相对位置)的准确性,模拟环境下不存在传感器噪声，因此几乎可以不考虑，但实际情况中，由于各种因素影响，代理可能错估自己走过的距离，相对位置等，从而破坏一致性；语义一致性则指随着机器人运动，语义信息和物理位置能否对齐。由于当前还处于理论阶段，这方面的研究尚且不足</li>
+<li>Robustness 健壮性: 在不可预测或动态环境中的可靠性，由于现在大量使用预训练模型，可以用预测的置信度来评估；此外也可以使用模型预测的方差来评估,但由于能落地的应用有限，这方面的研究也比较缺乏</li>
 </ul>
 <h4 id="展望未来与结语">展望未来与结语</h4>
 <p>当前的趋势为创建灵活、通用、开放词汇和可查询的地图，以支持多种任务；为了提高空间推理能力，密集，可扩展和内存高效也是一种方向</p>
@@ -559,16 +559,21 @@ vla具体可以定义为:</p>
 <li>Monolithic Models: 单片模型，也就是集成度高的模型
 <ol type="1">
 <li>Single-system models: 将环境理解，视觉感知，语言理解，机器状态认知，动作生成都统一到一个模型</li>
-<li>dual-system models: 将认知环境和动作生成分为两个任务，分别让VLM和一个action expert去做</li>
+<li>dual-system models: 将认知环境和动作生成分为两个任务，分别让VLM和一个action expert去做，这是因为相比前者，后者时效性更强</li>
 </ol></li>
 <li>Hierarchical Models: 分层模型,耦合度低的模型，一般有结构，中间输出，例如计划模块产生<code>keypoint detections</code>, <code>affordance maps</code>, <code>trajectory proposals</code>可解释的中间产物，交给策略模块来产生动作;这样的解耦让不同模块可以并行训练，使用不同的loss和优化方式</li>
 </ol>
 <div class="note info"><ul>
 <li><code>Keypoint Detection</code> : 计算机视觉中的一种技术，旨在识别图像中具有显著特征的点</li>
 <li><code>Affordance Maps</code> : 一种表示对象与环境之间交互可能性的图像或图形</li>
+<li><code>Backbone</code> : 一个神经网络结构的基础部分，主要用于特征提取。Backbone 是整个模型的核心组件，负责从输入数据（如图像）中提取重要的特征信息</li>
+<li><code>Internet-scale</code> : 能够处理、存储和分析大规模数据的系统、服务或应用</li>
 </ul>
 </div>
 <h4 id="背景知识">背景知识</h4>
+<p>得益于用于跨领域和多模态能力的VLM的出现，现代的vlm模型能执行对能力需求更加多样的任务例如自动驾驶，图形用户界面交互等<br />
+这些模型往往由一个视觉编码器，一个用于将视觉特征嵌入到文本的投影器(projector)，以及应该大语言模型组成；这其中，最为重要的是<strong>大</strong>模型为其带来的泛化能力，如GPT4这种LLM能提供极强的过滤输入，降噪，处理模糊指令的能力，从而为VLA定下基础，也就是说，VLA相当重视泛化、通用性质的能力</p>
+<p>V、L、A可以视为三种不同的任务，早期的模型往往会将三者分开，这样的好处是可以并行训练，但缺点是可能降低一些理解和推理能力；最近的模型一般会加强集成度，例如除了传统的大规模(Internet-scale)训练资料外，把机器人的动作也转化为文本标记并放入训练语料库中，这能让action作为语言任务被语言模块理解，增强整个模型的理解能力,其他一些使用动作资料的模型也取得了较好的效果</p>
 <div class="note info">
 </div>
 
@@ -642,7 +647,7 @@ vla具体可以定义为:</p>
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">35:27</span>
+    <span title="站点阅读时长">35:29</span>
   </span>
 </div>
 <div class="busuanzi-count">
