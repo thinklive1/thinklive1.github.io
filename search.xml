@@ -302,6 +302,51 @@ vla具体可以定义为:</p>
 <p>得益于用于跨领域和多模态能力的VLM的出现，现代的vlm模型能执行对能力需求更加多样的任务例如自动驾驶，图形用户界面交互等<br />
 这些模型往往由一个视觉编码器，一个用于将视觉特征嵌入到文本的投影器(projector)，以及应该大语言模型组成；这其中，最为重要的是<strong>大</strong>模型为其带来的泛化能力，如GPT4这种LLM能提供极强的过滤输入，降噪，处理模糊指令的能力，从而为VLA定下基础，也就是说，VLA相当重视泛化、通用性质的能力</p>
 <p>V、L、A可以视为三种不同的任务，早期的模型往往会将三者分开，这样的好处是可以并行训练，但缺点是可能降低一些理解和推理能力；最近的模型一般会加强集成度，例如除了传统的大规模(Internet-scale)训练资料外，把机器人的动作也转化为文本标记并放入训练语料库中，这能让action作为语言任务被语言模块理解，增强整个模型的理解能力,其他一些使用动作资料的模型也取得了较好的效果</p>
+<p>接下来从单片/多片的角度讨论两种模式的发展趋势</p>
+<h4 id="monolithic-models-单片模型">MONOLITHIC MODELS 单片模型</h4>
+<h5 id="single-system-models">Single-system Models</h5>
+<p>其经典范式为<code>Autoregressive Decoding</code>, 将机器人的连续动作空间离散化为token 序列，模型能够序列化地生产动作token，再由一个de-tokenizer.转化为具体动作。较为知名的模型有<code>RT series</code> , <code>OpenVLA</code></p>
+<h6 id="model-performance-enhancement">Model Performance Enhancement</h6>
+<ol type="1">
+<li>认知模式(Perception Modalities):
+<ol type="1">
+<li>3d感知(perception): 一般能从传感器得到的数据就是2d图片，为了构建三d的地图模型，可以模拟环境并根据图片画出点云;或者根据图片及其深度信息，画出自我中心的地图</li>
+<li>4d感知: 多出来的d指的是轨迹，也就是时空序列信息，例如将动作或者轨迹信息添加到图像中，从而增强模型的时空推理能力</li>
+<li>触觉和听觉（Tactile and auditory）感知: 触觉信息可以使用视觉编码器，听觉信息可以使用专用的编码器，且两者都需要专用的数据集，这两种能力均可以与语言模块对齐，然后得到接受听觉触觉指令的能力</li>
+</ol></li>
+<li>推理能力: 以下简单介绍一些相关工作
+<ol type="1">
+<li><code>ECoT</code>: 生成一个推理链，将高层任务规划与视觉特征相结合，输出最终行动</li>
+<li><code>CoT-VLA</code>:引入视觉链式推理，通过预测代表计划状态的子目标观察，增强推理能力</li>
+<li><code>LoHoVLA</code>:采用“层次闭环控制 <code>Hierarchical Closed-Loop Control</code> ”机制，解决规划错误、行动失败和外部干扰等问题，适用于长周期任务</li>
+<li><code>ReFineVLA</code>:通过“选择性迁移微调 <code>Selective Transfer Fine-Tuning</code> ”策略，仅微调上层，增强多模态理解</li>
+</ol></li>
+<li>泛化能力: 也就是处理各种场景需求的能力
+<ol type="1">
+<li><code>UniAct</code>: 定义一个 <code>Universal Action Codebook</code>, 将所有机器人行动抽象到有限的类别中，增强泛化能力</li>
+<li><code>ReVLA</code>: 使用可逆的训练策略，缓解遗忘问题</li>
+<li><code>HybridVLA</code>: 使用一个<code>Collaborative Action Ensemble</code>机制，融合<code>diffusion and autoregressive decoding</code>,针对任务选取不同策略</li>
+<li><code>VOTE</code>: 使用一种<code>Ensemble Voting</code>机制，将过去的动作预测根据与当前预测的相似性进行分组，并对大多数集进行平均处理，从而生成更稳健的动作输出</li>
+<li>也有一些模型在物理规律层面进行学习</li>
+</ol></li>
+</ol>
+<h6 id="inference-efficiency-optimization">Inference Efficiency Optimization</h6>
+<p><code>Inference Efficiency Optimization</code> 推理效率优化 : 机器人对及时性(控制频率)往往有一定要求，因此模型的推理效率优化也是一个重要的方向</p>
+<ol type="1">
+<li><code>Architectural Optimization 体系优化</code>: 一些常用的方法用，跳过层级，早停止等，进阶的有一些方法会动态计算哪些层级是关键的，从而激活关键层完成推理；此外也有方法会逐步减少视觉token,也就是修建掉那些与指令生成无关的token,再加上注意力机制，这甚至能同时提高指令准确性</li>
+<li><code>Parameter Optimization 参数优化</code>: 也就是压缩模型的大小， 通过蒸馏的模型提高效率；或者使用tokenizer将高维动作指令转化为token的序列从而减少模型复杂度</li>
+<li><code>Inference Acceleration 推理加速</code>: 即加速动作解码，可以使用专门优化过的action head,一次生成一个动作序列；通过某种方式实现并行运算等；也可以单纯地(但有选择地)放开限制，接受一些“不完善”的推理结果</li>
+</ol>
+<div class="note info"><ul>
+<li><code>Distillation-Aware Training</code>: 一种优化训练方法，旨在通过知识蒸馏（knowledge distillation）技术提高模型的性能和效率。这一过程通常涉及将一个大型、复杂的“教师”模型的知识转移到一个较小的“学生”模型中，以便在保持性能的同时减少计算资源和加速推理</li>
+<li><code>action head</code>: 用于将模型的输出转换为具体的动作或决策的组件</li>
+</ul>
+</div>
+<h5 id="dual-system-models">Dual-system Models</h5>
+<p>双系统主要是为了解决动作生成速度与推理速度要求不同的问题，引入了一个动作专家模块来对系统解耦，而其与分层模型不同的是，不会产生可解释的中间输出</p>
+<h6 id="cascade-based-methods">Cascade-based Methods</h6>
+<h6 id="parallel-based-methods">Parallel-based Methods</h6>
+<h4 id="hierarchical-models">HIERARCHICAL MODELS</h4>
 <div class="note info">
 </div>
 ]]></content>
@@ -311,190 +356,6 @@ vla具体可以定义为:</p>
       <tags>
         <tag>人工智能</tag>
         <tag>机器学习</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>一些工具的使用备忘录</title>
-    <url>/thinklive/24757/</url>
-    <content><![CDATA[<h1 id="vim">vim</h1>
-<p><img src="/assets/resources/vim_key.gif" /></p>
-<span id="more"></span>
-<p>vim的使用是个逐渐提升的过程，个人认为初学者，使用时间一个月以内的没必要折腾<br />
-本人用了差不多一两年vscode vim后打算试试进行一些自定义</p>
-<p><a href="https://github.com/VSCodeVim/Vim">Vim for Visual Studio Code 仓库</a><br />
-<a href="https://github.com/easymotion/vim-easymotion#bidirectional-motions">vim-easymotion</a><br />
-vscode vim的<code>.vimrc</code>支持有限，应该只支持按键重映射，但集成了不少插件，例如easymotion就比较有用</p>
-<p>如最简单好用的跳转到当前光标前后的位置(w/b)<br />
-快捷键<code>&lt;leader&gt;&lt;leader&gt;w</code>和<code>&lt;leader&gt;&lt;leader&gt;b</code><br />
-如果要跳转行就把wb换成jk<br />
-其中leader符号是vsc vim特有的调用插件功能前置键，默认为<code>\</code></p>
-<p>对跳转这种功能来说，按三个键太麻烦，我们可以用vsc的按键重绑定功能<br />
-对不常用的<code>cc</code>,<code>;</code>等键进行重绑定，这个重绑定既可以绑键位，也可以绑vsc的功能，例如下方就把cc绑定了vsc替换，详情可以看vsc vim的文档示例，顺便一提这个normalModeKeyBinding意思是绑定normal模式下的输入</p>
-<p>编写<code>settings.json</code><br />
-<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="attr">&quot;vim.normalModeKeyBindings&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;before&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;c&quot;</span><span class="punctuation">,</span><span class="string">&quot;c&quot;</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;commands&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">            <span class="string">&quot;editor.action.startFindReplaceAction&quot;</span></span><br><span class="line">        <span class="punctuation">]</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="punctuation">&#123;</span>   <span class="attr">&quot;before&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;;&quot;</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;after&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;&lt;leader&gt;&quot;</span><span class="punctuation">,</span><span class="string">&quot;&lt;leader&gt;&quot;</span><span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">]</span></span><br></pre></td></tr></table></figure></p>
-<p>常用功能改造:<br />
-vim的<code>[[</code>,<code>]]</code>跳转到行首第一个<code>&#123;</code>,<code>&#125;</code>，巧的是本人不喜欢行首大括号，想要跳转任意一个大括号可以替换键位</p>
-<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="attr">&quot;vim.normalModeKeyBindings&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;before&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">            <span class="string">&quot;[&quot;</span></span><br><span class="line">        <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;after&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">            <span class="string">&quot;?&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="string">&quot;&#123;&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="string">&quot;enter&quot;</span></span><br><span class="line">        <span class="punctuation">]</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;before&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">            <span class="string">&quot;]&quot;</span></span><br><span class="line">        <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;after&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">            <span class="string">&quot;/&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="string">&quot;&#125;&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="string">&quot;enter&quot;</span></span><br><span class="line">        <span class="punctuation">]</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line"><span class="punctuation">]</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h2 id="vscode-vim-中文标点连击问题">vscode vim 中文标点连击问题</h2>
-<p>这是因为vscode的新功能<code>experimentalEditContextEnabled</code>被默认启用，类似vim这一机制试图在编辑中使用上下文信息，因此造成冲突，关掉即可</p>
-<h1 id="windows">windows</h1>
-<h2 id="快捷键">快捷键</h2>
-<p><a href="https://support.microsoft.com/zh-cn/windows/windows-%E7%9A%84%E9%94%AE%E7%9B%98%E5%BF%AB%E6%8D%B7%E6%96%B9%E5%BC%8F-dcc61a57-8ff0-cffe-9796-cb9706c75eec">微软官方文档</a></p>
-<h3 id="文本">文本</h3>
-<ul>
-<li><code>Ctrl + Shift + V</code>: 粘贴为纯文本</li>
-<li>powertoy
-<ul>
-<li><code>Windows 键 + Shift + V</code>: 自定义粘贴</li>
-<li><code>Windows 键 + Ctrl + T</code>: 置顶窗口</li>
-<li><code>Windows 键 + Ctrl + \</code> `: 工作区管理</li>
-</ul></li>
-</ul>
-<h3 id="应用">应用</h3>
-<ul>
-<li><code>Alt + 向左键</code>:返回，向右同理</li>
-<li><code>Ctrl + Shift + Esc</code>:打开任务管理器</li>
-<li><code>Ctrl + Y</code>:重新执行之前使用 Ctrl + Z 撤消的操作</li>
-<li><code>Ctrl + Shift + 选择任务栏上的应用图标</code>:以管理员身份打开应用</li>
-<li><code>Alt + Tab</code>：切换窗口</li>
-<li><code>Alt + F4</code>：关闭当前窗口</li>
-<li><code>Ctrl + F4</code>:在可全屏显示且支持同时打开多个文档的应用中，关闭活动文档，但不关闭整个应用</li>
-<li><code>F10</code>:激活活动窗口中的菜单栏</li>
-</ul>
-<h3 id="win键super键">win键(super键)</h3>
-<ul>
-<li><code>Windows 键 + I</code>: 设置</li>
-<li><code>Windows 键 + Tab</code>: 任务视图</li>
-<li><code>Windows 键 + shift + s</code>: 截图</li>
-<li><code>Windows 键 + 方向键</code>: 调整当前窗口大小</li>
-<li><code>Windows 键 + 数字键</code>: 打开第n个快捷栏应用</li>
-<li><code>Windows 键 + shift + 数字键</code>: 打开第n个快捷栏应用的新实例</li>
-<li><code>Windows 键 + D</code>：显示桌面或恢复窗口</li>
-<li><code>Windows 键 + L</code>：锁定屏幕</li>
-<li><code>Windows 键 + 空格</code>：切换输入法</li>
-<li><code>Windows 键 + Ctrl + V</code>:声音设置</li>
-<li><code>Windows 键 + M</code>:最小化所有窗口</li>
-<li><code>Windows 键 + Shift + M</code>:还原最小化的窗口</li>
-<li><code>Windows 键 + S\R</code>:打开搜索</li>
-<li><code>Windows 键 + Tab</code>:任务视图</li>
-<li><code>Windows 键 + Z</code>:打开对齐布局</li>
-<li><code>Windows 键 + Ctrl + D</code>:创建另一个桌面。</li>
-<li><code>Windows 键 + Ctrl + 左右方向键</code>:在桌面间移动</li>
-<li><code>Windows 键 + Ctrl + F4</code>：关闭当前桌面</li>
-</ul>
-<h3 id="文件资源管理器浏览器">文件资源管理器/浏览器</h3>
-<ul>
-<li><code>Windows 键 + E</code>：打开文件资源管理器</li>
-<li><code>F2</code>:重命名</li>
-<li><code>F4</code>:地址栏</li>
-<li><code>Alt + 方向键</code>:文件夹导航</li>
-<li><code>Alt + Enter</code>：查看文件或文件夹属性</li>
-<li><code>Alt + D</code>：快速选中地址栏</li>
-<li><code>Ctrl + Shift + N</code>：新建文件夹</li>
-<li><code>Ctrl + Shift + Tab</code>：切换到上一个标签页</li>
-<li><code>Ctrl + T</code>：新建标签页</li>
-<li><code>Ctrl + W</code>：关闭当前标签页</li>
-<li><code>Ctrl + Tab</code>：切换到下一个标签页</li>
-<li><code>Ctrl + E</code> 或 <code>F3</code>：激活搜索框</li>
-<li><code>Ctrl + L</code>：快速选中地址栏</li>
-<li><code>Ctrl + 数字 (1-9)</code>: 移动到该选项卡编号</li>
-<li><code>Ctrl + 加号 (+)</code>:调整所有列的大小以适应文本</li>
-<li><code>Ctrl + Click</code>：选中多个非连续的文件或文件夹。</li>
-<li><code>Shift + Delete</code>: 永久删除</li>
-<li><code>Shift + 鼠标右键单击</code>: 显示所选项的“显示更多选项”上下文菜单。</li>
-<li><code>Shift + Click</code>：选择从第一个点击到最后一个点击之间的所有文件/文件夹。</li>
-</ul>
-<h3 id="浏览器快捷键与文件管理不通用部分">浏览器快捷键(与文件管理不通用部分)</h3>
-<ul>
-<li><code>Ctrl + D</code>：收藏当前页面</li>
-</ul>
-<h2 id="wsl">wsl</h2>
-<p>更新wsl后，发现ps定位不到wsl，cmd却可以，查到这个网址<br />
-<a href="https://superuser.com/questions/1501478/wsl-is-not-recognized-as-an-internal-or-external-command">wsl未被识别为内部或外部命令</a></p>
-<p>Common problem when trying to access 64-bit tools from 32-bit processes. wsl.exe is in System32. But if your script happens to run as a 32-bit process, then all accesses to System32 are redirected to SysWOW64. In order to access wsl.exe in the "real" System32 folder, you'll have to use Sysnative instead, like in <code>C:\Windows\Sysnative\wsl.exe.</code><br />
-尝试从 32 位进程访问 64 位工具时的常见问题。 wsl.exe是在 System32。 但是如果你的脚本碰巧作为 32 位进程运行，那么所有访问 System32被重定向到 SysWOW64。 为了访问 wsl.exe使用真正的 System32文件夹，你必须使用 Sysnative，就像 <code>C:\Windows\Sysnative\wsl.exe</code></p>
-<p>也就是环境变量加一条，<code>C:\Windows\Sysnative</code></p>
-<p><code>$ENV:PATH="$ENV:PATH;c:\Windows\System32"</code></p>
-<h1 id="mysql">mysql</h1>
-<p>为了javaweb装mysql,发现一个经典问题，安装卡在start server这一步上，查了一下stf,似乎是默认会把mysql注册成网络服务而不是本地，上面说改成本地服务再重启就行了，但我亲测无效<br />
-彻底删除注册表和所有目录重装也无效<br />
-于是我直接放弃了安装时注册成windows服务，打算之后再自己注册，这个倒是不难，用bin目录的mysqld就行了<br />
-之后又发现不知道为什么输入注册时的密码错误，于是我重置了一下密码，这方面教程很多，比如<a href="https://www.jianshu.com/p/afe9ac17730d">这篇</a></p>
-<p><strong>关于mysql提供的employees测试数据库</strong><br />
-官方的安装指南是<code>mysql &lt; employees.sql</code>命令，但我发现powershell里没有<code>&lt;</code>运算符，于是看了一下时间，接近十年前了，所以得用cmd运行</p>
-<h1 id="hexo">hexo</h1>
-<h2 id="latex">latex</h2>
-<p>写笔记时发现，有些latex公式块会被hexo的md渲染器禁止使用<code>line number probably different from source</code>，这时候似乎就只能禁用渲染，在文件头加上disableNunjucks: true<br />
-这样一来的问题是，标签功能就无法使用了<br />
-也可以用这样的标签括起来,但会麻烦一点<br />
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;% raw %&#125;</span><br><span class="line"></span><br><span class="line">$$</span><br><span class="line">V=&#123;A_&#123;\mathrm&#123;s&#125;&#125;&#125;&#123;B_&#123;\mathrm&#123;s&#125;&#125;&#125;&#123;\overline&#123;&#123;S_&#123;\mathrm&#123;s&#125;&#125;&#125;&#125;&#125;+\overline&#123;&#123;A_&#123;\mathrm&#123;s&#125;&#125;B_&#123;\mathrm&#123;s&#125;&#125;&#125;&#125;S_&#123;\mathrm&#123;s&#125;&#125;</span><br><span class="line">$$  </span><br><span class="line"></span><br><span class="line">&#123;% endraw %&#125;</span><br></pre></td></tr></table></figure></p>
-<p>这是什么原因呢？ hexo next有独有语法，将<code>&#123;&#123;`,`&#125;&#125;</code>视为关键字，因此还有一个办法是把每两个大括号之间加个空格</p>
-<h2 id="hexo部署失败">hexo部署失败</h2>
-<p>使用hexo的一键式部署，但今天突然报错： <code>Error: Fetching artifact metadata failed. Is githubstatus.com reporting issues with API requests, Pages, or Actions? Please re-run the deployment</code><br />
-重试多次也依然能复现，起初我怀疑是版本跟不上了，但查了一下action版本号并不很早，而且一个小时前还是可以生效的<br />
-红迪也没搜出什么来，于是回归新手村，打开<a href="https://hexo.io/docs/github-pages">hexo官方文档</a>试试手动部署<br />
-检查一下workflow的action和该页面的yml一致，但有一点不同就是第四点<code>In your GitHub repo’s setting, navigate to Settings &gt; Pages &gt; Source. Change the source to GitHub Actions and save.</code><br />
-这里我的设置是deploy from a branch,改成action再重启原来失败的workflow，又成功了<br />
-下一个问题是为什么突然这样了？但实在摸不着头脑，因为hexo的官方推荐是一键部署，不需要自己改仓库设置。猜想是<code>hexo d</code>命令会启动一个脚本修改这个设置，action完再改回来？然后由于我一次<code>ctrl c</code>打断了这个应该是原子化的操作。<br />
-由于一键式部署插件是from branch的，因此还得把这个设置改回来才能通过hexo命令部署，改回来后又可以直接成功部署了，无语</p>
-<h1 id="gitbub">gitbub</h1>
-<p>有时，防火墙完全拒绝允许 SSH 连接。 也就是用22端口连接github被拒绝，特点是此时用<code>ssh -T -p 443 git@ssh.github.com</code>连接成功，但默认端口无法连接<br />
-如果能够通过 SSH 进入 git@ssh.github.com通过端口 443，可以覆盖 SSH 设置，以强制与 GitHub.com 的任何连接通过该服务器和端口运行。</p>
-<p>要在 SSH 配置文件中进行设置，编辑该文件： ~/.ssh/config，并添加此部分：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Host github.com</span><br><span class="line">    Hostname ssh.github.com</span><br><span class="line">    Port 443</span><br><span class="line">    User git</span><br></pre></td></tr></table></figure>
-<p>这样一来就可以用https和github连接</p>
-<h1 id="cpp">cpp</h1>
-<p><a href="https://stackoverflow.com/questions/32685540/why-cant-i-compile-an-unordered-map-with-a-pair-as-key">无法将Pair作为哈希表的元素</a></p>
-<h1 id="clash">clash</h1>
-<p><a href="https://www.clashverge.dev/faq/other.html?h=dns#_1">解决开着clash无法访问学校/公司内网问题</a><br />
-一般来说这种网站不会有闲心检测你开没开clash，比如端口扫描，所以大概率问题在于使用内网dns服务器，而clash经手的流量使用阿里dns等公共dns解析，所以无法正确解析学校官网域名<br />
-clash verge rev 贴心地给了全局拓展配置功能，因此只需要加入形如以下yaml配置(例如对苏州大学部分内部网站):<br />
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">dns:</span></span><br><span class="line">    <span class="attr">nameserver-policy:</span></span><br><span class="line">        <span class="string">&#x27;+.suda.edu.cn&#x27;</span><span class="string">:</span> <span class="string">&#x27;10.9.0.110&#x27;</span></span><br></pre></td></tr></table></figure></p>
-<p>左侧是域名，右侧是内部dns服务器，如果没被告知就连个内网打开powershell，输入:<br />
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">ipconfig /all</span><br></pre></td></tr></table></figure> 找到dns内行就是了，既然是内网，一般是10,172,196前缀</p>
-<h1 id="leetcode">leetcode</h1>
-<p>当你在力扣愉快地刷题(ctrl cv)时，是不是会恼火地发现剪切板上多了一些麻烦的后缀，如果想找到具体哪个js函数干的会很麻烦，更简单的思路是直接在剪切板删除这几行<br />
-这里我们需要用到剪切板管理软件，当然不是windows自带的简陋剪切板，而是<a href="https://github.com/hluk/CopyQ/releases">copyq</a>这样的高度可自定义化的剪切板管理软件<br />
-单就目前需求来说，每次剪切板变动就删去其最后4行即可，按f6打开命令界面，新建一个自动类型命令，粘贴以下js设置(删除的行数是硬编码的):</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="attr">copyq</span>:</span><br><span class="line"><span class="comment">// 定义要删除的最后 n 行</span></span><br><span class="line"><span class="keyword">var</span> n = <span class="number">4</span>;</span><br><span class="line"><span class="comment">// 获取当前剪贴板内容</span></span><br><span class="line"><span class="keyword">var</span> clipboardText = <span class="title function_">str</span>(<span class="title function_">clipboard</span>());</span><br><span class="line"><span class="comment">// 按行分割剪贴板内容</span></span><br><span class="line"><span class="keyword">var</span> lines = clipboardText.<span class="title function_">split</span>(<span class="string">&#x27;\n&#x27;</span>);</span><br><span class="line"><span class="comment">// 如果剪贴板的行数大于 n，删除最后 n 行</span></span><br><span class="line"><span class="keyword">if</span> (lines.<span class="property">length</span> &gt; n) &#123;</span><br><span class="line">    <span class="comment">// 删除最后 n 行，并将剩余内容重新组合为字符串</span></span><br><span class="line">    <span class="keyword">var</span> updatedText = lines.<span class="title function_">slice</span>(<span class="number">0</span>, -n).<span class="title function_">join</span>(<span class="string">&#x27;\n&#x27;</span>);</span><br><span class="line">    <span class="comment">// 更新剪贴板内容</span></span><br><span class="line">    <span class="title function_">copy</span>(updatedText);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>好，大功告成，，了吗？并没有，这样一来力扣以外的粘贴也会被删掉末尾4行，总不能只有写力扣时才开启其他时候关闭吧<br />
-我们需要加一个检测，例如被删掉的第一行行首等于“作者”时才删掉<br />
-这么一来如果有一段文本不幸地倒数第四行开头是"作者"就会被删掉，不过我个人感觉不是那么常见，如果你是完美主义者可以试试用正则匹配一下</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="attr">copyq</span>:</span><br><span class="line"><span class="comment">// 定义要删除的最后 n 行</span></span><br><span class="line"><span class="keyword">var</span> n = <span class="number">4</span>;</span><br><span class="line"><span class="comment">// 获取当前剪贴板内容</span></span><br><span class="line"><span class="keyword">var</span> clipboardText = <span class="title function_">str</span>(<span class="title function_">clipboard</span>());</span><br><span class="line"><span class="comment">// 按行分割剪贴板内容</span></span><br><span class="line"><span class="keyword">var</span> lines = clipboardText.<span class="title function_">split</span>(<span class="string">&#x27;\n&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (lines.<span class="property">length</span> &gt; n) &#123;</span><br><span class="line">    <span class="keyword">var</span> firstLineToDelete = lines[lines.<span class="property">length</span> - n];</span><br><span class="line">    <span class="comment">// 检查第一行是否以某个str开头</span></span><br><span class="line">    <span class="keyword">if</span> (firstLineToDelete.<span class="title function_">startsWith</span>(<span class="string">&quot;作者&quot;</span>)) &#123;</span><br><span class="line">        <span class="comment">// 删除最后n行，并将剩余内容重新组合为字符串</span></span><br><span class="line">        <span class="keyword">var</span> updatedText = lines.<span class="title function_">slice</span>(<span class="number">0</span>, -n).<span class="title function_">join</span>(<span class="string">&#x27;\n&#x27;</span>);</span><br><span class="line">        <span class="title function_">copy</span>(updatedText);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="neofetch">neofetch</h1>
-<p>如果在windows上用scoop安装neofetch,会默认调用wsl的bash,显示wsl系统信息，因此需要更改<code>neofetch.cmd</code>文件，即将第二行改为 <code>@%scoop_path%\shims\bash.exe "%scoop_path%\apps\neofetch\current\neofetch"</code>这样的形式<br />
-<code>%scoop_path%</code>表示scoop的根目录绝对路径</p>
-<h1 id="fastfetch">fastfetch</h1>
-<p>在处理完上述问题后，发现用powershell调用neofetch有口口口问题，而且识别不出windows操作系统版本，怎么办呢？答案是换成fastfetch<br />
-<code>scoop install fastfetch</code><br />
-fastfetch默认用的是新版windows平面风格logo,也就是四个方块，个人来说真不喜欢这个毫无特点的logo，怎么换成neofetch那个经典四色logo呢，只需要创建一个txt文件，把下列内容复制粘贴进去，然后以形如<code>fastfetch -l "%logopath%" --logo-color-1 red --logo-color-2 green --logo-color-3 blue --logo-color-4 yellow</code>的形式调用fastfetch就行了，"%logopath%"是刚刚保存的txt文件绝对路径，看上去很长，但有新版psh自带的自动补全很方便就能调用</p>
-<p>如果不想要颜色的话，用vsc之类编辑器的替换功能把<code>$N</code>(N是数字)删掉即可，想要单色就删完<code>$N</code>后在文件开头放个$1,然后<code>--logo-color-1</code>后跟想要的颜色就行了<br />
-顺便一提如果看到以下图标很窄，说明你现在在使用非等宽字体，在终端环境常用的等宽字体下，这些logo都是正常宽度</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">                         $2 ....iilll</span><br><span class="line">                $2....iilllllllllllll</span><br><span class="line">    $1....iillll  $2lllllllllllllllllll</span><br><span class="line">$1iillllllllllll  $2lllllllllllllllllll</span><br><span class="line">$1llllllllllllll  $2lllllllllllllllllll</span><br><span class="line">$1llllllllllllll  $2lllllllllllllllllll</span><br><span class="line">$1llllllllllllll  $2lllllllllllllllllll</span><br><span class="line">$1llllllllllllll  $2lllllllllllllllllll</span><br><span class="line">$1llllllllllllll  $2lllllllllllllllllll</span><br><span class="line"></span><br><span class="line">$3llllllllllllll  $4lllllllllllllllllll</span><br><span class="line">$3llllllllllllll  $4lllllllllllllllllll</span><br><span class="line">$3llllllllllllll  $4lllllllllllllllllll</span><br><span class="line">$3llllllllllllll  $4lllllllllllllllllll</span><br><span class="line">$3llllllllllllll  $4lllllllllllllllllll</span><br><span class="line">$3`^^^^^^lllllll  $4lllllllllllllllllll</span><br><span class="line">     $3 ````^^^^  $4^^lllllllllllllllll</span><br><span class="line">                     $4````^^^^^^llll</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>顺便一提新版logo长这样:</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">/////////////////  /////////////////</span><br><span class="line">/////////////////  /////////////////</span><br><span class="line">/////////////////  /////////////////</span><br><span class="line">/////////////////  /////////////////</span><br><span class="line">/////////////////  /////////////////</span><br><span class="line">/////////////////  /////////////////</span><br><span class="line">/////////////////  /////////////////</span><br><span class="line">/////////////////  /////////////////</span><br><span class="line"></span><br><span class="line">/////////////////  /////////////////</span><br><span class="line">/////////////////  /////////////////</span><br><span class="line">/////////////////  /////////////////</span><br><span class="line">/////////////////  /////////////////</span><br><span class="line">/////////////////  /////////////////</span><br><span class="line">/////////////////  /////////////////</span><br><span class="line">/////////////////  /////////////////</span><br><span class="line">/////////////////  /////////////////</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h1 id="firefox">firefox</h1>
-<p>FireFox 书签打开新网址时，想要打开一个新的标签(tab)，而不是覆盖掉原来网页:</p>
-<ol type="1">
-<li>地址栏中输入 about:config</li>
-</ol>
-<ol start="15" type="a">
-<li>搜索 browser.tabs.loadBookmarksInTabs ，会发现值为 false ，改为 true 就可以了</li>
-</ol>
-<h1 id="azure">azure</h1>
-<p>早上起来收到了一封微软发来的邮件<br />
-<img src="/assets/resoures/94f235e29ba5038582214c88c46f26ea.png" /> 顿时心中警铃大作，是诈骗邮件吗<br />
-如果是诈骗邮件，这封也很奇怪，它只要求购买某个服务来维持账号，却没有给购买链接，且两个链接经f12检查都是微软和azure官网，如果这是真的，那么我在2019年注册了azure账号？还有这个 Entra ID 又是什么东西<br />
-在我搜索之后，红迪也有人发帖说收到类似邮件，顺着发帖者经验我找到了azure官网中的entra服务，这是一种针对企业的身份认证服务，用于给不同权限的员工颁发不同的凭证，不知道为什么我有个免费版的entra身份，经检查和邮件中的id是一致的<br />
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Microsoft Entra ID Free. Provides user and group management, on-premises directory synchronization, basic</span><br><span class="line">reports, self-service password change for cloud users, and single sign-on across Azure, Microsoft 365, and many</span><br><span class="line">popular SaaS apps.</span><br></pre></td></tr></table></figure> 再说azure的账号id，我绝对没有给azure付过费，首先我完全不需要它的服务，其次我也没有支付手段，那这个account是哪来的呢？跟着微软的文档我试着点开订阅管理之类的菜单，没有任何账单、订阅或者服务，也没有id<br />
-到现在为止，应该可以说这确实可能是官方邮件，因为它知道只有微软才知道的entra id，且没有诱导付费行为，但还有个未解之谜是2019年我为什么会注册个azure账号，当时copilot还不火，我也不写代码，难道注册微软账号时会捆绑注册一个？<br />
-再说200天前，为什么是这个时间节点，难道我在2019年注册后还活跃过？ 这或许会是永远的未解之谜</p>
-]]></content>
-      <categories>
-        <category>备忘录</category>
-      </categories>
-      <tags>
-        <tag>编程工具</tag>
       </tags>
   </entry>
   <entry>
@@ -530,7 +391,7 @@ fastfetch默认用的是新版windows平面风格logo,也就是四个方块，�
 <li>prominent：显著的</li>
 <li>denoise: 去噪</li>
 <li>coordinates： 坐标</li>
-<li></li>
+<li>orthographic: 正交</li>
 </ul>
 <h1 id="算法与数据结构常用术语">算法与数据结构常用术语</h1>
 <span id="more"></span>
@@ -5482,6 +5343,190 @@ fastfetch默认用的是新版windows平面风格logo,也就是四个方块，�
       </categories>
       <tags>
         <tag>英语学习</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>一些工具的使用备忘录</title>
+    <url>/thinklive/24757/</url>
+    <content><![CDATA[<h1 id="vim">vim</h1>
+<p><img src="/assets/resources/vim_key.gif" /></p>
+<span id="more"></span>
+<p>vim的使用是个逐渐提升的过程，个人认为初学者，使用时间一个月以内的没必要折腾<br />
+本人用了差不多一两年vscode vim后打算试试进行一些自定义</p>
+<p><a href="https://github.com/VSCodeVim/Vim">Vim for Visual Studio Code 仓库</a><br />
+<a href="https://github.com/easymotion/vim-easymotion#bidirectional-motions">vim-easymotion</a><br />
+vscode vim的<code>.vimrc</code>支持有限，应该只支持按键重映射，但集成了不少插件，例如easymotion就比较有用</p>
+<p>如最简单好用的跳转到当前光标前后的位置(w/b)<br />
+快捷键<code>&lt;leader&gt;&lt;leader&gt;w</code>和<code>&lt;leader&gt;&lt;leader&gt;b</code><br />
+如果要跳转行就把wb换成jk<br />
+其中leader符号是vsc vim特有的调用插件功能前置键，默认为<code>\</code></p>
+<p>对跳转这种功能来说，按三个键太麻烦，我们可以用vsc的按键重绑定功能<br />
+对不常用的<code>cc</code>,<code>;</code>等键进行重绑定，这个重绑定既可以绑键位，也可以绑vsc的功能，例如下方就把cc绑定了vsc替换，详情可以看vsc vim的文档示例，顺便一提这个normalModeKeyBinding意思是绑定normal模式下的输入</p>
+<p>编写<code>settings.json</code><br />
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="attr">&quot;vim.normalModeKeyBindings&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;before&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;c&quot;</span><span class="punctuation">,</span><span class="string">&quot;c&quot;</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;commands&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">            <span class="string">&quot;editor.action.startFindReplaceAction&quot;</span></span><br><span class="line">        <span class="punctuation">]</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="punctuation">&#123;</span>   <span class="attr">&quot;before&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;;&quot;</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;after&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;&lt;leader&gt;&quot;</span><span class="punctuation">,</span><span class="string">&quot;&lt;leader&gt;&quot;</span><span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">]</span></span><br></pre></td></tr></table></figure></p>
+<p>常用功能改造:<br />
+vim的<code>[[</code>,<code>]]</code>跳转到行首第一个<code>&#123;</code>,<code>&#125;</code>，巧的是本人不喜欢行首大括号，想要跳转任意一个大括号可以替换键位</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="attr">&quot;vim.normalModeKeyBindings&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;before&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">            <span class="string">&quot;[&quot;</span></span><br><span class="line">        <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;after&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">            <span class="string">&quot;?&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="string">&quot;&#123;&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="string">&quot;enter&quot;</span></span><br><span class="line">        <span class="punctuation">]</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;before&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">            <span class="string">&quot;]&quot;</span></span><br><span class="line">        <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;after&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">            <span class="string">&quot;/&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="string">&quot;&#125;&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="string">&quot;enter&quot;</span></span><br><span class="line">        <span class="punctuation">]</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line"><span class="punctuation">]</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="vscode-vim-中文标点连击问题">vscode vim 中文标点连击问题</h2>
+<p>这是因为vscode的新功能<code>experimentalEditContextEnabled</code>被默认启用，类似vim这一机制试图在编辑中使用上下文信息，因此造成冲突，关掉即可</p>
+<h1 id="windows">windows</h1>
+<h2 id="快捷键">快捷键</h2>
+<p><a href="https://support.microsoft.com/zh-cn/windows/windows-%E7%9A%84%E9%94%AE%E7%9B%98%E5%BF%AB%E6%8D%B7%E6%96%B9%E5%BC%8F-dcc61a57-8ff0-cffe-9796-cb9706c75eec">微软官方文档</a></p>
+<h3 id="文本">文本</h3>
+<ul>
+<li><code>Ctrl + Shift + V</code>: 粘贴为纯文本</li>
+<li>powertoy
+<ul>
+<li><code>Windows 键 + Shift + V</code>: 自定义粘贴</li>
+<li><code>Windows 键 + Ctrl + T</code>: 置顶窗口</li>
+<li><code>Windows 键 + Ctrl + \</code> `: 工作区管理</li>
+</ul></li>
+</ul>
+<h3 id="应用">应用</h3>
+<ul>
+<li><code>Alt + 向左键</code>:返回，向右同理</li>
+<li><code>Ctrl + Shift + Esc</code>:打开任务管理器</li>
+<li><code>Ctrl + Y</code>:重新执行之前使用 Ctrl + Z 撤消的操作</li>
+<li><code>Ctrl + Shift + 选择任务栏上的应用图标</code>:以管理员身份打开应用</li>
+<li><code>Alt + Tab</code>：切换窗口</li>
+<li><code>Alt + F4</code>：关闭当前窗口</li>
+<li><code>Ctrl + F4</code>:在可全屏显示且支持同时打开多个文档的应用中，关闭活动文档，但不关闭整个应用</li>
+<li><code>F10</code>:激活活动窗口中的菜单栏</li>
+</ul>
+<h3 id="win键super键">win键(super键)</h3>
+<ul>
+<li><code>Windows 键 + I</code>: 设置</li>
+<li><code>Windows 键 + Tab</code>: 任务视图</li>
+<li><code>Windows 键 + shift + s</code>: 截图</li>
+<li><code>Windows 键 + 方向键</code>: 调整当前窗口大小</li>
+<li><code>Windows 键 + 数字键</code>: 打开第n个快捷栏应用</li>
+<li><code>Windows 键 + shift + 数字键</code>: 打开第n个快捷栏应用的新实例</li>
+<li><code>Windows 键 + D</code>：显示桌面或恢复窗口</li>
+<li><code>Windows 键 + L</code>：锁定屏幕</li>
+<li><code>Windows 键 + 空格</code>：切换输入法</li>
+<li><code>Windows 键 + Ctrl + V</code>:声音设置</li>
+<li><code>Windows 键 + M</code>:最小化所有窗口</li>
+<li><code>Windows 键 + Shift + M</code>:还原最小化的窗口</li>
+<li><code>Windows 键 + S\R</code>:打开搜索</li>
+<li><code>Windows 键 + Tab</code>:任务视图</li>
+<li><code>Windows 键 + Z</code>:打开对齐布局</li>
+<li><code>Windows 键 + Ctrl + D</code>:创建另一个桌面。</li>
+<li><code>Windows 键 + Ctrl + 左右方向键</code>:在桌面间移动</li>
+<li><code>Windows 键 + Ctrl + F4</code>：关闭当前桌面</li>
+</ul>
+<h3 id="文件资源管理器浏览器">文件资源管理器/浏览器</h3>
+<ul>
+<li><code>Windows 键 + E</code>：打开文件资源管理器</li>
+<li><code>F2</code>:重命名</li>
+<li><code>F4</code>:地址栏</li>
+<li><code>Alt + 方向键</code>:文件夹导航</li>
+<li><code>Alt + Enter</code>：查看文件或文件夹属性</li>
+<li><code>Alt + D</code>：快速选中地址栏</li>
+<li><code>Ctrl + Shift + N</code>：新建文件夹</li>
+<li><code>Ctrl + Shift + Tab</code>：切换到上一个标签页</li>
+<li><code>Ctrl + T</code>：新建标签页</li>
+<li><code>Ctrl + W</code>：关闭当前标签页</li>
+<li><code>Ctrl + Tab</code>：切换到下一个标签页</li>
+<li><code>Ctrl + E</code> 或 <code>F3</code>：激活搜索框</li>
+<li><code>Ctrl + L</code>：快速选中地址栏</li>
+<li><code>Ctrl + 数字 (1-9)</code>: 移动到该选项卡编号</li>
+<li><code>Ctrl + 加号 (+)</code>:调整所有列的大小以适应文本</li>
+<li><code>Ctrl + Click</code>：选中多个非连续的文件或文件夹。</li>
+<li><code>Shift + Delete</code>: 永久删除</li>
+<li><code>Shift + 鼠标右键单击</code>: 显示所选项的“显示更多选项”上下文菜单。</li>
+<li><code>Shift + Click</code>：选择从第一个点击到最后一个点击之间的所有文件/文件夹。</li>
+</ul>
+<h3 id="浏览器快捷键与文件管理不通用部分">浏览器快捷键(与文件管理不通用部分)</h3>
+<ul>
+<li><code>Ctrl + D</code>：收藏当前页面</li>
+</ul>
+<h2 id="wsl">wsl</h2>
+<p>更新wsl后，发现ps定位不到wsl，cmd却可以，查到这个网址<br />
+<a href="https://superuser.com/questions/1501478/wsl-is-not-recognized-as-an-internal-or-external-command">wsl未被识别为内部或外部命令</a></p>
+<p>Common problem when trying to access 64-bit tools from 32-bit processes. wsl.exe is in System32. But if your script happens to run as a 32-bit process, then all accesses to System32 are redirected to SysWOW64. In order to access wsl.exe in the "real" System32 folder, you'll have to use Sysnative instead, like in <code>C:\Windows\Sysnative\wsl.exe.</code><br />
+尝试从 32 位进程访问 64 位工具时的常见问题。 wsl.exe是在 System32。 但是如果你的脚本碰巧作为 32 位进程运行，那么所有访问 System32被重定向到 SysWOW64。 为了访问 wsl.exe使用真正的 System32文件夹，你必须使用 Sysnative，就像 <code>C:\Windows\Sysnative\wsl.exe</code></p>
+<p>也就是环境变量加一条，<code>C:\Windows\Sysnative</code></p>
+<p><code>$ENV:PATH="$ENV:PATH;c:\Windows\System32"</code></p>
+<h1 id="mysql">mysql</h1>
+<p>为了javaweb装mysql,发现一个经典问题，安装卡在start server这一步上，查了一下stf,似乎是默认会把mysql注册成网络服务而不是本地，上面说改成本地服务再重启就行了，但我亲测无效<br />
+彻底删除注册表和所有目录重装也无效<br />
+于是我直接放弃了安装时注册成windows服务，打算之后再自己注册，这个倒是不难，用bin目录的mysqld就行了<br />
+之后又发现不知道为什么输入注册时的密码错误，于是我重置了一下密码，这方面教程很多，比如<a href="https://www.jianshu.com/p/afe9ac17730d">这篇</a></p>
+<p><strong>关于mysql提供的employees测试数据库</strong><br />
+官方的安装指南是<code>mysql &lt; employees.sql</code>命令，但我发现powershell里没有<code>&lt;</code>运算符，于是看了一下时间，接近十年前了，所以得用cmd运行</p>
+<h1 id="hexo">hexo</h1>
+<h2 id="latex">latex</h2>
+<p>写笔记时发现，有些latex公式块会被hexo的md渲染器禁止使用<code>line number probably different from source</code>，这时候似乎就只能禁用渲染，在文件头加上disableNunjucks: true<br />
+这样一来的问题是，标签功能就无法使用了<br />
+也可以用这样的标签括起来,但会麻烦一点<br />
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&#123;% raw %&#125;</span><br><span class="line"></span><br><span class="line">$$</span><br><span class="line">V=&#123;A_&#123;\mathrm&#123;s&#125;&#125;&#125;&#123;B_&#123;\mathrm&#123;s&#125;&#125;&#125;&#123;\overline&#123;&#123;S_&#123;\mathrm&#123;s&#125;&#125;&#125;&#125;&#125;+\overline&#123;&#123;A_&#123;\mathrm&#123;s&#125;&#125;B_&#123;\mathrm&#123;s&#125;&#125;&#125;&#125;S_&#123;\mathrm&#123;s&#125;&#125;</span><br><span class="line">$$  </span><br><span class="line"></span><br><span class="line">&#123;% endraw %&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这是什么原因呢？ hexo next有独有语法，将<code>&#123;&#123;`,`&#125;&#125;</code>视为关键字，因此还有一个办法是把每两个大括号之间加个空格</p>
+<h2 id="hexo部署失败">hexo部署失败</h2>
+<p>使用hexo的一键式部署，但今天突然报错： <code>Error: Fetching artifact metadata failed. Is githubstatus.com reporting issues with API requests, Pages, or Actions? Please re-run the deployment</code><br />
+重试多次也依然能复现，起初我怀疑是版本跟不上了，但查了一下action版本号并不很早，而且一个小时前还是可以生效的<br />
+红迪也没搜出什么来，于是回归新手村，打开<a href="https://hexo.io/docs/github-pages">hexo官方文档</a>试试手动部署<br />
+检查一下workflow的action和该页面的yml一致，但有一点不同就是第四点<code>In your GitHub repo’s setting, navigate to Settings &gt; Pages &gt; Source. Change the source to GitHub Actions and save.</code><br />
+这里我的设置是deploy from a branch,改成action再重启原来失败的workflow，又成功了<br />
+下一个问题是为什么突然这样了？但实在摸不着头脑，因为hexo的官方推荐是一键部署，不需要自己改仓库设置。猜想是<code>hexo d</code>命令会启动一个脚本修改这个设置，action完再改回来？然后由于我一次<code>ctrl c</code>打断了这个应该是原子化的操作。<br />
+由于一键式部署插件是from branch的，因此还得把这个设置改回来才能通过hexo命令部署，改回来后又可以直接成功部署了，无语</p>
+<h1 id="gitbub">gitbub</h1>
+<p>有时，防火墙完全拒绝允许 SSH 连接。 也就是用22端口连接github被拒绝，特点是此时用<code>ssh -T -p 443 git@ssh.github.com</code>连接成功，但默认端口无法连接<br />
+如果能够通过 SSH 进入 git@ssh.github.com通过端口 443，可以覆盖 SSH 设置，以强制与 GitHub.com 的任何连接通过该服务器和端口运行。</p>
+<p>要在 SSH 配置文件中进行设置，编辑该文件： ~/.ssh/config，并添加此部分：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Host github.com</span><br><span class="line">    Hostname ssh.github.com</span><br><span class="line">    Port 443</span><br><span class="line">    User git</span><br></pre></td></tr></table></figure>
+<p>这样一来就可以用https和github连接</p>
+<h1 id="cpp">cpp</h1>
+<p><a href="https://stackoverflow.com/questions/32685540/why-cant-i-compile-an-unordered-map-with-a-pair-as-key">无法将Pair作为哈希表的元素</a></p>
+<h1 id="clash">clash</h1>
+<p><a href="https://www.clashverge.dev/faq/other.html?h=dns#_1">解决开着clash无法访问学校/公司内网问题</a><br />
+一般来说这种网站不会有闲心检测你开没开clash，比如端口扫描，所以大概率问题在于使用内网dns服务器，而clash经手的流量使用阿里dns等公共dns解析，所以无法正确解析学校官网域名<br />
+clash verge rev 贴心地给了全局拓展配置功能，因此只需要加入形如以下yaml配置(例如对苏州大学部分内部网站):<br />
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">dns:</span></span><br><span class="line">    <span class="attr">nameserver-policy:</span></span><br><span class="line">        <span class="string">&#x27;+.suda.edu.cn&#x27;</span><span class="string">:</span> <span class="string">&#x27;10.9.0.110&#x27;</span></span><br></pre></td></tr></table></figure></p>
+<p>左侧是域名，右侧是内部dns服务器，如果没被告知就连个内网打开powershell，输入:<br />
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">ipconfig /all</span><br></pre></td></tr></table></figure> 找到dns内行就是了，既然是内网，一般是10,172,196前缀</p>
+<h1 id="leetcode">leetcode</h1>
+<p>当你在力扣愉快地刷题(ctrl cv)时，是不是会恼火地发现剪切板上多了一些麻烦的后缀，如果想找到具体哪个js函数干的会很麻烦，更简单的思路是直接在剪切板删除这几行<br />
+这里我们需要用到剪切板管理软件，当然不是windows自带的简陋剪切板，而是<a href="https://github.com/hluk/CopyQ/releases">copyq</a>这样的高度可自定义化的剪切板管理软件<br />
+单就目前需求来说，每次剪切板变动就删去其最后4行即可，按f6打开命令界面，新建一个自动类型命令，粘贴以下js设置(删除的行数是硬编码的):</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="attr">copyq</span>:</span><br><span class="line"><span class="comment">// 定义要删除的最后 n 行</span></span><br><span class="line"><span class="keyword">var</span> n = <span class="number">4</span>;</span><br><span class="line"><span class="comment">// 获取当前剪贴板内容</span></span><br><span class="line"><span class="keyword">var</span> clipboardText = <span class="title function_">str</span>(<span class="title function_">clipboard</span>());</span><br><span class="line"><span class="comment">// 按行分割剪贴板内容</span></span><br><span class="line"><span class="keyword">var</span> lines = clipboardText.<span class="title function_">split</span>(<span class="string">&#x27;\n&#x27;</span>);</span><br><span class="line"><span class="comment">// 如果剪贴板的行数大于 n，删除最后 n 行</span></span><br><span class="line"><span class="keyword">if</span> (lines.<span class="property">length</span> &gt; n) &#123;</span><br><span class="line">    <span class="comment">// 删除最后 n 行，并将剩余内容重新组合为字符串</span></span><br><span class="line">    <span class="keyword">var</span> updatedText = lines.<span class="title function_">slice</span>(<span class="number">0</span>, -n).<span class="title function_">join</span>(<span class="string">&#x27;\n&#x27;</span>);</span><br><span class="line">    <span class="comment">// 更新剪贴板内容</span></span><br><span class="line">    <span class="title function_">copy</span>(updatedText);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>好，大功告成，，了吗？并没有，这样一来力扣以外的粘贴也会被删掉末尾4行，总不能只有写力扣时才开启其他时候关闭吧<br />
+我们需要加一个检测，例如被删掉的第一行行首等于“作者”时才删掉<br />
+这么一来如果有一段文本不幸地倒数第四行开头是"作者"就会被删掉，不过我个人感觉不是那么常见，如果你是完美主义者可以试试用正则匹配一下</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="attr">copyq</span>:</span><br><span class="line"><span class="comment">// 定义要删除的最后 n 行</span></span><br><span class="line"><span class="keyword">var</span> n = <span class="number">4</span>;</span><br><span class="line"><span class="comment">// 获取当前剪贴板内容</span></span><br><span class="line"><span class="keyword">var</span> clipboardText = <span class="title function_">str</span>(<span class="title function_">clipboard</span>());</span><br><span class="line"><span class="comment">// 按行分割剪贴板内容</span></span><br><span class="line"><span class="keyword">var</span> lines = clipboardText.<span class="title function_">split</span>(<span class="string">&#x27;\n&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (lines.<span class="property">length</span> &gt; n) &#123;</span><br><span class="line">    <span class="keyword">var</span> firstLineToDelete = lines[lines.<span class="property">length</span> - n];</span><br><span class="line">    <span class="comment">// 检查第一行是否以某个str开头</span></span><br><span class="line">    <span class="keyword">if</span> (firstLineToDelete.<span class="title function_">startsWith</span>(<span class="string">&quot;作者&quot;</span>)) &#123;</span><br><span class="line">        <span class="comment">// 删除最后n行，并将剩余内容重新组合为字符串</span></span><br><span class="line">        <span class="keyword">var</span> updatedText = lines.<span class="title function_">slice</span>(<span class="number">0</span>, -n).<span class="title function_">join</span>(<span class="string">&#x27;\n&#x27;</span>);</span><br><span class="line">        <span class="title function_">copy</span>(updatedText);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="neofetch">neofetch</h1>
+<p>如果在windows上用scoop安装neofetch,会默认调用wsl的bash,显示wsl系统信息，因此需要更改<code>neofetch.cmd</code>文件，即将第二行改为 <code>@%scoop_path%\shims\bash.exe "%scoop_path%\apps\neofetch\current\neofetch"</code>这样的形式<br />
+<code>%scoop_path%</code>表示scoop的根目录绝对路径</p>
+<h1 id="fastfetch">fastfetch</h1>
+<p>在处理完上述问题后，发现用powershell调用neofetch有口口口问题，而且识别不出windows操作系统版本，怎么办呢？答案是换成fastfetch<br />
+<code>scoop install fastfetch</code><br />
+fastfetch默认用的是新版windows平面风格logo,也就是四个方块，个人来说真不喜欢这个毫无特点的logo，怎么换成neofetch那个经典四色logo呢，只需要创建一个txt文件，把下列内容复制粘贴进去，然后以形如<code>fastfetch -l "%logopath%" --logo-color-1 red --logo-color-2 green --logo-color-3 blue --logo-color-4 yellow</code>的形式调用fastfetch就行了，"%logopath%"是刚刚保存的txt文件绝对路径，看上去很长，但有新版psh自带的自动补全很方便就能调用</p>
+<p>如果不想要颜色的话，用vsc之类编辑器的替换功能把<code>$N</code>(N是数字)删掉即可，想要单色就删完<code>$N</code>后在文件开头放个$1,然后<code>--logo-color-1</code>后跟想要的颜色就行了<br />
+顺便一提如果看到以下图标很窄，说明你现在在使用非等宽字体，在终端环境常用的等宽字体下，这些logo都是正常宽度</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">                         $2 ....iilll</span><br><span class="line">                $2....iilllllllllllll</span><br><span class="line">    $1....iillll  $2lllllllllllllllllll</span><br><span class="line">$1iillllllllllll  $2lllllllllllllllllll</span><br><span class="line">$1llllllllllllll  $2lllllllllllllllllll</span><br><span class="line">$1llllllllllllll  $2lllllllllllllllllll</span><br><span class="line">$1llllllllllllll  $2lllllllllllllllllll</span><br><span class="line">$1llllllllllllll  $2lllllllllllllllllll</span><br><span class="line">$1llllllllllllll  $2lllllllllllllllllll</span><br><span class="line"></span><br><span class="line">$3llllllllllllll  $4lllllllllllllllllll</span><br><span class="line">$3llllllllllllll  $4lllllllllllllllllll</span><br><span class="line">$3llllllllllllll  $4lllllllllllllllllll</span><br><span class="line">$3llllllllllllll  $4lllllllllllllllllll</span><br><span class="line">$3llllllllllllll  $4lllllllllllllllllll</span><br><span class="line">$3`^^^^^^lllllll  $4lllllllllllllllllll</span><br><span class="line">     $3 ````^^^^  $4^^lllllllllllllllll</span><br><span class="line">                     $4````^^^^^^llll</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>顺便一提新版logo长这样:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">/////////////////  /////////////////</span><br><span class="line">/////////////////  /////////////////</span><br><span class="line">/////////////////  /////////////////</span><br><span class="line">/////////////////  /////////////////</span><br><span class="line">/////////////////  /////////////////</span><br><span class="line">/////////////////  /////////////////</span><br><span class="line">/////////////////  /////////////////</span><br><span class="line">/////////////////  /////////////////</span><br><span class="line"></span><br><span class="line">/////////////////  /////////////////</span><br><span class="line">/////////////////  /////////////////</span><br><span class="line">/////////////////  /////////////////</span><br><span class="line">/////////////////  /////////////////</span><br><span class="line">/////////////////  /////////////////</span><br><span class="line">/////////////////  /////////////////</span><br><span class="line">/////////////////  /////////////////</span><br><span class="line">/////////////////  /////////////////</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h1 id="firefox">firefox</h1>
+<p>FireFox 书签打开新网址时，想要打开一个新的标签(tab)，而不是覆盖掉原来网页:</p>
+<ol type="1">
+<li>地址栏中输入 about:config</li>
+</ol>
+<ol start="15" type="a">
+<li>搜索 browser.tabs.loadBookmarksInTabs ，会发现值为 false ，改为 true 就可以了</li>
+</ol>
+<h1 id="azure">azure</h1>
+<p>早上起来收到了一封微软发来的邮件<br />
+<img src="/assets/resoures/94f235e29ba5038582214c88c46f26ea.png" /> 顿时心中警铃大作，是诈骗邮件吗<br />
+如果是诈骗邮件，这封也很奇怪，它只要求购买某个服务来维持账号，却没有给购买链接，且两个链接经f12检查都是微软和azure官网，如果这是真的，那么我在2019年注册了azure账号？还有这个 Entra ID 又是什么东西<br />
+在我搜索之后，红迪也有人发帖说收到类似邮件，顺着发帖者经验我找到了azure官网中的entra服务，这是一种针对企业的身份认证服务，用于给不同权限的员工颁发不同的凭证，不知道为什么我有个免费版的entra身份，经检查和邮件中的id是一致的<br />
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Microsoft Entra ID Free. Provides user and group management, on-premises directory synchronization, basic</span><br><span class="line">reports, self-service password change for cloud users, and single sign-on across Azure, Microsoft 365, and many</span><br><span class="line">popular SaaS apps.</span><br></pre></td></tr></table></figure> 再说azure的账号id，我绝对没有给azure付过费，首先我完全不需要它的服务，其次我也没有支付手段，那这个account是哪来的呢？跟着微软的文档我试着点开订阅管理之类的菜单，没有任何账单、订阅或者服务，也没有id<br />
+到现在为止，应该可以说这确实可能是官方邮件，因为它知道只有微软才知道的entra id，且没有诱导付费行为，但还有个未解之谜是2019年我为什么会注册个azure账号，当时copilot还不火，我也不写代码，难道注册微软账号时会捆绑注册一个？<br />
+再说200天前，为什么是这个时间节点，难道我在2019年注册后还活跃过？ 这或许会是永远的未解之谜</p>
+]]></content>
+      <categories>
+        <category>备忘录</category>
+      </categories>
+      <tags>
+        <tag>编程工具</tag>
       </tags>
   </entry>
   <entry>
