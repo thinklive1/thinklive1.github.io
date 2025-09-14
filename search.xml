@@ -110,22 +110,28 @@
 <li><code>开放词汇语义地图（Open-Vocabulary Semantic Maps）</code>: 系统能够识别和处理未在训练中见过的新对象或特征, 而不仅仅局限于预定义的类别；与其相反的情况就可以视为是一个分类问题</li>
 <li><code>Embodied AI tasks</code>: 大致可分为: 探索、导航、操纵, 更细粒度的划分可以使用目标的类型, 例如图像目标比定位上的目标需要更细的信息</li>
 <li><code>End-to-end | Modular approaches</code>: 前者直接用传感器信息生成行动, 优点是对中小型任务效果不错, 但复杂的 3d 空间, 长期路径规划等任务中表现不佳, 此外也无法复用；后者会将输入信息投入不同模块中处理例如编码器, 映射, 探索等, 最后生成行动, 优点是各个模块可以分开训练或者使用预训练模型</li>
-<li>e2e 相关</li>
+<li>e2e 相关
+<ul>
 <li><code>intermediate map representation</code>: 输入和输出之间的中间数据, 一般用于提取关键信息</li>
 <li><code>egocentric map</code>: 从个体的视角（通常是观察者或移动体的视角）表示环境的地图</li>
-<li>模块化相关</li>
+</ul></li>
+<li>模块化相关
+<ul>
 <li>一般包括: <code>visual encoder</code>、<code>mapper</code>、<code>exploration</code>(决定去哪探索)、<code>planner</code>(决定机器采取什么动作), 以上提及的这些是顺序关系</li>
 <li>视觉编码器: 将观察转化为带有语义的编码, 一般使用预训练的模型, 最后可以将检测到的物体放入标好名字的 box</li>
 <li>映射器: 接受编码器的特征信息, 构建语义地图</li>
 <li>探索: 类似红警 2 的探图能产生信息优势, 由于知道越多的地图信息应该是越好的, 因此设置这个模块鼓励智能探索未知区域, 优先探索哪边可以选取合适的方法, 例如图文相关型, VLM 输出的最佳方向</li>
 <li>计划: 在地图建后, 需要指定导航路径, 这部分取决于机器的运动方式等细节</li>
+</ul></li>
 <li><code>Active SLAM</code>: 强调机器人自己能选择以某种方式主动收集地图信息用于映射, 比如自己走几步, 让摄像头拍到更多画面, 也就是相比 ALAM 增加了 planning 部分。</li>
 </ul>
 </div>
 <p>具体环节:</p>
 <ol type="1">
-<li><code>localization</code>: 非常依赖于传感器, 由于本领域相对不关注底层细节, 一般假设每次采样都获得了最佳结果或者每次行动都实现了理想的位移</li>
+<li><code>localization</code>: 非常依赖于传感器, 由于本领域相对不关注底层细节, 一般假设每次采样都获得了最佳结果或者每次行动都实现了理想的位移
+<ol type="1">
 <li>由于现实中不可能有理想情况, 我们有 <code>Loop Closure</code> 这样的算法来矫正误差, 该算法会利用再次访问之前访问过的地点时的数据矫正对行为位移的估计值</li>
+</ol></li>
 <li><code>feature extraction</code>: 关键部分, 后文详细介绍</li>
 <li><code>projection</code>: 存储 3 维地图是一件非常难的事，而且常识上高速轴上的物体关系较简单，因此我们常用 2 维地图，学习时将 3 维信息添加到 2 维地图上, 如果我们通过相机来获取空间信息, 那么过程就是, 根据相机的原理算出物体的世界坐标(X, Y, Z)将世界坐标投影到 2 维地图坐标(x, y)，</li>
 <li><code>Accumulation</code>: 上一步中可能遇到不同的物体堆到同一个二维点的情况, 为此有很多方法, 例如取最大, 取平均, 等, 其中可学习的方法可以有带有 LSTM 或者 GRU 的 RNN</li>
@@ -188,9 +194,11 @@
 为了解决这种问题, 我们需要让 agent 能实时地感知到自己有哪边不了解, 应该先探索那边, 也就是 online 学习, 一种做法叫 <code>Neural Topological SLAM (NTS)</code>, 它使用 <code>Graph Update</code> 模块更新 map, <code>Global Policy</code> 模块对 map 采样, <code>Local Policy</code> 模块输出离散的导航行动；其中图更新模块作用如下:</p>
 <ol type="1">
 <li>定位: 尝试将智能体在前一个时间戳的图中进行定位</li>
-<li>对已存在节点:</li>
+<li>对已存在节点:
+<ol type="1">
 <li>如果智能体成功定位到一个现有节点, 便在该节点与上一个时间戳的节点之间添加一条边</li>
 <li>存储两个节点之间的相对 pose</li>
+</ol></li>
 <li>如果智能体无法定位, 则在图中添加一个新节点</li>
 </ol>
 <p>这就产生了另一个问题, 什么情况下是在已有节点, 什么情况下要新增节点呢？这需要判断两个观察值是否相似, 可以视为一个分类（二分）问题, 用一个既有的分类器计算, 也可以用可达性估计或者一些预训练的无监督网络处理(附近拍的观察可以视为一类, 这样就不用手动标注)<br />
@@ -203,11 +211,13 @@
 <h5 id="hybrid-map">Hybrid map</h5>
 <p>混合方法也是常见的思路，一些相关的应用有:</p>
 <ul>
-<li>拓扑更能捕捉空间之间的关系，而 grid 更有距离上的细节，两者结合称为 <code>topometric map</code></li>
+<li>拓扑更能捕捉空间之间的关系，而 grid 更有距离上的细节，两者结合称为 <code>topometric map</code>
+<ul>
 <li>例如，先生成一个粗糙的拓扑图，根据拓扑图完善一个细粒度的 grid；实验发现，拓扑图能修正一些巨大的测量问题，也就是全局问题，而网格则能更好地解决局部问题</li>
 <li>另一篇文章中，为了处理紧凑的环境，作者将转角和走廊用拓扑表示，房间则用网格表示，由于一般来说我们只需要房间里有详细的信息，而对交通空间不关心具体情况</li>
 <li>以上两篇都比较古早，最近的一种基于 bert 的文章离线训练 hybrid maps，然后训练一个多模态模型进行语言指导式的空间推理</li>
 <li>还有结合三者的，网格存储 occupancy(障碍物)信息，拓扑图存储地标及其连通性，点云则存储详细的语义信息</li>
+</ul></li>
 <li>构建能够捕捉场景语义层次的地图可以实现不同层次的推理，例如不同的节点实际上在不同层级(坐标系)中而，边表示坐标系的转化关系；除了分层，还可以额外存储物体，agent 之间的时空关系，实验证明分层的场景表示对复杂的环境效果更好，这样的技术甚至可以用来对城市的交通系统进行建模</li>
 </ul>
 <p>混用这些地图结构时需谨慎考虑各自的特点，例如拓扑和点云地图在大环境中比网格地图更具可扩展性，但点云需要更多存储空间，拓扑地图所需的存储空间最少</p>
@@ -274,9 +284,11 @@ vla 具体可以定义为:</p>
 </ol>
 <p>又可以分为:</p>
 <ol type="1">
-<li>Monolithic Models: 单片模型，也就是集成度高的模型</li>
+<li>Monolithic Models: 单片模型，也就是集成度高的模型
+<ol type="1">
 <li>Single-system models: 将环境理解，视觉感知，语言理解，机器状态认知，动作生成都统一到一个模型</li>
 <li>dual-system models: 将认知环境和动作生成分为两个任务，分别让 VLM 和一个 action expert 去做，这是因为相比前者，后者时效性更强</li>
+</ol></li>
 <li>Hierarchical Models: 分层模型, 耦合度低的模型，一般有结构，中间输出，例如计划模块产生 <code>keypoint detections</code>, <code>affordance maps</code>, <code>trajectory proposals</code> 可解释的中间产物，交给策略模块来产生动作; 这样的解耦让不同模块可以并行训练，使用不同的 loss 和优化方式</li>
 </ol>
 <div class="note info"><ul>
@@ -296,21 +308,27 @@ vla 具体可以定义为:</p>
 <p>其经典范式为 <code>Autoregressive Decoding</code>, 将机器人的连续动作空间离散化为 token 序列，模型能够序列化地生产动作 token，再由一个 de-tokenizer.转化为具体动作。较为知名的模型有 <code>RT series</code> , <code>OpenVLA</code></p>
 <h6 id="model-performance-enhancement">Model Performance Enhancement</h6>
 <ol type="1">
-<li>认知模式(Perception Modalities):</li>
+<li>认知模式(Perception Modalities):
+<ol type="1">
 <li>3d 感知(perception): 一般能从传感器得到的数据就是 2d 图片，为了构建三 d 的地图模型，可以模拟环境并根据图片画出点云; 或者根据图片及其深度信息，画出自我中心的地图</li>
 <li>4d 感知: 多出来的 d 指的是轨迹，也就是时空序列信息，例如将动作或者轨迹信息添加到图像中，从而增强模型的时空推理能力</li>
 <li>触觉和听觉（Tactile and auditory）感知: 触觉信息可以使用视觉编码器，听觉信息可以使用专用的编码器，且两者都需要专用的数据集，这两种能力均可以与语言模块对齐，然后得到接受听觉触觉指令的能力</li>
-<li>推理能力: 以下简单介绍一些相关工作</li>
+</ol></li>
+<li>推理能力: 以下简单介绍一些相关工作
+<ol type="1">
 <li><code>ECoT</code>: 生成一个推理链，将高层任务规划与视觉特征相结合，输出最终行动</li>
 <li><code>CoT-VLA</code>: 引入视觉链式推理，通过预测代表计划状态的子目标观察，增强推理能力</li>
 <li><code>LoHoVLA</code>: 采用“层次闭环控制 <code>Hierarchical Closed-Loop Control</code> ”机制，解决规划错误、行动失败和外部干扰等问题，适用于长周期任务</li>
 <li><code>ReFineVLA</code>: 通过“选择性迁移微调 <code>Selective Transfer Fine-Tuning</code> ”策略，仅微调上层，增强多模态理解</li>
-<li>泛化能力: 也就是处理各种场景需求的能力</li>
+</ol></li>
+<li>泛化能力: 也就是处理各种场景需求的能力
+<ol type="1">
 <li><code>UniAct</code>: 定义一个 <code>Universal Action Codebook</code>, 将所有机器人行动抽象到有限的类别中，增强泛化能力</li>
 <li><code>ReVLA</code>: 使用可逆的训练策略，缓解遗忘问题</li>
 <li><code>HybridVLA</code>: 使用一个 <code>Collaborative Action Ensemble</code> 机制，融合 <code>diffusion and autoregressive decoding</code>, 针对任务选取不同策略</li>
 <li><code>VOTE</code>: 使用一种 <code>Ensemble Voting</code> 机制，将过去的动作预测根据与当前预测的相似性进行分组，并对大多数集进行平均处理，从而生成更稳健的动作输出</li>
 <li>也有一些模型在物理规律层面进行学习</li>
+</ol></li>
 </ol>
 <h6 id="inference-efficiency-optimization">Inference Efficiency Optimization</h6>
 <p><code>Inference Efficiency Optimization</code> 推理效率优化 : 机器人对及时性(控制频率)往往有一定要求，因此模型的推理效率优化也是一个重要的方向</p>
