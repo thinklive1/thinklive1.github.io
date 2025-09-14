@@ -325,18 +325,48 @@ vla 具体可以定义为:</p>
 </ul>
 </div>
 <h5 id="dual-system-models">Dual-system Models</h5>
-<p>双系统主要是为了解决动作生成速度与推理速度要求不同的问题，引入了一个动作专家模块来对系统解耦，而其与分层模型不同的是，不会产生可解释的中间输出</p>
+<p>双系统主要是为了解决动作生成速度与推理速度要求不同的问题，引入了一个动作专家模块来对系统解耦，而其与分层模型不同的是，不会产生可解释的中间输出<br />
+<img src="/assets/ml/image.png" /></p>
 <h6 id="cascade-based-methods">Cascade-based Methods</h6>
 <p>串联的方法中，负责推理部分(称为高级 <code>high-level</code> )的系统一般使用 VLM 处理多模态的输入，提取语义并产生动作 <strong>计划</strong> 输出，这些会被编码为某种中间形态，然后由低级(<code>low-level</code>)系统解码为具体的动作指令<br />
 由于在双系统中，认知和行为是解耦的，行动可以使用一个不同的模型，例如 <code>diffusion transformer</code>，<code>Behavioral Cloning transformer</code><br />
-此外，还有很多种改进方法，例如再加入一个视频生成模块来预测未来的帧，并使用 <code>diffusion action expert</code>; 从人类演示中提取场景喂给 LLM 来生成可解释的行为树，并转化为底层行为；</p>
+此外，还有很多种改进方法：</p>
+<ul>
+<li>再加入一个视频生成模块来预测未来的帧，并使用 <code>diffusion action expert</code></li>
+<li>从人类演示中提取场景喂给 LLM 来生成可解释的行为树，并转化为底层行为</li>
+<li>将VLM与扩散策略模型整合，VLM会发射一个TOKEN控制动作生成的允许或拒绝</li>
+<li>使用预训练的卷积残差网络增加性能</li>
+<li>将action expert集成到VLA主干中，两者可以复用一些组件，协调工作</li>
+</ul>
 <div class="note info"><ul>
-<li>Cartesian Actions: 机器人学和控制系统中使用的一个概念，指的是以笛卡尔坐标系为基础的运动或操作。这种动作通常涉及到机器人的末端执行器（如机械手臂的抓手）在三维空间中移动或执行任务</li>
+<li><code>Cartesian Actions</code>: 机器人学和控制系统中使用的一个概念，指的是以笛卡尔坐标系为基础的运动或操作。这种动作通常涉及到机器人的末端执行器（如机械手臂的抓手）在三维空间中移动或执行任务</li>
+<li><code>convolutional residual</code>: 卷积神经网络（CNN）中使用的架构设计，最著名的实现是 ResNet（Residual Network）。这一设计理念旨在解决深层网络训练中的退化问题，即随着网络层数增加，模型的性能反而下降;引入残差连接（<code>residual connections</code>），模型可以学习到输入与输出之间的“残差”而不是直接学习目标输出</li>
 </ul>
 </div>
-<p><img src="/assets/ml/image.png" /></p>
 <h6 id="parallel-based-methods">Parallel-based Methods</h6>
+<p>上图中展示了一种共享注意力的架构，它受到<code>mix-of-experts (MoE)</code>启发，在注意力层中，VLM与动作模块进行token上的交互，过程中，输入的视觉文本信息，噪声，机器人特定的输入在共享的注意力层中交互，从而提高了任务效果<br />
+由于这种架构的低耦合性，它可以实现字面意义上的MoE,也就是对每个子任务都让一个“专家”去做，其中一个典例称为<code>π0</code>，其主干网络是VLM，为了处理机器人特定的输入输出，它使用一个独立的权重集合和一个流匹配(<code>Flow Matching(FM)</code>)的动作模块<br />
+π0有一些变种，例如增加显式推理，基于最近推理生成动作两种模式，可以根据需求切换；降低信息力度；防止动作模块的梯度流入VLM以保持VLM的知识优势；增加动作token化方法从而自回归训练等；其他的变种也一般是增加某个维度的输入或者通过复用注意力信息提高性能等常规优化</p>
+<div class="note info"><ul>
+<li><code>Normalizing Flows(NFs)</code>: 通过一系列概率密度函数的变量变换，将复杂的概率分布转换为简单的概率分布，并通过逆变换生成新的数据样本</li>
+<li><code>Continuous Normalizing Flows(CNFs)</code>是<code>Normalizing Flows</code>的扩展，它使用常微分方程(ODE)来表示连续的变换过程，用于建模概率分布<br />
+</li>
+<li><code>Flow Matching(FM)</code>是一种训练<code>Continuous Normalizing Flows</code>的方法，它通过学习与概率路径相关的向量场(<code>Vector Field</code>)来训练模型，并使用ODE求解器来生成新样本</li>
+</ul>
+</div>
 <h4 id="hierarchical-models">HIERARCHICAL MODELS</h4>
+<p>对于很大规模的任务，由于算力，存储空间等方面的要求都较高，更低耦合的架构如分层模型较为常用，例如长期推理，空间抽象，动作分解等<br />
+这些模型一般由高等级的planner,低等级的policy等组成，计划期接受指令和观察，转化为中间产物，policy接受中间产物，产生动作序列或底层指令<br />
+相比单片模型，它能实现更复杂的组合，甚至可以只有计划器；相比其单片双系统，它的中间产物是显式（可解释）的</p>
+<h5 id="planner-only">Planner-Only</h5>
+<p>可分为:</p>
+<ul>
+<li><code>Program-based Methods</code>: 计划器生成中间程序，即直接可执行的程序或者辅助程序，辅助程序一般用于辅助对任务策略的制定</li>
+<li><code>Keypoint-based Methods</code>: 标记出一些关键点，例如机器臂的可抓取点，导航任务的路线节点等，这些提取出来的点可以视为对问题的一种抽象，从而输入给通用模型如处理，也可以用作轨迹生成</li>
+<li><code>Subtask-based Methods</code>: 一般用于较大的VLM，接受一个抽象的隐式指令，并输出详细的文字命令，实际部署中可能还会需要一个控制策略。由于该种方法抽象程度较高，可以使用一些通用模型进行任务分解或者规划</li>
+</ul>
+<h5 id="plannerpolicy">Planner+Policy</h5>
+<p>可分为:</p>
 <div class="note info">
 </div>
 ]]></content>
