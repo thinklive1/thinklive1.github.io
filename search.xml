@@ -408,7 +408,7 @@ vla 具体可以定义为:</p>
 </ul></li>
 <li>Training-Free Methods: 通常利用模块化和可扩展的设计来改进现有的VLA架构，而无需训练，例如改变触发机制，行为和视觉都稳定时不需要完全解码，可以选择性重用之前的visual tkoens;其他的类似方法也是对于简单，复用性强的任务使用低成本的方式计算，或者通过一些变换方式压缩动作序列等负担较大的数据提高效率</li>
 <li>Learning from Human Videos: 也就是将人类行为与机器行为对齐，从而提高机器人行为的表现</li>
-<li>World Model-based VLA: 世界模型(模拟环境)</li>
+<li>World Model-based VLA: 世界模型(模拟环境)，允许一定程度上对未来状态的预测，从而让agent能根据预测修正自己的策略，并且世界模型也可以同步改进</li>
 </ul>
 <div class="note info"><ul>
 <li><code>Robotic Process Reward Model (RPRM)</code>: 一种用于强化学习和机器人控制的框架，为机器人在执行特定任务时的行为提供奖励信号，进而不断优化其行为模式</li>
@@ -417,6 +417,29 @@ vla 具体可以定义为:</p>
 <li><code>SFT（Supervised Fine-Tuning）</code>: 通常用于在预训练模型的基础上进行进一步的监督学习,模型首先在大规模数据集上进行预训练，以学习通用的特征和表示。然后，在特定任务的数据集上进行微调，使模型能够针对特定任务进行优化</li>
 </ul>
 </div>
+<h4 id="vla的特点">VLA的特点</h4>
+<ol type="1">
+<li>多模态:
+<ol type="1">
+<li>Shared Embedding Space： 视觉，文字信息会被一起嵌入一个共享的语义对齐空间，这个共享的语义空间能减少转码过程的损失，提供更好的推理能力，理解能力</li>
+<li>Multimodal Token-Level Integration: 通过transformer可以将连续的视觉文字等信息转化为离散序列，提供了对这些不同类型的信息的综合性理解能力，减少语义转化损失</li>
+<li>Comprehensive Modal Compatibility: 得益于强大的VLM，VLA天生有着与具体模态无关的语义对齐能力，新的传感器信息，例如声音，点云等信息都可以在不影响主干网络的情况下加入</li>
+</ol></li>
+<li>Instruction Following
+<ol type="1">
+<li>Semantic Instruction Grounding</li>
+<li>Task Decomposition and Collaboration</li>
+<li>Explicit Reasoning via Chain-of-Thought</li>
+</ol></li>
+<li>Multi-Dimensional Generalization
+<ol type="1">
+<li>Cross-Task Generalization</li>
+<li>Cross-Domain Data Generalization</li>
+<li>Cross-Embodiment and Sim-to-Real Generalization</li>
+</ol></li>
+</ol>
+<h4 id="数据集和基准测试">数据集和基准测试</h4>
+<h4 id="总结和展望">总结和展望</h4>
 <div class="note info">
 </div>
 ]]></content>
