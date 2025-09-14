@@ -345,6 +345,8 @@ vla具体可以定义为:</p>
 <h5 id="dual-system-models">Dual-system Models</h5>
 <p>双系统主要是为了解决动作生成速度与推理速度要求不同的问题，引入了一个动作专家模块来对系统解耦，而其与分层模型不同的是，不会产生可解释的中间输出</p>
 <h6 id="cascade-based-methods">Cascade-based Methods</h6>
+<p>串联的方法中，负责推理部分(称为高级high-level )的系统一般使用VLM处理多模态的输入，提取语义并产生动作<strong>计划</strong>输出，这些会被编码为某种中间形态，然后由低级(low-level)系统解码为具体的动作指令</p>
+<p><img src="../assets/ml/image.png" /></p>
 <h6 id="parallel-based-methods">Parallel-based Methods</h6>
 <h4 id="hierarchical-models">HIERARCHICAL MODELS</h4>
 <div class="note info">
