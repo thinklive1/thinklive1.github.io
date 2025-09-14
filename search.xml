@@ -366,7 +366,39 @@ vla 具体可以定义为:</p>
 <li><code>Subtask-based Methods</code>: 一般用于较大的VLM，接受一个抽象的隐式指令，并输出详细的文字命令，实际部署中可能还会需要一个控制策略。由于该种方法抽象程度较高，可以使用一些通用模型进行任务分解或者规划</li>
 </ul>
 <h5 id="plannerpolicy">Planner+Policy</h5>
+<p>其分类上和前一类较为类似</p>
 <p>可分为:</p>
+<ul>
+<li><code>Keypoint-based Methods</code>: 一般用LVLM产生一些关键点，或者关键路径，但这些信息将会交给低级策略模块，用于生成指令；例如在导航任务中，对 生成的关键点进行排序，并将这个有序路径用于之后的指引；此外也可以用LLM为关键点赋予cost，用于确定最佳路径；也有方法会将关键点赋予互动性上的标注，用于生成控制指令。总的来说，一般关键点会被赋予帮助决策的一些信息，用于最后产生指令</li>
+<li><code>Subtask-based Methods</code>: 这种方法主要的工作在于如何划分子任务，而对具体的子任务执行者则有很高的灵活性。例如对模糊的文字指令，将其转化为一系列原子命令；也有模型分出空间感知任务，使用点云增强空间感知；或者让高级模型划分任务，低级扩散策略模型具体实现，且这样的划分可以继续拓展，例如再加一个中间的skill层辨识一些可重复使用的行动控制底层的执行者；划分后的子任务也可以一步流水线执行从而增加效率；这方面有非常多的类似变种</li>
+</ul>
+<div class="note info"><ul>
+<li><code>Embodiment-Agnostic Affordance Representation</code>: Affordance 前文介绍过，是对可交互性的标识，而Embodiment-Agnostic 指的是不依赖于机器人形态或者物理特性，可以理解为通用的可互动性</li>
+</ul>
+</div>
+<p><strong>Monolithic vs Hierarchical:</strong></p>
+<ol type="1">
+<li>两者的输入输出是一致的，主要区别为统一化/模块化的内部结构，其优缺点和这两种常见的结构是类似的</li>
+<li>另一个关键区别是中间产物的可解释性，整体模型的中建五不可解释，但更方便机器学习一些人类可能无法理解的特征；分层模型输出可解释的中间数据，这对需要兼容性，可解释性的操控领域可能更好</li>
+</ol>
+<h4 id="其他前沿领域">其他前沿领域</h4>
+<ul>
+<li>RL: 与LLM,VLM不同的是，VLA 的问题更加长周期，其最大的问题在于难于产生基于规则奖励函数，可能人类也不知道怎么做是更好的，这方面没有特别好的解决方法，一般将学习过程作为密集奖励或者通过比较视觉上的近似成功率作为奖励；
+<ul>
+<li>此外，由于模拟环境现状，在线学习效率有限，一些方法会把在线，离线方法混合起来，例如离线用q学习，在线用<code>Soft Actor-Critic</code>提高效率又或者之间引入人类监督</li>
+<li>部分方法会只把RL用作数据引擎来增强泛化能力，例如先用HIL-SERL训练，然后通过sft将训练成果提取融入给主要模型</li>
+</ul></li>
+<li>Training-Free Methods: 通常利用模块化和可扩展的设计来改进现有的VLA架构，而无需训练，例如改变触发机制，行为和视觉都稳定时不需要完全解码，可以选择性重用之前的visual tkoens;其他的类似方法也是对于简单，复用性强的任务使用低成本的方式计算，或者通过一些变换方式压缩动作序列等负担较大的数据提高效率</li>
+<li>Learning from Human Videos: 也就是将人类行为与机器行为对齐，从而提高机器人行为的表现</li>
+<li>World Model-based VLA: 世界模型(模拟环境)</li>
+</ul>
+<div class="note info"><ul>
+<li><code>Robotic Process Reward Model (RPRM)</code>: 一种用于强化学习和机器人控制的框架，为机器人在执行特定任务时的行为提供奖励信号，进而不断优化其行为模式</li>
+<li><code>HIL-ConRFT（Hardware-in-the-Loop Control with Reinforcement Feedback Training）</code>: 结合了硬件在环（HIL）测试和RL的控制方法，旨在优化复杂系统的控制策略,HIL 测试允许在真实硬件上进行控制算法的验证和优化，通过将模拟环境与实际硬件连接，确保控制系统在真实条件下的有效性,结合强化学习的反馈机制，HIL-ConRFT 可以根据系统的表现持续优化控制策略。通过从环境中获取奖励信号，系统能够学习最佳操作策略</li>
+<li><code>HIL-SERL（Hardware-in-the-Loop Sample-Efficient Reinforcement Learning）</code>: 是一种结合了硬件在环（HIL）测试和样本高效强化学习（Sample-Efficient Reinforcement Learning）的框架，旨在优化机器人和自动化系统的控制策略</li>
+<li><code>SFT（Supervised Fine-Tuning）</code>: 通常用于在预训练模型的基础上进行进一步的监督学习,模型首先在大规模数据集上进行预训练，以学习通用的特征和表示。然后，在特定任务的数据集上进行微调，使模型能够针对特定任务进行优化</li>
+</ul>
+</div>
 <div class="note info">
 </div>
 ]]></content>
