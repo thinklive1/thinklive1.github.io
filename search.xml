@@ -306,7 +306,8 @@ NLMap(grid): 如果想直接辨别图像里的物品，则可以使用 <code>cla
 <li><p>场景建模<br />
 本模型使用点云对场景建模, 但为了减少性能消耗,只在遇到姿态变化大的帧时通过投影(相机带有深度信息)更新点云</p></li>
 </ol>
-<h4 id="更新过程">更新过程</h4>
+<p>dualmap最大的特点正如其名，使用两种Map,下文分别介绍</p>
+<h4 id="具体地图">具体地图</h4>
 <ol type="1">
 <li>地图初始化<br />
 地图有一系列对象组成,每个对象,这里称为o, <span class="math inline">\(o=(P_{o},y_{o},f_{o},L_{o})\)</span></li>
@@ -357,17 +358,41 @@ NLMap(grid): 如果想直接辨别图像里的物品，则可以使用 <code>cla
 <p>对导航我们使用基于语义的思路:</p>
 <ol type="1">
 <li>候选检索<br />
-即对查询语句,用CLIP编码为语义特征,并于我们现有的锚点以及易变对象的特征集比较<br />
-锚点得分为:</li>
+即对查询语句,用CLIP编码为语义特征,并与我们现有的锚点以及易变对象的特征集比较得分最高者作为候选人，候选锚点称为a*<br />
+锚点得分的计算公式：</li>
 </ol>
 <p><span class="math display">\[s(a)=\mathrm{max}\Biggl(\mathrm{cos}\big(f_{q},\,f_{a}\big),\,\mathrm{max\underset{i}\,cos}\big(f_{q},\,f_{v i}\big)\Big)\]</span> 其中q下标表示查询,a下标表示锚点对象,vi下标表示易变对象</p>
 <ol start="2" type="1">
 <li>导航策略
 <ol type="1">
-<li>全局路径规划: 使用基于Voronoi图的规划器在抽象地图上规划一条通往候选锚点的全局路径</li>
-<li>智能体移动时,会逐步构建局部具体地图,局部地图的对象也可以用于匹配</li>
+<li>全局路径规划: 使用基于Voronoi图的规划器在抽象地图上规划一条通往候选锚点的全局路径；智能体移动时,会逐步构建局部具体地图,局部地图中的对象也可以用于匹配</li>
+<li>局部路径规划: 对局部具体地图中的对象，计算其特征与查询特征的余弦相似度s，如果s也在之前的全局候选相似度阈值内，使用RRT*算法规划局部路径</li>
+<li>动态环境导航：如果a*附近没有可信匹配，那么环境可能变化，系统会更新抽象地图Ma'重新寻找候选
+<ol type="1">
+<li>Ma'会将局部具体地图中的稳定对象合并</li>
+<li>更新地图后，相似度分数依旧使用过去的版本，用于存储历史信息</li>
+</ol></li>
+</ol></li>
+<li>抽象地图更新
+<ol type="1">
+<li>对局部具体地图中的稳定对象，进行一轮抽象化得到新的锚点 <span class="math inline">\(a_{new}\)</span></li>
+<li>每个 <span class="math inline">\(a_{new}\)</span> 与现有的a比较，计算重叠率
+<ol type="1">
+<li>如果重叠率超过门槛值，说明 <span class="math inline">\(a_{new}\)</span> 和a有一定关系，更新: <span class="math inline">\(f_{a}~\longleftarrow~{\frac{\left|P_{a}\right|\cdot{f}_{a} + \left|\mathcal{P}_{a_{\mathrm{new}} }\right|\cdot\ {f}a_{\mathrm{new}} } {\left|\mathcal{P}_{a}\right|\ +\left|\mathcal{P}_{a_{\mathrm{new} } }\right|} }\)</span></li>
+<li>如果超过更严格的阈值，则用 <span class="math inline">\(L_a_{new}\)</span> 替代La</li>
+<li>如果以上都不满足， 将 <span class="math inline">\(a_{new}\)</span> 作为新节点插入抽象地图中</li>
+</ol></li>
 </ol></li>
 </ol>
+<div class="note info"><ul>
+<li><code>RRT*（Rapidly-exploring Random Tree Star）</code>算法： 一种用于路径规划的优化算法，尤其适用于高维空间中的移动机器人和其他自动化系统；使用随机采样的方法在配置空间中探索路径，逐步构建一棵树，与基本的 RRT 算法不同，RRT* 在扩展树的过程中，会不断优化已有路径，尽量减少路径的成本</li>
+<li><code>平均交并比（mIoU）</code>: 计算分割或检测任务中预测区域与真实区域交集与并集之比的平均值</li>
+<li><code>频率加权交并比（F-mIoU）</code>: 对 mIoU 的一种加权版本，考虑了每个类在数据集中出现的频率,将每个类的 IoU 乘以该类在数据集中出现的频率，然后求和，最后除以总频率</li>
+</ul>
+</div>
+<h3 id="测试结构与总结">测试结构与总结</h3>
+<p>与<code>ConceptGraphs</code>和<code>HOV-SG</code>相比，性能提升在10%以内，但内存使用量大大减少，相比<code>HOV-SG</code>减少了96%以上<br />
+消融实验中，FastSAM、YOLO细化、加权特征合并和对象分割检测等组件对性能有显著影响</p>
 <h2 id="vision-language-action-models">Vision-Language-Action Models</h2>
 <h3 id="large-vlm-based-vision-language-action-models-for-robotic-manipulation-a-survey">Large VLM-based Vision-Language-Action Models for Robotic Manipulation: A Survey</h3>
 <h4 id="前言-1">前言</h4>
@@ -526,17 +551,32 @@ vla 具体可以定义为:</p>
 <ol type="1">
 <li>Semantic Instruction Grounding</li>
 <li>Task Decomposition and Collaboration</li>
-<li>Explicit Reasoning via Chain-of-Thought</li>
+<li>Explicit Reasoning via Chain-of-Thought: 链式的思考能力能让VLA能一定程度上预测未来的图像，减少了短视现象</li>
 </ol></li>
 <li>Multi-Dimensional Generalization
 <ol type="1">
-<li>Cross-Task Generalization</li>
-<li>Cross-Domain Data Generalization</li>
-<li>Cross-Embodiment and Sim-to-Real Generalization</li>
+<li>Cross-Task Generalization: 相比传统模型任务特化的训练过程，很多VLA模型有着zero-shot 或者 few-shot级别的泛化能力，有时可以直接用到没有特别训练的领域</li>
+<li>Cross-Domain Data Generalization: 相比传统模型，多模态的VLA可以接受各种各样的数据，从而得到相应的泛化能力</li>
+<li>Cross-Embodiment and Sim-to-Real Generalization： 由于现代VLA的解耦性质，其经过抽象的规划起和底层动作解码器可以互相解耦，也就是不同的机器人形态也可以被泛化</li>
 </ol></li>
 </ol>
 <h4 id="数据集和基准测试">数据集和基准测试</h4>
+<ol type="1">
+<li>真实世界机器人数据集，尽管理论上讲真实世界是检验以及训练的最好数据，但由于条件限制，往往不够全面或者丰富</li>
+<li>模拟数据集: 其优点是可以针对想要特化的能力调整模拟环境，而缺点则是相比现实可能有较大差距，导致可迁移不足</li>
+<li>人类行为数据集： 对一些任务，例如物体识别，任务分解等较为实用</li>
+<li>具身数据集: 强调主动感知，推理和执行，提供严格的协议来评估通用VLA中的高级语义规划</li>
+</ol>
 <h4 id="总结和展望">总结和展望</h4>
+<ol type="1">
+<li>数据集和基准测试： 当前的真实数据稀少，模拟环境存在缺陷，可能需要更好的结合方法；基准测试需要增加长期性，且更丰富的指标</li>
+<li>记忆机制和长期规划： 大多数当前的VLAs依赖于逐帧推理，产生了短视问题，需要增加记忆以及未来预测能力</li>
+<li>3D&amp;4D感知: 当前的主要输入形式依旧是2d图片，如果能增加输入维度(空间与时间维度)或许能增强模型能力</li>
+<li>移动操纵: 鉴于现实任务特点，导航能力和交互能力应该更加集成</li>
+<li>多代理合作: 现实有很多协作任务，且增加代理数量可以更灵活地划分子任务</li>
+<li>开放世界终身学习: 大部分VLA模型基于静态数据集，由于硬件以及当前软件性质难以长期积累知识</li>
+<li>模型效率: 在机器人平台的性能往往受限，因此需要平衡存储，计算成本与模型表现</li>
+</ol>
 <div class="note info">
 </div>
 ]]></content>
@@ -583,6 +623,7 @@ vla 具体可以定义为:</p>
 <li>coordinates： 坐标</li>
 <li>orthographic: 正交</li>
 <li>decouple: 解耦</li>
+<li>heterogeneous: 异构</li>
 </ul>
 <h1 id="算法与数据结构常用术语">算法与数据结构常用术语</h1>
 <span id="more"></span>
