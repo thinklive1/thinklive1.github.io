@@ -32,7 +32,7 @@
 <meta property="og:image" content="https://thinklive1.github.io/assets/ml/Pasted%20image%2020250911154734.png">
 <meta property="og:image" content="https://thinklive1.github.io/assets/ml/image.png">
 <meta property="article:published_time" content="2025-09-09T07:53:29.848Z">
-<meta property="article:modified_time" content="2025-09-16T02:19:14.506Z">
+<meta property="article:modified_time" content="2025-09-16T02:48:43.218Z">
 <meta property="article:author" content="thinklive">
 <meta property="article:tag" content="人工智能">
 <meta property="article:tag" content="机器学习">
@@ -199,7 +199,7 @@ const darkmode = new Darkmode(options);
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#embodied-ai"><span class="nav-number">1.</span> <span class="nav-text">Embodied AI</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#semantic-mapping-%E8%AF%AD%E4%B9%89%E5%9C%B0%E5%9B%BE"><span class="nav-number">1.1.</span> <span class="nav-text">Semantic Mapping 语义地图</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#survey"><span class="nav-number">1.1.1.</span> <span class="nav-text">survey</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%90%8D%E8%AF%8D%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">名词介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%B0%E5%9B%BE%E7%BB%93%E6%9E%84"><span class="nav-number">1.1.1.3.</span> <span class="nav-text">地图结构</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#spatial-grid-map"><span class="nav-number">1.1.1.3.1.</span> <span class="nav-text">Spatial grid map</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#topological-map"><span class="nav-number">1.1.1.3.2.</span> <span class="nav-text">Topological map</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#point-cloud-map"><span class="nav-number">1.1.1.3.3.</span> <span class="nav-text">Point-cloud map</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#hybrid-map"><span class="nav-number">1.1.1.3.4.</span> <span class="nav-text">Hybrid map</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%B0%E5%9B%BE%E7%BC%96%E7%A0%81-map-encoding"><span class="nav-number">1.1.1.4.</span> <span class="nav-text">地图编码 map encoding</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%98%BE%E5%BC%8F%E7%BC%96%E7%A0%81"><span class="nav-number">1.1.1.4.1.</span> <span class="nav-text">显式编码</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%9A%90%E5%BC%8F%E7%BC%96%E7%A0%81"><span class="nav-number">1.1.1.4.2.</span> <span class="nav-text">隐式编码</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%B0%E5%9B%BE%E8%AF%84%E4%BC%B0-map-evaluation"><span class="nav-number">1.1.1.5.</span> <span class="nav-text">地图评估 Map Evaluation</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B1%95%E6%9C%9B%E6%9C%AA%E6%9D%A5%E4%B8%8E%E7%BB%93%E8%AF%AD"><span class="nav-number">1.1.1.6.</span> <span class="nav-text">展望未来与结语</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dualmap-%E5%9C%A8%E7%BA%BF%E5%BC%80%E6%94%BE%E8%AF%8D%E6%B1%87%E8%AF%AD%E4%B9%89%E5%BB%BA%E5%9B%BE%E5%8A%A9%E5%8A%9B%E6%99%BA%E8%83%BD%E4%BD%93%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%AF%BC%E8%88%AA"><span class="nav-number">1.1.2.</span> <span class="nav-text">DualMap: 在线开放词汇语义建图助力智能体自然语言导航</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%91%98%E8%A6%81"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">摘要</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#dualmap-%E7%9A%84%E6%94%B9%E8%BF%9B"><span class="nav-number">1.1.2.3.</span> <span class="nav-text">DualMap 的改进</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%85%B7%E4%BD%93%E5%9C%B0%E5%9B%BE"><span class="nav-number">1.1.2.3.1.</span> <span class="nav-text">具体地图</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%8A%BD%E8%B1%A1%E5%9C%B0%E5%9B%BE"><span class="nav-number">1.1.2.3.2.</span> <span class="nav-text">抽象地图</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AF%BC%E8%88%AA%E7%AD%96%E7%95%A5"><span class="nav-number">1.1.2.3.3.</span> <span class="nav-text">导航策略</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E7%BB%93%E6%9E%84%E4%B8%8E%E6%80%BB%E7%BB%93"><span class="nav-number">1.1.2.4.</span> <span class="nav-text">测试结构与总结</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vision-language-action-models"><span class="nav-number">1.2.</span> <span class="nav-text">Vision-Language-Action Models</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#large-vlm-based-vision-language-action-models-for-robotic-manipulation-a-survey"><span class="nav-number">1.2.1.</span> <span class="nav-text">Large VLM-based Vision-Language-Action Models for Robotic Manipulation: A Survey</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%89%8D%E8%A8%80-1"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%83%8C%E6%99%AF%E7%9F%A5%E8%AF%86"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">背景知识</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#monolithic-models-%E5%8D%95%E7%89%87%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.2.1.3.</span> <span class="nav-text">MONOLITHIC MODELS 单片模型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#single-system-models"><span class="nav-number">1.2.1.3.1.</span> <span class="nav-text">Single-system Models</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#model-performance-enhancement"><span class="nav-number">1.2.1.3.1.1.</span> <span class="nav-text">Model Performance Enhancement</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#inference-efficiency-optimization"><span class="nav-number">1.2.1.3.1.2.</span> <span class="nav-text">Inference Efficiency Optimization</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#dual-system-models"><span class="nav-number">1.2.1.3.2.</span> <span class="nav-text">Dual-system Models</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#cascade-based-methods"><span class="nav-number">1.2.1.3.2.1.</span> <span class="nav-text">Cascade-based Methods</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#parallel-based-methods"><span class="nav-number">1.2.1.3.2.2.</span> <span class="nav-text">Parallel-based Methods</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#hierarchical-models"><span class="nav-number">1.2.1.4.</span> <span class="nav-text">HIERARCHICAL MODELS</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#planner-only"><span class="nav-number">1.2.1.4.1.</span> <span class="nav-text">Planner-Only</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#plannerpolicy"><span class="nav-number">1.2.1.4.2.</span> <span class="nav-text">Planner+Policy</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E5%89%8D%E6%B2%BF%E9%A2%86%E5%9F%9F"><span class="nav-number">1.2.1.5.</span> <span class="nav-text">其他前沿领域</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#vla-%E7%9A%84%E7%89%B9%E7%82%B9"><span class="nav-number">1.2.1.6.</span> <span class="nav-text">VLA 的特点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E9%9B%86%E5%92%8C%E5%9F%BA%E5%87%86%E6%B5%8B%E8%AF%95"><span class="nav-number">1.2.1.7.</span> <span class="nav-text">数据集和基准测试</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%BB%E7%BB%93%E5%92%8C%E5%B1%95%E6%9C%9B"><span class="nav-number">1.2.1.8.</span> <span class="nav-text">总结和展望</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B"><span class="nav-number">1.3.</span> <span class="nav-text">实例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#openin"><span class="nav-number">1.3.1.</span> <span class="nav-text">OpenIN</span></a></li></ol></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#embodied-ai"><span class="nav-number">1.</span> <span class="nav-text">Embodied AI</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#semantic-mapping-%E8%AF%AD%E4%B9%89%E5%9C%B0%E5%9B%BE"><span class="nav-number">1.1.</span> <span class="nav-text">Semantic Mapping 语义地图</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#survey"><span class="nav-number">1.1.1.</span> <span class="nav-text">survey</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%90%8D%E8%AF%8D%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">名词介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%B0%E5%9B%BE%E7%BB%93%E6%9E%84"><span class="nav-number">1.1.1.3.</span> <span class="nav-text">地图结构</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#spatial-grid-map"><span class="nav-number">1.1.1.3.1.</span> <span class="nav-text">Spatial grid map</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#topological-map"><span class="nav-number">1.1.1.3.2.</span> <span class="nav-text">Topological map</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#point-cloud-map"><span class="nav-number">1.1.1.3.3.</span> <span class="nav-text">Point-cloud map</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#hybrid-map"><span class="nav-number">1.1.1.3.4.</span> <span class="nav-text">Hybrid map</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%B0%E5%9B%BE%E7%BC%96%E7%A0%81-map-encoding"><span class="nav-number">1.1.1.4.</span> <span class="nav-text">地图编码 map encoding</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%98%BE%E5%BC%8F%E7%BC%96%E7%A0%81"><span class="nav-number">1.1.1.4.1.</span> <span class="nav-text">显式编码</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%9A%90%E5%BC%8F%E7%BC%96%E7%A0%81"><span class="nav-number">1.1.1.4.2.</span> <span class="nav-text">隐式编码</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%B0%E5%9B%BE%E8%AF%84%E4%BC%B0-map-evaluation"><span class="nav-number">1.1.1.5.</span> <span class="nav-text">地图评估 Map Evaluation</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B1%95%E6%9C%9B%E6%9C%AA%E6%9D%A5%E4%B8%8E%E7%BB%93%E8%AF%AD"><span class="nav-number">1.1.1.6.</span> <span class="nav-text">展望未来与结语</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dualmap-%E5%9C%A8%E7%BA%BF%E5%BC%80%E6%94%BE%E8%AF%8D%E6%B1%87%E8%AF%AD%E4%B9%89%E5%BB%BA%E5%9B%BE%E5%8A%A9%E5%8A%9B%E6%99%BA%E8%83%BD%E4%BD%93%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%AF%BC%E8%88%AA"><span class="nav-number">1.1.2.</span> <span class="nav-text">DualMap: 在线开放词汇语义建图助力智能体自然语言导航</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%91%98%E8%A6%81"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">摘要</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#dualmap-%E7%9A%84%E6%94%B9%E8%BF%9B"><span class="nav-number">1.1.2.3.</span> <span class="nav-text">DualMap 的改进</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%85%B7%E4%BD%93%E5%9C%B0%E5%9B%BE"><span class="nav-number">1.1.2.3.1.</span> <span class="nav-text">具体地图</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%8A%BD%E8%B1%A1%E5%9C%B0%E5%9B%BE"><span class="nav-number">1.1.2.3.2.</span> <span class="nav-text">抽象地图</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AF%BC%E8%88%AA%E7%AD%96%E7%95%A5"><span class="nav-number">1.1.2.3.3.</span> <span class="nav-text">导航策略</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E7%BB%93%E6%9E%84%E4%B8%8E%E6%80%BB%E7%BB%93"><span class="nav-number">1.1.2.4.</span> <span class="nav-text">测试结构与总结</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vision-language-action-models"><span class="nav-number">1.2.</span> <span class="nav-text">Vision-Language-Action Models</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#large-vlm-based-vision-language-action-models-for-robotic-manipulation-a-survey"><span class="nav-number">1.2.1.</span> <span class="nav-text">Large VLM-based Vision-Language-Action Models for Robotic Manipulation: A Survey</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%89%8D%E8%A8%80-1"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%83%8C%E6%99%AF%E7%9F%A5%E8%AF%86"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">背景知识</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#monolithic-models-%E5%8D%95%E7%89%87%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.2.1.3.</span> <span class="nav-text">MONOLITHIC MODELS 单片模型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#single-system-models"><span class="nav-number">1.2.1.3.1.</span> <span class="nav-text">Single-system Models</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#model-performance-enhancement"><span class="nav-number">1.2.1.3.1.1.</span> <span class="nav-text">Model Performance Enhancement</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#inference-efficiency-optimization"><span class="nav-number">1.2.1.3.1.2.</span> <span class="nav-text">Inference Efficiency Optimization</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#dual-system-models"><span class="nav-number">1.2.1.3.2.</span> <span class="nav-text">Dual-system Models</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#cascade-based-methods"><span class="nav-number">1.2.1.3.2.1.</span> <span class="nav-text">Cascade-based Methods</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#parallel-based-methods"><span class="nav-number">1.2.1.3.2.2.</span> <span class="nav-text">Parallel-based Methods</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#hierarchical-models-%E5%88%86%E5%B1%82%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.2.1.4.</span> <span class="nav-text">HIERARCHICAL MODELS 分层模型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#planner-only"><span class="nav-number">1.2.1.4.1.</span> <span class="nav-text">Planner-Only</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#plannerpolicy"><span class="nav-number">1.2.1.4.2.</span> <span class="nav-text">Planner+Policy</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E5%89%8D%E6%B2%BF%E9%A2%86%E5%9F%9F"><span class="nav-number">1.2.1.5.</span> <span class="nav-text">其他前沿领域</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#vla-%E7%9A%84%E7%89%B9%E7%82%B9"><span class="nav-number">1.2.1.6.</span> <span class="nav-text">VLA 的特点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E9%9B%86%E5%92%8C%E5%9F%BA%E5%87%86%E6%B5%8B%E8%AF%95"><span class="nav-number">1.2.1.7.</span> <span class="nav-text">数据集和基准测试</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%BB%E7%BB%93%E5%92%8C%E5%B1%95%E6%9C%9B"><span class="nav-number">1.2.1.8.</span> <span class="nav-text">总结和展望</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B"><span class="nav-number">1.3.</span> <span class="nav-text">实例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#openin"><span class="nav-number">1.3.1.</span> <span class="nav-text">OpenIN</span></a></li></ol></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -310,7 +310,7 @@ const darkmode = new Darkmode(options);
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-09-16 10:19:14" itemprop="dateModified" datetime="2025-09-16T10:19:14+08:00">2025-09-16</time>
+      <time title="修改时间：2025-09-16 10:48:43" itemprop="dateModified" datetime="2025-09-16T10:48:43+08:00">2025-09-16</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -411,7 +411,7 @@ const darkmode = new Darkmode(options);
 <li><a href="#parallel-based-methods">Parallel-based Methods</a></li>
 </ul></li>
 </ul></li>
-<li><a href="#hierarchical-models">HIERARCHICAL MODELS</a>
+<li><a href="#hierarchical-models-分层模型">HIERARCHICAL MODELS 分层模型</a>
 <ul>
 <li><a href="#planner-only">Planner-Only</a></li>
 <li><a href="#plannerpolicy">Planner+Policy</a></li>
@@ -742,10 +742,10 @@ NLMap(grid): 如果想直接辨别图像里的物品, 则可以使用 <code>clas
 <h2 id="vision-language-action-models">Vision-Language-Action Models</h2>
 <h3 id="large-vlm-based-vision-language-action-models-for-robotic-manipulation-a-survey">Large VLM-based Vision-Language-Action Models for Robotic Manipulation: A Survey</h3>
 <h4 id="前言-1">前言</h4>
-<p>机器操控, 作为机器人学和具身智能的关键领域, 需要精确的动力控制以及内置的视觉和语义信息有理解能力的智能, 其传统做法一般局限于使用预定义的动作以及严格的控制策略, 泛用性较为有限<br />
-近年来随着算力和研究方法的进步, 基于大量图像文本数据上预训练的大型视听语言模型(vlm)以及基于 vlm 增加了动作能力的 vla, 可以称为一种新的技术趋向<br />
-所谓的 VLA 其实是一件很有野心的事, 它不但有对画面、文本这两种信息量最大的载体的理解能力, 还要有做出合适行动的动力, 可以说人类的智能也不过如此, 加上这几乎涉及了 cv, nlp, em-ai 等大领域, 理论也相当庞杂<br />
-vla 具体可以定义为:</p>
+<p>机器操控, 作为机器人学和具身智能的关键领域, 需要精确的动力控制以及内置的视觉和语义信息理解能力的智能, 其传统做法一般局限于使用预定义的动作以及严格的控制策略, 泛用性较为有限<br />
+近年来随着算力和研究方法的进步, 基于大量图像文本数据上预训练的大型视听语言模型(VLM)以及基于 VLM 增加了动作能力的 VLA, 可以称为一种新的技术趋向<br />
+所谓的 VLA 其实是一件很有野心的事, 它不但有对图像、文本这两种信息量最大的载体的理解能力, 还要有做出合适行动的机械系统, 这几乎涉及了 cv, nlp, em-ai 等 cs 大部分的前沿领域, 理论也相当庞杂<br />
+VLA 具体可以定义为:</p>
 <ol type="1">
 <li>使用 VLM 理解视觉观察和自然语言指令</li>
 <li>进行推理并直接或间接地帮助动作指令的生成</li>
@@ -757,28 +757,28 @@ vla 具体可以定义为:</p>
 <li>Single-system models: 将环境理解, 视觉感知, 语言理解, 机器状态认知, 动作生成都统一到一个模型</li>
 <li>dual-system models: 将认知环境和动作生成分为两个任务, 分别让 VLM 和一个 action expert 去做, 这是因为相比前者, 后者时效性更强</li>
 </ol></li>
-<li>Hierarchical Models: 分层模型, 耦合度低的模型, 一般有结构, 中间输出, 例如计划模块产生 <code>keypoint detections</code>, <code>affordance maps</code>, <code>trajectory proposals</code> 可解释的中间产物, 交给策略模块来产生动作; 这样的解耦让不同模块可以并行训练, 使用不同的 loss 和优化方式</li>
+<li>Hierarchical Models: 分层模型, 耦合度最低的模型, 一般有结构, 中间输出可解释的中间产物, 例如计划模块产生 <code>keypoint detections</code>, <code>affordance maps</code>, <code>trajectory proposals</code> , 交给策略模块来产生动作; 这样的解耦让不同模块可以并行训练, 使用不同的 loss 和优化方式</li>
 </ol>
 <div class="note info"><ul>
 <li><code>Keypoint Detection</code> : 计算机视觉中的一种技术, 旨在识别图像中具有显著特征的点</li>
 <li><code>Affordance Maps</code> : 一种表示对象与环境之间交互可能性的图像或图形</li>
 <li><code>Backbone</code> : 一个神经网络结构的基础部分, 主要用于特征提取。Backbone 是整个模型的核心组件, 负责从输入数据（如图像）中提取重要的特征信息</li>
-<li><code>Internet-scale</code> : 能够处理、存储和分析大规模数据的系统、服务或应用</li>
+<li><code>Internet-scale</code> : 表示很大的数据或者整体性能消耗的规格</li>
 </ul>
 </div>
 <h4 id="背景知识">背景知识</h4>
-<p>得益于用于跨领域和多模态能力的 VLM 的出现, 现代的 vlm 模型能执行对能力需求更加多样的任务例如自动驾驶, 图形用户界面交互等<br />
+<p>得益于用于跨领域和多模态能力的 VLM 的出现, 现代的 VLM 模型能执行对能力需求更加多样的任务例如自动驾驶, 图形用户界面交互等<br />
 这些模型往往由一个视觉编码器, 一个用于将视觉特征嵌入到文本的投影器(projector), 以及一个大语言模型组成；这其中, 最为重要的是 <strong>大</strong> 模型为其带来的泛化能力, 如 GPT4 这种 LLM 能提供极强的过滤输入, 降噪, 处理模糊指令的能力, 从而为 VLA 定下基础, 也就是说, VLA 相当重视泛化、通用性质的能力</p>
-<p>V、L、A 可以视为三种不同的任务, 早期的模型往往会将三者分开, 这样的好处是可以并行训练, 但缺点是可能降低一些理解和推理能力；最近的模型一般会加强集成度, 例如除了传统的大规模(Internet-scale)训练资料外, 把机器人的动作也转化为文本标记并放入训练语料库中, 这能让 action 作为语言任务被语言模块理解, 增强整个模型的理解能力, 其他一些使用动作资料的模型也取得了较好的效果</p>
+<p>V、L、A 可以视为三种不同的任务, 早期的模型往往会将三者分开, 这样的好处是可以并行训练, 但缺点是可能降低一些理解和推理能力；最近的模型一般会加强集成度, 例如除了传统的大规模(<code>Internet-scale</code>)训练资料外, 把机器人的动作也转化为文本标记并放入训练语料库中, 这能让 action 作为语言任务被语言模块理解, 增强整个模型的理解能力, 其他一些使用动作资料的模型也取得了较好的效果</p>
 <p>接下来从单片/多片的角度讨论两种模式的发展趋势</p>
 <h4 id="monolithic-models-单片模型">MONOLITHIC MODELS 单片模型</h4>
 <h5 id="single-system-models">Single-system Models</h5>
-<p>其经典范式为 <code>Autoregressive Decoding</code>, 将机器人的连续动作空间离散化为 token 序列, 模型能够序列化地生产动作 token, 再由一个 de-tokenizer.转化为具体动作。较为知名的模型有 <code>RT series</code> , <code>OpenVLA</code></p>
+<p>其经典范式为 <code>Autoregressive Decoding</code>, 将机器人的连续动作空间离散化为 token 序列, 模型能够序列化地生产动作 token, 再由一个 de-tokenizer 转化为具体动作。较为知名的模型有 <code>RT series</code> , <code>OpenVLA</code></p>
 <h6 id="model-performance-enhancement">Model Performance Enhancement</h6>
 <ol type="1">
-<li>认知模式(Perception Modalities):
+<li>认知模态(Perception Modalities):
 <ol type="1">
-<li>3d 感知(perception): 一般能从传感器得到的数据就是 2d 图片, 为了构建三 d 的地图模型, 可以模拟环境并根据图片画出点云; 或者根据图片及其深度信息, 画出自我中心的地图</li>
+<li>3d 感知(perception): 一般能从传感器得到的数据就是 2d 图片, 为了构建 3d 的地图模型, 可以模拟环境并根据图片画出点云; 或者根据图片及其深度信息, 画出自我中心的地图</li>
 <li>4d 感知: 多出来的 d 指的是轨迹, 也就是时空序列信息, 例如将动作或者轨迹信息添加到图像中, 从而增强模型的时空推理能力</li>
 <li>触觉和听觉（Tactile and auditory）感知: 触觉信息可以使用视觉编码器, 听觉信息可以使用专用的编码器, 且两者都需要专用的数据集, 这两种能力均可以与语言模块对齐, 然后得到接受听觉触觉指令的能力</li>
 </ol></li>
@@ -820,7 +820,7 @@ vla 具体可以定义为:</p>
 <ul>
 <li>再加入一个视频生成模块来预测未来的帧, 并使用 <code>diffusion action expert</code></li>
 <li>从人类演示中提取场景喂给 LLM 来生成可解释的行为树, 并转化为底层行为</li>
-<li>将 VLM 与扩散策略模型整合, VLM 会发射一个 TOKEN 控制动作生成的允许或拒绝</li>
+<li>将 VLM 与扩散策略模型整合, VLM 会发射一个 TOKEN 控制是否允许动作生成</li>
 <li>使用预训练的卷积残差网络增加性能</li>
 <li>将 action expert 集成到 VLA 主干中, 两者可以复用一些组件, 协调工作</li>
 </ul>
@@ -835,12 +835,11 @@ vla 具体可以定义为:</p>
 π0 有一些变种, 例如增加显式推理, 基于最近推理生成动作两种模式, 可以根据需求切换；降低信息力度；防止动作模块的梯度流入 VLM 以保持 VLM 的知识优势；增加动作 token 化方法从而自回归训练等；其他的变种也一般是增加某个维度的输入或者通过复用注意力信息提高性能等常规优化</p>
 <div class="note info"><ul>
 <li><code>Normalizing Flows(NFs)</code>: 通过一系列概率密度函数的变量变换, 将复杂的概率分布转换为简单的概率分布, 并通过逆变换生成新的数据样本</li>
-<li><code>Continuous Normalizing Flows(CNFs)</code> 是 <code>Normalizing Flows</code> 的扩展, 它使用常微分方程(ODE)来表示连续的变换过程, 用于建模概率分布<br />
-</li>
+<li><code>Continuous Normalizing Flows(CNFs)</code> 是 <code>Normalizing Flows</code> 的扩展, 它使用常微分方程(ODE)来表示连续的变换过程, 用于建模概率分布</li>
 <li><code>Flow Matching(FM)</code> 是一种训练 <code>Continuous Normalizing Flows</code> 的方法, 它通过学习与概率路径相关的向量场(<code>Vector Field</code>)来训练模型, 并使用 ODE 求解器来生成新样本</li>
 </ul>
 </div>
-<h4 id="hierarchical-models">HIERARCHICAL MODELS</h4>
+<h4 id="hierarchical-models-分层模型">HIERARCHICAL MODELS 分层模型</h4>
 <p>对于很大规模的任务, 由于算力, 存储空间等方面的要求都较高, 更低耦合的架构如分层模型较为常用, 例如长期推理, 空间抽象, 动作分解等<br />
 这些模型一般由高等级的 planner, 低等级的 policy 等组成, 计划期接受指令和观察, 转化为中间产物, policy 接受中间产物, 产生动作序列或底层指令<br />
 相比单片模型, 它能实现更复杂的组合, 甚至可以只有计划器；相比其单片双系统, 它的中间产物是显式（可解释）的</p>
@@ -869,9 +868,9 @@ vla 具体可以定义为:</p>
 </ol>
 <h4 id="其他前沿领域">其他前沿领域</h4>
 <ul>
-<li>RL: 与 LLM, VLM 不同的是, VLA 的问题更加长周期, 其最大的问题在于难于产生基于规则奖励函数, 可能人类也不知道怎么做是更好的, 这方面没有特别好的解决方法, 一般将学习过程作为密集奖励或者通过比较视觉上的近似成功率作为奖励；
+<li>RL: 与 LLM, VLM 不同的是, VLA 的问题更加长周期, 其最大的问题在于难于产生基于规则的奖励函数, 可能人类也不知道怎么做是更好的, 这方面没有特别好的解决方法, 一般将学习过程作为密集奖励或者以视觉上的近似成功率作为奖励；
 <ul>
-<li>此外, 由于模拟环境现状, 在线学习效率有限, 一些方法会把在线, 离线方法混合起来, 例如离线用 q 学习, 在线用 <code>Soft Actor-Critic</code> 提高效率又或者之间引入人类监督</li>
+<li>此外, 由于模拟环境现状, 在线学习效率有限, 一些方法会把在线, 离线方法混合起来, 例如离线用 q 学习, 在线用 <code>Soft Actor-Critic</code> 提高效率又或者引入人类监督</li>
 <li>部分方法会只把 RL 用作数据引擎来增强泛化能力, 例如先用 HIL-SERL 训练, 然后通过 sft 将训练成果提取融入给主要模型</li>
 </ul></li>
 <li>Training-Free Methods: 通常利用模块化和可扩展的设计来改进现有的 VLA 架构, 而无需训练, 例如改变触发机制, 行为和视觉都稳定时不需要完全解码, 可以选择性重用之前的 visual tkoens; 其他的类似方法也是对于简单, 复用性强的任务使用低成本的方式计算, 或者通过一些变换方式压缩动作序列等负担较大的数据提高效率</li>
@@ -908,9 +907,9 @@ vla 具体可以定义为:</p>
 </ol>
 <h4 id="数据集和基准测试">数据集和基准测试</h4>
 <ol type="1">
-<li>真实世界机器人数据集, 尽管理论上讲真实世界是检验以及训练的最好数据, 但由于条件限制, 往往不够全面或者丰富</li>
+<li>真实世界机器人数据集: 尽管理论上讲真实世界是检验以及训练的最好数据, 但由于条件限制, 往往不够全面或者丰富</li>
 <li>模拟数据集: 其优点是可以针对想要特化的能力调整模拟环境, 而缺点则是相比现实可能有较大差距, 导致可迁移不足</li>
-<li>人类行为数据集: 对一些任务, 例如物体识别, 任务分解等较为实用</li>
+<li>人类行为数据集: 对一些特定任务, 例如物体识别, 任务分解等较为实用</li>
 <li>具身数据集: 强调主动感知, 推理和执行, 提供严格的协议来评估通用 VLA 中的高级语义规划</li>
 </ol>
 <h4 id="总结和展望">总结和展望</h4>
@@ -924,7 +923,7 @@ vla 具体可以定义为:</p>
 <li>模型效率: 在机器人平台的性能往往受限, 因此需要平衡存储, 计算成本与模型表现</li>
 </ol>
 <h2 id="实例">实例</h2>
-<h3 id="openin">OpenIN</h3>
+<h3 id="openin"><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/Ro3Vrjx0GiN8eWe6veT-kg">OpenIN</a></h3>
 <p>本文提出了一种「<strong>开放词汇、实例导向</strong>」的导航系统, 该系统「<strong>支持多模态和多类型对象导航指令</strong>」, 能够实现对 <strong>位置可变日常实例</strong> 的有效导航<br />
 OpenIN 的框架和大部分系统比较类似, 都可以分为场景图构建以及图更新(包括导航)两个主要模块</p>
 <ol type="1">
@@ -968,11 +967,14 @@ OpenIN 的框架和大部分系统比较类似, 都可以分为场景图构建�
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/thinklive/44308/" rel="prev" title="计算机专业英语术语表">
-                  <i class="fa fa-angle-left"></i> 计算机专业英语术语表
+                <a href="/thinklive/23089/" rel="prev" title="pdfs">
+                  <i class="fa fa-angle-left"></i> pdfs
                 </a>
             </div>
             <div class="post-nav-item">
+                <a href="/thinklive/44308/" rel="next" title="计算机专业英语术语表">
+                  计算机专业英语术语表 <i class="fa fa-angle-right"></i>
+                </a>
             </div>
           </div>
     </footer>
