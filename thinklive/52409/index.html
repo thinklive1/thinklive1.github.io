@@ -34,7 +34,7 @@
 <meta property="og:image" content="https://thinklive1.github.io/assets/ml/image-1.png">
 <meta property="og:image" content="https://thinklive1.github.io/assets/ml/image-2.png">
 <meta property="article:published_time" content="2025-09-09T07:53:29.848Z">
-<meta property="article:modified_time" content="2025-09-17T09:33:00.977Z">
+<meta property="article:modified_time" content="2025-09-17T09:40:19.600Z">
 <meta property="article:author" content="thinklive">
 <meta property="article:tag" content="人工智能">
 <meta property="article:tag" content="机器学习">
@@ -312,7 +312,7 @@ const darkmode = new Darkmode(options);
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-09-17 17:33:00" itemprop="dateModified" datetime="2025-09-17T17:33:00+08:00">2025-09-17</time>
+      <time title="修改时间：2025-09-17 17:40:19" itemprop="dateModified" datetime="2025-09-17T17:40:19+08:00">2025-09-17</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -948,7 +948,14 @@ OpenIN 的框架和大部分系统比较类似, 都可以分为场景图构建�
 <p>确定目标后, 以 MDP 模型定义探索过程:</p>
 <p>定义状态空间: <span class="math inline">\(S_{t}=(L_{t},C R_{t},C T_{t},F_{t})\)</span> 其中 L 为机器人位姿, CR 是未探索的载体层对象集合，CT 为未探索载体层对象上的候选目标对象集合，F 是一个表示是否找到目标的布尔值，对初始状态 CR0＝ 载体层对象全集，CT0 是上一轮选择的候选对象 Ot<br />
 定义动作空间: <span class="math inline">\(A=S t o p,E x p l o r e(c r),G o t o(c t)|c r\in C R_{t},c t\in C T_{t}\)</span> 其中 stop 表示任务完成或者所有载体对象已探索，explore 表示探索载体层对象, goto 表示导航到 ct 的位置<br />
-定义策略(以下省略下标 t, 用伪代码表示): 1. if F ==1 CR == <span class="math inline">\(\empty\)</span> then a = stop 2. if F == 0 &amp;&amp; <span class="math inline">\(CT_t !=\empty\)</span> , CT.sort(by priority); SS = similarity(CT, O) ; 3. Depth = distance(L, CT); D' = mean(distance(camera, CT)); 4. <span class="math inline">\(P_{-}R(O_{t j})=\omega_{r}\cdot\frac{\omega_{1}s s_{t j}\cdot f(\bar{d}_{t j})}{1\ +\omega_{2}d_{t j}}\)</span> (priority of <span class="math inline">\(O_{tj}\)</span> in CT) 5. if F == 0 &amp;&amp; $CT ==&amp;&amp; CR!=$ then (CR.description, O.image, O.image_description) -&gt; LLM -&gt; $cr_k CR_t $ ( <span class="math inline">\(cr_k\)</span> is best target ) 6. <span class="math inline">\(a_t\)</span> = Explore( <span class="math inline">\(cr_k\)</span> ); excute( <span class="math inline">\(a_t\)</span> ) 7. if <span class="math inline">\(a_t == Explore(cr) || a_t == Goto(ct)\)</span> then while moving: $CR_{observed} = observed objects which don't include candidates in the radial r ; CR_{new} = new candidates in unexplored CT objects $</p>
+定义策略(以下省略下标 t, 用伪代码表示):<br />
+1. if F ==1 CR == <span class="math inline">\(\emptyset\)</span> then a = stop<br />
+2. if F == 0 &amp;&amp; <span class="math inline">\(CT_t !=\emptyset\)</span> , CT.sort(by priority); SS = similarity(CT, O) ;<br />
+3. Depth = distance(L, CT); D' = mean(distance(camera, CT));<br />
+4. <span class="math inline">\(P_{-}R(O_{t j})=\omega_{r}\cdot\frac{\omega_{1}s s_{t j}\cdot f(\bar{d}_{t j})}{1\ +\omega_{2}d_{t j}}\)</span> (priority of <span class="math inline">\(O_{tj}\)</span> in CT)<br />
+5. if F == 0 &amp;&amp; $CT ==$ &amp;&amp; $ CR!=$ then (CR.description, O.image, O.image_description) -&gt; LLM -&gt; $cr_k CR_t $ ( <span class="math inline">\(cr_k\)</span> is best target )<br />
+6. <span class="math inline">\(a_t\)</span> = Explore( <span class="math inline">\(cr_k\)</span> ); excute( <span class="math inline">\(a_t\)</span> )<br />
+7. if <span class="math inline">\(a_t\)</span> == Explore(cr) || <span class="math inline">\(a_t\)</span> == Goto(ct) then while moving: <span class="math inline">\(CR_{observed}\)</span> = observed objects which don't include candidates in the radial r ; <span class="math inline">\(CR_{new}\)</span> = new candidates in unexplored CT objects $</p>
 <p>总结: 每轮中在候选对象里优先级排序，对最佳候选对象的位置，机器人导航到此处并探索是否存在目标对象；如果没有候选对象但有为探索载体对象，让 llm 选一个候选者进行探索；在探索过程中，机器人会不断更新 map 且寻找新的候选对象或者载体对象</p>
 <h3 id="learning-fine-grained-bimanual-manipulation-with-low-cost-hardware">Learning Fine-Grained Bimanual Manipulation with Low-Cost Hardware</h3>
 <p>精细的操控任务例如扎电线、将电池插入槽中，往往需要较大的计算成本或者高端的硬件设备，而想要落实应用，成本控制是非常重要的，因此需要找到在有限的预算下实现精细操作的智能<br />
