@@ -22,19 +22,19 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"thinklive1.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.18.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"flat"},"fold":{"enable":true,"height":500},"bookmark":{"enable":true,"color":"#66CCFF","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":"utterances","storage":true,"lazyload":false,"nav":null,"activeClass":"utterances"},"stickytabs":true,"motion":{"enable":true,"async":true,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="Embodied AI  Semantic Mapping 语义地图  survey  前言 名词介绍 地图结构  Spatial grid map Topological map Point-cloud map Hybrid map  地图编码 map encoding  显式编码 隐式编码  地图评估 Map Evaluation 展望未来与结语  DualMap: 在线开放词汇语义建图助">
+    <meta name="description" content="具身智能">
 <meta property="og:type" content="article">
 <meta property="og:title" content="论文阅读笔记">
 <meta property="og:url" content="https://thinklive1.github.io/thinklive/52409/index.html">
 <meta property="og:site_name" content="thinklive">
-<meta property="og:description" content="Embodied AI  Semantic Mapping 语义地图  survey  前言 名词介绍 地图结构  Spatial grid map Topological map Point-cloud map Hybrid map  地图编码 map encoding  显式编码 隐式编码  地图评估 Map Evaluation 展望未来与结语  DualMap: 在线开放词汇语义建图助">
+<meta property="og:description" content="具身智能">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://thinklive1.github.io/assets/ml/Pasted%20image%2020250911154734.png">
 <meta property="og:image" content="https://thinklive1.github.io/assets/ml/image.png">
 <meta property="og:image" content="https://thinklive1.github.io/assets/ml/image-1.png">
 <meta property="og:image" content="https://thinklive1.github.io/assets/ml/image-2.png">
 <meta property="article:published_time" content="2025-09-09T07:53:29.848Z">
-<meta property="article:modified_time" content="2025-09-16T11:36:18.508Z">
+<meta property="article:modified_time" content="2025-09-17T06:56:53.896Z">
 <meta property="article:author" content="thinklive">
 <meta property="article:tag" content="人工智能">
 <meta property="article:tag" content="机器学习">
@@ -312,7 +312,7 @@ const darkmode = new Darkmode(options);
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-09-16 19:36:18" itemprop="dateModified" datetime="2025-09-16T19:36:18+08:00">2025-09-16</time>
+      <time title="修改时间：2025-09-17 14:56:53" itemprop="dateModified" datetime="2025-09-17T14:56:53+08:00">2025-09-17</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -345,7 +345,7 @@ const darkmode = new Darkmode(options);
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1:05</span>
+      <span>1:06</span>
     </span>
 </div>
 
@@ -357,7 +357,8 @@ const darkmode = new Darkmode(options);
     
     
     
-    <div class="post-body" itemprop="articleBody"><span id="more"></span>
+    <div class="post-body" itemprop="articleBody"><p>具身智能</p>
+<span id="more"></span>
 <ul>
 <li><a href="#embodied-ai">Embodied AI</a>
 <ul>
@@ -991,10 +992,18 @@ OpenIN 的框架和大部分系统比较类似, 都可以分为场景图构建�
 <ol start="3" type="1">
 <li>ACT理论部分</li>
 </ol>
-<p>ACT系统可以视为一种有条件的VAE, 其编码器将动作序列和关节位置作为观察结果(输入数据)编码为z(测试时会丢弃编码器), tf部分的编码器接受所有相机输入、关节位置以及z，其解码器生成一个动作序列<br />
-实操中，让操作员操作leader机器人(leader的动作参数和follower之间可以隐式转换), ACT不断预测人类操作员在给定观察下的未来k步操作<br />
-这样有个额外的好处，由于学习的样本是人类提供的行为，而这种行为不一定是符合马尔科夫假设的，单步学习很可能会被暂停之类的行为误导，而如果误导行为集中在一个动作块中，对训练的损害则不会那么巨大</p>
-<p><img src="/assets/ml/image-2.png" /></p>
+<p>ACT系统可以视为一种有条件(conditional)的VAE(CVAE), 其编码器将动作序列和关节位置作为观察结果(输入数据)编码为z(测试时会丢弃编码器), tf部分的编码器接受所有相机输入、关节位置以及z，其解码器生成一个动作序列<br />
+实操中，让操作员操作leader机器人(leader由于要人类操纵，规格与follower不同，两者的动作参数之间可以隐式转换), ACT不断预测人类操作员在给定观察下的未来k步操作<br />
+这样有个额外的好处，由于学习的样本是人类提供的行为，而这种行为不一定是符合马尔科夫假设的，单步学习很可能会被暂停之类的行为误导，而如果误导行为集中在一个动作块中，对训练的损害则不会那么巨大<br />
+但相应的，由于每k步切换，可能过程不会太平滑，因此在每步都会查询策略，类似滑动窗口，这样依赖每次预测的动作块都会有部分重叠，因此为了充分利用这些信息，对未来时刻的所有预测动作，计算一个加权和，这个过程称为 <code>temporal ensembling</code>, 实验发现这样的聚合效果要好于传统的对于时间上相邻动作动作的平滑化，这部分机制会在下文详细讨论</p>
+<p><img src="/assets/ml/image-2.png" /> 接下来阐释对输入的处理:</p>
+<ol type="1">
+<li>我们用CVAE处理人类输入,它由一个编码器和一个解码器组成, 解码器会预测z的均值与方差,用作对角高斯分布</li>
+<li>出于训练速度考虑,对输入数据,不使用图像观察结果,只用机器人的本体感知数据(例如姿势,角度等)</li>
+<li>解码器则会使用z以及当前观察结果(图像+关节位置)预测未来的动作序列</li>
+<li>测试时,设z为先验分布的均值,如果对确定性解码来说就是设0</li>
+<li>训练的过程中不断地最大化模型输出与演示数据里的相同动作块的对数概率；同时也使用标准VAE的两个标准(重建损失与正则化项)</li>
+</ol>
 <div class="note info"><ul>
 <li>逆向运动学（Inverse Kinematics，IK）: 运动学（Kinematics）是在给定所有关节角度的情况下计算链接结构（如一节人体的关节）的末端的空间位置的过程; 逆向运动学则相反，知道末端状态，需要求解关节应该是什么角度</li>
 <li>奇异点（singularities）: 机器人在某些特定配置下失去自由度或控制能力的状态。在这些状态下，机器人可能无法有效地执行运动或控制其末端执行器的位置和姿态</li>
@@ -1075,7 +1084,7 @@ OpenIN 的框架和大部分系统比较类似, 都可以分为场景图构建�
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">36:04</span>
+    <span title="站点阅读时长">36:05</span>
   </span>
 </div>
 <div class="busuanzi-count">
