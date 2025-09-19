@@ -648,7 +648,8 @@ A: 深度学习能增加预测函数的弹性,这是因为它可以复杂的不�
 </ul>
 </div>
 <h1 id="技术">技术</h1>
-<h2 id="vae-变分自编码器">VAE 变分自编码器</h2>
+<h2 id="生成模型">生成模型</h2>
+<h3 id="vae-变分自编码器">VAE 变分自编码器</h3>
 <p>对于生成任务，有一套直白的思路： 对一群数据提取特征，编码为一种分布，然后在生成时从分布中采样作为解码<br />
 若输入的数据为x, 编码出的隐式数据为x, p(z|x)称为后验概率，也就是给定发生了什么得到的估计；p(x|z)称为似然，也就是根据已有知识，对应该发生什么的估计<br />
 现在的问题是，如何得到一个性质良好的z，这个良好指两方面:</p>
@@ -658,10 +659,14 @@ A: 深度学习能增加预测函数的弹性,这是因为它可以复杂的不�
 </ol>
 <p>为此，VAE用高斯分布建模一个隐式空间，且定义其loss如下:</p>
 <p><span class="math inline">\(\mathcal{L}(x)=\mathbb{E}_{q(z|x)}\left[\log p(x|z)\right]-{ { {\operatorname{KL}(q(z|x)\ |\ p(z))}}}\)</span></p>
-<p>我们要学习的参数是方差和均值，那么怎么做呢？这里引入一个 <span class="math inline">\(\epsilon\)</span> 表示对标准正态分布的随机采样，将其乘方差再加上均值，就得到了一个模拟的采样结果可用于求梯度</p>
-<h2 id="flow-matching-流匹配">Flow Matching 流匹配</h2>
+<p>这个loss想实现的目的是，在分布散度差距和还原损失之间取得平衡<br />
+我们要学习的参数是方差和均值，那么怎么做呢？这里引入一个 <span class="math inline">\(\epsilon\)</span> 表示对标准正态分布的随机采样，将其乘方差再加上均值，就得到了一个模拟的采样结果可用于求梯度</p>
+<h3 id="flow-based-model">flow-based model</h3>
+<h4 id="normalizing-flow">Normalizing flow</h4>
+<p>主要参考李宏毅老师的视频以及一篇<a href="https://zhuanlan.zhihu.com/p/718997970">博文</a></p>
 <p>在数学上，生成模型其实生成的是概率分布，一般将输入数据视为对某种分布的采样，用来学习一种分布G，最后再对学习的分布G随机采样来得到新的生成数据<br />
-这种所谓的随机采样，可以理解为对一种分布例如常见的正态分布采样，将这个采样的数据映射到我们学习到的分布G上，我们希望G的分布和真实数据的分布(这个分布是假想的)越接近越好，也就是其散度越小越好</p>
+这种所谓的随机采样，可以理解为对一种分布例如常见的正态分布采样，将这个采样的数据映射到我们学习到的分布G上，我们希望G的分布和真实数据的分布(这个分布是假想的)越接近越好，例如上面的VAE就会不断约束G的重构损失和KL散度<br />
+如果我们想直接优化分布之间的映射关系呢？</p>
 <p>接下来需要引入一些前置知识:</p>
 <div class="note info"><p><strong>Jacobian matrix</strong> 是一个数学概念，主要用于多变量微积分和向量微分。在函数的多变量情况下，Jacobian 矩阵描述了函数的局部线性近似<br />
 对于一个从 <span class="math inline">\({R}^n\)</span> 到 <span class="math inline">\({R}^m\)</span> 的函数 ，其 Jacobian 矩阵 ( J ) 定义为函数在某一点的偏导数矩阵。矩阵的元素形式如下：</p>
@@ -690,8 +695,44 @@ A: 深度学习能增加预测函数的弹性,这是因为它可以复杂的不�
 <li>计算量大</li>
 <li>对模型的约束较大，可能会降低泛化能力</li>
 </ol>
-<p>这就是为什么名字叫flow了，因为我们会用一串G来弥补模型弹性不足的问题,但实际上用一个G和一连串G除了计算量没有本质区别，以下讨论一个G的情况<br />
+<p>这就是为什么名字叫flow了，因为我们会用一串G来弥补模型弹性不足的问题,为什么可以这样做？对z的变化可以说是链式的，在微分层面可以很直接地表示为多个J矩阵行列式对p(z)连乘，用一个对数函数就可以转化为连加,因此实际上用一个G和一连串G除了计算量没有本质区别，以下讨论一个G的情况<br />
 对一个具体的G，实际训练时考虑到计算量，会使用<code>coupling layer</code>这样的技术，它巧妙地牺牲一部分输入数据(不做变换仅复制)让涉及到的行列式和逆矩阵都很容易计算;也可以用一对一的卷积，对其内核矩阵(涉及的论文里是3×3)算行列式以及微分</p>
+<p><img src="/assets/ml/image-4.png" /></p>
+<h3 id="flow-matching">Flow Matching</h3>
+<h4 id="数学-1">数学</h4>
+<p>常微分方程: 形如 <span class="math inline">\({\frac{d y(t)}{d t}}\,=\,f(y(t),t)\)</span></p>
+<p>其中,t为时间，f描述y与t的关系且可微分，一般来说y是需要求解的量<br />
+例如如果已知一个初始值，可以写作: <span class="math inline">\(y(t_{1})=y_{t_{0}}+\int_{t_{0}}^{t_{1}}f(y(t),t)d t\)</span><br />
+对复杂的神经网络，很多时候不能也没有必要求解析解，可以用一些数值方法估算：</p>
+<ul>
+<li><code>Euler Method</code>: 直接用区间面积的和估算，形如 <span class="math inline">\(y(t_{1})\approx y(t_{0})+\sum_{i=0}^{N-1}h f(y(t_{0}+i h),t_{0}+i h)\)</span> 其中h是区间宽度</li>
+<li><code>Neural ODE</code>: 使用例如<code>residual network</code>之类的网络求解，这里不详细介绍</li>
+</ul>
+<h4 id="向量场与流">向量场与流</h4>
+<p><a href="https://xyfjason.top/blog-main/2024/06/22/Flow-Matching/#%E6%B5%81%E4%B8%8E%E5%8F%98%E9%87%8F%E6%9B%BF%E6%8D%A2">参考博文</a></p>
+<p>上文介绍的标准流是通过组合一系列的生成器获得表达能力的，而每个生成器通过微分矩阵来评估映射的性质，因此命名为flow很直观<br />
+而对flow来说，想到向量也很直观，CNF正是一种基于向量场的方法<br />
+为什么要用向量场呢？想象分布p是一群点，当然它可以是无数个，这些点我们希望能都被一一映射到另一个分布里去，这就像初中物理课做的磁场实验，改变电磁铁的通电流向(磁性)，在磁场的作用下铁屑们就会纷纷自己组成另一种形状<br />
+在这种场作用下的<strong>概率p</strong>的运动轨迹成为概率密度路径，与之前不同的是运动需要时间，这里引入一个时间t变量，范围是<code>[0,1]</code>,此外概率函数自己的性质是p(x)对x的积分必定是1，即 <span class="math inline">\(\textstyle\int p_{t}(\mathbf{x})\mathrm{d}\mathbf{x}=1\)</span><br />
+接下来定义向量场为: <span class="math inline">\(\mathbf{u}:[0,1]\times\mathbb{R}^{d}\to\mathbb{R}^{d}\)</span> u也可以理解为瞬时速度<br />
+那么u和p什么关系，作为计算机专业不用懂原理，但存在这么一个方程式:</p>
+<p><span class="math display">\[\frac{\partial}{\partial t}p_{t}({\bf x})+\nabla\cdot(p_{t}({\bf x}){\bf u}_{t}({\bf x}))=0\]</span></p>
+<p>需要注意概率密度路径与速度场不是一一对应的，不同的速度场可以产生相同的概率密度路径</p>
+<p>接下来回归标题，标题的流flow正是运动时的轨迹，定义为: <span class="math inline">\(\frac{\partial}{\partial t}\phi_{t}({\bf x})={\bf u}_{t}(\phi_{t}({\bf x}))\)</span> ,其中 <span class="math inline">\(\phi _t(x)\)</span> 初值为x的粒子在t时刻运动到的位置,也就是对其在<code>[0,t]</code>积分就会得到t点位置和x的位移<br />
+那么显然p和 <span class="math inline">\(\phi\)</span> 之间也有关系，这里之间放出来:</p>
+<p><span class="math display">\[ p_t(\mathbf x)=p_0(\boldsymbol\phi_t^{-1}(\mathbf x))\left|\det\left[\frac{\partial\boldsymbol\phi_t^{-1}}{\partial\mathbf x}(\mathbf x)\right]\right| \]</span></p>
+<p>这称为push-forward方程，其中t时刻位于x位置处的粒子在0时刻的出发位置是 <span class="math inline">\(\boldsymbol\phi_t^{-1}(\mathbf x)\)</span></p>
+<p><img src="/assets/ml/relation.png" /></p>
+<h4 id="连续归一化流-continuous-normalizing-flows-cnfs">连续归一化流 (Continuous Normalizing Flows, CNFs)</h4>
+<p>终于说到生成模型了，令 <span class="math inline">\(p_t(x)\)</span> 为概率密度路径，p0是一种简单分布(例如标准正态分布),p1是输入数据的分布, <span class="math inline">\(u_t(x)\)</span> 为对应向量场，那么流匹配的模板就是用网络构建向量场 <span class="math inline">\(\\mathbf v_{t}^{\theta}(\mathbf x)\)</span> 去近似 <span class="math inline">\(u_t(x)\)</span><br />
+虽然一上来就定义了很多变量，但经过前文介绍，其实其目的很直观，接下来定于个同样直观的损失函数:<br />
+<span class="math display">\[\mathcal L_\text{FM}(\theta)=\mathbb E_{t,p_t(\mathbf x)}\left[\Vert\mathbf v_{t}^{\theta}(\mathbf x)-\mathbf u_t(\mathbf x)\Vert^2\right]\]</span></p>
+<p>当然，真实速度场是未知的，这是生成模型的经典问题，同样一个经典解决方案，也就是每次取一个样本去近似，不断更新训练，这就需要<strong>条件速度场</strong> 给定某特定样本x1 ，称 <span class="math inline">\(p_t(x|x1)\)</span> 为条件概率路径</p>
+<p><span class="math display">\[p_t(\mathbf x)=\int p_t(\mathbf x\vert\mathbf x_1)q(\mathbf x_1)\mathrm d\mathbf x_1=\mathbb E_{q(\mathbf x_1)}[p_t(\mathbf x\vert\mathbf x_1)]\]</span> <span class="math display">\[\mathbf u_t(\mathbf x)=\int \mathbf u_t(\mathbf x\vert\mathbf x_1)\frac{p_t(\mathbf x\vert\mathbf x_1)q(\mathbf x_1)}{p_t(\mathbf x)}\mathrm d\mathbf x_1=\mathbb E_{p(\mathbf x_1\vert\mathbf x)}[\mathbf u_t(\mathbf x\vert\mathbf x_1)]\]</span></p>
+<p>使用这种条件向量场更新的流匹配称为 <strong>conditional flow matching </strong><br />
+其损失函数为:</p>
+<p><span class="math display">\[\mathcal L_\text{CFM}(\theta)=\mathbb E_{t,q(\mathbf x_1),p_t(\mathbf x\vert\mathbf x_1)}\left[\Vert\mathbf v_{t}^{\theta}(\mathbf x)-\mathbf u_t(\mathbf x\vert\mathbf x_1)\Vert^2\right]\]</span></p>
+<p>接下来只剩下具体的条件向量场设计问题了，详见<a href="https://xyfjason.top/blog-main/2024/06/22/Flow-Matching/#%E6%9D%A1%E4%BB%B6%E9%80%9F%E5%BA%A6%E5%9C%BA%E7%9A%84%E8%AE%BE%E8%AE%A1">博文</a></p>
 <div class="note info">
 </div>
 ]]></content>
@@ -1037,7 +1078,7 @@ NLMap(grid): 如果想直接辨别图像里的物品, 则可以使用 <code>clas
 <li>如果有足够观测次数, 至少有 2/3 的类别是同一个, 则保留</li>
 <li>否则删除</li>
 </ul></li>
-<li>分割检测: 如果连续帧中同一时间戳出现具有不同类别 ID 的观测
+<li>分割检测: 如果连续帧中同一步出现具有不同类别 ID 的观测
 <ul>
 <li>触发分割操作, 将对象的观测列表按类别 ID 分割并创建新对象</li>
 </ul></li>
@@ -1288,29 +1329,35 @@ VLA 具体可以定义为:</p>
 <li>模型效率: 在机器人平台的性能往往受限, 因此需要平衡存储, 计算成本与模型表现</li>
 </ol>
 <h3 id="π0-a-vision-language-action-flow-model-for-general-robot-control">π0: A Vision-Language-Action Flow Model for General Robot Control</h3>
-<p>VLM大模型的发展，不仅在通用能力上取得了进步，同时由于海量数据带来的能力，在一些专业任务上也有应用空间<br />
-来到VLA领域，想要融合VLM并得到一定的行动能力，有几个挑战:</p>
+<p>VLM 大模型的发展,不仅在通用能力上取得了进步,同时由于海量数据带来的能力,在一些专业任务上也有应用空间<br />
+来到 VLA 领域,想要融合 VLM 并得到一定的行动能力,有几个挑战:</p>
 <ol type="1">
 <li>这样的研究需要很大规模的数据和训练</li>
 <li>需要能有效从海量数据中学习的模型架构</li>
 <li>需要正确的训练技巧</li>
 </ol>
-<p>π0正是为了解决这三个问题的原型模型，相比其他系统，其技术特点:</p>
+<p>π0 正是为了解决这三个问题的原型模型,相比其他系统,其技术特点:</p>
 <ol type="1">
 <li>跨实体地进行训练</li>
 <li>为了提供对复杂动作的生成能力使用动作块体系和流匹配方法</li>
 </ol>
-<p>对于生成任务(主要是图像生成), 扩散模型也是比较流行的技术，本文也部分使用了扩散式的损失函数<br />
-最近涌现出一批高质量数据集(关于机器人控制), 但往往总共的时长规模在10h左右甚至更少，而为了尽可能地获取综合能力，本文使用量10kh的演示数据(由研究者自己的数据和一些开源数据补充组成)，除了数量以外，在涉及机器人的种类、任务类别数、标注数外规模也较大<br />
-与其他领域的大模型一样，极大规模的输入也产生了极强的效果</p>
+<p>对于生成任务(主要是图像生成), 扩散模型也是比较流行的技术,本文也部分使用了扩散式的损失函数<br />
+最近涌现出一批高质量数据集(关于机器人控制), 但往往总共的时长规模在 10h 左右甚至更少,而为了尽可能地获取综合能力,本文使用量 10kh 的演示数据(由研究者自己的数据和一些开源数据补充组成),除了数量以外,在涉及机器人的种类、任务类别数、标注数外规模也较大<br />
+与其他领域的大模型一样,极大规模的输入也产生了极强的效果</p>
 <div class="note info"><ul>
-<li>Broad Generalization: 一个模型或系统在面对新数据或未见过的任务时，能够有效地适应和推理的能力。这种概念通常在机器学习和人工智能领域讨论，特别是在评估模型的泛化能力时</li>
+<li>Broad Generalization: 一个模型或系统在面对新数据或未见过的任务时,能够有效地适应和推理的能力。这种概念通常在机器学习和人工智能领域讨论,特别是在评估模型的泛化能力时</li>
 </ul>
 </div>
 <h4 id="模型介绍">模型介绍</h4>
-<p>下面开始介绍一些技术细节, 其主干可以说是一个基于tf的视觉模型, 将图像输入编码嵌入到语言空间, 但正如很多动作模型一样，出于任务考虑输入输出数据会增加机器人感知与动作<br />
-模型使用条件流匹配来对连续的动作分布建模, 在工程上(高情商说法),发现对机器人特化的token上(即动作与状态)，应用特定的权重集合能提高表现</p>
-<p>模型不依赖特定的VLM,为了方便实验中使用<code>PaliGemma</code></p>
+<p>下面开始介绍一些技术细节, 其主干可以说是一个基于 tf 的视觉模型, 将图像输入编码嵌入到语言空间, 但正如很多动作模型一样,出于任务考虑输入输出数据会增加机器人感知与动作<br />
+模型使用条件流匹配(之前写的 <a href="https://thinklive1.github.io/thinklive/48061/#flow-matching-%E6%B5%81%E5%8C%B9%E9%85%8D">介绍博文</a>)来对连续的动作分布建模<br />
+模型不依赖特定的 VLM, 为了方便实验中使用 <code>PaliGemma</code></p>
+<p>受一个叫 <code>transfusion</code> 的模型(用一个 tf 处理不同类型的输出,对连续输出使用流匹配的损失函数,对离散输出使用交叉熵的损失函数)启发,基于 transfusion, 在工程上(高情商说法), 发现机器人特有的 token 上(即动作与状态),应用特定的权重集合能提高表现<br />
+作为一个生成任务,技术上具体可以描述为对分布 <span class="math inline">\(p(A_t|o_t)\)</span> 建模,其中 At 是从 t 下标开始,长度为 H 的动作序列（动作块）,文中的 H 为 50,而观察 o 由 RGB 图像、语言指令和机器人状态(关节角度)组成分别用 I, l, q 表示<br />
+虽然输入类别有很多,但 I, q 都会由编码器以及一个线性投影层投影到 l 的嵌入空间<br />
+将损失函数定义为:</p>
+<p><span class="math display">\[L^{\tau}(\theta)=\mathbb{E}_{p(\mathbf{A}_{t}|o_{t}),q(\mathbf{A}_{t}^{\tau}|\mathbf{A}_{t})}||\mathbf{v}\theta(\mathbf{A}_{t}^{\tau},\mathbf{o}_{t})-\mathbf{u}(\mathbf{A}_{t}^{\tau}|\mathbf{A}_{t})||^{2}\]</span></p>
+<p>其中上标是流匹配的时间步,下标则是机器人的时间步, <span class="math inline">\(\tau\ \in\ [0,1]\)</span> , 训练时从标准正态分布中采样一个 <span class="math inline">\(\epsilon\)</span> , 令噪声行动 <span class="math inline">\(A_t^\tau = \tau A_t + (1-\tau ) \epsilon\)</span> , 训练目标是让 <span class="math inline">\(\mathbf{v}\theta(\mathbf{A}_{t}^{\tau},\mathbf{o}_{t})\)</span> 与去噪向量场 <span class="math inline">\(\mathbf{u}(\mathbf{A}_{t}^{\tau}|\mathbf{A}_{t}) = \epsilon - A_t\)</span> 尽可能接近</p>
 <h2 id="实例">实例</h2>
 <h3 id="openin"><a href="https://mp.weixin.qq.com/s/Ro3Vrjx0GiN8eWe6veT-kg">OpenIN</a></h3>
 <p>本文提出了一种「<strong>开放词汇、实例导向</strong>」的导航系统, 该系统「<strong>支持多模态和多类型对象导航指令</strong>」, 能够实现对 <strong>位置可变日常实例</strong> 的有效导航<br />
@@ -1326,8 +1373,8 @@ OpenIN 的框架和大部分系统比较类似, 都可以分为场景图构建�
 <li>对文本输入以及图像的文本描述: 使用 SBERT 对其编码, 与 CRSG 对象的特征比较余弦相似度, 最高者作为模板对象 Ot</li>
 </ul>
 <p>确定目标后, 以 MDP 模型定义探索过程:</p>
-<p>定义状态空间: <span class="math inline">\(S_{t}=(L_{t},C R_{t},C T_{t},F_{t})\)</span> 其中 L 为机器人位姿, CR 是未探索的载体层对象集合，CT 为未探索载体层对象上的候选目标对象集合，F 是一个表示是否找到目标的布尔值，对初始状态 CR0＝ 载体层对象全集，CT0 是上一轮选择的候选对象 Ot<br />
-定义动作空间: <span class="math inline">\(A=S t o p,E x p l o r e(c r),G o t o(c t)|c r\in C R_{t},c t\in C T_{t}\)</span> 其中 stop 表示任务完成或者所有载体对象已探索，explore 表示探索载体层对象, goto 表示导航到 ct 的位置<br />
+<p>定义状态空间: <span class="math inline">\(S_{t}=(L_{t},C R_{t},C T_{t},F_{t})\)</span> 其中 L 为机器人位姿, CR 是未探索的载体层对象集合,CT 为未探索载体层对象上的候选目标对象集合,F 是一个表示是否找到目标的布尔值,对初始状态 CR0＝ 载体层对象全集,CT0 是上一轮选择的候选对象 Ot<br />
+定义动作空间: <span class="math inline">\(A=S t o p,E x p l o r e(c r),G o t o(c t)|c r\in C R_{t},c t\in C T_{t}\)</span> 其中 stop 表示任务完成或者所有载体对象已探索,explore 表示探索载体层对象, goto 表示导航到 ct 的位置<br />
 定义策略(以下省略下标 t, 用伪代码表示):<br />
 1. if F ==1 CR == <span class="math inline">\(\emptyset\)</span> then a = stop<br />
 2. if F == 0 &amp;&amp; <span class="math inline">\(CT_t !=\emptyset\)</span> , CT.sort(by priority); SS = similarity(CT, O) ;<br />
@@ -1336,86 +1383,86 @@ OpenIN 的框架和大部分系统比较类似, 都可以分为场景图构建�
 5. if F == 0 &amp;&amp; $CT ==$ &amp;&amp; $ CR!=$ then (CR.description, O.image, O.image_description) -&gt; LLM -&gt; $cr_k CR_t $ ( <span class="math inline">\(cr_k\)</span> is best target )<br />
 6. <span class="math inline">\(a_t\)</span> = Explore( <span class="math inline">\(cr_k\)</span> ); excute( <span class="math inline">\(a_t\)</span> )<br />
 7. if <span class="math inline">\(a_t\)</span> == Explore(cr) || <span class="math inline">\(a_t\)</span> == Goto(ct) then while moving: <span class="math inline">\(CR_{observed}\)</span> = observed objects which don't include candidates in the radial r ; <span class="math inline">\(CR_{new}\)</span> = new candidates in unexplored CT objects $</p>
-<p>总结: 每轮中在候选对象里优先级排序，对最佳候选对象的位置，机器人导航到此处并探索是否存在目标对象；如果没有候选对象但有为探索载体对象，让 llm 选一个候选者进行探索；在探索过程中，机器人会不断更新 map 且寻找新的候选对象或者载体对象</p>
+<p>总结: 每轮中在候选对象里优先级排序,对最佳候选对象的位置,机器人导航到此处并探索是否存在目标对象；如果没有候选对象但有为探索载体对象,让 llm 选一个候选者进行探索；在探索过程中,机器人会不断更新 map 且寻找新的候选对象或者载体对象</p>
 <h3 id="learning-fine-grained-bimanual-manipulation-with-low-cost-hardware">Learning Fine-Grained Bimanual Manipulation with Low-Cost Hardware</h3>
-<p>精细的操控任务例如扎电线、将电池插入槽中，往往需要较大的计算成本或者高端的硬件设备，而想要落实应用，成本控制是非常重要的，因此需要找到在有限的预算下实现精细操作的智能<br />
-本文基于端到端的模仿学习，训练数据也完全来自于现实的演示，在高精度任务中，模仿学习的缺点是对策略错误较为敏感，且人类演示数据相差较大，不便于学习；为此，本文提出了一种<code>Action Chunking with Transformers (ACT)</code>算法，可以通过低成本地通过动作序列学习，并得到不错的准确率</p>
+<p>精细的操控任务例如扎电线、将电池插入槽中,往往需要较大的计算成本或者高端的硬件设备,而想要落实应用,成本控制是非常重要的,因此需要找到在有限的预算下实现精细操作的智能<br />
+本文基于端到端的模仿学习,训练数据也完全来自于现实的演示,在高精度任务中,模仿学习的缺点是对策略错误较为敏感,且人类演示数据相差较大,不便于学习；为此,本文提出了一种 <code>Action Chunking with Transformers (ACT)</code> 算法,可以通过低成本地通过动作序列学习,并得到不错的准确率</p>
 <h4 id="前言-2">前言</h4>
-<p>举一个生活中的例子，例如打开一个有盖的杯子，这就需要一只手(假设为右手)握住杯子，倾斜让左手靠近杯盖，然后辨别出杯盖边缘，让左手轻轻掀起；这种任务对ai来说相当精细<br />
-由于需要在有限的成本内完成精细任务，我们选择端到端的模型，使用低成本的摄像头rgb图像作为输入，让模型只学习操作策略而无需对整个环境建模(当然对这种复杂任务建模也非常难，例如在电子游戏界，几乎没有游戏能做好吃饭等人物的日常动画)<br />
+<p>举一个生活中的例子,例如打开一个有盖的杯子,这就需要一只手(假设为右手)握住杯子,倾斜让左手靠近杯盖,然后辨别出杯盖边缘,让左手轻轻掀起；这种任务对 ai 来说相当精细<br />
+由于需要在有限的成本内完成精细任务,我们选择端到端的模型,使用低成本的摄像头 rgb 图像作为输入,让模型只学习操作策略而无需对整个环境建模(当然对这种复杂任务建模也非常难,例如在电子游戏界,几乎没有游戏能做好吃饭等人物的日常动画)<br />
 以下简述本文使用的一些技术:</p>
 <ul>
-<li>远程操控(tleoperation): 使用两只大致相同的低成本机械臂，共用一个空间地图, 使用一下些3d打印组件来增强反向驱动，总预算控制在 $20k 内</li>
-<li>模仿学习算法: 为了避免模仿学习常见的累积误差问题，参考心理学的 <code>动作块</code>, 让学习策略预测接下来k步的一连串动作，防止某个错误的一步影响后面的推理；且能减少一些不相干因素的影响，例如演示中的部分暂停
+<li>远程操控(tleoperation): 使用两只大致相同的低成本机械臂,共用一个空间地图, 使用一下些 3d 打印组件来增强反向驱动,总预算控制在 $20k 内</li>
+<li>模仿学习算法: 为了避免模仿学习常见的累积误差问题,参考心理学的 <code>动作块</code>, 让学习策略预测接下来 k 步的一连串动作,防止某个错误的一步影响后面的推理；且能减少一些不相干因素的影响,例如演示中的部分暂停
 <ul>
-<li>为了提高策略的平滑度，设置了<code>temporal ensembling</code>机制, 更频繁地查询策略，且将重叠的动作块取平均值</li>
-<li>使用Transformers处理动作块(序列数据)</li>
+<li>为了提高策略的平滑度,设置了 <code>temporal ensembling</code> 机制, 更频繁地查询策略,且将重叠的动作块取平均值</li>
+<li>使用 Transformers 处理动作块(序列数据)</li>
 </ul></li>
 </ul>
 <div class="note info"><ul>
-<li><code>Backdriving</code> : 在机械和控制系统中使用的术语，通常指的是在某些系统中，外部力或运动驱动系统的运动，而不是通过其内部控制机制来实现,也就是正向驱动是电机驱动机械装置，反向驱动则可以是相对机械的外力——比如人力也可以驱动机械臂</li>
-<li><code>compounding error（累积误差）</code>: 指在(模仿)学习过程中，由于对错误示范的逐步复制和执行，错误逐渐积累，从而影响系统的整体表现</li>
-<li><code>action chunking</code>： 心理学术语, 将一系列动作或行为组合成一个更大、更有意义的单元（或“块”），以提高任务执行的效率和流畅性</li>
+<li><code>Backdriving</code> : 在机械和控制系统中使用的术语,通常指的是在某些系统中,外部力或运动驱动系统的运动,而不是通过其内部控制机制来实现, 也就是正向驱动是电机驱动机械装置,反向驱动则可以是相对机械的外力——比如人力也可以驱动机械臂</li>
+<li><code>compounding error（累积误差）</code>: 指在(模仿)学习过程中,由于对错误示范的逐步复制和执行,错误逐渐积累,从而影响系统的整体表现</li>
+<li><code>action chunking</code>： 心理学术语, 将一系列动作或行为组合成一个更大、更有意义的单元（或“块”）,以提高任务执行的效率和流畅性</li>
 </ul>
 </div>
 <h4 id="real-work">real work</h4>
 <ol type="1">
 <li><p><code>Behavioral cloning</code><br />
-行为克隆是最简单的模仿学习方法，但很明显也有非常多的问题，例如之前提及的累积误差，应该解决思路是使用额外的在线学习或者额外标注来更正，但对低成本硬件的远程操纵常见，难以适用<br />
-如果常识在数据集加入噪声，很可能会直接让训练失败，又或者离线地生成校正数据，但这种方法这在部分场景有效<br />
-出于对以上过往问题的考虑，本文引入了<code>动作块</code>机制</p></li>
+行为克隆是最简单的模仿学习方法,但很明显也有非常多的问题,例如之前提及的累积误差,应该解决思路是使用额外的在线学习或者额外标注来更正,但对低成本硬件的远程操纵常见,难以适用<br />
+如果常识在数据集加入噪声,很可能会直接让训练失败,又或者离线地生成校正数据,但这种方法这在部分场景有效<br />
+出于对以上过往问题的考虑,本文引入了 <code>动作块</code> 机制</p></li>
 <li><p>实体机器介绍<br />
-如前文介绍，本文的技术选择准则可以概括为“物美价廉”, 两个机械臂控制在数千美元, 本文使用的<code>ViperX arm</code>有750g的负重能力,1.5m的宽度, 5-8mm的准确度, 其关键电机可替换，但手指对复杂任务不够适用，为此3d打印了一些手指，并用Grip tape(握把胶带)缠一圈来提高抓取能力(it just works!)<br />
-接下来要选择远程操作系统, 市面上一些常见的系统通过vr或者摄像头捕捉手臂姿势来操纵机械臂，这称为<code>task-space mapping</code>, 本文使用<code>WidowX</code>一种让用户通过反向驱动"leader"(一个更小的机器部件)来驱动机械臂("follower")的系统，这称为 <code>joint-space mapping</code><br />
+如前文介绍,本文的技术选择准则可以概括为“物美价廉”, 两个机械臂控制在数千美元, 本文使用的 <code>ViperX arm</code> 有 750g 的负重能力,1.5m 的宽度, 5-8mm 的准确度, 其关键电机可替换,但手指对复杂任务不够适用,为此 3d 打印了一些手指,并用 Grip tape(握把胶带)缠一圈来提高抓取能力(it just works!)<br />
+接下来要选择远程操作系统, 市面上一些常见的系统通过 vr 或者摄像头捕捉手臂姿势来操纵机械臂,这称为 <code>task-space mapping</code>, 本文使用 <code>WidowX</code> 一种让用户通过反向驱动 "leader"(一个更小的机器部件)来驱动机械臂("follower")的系统,这称为 <code>joint-space mapping</code><br />
 为什么选择这种系统:</p>
 <ol type="1">
-<li>系统中的机械臂有6个自由度且没有冗余，如果使用反向运动学，很容易陷入起一点</li>
+<li>系统中的机械臂有 6 个自由度且没有冗余,如果使用反向运动学,很容易陷入起一点</li>
 <li>共用空间减少计算消耗和延迟</li>
-<li>leader的重量防止用户动作过快且相比VR控制器减少振动</li>
+<li>leader 的重量防止用户动作过快且相比 VR 控制器减少振动</li>
 </ol></li>
 </ol>
-<p>除此之外，系统做了一些改造减少leader的耗力，详见官网<br />
-这个机器系统称为ALOHA</p>
+<p>除此之外,系统做了一些改造减少 leader 的耗力,详见官网<br />
+这个机器系统称为 ALOHA</p>
 <p><img src="/assets/ml/image-1.png" /></p>
 <ol start="3" type="1">
-<li>ACT理论部分</li>
+<li>ACT 理论部分</li>
 </ol>
-<p>ACT系统可以视为一种有条件(conditional)的VAE(CVAE), 其编码器将动作序列和关节位置作为观察结果(输入数据)编码为z(测试时会丢弃编码器), tf部分的编码器接受所有相机输入、关节位置以及z，其解码器生成一个动作序列<br />
-实操中，让操作员操作leader机器人(leader由于要人类操纵，规格与follower不同，两者的动作参数之间可以隐式转换), ACT不断预测人类操作员在给定观察下的未来k步操作<br />
-这样有个额外的好处，由于学习的样本是人类提供的行为，而这种行为不一定是符合马尔科夫假设的，单步学习很可能会被暂停之类的行为误导，而如果误导行为集中在一个动作块中，对训练的损害则不会那么巨大<br />
-但相应的，由于每k步切换，可能过程不会太平滑，因此在每步都会查询策略，类似滑动窗口，这样依赖每次预测的动作块都会有部分重叠，因此为了充分利用这些信息，对未来时刻的所有预测动作，计算一个加权和，这个过程称为 <code>temporal ensembling</code>, 实验发现这样的聚合效果要好于传统的对于时间上相邻动作动作的平滑化，这部分机制会在下文详细讨论</p>
+<p>ACT 系统可以视为一种有条件(conditional)的 VAE(之前写的 <a href="https://thinklive1.github.io/thinklive/48061/#vae-%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8">介绍博文</a>), 其编码器将动作序列和关节位置作为观察结果(输入数据)编码为 z(测试时会丢弃编码器), tf 部分的编码器接受所有相机输入、关节位置以及 z,其解码器生成一个动作序列<br />
+实操中,让操作员操作 leader 机器人(leader 由于要人类操纵,规格与 follower 不同,两者的动作参数之间可以隐式转换), ACT 不断预测人类操作员在给定观察下的未来 k 步操作<br />
+这样有个额外的好处,由于学习的样本是人类提供的行为,而这种行为不一定是符合马尔科夫假设的,单步学习很可能会被暂停之类的行为误导,而如果误导行为集中在一个动作块中,对训练的损害则不会那么巨大<br />
+但相应的,由于每 k 步切换,可能过程不会太平滑,因此在每步都会查询策略,类似滑动窗口,这样依赖每次预测的动作块都会有部分重叠,因此为了充分利用这些信息,对未来时刻的所有预测动作,计算一个加权和,这个过程称为 <code>temporal ensembling</code>, 实验发现这样的聚合效果要好于传统的对于时间上相邻动作动作的平滑化,这部分机制会在下文详细讨论</p>
 <p>接下来阐释对输入的处理:</p>
 <ol type="1">
-<li>我们用CVAE处理人类输入,它由一个编码器和一个解码器组成, 解码器会预测z的均值与方差,用作对角高斯分布,也就是根据输入数据拟合一个高斯分布</li>
-<li>出于训练速度考虑,对输入数据,不使用图像观察结果,只用机器人的本体感知数据(例如姿势,角度等)</li>
-<li>解码器则会使用z以及当前观察结果(图像+关节位置)预测未来的动作序列</li>
-<li>测试时,设z为先验分布(给定)的均值，如果想要确定性地解码，可以直接设0(注意是测试时这么做)</li>
-<li>训练的过程中不断地最大化模型输出与演示数据里的相同动作块的对数概率；同时也使用标准VAE的两个标准(重建损失与正则化项)，对正则化项，乘以一个超参数β(用于控制z包含的信息量，更高的正则化会导致更少的信息转入z)</li>
+<li>我们用 CVAE 处理人类输入, 它由一个编码器和一个解码器组成, 解码器会预测 z 的均值与方差, 用作对角高斯分布, 也就是根据输入数据拟合一个高斯分布</li>
+<li>出于训练速度考虑, 对输入数据, 不使用图像观察结果, 只用机器人的本体感知数据(例如姿势, 角度等)</li>
+<li>解码器则会使用 z 以及当前观察结果(图像+关节位置)预测未来的动作序列</li>
+<li>测试时, 设 z 为先验分布(给定)的均值,如果想要确定性地解码,可以直接设 0(注意是测试时这么做)</li>
+<li>训练的过程中不断地最大化模型输出与演示数据里的相同动作块的对数概率；同时也使用标准 VAE 的两个标准(重建损失与正则化项),对正则化项,乘以一个超参数 β(用于控制 z 包含的信息量,更高的正则化会导致更少的信息转入 z)</li>
 </ol>
 <p>具体实现:</p>
 <p><img src="/assets/ml/image-2.png" /></p>
 <ol type="1">
-<li>使用tf作为编码和解码器，具体来说，CVAE的编码器类似BERT,其输入是当前关节位置以及长度为k的演示动作序列，同样类似BERT，每段序列会有个<code>CLS</code>前缀,具体见上图左侧部分</li>
-<li>CVAE解码器实际上更为复杂，由<code>ResNet image encoders, a transformer encoder, a transformer decoder</code> 组成，接受的输入也比编码器更多，其动作空间是机器人的所有关键位置也就是一个14维向量(一只手对应7维),大致过程如下
+<li>使用 tf 作为编码和解码器,具体来说,CVAE 的编码器类似 BERT, 其输入是当前关节位置以及长度为 k 的演示动作序列,同样类似 BERT,每段序列会有个 <code>CLS</code> 前缀, 具体见上图左侧部分</li>
+<li>CVAE 解码器实际上更为复杂,由 <code>ResNet image encoders, a transformer encoder, a transformer decoder</code> 组成,接受的输入也比编码器更多,其动作空间是机器人的所有关键位置也就是一个 14 维向量(一只手对应 7 维), 大致过程如下
 <ol type="1">
-<li>resnet的编码器将图像输入转化为特征地图，再被展平(flatten)为序列(另外使用正弦位置编码保存空间关系)</li>
-<li>处理完图像后，特征数据以及关节位置,z作为输入通过一个线性层投影到一个向量组，其向量数为k</li>
-<li>得益于前一步中得到的固定长度的向量组，tf解码器通过cross-attention产生相同长度的输出组，然后在经过MLP(多层感知机)的投影为14长度的动作向量组</li>
+<li>resnet 的编码器将图像输入转化为特征地图,再被展平(flatten)为序列(另外使用正弦位置编码保存空间关系)</li>
+<li>处理完图像后,特征数据以及关节位置, z 作为输入通过一个线性层投影到一个向量组,其向量数为 k</li>
+<li>得益于前一步中得到的固定长度的向量组,tf 解码器通过 cross-attention 产生相同长度的输出组,然后在经过 MLP(多层感知机)的投影为 14 长度的动作向量组</li>
 </ol></li>
 </ol>
-<p>神奇的是，用L1损失作为重建损失的表现更好，此外用<code>delta joint position</code>(关节变化量)训练效果不如目标位置</p>
+<p>神奇的是,用 L1 损失作为重建损失的表现更好,此外用 <code>delta joint position</code>(关节变化量)训练效果不如目标位置</p>
 <div class="note info"><ul>
-<li>逆向运动学（Inverse Kinematics，IK）: 运动学（Kinematics）是在给定所有关节角度的情况下计算链接结构（如一节人体的关节）的末端的空间位置的过程; 逆向运动学则相反，知道末端状态，需要求解关节应该是什么角度</li>
-<li>奇异点（singularities）: 机器人在某些特定配置下失去自由度或控制能力的状态。在这些状态下，机器人可能无法有效地执行运动或控制其末端执行器的位置和姿态</li>
-<li>变分自编码器（Variational Autoencoder, VAE）: 一种生成模型，结合了神经网络和贝叶斯推断的思想，广泛应用于无监督学习、数据生成和特征学习</li>
-<li>风格变量（Style Variable）: 生成模型中，用于控制输出样本风格或特征的潜在变量,能够影响生成内容的“风格”而不改变其“内容”</li>
+<li>逆向运动学（Inverse Kinematics,IK）: 运动学（Kinematics）是在给定所有关节角度的情况下计算链接结构（如一节人体的关节）的末端的空间位置的过程; 逆向运动学则相反,知道末端状态,需要求解关节应该是什么角度</li>
+<li>奇异点（singularities）: 机器人在某些特定配置下失去自由度或控制能力的状态。在这些状态下,机器人可能无法有效地执行运动或控制其末端执行器的位置和姿态</li>
+<li>变分自编码器（Variational Autoencoder, VAE）: 一种生成模型,结合了神经网络和贝叶斯推断的思想,广泛应用于无监督学习、数据生成和特征学习</li>
+<li>风格变量（Style Variable）: 生成模型中,用于控制输出样本风格或特征的潜在变量, 能够影响生成内容的“风格”而不改变其“内容”</li>
 </ul>
 </div>
 <h4 id="实验与总结">实验与总结</h4>
-<p>由于此部分大多是现实情况的细节，省略这些部分，只说结果<br />
-ACT主要创新点在于能够预测连续的，精确的动作序列，而一些先前的模仿学习方法只能像分类问题一样预测离散动作，此外端到端的训练方式对特化的任务可能有更好的效果<br />
-消融实验中，CVAE,动作块等机制都较为有效<br />
-相比先前方法，ACT大部分任务都取得了更好的表现，但是会在对比度低图像难以捕捉特征的场景表现不佳</p>
+<p>由于此部分大多是现实情况的细节,省略这些部分,只说结果<br />
+ACT 主要创新点在于能够预测连续的,精确的动作序列,而一些先前的模仿学习方法只能像分类问题一样预测离散动作,此外端到端的训练方式对特化的任务可能有更好的效果<br />
+消融实验中,CVAE, 动作块等机制都较为有效<br />
+相比先前方法,ACT 大部分任务都取得了更好的表现,但是会在对比度低图像难以捕捉特征的场景表现不佳</p>
 <div class="note info">
 </div>
 ]]></content>
