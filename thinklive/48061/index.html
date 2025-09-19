@@ -42,7 +42,7 @@
 <meta property="og:image" content="https://thinklive1.github.io/assets/ml/seq2seq_v9.png">
 <meta property="og:image" content="https://thinklive1.github.io/assets/ml/seq2seq_v9_1.png">
 <meta property="article:published_time" content="2025-09-09T07:53:29.840Z">
-<meta property="article:modified_time" content="2025-09-19T05:22:42.143Z">
+<meta property="article:modified_time" content="2025-09-19T05:30:52.186Z">
 <meta property="article:author" content="thinklive">
 <meta property="article:tag" content="课程笔记">
 <meta property="article:tag" content="python">
@@ -323,7 +323,7 @@ const darkmode = new Darkmode(options);
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-09-19 13:22:42" itemprop="dateModified" datetime="2025-09-19T13:22:42+08:00">2025-09-19</time>
+      <time title="修改时间：2025-09-19 13:30:52" itemprop="dateModified" datetime="2025-09-19T13:30:52+08:00">2025-09-19</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -968,17 +968,16 @@ A: 深度学习能增加预测函数的弹性,这是因为它可以复杂的不�
 <p><span class="math display">\[p(x^{\prime})=\pi(z^{\prime}){\big|}d e t{\big(}J_{f^{-1}}{\big)}{\big|}\]</span></p>
 <p>其实这个式子很直观，J矩阵里是x对z的微分，那么其逆矩阵就是z对x的微分，那么其行列式可以理解为映射中，z的“底面积"对应x”底面积"的比例关系(而“高"就对应概率本身)<br />
 基于这个数学式的生成模型称为G，即G将π(z)(通常是对正态分布取样)转化为一个概率分布p(x),可以形象地写作 <span class="math inline">\(x=G(z) \space | \space z=G^{-1}(x)\)</span></p>
-<p>目前为止我们得到了一个优雅的数学式，但与常见的ml模型不同的是，在这个情况下，x、z有相同的长度，这产生了两个问题：</p>
+<p>先前的表达式的对数形式为:<br />
+<span class="math inline">\(l o g p_{G}(x^{i})=l o g\pi\left(G^{-1}(x^{i})\right)+l o g|d e t(J_{G^{-1}})|\)</span><br />
+由于π一般是一个正态分布，第一项会倾向于在中间(标准正态分布就是0向量附近)取点，第二项表示的可以某种意义上理解为映射后微分空间的分散的程度的对数，如果总在中间取点，几乎没有分散，则对数是很小的负数，产生很大的惩罚;因此这样的形式能一定程度上约束分布不要过于集中</p>
+<p>目前为止我们得到了一个优雅的数学式，但与常见的ml模型不同的是，在这个情况下(需要x,z相互可逆)，x、z有相同的长度，这产生了两个问题：</p>
 <ol type="1">
 <li>计算量大</li>
 <li>对模型的约束较大，可能会降低泛化能力</li>
 </ol>
-<p>这就是为什么名字叫flow了，因为我们会用一串G来弥补模型弹性不足的问题</p>
-<p>先前的表达式的对数形式为:</p>
-<p><span class="math inline">\(l o g p_{G}(x^{i})=l o g\pi\left(G^{-1}(x^{i})\right)+l o g|d e t(J_{G^{-1}})|\)</span><br />
-由于π一般是一个正态分布，第一项会倾向于在中间(标准正态分布就是0向量附近)取点，第二项表示的可以某种意义上理解为映射后微分空间的分散的程度的对数，如果总在中间取点，几乎没有分散，则对数是很小的负数，产生很大的惩罚;因此这样的形式能一定程度上约束分布不要过于集中<br />
-上面解决了除了具体的G的所有问题，那么实际上G会用什么呢？<br />
-具体训练考虑到计算量，会使用<code>coupling layer</code>这样的技术，它巧妙地牺牲一部分输入数据(不做变换仅复制)让涉及到的行列式和逆矩阵都很容易计算</p>
+<p>这就是为什么名字叫flow了，因为我们会用一串G来弥补模型弹性不足的问题,但实际上用一个G和一连串G除了计算量没有本质区别，以下讨论一个G的情况<br />
+对一个具体的G，实际训练时考虑到计算量，会使用<code>coupling layer</code>这样的技术，它巧妙地牺牲一部分输入数据(不做变换仅复制)让涉及到的行列式和逆矩阵都很容易计算;也可以用一对一的卷积，对其内核矩阵(涉及的论文里是3×3)算行列式以及微分</p>
 <div class="note info">
 </div>
 
