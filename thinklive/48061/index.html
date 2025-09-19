@@ -44,7 +44,7 @@
 <meta property="og:image" content="https://thinklive1.github.io/assets/ml/image-4.png">
 <meta property="og:image" content="https://thinklive1.github.io/assets/ml/relation.png">
 <meta property="article:published_time" content="2025-09-09T07:53:29.840Z">
-<meta property="article:modified_time" content="2025-09-19T11:56:50.177Z">
+<meta property="article:modified_time" content="2025-09-19T12:03:55.034Z">
 <meta property="article:author" content="thinklive">
 <meta property="article:tag" content="课程笔记">
 <meta property="article:tag" content="python">
@@ -325,7 +325,7 @@ const darkmode = new Darkmode(options);
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-09-19 19:56:50" itemprop="dateModified" datetime="2025-09-19T19:56:50+08:00">2025-09-19</time>
+      <time title="修改时间：2025-09-19 20:03:55" itemprop="dateModified" datetime="2025-09-19T20:03:55+08:00">2025-09-19</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -1006,14 +1006,14 @@ A: 深度学习能增加预测函数的弹性,这是因为它可以复杂的不�
 那么u和p什么关系，作为计算机专业不用懂原理，但存在这么一个方程式:</p>
 <p><span class="math display">\[\frac{\partial}{\partial t}p_{t}({\bf x})+\nabla\cdot(p_{t}({\bf x}){\bf u}_{t}({\bf x}))=0\]</span></p>
 <p>需要注意概率密度路径与速度场不是一一对应的，不同的速度场可以产生相同的概率密度路径</p>
-<p>接下来回归标题，标题的流flow正是运动时的轨迹，定义为: <span class="math inline">\(\frac{\partial}{\partial t}\phi_{t}({\bf x})={\bf u}_{t}(\phi_{t}({\bf x}))\)</span> ,其中 <span class="math inline">\(\phi _t(x)\)</span> 初值为x的粒子在t时刻运动到的位置,也就是对其在<code>[0,t]</code>积分就会得到t点位置和x的位移<br />
+<p>接下来回归标题，标题的流flow正是运动时的轨迹，定义为: <span class="math inline">\(\frac{\partial}{\partial t}\phi_{t}({\bf x})={\bf u}_{t}(\phi_{t}({\bf x}))\)</span> ,其中 <span class="math inline">\(\phi _t(x)\)</span> 初值为x的粒子在t时刻运动到的位置,也就是对其在<code>[0,t]</code>积分就会得到t点位置和初始位置的位移<br />
 那么显然p和 <span class="math inline">\(\phi\)</span> 之间也有关系，这里之间放出来:</p>
 <p><span class="math display">\[ p_t(\mathbf x)=p_0(\boldsymbol\phi_t^{-1}(\mathbf x))\left|\det\left[\frac{\partial\boldsymbol\phi_t^{-1}}{\partial\mathbf x}(\mathbf x)\right]\right| \]</span></p>
 <p>这称为push-forward方程，其中t时刻位于x位置处的粒子在0时刻的出发位置是 <span class="math inline">\(\boldsymbol\phi_t^{-1}(\mathbf x)\)</span></p>
 <p><img src="/assets/ml/relation.png" /></p>
 <h4 id="连续归一化流-continuous-normalizing-flows-cnfs">连续归一化流 (Continuous Normalizing Flows, CNFs)</h4>
-<p>终于说到生成模型了，令 <span class="math inline">\(p_t(x)\)</span> 为概率密度路径，p0是一种简单分布(例如标准正态分布),p1是输入数据的分布, <span class="math inline">\(u_t(x)\)</span> 为对应向量场，那么流匹配的模板就是用网络构建向量场 <span class="math inline">\(\\mathbf v_{t}^{\theta}(\mathbf x)\)</span> 去近似 <span class="math inline">\(u_t(x)\)</span><br />
-虽然一上来就定义了很多变量，但经过前文介绍，其实其目的很直观，接下来定于个同样直观的损失函数:<br />
+<p>终于说到生成模型了，令 <span class="math inline">\(p_t(x)\)</span> 为概率密度路径，p0是一种简单分布(例如标准正态分布),p1是输入数据的分布, <span class="math inline">\(u_t(x)\)</span> 为对应向量场，那么流匹配的模板就是用网络构建向量场 <span class="math inline">\(\mathbf v_{t}^{\theta}(\mathbf x)\)</span> 去近似 <span class="math inline">\(u_t(x)\)</span><br />
+虽然一上来就定义了很多变量，但经过前文介绍，其实其目的很直观，接下来得到一个同样直观的损失函数:<br />
 <span class="math display">\[\mathcal L_\text{FM}(\theta)=\mathbb E_{t,p_t(\mathbf x)}\left[\Vert\mathbf v_{t}^{\theta}(\mathbf x)-\mathbf u_t(\mathbf x)\Vert^2\right]\]</span></p>
 <p>当然，真实速度场是未知的，这是生成模型的经典问题，同样一个经典解决方案，也就是每次取一个样本去近似，不断更新训练，这就需要<strong>条件速度场</strong> 给定某特定样本x1 ，称 <span class="math inline">\(p_t(x|x1)\)</span> 为条件概率路径</p>
 <p><span class="math display">\[p_t(\mathbf x)=\int p_t(\mathbf x\vert\mathbf x_1)q(\mathbf x_1)\mathrm d\mathbf x_1=\mathbb E_{q(\mathbf x_1)}[p_t(\mathbf x\vert\mathbf x_1)]\]</span> <span class="math display">\[\mathbf u_t(\mathbf x)=\int \mathbf u_t(\mathbf x\vert\mathbf x_1)\frac{p_t(\mathbf x\vert\mathbf x_1)q(\mathbf x_1)}{p_t(\mathbf x)}\mathrm d\mathbf x_1=\mathbb E_{p(\mathbf x_1\vert\mathbf x)}[\mathbf u_t(\mathbf x\vert\mathbf x_1)]\]</span></p>
@@ -1097,7 +1097,7 @@ A: 深度学习能增加预测函数的弹性,这是因为它可以复杂的不�
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">36:21</span>
+    <span title="站点阅读时长">36:22</span>
   </span>
 </div>
 <div class="busuanzi-count">

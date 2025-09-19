@@ -34,7 +34,7 @@
 <meta property="og:image" content="https://thinklive1.github.io/assets/ml/image-1.png">
 <meta property="og:image" content="https://thinklive1.github.io/assets/ml/image-2.png">
 <meta property="article:published_time" content="2025-09-09T07:53:29.848Z">
-<meta property="article:modified_time" content="2025-09-19T06:14:56.484Z">
+<meta property="article:modified_time" content="2025-09-19T12:30:41.120Z">
 <meta property="article:author" content="thinklive">
 <meta property="article:tag" content="人工智能">
 <meta property="article:tag" content="机器学习">
@@ -312,7 +312,7 @@ const darkmode = new Darkmode(options);
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-09-19 14:14:56" itemprop="dateModified" datetime="2025-09-19T14:14:56+08:00">2025-09-19</time>
+      <time title="修改时间：2025-09-19 20:30:41" itemprop="dateModified" datetime="2025-09-19T20:30:41+08:00">2025-09-19</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -957,14 +957,15 @@ VLA 具体可以定义为:</p>
 </div>
 <h4 id="模型介绍">模型介绍</h4>
 <p>下面开始介绍一些技术细节, 其主干可以说是一个基于 tf 的视觉模型, 将图像输入编码嵌入到语言空间, 但正如很多动作模型一样,出于任务考虑输入输出数据会增加机器人感知与动作<br />
-模型使用条件流匹配(之前写的 <a href="https://thinklive1.github.io/thinklive/48061/#flow-matching-%E6%B5%81%E5%8C%B9%E9%85%8D">介绍博文</a>)来对连续的动作分布建模<br />
+模型使用条件流匹配(之前写的<a href="https://thinklive1.github.io/thinklive/48061/#flow-matching">介绍博文</a>)来对连续的动作分布建模<br />
 模型不依赖特定的 VLM, 为了方便实验中使用 <code>PaliGemma</code></p>
 <p>受一个叫 <code>transfusion</code> 的模型(用一个 tf 处理不同类型的输出,对连续输出使用流匹配的损失函数,对离散输出使用交叉熵的损失函数)启发,基于 transfusion, 在工程上(高情商说法), 发现机器人特有的 token 上(即动作与状态),应用特定的权重集合能提高表现<br />
 作为一个生成任务,技术上具体可以描述为对分布 <span class="math inline">\(p(A_t|o_t)\)</span> 建模,其中 At 是从 t 下标开始,长度为 H 的动作序列（动作块）,文中的 H 为 50,而观察 o 由 RGB 图像、语言指令和机器人状态(关节角度)组成分别用 I, l, q 表示<br />
 虽然输入类别有很多,但 I, q 都会由编码器以及一个线性投影层投影到 l 的嵌入空间<br />
 将损失函数定义为:</p>
 <p><span class="math display">\[L^{\tau}(\theta)=\mathbb{E}_{p(\mathbf{A}_{t}|o_{t}),q(\mathbf{A}_{t}^{\tau}|\mathbf{A}_{t})}||\mathbf{v}\theta(\mathbf{A}_{t}^{\tau},\mathbf{o}_{t})-\mathbf{u}(\mathbf{A}_{t}^{\tau}|\mathbf{A}_{t})||^{2}\]</span></p>
-<p>其中上标是流匹配的时间步,下标则是机器人的时间步, <span class="math inline">\(\tau\ \in\ [0,1]\)</span> , 训练时从标准正态分布中采样一个 <span class="math inline">\(\epsilon\)</span> , 令噪声行动 <span class="math inline">\(A_t^\tau = \tau A_t + (1-\tau ) \epsilon\)</span> , 训练目标是让 <span class="math inline">\(\mathbf{v}\theta(\mathbf{A}_{t}^{\tau},\mathbf{o}_{t})\)</span> 与去噪向量场 <span class="math inline">\(\mathbf{u}(\mathbf{A}_{t}^{\tau}|\mathbf{A}_{t}) = \epsilon - A_t\)</span> 尽可能接近</p>
+<p>其中上标是流匹配的时间步,下标则是机器人的时间步, <span class="math inline">\(\tau\ \in\ [0,1]\)</span> , 训练时从标准正态分布中采样一个 <span class="math inline">\(\epsilon\)</span> , 令噪声行动 <span class="math inline">\(A_t^\tau = \tau A_t + (1-\tau ) \epsilon\)</span> , 训练目标是让 <span class="math inline">\(\mathbf{v}\theta(\mathbf{A}_{t}^{\tau},\mathbf{o}_{t})\)</span> 与去噪向量场 <span class="math inline">\(\mathbf{u}(\mathbf{A}_{t}^{\tau}|\mathbf{A}_{t}) = \epsilon - A_t\)</span> 匹配<br />
+这里先不讨论太多细节，整体上这是比较标准的条件流匹配方法，只不过学习的不是直接的动作输出，而是如何对输入降噪，最后我们得到的其实是一个和定义出来的降噪向量场尽可能接近的一个基于模型参数的向量场v</p>
 <h2 id="实例">实例</h2>
 <h3 id="openin"><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/Ro3Vrjx0GiN8eWe6veT-kg">OpenIN</a></h3>
 <p>本文提出了一种「<strong>开放词汇、实例导向</strong>」的导航系统, 该系统「<strong>支持多模态和多类型对象导航指令</strong>」, 能够实现对 <strong>位置可变日常实例</strong> 的有效导航<br />
@@ -1143,7 +1144,7 @@ ACT 主要创新点在于能够预测连续的,精确的动作序列,而一些�
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">36:21</span>
+    <span title="站点阅读时长">36:22</span>
   </span>
 </div>
 <div class="busuanzi-count">
