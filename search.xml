@@ -153,6 +153,8 @@
 <li><a href="#π0-a-vision-language-action-flow-model-for--general-robot-control">π0: A Vision-Language-Action Flow Model for General Robot Control</a>
 <ul>
 <li><a href="#模型介绍">模型介绍</a></li>
+<li><a href="#训练与实验">训练与实验</a></li>
+<li><a href="#附录">附录</a></li>
 </ul></li>
 </ul></li>
 <li><a href="#实例">实例</a>
@@ -689,8 +691,28 @@ VLA 具体可以定义为:</p>
 虽然输入类别有很多,但 I, q 都会由编码器以及一个线性投影层投影到 l 的嵌入空间<br />
 将损失函数定义为:</p>
 <p><span class="math display">\[L^{\tau}(\theta)=\mathbb{E}_{p(\mathbf{A}_{t}|o_{t}),q(\mathbf{A}_{t}^{\tau}|\mathbf{A}_{t})}||\mathbf{v}\theta(\mathbf{A}_{t}^{\tau},\mathbf{o}_{t})-\mathbf{u}(\mathbf{A}_{t}^{\tau}|\mathbf{A}_{t})||^{2}\]</span></p>
-<p>其中上标是流匹配的时间步,下标则是机器人的时间步, <span class="math inline">\(\tau\ \in\ [0,1]\)</span> , 训练时从标准正态分布中采样一个 <span class="math inline">\(\epsilon\)</span> , 令噪声行动 <span class="math inline">\(A_t^\tau = \tau A_t + (1-\tau ) \epsilon\)</span> , 训练目标是让 <span class="math inline">\(\mathbf{v}\theta(\mathbf{A}_{t}^{\tau},\mathbf{o}_{t})\)</span> 与去噪向量场 <span class="math inline">\(\mathbf{u}(\mathbf{A}_{t}^{\tau}|\mathbf{A}_{t}) = \epsilon - A_t\)</span> 匹配<br />
-这里先不讨论太多细节，整体上这是比较标准的条件流匹配方法，只不过学习的不是直接的动作输出，而是如何对输入降噪，最后我们得到的其实是一个和定义出来的降噪向量场尽可能接近的一个基于模型参数的向量场v</p>
+<p>其中上标是流匹配的时间步,下标则是机器人的时间步, <span class="math inline">\(\tau\ \in\ [0,1]\)</span> , 训练时从标准正态分布中采样一个 <span class="math inline">\(\epsilon\)</span> , 令噪声行动 <span class="math inline">\(A_t^\tau = \tau A_t + (1-\tau ) \epsilon\)</span> , 训练目标是让 <span class="math inline">\(\mathbf{v}\theta(\mathbf{A}_{t}^{\tau},\mathbf{o}_{t})\)</span> 与去噪向量场 <span class="math inline">\(\mathbf{u}(\mathbf{A}_{t}^{\tau}|\mathbf{A}_{t}) = \epsilon - A_t\)</span> 匹配,初始动作输入是一个从标准正态分布中取样的噪声动作</p>
+<p>这里先不讨论太多细节，整体上这是比较标准的条件流匹配方法，只不过学习的不是直接的动作输出，而是如何对输入降噪，最后我们得到的其实是一个和定义出来的降噪向量场尽可能接近的一个基于模型参数的向量场v<br />
+得到向量场后，推断过程就是做一个积分: <span class="math inline">\({\bf A}_{t}^{\tau+\delta}={\bf A}_{t}^{\tau}+\delta{\bf v}_{\theta}({\bf A}_{t}^{\tau},{\bf o}_{t})\)</span><br />
+其中 $ $ 是积分的补偿，这里设0.1,由于 $ $ 范围是<code>[0,1]</code>, 这就意味着一共积分10次<br />
+这里有一些减少计算的技巧，详见后文<br />
+类似LLM， 本文也将模型分为两个阶段，预训练阶段让模型尽可能获得泛化能力(包括对物理任务的泛化), 后训练阶段则让模型流畅地执行下游任务</p>
+<h4 id="训练与实验">训练与实验</h4>
+<p>数据上，正如前文所说，π0使用了一组庞大的数据集，包括一些开源数据与自己的数据，且与以往数据不同的是，自己的数据部分复杂度较高，可以视为一些行为的组合<br />
+由于数据组成较为复杂，因此对不同的数据集来源进行加权，动作和状态向量(a,q)按最复杂的机器人设置，对更简单的机器人，则填零或者掩盖(mask out)掉缺失的维度<br />
+此外一个常见的思路是将复杂的任务分解为简单的任务组合，由于VLM赋予了语言能力，π0可以实现这种程度的语义推断<br />
+进一步的实验中，为了评估语言能力，对指令进行划分，只接受整体性指令的模型表现最差，而接受人类指令和高级VLM指令的模型互有胜负，比没有任务分解的表现好一个阶层<br />
+论文还比较了π0的无预训练版本和预训练版本以及其他模型(包括这篇博文写过的ACT), 较为符合常识的是，对任务类型相似的任务，预训练能带来更大提升，但对其他模型，往往直接从头开始面向任务训练的模型表现最好；有些不不符合常识的是，部分任务训练时间更长的版本表会更差(但降幅不高)<br />
+最后的实验针对最为复杂的任务，例如兼顾移动与操控，对这种任务，往往预训练并微调后的模型有相当好表现，有时能成倍于从头训练版本和zero-shot版本</p>
+<h4 id="附录">附录</h4>
+<p>这部分解释一些技术细节:</p>
+<ul>
+<li>输入输出:
+<ul>
+<li>输入: 除了VLM的I,l数据外，还会增加一个输入向量q,也就是机器人自己的状态，最后这三种输出会被tf以及一个投影层嵌入到同一个空间；此外</li>
+<li></li>
+</ul></li>
+</ul>
 <h2 id="实例">实例</h2>
 <h3 id="openin"><a href="https://mp.weixin.qq.com/s/Ro3Vrjx0GiN8eWe6veT-kg">OpenIN</a></h3>
 <p>本文提出了一种「<strong>开放词汇、实例导向</strong>」的导航系统, 该系统「<strong>支持多模态和多类型对象导航指令</strong>」, 能够实现对 <strong>位置可变日常实例</strong> 的有效导航<br />
