@@ -31,10 +31,12 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://thinklive1.github.io/assets/ml/Pasted%20image%2020250911154734.png">
 <meta property="og:image" content="https://thinklive1.github.io/assets/ml/image.png">
+<meta property="og:image" content="https://thinklive1.github.io/assets/ml/image-5.png">
+<meta property="og:image" content="https://thinklive1.github.io/assets/ml/image-6.png">
 <meta property="og:image" content="https://thinklive1.github.io/assets/ml/image-1.png">
 <meta property="og:image" content="https://thinklive1.github.io/assets/ml/image-2.png">
 <meta property="article:published_time" content="2025-09-09T07:53:29.848Z">
-<meta property="article:modified_time" content="2025-09-20T06:14:55.119Z">
+<meta property="article:modified_time" content="2025-09-20T08:43:24.837Z">
 <meta property="article:author" content="thinklive">
 <meta property="article:tag" content="人工智能">
 <meta property="article:tag" content="机器学习">
@@ -201,7 +203,7 @@ const darkmode = new Darkmode(options);
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#embodied-ai"><span class="nav-number">1.</span> <span class="nav-text">Embodied AI</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#semantic-mapping-%E8%AF%AD%E4%B9%89%E5%9C%B0%E5%9B%BE"><span class="nav-number">1.1.</span> <span class="nav-text">Semantic Mapping 语义地图</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#survey"><span class="nav-number">1.1.1.</span> <span class="nav-text">survey</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%90%8D%E8%AF%8D%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">名词介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%B0%E5%9B%BE%E7%BB%93%E6%9E%84"><span class="nav-number">1.1.1.3.</span> <span class="nav-text">地图结构</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#spatial-grid-map"><span class="nav-number">1.1.1.3.1.</span> <span class="nav-text">Spatial grid map</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#topological-map"><span class="nav-number">1.1.1.3.2.</span> <span class="nav-text">Topological map</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#point-cloud-map"><span class="nav-number">1.1.1.3.3.</span> <span class="nav-text">Point-cloud map</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#hybrid-map"><span class="nav-number">1.1.1.3.4.</span> <span class="nav-text">Hybrid map</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%B0%E5%9B%BE%E7%BC%96%E7%A0%81-map-encoding"><span class="nav-number">1.1.1.4.</span> <span class="nav-text">地图编码 map encoding</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%98%BE%E5%BC%8F%E7%BC%96%E7%A0%81"><span class="nav-number">1.1.1.4.1.</span> <span class="nav-text">显式编码</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%9A%90%E5%BC%8F%E7%BC%96%E7%A0%81"><span class="nav-number">1.1.1.4.2.</span> <span class="nav-text">隐式编码</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%B0%E5%9B%BE%E8%AF%84%E4%BC%B0-map-evaluation"><span class="nav-number">1.1.1.5.</span> <span class="nav-text">地图评估 Map Evaluation</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B1%95%E6%9C%9B%E6%9C%AA%E6%9D%A5%E4%B8%8E%E7%BB%93%E8%AF%AD"><span class="nav-number">1.1.1.6.</span> <span class="nav-text">展望未来与结语</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dualmap-%E5%9C%A8%E7%BA%BF%E5%BC%80%E6%94%BE%E8%AF%8D%E6%B1%87%E8%AF%AD%E4%B9%89%E5%BB%BA%E5%9B%BE%E5%8A%A9%E5%8A%9B%E6%99%BA%E8%83%BD%E4%BD%93%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%AF%BC%E8%88%AA"><span class="nav-number">1.1.2.</span> <span class="nav-text">DualMap: 在线开放词汇语义建图助力智能体自然语言导航</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%91%98%E8%A6%81"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">摘要</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#dualmap-%E7%9A%84%E6%94%B9%E8%BF%9B"><span class="nav-number">1.1.2.3.</span> <span class="nav-text">DualMap 的改进</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%85%B7%E4%BD%93%E5%9C%B0%E5%9B%BE"><span class="nav-number">1.1.2.3.1.</span> <span class="nav-text">具体地图</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%8A%BD%E8%B1%A1%E5%9C%B0%E5%9B%BE"><span class="nav-number">1.1.2.3.2.</span> <span class="nav-text">抽象地图</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AF%BC%E8%88%AA%E7%AD%96%E7%95%A5"><span class="nav-number">1.1.2.3.3.</span> <span class="nav-text">导航策略</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E7%BB%93%E6%9E%84%E4%B8%8E%E6%80%BB%E7%BB%93"><span class="nav-number">1.1.2.4.</span> <span class="nav-text">测试结构与总结</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vision-language-action-models"><span class="nav-number">1.2.</span> <span class="nav-text">Vision-Language-Action Models</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#large-vlm-based-vision-language-action-models-for-robotic-manipulation-a-survey"><span class="nav-number">1.2.1.</span> <span class="nav-text">Large VLM-based Vision-Language-Action Models for Robotic Manipulation: A Survey</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%89%8D%E8%A8%80-1"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%83%8C%E6%99%AF%E7%9F%A5%E8%AF%86"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">背景知识</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#monolithic-models-%E5%8D%95%E7%89%87%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.2.1.3.</span> <span class="nav-text">MONOLITHIC MODELS 单片模型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#single-system-models"><span class="nav-number">1.2.1.3.1.</span> <span class="nav-text">Single-system Models</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#model-performance-enhancement"><span class="nav-number">1.2.1.3.1.1.</span> <span class="nav-text">Model Performance Enhancement</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#inference-efficiency-optimization"><span class="nav-number">1.2.1.3.1.2.</span> <span class="nav-text">Inference Efficiency Optimization</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#dual-system-models"><span class="nav-number">1.2.1.3.2.</span> <span class="nav-text">Dual-system Models</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#cascade-based-methods"><span class="nav-number">1.2.1.3.2.1.</span> <span class="nav-text">Cascade-based Methods</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#parallel-based-methods"><span class="nav-number">1.2.1.3.2.2.</span> <span class="nav-text">Parallel-based Methods</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#hierarchical-models-%E5%88%86%E5%B1%82%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.2.1.4.</span> <span class="nav-text">HIERARCHICAL MODELS 分层模型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#planner-only"><span class="nav-number">1.2.1.4.1.</span> <span class="nav-text">Planner-Only</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#plannerpolicy"><span class="nav-number">1.2.1.4.2.</span> <span class="nav-text">Planner+Policy</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E5%89%8D%E6%B2%BF%E9%A2%86%E5%9F%9F"><span class="nav-number">1.2.1.5.</span> <span class="nav-text">其他前沿领域</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#vla-%E7%9A%84%E7%89%B9%E7%82%B9"><span class="nav-number">1.2.1.6.</span> <span class="nav-text">VLA 的特点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E9%9B%86%E5%92%8C%E5%9F%BA%E5%87%86%E6%B5%8B%E8%AF%95"><span class="nav-number">1.2.1.7.</span> <span class="nav-text">数据集和基准测试</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%BB%E7%BB%93%E5%92%8C%E5%B1%95%E6%9C%9B"><span class="nav-number">1.2.1.8.</span> <span class="nav-text">总结和展望</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%CF%800-a-vision-language-action-flow-model-for-general-robot-control"><span class="nav-number">1.2.2.</span> <span class="nav-text">π0: A Vision-Language-Action Flow Model for General Robot Control</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">模型介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%AD%E7%BB%83%E4%B8%8E%E5%AE%9E%E9%AA%8C"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">训练与实验</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%99%84%E5%BD%95"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">附录</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B"><span class="nav-number">1.3.</span> <span class="nav-text">实例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#openin"><span class="nav-number">1.3.1.</span> <span class="nav-text">OpenIN</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#learning-fine-grained-bimanual-manipulation-with-low-cost-hardware"><span class="nav-number">1.3.2.</span> <span class="nav-text">Learning Fine-Grained Bimanual Manipulation with Low-Cost Hardware</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%89%8D%E8%A8%80-2"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#real-work"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">real work</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E4%B8%8E%E6%80%BB%E7%BB%93"><span class="nav-number">1.3.2.3.</span> <span class="nav-text">实验与总结</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#embodied-ai"><span class="nav-number">1.</span> <span class="nav-text">Embodied AI</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#semantic-mapping-%E8%AF%AD%E4%B9%89%E5%9C%B0%E5%9B%BE"><span class="nav-number">1.1.</span> <span class="nav-text">Semantic Mapping 语义地图</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#survey"><span class="nav-number">1.1.1.</span> <span class="nav-text">survey</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%90%8D%E8%AF%8D%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">名词介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%B0%E5%9B%BE%E7%BB%93%E6%9E%84"><span class="nav-number">1.1.1.3.</span> <span class="nav-text">地图结构</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#spatial-grid-map"><span class="nav-number">1.1.1.3.1.</span> <span class="nav-text">Spatial grid map</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#topological-map"><span class="nav-number">1.1.1.3.2.</span> <span class="nav-text">Topological map</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#point-cloud-map"><span class="nav-number">1.1.1.3.3.</span> <span class="nav-text">Point-cloud map</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#hybrid-map"><span class="nav-number">1.1.1.3.4.</span> <span class="nav-text">Hybrid map</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%B0%E5%9B%BE%E7%BC%96%E7%A0%81-map-encoding"><span class="nav-number">1.1.1.4.</span> <span class="nav-text">地图编码 map encoding</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%98%BE%E5%BC%8F%E7%BC%96%E7%A0%81"><span class="nav-number">1.1.1.4.1.</span> <span class="nav-text">显式编码</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%9A%90%E5%BC%8F%E7%BC%96%E7%A0%81"><span class="nav-number">1.1.1.4.2.</span> <span class="nav-text">隐式编码</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%B0%E5%9B%BE%E8%AF%84%E4%BC%B0-map-evaluation"><span class="nav-number">1.1.1.5.</span> <span class="nav-text">地图评估 Map Evaluation</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B1%95%E6%9C%9B%E6%9C%AA%E6%9D%A5%E4%B8%8E%E7%BB%93%E8%AF%AD"><span class="nav-number">1.1.1.6.</span> <span class="nav-text">展望未来与结语</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dualmap-%E5%9C%A8%E7%BA%BF%E5%BC%80%E6%94%BE%E8%AF%8D%E6%B1%87%E8%AF%AD%E4%B9%89%E5%BB%BA%E5%9B%BE%E5%8A%A9%E5%8A%9B%E6%99%BA%E8%83%BD%E4%BD%93%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%AF%BC%E8%88%AA"><span class="nav-number">1.1.2.</span> <span class="nav-text">DualMap: 在线开放词汇语义建图助力智能体自然语言导航</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%91%98%E8%A6%81"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">摘要</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#dualmap-%E7%9A%84%E6%94%B9%E8%BF%9B"><span class="nav-number">1.1.2.3.</span> <span class="nav-text">DualMap 的改进</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%85%B7%E4%BD%93%E5%9C%B0%E5%9B%BE"><span class="nav-number">1.1.2.3.1.</span> <span class="nav-text">具体地图</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%8A%BD%E8%B1%A1%E5%9C%B0%E5%9B%BE"><span class="nav-number">1.1.2.3.2.</span> <span class="nav-text">抽象地图</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AF%BC%E8%88%AA%E7%AD%96%E7%95%A5"><span class="nav-number">1.1.2.3.3.</span> <span class="nav-text">导航策略</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E7%BB%93%E6%9E%84%E4%B8%8E%E6%80%BB%E7%BB%93"><span class="nav-number">1.1.2.4.</span> <span class="nav-text">测试结构与总结</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vision-language-action-models"><span class="nav-number">1.2.</span> <span class="nav-text">Vision-Language-Action Models</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#large-vlm-based-vision-language-action-models-for-robotic-manipulation-a-survey"><span class="nav-number">1.2.1.</span> <span class="nav-text">Large VLM-based Vision-Language-Action Models for Robotic Manipulation: A Survey</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%89%8D%E8%A8%80-1"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%83%8C%E6%99%AF%E7%9F%A5%E8%AF%86"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">背景知识</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#monolithic-models-%E5%8D%95%E7%89%87%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.2.1.3.</span> <span class="nav-text">MONOLITHIC MODELS 单片模型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#single-system-models"><span class="nav-number">1.2.1.3.1.</span> <span class="nav-text">Single-system Models</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#model-performance-enhancement"><span class="nav-number">1.2.1.3.1.1.</span> <span class="nav-text">Model Performance Enhancement</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#inference-efficiency-optimization"><span class="nav-number">1.2.1.3.1.2.</span> <span class="nav-text">Inference Efficiency Optimization</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#dual-system-models"><span class="nav-number">1.2.1.3.2.</span> <span class="nav-text">Dual-system Models</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#cascade-based-methods"><span class="nav-number">1.2.1.3.2.1.</span> <span class="nav-text">Cascade-based Methods</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#parallel-based-methods"><span class="nav-number">1.2.1.3.2.2.</span> <span class="nav-text">Parallel-based Methods</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#hierarchical-models-%E5%88%86%E5%B1%82%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.2.1.4.</span> <span class="nav-text">HIERARCHICAL MODELS 分层模型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#planner-only"><span class="nav-number">1.2.1.4.1.</span> <span class="nav-text">Planner-Only</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#plannerpolicy"><span class="nav-number">1.2.1.4.2.</span> <span class="nav-text">Planner+Policy</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E5%89%8D%E6%B2%BF%E9%A2%86%E5%9F%9F"><span class="nav-number">1.2.1.5.</span> <span class="nav-text">其他前沿领域</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#vla-%E7%9A%84%E7%89%B9%E7%82%B9"><span class="nav-number">1.2.1.6.</span> <span class="nav-text">VLA 的特点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E9%9B%86%E5%92%8C%E5%9F%BA%E5%87%86%E6%B5%8B%E8%AF%95"><span class="nav-number">1.2.1.7.</span> <span class="nav-text">数据集和基准测试</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%BB%E7%BB%93%E5%92%8C%E5%B1%95%E6%9C%9B"><span class="nav-number">1.2.1.8.</span> <span class="nav-text">总结和展望</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%CF%800-a-vision-language-action-flow-model-for-general-robot-control"><span class="nav-number">1.2.2.</span> <span class="nav-text">π0: A Vision-Language-Action Flow Model for General Robot Control</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">模型介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%AD%E7%BB%83%E4%B8%8E%E5%AE%9E%E9%AA%8C"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">训练与实验</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%86%E8%8A%82"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">细节</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B"><span class="nav-number">1.3.</span> <span class="nav-text">实例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#openin"><span class="nav-number">1.3.1.</span> <span class="nav-text">OpenIN</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#learning-fine-grained-bimanual-manipulation-with-low-cost-hardware"><span class="nav-number">1.3.2.</span> <span class="nav-text">Learning Fine-Grained Bimanual Manipulation with Low-Cost Hardware</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%89%8D%E8%A8%80-2"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#real-work"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">real work</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E4%B8%8E%E6%80%BB%E7%BB%93"><span class="nav-number">1.3.2.3.</span> <span class="nav-text">实验与总结</span></a></li></ol></li></ol></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -312,7 +314,7 @@ const darkmode = new Darkmode(options);
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-09-20 14:14:55" itemprop="dateModified" datetime="2025-09-20T14:14:55+08:00">2025-09-20</time>
+      <time title="修改时间：2025-09-20 16:43:24" itemprop="dateModified" datetime="2025-09-20T16:43:24+08:00">2025-09-20</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -338,14 +340,14 @@ const darkmode = new Darkmode(options);
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>20k</span>
+      <span>21k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1:14</span>
+      <span>1:15</span>
     </span>
 </div>
 
@@ -429,7 +431,7 @@ const darkmode = new Darkmode(options);
 <ul>
 <li><a href="#模型介绍">模型介绍</a></li>
 <li><a href="#训练与实验">训练与实验</a></li>
-<li><a href="#附录">附录</a></li>
+<li><a href="#细节">细节</a></li>
 </ul></li>
 </ul></li>
 <li><a href="#实例">实例</a>
@@ -938,56 +940,58 @@ VLA 具体可以定义为:</p>
 <li>模型效率: 在机器人平台的性能往往受限, 因此需要平衡存储, 计算成本与模型表现</li>
 </ol>
 <h3 id="π0-a-vision-language-action-flow-model-for-general-robot-control">π0: A Vision-Language-Action Flow Model for General Robot Control</h3>
-<p>VLM 大模型的发展,不仅在通用能力上取得了进步,同时由于海量数据带来的能力,在一些专业任务上也有应用空间<br />
-来到 VLA 领域,想要融合 VLM 并得到一定的行动能力,有几个挑战:</p>
+<p>VLM 大模型的发展, 不仅在通用能力上取得了进步, 同时由于海量数据带来的能力, 在一些专业任务上也有应用空间<br />
+来到 VLA 领域, 想要融合 VLM 并得到一定的行动能力, 有几个挑战:</p>
 <ol type="1">
 <li>这样的研究需要很大规模的数据和训练</li>
 <li>需要能有效从海量数据中学习的模型架构</li>
 <li>需要正确的训练技巧</li>
 </ol>
-<p>π0 正是为了解决这三个问题的原型模型,相比其他系统,其技术特点:</p>
+<p>π0 正是为了解决这三个问题的原型模型, 相比其他系统, 其技术特点:</p>
 <ol type="1">
 <li>跨实体地进行训练</li>
 <li>为了提供对复杂动作的生成能力使用动作块体系和流匹配方法</li>
 </ol>
-<p>对于生成任务(主要是图像生成), 扩散模型也是比较流行的技术,本文也部分使用了扩散式的损失函数<br />
-最近涌现出一批高质量数据集(关于机器人控制), 但往往总共的时长规模在 10h 左右甚至更少,而为了尽可能地获取综合能力,本文使用量 10kh 的演示数据(由研究者自己的数据和一些开源数据补充组成),除了数量以外,在涉及机器人的种类、任务类别数、标注数外规模也较大<br />
-与其他领域的大模型一样,极大规模的输入也产生了极强的效果</p>
+<p>最近涌现出一批高质量数据集(关于机器人控制), 但往往总共的时长规模在 10h 左右甚至更少, 而为了尽可能地获取综合能力, 本文使用量 10kh 的演示数据(由研究者自己的数据和一些开源数据补充组成), 除了数量以外, 在涉及机器人的种类、任务类别数、标注数外规模也较大<br />
+与其他领域的大模型一样, 极大规模的输入也产生了极强的效果</p>
 <div class="note info"><ul>
-<li>Broad Generalization: 一个模型或系统在面对新数据或未见过的任务时,能够有效地适应和推理的能力。这种概念通常在机器学习和人工智能领域讨论,特别是在评估模型的泛化能力时</li>
+<li>Broad Generalization: 一个模型或系统在面对新数据或未见过的任务时, 能够有效地适应和推理的能力。这种概念通常在机器学习和人工智能领域讨论, 特别是在评估模型的泛化能力时</li>
 </ul>
 </div>
 <h4 id="模型介绍">模型介绍</h4>
-<p>下面开始介绍一些技术细节, 其主干可以说是一个基于 tf 的视觉模型, 将图像输入编码嵌入到语言空间, 但正如很多动作模型一样,出于任务考虑输入输出数据会增加机器人感知与动作<br />
-模型使用条件流匹配(之前写的<a href="https://thinklive1.github.io/thinklive/48061/#flow-matching">介绍博文</a>)来对连续的动作分布建模<br />
+<p>下面开始介绍一些技术细节, 其主干可以说是一个基于 tf 的视觉模型, 将图像输入编码嵌入到语言空间, 但正如很多动作模型一样, 出于任务考虑输入输出数据会增加机器人感知与动作<br />
+模型使用条件流匹配(之前写的 <a href="https://thinklive1.github.io/thinklive/48061/#flow-matching">介绍博文</a>)来对连续的动作分布建模<br />
 模型不依赖特定的 VLM, 为了方便实验中使用 <code>PaliGemma</code></p>
-<p>受一个叫 <code>transfusion</code> 的模型(用一个 tf 处理不同类型的输出,对连续输出使用流匹配的损失函数,对离散输出使用交叉熵的损失函数)启发,基于 transfusion, 在工程上(高情商说法), 发现机器人特有的 token 上(即动作与状态),应用特定的权重集合能提高表现<br />
-作为一个生成任务,技术上具体可以描述为对分布 <span class="math inline">\(p(A_t|o_t)\)</span> 建模,其中 At 是从 t 下标开始,长度为 H 的动作序列（动作块）,文中的 H 为 50,而观察 o 由 RGB 图像、语言指令和机器人状态(关节角度)组成分别用 I, l, q 表示<br />
-虽然输入类别有很多,但 I, q 都会由编码器以及一个线性投影层投影到 l 的嵌入空间<br />
+<p>受一个叫 <code>transfusion</code> 的模型(用一个 tf 处理不同类型的输出, 对连续输出使用流匹配的损失函数, 对离散输出使用交叉熵的损失函数)启发, 基于 transfusion, 在工程上(高情商说法), 发现机器人特有的 token 上(即动作与状态), 应用特定的权重集合能提高表现<br />
+作为一个生成任务, 技术上具体可以描述为对分布 <span class="math inline">\(p(A_t|o_t)\)</span> 建模, 其中 At 是从 t 下标开始, 长度为 H 的动作序列（动作块）, 文中的 H 为 50, 而观察 o 由 RGB 图像、语言指令和机器人状态(关节角度)组成分别用 I, l, q 表示<br />
+虽然输入类别有很多, 但 I, q 都会由编码器以及一个线性投影层投影到 l 的嵌入空间<br />
 将损失函数定义为:</p>
 <p><span class="math display">\[L^{\tau}(\theta)=\mathbb{E}_{p(\mathbf{A}_{t}|o_{t}),q(\mathbf{A}_{t}^{\tau}|\mathbf{A}_{t})}||\mathbf{v}\theta(\mathbf{A}_{t}^{\tau},\mathbf{o}_{t})-\mathbf{u}(\mathbf{A}_{t}^{\tau}|\mathbf{A}_{t})||^{2}\]</span></p>
-<p>其中上标是流匹配的时间步,下标则是机器人的时间步, <span class="math inline">\(\tau\ \in\ [0,1]\)</span> , 训练时从标准正态分布中采样一个 <span class="math inline">\(\epsilon\)</span> , 令噪声行动 <span class="math inline">\(A_t^\tau = \tau A_t + (1-\tau ) \epsilon\)</span> , 训练目标是让 <span class="math inline">\(\mathbf{v}\theta(\mathbf{A}_{t}^{\tau},\mathbf{o}_{t})\)</span> 与去噪向量场 <span class="math inline">\(\mathbf{u}(\mathbf{A}_{t}^{\tau}|\mathbf{A}_{t}) = \epsilon - A_t\)</span> 匹配,初始动作输入是一个从标准正态分布中取样的噪声动作</p>
-<p>这里先不讨论太多细节，整体上这是比较标准的条件流匹配方法，只不过学习的不是直接的动作输出，而是如何对输入降噪，最后我们得到的其实是一个和定义出来的降噪向量场尽可能接近的一个基于模型参数的向量场v<br />
+<p>其中上标是流匹配的时间步, 下标则是机器人的时间步, <span class="math inline">\(\tau\ \in\ [0,1]\)</span> , 训练时从标准正态分布中采样一个 <span class="math inline">\(\epsilon\)</span> , 令噪声行动 <span class="math inline">\(A_t^\tau = \tau A_t + (1-\tau ) \epsilon\)</span> , 训练目标是让 <span class="math inline">\(\mathbf{v}\theta(\mathbf{A}_{t}^{\tau},\mathbf{o}_{t})\)</span> 与去噪向量场 <span class="math inline">\(\mathbf{u}(\mathbf{A}_{t}^{\tau}|\mathbf{A}_{t}) = \epsilon - A_t\)</span> 匹配, 初始动作输入是一个从标准正态分布中取样的噪声动作</p>
+<p>这里先不讨论太多细节，整体上这是比较标准的条件流匹配方法，只不过学习的不是直接的动作输出，而是如何对输入降噪，最后我们得到的其实是一个和定义出来的降噪向量场尽可能接近的一个基于模型参数的向量场 v<br />
 得到向量场后，推断过程就是做一个积分: <span class="math inline">\({\bf A}_{t}^{\tau+\delta}={\bf A}_{t}^{\tau}+\delta{\bf v}_{\theta}({\bf A}_{t}^{\tau},{\bf o}_{t})\)</span><br />
-其中 $ $ 是积分的补偿，这里设0.1,由于 $ $ 范围是<code>[0,1]</code>, 这就意味着一共积分10次<br />
-这里有一些减少计算的技巧，详见后文<br />
-类似LLM， 本文也将模型分为两个阶段，预训练阶段让模型尽可能获得泛化能力(包括对物理任务的泛化), 后训练阶段则让模型流畅地执行下游任务</p>
+其中 $ $ 是积分的补偿，这里设 0.1, 由于 $ $ 范围是 <code>[0,1]</code>, 这就意味着一共积分 10 次<br />
+由于作者是企业，π0 其实算是一篇技术介绍或者说报告，原理写得很简略，后文会结合其他资料阐述 类似 LLM， 本文也将模型分为两个阶段，预训练阶段让模型尽可能获得泛化能力(包括对物理任务的泛化), 后训练阶段则让模型流畅地执行下游任务</p>
 <h4 id="训练与实验">训练与实验</h4>
-<p>数据上，正如前文所说，π0使用了一组庞大的数据集，包括一些开源数据与自己的数据，且与以往数据不同的是，自己的数据部分复杂度较高，可以视为一些行为的组合<br />
-由于数据组成较为复杂，因此对不同的数据集来源进行加权，动作和状态向量(a,q)按最复杂的机器人设置，对更简单的机器人，则填零或者掩盖(mask out)掉缺失的维度<br />
-此外一个常见的思路是将复杂的任务分解为简单的任务组合，由于VLM赋予了语言能力，π0可以实现这种程度的语义推断<br />
-进一步的实验中，为了评估语言能力，对指令进行划分，只接受整体性指令的模型表现最差，而接受人类指令和高级VLM指令的模型互有胜负，比没有任务分解的表现好一个阶层<br />
-论文还比较了π0的无预训练版本和预训练版本以及其他模型(包括这篇博文写过的ACT), 较为符合常识的是，对任务类型相似的任务，预训练能带来更大提升，但对其他模型，往往直接从头开始面向任务训练的模型表现最好；有些不不符合常识的是，部分任务训练时间更长的版本表会更差(但降幅不高)<br />
-最后的实验针对最为复杂的任务，例如兼顾移动与操控，对这种任务，往往预训练并微调后的模型有相当好表现，有时能成倍于从头训练版本和zero-shot版本</p>
-<h4 id="附录">附录</h4>
+<p>数据上，正如前文所说，π0 使用了一组庞大的数据集，包括一些开源数据与自己的数据，且与以往数据不同的是，自己的数据部分复杂度较高，可以视为一些行为的组合<br />
+由于数据组成较为复杂，因此对不同的数据集来源进行加权，动作和状态向量(a, q)按最复杂的机器人设置，对更简单的机器人，则填零或者掩盖(mask out)掉缺失的维度<br />
+此外一个常见的思路是将复杂的任务分解为简单的任务组合，由于 VLM 赋予了语言能力，π0 可以实现这种程度的语义推断<br />
+进一步的实验中，为了评估语言能力，对指令进行划分，只接受整体性指令的模型表现最差，而接受人类指令和高级 VLM 指令的模型互有胜负，比没有任务分解的表现好一个阶层<br />
+论文还比较了 π0 的无预训练版本和预训练版本以及其他模型(包括这篇博文写过的 ACT), 较为符合常识的是，对任务类型相似的任务，预训练能带来更大提升，但对其他模型，往往直接从头开始面向任务训练的模型表现最好；有些不不符合常识的是，部分任务训练时间更长的版本表会更差(但降幅不高)<br />
+最后的实验针对最为复杂的任务，例如兼顾移动与操控，对这种任务，往往预训练并微调后的模型有相当好表现，有时能成倍于从头训练版本和 zero-shot 版本</p>
+<h4 id="细节">细节</h4>
+<p>参考 :</p>
+<iframe src="//player.bilibili.com/player.html?isOutside=true&amp;aid=114844942470263&amp;bvid=BV142uFzWEdY&amp;cid=31186487108&amp;p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true">
+</iframe>
 <p>这部分解释一些技术细节:</p>
-<ul>
-<li>输入输出:
-<ul>
-<li>输入: 除了VLM的I,l数据外，还会增加一个输入向量q,也就是机器人自己的状态，最后这三种输出会被tf以及一个投影层嵌入到同一个空间；此外</li>
-<li></li>
-</ul></li>
-</ul>
+<p>先放一张架构图<br />
+<img src="/assets/ml/image-5.png" /></p>
+<p>π0 将输入分为 3 个 block, 分别是 图像与文字指令、机器人状态、动作,第一个block由VLM处理，后两个交给动作专家<br />
+从VLM部分说起，先简单地对图像处理为token，将图像token和文字token拼接，交给注意力来计算kvq,这是个很简单的处理，需要注意的是为了提高效率这里的kv之后会复用<br />
+然后是较为关键的动作专家,机器人状态是一种很单纯的输入不需要额外处理, 而对(噪声化的)动作，因为动作是有序的，需要编码时间步，这里不是常见的相加，而是使用拼接(concat)，最后会得到两倍宽度的一个序列，然后在经过线性层和激活函数得到最后的action tokens<br />
+<img src="/assets/ml/image-6.png" /></p>
+<p>现在我们有了三种输入，符合常识的，他们之间也存在顺序关系(图文-&gt;状态-&gt;动作)，后面的可以“注意”前面的数据(如果长度不够就padding 0),这种注意力关系会用mask实现，且使用之前的kv cache<br />
+每次训练更新时会采样一个noise动作和流匹配中的时间步(从β分布采样)，然后就是标准的流匹配训练过程</p>
 <h2 id="实例">实例</h2>
 <h3 id="openin"><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/Ro3Vrjx0GiN8eWe6veT-kg">OpenIN</a></h3>
 <p>本文提出了一种「<strong>开放词汇、实例导向</strong>」的导航系统, 该系统「<strong>支持多模态和多类型对象导航指令</strong>」, 能够实现对 <strong>位置可变日常实例</strong> 的有效导航<br />
@@ -1003,8 +1007,8 @@ OpenIN 的框架和大部分系统比较类似, 都可以分为场景图构建�
 <li>对文本输入以及图像的文本描述: 使用 SBERT 对其编码, 与 CRSG 对象的特征比较余弦相似度, 最高者作为模板对象 Ot</li>
 </ul>
 <p>确定目标后, 以 MDP 模型定义探索过程:</p>
-<p>定义状态空间: <span class="math inline">\(S_{t}=(L_{t},C R_{t},C T_{t},F_{t})\)</span> 其中 L 为机器人位姿, CR 是未探索的载体层对象集合,CT 为未探索载体层对象上的候选目标对象集合,F 是一个表示是否找到目标的布尔值,对初始状态 CR0＝ 载体层对象全集,CT0 是上一轮选择的候选对象 Ot<br />
-定义动作空间: <span class="math inline">\(A=S t o p,E x p l o r e(c r),G o t o(c t)|c r\in C R_{t},c t\in C T_{t}\)</span> 其中 stop 表示任务完成或者所有载体对象已探索,explore 表示探索载体层对象, goto 表示导航到 ct 的位置<br />
+<p>定义状态空间: <span class="math inline">\(S_{t}=(L_{t},C R_{t},C T_{t},F_{t})\)</span> 其中 L 为机器人位姿, CR 是未探索的载体层对象集合, CT 为未探索载体层对象上的候选目标对象集合, F 是一个表示是否找到目标的布尔值, 对初始状态 CR0＝ 载体层对象全集, CT0 是上一轮选择的候选对象 Ot<br />
+定义动作空间: <span class="math inline">\(A=S t o p,E x p l o r e(c r),G o t o(c t)|c r\in C R_{t},c t\in C T_{t}\)</span> 其中 stop 表示任务完成或者所有载体对象已探索, explore 表示探索载体层对象, goto 表示导航到 ct 的位置<br />
 定义策略(以下省略下标 t, 用伪代码表示):<br />
 1. if F ==1 CR == <span class="math inline">\(\emptyset\)</span> then a = stop<br />
 2. if F == 0 &amp;&amp; <span class="math inline">\(CT_t !=\emptyset\)</span> , CT.sort(by priority); SS = similarity(CT, O) ;<br />
@@ -1013,86 +1017,86 @@ OpenIN 的框架和大部分系统比较类似, 都可以分为场景图构建�
 5. if F == 0 &amp;&amp; $CT ==$ &amp;&amp; $ CR!=$ then (CR.description, O.image, O.image_description) -&gt; LLM -&gt; $cr_k CR_t $ ( <span class="math inline">\(cr_k\)</span> is best target )<br />
 6. <span class="math inline">\(a_t\)</span> = Explore( <span class="math inline">\(cr_k\)</span> ); excute( <span class="math inline">\(a_t\)</span> )<br />
 7. if <span class="math inline">\(a_t\)</span> == Explore(cr) || <span class="math inline">\(a_t\)</span> == Goto(ct) then while moving: <span class="math inline">\(CR_{observed}\)</span> = observed objects which don't include candidates in the radial r ; <span class="math inline">\(CR_{new}\)</span> = new candidates in unexplored CT objects $</p>
-<p>总结: 每轮中在候选对象里优先级排序,对最佳候选对象的位置,机器人导航到此处并探索是否存在目标对象；如果没有候选对象但有为探索载体对象,让 llm 选一个候选者进行探索；在探索过程中,机器人会不断更新 map 且寻找新的候选对象或者载体对象</p>
+<p>总结: 每轮中在候选对象里优先级排序, 对最佳候选对象的位置, 机器人导航到此处并探索是否存在目标对象；如果没有候选对象但有为探索载体对象, 让 llm 选一个候选者进行探索；在探索过程中, 机器人会不断更新 map 且寻找新的候选对象或者载体对象</p>
 <h3 id="learning-fine-grained-bimanual-manipulation-with-low-cost-hardware">Learning Fine-Grained Bimanual Manipulation with Low-Cost Hardware</h3>
-<p>精细的操控任务例如扎电线、将电池插入槽中,往往需要较大的计算成本或者高端的硬件设备,而想要落实应用,成本控制是非常重要的,因此需要找到在有限的预算下实现精细操作的智能<br />
-本文基于端到端的模仿学习,训练数据也完全来自于现实的演示,在高精度任务中,模仿学习的缺点是对策略错误较为敏感,且人类演示数据相差较大,不便于学习；为此,本文提出了一种 <code>Action Chunking with Transformers (ACT)</code> 算法,可以通过低成本地通过动作序列学习,并得到不错的准确率</p>
+<p>精细的操控任务例如扎电线、将电池插入槽中, 往往需要较大的计算成本或者高端的硬件设备, 而想要落实应用, 成本控制是非常重要的, 因此需要找到在有限的预算下实现精细操作的智能<br />
+本文基于端到端的模仿学习, 训练数据也完全来自于现实的演示, 在高精度任务中, 模仿学习的缺点是对策略错误较为敏感, 且人类演示数据相差较大, 不便于学习；为此, 本文提出了一种 <code>Action Chunking with Transformers (ACT)</code> 算法, 可以通过低成本地通过动作序列学习, 并得到不错的准确率</p>
 <h4 id="前言-2">前言</h4>
-<p>举一个生活中的例子,例如打开一个有盖的杯子,这就需要一只手(假设为右手)握住杯子,倾斜让左手靠近杯盖,然后辨别出杯盖边缘,让左手轻轻掀起；这种任务对 ai 来说相当精细<br />
-由于需要在有限的成本内完成精细任务,我们选择端到端的模型,使用低成本的摄像头 rgb 图像作为输入,让模型只学习操作策略而无需对整个环境建模(当然对这种复杂任务建模也非常难,例如在电子游戏界,几乎没有游戏能做好吃饭等人物的日常动画)<br />
+<p>举一个生活中的例子, 例如打开一个有盖的杯子, 这就需要一只手(假设为右手)握住杯子, 倾斜让左手靠近杯盖, 然后辨别出杯盖边缘, 让左手轻轻掀起；这种任务对 ai 来说相当精细<br />
+由于需要在有限的成本内完成精细任务, 我们选择端到端的模型, 使用低成本的摄像头 rgb 图像作为输入, 让模型只学习操作策略而无需对整个环境建模(当然对这种复杂任务建模也非常难, 例如在电子游戏界, 几乎没有游戏能做好吃饭等人物的日常动画)<br />
 以下简述本文使用的一些技术:</p>
 <ul>
-<li>远程操控(tleoperation): 使用两只大致相同的低成本机械臂,共用一个空间地图, 使用一下些 3d 打印组件来增强反向驱动,总预算控制在 $20k 内</li>
-<li>模仿学习算法: 为了避免模仿学习常见的累积误差问题,参考心理学的 <code>动作块</code>, 让学习策略预测接下来 k 步的一连串动作,防止某个错误的一步影响后面的推理；且能减少一些不相干因素的影响,例如演示中的部分暂停
+<li>远程操控(tleoperation): 使用两只大致相同的低成本机械臂, 共用一个空间地图, 使用一下些 3d 打印组件来增强反向驱动, 总预算控制在 $20k 内</li>
+<li>模仿学习算法: 为了避免模仿学习常见的累积误差问题, 参考心理学的 <code>动作块</code>, 让学习策略预测接下来 k 步的一连串动作, 防止某个错误的一步影响后面的推理；且能减少一些不相干因素的影响, 例如演示中的部分暂停
 <ul>
-<li>为了提高策略的平滑度,设置了 <code>temporal ensembling</code> 机制, 更频繁地查询策略,且将重叠的动作块取平均值</li>
+<li>为了提高策略的平滑度, 设置了 <code>temporal ensembling</code> 机制, 更频繁地查询策略, 且将重叠的动作块取平均值</li>
 <li>使用 Transformers 处理动作块(序列数据)</li>
 </ul></li>
 </ul>
 <div class="note info"><ul>
-<li><code>Backdriving</code> : 在机械和控制系统中使用的术语,通常指的是在某些系统中,外部力或运动驱动系统的运动,而不是通过其内部控制机制来实现, 也就是正向驱动是电机驱动机械装置,反向驱动则可以是相对机械的外力——比如人力也可以驱动机械臂</li>
-<li><code>compounding error（累积误差）</code>: 指在(模仿)学习过程中,由于对错误示范的逐步复制和执行,错误逐渐积累,从而影响系统的整体表现</li>
-<li><code>action chunking</code>： 心理学术语, 将一系列动作或行为组合成一个更大、更有意义的单元（或“块”）,以提高任务执行的效率和流畅性</li>
+<li><code>Backdriving</code> : 在机械和控制系统中使用的术语, 通常指的是在某些系统中, 外部力或运动驱动系统的运动, 而不是通过其内部控制机制来实现, 也就是正向驱动是电机驱动机械装置, 反向驱动则可以是相对机械的外力——比如人力也可以驱动机械臂</li>
+<li><code>compounding error（累积误差）</code>: 指在(模仿)学习过程中, 由于对错误示范的逐步复制和执行, 错误逐渐积累, 从而影响系统的整体表现</li>
+<li><code>action chunking</code>： 心理学术语, 将一系列动作或行为组合成一个更大、更有意义的单元（或“块”）, 以提高任务执行的效率和流畅性</li>
 </ul>
 </div>
 <h4 id="real-work">real work</h4>
 <ol type="1">
 <li><p><code>Behavioral cloning</code><br />
-行为克隆是最简单的模仿学习方法,但很明显也有非常多的问题,例如之前提及的累积误差,应该解决思路是使用额外的在线学习或者额外标注来更正,但对低成本硬件的远程操纵常见,难以适用<br />
-如果常识在数据集加入噪声,很可能会直接让训练失败,又或者离线地生成校正数据,但这种方法这在部分场景有效<br />
-出于对以上过往问题的考虑,本文引入了 <code>动作块</code> 机制</p></li>
+行为克隆是最简单的模仿学习方法, 但很明显也有非常多的问题, 例如之前提及的累积误差, 应该解决思路是使用额外的在线学习或者额外标注来更正, 但对低成本硬件的远程操纵常见, 难以适用<br />
+如果常识在数据集加入噪声, 很可能会直接让训练失败, 又或者离线地生成校正数据, 但这种方法这在部分场景有效<br />
+出于对以上过往问题的考虑, 本文引入了 <code>动作块</code> 机制</p></li>
 <li><p>实体机器介绍<br />
-如前文介绍,本文的技术选择准则可以概括为“物美价廉”, 两个机械臂控制在数千美元, 本文使用的 <code>ViperX arm</code> 有 750g 的负重能力,1.5m 的宽度, 5-8mm 的准确度, 其关键电机可替换,但手指对复杂任务不够适用,为此 3d 打印了一些手指,并用 Grip tape(握把胶带)缠一圈来提高抓取能力(it just works!)<br />
-接下来要选择远程操作系统, 市面上一些常见的系统通过 vr 或者摄像头捕捉手臂姿势来操纵机械臂,这称为 <code>task-space mapping</code>, 本文使用 <code>WidowX</code> 一种让用户通过反向驱动 "leader"(一个更小的机器部件)来驱动机械臂("follower")的系统,这称为 <code>joint-space mapping</code><br />
+如前文介绍, 本文的技术选择准则可以概括为“物美价廉”, 两个机械臂控制在数千美元, 本文使用的 <code>ViperX arm</code> 有 750g 的负重能力,1.5m 的宽度, 5-8mm 的准确度, 其关键电机可替换, 但手指对复杂任务不够适用, 为此 3d 打印了一些手指, 并用 Grip tape(握把胶带)缠一圈来提高抓取能力(it just works!)<br />
+接下来要选择远程操作系统, 市面上一些常见的系统通过 vr 或者摄像头捕捉手臂姿势来操纵机械臂, 这称为 <code>task-space mapping</code>, 本文使用 <code>WidowX</code> 一种让用户通过反向驱动 "leader"(一个更小的机器部件)来驱动机械臂("follower")的系统, 这称为 <code>joint-space mapping</code><br />
 为什么选择这种系统:</p>
 <ol type="1">
-<li>系统中的机械臂有 6 个自由度且没有冗余,如果使用反向运动学,很容易陷入起一点</li>
+<li>系统中的机械臂有 6 个自由度且没有冗余, 如果使用反向运动学, 很容易陷入起一点</li>
 <li>共用空间减少计算消耗和延迟</li>
 <li>leader 的重量防止用户动作过快且相比 VR 控制器减少振动</li>
 </ol></li>
 </ol>
-<p>除此之外,系统做了一些改造减少 leader 的耗力,详见官网<br />
+<p>除此之外, 系统做了一些改造减少 leader 的耗力, 详见官网<br />
 这个机器系统称为 ALOHA</p>
 <p><img src="/assets/ml/image-1.png" /></p>
 <ol start="3" type="1">
 <li>ACT 理论部分</li>
 </ol>
-<p>ACT 系统可以视为一种有条件(conditional)的 VAE(之前写的 <a href="https://thinklive1.github.io/thinklive/48061/#vae-%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8">介绍博文</a>), 其编码器将动作序列和关节位置作为观察结果(输入数据)编码为 z(测试时会丢弃编码器), tf 部分的编码器接受所有相机输入、关节位置以及 z,其解码器生成一个动作序列<br />
-实操中,让操作员操作 leader 机器人(leader 由于要人类操纵,规格与 follower 不同,两者的动作参数之间可以隐式转换), ACT 不断预测人类操作员在给定观察下的未来 k 步操作<br />
-这样有个额外的好处,由于学习的样本是人类提供的行为,而这种行为不一定是符合马尔科夫假设的,单步学习很可能会被暂停之类的行为误导,而如果误导行为集中在一个动作块中,对训练的损害则不会那么巨大<br />
-但相应的,由于每 k 步切换,可能过程不会太平滑,因此在每步都会查询策略,类似滑动窗口,这样依赖每次预测的动作块都会有部分重叠,因此为了充分利用这些信息,对未来时刻的所有预测动作,计算一个加权和,这个过程称为 <code>temporal ensembling</code>, 实验发现这样的聚合效果要好于传统的对于时间上相邻动作动作的平滑化,这部分机制会在下文详细讨论</p>
+<p>ACT 系统可以视为一种有条件(conditional)的 VAE(之前写的 <a href="https://thinklive1.github.io/thinklive/48061/#vae-%E5%8F%98%E5%88%86%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8">介绍博文</a>), 其编码器将动作序列和关节位置作为观察结果(输入数据)编码为 z(测试时会丢弃编码器), tf 部分的编码器接受所有相机输入、关节位置以及 z, 其解码器生成一个动作序列<br />
+实操中, 让操作员操作 leader 机器人(leader 由于要人类操纵, 规格与 follower 不同, 两者的动作参数之间可以隐式转换), ACT 不断预测人类操作员在给定观察下的未来 k 步操作<br />
+这样有个额外的好处, 由于学习的样本是人类提供的行为, 而这种行为不一定是符合马尔科夫假设的, 单步学习很可能会被暂停之类的行为误导, 而如果误导行为集中在一个动作块中, 对训练的损害则不会那么巨大<br />
+但相应的, 由于每 k 步切换, 可能过程不会太平滑, 因此在每步都会查询策略, 类似滑动窗口, 这样依赖每次预测的动作块都会有部分重叠, 因此为了充分利用这些信息, 对未来时刻的所有预测动作, 计算一个加权和, 这个过程称为 <code>temporal ensembling</code>, 实验发现这样的聚合效果要好于传统的对于时间上相邻动作动作的平滑化, 这部分机制会在下文详细讨论</p>
 <p>接下来阐释对输入的处理:</p>
 <ol type="1">
 <li>我们用 CVAE 处理人类输入, 它由一个编码器和一个解码器组成, 解码器会预测 z 的均值与方差, 用作对角高斯分布, 也就是根据输入数据拟合一个高斯分布</li>
 <li>出于训练速度考虑, 对输入数据, 不使用图像观察结果, 只用机器人的本体感知数据(例如姿势, 角度等)</li>
 <li>解码器则会使用 z 以及当前观察结果(图像+关节位置)预测未来的动作序列</li>
-<li>测试时, 设 z 为先验分布(给定)的均值,如果想要确定性地解码,可以直接设 0(注意是测试时这么做)</li>
-<li>训练的过程中不断地最大化模型输出与演示数据里的相同动作块的对数概率；同时也使用标准 VAE 的两个标准(重建损失与正则化项),对正则化项,乘以一个超参数 β(用于控制 z 包含的信息量,更高的正则化会导致更少的信息转入 z)</li>
+<li>测试时, 设 z 为先验分布(给定)的均值, 如果想要确定性地解码, 可以直接设 0(注意是测试时这么做)</li>
+<li>训练的过程中不断地最大化模型输出与演示数据里的相同动作块的对数概率；同时也使用标准 VAE 的两个标准(重建损失与正则化项), 对正则化项, 乘以一个超参数 β(用于控制 z 包含的信息量, 更高的正则化会导致更少的信息转入 z)</li>
 </ol>
 <p>具体实现:</p>
 <p><img src="/assets/ml/image-2.png" /></p>
 <ol type="1">
-<li>使用 tf 作为编码和解码器,具体来说,CVAE 的编码器类似 BERT, 其输入是当前关节位置以及长度为 k 的演示动作序列,同样类似 BERT,每段序列会有个 <code>CLS</code> 前缀, 具体见上图左侧部分</li>
-<li>CVAE 解码器实际上更为复杂,由 <code>ResNet image encoders, a transformer encoder, a transformer decoder</code> 组成,接受的输入也比编码器更多,其动作空间是机器人的所有关键位置也就是一个 14 维向量(一只手对应 7 维), 大致过程如下
+<li>使用 tf 作为编码和解码器, 具体来说, CVAE 的编码器类似 BERT, 其输入是当前关节位置以及长度为 k 的演示动作序列, 同样类似 BERT, 每段序列会有个 <code>CLS</code> 前缀, 具体见上图左侧部分</li>
+<li>CVAE 解码器实际上更为复杂, 由 <code>ResNet image encoders, a transformer encoder, a transformer decoder</code> 组成, 接受的输入也比编码器更多, 其动作空间是机器人的所有关键位置也就是一个 14 维向量(一只手对应 7 维), 大致过程如下
 <ol type="1">
-<li>resnet 的编码器将图像输入转化为特征地图,再被展平(flatten)为序列(另外使用正弦位置编码保存空间关系)</li>
-<li>处理完图像后,特征数据以及关节位置, z 作为输入通过一个线性层投影到一个向量组,其向量数为 k</li>
-<li>得益于前一步中得到的固定长度的向量组,tf 解码器通过 cross-attention 产生相同长度的输出组,然后在经过 MLP(多层感知机)的投影为 14 长度的动作向量组</li>
+<li>resnet 的编码器将图像输入转化为特征地图, 再被展平(flatten)为序列(另外使用正弦位置编码保存空间关系)</li>
+<li>处理完图像后, 特征数据以及关节位置, z 作为输入通过一个线性层投影到一个向量组, 其向量数为 k</li>
+<li>得益于前一步中得到的固定长度的向量组, tf 解码器通过 cross-attention 产生相同长度的输出组, 然后在经过 MLP(多层感知机)的投影为 14 长度的动作向量组</li>
 </ol></li>
 </ol>
-<p>神奇的是,用 L1 损失作为重建损失的表现更好,此外用 <code>delta joint position</code>(关节变化量)训练效果不如目标位置</p>
+<p>神奇的是, 用 L1 损失作为重建损失的表现更好, 此外用 <code>delta joint position</code>(关节变化量)训练效果不如目标位置</p>
 <div class="note info"><ul>
-<li>逆向运动学（Inverse Kinematics,IK）: 运动学（Kinematics）是在给定所有关节角度的情况下计算链接结构（如一节人体的关节）的末端的空间位置的过程; 逆向运动学则相反,知道末端状态,需要求解关节应该是什么角度</li>
-<li>奇异点（singularities）: 机器人在某些特定配置下失去自由度或控制能力的状态。在这些状态下,机器人可能无法有效地执行运动或控制其末端执行器的位置和姿态</li>
-<li>变分自编码器（Variational Autoencoder, VAE）: 一种生成模型,结合了神经网络和贝叶斯推断的思想,广泛应用于无监督学习、数据生成和特征学习</li>
-<li>风格变量（Style Variable）: 生成模型中,用于控制输出样本风格或特征的潜在变量, 能够影响生成内容的“风格”而不改变其“内容”</li>
+<li>逆向运动学（Inverse Kinematics, IK）: 运动学（Kinematics）是在给定所有关节角度的情况下计算链接结构（如一节人体的关节）的末端的空间位置的过程; 逆向运动学则相反, 知道末端状态, 需要求解关节应该是什么角度</li>
+<li>奇异点（singularities）: 机器人在某些特定配置下失去自由度或控制能力的状态。在这些状态下, 机器人可能无法有效地执行运动或控制其末端执行器的位置和姿态</li>
+<li>变分自编码器（Variational Autoencoder, VAE）: 一种生成模型, 结合了神经网络和贝叶斯推断的思想, 广泛应用于无监督学习、数据生成和特征学习</li>
+<li>风格变量（Style Variable）: 生成模型中, 用于控制输出样本风格或特征的潜在变量, 能够影响生成内容的“风格”而不改变其“内容”</li>
 </ul>
 </div>
 <h4 id="实验与总结">实验与总结</h4>
-<p>由于此部分大多是现实情况的细节,省略这些部分,只说结果<br />
-ACT 主要创新点在于能够预测连续的,精确的动作序列,而一些先前的模仿学习方法只能像分类问题一样预测离散动作,此外端到端的训练方式对特化的任务可能有更好的效果<br />
-消融实验中,CVAE, 动作块等机制都较为有效<br />
-相比先前方法,ACT 大部分任务都取得了更好的表现,但是会在对比度低图像难以捕捉特征的场景表现不佳</p>
+<p>由于此部分大多是现实情况的细节, 省略这些部分, 只说结果<br />
+ACT 主要创新点在于能够预测连续的, 精确的动作序列, 而一些先前的模仿学习方法只能像分类问题一样预测离散动作, 此外端到端的训练方式对特化的任务可能有更好的效果<br />
+消融实验中, CVAE, 动作块等机制都较为有效<br />
+相比先前方法, ACT 大部分任务都取得了更好的表现, 但是会在对比度低图像难以捕捉特征的场景表现不佳</p>
 <div class="note info">
 </div>
 
@@ -1163,7 +1167,7 @@ ACT 主要创新点在于能够预测连续的,精确的动作序列,而一些�
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">36:24</span>
+    <span title="站点阅读时长">36:25</span>
   </span>
 </div>
 <div class="busuanzi-count">
