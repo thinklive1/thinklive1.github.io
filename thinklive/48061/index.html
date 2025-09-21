@@ -44,7 +44,7 @@
 <meta property="og:image" content="https://thinklive1.github.io/assets/ml/image-4.png">
 <meta property="og:image" content="https://thinklive1.github.io/assets/ml/relation.png">
 <meta property="article:published_time" content="2025-09-09T07:53:29.840Z">
-<meta property="article:modified_time" content="2025-09-21T11:14:32.263Z">
+<meta property="article:modified_time" content="2025-09-21T12:21:37.744Z">
 <meta property="article:author" content="thinklive">
 <meta property="article:tag" content="课程笔记">
 <meta property="article:tag" content="python">
@@ -325,7 +325,7 @@ const darkmode = new Darkmode(options);
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-09-21 19:14:32" itemprop="dateModified" datetime="2025-09-21T19:14:32+08:00">2025-09-21</time>
+      <time title="修改时间：2025-09-21 20:21:37" itemprop="dateModified" datetime="2025-09-21T20:21:37+08:00">2025-09-21</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -358,7 +358,7 @@ const darkmode = new Darkmode(options);
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1:08</span>
+      <span>1:09</span>
     </span>
 </div>
 
@@ -1033,9 +1033,15 @@ A: 深度学习能增加预测函数的弹性, 这是因为它可以复杂的不
 <li>t = 1 时，p(x|x1)服从一个均值 x1, 方差较小的正态分布</li>
 </ol>
 <p>令 <span class="math inline">\(p_{t}({\bf x}|{\bf x_{1}})={\cal N}\left({\bf x};\mu_{t}({\bf x_{1}}),\sigma_{t}^{2}({\bf x_{1}}){\bf I}\right)\)</span><br />
-流可以写作: <span class="math inline">\(\psi_{t}({\bf x})\equiv\sigma_{t}({\bf x}_{1}){\bf x}+\mu_{t}({\bf x}_{1})\)</span></p>
-<p>可能有读者能猜到，经典的扩散模型例如 DDPM 可以视为这种形式的某种特例<br />
-具体怎么设置 <span class="math inline">\(\mu\)</span> 和 <span class="math inline">\(\sigma\)</span> 这里暂时不写</p>
+流可以写作: <span class="math inline">\(\psi_{t}({\bf x}) = \sigma_{t}({\bf x}_{1}){\bf x}+\mu_{t}({\bf x}_{1})\)</span></p>
+<p>可能有读者能猜到，经典的扩散模型例如 DDPM 可以视为这种形式的某种特例,即: <span class="math display">\[u_t(x|x1) =  \frac{\alpha_{1-t}^{\prime}}{1-\alpha_{1-t}^{2}}(\alpha_{1-t}x-x_{1})\]</span></p>
+<p>实际中更常用的是最优传输(线性表示):<br />
+<span class="math display">\[\mu_t(\alpha)=t x_{1},\;\sigma_{t}(x)=1-(1-\sigma_{m i n})t\]</span><br />
+<span class="math display">\[u_{t}(x|x_{1})={\frac{x_{1}-(1-\sigma_{m i n})x}{1-(1-\sigma_{m i n})t}}\]</span><br />
+<span class="math display">\[\psi_{t}(x)=(1-(1- \sigma_{m i n})t)x+t x_{1}\]</span><br />
+优化为:<br />
+<span class="math display">\[\begin{array}{c}{ {u_{t}(\psi_{t}(x_{0};x_{1})|x_{1})=\frac{\mathrm{d}\psi_{t}(x_{0};x_{1})}{\mathrm{d}t}}}\\ { {=x_{1}-({\mathrm{1}}-\sigma_{m i n})x_{0}}}\end{array}\]</span></p>
+<p>需要强调的是，最有传输理论上的“直线”更新路径只在给定采样x1的条件下成立，在真正生成数据时粒子依旧走的是曲线路径</p>
 <div class="note info">
 </div>
 
