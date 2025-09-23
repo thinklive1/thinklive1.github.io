@@ -36,7 +36,7 @@
 <meta property="og:image" content="https://thinklive1.github.io/assets/ml/image-1.png">
 <meta property="og:image" content="https://thinklive1.github.io/assets/ml/image-2.png">
 <meta property="article:published_time" content="2025-09-09T07:53:29.848Z">
-<meta property="article:modified_time" content="2025-09-21T13:48:23.073Z">
+<meta property="article:modified_time" content="2025-09-23T03:14:37.036Z">
 <meta property="article:author" content="thinklive">
 <meta property="article:tag" content="人工智能">
 <meta property="article:tag" content="机器学习">
@@ -203,7 +203,7 @@ const darkmode = new Darkmode(options);
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#embodied-ai"><span class="nav-number">1.</span> <span class="nav-text">Embodied AI</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#semantic-mapping-%E8%AF%AD%E4%B9%89%E5%9C%B0%E5%9B%BE"><span class="nav-number">1.1.</span> <span class="nav-text">Semantic Mapping 语义地图</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#survey"><span class="nav-number">1.1.1.</span> <span class="nav-text">survey</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%90%8D%E8%AF%8D%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">名词介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%B0%E5%9B%BE%E7%BB%93%E6%9E%84"><span class="nav-number">1.1.1.3.</span> <span class="nav-text">地图结构</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#spatial-grid-map"><span class="nav-number">1.1.1.3.1.</span> <span class="nav-text">Spatial grid map</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#topological-map"><span class="nav-number">1.1.1.3.2.</span> <span class="nav-text">Topological map</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#point-cloud-map"><span class="nav-number">1.1.1.3.3.</span> <span class="nav-text">Point-cloud map</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#hybrid-map"><span class="nav-number">1.1.1.3.4.</span> <span class="nav-text">Hybrid map</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%B0%E5%9B%BE%E7%BC%96%E7%A0%81-map-encoding"><span class="nav-number">1.1.1.4.</span> <span class="nav-text">地图编码 map encoding</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%98%BE%E5%BC%8F%E7%BC%96%E7%A0%81"><span class="nav-number">1.1.1.4.1.</span> <span class="nav-text">显式编码</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%9A%90%E5%BC%8F%E7%BC%96%E7%A0%81"><span class="nav-number">1.1.1.4.2.</span> <span class="nav-text">隐式编码</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%B0%E5%9B%BE%E8%AF%84%E4%BC%B0-map-evaluation"><span class="nav-number">1.1.1.5.</span> <span class="nav-text">地图评估 Map Evaluation</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B1%95%E6%9C%9B%E6%9C%AA%E6%9D%A5%E4%B8%8E%E7%BB%93%E8%AF%AD"><span class="nav-number">1.1.1.6.</span> <span class="nav-text">展望未来与结语</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dualmap-%E5%9C%A8%E7%BA%BF%E5%BC%80%E6%94%BE%E8%AF%8D%E6%B1%87%E8%AF%AD%E4%B9%89%E5%BB%BA%E5%9B%BE%E5%8A%A9%E5%8A%9B%E6%99%BA%E8%83%BD%E4%BD%93%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%AF%BC%E8%88%AA"><span class="nav-number">1.1.2.</span> <span class="nav-text">DualMap: 在线开放词汇语义建图助力智能体自然语言导航</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%91%98%E8%A6%81"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">摘要</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#dualmap-%E7%9A%84%E6%94%B9%E8%BF%9B"><span class="nav-number">1.1.2.3.</span> <span class="nav-text">DualMap 的改进</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%85%B7%E4%BD%93%E5%9C%B0%E5%9B%BE"><span class="nav-number">1.1.2.3.1.</span> <span class="nav-text">具体地图</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%8A%BD%E8%B1%A1%E5%9C%B0%E5%9B%BE"><span class="nav-number">1.1.2.3.2.</span> <span class="nav-text">抽象地图</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AF%BC%E8%88%AA%E7%AD%96%E7%95%A5"><span class="nav-number">1.1.2.3.3.</span> <span class="nav-text">导航策略</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E7%BB%93%E6%9E%84%E4%B8%8E%E6%80%BB%E7%BB%93"><span class="nav-number">1.1.2.4.</span> <span class="nav-text">测试结构与总结</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vision-language-action-models"><span class="nav-number">1.2.</span> <span class="nav-text">Vision-Language-Action Models</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#large-vlm-based-vision-language-action-models-for-robotic-manipulation-a-survey"><span class="nav-number">1.2.1.</span> <span class="nav-text">Large VLM-based Vision-Language-Action Models for Robotic Manipulation: A Survey</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%89%8D%E8%A8%80-1"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%83%8C%E6%99%AF%E7%9F%A5%E8%AF%86"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">背景知识</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#monolithic-models-%E5%8D%95%E7%89%87%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.2.1.3.</span> <span class="nav-text">MONOLITHIC MODELS 单片模型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#single-system-models"><span class="nav-number">1.2.1.3.1.</span> <span class="nav-text">Single-system Models</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#model-performance-enhancement"><span class="nav-number">1.2.1.3.1.1.</span> <span class="nav-text">Model Performance Enhancement</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#inference-efficiency-optimization"><span class="nav-number">1.2.1.3.1.2.</span> <span class="nav-text">Inference Efficiency Optimization</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#dual-system-models"><span class="nav-number">1.2.1.3.2.</span> <span class="nav-text">Dual-system Models</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#cascade-based-methods"><span class="nav-number">1.2.1.3.2.1.</span> <span class="nav-text">Cascade-based Methods</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#parallel-based-methods"><span class="nav-number">1.2.1.3.2.2.</span> <span class="nav-text">Parallel-based Methods</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#hierarchical-models-%E5%88%86%E5%B1%82%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.2.1.4.</span> <span class="nav-text">HIERARCHICAL MODELS 分层模型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#planner-only"><span class="nav-number">1.2.1.4.1.</span> <span class="nav-text">Planner-Only</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#plannerpolicy"><span class="nav-number">1.2.1.4.2.</span> <span class="nav-text">Planner+Policy</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E5%89%8D%E6%B2%BF%E9%A2%86%E5%9F%9F"><span class="nav-number">1.2.1.5.</span> <span class="nav-text">其他前沿领域</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#vla-%E7%9A%84%E7%89%B9%E7%82%B9"><span class="nav-number">1.2.1.6.</span> <span class="nav-text">VLA 的特点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E9%9B%86%E5%92%8C%E5%9F%BA%E5%87%86%E6%B5%8B%E8%AF%95"><span class="nav-number">1.2.1.7.</span> <span class="nav-text">数据集和基准测试</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%BB%E7%BB%93%E5%92%8C%E5%B1%95%E6%9C%9B"><span class="nav-number">1.2.1.8.</span> <span class="nav-text">总结和展望</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%CF%800-a-vision-language-action-flow-model-for-general-robot-control"><span class="nav-number">1.2.2.</span> <span class="nav-text">π0: A Vision-Language-Action Flow Model for General Robot Control</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">模型介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%AD%E7%BB%83%E4%B8%8E%E5%AE%9E%E9%AA%8C"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">训练与实验</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%86%E8%8A%82"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">细节</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B"><span class="nav-number">1.3.</span> <span class="nav-text">实例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#openin"><span class="nav-number">1.3.1.</span> <span class="nav-text">OpenIN</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#learning-fine-grained-bimanual-manipulation-with-low-cost-hardware"><span class="nav-number">1.3.2.</span> <span class="nav-text">Learning Fine-Grained Bimanual Manipulation with Low-Cost Hardware</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%89%8D%E8%A8%80-2"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#real-work"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">real work</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E4%B8%8E%E6%80%BB%E7%BB%93"><span class="nav-number">1.3.2.3.</span> <span class="nav-text">实验与总结</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#embodied-ai"><span class="nav-number">1.</span> <span class="nav-text">Embodied AI</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#semantic-mapping-%E8%AF%AD%E4%B9%89%E5%9C%B0%E5%9B%BE"><span class="nav-number">1.1.</span> <span class="nav-text">Semantic Mapping 语义地图</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#survey"><span class="nav-number">1.1.1.</span> <span class="nav-text">survey</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%90%8D%E8%AF%8D%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">名词介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%B0%E5%9B%BE%E7%BB%93%E6%9E%84"><span class="nav-number">1.1.1.3.</span> <span class="nav-text">地图结构</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#spatial-grid-map"><span class="nav-number">1.1.1.3.1.</span> <span class="nav-text">Spatial grid map</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#topological-map"><span class="nav-number">1.1.1.3.2.</span> <span class="nav-text">Topological map</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#point-cloud-map"><span class="nav-number">1.1.1.3.3.</span> <span class="nav-text">Point-cloud map</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#hybrid-map"><span class="nav-number">1.1.1.3.4.</span> <span class="nav-text">Hybrid map</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%B0%E5%9B%BE%E7%BC%96%E7%A0%81-map-encoding"><span class="nav-number">1.1.1.4.</span> <span class="nav-text">地图编码 map encoding</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%98%BE%E5%BC%8F%E7%BC%96%E7%A0%81"><span class="nav-number">1.1.1.4.1.</span> <span class="nav-text">显式编码</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%9A%90%E5%BC%8F%E7%BC%96%E7%A0%81"><span class="nav-number">1.1.1.4.2.</span> <span class="nav-text">隐式编码</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%B0%E5%9B%BE%E8%AF%84%E4%BC%B0-map-evaluation"><span class="nav-number">1.1.1.5.</span> <span class="nav-text">地图评估 Map Evaluation</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B1%95%E6%9C%9B%E6%9C%AA%E6%9D%A5%E4%B8%8E%E7%BB%93%E8%AF%AD"><span class="nav-number">1.1.1.6.</span> <span class="nav-text">展望未来与结语</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dualmap-%E5%9C%A8%E7%BA%BF%E5%BC%80%E6%94%BE%E8%AF%8D%E6%B1%87%E8%AF%AD%E4%B9%89%E5%BB%BA%E5%9B%BE%E5%8A%A9%E5%8A%9B%E6%99%BA%E8%83%BD%E4%BD%93%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%AF%BC%E8%88%AA"><span class="nav-number">1.1.2.</span> <span class="nav-text">DualMap: 在线开放词汇语义建图助力智能体自然语言导航</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#dualmap-%E7%9A%84%E6%94%B9%E8%BF%9B"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">DualMap 的改进</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%85%B7%E8%B1%A1%E5%9C%B0%E5%9B%BE"><span class="nav-number">1.1.2.2.1.</span> <span class="nav-text">具象地图</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%8A%BD%E8%B1%A1%E5%9C%B0%E5%9B%BE"><span class="nav-number">1.1.2.2.2.</span> <span class="nav-text">抽象地图</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AF%BC%E8%88%AA%E7%AD%96%E7%95%A5"><span class="nav-number">1.1.2.2.3.</span> <span class="nav-text">导航策略</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E7%BB%93%E6%9E%84%E4%B8%8E%E6%80%BB%E7%BB%93"><span class="nav-number">1.1.2.3.</span> <span class="nav-text">测试结构与总结</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%99%84%E5%BD%95"><span class="nav-number">1.1.2.4.</span> <span class="nav-text">附录</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vision-language-action-models"><span class="nav-number">1.2.</span> <span class="nav-text">Vision-Language-Action Models</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#large-vlm-based-vision-language-action-models-for-robotic-manipulation-a-survey"><span class="nav-number">1.2.1.</span> <span class="nav-text">Large VLM-based Vision-Language-Action Models for Robotic Manipulation: A Survey</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%89%8D%E8%A8%80-1"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%83%8C%E6%99%AF%E7%9F%A5%E8%AF%86"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">背景知识</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#monolithic-models-%E5%8D%95%E7%89%87%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.2.1.3.</span> <span class="nav-text">MONOLITHIC MODELS 单片模型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#single-system-models"><span class="nav-number">1.2.1.3.1.</span> <span class="nav-text">Single-system Models</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#model-performance-enhancement"><span class="nav-number">1.2.1.3.1.1.</span> <span class="nav-text">Model Performance Enhancement</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#inference-efficiency-optimization"><span class="nav-number">1.2.1.3.1.2.</span> <span class="nav-text">Inference Efficiency Optimization</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#dual-system-models"><span class="nav-number">1.2.1.3.2.</span> <span class="nav-text">Dual-system Models</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#cascade-based-methods"><span class="nav-number">1.2.1.3.2.1.</span> <span class="nav-text">Cascade-based Methods</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#parallel-based-methods"><span class="nav-number">1.2.1.3.2.2.</span> <span class="nav-text">Parallel-based Methods</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#hierarchical-models-%E5%88%86%E5%B1%82%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.2.1.4.</span> <span class="nav-text">HIERARCHICAL MODELS 分层模型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#planner-only"><span class="nav-number">1.2.1.4.1.</span> <span class="nav-text">Planner-Only</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#plannerpolicy"><span class="nav-number">1.2.1.4.2.</span> <span class="nav-text">Planner+Policy</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E5%89%8D%E6%B2%BF%E9%A2%86%E5%9F%9F"><span class="nav-number">1.2.1.5.</span> <span class="nav-text">其他前沿领域</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#vla-%E7%9A%84%E7%89%B9%E7%82%B9"><span class="nav-number">1.2.1.6.</span> <span class="nav-text">VLA 的特点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E9%9B%86%E5%92%8C%E5%9F%BA%E5%87%86%E6%B5%8B%E8%AF%95"><span class="nav-number">1.2.1.7.</span> <span class="nav-text">数据集和基准测试</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%BB%E7%BB%93%E5%92%8C%E5%B1%95%E6%9C%9B"><span class="nav-number">1.2.1.8.</span> <span class="nav-text">总结和展望</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%CF%800-a-vision-language-action-flow-model-for-general-robot-control"><span class="nav-number">1.2.2.</span> <span class="nav-text">π0: A Vision-Language-Action Flow Model for General Robot Control</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">模型介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%AD%E7%BB%83%E4%B8%8E%E5%AE%9E%E9%AA%8C"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">训练与实验</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%86%E8%8A%82"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">细节</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B"><span class="nav-number">1.3.</span> <span class="nav-text">实例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#openin"><span class="nav-number">1.3.1.</span> <span class="nav-text">OpenIN</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#learning-fine-grained-bimanual-manipulation-with-low-cost-hardware"><span class="nav-number">1.3.2.</span> <span class="nav-text">Learning Fine-Grained Bimanual Manipulation with Low-Cost Hardware</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%89%8D%E8%A8%80-2"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#real-work"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">real work</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E4%B8%8E%E6%80%BB%E7%BB%93"><span class="nav-number">1.3.2.3.</span> <span class="nav-text">实验与总结</span></a></li></ol></li></ol></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -314,7 +314,7 @@ const darkmode = new Darkmode(options);
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-09-21 21:48:23" itemprop="dateModified" datetime="2025-09-21T21:48:23+08:00">2025-09-21</time>
+      <time title="修改时间：2025-09-23 11:14:37" itemprop="dateModified" datetime="2025-09-23T11:14:37+08:00">2025-09-23</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -347,7 +347,7 @@ const darkmode = new Darkmode(options);
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1:16</span>
+      <span>1:18</span>
     </span>
 </div>
 
@@ -387,15 +387,15 @@ const darkmode = new Darkmode(options);
 </ul></li>
 <li><a href="#dualmap-在线开放词汇语义建图助力智能体自然语言导航">DualMap: 在线开放词汇语义建图助力智能体自然语言导航</a>
 <ul>
-<li><a href="#摘要">摘要</a></li>
 <li><a href="#背景">背景</a></li>
 <li><a href="#dualmap-的改进">DualMap 的改进</a>
 <ul>
-<li><a href="#具体地图">具体地图</a></li>
+<li><a href="#具象地图">具象地图</a></li>
 <li><a href="#抽象地图">抽象地图</a></li>
 <li><a href="#导航策略">导航策略</a></li>
 </ul></li>
 <li><a href="#测试结构与总结">测试结构与总结</a></li>
+<li><a href="#附录">附录</a></li>
 </ul></li>
 </ul></li>
 <li><a href="#vision-language-action-models">Vision-Language-Action Models</a>
@@ -447,7 +447,7 @@ const darkmode = new Darkmode(options);
 </ul></li>
 </ul>
 <h1 id="embodied-ai">Embodied AI</h1>
-<p>集成了物理上的机械以及 ai(一般是常用的机器学习模型)的一种智能体, 这个词与 robotics(机器人学)的区别是, 后者较为关心硬件上的很多问题, 以及操作系统等偏底层的问题;而具身智能较为关注抽象层面的智能, 暂时屏蔽掉底层的一些细节</p>
+<p>集成了物理上的机械以及 ai(一般是常用的机器学习模型)的一种智能体, 这个词与 robotics(机器人学)的区别是, 后者较为关心硬件上的很多问题, 以及操作系统等偏底层的问题; 而具身智能较为关注抽象层面的智能, 暂时屏蔽掉底层的一些细节</p>
 <h2 id="semantic-mapping-语义地图">Semantic Mapping 语义地图</h2>
 <h3 id="survey">survey</h3>
 <h4 id="前言">前言</h4>
@@ -464,15 +464,15 @@ const darkmode = new Darkmode(options);
 <p>智能机器人可以分为很多种, 我们只考虑不联网(用不了 gps), 没有复杂传感器的一类, 就叫 bot 吧, bot 想建立地图, 最直观的方法就是以自己为中心开始认知环境, 这就有点类似人类的认路, 对这种机器人来说,1. 2.其实可以视为一体, 因为在对当前环境建模的过程中可以自然地知道自己的位置, 主流的技术也是这么做的, 称为 <code>simultaneous localization and mapping (SLAM)</code><br />
 总结一下, 接下来要讨论的 SLAM 是一种对环境的不断认知地同时进行地图制定及定位的一种技术<br />
 现在设想一个传统印象里的机器人, 它可能有光学或者声学的某些传感器, 这些传感器能很容易地捕捉到附近的障碍物, 这和初中生物讲的蝙蝠超声波定位也没什么本质区别, 但这些障碍物信息并不包括语义信息<br />
-附带语义的 slam 称为 <code>semantic slam</code>, 常见的做法是对传感器画面做特征提取, 例如可以提取成一系列词汇, 这称为 <code>Bag of Visual Words</code>, 得到这些词后, 查找词典匹配到一个具体物品;如果想要更好的效果, 则可以进行深度学习</p>
+附带语义的 slam 称为 <code>semantic slam</code>, 常见的做法是对传感器画面做特征提取, 例如可以提取成一系列词汇, 这称为 <code>Bag of Visual Words</code>, 得到这些词后, 查找词典匹配到一个具体物品; 如果想要更好的效果, 则可以进行深度学习</p>
 <h4 id="名词介绍">名词介绍</h4>
 <p>如果我们想要真正能用的机器人, 就不得不想办法让它能理解概念性的东西, 例如自然语言里的上下文, 词义向量, 而在具身智能的问题场景中, 则需要带有语义的地图, 例如客厅和餐厅都摆着大桌子, 要区分这两种房间就需要很多上下文信息<br />
 以下开始介绍一些细节, 首先是地图的表示方法(结构), 考虑室内这个场景, 由于其最大高度是固定的, 因此可以比较方便地使用 2d 的拓扑图, 网格来表示, 除此之后也可以使用 3d 的点云或者其他混合结构<br />
 我们首先做的是物体辨识和分类问题, 在室内, 例如普通住房中, 房间、家具的种类都是有限且数量级很小的, 对于机器人, 用内置芯片的算力可能就能做出来, 在机器人探索的过程中, 得到的各个空间、物体关系可以不断存入语义地图中供之后调用, 例如让机器人找一个苹果, 它能发现苹果在冰箱里面, 拓扑关系上可能就是客厅-冰箱-苹果, 这样之后找苹果也可以跟着这条路径走</p>
 <div class="note info"><ul>
-<li><code>开放词汇语义地图（Open-Vocabulary Semantic Maps）</code>: 系统能够识别和处理未在训练中见过的新对象或特征, 而不仅仅局限于预定义的类别;与其相反的情况就可以视为是一个分类问题</li>
+<li><code>开放词汇语义地图（Open-Vocabulary Semantic Maps）</code>: 系统能够识别和处理未在训练中见过的新对象或特征, 而不仅仅局限于预定义的类别; 与其相反的情况就可以视为是一个分类问题</li>
 <li><code>Embodied AI tasks</code>: 大致可分为: 探索、导航、操纵, 更细粒度的划分可以使用目标的类型, 例如图像目标比定位上的目标需要更细的信息</li>
-<li><code>End-to-end | Modular approaches</code>: 前者直接用传感器信息生成行动, 优点是对中小型任务效果不错, 但复杂的 3d 空间, 长期路径规划等任务中表现不佳, 此外也无法复用;后者会将输入信息投入不同模块中处理例如编码器, 映射, 探索等, 最后生成行动, 优点是各个模块可以分开训练或者使用预训练模型</li>
+<li><code>End-to-end | Modular approaches</code>: 前者直接用传感器信息生成行动, 优点是对中小型任务效果不错, 但复杂的 3d 空间, 长期路径规划等任务中表现不佳, 此外也无法复用; 后者会将输入信息投入不同模块中处理例如编码器, 映射, 探索等, 最后生成行动, 优点是各个模块可以分开训练或者使用预训练模型</li>
 <li>e2e 相关
 <ul>
 <li><code>intermediate map representation</code>: 输入和输出之间的中间数据, 一般用于提取关键信息</li>
@@ -554,7 +554,7 @@ const darkmode = new Darkmode(options);
 <p>拓扑图更注重节点(地标)之间的关系, 这其实也是人类认路的一种方法, 符合常识, 但缺点是抽象层级较高<br />
 首先考虑怎么表示给出一个空间, 怎么画它的拓扑图, 什么是节点, 什么是边呢？符合直觉的想法是, 节点有较为重要的语义信息, 例如是一种房间的典型物体, 而边描述节点之间的连接性, 常见方法中节点通常存储图像特征或时间信息 (访问时间戳) 等信息, 而边缘可以存储一对节点之间的相对 pose<br />
 实际训练中, 可以让模型预先跑几遍结合这几次的轨迹画出一个 graph, 然后的规划过程寻找 graph 中最接近的节点, 这称为 <code>Semi-Parametric Topological Memory (SPTM)</code>, 这种做法有很多缺点, 例如预探索可能有很多没走到的路, 不适合未知场景等<br />
-为了解决这种问题, 我们需要让 agent 能实时地感知到自己有哪边不了解, 应该先探索那边, 也就是 online 学习, 一种做法叫 <code>Neural Topological SLAM (NTS)</code>, 它使用 <code>Graph Update</code> 模块更新 map, <code>Global Policy</code> 模块对 map 采样, <code>Local Policy</code> 模块输出离散的导航行动;其中图更新模块作用如下:</p>
+为了解决这种问题, 我们需要让 agent 能实时地感知到自己有哪边不了解, 应该先探索那边, 也就是 online 学习, 一种做法叫 <code>Neural Topological SLAM (NTS)</code>, 它使用 <code>Graph Update</code> 模块更新 map, <code>Global Policy</code> 模块对 map 采样, <code>Local Policy</code> 模块输出离散的导航行动; 其中图更新模块作用如下:</p>
 <ol type="1">
 <li>定位: 尝试将智能体在前一个时间戳的图中进行定位</li>
 <li>对已存在节点:
@@ -576,22 +576,22 @@ const darkmode = new Darkmode(options);
 <ul>
 <li>拓扑更能捕捉空间之间的关系, 而 grid 更有距离上的细节, 两者结合称为 <code>topometric map</code>
 <ul>
-<li>例如, 先生成一个粗糙的拓扑图, 根据拓扑图完善一个细粒度的 grid;实验发现, 拓扑图能修正一些巨大的测量问题, 也就是全局问题, 而网格则能更好地解决局部问题</li>
+<li>例如, 先生成一个粗糙的拓扑图, 根据拓扑图完善一个细粒度的 grid; 实验发现, 拓扑图能修正一些巨大的测量问题, 也就是全局问题, 而网格则能更好地解决局部问题</li>
 <li>另一篇文章中, 为了处理紧凑的环境, 作者将转角和走廊用拓扑表示, 房间则用网格表示, 由于一般来说我们只需要房间里有详细的信息, 而对交通空间不关心具体情况</li>
 <li>以上两篇都比较古早, 最近的一种基于 bert 的文章离线训练 hybrid maps, 然后训练一个多模态模型进行语言指导式的空间推理</li>
 <li>还有结合三者的, 网格存储 occupancy(障碍物)信息, 拓扑图存储地标及其连通性, 点云则存储详细的语义信息</li>
 </ul></li>
-<li>构建能够捕捉场景语义层次的地图可以实现不同层次的推理, 例如不同的节点实际上在不同层级(坐标系)中而, 边表示坐标系的转化关系;除了分层, 还可以额外存储物体, agent 之间的时空关系, 实验证明分层的场景表示对复杂的环境效果更好, 这样的技术甚至可以用来对城市的交通系统进行建模</li>
+<li>构建能够捕捉场景语义层次的地图可以实现不同层次的推理, 例如不同的节点实际上在不同层级(坐标系)中而, 边表示坐标系的转化关系; 除了分层, 还可以额外存储物体, agent 之间的时空关系, 实验证明分层的场景表示对复杂的环境效果更好, 这样的技术甚至可以用来对城市的交通系统进行建模</li>
 </ul>
 <p>混用这些地图结构时需谨慎考虑各自的特点, 例如拓扑和点云地图在大环境中比网格地图更具可扩展性, 但点云需要更多存储空间, 拓扑地图所需的存储空间最少</p>
 <h4 id="地图编码-map-encoding">地图编码 map encoding</h4>
-<p>地图编码是指将信息通过某种方式存储在语义地图中, 而这些信息可以分为隐式和显式的, 显式指的是可以被直接解释或者理解的信息, 例如像素的颜色, object 所属的类别等;隐式则指一些提取出来的特征, 无法被直接地理解</p>
+<p>地图编码是指将信息通过某种方式存储在语义地图中, 而这些信息可以分为隐式和显式的, 显式指的是可以被直接解释或者理解的信息, 例如像素的颜色, object 所属的类别等; 隐式则指一些提取出来的特征, 无法被直接地理解</p>
 <h5 id="显式编码">显式编码</h5>
 <p>那么根据常识, 至少障碍物信息, 也就是 <code>occupancy information</code> 信息是很值得显式存储的, 并且可以用一个 bool 就能表示是否占用的二元关系<br />
 此外, 为了鼓励 agent 探索未去过的区域, <code>Active Neural SLAM</code> 方法会存储一个 bool 值表示是否已探索<br />
 而对于更复杂或者更长期的任务, 例如针对语义目标的导航任务, 就需要额外存储语义信息, 例如 <code>SemExp</code> 会额外存储 agent 认知的语义类别标签, 这些标签通过 <code>MaskRCNN</code> 产生, 在 <code>aggregate</code> 时使用 <code>element-wise max pooling</code>(取各个子区域里的最大值), 且保留最新的预测值<br />
-首先将图像分割再投影会造成 <code>label splattering</code> 现象, 也就是一些噪声标签会散布到多个 <code>grid cells</code>, 这是因为对深度的观察会受到环境噪声的影响;但首先投影编码后的特征再分割能实现一定的降噪效果(需要预探索)<br />
-此外, 图像, 文字, 目标检测概率(对目标属于某个类别的置信度评分)等值也可以作为存储标签, 近年一些图文, 图图匹配也有不错的效果;存储音频信息(例如声音强度)的地图在视听导航任务中也有作用;<br />
+首先将图像分割再投影会造成 <code>label splattering</code> 现象, 也就是一些噪声标签会散布到多个 <code>grid cells</code>, 这是因为对深度的观察会受到环境噪声的影响; 但首先投影编码后的特征再分割能实现一定的降噪效果(需要预探索)<br />
+此外, 图像, 文字, 目标检测概率(对目标属于某个类别的置信度评分)等值也可以作为存储标签, 近年一些图文, 图图匹配也有不错的效果; 存储音频信息(例如声音强度)的地图在视听导航任务中也有作用;<br />
 以上都是网格地图的应用, 拓扑图中, 可存储每次都会替换更新的访问时间戳, 用来表示地点之间的时间相对关系</p>
 <p>总结: 显式编码的优点是其可解释性, 对于具体的任务, 我们可以选择常识上有益的信息类型并编码存储, 但是这较为依赖人类对问题的理解</p>
 <h5 id="隐式编码">隐式编码</h5>
@@ -617,15 +617,15 @@ NLMap(grid): 如果想直接辨别图像里的物品, 则可以使用 <code>clas
 <h4 id="地图评估-map-evaluation">地图评估 Map Evaluation</h4>
 <p>很明显, 对智能效果最直接的评价标准就是 agent 执行任务的效果, 因此目前对 map 的评估较少, 本文讨论如何从准确性, 完整性, 一致性, 健壮性以及实用性的角度评价地图对于下游任务的功效</p>
 <ul>
-<li>Utility 实用性: 大部分工作将语义地图作为一个中间步骤, planner 使用它来规划路径, 产生动作指令, 如果我们只用地图做这一件事, 那么直接看任务完成地怎么样就是最好的评价标准了;但对一些和地图有关的任务, 例如导航、勘探, 则也可以用覆盖率, 导航准确性等作为指标<br />
+<li>Utility 实用性: 大部分工作将语义地图作为一个中间步骤, planner 使用它来规划路径, 产生动作指令, 如果我们只用地图做这一件事, 那么直接看任务完成地怎么样就是最好的评价标准了; 但对一些和地图有关的任务, 例如导航、勘探, 则也可以用覆盖率, 导航准确性等作为指标<br />
 </li>
-<li>Accuracy 准确性: 地图准确度是指与现实地形进行比较时, 地图捕获语义信息的准确度, 问题在于, 很多时候现实的地理信息较难获取。如果只论语义的比对, 则可以使用一些语义分割上的指标, 与智能的语义划分进行比对;还有一个问题是, 这种比较对常常种类有限的显式特征较为方便, 但对隐式的特征则无从下手, 对此只能再用一个分割器将隐式转化为显式, 又或者人工评估</li>
-<li>Completeness 完整性: 地图是否完整地表示环境, 这包括了几何和语义层面。这点很大程度上取决于机器人在下游任务中探索环境的彻底程度, 并且与 “停止标准 <code>stopping criteria</code>” 密切相关, 一般来说, 会在任务完成或者达到时间限制时停止;而语义上的完整则很难测算, 几乎没有成熟的方法</li>
-<li>Consistency 一致性: 几何一致性指的是地图的空间结构能反映环境物理布局的准确性, 不严谨的说可以视为地图局部细节(距离, 角度, 物体相对位置)的准确性, 模拟环境下不存在传感器噪声, 因此几乎可以不考虑, 但实际情况中, 由于各种因素影响, 代理可能错估自己走过的距离, 相对位置等, 从而破坏一致性;语义一致性则指随着机器人运动, 语义信息和物理位置能否对齐。由于当前还处于理论阶段, 这方面的研究尚且不足</li>
-<li>Robustness 健壮性: 在不可预测或动态环境中的可靠性, 由于现在大量使用预训练模型, 可以用预测的置信度来评估;此外也可以使用模型预测的方差来评估, 但由于能落地的应用有限, 这方面的研究也比较缺乏</li>
+<li>Accuracy 准确性: 地图准确度是指与现实地形进行比较时, 地图捕获语义信息的准确度, 问题在于, 很多时候现实的地理信息较难获取。如果只论语义的比对, 则可以使用一些语义分割上的指标, 与智能的语义划分进行比对; 还有一个问题是, 这种比较对常常种类有限的显式特征较为方便, 但对隐式的特征则无从下手, 对此只能再用一个分割器将隐式转化为显式, 又或者人工评估</li>
+<li>Completeness 完整性: 地图是否完整地表示环境, 这包括了几何和语义层面。这点很大程度上取决于机器人在下游任务中探索环境的彻底程度, 并且与 “停止标准 <code>stopping criteria</code>” 密切相关, 一般来说, 会在任务完成或者达到时间限制时停止; 而语义上的完整则很难测算, 几乎没有成熟的方法</li>
+<li>Consistency 一致性: 几何一致性指的是地图的空间结构能反映环境物理布局的准确性, 不严谨的说可以视为地图局部细节(距离, 角度, 物体相对位置)的准确性, 模拟环境下不存在传感器噪声, 因此几乎可以不考虑, 但实际情况中, 由于各种因素影响, 代理可能错估自己走过的距离, 相对位置等, 从而破坏一致性; 语义一致性则指随着机器人运动, 语义信息和物理位置能否对齐。由于当前还处于理论阶段, 这方面的研究尚且不足</li>
+<li>Robustness 健壮性: 在不可预测或动态环境中的可靠性, 由于现在大量使用预训练模型, 可以用预测的置信度来评估; 此外也可以使用模型预测的方差来评估, 但由于能落地的应用有限, 这方面的研究也比较缺乏</li>
 </ul>
 <h4 id="展望未来与结语">展望未来与结语</h4>
-<p>当前的趋势为创建灵活、通用、开放词汇和可查询的地图, 以支持多种任务;为了提高空间推理能力, 密集, 可扩展和内存高效也是一种方向</p>
+<p>当前的趋势为创建灵活、通用、开放词汇和可查询的地图, 以支持多种任务; 为了提高空间推理能力, 密集, 可扩展和内存高效也是一种方向</p>
 <ul>
 <li>General-purpose maps: 由于机器人任务多样化, 通用的模型明显有着重要意义, 更有通用能力的开放词汇表也可能是趋势, 这需要对计算成本和内存消耗的平衡<br />
 </li>
@@ -635,13 +635,6 @@ NLMap(grid): 如果想直接辨别图像里的物品, 则可以使用 <code>clas
 <li>Devising evaluation metrics: 与下游任务中代理表现的评估相比, 语义地图的评估在具身 AI 研究中受到的关注较少。为了推动该领域的发展, 需要强调使用准确性、完整性、一致性和健壮性等指标对地图进行评估。</li>
 </ul>
 <h3 id="dualmap-在线开放词汇语义建图助力智能体自然语言导航"><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/GZ2vEWize3j94ti-2qJQJg">DualMap: 在线开放词汇语义建图助力智能体自然语言导航</a></h3>
-<h4 id="摘要">摘要</h4>
-<ul>
-<li>提出了在线开放词汇语义建图系统 <strong>DualMap</strong>, 能够使机器人通过自然语言查询理解并导航动态变化的环境</li>
-<li>设计了 <strong>混合分割前端和对象级状态检查机制</strong>, 消除了以往方法中代价高昂的三维对象合并需求, 实现了高效的在线场景建图</li>
-<li>提出了 <strong>双重建图表示方法</strong>, 结合全局抽象地图用于高级候选选择和局部具体地图用于精确目标定位, 有效管理和更新环境中的动态变化</li>
-<li>在仿真和真实世界场景中的广泛实验表明, DualMap 在三维开放词汇分割、高效场景建图和在线语言引导导航方面实现了领先性能</li>
-</ul>
 <h4 id="背景">背景</h4>
 <p>鉴于近年 ai 领域的发展, 机器人领域逐渐开始研究对于自然语言理解能力的集成, 对此可以分为 3 种任务:</p>
 <ol type="1">
@@ -652,36 +645,36 @@ NLMap(grid): 如果想直接辨别图像里的物品, 则可以使用 <code>clas
 <p>一些经典方法如 yolo(深度学习的对象检测模型), 虽然表现较为不错, 但鉴于它基于封闭的词汇表, 对于 "不认识" 的类别是没有辨别能力的<br />
 而所谓的开放词汇, 就是需要让模型能够理解没见过的类型, 并逐渐学习怎么更好地分类和认知, 常见的方法有:</p>
 <ol type="1">
-<li>通过图像标注模型标出标签, 再根据标签寻找对应检测器, 不过图像模型成本较为高昂, 很难在线学习</li>
-<li>类别无关分割: 使用一种不依赖具体类别的专用分割模型, 借助视觉基础模型(VFM)提取语义特征, 开销也较大</li>
+<li>通过图像标注模型标出标签, 再根据标签使用基于封闭集合的检测器，不过图像模型成本较为高昂, 很难在线学习</li>
+<li>类别无关分割: 使用一种不依赖具体类别的专用分割模型, 再借助视觉基础模型(VFM)提取语义特征, 开销也较大</li>
 </ol>
+<p>其主要的创新点正如其名，在开放词汇的基础上使用两种地图，空间占用较低的抽象地图用于导航任务，具象地图在需要更多细节时用于参考</p>
 <h4 id="dualmap-的改进">DualMap 的改进</h4>
 <ol type="1">
-<li><p>开放词汇的目标检测<br />
-利用 llm 提供类别, 让 yolo 快速生成粗略的目标检测结果, 并通过 mobileSAM 生成分割掩码; 同时让 FastSAM(开放词汇表分割模型)捕捉 yolo 的封闭表外的对象; 对两者进行融合时 yolo 优先, 补充不重复的 FastSAM 片段<br />
-所谓的片段就是这一过程中分割出的各个对象数据</p></li>
+<li><p>开放词汇的目标分割<br />
+利用 llm 提供类别, 让 yolo 快速生成粗略的目标检测结果, 并通过 mobileSAM 生成分割掩码; 同时让 FastSAM(开放词汇表分割模型)捕捉 yolo 的封闭表外的对象(这步可能会过度分割，之后还会进行合并操作); 对两者进行融合时 yolo 优先, 补充不重复的 FastSAM 片段；这样的设计主要是为了使用成本较低的 yolo 和 fastsam, 从而实现在线学习<br />
+这里补充一下对每一帧 I 的处理，事实上有三个模块会并行地使用 I，即上述的 YOLO, FastSAM 以及一个点云生成器, 点云地图和语义信息无关，只是用于提供空间布局</p></li>
 <li><p>语义特征处理<br />
-由于我们希望能让机器人做到能理解模糊的指令, 就需要让地图也携带语义信息, 这方面也有很方便的 VLM 模型例如 CLIP, CLIP 提供对图像的编码功能, 对裁剪后的图像区域编码为 <span class="math inline">\(f_{image}\)</span> , 有类别标签的区域再编码为 <span class="math inline">\(f_{text}\)</span> , 最后通过加权求和得到总的特征 f<br />
+由于我们希望能让机器人做到能理解模糊的指令, 就需要让地图也携带语义信息, 这方面也有很方便的图文嵌入模型例如 CLIP, CLIP 提供对图像的编码功能, 在第一步的分割后, 对裁剪出的图像区域编码为 <span class="math inline">\(f_{image}\)</span> , 如果之前的分割给出应该类别标签，对标签编码为 <span class="math inline">\(f_{text}\)</span> , 最后通过加权求和得到总的特征<br />
+<span class="math display">\[\mathbf{f}=w_{\mathrm{image}}\mathbf{f}_{\mathrm{image}}+w_{\mathrm{tex}}\mathbf{f}_{\mathrm{iext}},\qquad\mathbf{f}_{\mathrm{fimage,~text}\}}\in\mathbb{R}^{d}\]</span><br />
 对于 FastSAM 标记为“null”的对象, 用所有已知类别嵌入的归一化平均文本特征替换 <span class="math inline">\(f_{text}\)</span>  , 以消除语义偏差</p></li>
-<li><p>观测结构<br />
-每个这样的观测输入称为片段, 其观测结果用 z 表示, 而 z 可表示为: <span class="math inline">\(z=(P_{z},f_{z},y_{z},t_{z})\)</span><br />
-其中 P 表示分割区域从深度图投影到世界坐标系中生成的 3D 点云; f 表示之前我们得到的语义特征; y 表示 yolo 检测的对象类别, 对于 fastSAM 则设置为 null; t 为观测的时间戳</p></li>
+<li><p>观察结构<br />
+摄像机拍到的一帧为 I, 每个 I 提取出一个观察集 Z, Z 由 N 个片段 <span class="math inline">\(z_i\)</span> 组成, z 称为观察 , 可表示为: <span class="math inline">\(z=(P_{z},f_{z},y_{z},t_{z})\)</span><br />
+其中 P 表示分割区域从深度图投影到世界坐标系中生成的 3D 点云; f 表示之前我们得到的语义特征; y 表示 yolo 检测的对象类别, 对于 fastSAM 分辨出的则设置为 null; t 为观测的时间戳</p></li>
 <li><p>场景建模<br />
-本模型使用点云对场景建模, 但为了减少性能消耗, 只在遇到姿态变化大的帧时通过投影(相机带有深度信息)更新点云</p></li>
+本模型使用点云对场景建模, 但为了减少性能消耗, 只在遇到姿态变化大的帧时通过投影(相机带有深度信息)更新点云(这个更新线程并行低频运行)</p></li>
 </ol>
 <p>dualmap 最大的特点正如其名, 使用两种 Map, 下文分别介绍</p>
-<h5 id="具体地图">具体地图</h5>
+<h5 id="具象地图">具象地图</h5>
 <ol type="1">
-<li>地图初始化<br />
-地图有一系列对象组成, 每个对象, 这里称为 o, <span class="math inline">\(o=(P_{o},y_{o},f_{o},L_{o})\)</span></li>
-</ol>
-<p>其结构类似于观测 z, 但其中的 L 记录与对象关联的观测列表</p>
-<ol start="2" type="1">
+<li><p>地图初始化<br />
+地图有一系列对象组成, 每个对象, 这里称为 o, <span class="math inline">\(o=(P_{o},y_{o},f_{o},L_{o})\)</span><br />
+其结构类似于观察 z, 但其中的 L 记录与对象关联的观测集, 即 <code>L=set&#123;z&#125;</code></p></li>
 <li><p>地图更新<br />
-当新的观测集合到达时, 系统开始新一轮匹配(第一轮所有观测都会分配一个对象), 定义一个相似度矩阵 <span class="math inline">\({ S}\in R^{\mathbb{N}{\times}\mathcal{M}}\)</span> , 从点云重合度和语义相似度两个角度衡量<br />
-<span class="math display">\[S(z_{i},o_{j})=\mathrm{cos}(f_{z_{i}},f_{o_{j}})+\mathrm{Overlap}(P_{z_{i}},P_{o_{j}})\]</span> 而更新条件用一个简单的阈值 <span class="math inline">\(\tau\)</span> 表示, 超过阈值是相同对象, 否则新建对象</p></li>
+当新的观测集合到达时, 系统开始新一轮匹配(第一轮所有观测 z 都会分配一个对象 o), 定义一个相似度矩阵 <span class="math inline">\({ S}\in R^{\mathbb{N}{\times}\mathcal{M}}\)</span> , 从点云重合度和语义相似度两个角度衡量<br />
+<span class="math display">\[S(z_{i},o_{j})=\mathrm{cos}(f_{z_{i}},f_{o_{j}})+\mathrm{Overlap}(P_{z_{i}},P_{o_{j}})\]</span> 而更新条件用一个简单的阈值 <span class="math inline">\(\tau\)</span> 表示, 超过阈值认为是相同对象, 更新过程则是对 f 求新增一个 f 后的平均, 扩充点云，L 内部新增加一个观察 z; 否则新建对象</p></li>
 <li><p>地图维护<br />
-通过轻量级的内部对象状态检查（稳定性检查和分割检测）来维护地图的保真度:</p></li>
+一般来说，语义地图最“昂贵”的地方就是对 3d 物体进行合并，为了避免这种开销，通过轻量级的内部对象状态检查来维护地图的保真度, 可分为:</p></li>
 </ol>
 <ul>
 <li>稳定性检查: 对一个较长时间未更新的对象
@@ -689,56 +682,53 @@ NLMap(grid): 如果想直接辨别图像里的物品, 则可以使用 <code>clas
 <li>如果有足够观测次数, 至少有 2/3 的类别是同一个, 则保留</li>
 <li>否则删除</li>
 </ul></li>
-<li>分割检测: 如果连续帧中同一步出现具有不同类别 ID 的观测
+<li>分割检测: 如果有若干连续帧(每一帧产生一个观察集)中在同一时间步内出现具有不同类别 ID 的观测，例如对象 chair 连续 3 帧对应的时间步内有两个类别标签 chair 和 cushion
 <ul>
 <li>触发分割操作, 将对象的观测列表按类别 ID 分割并创建新对象</li>
 </ul></li>
 </ul>
 <h5 id="抽象地图">抽象地图</h5>
-<p>上一节我们讨论的地图依然是不包含语义信息, 只有对象(包括一些类别 id)信息的具体地图<br />
-而相比前者, 抽象地图会牺牲一些移动对象, 新增一些语义信息与空间关系信息, 具体包括:</p>
+<p>上一节我们讨论的地图依然是不包含全部语义信息, 只有对象(包括一些类别 id)信息的具象地图<br />
+而相比前者, 抽象地图牺牲易变对象, 只存储锚点对象，且新增一些语义信息与空间关系信息, 具体包括:</p>
 <ol type="1">
 <li>锚点对象
 <ol type="1">
-<li>构建静态(不改变位置的类)类别及描述性的语义信息, 使用 CLIP 编码器提取特征表示, 最终对其平均以生成模板特征 <span class="math inline">\(f_t\)</span><br />
-</li>
-<li>对每个对象, 计算其特征与 1. 中的模板特征的余弦相似度</li>
-<li>对相似度超过阈值的对象分类为锚点(静态)对象 a, 否则分类为易变对象 v</li>
+<li>首先使用两个代表性的锚点，易变类别列表(list)对现有对象分类，使用 CLIP 对对象编码得到特征f,如果f和两个列表的近似度相差达到一个门槛值，则分到相似度更高的一类，此时的门槛值较小，仅设 0.05</li>
+<li>除了1.中的两个列表，典型锚点对象的列表还有一个存储对应描述信息的列表，对1.中没有决定的对象， 计算其特征与描述列表的相似度，这里设一个较大的门槛值 0.5，并且强制二分</li>
+<li>丢弃易变对象的非语义属性(因为对导航任务没用)</li>
 </ol></li>
-<li>空间关系(易变与锚点对象之间), 以 on 关系为例:
+<li>空间关系(易变与锚点对象之间), 以 on 关系为主:
 <ol type="1">
 <li>以锚点对象点云的 Z 轴直方图以提取其支撑平面, 计算对象与锚点 2d 投影的重叠比例, 如果两者重叠且对象底部到支撑平面的垂直距离小于阈值, 则存在 on 关系</li>
-<li>建立空间关系后, 易变对象的语义特征 f 将存储在对应锚点对象的特征列表 L(L 存储于其关联的易变对象语义特征)在, 对每个锚点对象 a, <span class="math inline">\(a\,=\,(P_{a},f_{a},y_{a},L_{a})\)</span><br />
+<li>建立空间关系后, 易变对象的语义特征 f 将存储于对应锚点对象的特征列表 L(L 存储于其关联的易变对象语义特征), 对每个锚点对象 a, <span class="math inline">\(a\,=\,(P_{a},f_{a},y_{a},L_{a})\)</span><br />
 </li>
 </ol></li>
 <li>场景布局
 <ol type="1">
-<li>对于导航任务, 需要对场景进一步抽象, 例如将点云投影到平面, 转化为单元格</li>
-<li>考察单元格内点数密度, 可以粗略知道其场景结构, 例如墙壁的单元格理应很密集</li>
+<li>将点云投影到鸟瞰平面, 划分出单元格, 对最密集的地方，视为墙壁等结构物, 这种结构物只在新的查询请求到来时更新</li>
 </ol></li>
 </ol>
 <h5 id="导航策略">导航策略</h5>
-<p>对导航我们使用基于语义的思路:</p>
 <ol type="1">
 <li>候选检索<br />
-即对查询语句, 用 CLIP 编码为语义特征, 并与我们现有的锚点以及易变对象的特征集比较得分最高者作为候选人, 候选锚点称为 a*<br />
+对查询语句, 用 CLIP 编码为语义特征, 并与我们现有的锚点以及易变对象的特征集比较， 得分最高者作为候选, 候选锚点称为 a*<br />
 锚点得分的计算公式:</li>
 </ol>
 <p><span class="math display">\[s(a)=\mathrm{max}\Biggl(\mathrm{cos}\big(f_{q},\,f_{a}\big),\,\mathrm{max\underset{i}\,cos}\big(f_{q},\,f_{v i}\big)\Big)\]</span> 其中 q 下标表示查询, a 下标表示锚点对象, vi 下标表示易变对象</p>
 <ol start="2" type="1">
 <li>导航策略
 <ol type="1">
-<li>全局路径规划: 使用基于 Voronoi 图的规划器在抽象地图上规划一条通往候选锚点的全局路径;智能体移动时, 会逐步构建局部具体地图, 局部地图中的对象也可以用于匹配</li>
-<li>局部路径规划: 对局部具体地图中的对象, 计算其特征与查询特征的余弦相似度 s, 如果 s 也在之前的全局候选相似度阈值内, 使用 RRT*算法规划局部路径</li>
+<li>全局路径规划: 使用基于 Voronoi 图的规划器在抽象地图上规划一条通往候选锚点的全局路径; 智能体移动时, 会逐步构建局部具象地图, 局部地图中的对象也可以用于匹配</li>
+<li>局部路径规划: 对局部具象地图中的对象, 计算其特征与查询特征的余弦相似度 s, 如果 s 接近之前的全局候选相似度,且正好在去之前的候选对象的路上，使用 RRT*算法规划局部路径</li>
 <li>动态环境导航: 如果 a*附近没有可信匹配, 那么环境可能变化, 系统会更新抽象地图 Ma'重新寻找候选
 <ol type="1">
-<li>Ma'会将局部具体地图中的稳定对象合并</li>
-<li>更新地图后, 相似度分数依旧使用过去的版本, 用于存储历史信息</li>
+<li>Ma'会将局部具象地图中的稳定对象合并，详解下文</li>
+<li>更新地图后, 全局相似度分数依旧使用过去的版本, 即保留历史上下文信息</li>
 </ol></li>
 </ol></li>
 <li>抽象地图更新
 <ol type="1">
-<li>对局部具体地图中的稳定对象, 进行一轮抽象化得到新的锚点 <span class="math inline">\(a_{new}\)</span></li>
+<li>对局部具象地图中的稳定对象, 进行一轮抽象化得到新的锚点 <span class="math inline">\(a_{new}\)</span></li>
 <li>每个 <span class="math inline">\(a_{new}\)</span> 与现有的 a 比较, 计算重叠率
 <ol type="1">
 <li>如果重叠率超过门槛值, 说明 <span class="math inline">\(a_{new}\)</span> 和 a 有一定关系, 更新: <span class="math inline">\(f_{a}~\longleftarrow~{\frac{\left|P_{a}\right|\cdot{f}_{a} + \left|\mathcal{P}_{a_{\mathrm{new}} }\right|\cdot\ {f}a_{\mathrm{new}} } {\left|\mathcal{P}_{a}\right|\ +\left|\mathcal{P}_{a_{\mathrm{new} } }\right|} }\)</span></li>
@@ -748,14 +738,23 @@ NLMap(grid): 如果想直接辨别图像里的物品, 则可以使用 <code>clas
 </ol></li>
 </ol>
 <div class="note info"><ul>
-<li><code>RRT*（Rapidly-exploring Random Tree Star）</code> 算法: 一种用于路径规划的优化算法, 尤其适用于高维空间中的移动机器人和其他自动化系统;使用随机采样的方法在配置空间中探索路径, 逐步构建一棵树, 与基本的 RRT 算法不同, RRT* 在扩展树的过程中, 会不断优化已有路径, 尽量减少路径的成本</li>
+<li><code>RRT*（Rapidly-exploring Random Tree Star）</code> 算法: 一种用于路径规划的优化算法, 尤其适用于高维空间中的移动机器人和其他自动化系统; 使用随机采样的方法在配置空间中探索路径, 逐步构建一棵树, 与基本的 RRT 算法不同, RRT* 在扩展树的过程中, 会不断优化已有路径, 尽量减少路径的成本</li>
 <li><code>平均交并比（mIoU）</code>: 计算分割或检测任务中预测区域与真实区域交集与并集之比的平均值</li>
 <li><code>频率加权交并比（F-mIoU）</code>: 对 mIoU 的一种加权版本, 考虑了每个类在数据集中出现的频率, 将每个类的 IoU 乘以该类在数据集中出现的频率, 然后求和, 最后除以总频率</li>
 </ul>
 </div>
 <h4 id="测试结构与总结">测试结构与总结</h4>
-<p>与 <code>ConceptGraphs</code> 和 <code>HOV-SG</code> 相比, 性能提升在 10%以内, 但内存使用量大大减少, 相比 <code>HOV-SG</code> 减少了 96%以上<br />
+<p>定义两种典型的变化: In-anchor relocation(和一个锚点有关的对象移动位置但不改变和锚点关系，例如桌子上移动水杯)、Cross-anchor relocation(易变对象转换锚点，例如从桌子移到架子上)<br />
+对锚内变化，dualmap可以通过更新局部具体地图找到目标；对于跨锚点变化，dualmap可以通过更新抽象地图解决<br />
+与 <code>ConceptGraphs</code> 和 <code>HOV-SG</code> 相比, dualmap在表现提升之外，内存使用量大大减少, 相比 <code>HOV-SG</code> 减少了 96%以上，这是因为其避免了3d合并开销，抛弃了多余的易变对象非语义数据，并执行稳定性检查减少噪声数据等<br />
 消融实验中, FastSAM、YOLO 细化、加权特征合并和对象分割检测等组件对性能有显著影响</p>
+<h4 id="附录">附录</h4>
+<p>实验中存在一些问题:</p>
+<ul>
+<li>YOLO可能会将不一致的类标签分配给同一对象的不同部分，基于类别的合并将无法将它们识别为一个对象</li>
+<li>对多个堆叠关系或者离得很近的类的对象，容易导致错误合并</li>
+</ul>
+<p>对合并问题，在合并前使用一次额外的rgb检测尽可能经济地解决，也就是对待合并对象画出rgb三个channel的直方图, 根据直方图计算相似度，超过一个阈值时才合并</p>
 <h2 id="vision-language-action-models">Vision-Language-Action Models</h2>
 <h3 id="large-vlm-based-vision-language-action-models-for-robotic-manipulation-a-survey">Large VLM-based Vision-Language-Action Models for Robotic Manipulation: A Survey</h3>
 <h4 id="前言-1">前言</h4>
@@ -785,8 +784,8 @@ VLA 具体可以定义为:</p>
 </div>
 <h4 id="背景知识">背景知识</h4>
 <p>得益于用于跨领域和多模态能力的 VLM 的出现, 现代的 VLM 模型能执行对能力需求更加多样的任务例如自动驾驶, 图形用户界面交互等<br />
-这些模型往往由一个视觉编码器, 一个用于将视觉特征嵌入到文本的投影器(projector), 以及一个大语言模型组成;这其中, 最为重要的是 <strong>大</strong> 模型为其带来的泛化能力, 如 GPT4 这种 LLM 能提供极强的过滤输入, 降噪, 处理模糊指令的能力, 从而为 VLA 定下基础, 也就是说, VLA 相当重视泛化、通用性质的能力</p>
-<p>V、L、A 可以视为三种不同的任务, 早期的模型往往会将三者分开, 这样的好处是可以并行训练, 但缺点是可能降低一些理解和推理能力;最近的模型一般会加强集成度, 例如除了传统的大规模(<code>Internet-scale</code>)训练资料外, 把机器人的动作也转化为文本标记并放入训练语料库中, 这能让 action 作为语言任务被语言模块理解, 增强整个模型的理解能力, 其他一些使用动作资料的模型也取得了较好的效果</p>
+这些模型往往由一个视觉编码器, 一个用于将视觉特征嵌入到文本的投影器(projector), 以及一个大语言模型组成; 这其中, 最为重要的是 <strong>大</strong> 模型为其带来的泛化能力, 如 GPT4 这种 LLM 能提供极强的过滤输入, 降噪, 处理模糊指令的能力, 从而为 VLA 定下基础, 也就是说, VLA 相当重视泛化、通用性质的能力</p>
+<p>V、L、A 可以视为三种不同的任务, 早期的模型往往会将三者分开, 这样的好处是可以并行训练, 但缺点是可能降低一些理解和推理能力; 最近的模型一般会加强集成度, 例如除了传统的大规模(<code>Internet-scale</code>)训练资料外, 把机器人的动作也转化为文本标记并放入训练语料库中, 这能让 action 作为语言任务被语言模块理解, 增强整个模型的理解能力, 其他一些使用动作资料的模型也取得了较好的效果</p>
 <p>接下来从单片/多片的角度讨论两种模式的发展趋势</p>
 <h4 id="monolithic-models-单片模型">MONOLITHIC MODELS 单片模型</h4>
 <h5 id="single-system-models">Single-system Models</h5>
@@ -818,9 +817,9 @@ VLA 具体可以定义为:</p>
 <h6 id="inference-efficiency-optimization">Inference Efficiency Optimization</h6>
 <p><code>Inference Efficiency Optimization</code> 推理效率优化 : 机器人对及时性(控制频率)往往有一定要求, 因此模型的推理效率优化也是一个重要的方向</p>
 <ol type="1">
-<li><code>Architectural Optimization 体系优化</code>: 一些常用的方法用, 跳过层级, 早停止等, 进阶的有一些方法会动态计算哪些层级是关键的, 从而激活关键层完成推理;此外也有方法会逐步减少视觉 token, 也就是修建掉那些与指令生成无关的 token, 再加上注意力机制, 这甚至能同时提高指令准确性</li>
-<li><code>Parameter Optimization 参数优化</code>: 也就是压缩模型的大小, 通过蒸馏的模型提高效率;或者使用 tokenizer 将高维动作指令转化为 token 的序列从而减少模型复杂度</li>
-<li><code>Inference Acceleration 推理加速</code>: 即加速动作解码, 可以使用专门优化过的 action head, 一次生成一个动作序列;通过某种方式实现并行运算等;也可以单纯地(但有选择地)放开限制, 接受一些“不完善”的推理结果</li>
+<li><code>Architectural Optimization 体系优化</code>: 一些常用的方法用, 跳过层级, 早停止等, 进阶的有一些方法会动态计算哪些层级是关键的, 从而激活关键层完成推理; 此外也有方法会逐步减少视觉 token, 也就是修建掉那些与指令生成无关的 token, 再加上注意力机制, 这甚至能同时提高指令准确性</li>
+<li><code>Parameter Optimization 参数优化</code>: 也就是压缩模型的大小, 通过蒸馏的模型提高效率; 或者使用 tokenizer 将高维动作指令转化为 token 的序列从而减少模型复杂度</li>
+<li><code>Inference Acceleration 推理加速</code>: 即加速动作解码, 可以使用专门优化过的 action head, 一次生成一个动作序列; 通过某种方式实现并行运算等; 也可以单纯地(但有选择地)放开限制, 接受一些“不完善”的推理结果</li>
 </ol>
 <div class="note info"><ul>
 <li><code>Distillation-Aware Training</code>: 一种优化训练方法, 旨在通过知识蒸馏（knowledge distillation）技术提高模型的性能和效率。这一过程通常涉及将一个大型、复杂的“教师”模型的知识转移到一个较小的“学生”模型中, 以便在保持性能的同时减少计算资源和加速推理</li>
@@ -849,7 +848,7 @@ VLA 具体可以定义为:</p>
 <h6 id="parallel-based-methods">Parallel-based Methods</h6>
 <p>上图中展示了一种共享注意力的架构, 它受到 <code>mix-of-experts (MoE)</code> 启发, 在注意力层中, VLM 与动作模块进行 token 上的交互, 过程中, 输入的视觉文本信息, 噪声, 机器人特定的输入在共享的注意力层中交互, 从而提高了任务效果<br />
 由于这种架构的低耦合性, 它可以实现字面意义上的 MoE, 也就是对每个子任务都让一个“专家”去做, 其中一个典例称为 <code>π0</code>, 其主干网络是 VLM, 为了处理机器人特定的输入输出, 它使用一个独立的权重集合和一个流匹配(<code>Flow Matching(FM)</code>)的动作模块<br />
-π0 有一些变种, 例如增加显式推理, 基于最近推理生成动作两种模式, 可以根据需求切换;降低信息力度;防止动作模块的梯度流入 VLM 以保持 VLM 的知识优势;增加动作 token 化方法从而自回归训练等;其他的变种也一般是增加某个维度的输入或者通过复用注意力信息提高性能等常规优化</p>
+π0 有一些变种, 例如增加显式推理, 基于最近推理生成动作两种模式, 可以根据需求切换; 降低信息力度; 防止动作模块的梯度流入 VLM 以保持 VLM 的知识优势; 增加动作 token 化方法从而自回归训练等; 其他的变种也一般是增加某个维度的输入或者通过复用注意力信息提高性能等常规优化</p>
 <div class="note info"><ul>
 <li><code>Normalizing Flows(NFs)</code>: 通过一系列概率密度函数的变量变换, 将复杂的概率分布转换为简单的概率分布, 并通过逆变换生成新的数据样本</li>
 <li><code>Continuous Normalizing Flows(CNFs)</code> 是 <code>Normalizing Flows</code> 的扩展, 它使用常微分方程(ODE)来表示连续的变换过程, 用于建模概率分布</li>
@@ -859,7 +858,7 @@ VLA 具体可以定义为:</p>
 <h4 id="hierarchical-models-分层模型">HIERARCHICAL MODELS 分层模型</h4>
 <p>对于很大规模的任务, 由于算力, 存储空间等方面的要求都较高, 更低耦合的架构如分层模型较为常用, 例如长期推理, 空间抽象, 动作分解等<br />
 这些模型一般由高等级的 planner, 低等级的 policy 等组成, 计划期接受指令和观察, 转化为中间产物, policy 接受中间产物, 产生动作序列或底层指令<br />
-相比单片模型, 它能实现更复杂的组合, 甚至可以只有计划器;相比其单片双系统, 它的中间产物是显式（可解释）的</p>
+相比单片模型, 它能实现更复杂的组合, 甚至可以只有计划器; 相比其单片双系统, 它的中间产物是显式（可解释）的</p>
 <h5 id="planner-only">Planner-Only</h5>
 <p>可分为:</p>
 <ul>
@@ -871,8 +870,8 @@ VLA 具体可以定义为:</p>
 <p>其分类上和前一类较为类似</p>
 <p>可分为:</p>
 <ul>
-<li><code>Keypoint-based Methods</code>: 一般用 LVLM 产生一些关键点, 或者关键路径, 但这些信息将会交给低级策略模块, 用于生成指令;例如在导航任务中, 对 生成的关键点进行排序, 并将这个有序路径用于之后的指引;此外也可以用 LLM 为关键点赋予 cost, 用于确定最佳路径;也有方法会将关键点赋予互动性上的标注, 用于生成控制指令。总的来说, 一般关键点会被赋予帮助决策的一些信息, 用于最后产生指令</li>
-<li><code>Subtask-based Methods</code>: 这种方法主要的工作在于如何划分子任务, 而对具体的子任务执行者则有很高的灵活性。例如对模糊的文字指令, 将其转化为一系列原子命令;也有模型分出空间感知任务, 使用点云增强空间感知;或者让高级模型划分任务, 低级扩散策略模型具体实现, 且这样的划分可以继续拓展, 例如再加一个中间的 skill 层辨识一些可重复使用的行动控制底层的执行者;划分后的子任务也可以一步流水线执行从而增加效率;这方面有非常多的类似变种</li>
+<li><code>Keypoint-based Methods</code>: 一般用 LVLM 产生一些关键点, 或者关键路径, 但这些信息将会交给低级策略模块, 用于生成指令; 例如在导航任务中, 对 生成的关键点进行排序, 并将这个有序路径用于之后的指引; 此外也可以用 LLM 为关键点赋予 cost, 用于确定最佳路径; 也有方法会将关键点赋予互动性上的标注, 用于生成控制指令。总的来说, 一般关键点会被赋予帮助决策的一些信息, 用于最后产生指令</li>
+<li><code>Subtask-based Methods</code>: 这种方法主要的工作在于如何划分子任务, 而对具体的子任务执行者则有很高的灵活性。例如对模糊的文字指令, 将其转化为一系列原子命令; 也有模型分出空间感知任务, 使用点云增强空间感知; 或者让高级模型划分任务, 低级扩散策略模型具体实现, 且这样的划分可以继续拓展, 例如再加一个中间的 skill 层辨识一些可重复使用的行动控制底层的执行者; 划分后的子任务也可以一步流水线执行从而增加效率; 这方面有非常多的类似变种</li>
 </ul>
 <div class="note info"><ul>
 <li><code>Embodiment-Agnostic Affordance Representation</code>: Affordance 前文介绍过, 是对可交互性的标识, 而 Embodiment-Agnostic 指的是不依赖于机器人形态或者物理特性, 可以理解为通用的可互动性</li>
@@ -881,7 +880,7 @@ VLA 具体可以定义为:</p>
 <p><strong>Monolithic vs Hierarchical:</strong></p>
 <ol type="1">
 <li>两者的输入输出是一致的, 主要区别为统一化/模块化的内部结构, 其优缺点和这两种常见的结构是类似的</li>
-<li>另一个关键区别是中间产物的可解释性, 整体模型的中建五不可解释, 但更方便机器学习一些人类可能无法理解的特征;分层模型输出可解释的中间数据, 这对需要兼容性, 可解释性的操控领域可能更好</li>
+<li>另一个关键区别是中间产物的可解释性, 整体模型的中建五不可解释, 但更方便机器学习一些人类可能无法理解的特征; 分层模型输出可解释的中间数据, 这对需要兼容性, 可解释性的操控领域可能更好</li>
 </ol>
 <h4 id="其他前沿领域">其他前沿领域</h4>
 <ul>
@@ -931,7 +930,7 @@ VLA 具体可以定义为:</p>
 </ol>
 <h4 id="总结和展望">总结和展望</h4>
 <ol type="1">
-<li>数据集和基准测试: 当前的真实数据稀少, 模拟环境存在缺陷, 可能需要更好的结合方法;基准测试需要增加长期性, 且更丰富的指标</li>
+<li>数据集和基准测试: 当前的真实数据稀少, 模拟环境存在缺陷, 可能需要更好的结合方法; 基准测试需要增加长期性, 且更丰富的指标</li>
 <li>记忆机制和长期规划: 大多数当前的 VLAs 依赖于逐帧推理, 产生了短视问题, 需要增加记忆以及未来预测能力</li>
 <li>3D&amp;4D 感知: 当前的主要输入形式依旧是 2d 图片, 如果能增加输入维度(空间与时间维度)或许能增强模型能力</li>
 <li>移动操纵: 鉴于现实任务特点, 导航能力和交互能力应该更加集成</li>
@@ -968,17 +967,17 @@ VLA 具体可以定义为:</p>
 将损失函数定义为:</p>
 <p><span class="math display">\[L^{\tau}(\theta)=\mathbb{E}_{p(\mathbf{A}_{t}|o_{t}),q(\mathbf{A}_{t}^{\tau}|\mathbf{A}_{t})}||\mathbf{v}\theta(\mathbf{A}_{t}^{\tau},\mathbf{o}_{t})-\mathbf{u}(\mathbf{A}_{t}^{\tau}|\mathbf{A}_{t})||^{2}\]</span></p>
 <p>其中上标是流匹配的时间步, 下标则是机器人的时间步, <span class="math inline">\(\tau\ \in\ [0,1]\)</span> , 训练时从标准正态分布中采样一个 <span class="math inline">\(\epsilon\)</span> , 令噪声行动 <span class="math inline">\(A_t^\tau = \tau A_t + (1-\tau ) \epsilon\)</span> , 训练目标是让 <span class="math inline">\(\mathbf{v}\theta(\mathbf{A}_{t}^{\tau},\mathbf{o}_{t})\)</span> 与去噪向量场 <span class="math inline">\(\mathbf{u}(\mathbf{A}_{t}^{\tau}|\mathbf{A}_{t}) = \epsilon - A_t\)</span> 匹配, 初始动作输入是一个从标准正态分布中取样的噪声动作</p>
-<p>这里先不讨论太多细节,整体上这是比较标准的条件流匹配方法,只不过学习的不是直接的动作输出,而是如何对输入降噪,最后我们得到的其实是一个和定义出来的降噪向量场尽可能接近的一个基于模型参数的向量场 v<br />
-得到向量场后,推断过程就是做一个积分: <span class="math inline">\({\bf A}_{t}^{\tau+\delta}={\bf A}_{t}^{\tau}+\delta{\bf v}_{\theta}({\bf A}_{t}^{\tau},{\bf o}_{t})\)</span><br />
-其中 $ $ 是积分的步长,这里设 0.1, 由于 $ $ 范围是 <code>[0,1]</code>, 这就意味着一共积分 10 次<br />
-由于作者是企业,π0 其实算是一篇技术介绍或者说报告,原理写得很简略,后文会结合其他资料阐述 类似 LLM, 本文也将模型分为两个阶段,预训练阶段让模型尽可能获得泛化能力(包括对物理任务的泛化), 后训练阶段则让模型流畅地执行下游任务</p>
+<p>这里先不讨论太多细节, 整体上这是比较标准的条件流匹配方法, 只不过学习的不是直接的动作输出, 而是如何对输入降噪, 最后我们得到的其实是一个和定义出来的降噪向量场尽可能接近的一个基于模型参数的向量场 v<br />
+得到向量场后, 推断过程就是做一个积分: <span class="math inline">\({\bf A}_{t}^{\tau+\delta}={\bf A}_{t}^{\tau}+\delta{\bf v}_{\theta}({\bf A}_{t}^{\tau},{\bf o}_{t})\)</span><br />
+其中 $ $ 是积分的步长, 这里设 0.1, 由于 $ $ 范围是 <code>[0,1]</code>, 这就意味着一共积分 10 次<br />
+由于作者是企业, π0 其实算是一篇技术介绍或者说报告, 原理写得很简略, 后文会结合其他资料阐述 类似 LLM, 本文也将模型分为两个阶段, 预训练阶段让模型尽可能获得泛化能力(包括对物理任务的泛化), 后训练阶段则让模型流畅地执行下游任务</p>
 <h4 id="训练与实验">训练与实验</h4>
-<p>数据上,正如前文所说,π0 使用了一组庞大的数据集,包括一些开源数据与自己的数据,且与以往数据不同的是,自己的数据部分复杂度较高,可以视为一些行为的组合<br />
-由于数据组成较为复杂,因此对不同的数据集来源进行加权,动作和状态向量(a, q)按最复杂的机器人设置,对更简单的机器人,则填零或者掩盖(mask out)掉缺失的维度<br />
-此外一个常见的思路是将复杂的任务分解为简单的任务组合,由于 VLM 赋予了语言能力,π0 可以实现这种程度的语义推断<br />
-进一步的实验中,为了评估语言能力,对指令进行划分,只接受整体性指令的模型表现最差,而接受人类指令和高级 VLM 指令的模型互有胜负,比没有任务分解的表现好一个阶层<br />
-论文还比较了 π0 的无预训练版本和预训练版本以及其他模型(包括这篇博文写过的 ACT), 较为符合常识的是,对任务类型相似的任务,预训练能带来更大提升,但对其他模型,往往直接从头开始面向任务训练的模型表现最好;有些不不符合常识的是,部分任务训练时间更长的版本表会更差(但降幅不高)<br />
-最后的实验针对最为复杂的任务,例如兼顾移动与操控,对这种任务,往往预训练并微调后的模型有相当好表现,有时能成倍于从头训练版本和 zero-shot 版本</p>
+<p>数据上, 正如前文所说, π0 使用了一组庞大的数据集, 包括一些开源数据与自己的数据, 且与以往数据不同的是, 自己的数据部分复杂度较高, 可以视为一些行为的组合<br />
+由于数据组成较为复杂, 因此对不同的数据集来源进行加权, 动作和状态向量(a, q)按最复杂的机器人设置, 对更简单的机器人, 则填零或者掩盖(mask out)掉缺失的维度<br />
+此外一个常见的思路是将复杂的任务分解为简单的任务组合, 由于 VLM 赋予了语言能力, π0 可以实现这种程度的语义推断<br />
+进一步的实验中, 为了评估语言能力, 对指令进行划分, 只接受整体性指令的模型表现最差, 而接受人类指令和高级 VLM 指令的模型互有胜负, 比没有任务分解的表现好一个阶层<br />
+论文还比较了 π0 的无预训练版本和预训练版本以及其他模型(包括这篇博文写过的 ACT), 较为符合常识的是, 对任务类型相似的任务, 预训练能带来更大提升, 但对其他模型, 往往直接从头开始面向任务训练的模型表现最好; 有些不不符合常识的是, 部分任务训练时间更长的版本表会更差(但降幅不高)<br />
+最后的实验针对最为复杂的任务, 例如兼顾移动与操控, 对这种任务, 往往预训练并微调后的模型有相当好表现, 有时能成倍于从头训练版本和 zero-shot 版本</p>
 <h4 id="细节">细节</h4>
 <p>前置知识: <a href="https://thinklive1.github.io/thinklive/48061/#flow-matching">flow matching</a></p>
 <p>参考 :</p>
@@ -987,20 +986,20 @@ VLA 具体可以定义为:</p>
 <p>这部分解释一些技术细节:</p>
 <p>先放一张架构图<br />
 <img src="/assets/ml/image-5.png" /></p>
-<p>π0 将输入分为 3 个 block, 分别是 图像与文字指令、机器人状态、动作, 第一个 block 由 VLM 处理,后两个交给动作专家<br />
-从 VLM 部分说起,先简单地对图像处理为 token,将图像 token 和文字 token 拼接,交给注意力来计算 kvq, 这是个很简单的处理,需要注意的是为了提高效率这里的 kv 之后会复用<br />
-然后是较为关键的动作专家, 机器人状态是一种很单纯的输入不需要额外处理, 而对(噪声化的)动作,因为动作是有序的,需要编码时间步信息(使用正弦编码),这里不是常见的相加,而是使用拼接(concat),最后会得到两倍宽度的一个序列,然后在经过线性层和激活函数得到最后的 action tokens<br />
+<p>π0 将输入分为 3 个 block, 分别是 图像与文字指令、机器人状态、动作, 第一个 block 由 VLM 处理, 后两个交给动作专家<br />
+从 VLM 部分说起, 先简单地对图像处理为 token, 将图像 token 和文字 token 拼接, 交给注意力来计算 kvq, 这是个很简单的处理, 需要注意的是为了提高效率这里的 kv 之后会复用<br />
+然后是较为关键的动作专家, 机器人状态是一种很单纯的输入不需要额外处理, 而对(噪声化的)动作, 因为动作是有序的, 需要编码时间步信息(使用正弦编码), 这里不是常见的相加, 而是使用拼接(concat), 最后会得到两倍宽度的一个序列, 然后在经过线性层和激活函数得到最后的 action tokens<br />
 <img src="/assets/ml/image-6.png" /></p>
-<p>现在我们有了三种输入,符合常识地,他们之间存在顺序关系(图文-&gt; 状态-&gt; 动作),后面的可以“注意”前面的数据(如果长度不够就 padding 0), 这种注意力关系会用 mask 实现,且使用之前的 kv cache<br />
-所有这些信息最后喂给动作专家(一个较小的 VLM),但沿用的 kv-cache 来自最初的大型 VLM, 结果投影至动作空间,也就是流匹配的向量 v<br />
-那么 π0 使用的流匹配具体是怎样的呢,作者根据先前研究的经验使用简单的线性高斯,即 <span class="math display">\[ q(\mathbf{A}_{t}^{\tau}|\mathbf{A}_{t})={\mathcal{N}}(\tau\mathbf{A}_{t},(1-\tau)\mathbf{I}) ; \mathrm{A}_{t}^{\tau}=\tau\mathrm{A}_{t}+(1- \tau )\epsilon \]</span><br />
+<p>现在我们有了三种输入, 符合常识地, 他们之间存在顺序关系(图文-&gt; 状态-&gt; 动作), 后面的可以“注意”前面的数据(如果长度不够就 padding 0), 这种注意力关系会用 mask 实现, 且使用之前的 kv cache<br />
+所有这些信息最后喂给动作专家(一个较小的 VLM), 但沿用的 kv-cache 来自最初的大型 VLM, 结果投影至动作空间, 也就是流匹配的向量 v<br />
+那么 π0 使用的流匹配具体是怎样的呢, 作者根据先前研究的经验使用简单的线性高斯, 即 <span class="math display">\[ q(\mathbf{A}_{t}^{\tau}|\mathbf{A}_{t})={\mathcal{N}}(\tau\mathbf{A}_{t},(1-\tau)\mathbf{I}) ; \mathrm{A}_{t}^{\tau}=\tau\mathrm{A}_{t}+(1- \tau )\epsilon \]</span><br />
 而 <span class="math inline">\(\mathbf{u}(\mathsf{A}_{t}^{\mathsf{\tau}}|\mathsf{A}_{t})\ =\ \mathsf{\epsilon}-\ A_{t}\)</span> 此外, <span class="math inline">\(\tau\)</span> 来自于 β 采样</p>
 <p>简单回顾一下流匹配，它的概率路径应该有的性质:</p>
 <ol type="1">
 <li>t = 0 时，p(x|x1)服从一个标准正态分布</li>
 <li>t = 1 时，p(x|x1)服从一个均值 x1, 方差较小的正态分布</li>
 </ol>
-<p>上面提到的t其实对应本文的 <span class="math inline">\(\tau\)</span>, 确实是满足条件的,而这个u也很直观，既然对原来的At加上噪声(动作噪声同系数，动作正噪声负)，那么去噪过程就是噪声减去动作，也就是噪声如何还原动作</p>
+<p>上面提到的 t 其实对应本文的 <span class="math inline">\(\tau\)</span>, 确实是满足条件的, 而这个 u 也很直观，既然对原来的 At 加上噪声(动作噪声同系数，动作正噪声负)，那么去噪过程就是噪声减去动作，也就是噪声如何还原动作</p>
 <h2 id="实例">实例</h2>
 <h3 id="openin"><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/Ro3Vrjx0GiN8eWe6veT-kg">OpenIN</a></h3>
 <p>本文提出了一种「<strong>开放词汇、实例导向</strong>」的导航系统, 该系统「<strong>支持多模态和多类型对象导航指令</strong>」, 能够实现对 <strong>位置可变日常实例</strong> 的有效导航<br />
@@ -1026,17 +1025,17 @@ OpenIN 的框架和大部分系统比较类似, 都可以分为场景图构建�
 5. if F == 0 &amp;&amp; $CT ==$ &amp;&amp; $ CR!=$ then (CR.description, O.image, O.image_description) -&gt; LLM -&gt; $cr_k CR_t $ ( <span class="math inline">\(cr_k\)</span> is best target )<br />
 6. <span class="math inline">\(a_t\)</span> = Explore( <span class="math inline">\(cr_k\)</span> ); excute( <span class="math inline">\(a_t\)</span> )<br />
 7. if <span class="math inline">\(a_t\)</span> == Explore(cr) || <span class="math inline">\(a_t\)</span> == Goto(ct) then while moving: <span class="math inline">\(CR_{observed}\)</span> = observed objects which don't include candidates in the radial r ; <span class="math inline">\(CR_{new}\)</span> = new candidates in unexplored CT objects $</p>
-<p>总结: 每轮中在候选对象里优先级排序, 对最佳候选对象的位置, 机器人导航到此处并探索是否存在目标对象;如果没有候选对象但有为探索载体对象, 让 llm 选一个候选者进行探索;在探索过程中, 机器人会不断更新 map 且寻找新的候选对象或者载体对象</p>
+<p>总结: 每轮中在候选对象里优先级排序, 对最佳候选对象的位置, 机器人导航到此处并探索是否存在目标对象; 如果没有候选对象但有为探索载体对象, 让 llm 选一个候选者进行探索; 在探索过程中, 机器人会不断更新 map 且寻找新的候选对象或者载体对象</p>
 <h3 id="learning-fine-grained-bimanual-manipulation-with-low-cost-hardware">Learning Fine-Grained Bimanual Manipulation with Low-Cost Hardware</h3>
 <p>精细的操控任务例如扎电线、将电池插入槽中, 往往需要较大的计算成本或者高端的硬件设备, 而想要落实应用, 成本控制是非常重要的, 因此需要找到在有限的预算下实现精细操作的智能<br />
-本文基于端到端的模仿学习, 训练数据也完全来自于现实的演示, 在高精度任务中, 模仿学习的缺点是对策略错误较为敏感, 且人类演示数据相差较大, 不便于学习;为此, 本文提出了一种 <code>Action Chunking with Transformers (ACT)</code> 算法, 可以通过低成本地通过动作序列学习, 并得到不错的准确率</p>
+本文基于端到端的模仿学习, 训练数据也完全来自于现实的演示, 在高精度任务中, 模仿学习的缺点是对策略错误较为敏感, 且人类演示数据相差较大, 不便于学习; 为此, 本文提出了一种 <code>Action Chunking with Transformers (ACT)</code> 算法, 可以通过低成本地通过动作序列学习, 并得到不错的准确率</p>
 <h4 id="前言-2">前言</h4>
-<p>举一个生活中的例子, 例如打开一个有盖的杯子, 这就需要一只手(假设为右手)握住杯子, 倾斜让左手靠近杯盖, 然后辨别出杯盖边缘, 让左手轻轻掀起;这种任务对 ai 来说相当精细<br />
+<p>举一个生活中的例子, 例如打开一个有盖的杯子, 这就需要一只手(假设为右手)握住杯子, 倾斜让左手靠近杯盖, 然后辨别出杯盖边缘, 让左手轻轻掀起; 这种任务对 ai 来说相当精细<br />
 由于需要在有限的成本内完成精细任务, 我们选择端到端的模型, 使用低成本的摄像头 rgb 图像作为输入, 让模型只学习操作策略而无需对整个环境建模(当然对这种复杂任务建模也非常难, 例如在电子游戏界, 几乎没有游戏能做好吃饭等人物的日常动画)<br />
 以下简述本文使用的一些技术:</p>
 <ul>
 <li>远程操控(tleoperation): 使用两只大致相同的低成本机械臂, 共用一个空间地图, 使用一下些 3d 打印组件来增强反向驱动, 总预算控制在 $20k 内</li>
-<li>模仿学习算法: 为了避免模仿学习常见的累积误差问题, 参考心理学的 <code>动作块</code>, 让学习策略预测接下来 k 步的一连串动作, 防止某个错误的一步影响后面的推理;且能减少一些不相干因素的影响, 例如演示中的部分暂停
+<li>模仿学习算法: 为了避免模仿学习常见的累积误差问题, 参考心理学的 <code>动作块</code>, 让学习策略预测接下来 k 步的一连串动作, 防止某个错误的一步影响后面的推理; 且能减少一些不相干因素的影响, 例如演示中的部分暂停
 <ul>
 <li>为了提高策略的平滑度, 设置了 <code>temporal ensembling</code> 机制, 更频繁地查询策略, 且将重叠的动作块取平均值</li>
 <li>使用 Transformers 处理动作块(序列数据)</li>
@@ -1080,7 +1079,7 @@ OpenIN 的框架和大部分系统比较类似, 都可以分为场景图构建�
 <li>出于训练速度考虑, 对输入数据, 不使用图像观察结果, 只用机器人的本体感知数据(例如姿势, 角度等)</li>
 <li>解码器则会使用 z 以及当前观察结果(图像+关节位置)预测未来的动作序列</li>
 <li>测试时, 设 z 为先验分布(给定)的均值, 如果想要确定性地解码, 可以直接设 0(注意是测试时这么做)</li>
-<li>训练的过程中不断地最大化模型输出与演示数据里的相同动作块的对数概率;同时也使用标准 VAE 的两个标准(重建损失与正则化项), 对正则化项, 乘以一个超参数 β(用于控制 z 包含的信息量, 更高的正则化会导致更少的信息转入 z)</li>
+<li>训练的过程中不断地最大化模型输出与演示数据里的相同动作块的对数概率; 同时也使用标准 VAE 的两个标准(重建损失与正则化项), 对正则化项, 乘以一个超参数 β(用于控制 z 包含的信息量, 更高的正则化会导致更少的信息转入 z)</li>
 </ol>
 <p>具体实现:</p>
 <p><img src="/assets/ml/image-2.png" /></p>
@@ -1179,7 +1178,7 @@ ACT 主要创新点在于能够预测连续的, 精确的动作序列, 而一些
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">36:28</span>
+    <span title="站点阅读时长">36:30</span>
   </span>
 </div>
 <div class="busuanzi-count">
