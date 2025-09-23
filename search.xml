@@ -120,6 +120,9 @@
 <li><a href="#测试结构与总结">测试结构与总结</a></li>
 <li><a href="#附录">附录</a></li>
 </ul></li>
+<li><a href="#conceptgraphs-open-vocabulary-3d-scene-graphs-for-perception-and-planning">ConceptGraphs: Open-Vocabulary 3D Scene Graphs for Perception and Planning</a></li>
+<li><a href="#3d-对象图生成">3d 对象图生成</a></li>
+<li><a href="#3d-场景图生成">3d 场景图生成</a></li>
 </ul></li>
 <li><a href="#vision-language-action-models">Vision-Language-Action Models</a>
 <ul>
@@ -416,8 +419,8 @@ NLMap(grid): 如果想直接辨别图像里的物品, 则可以使用 <code>clas
 <ol type="1">
 <li>锚点对象
 <ol type="1">
-<li>首先使用两个代表性的锚点，易变类别列表(list)对现有对象分类，使用 CLIP 对对象编码得到特征f,如果f和两个列表的近似度相差达到一个门槛值，则分到相似度更高的一类，此时的门槛值较小，仅设 0.05</li>
-<li>除了1.中的两个列表，典型锚点对象的列表还有一个存储对应描述信息的列表，对1.中没有决定的对象， 计算其特征与描述列表的相似度，这里设一个较大的门槛值 0.5，并且强制二分</li>
+<li>首先使用两个代表性的锚点，易变类别列表(list)对现有对象分类，使用 CLIP 对对象编码得到特征 f, 如果 f 和两个列表的近似度相差达到一个门槛值，则分到相似度更高的一类，此时的门槛值较小，仅设 0.05</li>
+<li>除了 1.中的两个列表，典型锚点对象的列表还有一个存储对应描述信息的列表，对 1.中没有决定的对象， 计算其特征与描述列表的相似度，这里设一个较大的门槛值 0.5，并且强制二分</li>
 <li>丢弃易变对象的非语义属性(因为对导航任务没用)</li>
 </ol></li>
 <li>空间关系(易变与锚点对象之间), 以 on 关系为主:
@@ -442,7 +445,7 @@ NLMap(grid): 如果想直接辨别图像里的物品, 则可以使用 <code>clas
 <li>导航策略
 <ol type="1">
 <li>全局路径规划: 使用基于 Voronoi 图的规划器在抽象地图上规划一条通往候选锚点的全局路径; 智能体移动时, 会逐步构建局部具象地图, 局部地图中的对象也可以用于匹配</li>
-<li>局部路径规划: 对局部具象地图中的对象, 计算其特征与查询特征的余弦相似度 s, 如果 s 接近之前的全局候选相似度,且正好在去之前的候选对象的路上，使用 RRT*算法规划局部路径</li>
+<li>局部路径规划: 对局部具象地图中的对象, 计算其特征与查询特征的余弦相似度 s, 如果 s 接近之前的全局候选相似度, 且正好在去之前的候选对象的路上，使用 RRT*算法规划局部路径</li>
 <li>动态环境导航: 如果 a*附近没有可信匹配, 那么环境可能变化, 系统会更新抽象地图 Ma'重新寻找候选
 <ol type="1">
 <li>Ma'会将局部具象地图中的稳定对象合并，详解下文</li>
@@ -468,16 +471,39 @@ NLMap(grid): 如果想直接辨别图像里的物品, 则可以使用 <code>clas
 </div>
 <h4 id="测试结构与总结">测试结构与总结</h4>
 <p>定义两种典型的变化: In-anchor relocation(和一个锚点有关的对象移动位置但不改变和锚点关系，例如桌子上移动水杯)、Cross-anchor relocation(易变对象转换锚点，例如从桌子移到架子上)<br />
-对锚内变化，dualmap可以通过更新局部具体地图找到目标；对于跨锚点变化，dualmap可以通过更新抽象地图解决<br />
-与 <code>ConceptGraphs</code> 和 <code>HOV-SG</code> 相比, dualmap在表现提升之外，内存使用量大大减少, 相比 <code>HOV-SG</code> 减少了 96%以上，这是因为其避免了3d合并开销，抛弃了多余的易变对象非语义数据，并执行稳定性检查减少噪声数据等<br />
+对锚内变化，dualmap 可以通过更新局部具体地图找到目标；对于跨锚点变化，dualmap 可以通过更新抽象地图解决<br />
+与 <code>ConceptGraphs</code> 和 <code>HOV-SG</code> 相比, dualmap 在表现提升之外，内存使用量大大减少, 相比 <code>HOV-SG</code> 减少了 96%以上，这是因为其避免了 3d 合并开销，抛弃了多余的易变对象非语义数据，并执行稳定性检查减少噪声数据等<br />
 消融实验中, FastSAM、YOLO 细化、加权特征合并和对象分割检测等组件对性能有显著影响</p>
 <h4 id="附录">附录</h4>
 <p>实验中存在一些问题:</p>
 <ul>
-<li>YOLO可能会将不一致的类标签分配给同一对象的不同部分，基于类别的合并将无法将它们识别为一个对象</li>
+<li>YOLO 可能会将不一致的类标签分配给同一对象的不同部分，基于类别的合并将无法将它们识别为一个对象</li>
 <li>对多个堆叠关系或者离得很近的类的对象，容易导致错误合并</li>
 </ul>
-<p>对合并问题，在合并前使用一次额外的rgb检测尽可能经济地解决，也就是对待合并对象画出rgb三个channel的直方图, 根据直方图计算相似度，超过一个阈值时才合并</p>
+<p>对合并问题，在合并前使用一次额外的 rgb 检测尽可能经济地解决，也就是对待合并对象画出 rgb 三个 channel 的直方图, 根据直方图计算余弦相似度，超过一个阈值时才合并</p>
+<h3 id="conceptgraphs-open-vocabulary-3d-scene-graphs-for-perception-and-planning">ConceptGraphs: Open-Vocabulary 3D Scene Graphs for Perception and Planning</h3>
+<p>这篇论文写得比较早(2023), 所以前言部分这里写得简略一点, 在当时主流的技术往往是封闭词汇或者一些性能消耗大的开放词汇表(也就是携带语义特征的点云)；此外还有个痛点是难以表达结构信息<br />
+本文提出的感知图是一种以对象为中心的语义地图，其几何信息由 3d 形式存储，语义信息由 2d 形式存储</p>
+<h3 id="d-对象图生成">3d 对象图生成</h3>
+<ol type="1">
+<li>类别无关的 2d 图像分割: 当传入观察帧后， 使用分割模型得到一个掩码集合 { <span class="math inline">\(m_{t,i}\)</span> } ,每个掩码得到图片片段，将这个片段传入视觉特征编码器如CLIP,DINO, 从而得到视觉特征向量；此外对片段中的点，根据深度形象投影到3d坐标系中, 对投影后的点云使用聚类算法降噪， 最后放入地图中；最后我们得到了点云以及对应的单位归一化后的语义特征向量</li>
+<li>对象中心的 3d 图: 令观察帧(rgbd)为 <span class="math inline">\(I={I_t}\)</span> , 其中 <span class="math inline">\(I_{t}\ =\ \langle I_{t}^{\mathrm{rgb}},I_{t}^{\mathrm{depth}},\theta_{t}^{*}\rangle\)</span> (color image, depth image, pose) 类似的，图 M ={O, E}中的对象集合为 O, 边集合为 E<br />
+</li>
+<li>对象关联: 对每个新检测到的对象 <span class="math inline">\(o_t\)</span> 即 <code>&lt;p,f&gt;</code>(点云和特征向量), 计算它与在3d图上有空间重叠的对象 <span class="math inline">\(o_{t-1,j}\)</span> 的几何以及语义相似度
+<ol type="1">
+<li>几何相似度 <span class="math inline">\(\phi_{\mathrm{geo}}(i,j)\;=\;{\mathfrak{n}}_{\mathrm{nnratio}}({\bf p}_{t,i},{\bf p}_{oj})\)</span> 也就是 <span class="math inline">\(p_{t,i}\)</span> 中的最近的邻居点在 <span class="math inline">\(p_{oj}\)</span> 中的点所占比率(有一个门槛值)<br />
+</li>
+<li>语义相似度 <span class="math inline">\(\phi_{\mathrm{sem}}(i,j)\,=\,\mathbb{F}_{t.i}^{T}\mathbf{f_{oj}} / 2+1/2\)</span></li>
+<li>以上两种相似度的简单相加作为总体相似度， 权衡计算花费和表现后，贪心地选择相似度最高的对象匹配(如果超过一个门槛值)，而如果不到门槛值，创建一个新对象</li>
+</ol></li>
+<li>对象融合: 对上一步关联的两个对象，进行融合，融合过程就是一个简单的求平均: <span class="math inline">\({\bf f_{o j}}\,=\,(n_{o_{j}}{\bf f_{o j}}+{\bf f}_{t,i})/(n_{o_{j}}+1)\)</span> 其中n是迄今为止(融合前)被关联到这个对象的观察片段数量, 点云部分则执行一个简单的并集操作，并进行下采样降低成本</li>
+<li>节点描述: 很实用主义的一步，在我们暂时完成了一系列图像处理后，对得到对象，将最好的10张图片送给LVLM处理, LVLM生成对应的粗略描述，再将其送给一个LLM生成一个最终描述</li>
+</ol>
+<h3 id="d-场景图生成">3d 场景图生成</h3>
+<div class="note info"><ul>
+<li>下采样（subsampled）: 简单地说，尽可能保留信息地压缩原数据，上采样与其相反</li>
+</ul>
+</div>
 <h2 id="vision-language-action-models">Vision-Language-Action Models</h2>
 <h3 id="large-vlm-based-vision-language-action-models-for-robotic-manipulation-a-survey">Large VLM-based Vision-Language-Action Models for Robotic Manipulation: A Survey</h3>
 <h4 id="前言-1">前言</h4>
