@@ -120,9 +120,12 @@
 <li><a href="#测试结构与总结">测试结构与总结</a></li>
 <li><a href="#附录">附录</a></li>
 </ul></li>
-<li><a href="#conceptgraphs-open-vocabulary-3d-scene-graphs-for-perception-and-planning">ConceptGraphs: Open-Vocabulary 3D Scene Graphs for Perception and Planning</a></li>
+<li><a href="#conceptgraphs-open-vocabulary-3d-scene-graphs-for-perception-and-planning">ConceptGraphs: Open-Vocabulary 3D Scene Graphs for Perception and Planning</a>
+<ul>
 <li><a href="#3d-对象图生成">3d 对象图生成</a></li>
 <li><a href="#3d-场景图生成">3d 场景图生成</a></li>
+</ul></li>
+<li><a href="#hierarchical-open-vocabulary-3d-scene-graphs--for-language-grounded-robot-navigation">Hierarchical Open-Vocabulary 3D Scene Graphs for Language-Grounded Robot Navigation</a></li>
 </ul></li>
 <li><a href="#vision-language-action-models">Vision-Language-Action Models</a>
 <ul>
@@ -484,7 +487,7 @@ NLMap(grid): 如果想直接辨别图像里的物品, 则可以使用 <code>clas
 <h3 id="conceptgraphs-open-vocabulary-3d-scene-graphs-for-perception-and-planning">ConceptGraphs: Open-Vocabulary 3D Scene Graphs for Perception and Planning</h3>
 <p>这篇论文写得比较早(2023), 所以前言部分这里写得简略一点, 在当时主流的技术往往是封闭词汇或者一些性能消耗大的开放词汇表(也就是携带语义特征的点云)；此外还有个痛点是难以表达结构信息<br />
 本文提出的感知图是一种以对象为中心的语义地图，其几何信息由 3d 形式存储，语义信息由 2d 形式存储</p>
-<h3 id="d-对象图生成">3d 对象图生成</h3>
+<h4 id="d-对象图生成">3d 对象图生成</h4>
 <ol type="1">
 <li>类别无关的 2d 图像分割: 当传入观察帧后， 使用分割模型得到一个掩码集合 { <span class="math inline">\(m_{t,i}\)</span> } ,每个掩码得到图片片段，将这个片段传入视觉特征编码器如CLIP,DINO, 从而得到视觉特征向量；此外对片段中的点，根据深度形象投影到3d坐标系中, 对投影后的点云使用聚类算法降噪， 最后放入地图中；最后我们得到了点云以及对应的单位归一化后的语义特征向量</li>
 <li>对象中心的 3d 图: 令观察帧(rgbd)为 <span class="math inline">\(I={I_t}\)</span> , 其中 <span class="math inline">\(I_{t}\ =\ \langle I_{t}^{\mathrm{rgb}},I_{t}^{\mathrm{depth}},\theta_{t}^{*}\rangle\)</span> (color image, depth image, pose) 类似的，图 M ={O, E}中的对象集合为 O, 边集合为 E<br />
@@ -497,13 +500,26 @@ NLMap(grid): 如果想直接辨别图像里的物品, 则可以使用 <code>clas
 <li>以上两种相似度的简单相加作为总体相似度， 权衡计算花费和表现后，贪心地选择相似度最高的对象匹配(如果超过一个门槛值)，而如果不到门槛值，创建一个新对象</li>
 </ol></li>
 <li>对象融合: 对上一步关联的两个对象，进行融合，融合过程就是一个简单的求平均: <span class="math inline">\({\bf f_{o j}}\,=\,(n_{o_{j}}{\bf f_{o j}}+{\bf f}_{t,i})/(n_{o_{j}}+1)\)</span> 其中n是迄今为止(融合前)被关联到这个对象的观察片段数量, 点云部分则执行一个简单的并集操作，并进行下采样降低成本</li>
-<li>节点描述: 很实用主义的一步，在我们暂时完成了一系列图像处理后，对得到对象，将最好的10张图片送给LVLM处理, LVLM生成对应的粗略描述，再将其送给一个LLM生成一个最终描述</li>
+<li>节点描述: 很实用主义的一步，在我们暂时完成了一系列图像处理后，对得到的对象，将最好的10张图片送给LVLM处理, LVLM生成对应的粗略描述，再将其送给一个LLM生成一个最终描述</li>
 </ol>
-<h3 id="d-场景图生成">3d 场景图生成</h3>
+<p>简单地概括一下, 上述主要处理空间和语义上的物体(对象)表示, 空间部分是从二维图片提取的点云, 确定点云是和语义类别无关，直到确认后才编辑语义部分，提取语义的过程也很单纯，将图片发给LVM和LLM得到描述, 每个对象存储一个关于自己的描述</p>
+<h4 id="d-场景图生成">3d 场景图生成</h4>
+<p>之前已经得到了对象层面的抽象，这部分主要处理对象关系<br />
+对每对3d对象，计算器3d边界Box的IoU生成一个相似度矩阵, 并通过估计应该最小生成树MST来修剪矩阵,从而得到数量可控的候选边<br />
+(可能有人好奇为什么之前的描述不进行编码直接存储, 这是因为后面还会对LLM会使用描述信息)<br />
+对这棵树的每条边，将边对应的一对obj的描述和位置信息喂给LLM, LLM生成其可能的关系，这个关系作为场景图的标签存储，例如on,in<br />
+之后，对自然语言类型的查询，让LLM读取一个存储好相关信息的对象列表，找到最有可能的关联对象并将这个对象交给下游应用<br />
+当然还有一个很常见的思路是，为什么不舍弃描述性信息，直接使用CLIP之类的模型嵌入编码查询语句然后查找匹配对象呢？ 答案很简单: 实验者尝试过，但效果不如LLM，准确地说，clip对描述性的查找表现不错，但对于比较模糊的查询表现不佳<br />
+相比更近年的dualmap,这个模型还有一个比较直观的问题，对动态环境无能为力,但优点在于llm的泛化能力能解决很多导航问题，例如一开始没找到之后去哪里找，有障碍物的路径其障碍物能否推开等</p>
+<p>场景图对象的json表示示例:</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="punctuation">[</span></span><br><span class="line">    <span class="punctuation">&#123;</span>  </span><br><span class="line">    id<span class="punctuation">:</span> <span class="number">2</span><span class="punctuation">,</span></span><br><span class="line">    bbox_extent<span class="punctuation">:</span> <span class="punctuation">[</span><span class="number">2.0</span><span class="punctuation">,</span> <span class="number">0.7</span><span class="punctuation">,</span> <span class="number">0.6</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">    bbox_center<span class="punctuation">:</span> <span class="punctuation">[</span><span class="number">-0.6</span><span class="punctuation">,</span> <span class="number">1.1</span><span class="punctuation">,</span> <span class="number">-1.2</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">    object_tag<span class="punctuation">:</span> wooden dresser or chest of drawers<span class="punctuation">,</span></span><br><span class="line">    caption<span class="punctuation">:</span> A wooden dresser or chest of drawers </span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">]</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>简评: 无疑这个系统很实用, 但过于依赖LLM了，文本描述很可能不是最好的空间表示方式</p>
 <div class="note info"><ul>
 <li>下采样（subsampled）: 简单地说，尽可能保留信息地压缩原数据，上采样与其相反</li>
 </ul>
 </div>
+<h3 id="hierarchical-open-vocabulary-3d-scene-graphs-for-language-grounded-robot-navigation">Hierarchical Open-Vocabulary 3D Scene Graphs for Language-Grounded Robot Navigation</h3>
+<p>本文提出的模型简称为HOVSG, 相比同行最大的特点在于它是分层结构的，我们之前提到的工作往往只是用拓扑图基于一个简单的图论空间模型表示现实空间，但对于更加复杂的现实空间例如多层建筑，其表现力就会受限，因此本文使用分层的模型增强表示能力</p>
 <h2 id="vision-language-action-models">Vision-Language-Action Models</h2>
 <h3 id="large-vlm-based-vision-language-action-models-for-robotic-manipulation-a-survey">Large VLM-based Vision-Language-Action Models for Robotic Manipulation: A Survey</h3>
 <h4 id="前言-1">前言</h4>
