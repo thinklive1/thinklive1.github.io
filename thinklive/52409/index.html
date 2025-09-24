@@ -36,7 +36,7 @@
 <meta property="og:image" content="https://thinklive1.github.io/assets/ml/image-1.png">
 <meta property="og:image" content="https://thinklive1.github.io/assets/ml/image-2.png">
 <meta property="article:published_time" content="2025-09-09T07:53:29.848Z">
-<meta property="article:modified_time" content="2025-09-24T04:03:56.646Z">
+<meta property="article:modified_time" content="2025-09-24T11:58:12.701Z">
 <meta property="article:author" content="thinklive">
 <meta property="article:tag" content="人工智能">
 <meta property="article:tag" content="机器学习">
@@ -314,7 +314,7 @@ const darkmode = new Darkmode(options);
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-09-24 12:03:56" itemprop="dateModified" datetime="2025-09-24T12:03:56+08:00">2025-09-24</time>
+      <time title="修改时间：2025-09-24 19:58:12" itemprop="dateModified" datetime="2025-09-24T19:58:12+08:00">2025-09-24</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -340,14 +340,14 @@ const darkmode = new Darkmode(options);
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>23k</span>
+      <span>24k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1:24</span>
+      <span>1:26</span>
     </span>
 </div>
 
@@ -766,37 +766,50 @@ NLMap(grid): 如果想直接辨别图像里的物品, 则可以使用 <code>clas
 本文提出的感知图是一种以对象为中心的语义地图，其几何信息由 3d 形式存储，语义信息由 2d 形式存储</p>
 <h4 id="d-对象图生成">3d 对象图生成</h4>
 <ol type="1">
-<li>类别无关的 2d 图像分割: 当传入观察帧后， 使用分割模型得到一个掩码集合 { <span class="math inline">\(m_{t,i}\)</span> } ,每个掩码得到图片片段，将这个片段传入视觉特征编码器如CLIP,DINO, 从而得到视觉特征向量；此外对片段中的点，根据深度形象投影到3d坐标系中, 对投影后的点云使用聚类算法降噪， 最后放入地图中；最后我们得到了点云以及对应的单位归一化后的语义特征向量</li>
+<li>类别无关的 2d 图像分割: 当传入观察帧后， 使用分割模型得到一个掩码集合 { <span class="math inline">\(m_{t,i}\)</span> } , 每个掩码得到图片片段，将这个片段传入视觉特征编码器如 CLIP, DINO, 从而得到视觉特征向量；此外对片段中的点，根据深度形象投影到 3d 坐标系中, 对投影后的点云使用聚类算法降噪， 最后放入地图中；最后我们得到了点云以及对应的单位归一化后的语义特征向量</li>
 <li>对象中心的 3d 图: 令观察帧(rgbd)为 <span class="math inline">\(I={I_t}\)</span> , 其中 <span class="math inline">\(I_{t}\ =\ \langle I_{t}^{\mathrm{rgb}},I_{t}^{\mathrm{depth}},\theta_{t}^{*}\rangle\)</span> (color image, depth image, pose) 类似的，图 M ={O, E}中的对象集合为 O, 边集合为 E<br />
 </li>
-<li>对象关联: 对每个新检测到的对象 <span class="math inline">\(o_t\)</span> 即 <code>&lt;p,f&gt;</code>(点云和特征向量), 计算它与在3d图上有空间重叠的对象 <span class="math inline">\(o_{t-1,j}\)</span> 的几何以及语义相似度
+<li>对象关联: 对每个新检测到的对象 <span class="math inline">\(o_t\)</span> 即 <code>&lt;p,f&gt;</code>(点云和特征向量), 计算它与在 3d 图上有空间重叠的对象 <span class="math inline">\(o_{t-1,j}\)</span> 的几何以及语义相似度
 <ol type="1">
 <li>几何相似度 <span class="math inline">\(\phi_{\mathrm{geo}}(i,j)\;=\;{\mathfrak{n}}_{\mathrm{nnratio}}({\bf p}_{t,i},{\bf p}_{oj})\)</span> 也就是 <span class="math inline">\(p_{t,i}\)</span> 中的最近的邻居点在 <span class="math inline">\(p_{oj}\)</span> 中的点所占比率(有一个门槛值)<br />
 </li>
 <li>语义相似度 <span class="math inline">\(\phi_{\mathrm{sem}}(i,j)\,=\,\mathbb{F}_{t.i}^{T}\mathbf{f_{oj}} / 2+1/2\)</span></li>
 <li>以上两种相似度的简单相加作为总体相似度， 权衡计算花费和表现后，贪心地选择相似度最高的对象匹配(如果超过一个门槛值)，而如果不到门槛值，创建一个新对象</li>
 </ol></li>
-<li>对象融合: 对上一步关联的两个对象，进行融合，融合过程就是一个简单的求平均: <span class="math inline">\({\bf f_{o j}}\,=\,(n_{o_{j}}{\bf f_{o j}}+{\bf f}_{t,i})/(n_{o_{j}}+1)\)</span> 其中n是迄今为止(融合前)被关联到这个对象的观察片段数量, 点云部分则执行一个简单的并集操作，并进行下采样降低成本</li>
-<li>节点描述: 很实用主义的一步，在我们暂时完成了一系列图像处理后，对得到的对象，将最好的10张图片送给LVLM处理, LVLM生成对应的粗略描述，再将其送给一个LLM生成一个最终描述</li>
+<li>对象融合: 对上一步关联的两个对象，进行融合，融合过程就是一个简单的求平均: <span class="math inline">\({\bf f_{o j}}\,=\,(n_{o_{j}}{\bf f_{o j}}+{\bf f}_{t,i})/(n_{o_{j}}+1)\)</span> 其中 n 是迄今为止(融合前)被关联到这个对象的观察片段数量, 点云部分则执行一个简单的并集操作，并进行下采样降低成本</li>
+<li>节点描述: 很实用主义的一步，在我们暂时完成了一系列图像处理后，对得到的对象，将最好的 10 张图片送给 LVLM 处理, LVLM 生成对应的粗略描述，再将其送给一个 LLM 生成一个最终描述</li>
 </ol>
-<p>简单地概括一下, 上述主要处理空间和语义上的物体(对象)表示, 空间部分是从二维图片提取的点云, 确定点云是和语义类别无关，直到确认后才编辑语义部分，提取语义的过程也很单纯，将图片发给LVM和LLM得到描述, 每个对象存储一个关于自己的描述</p>
+<p>简单地概括一下, 上述主要处理空间和语义上的物体(对象)表示, 空间部分是从二维图片提取的点云, 确定点云是和语义类别无关，直到确认后才编辑语义部分，提取语义的过程也很单纯，将图片发给 LVM 和 LLM 得到描述, 每个对象存储一个关于自己的描述</p>
 <h4 id="d-场景图生成">3d 场景图生成</h4>
 <p>之前已经得到了对象层面的抽象，这部分主要处理对象关系<br />
-对每对3d对象，计算器3d边界Box的IoU生成一个相似度矩阵, 并通过估计应该最小生成树MST来修剪矩阵,从而得到数量可控的候选边<br />
-(可能有人好奇为什么之前的描述不进行编码直接存储, 这是因为后面还会对LLM会使用描述信息)<br />
-对这棵树的每条边，将边对应的一对obj的描述和位置信息喂给LLM, LLM生成其可能的关系，这个关系作为场景图的标签存储，例如on,in<br />
-之后，对自然语言类型的查询，让LLM读取一个存储好相关信息的对象列表，找到最有可能的关联对象并将这个对象交给下游应用<br />
-当然还有一个很常见的思路是，为什么不舍弃描述性信息，直接使用CLIP之类的模型嵌入编码查询语句然后查找匹配对象呢？ 答案很简单: 实验者尝试过，但效果不如LLM，准确地说，clip对描述性的查找表现不错，但对于比较模糊的查询表现不佳<br />
-相比更近年的dualmap,这个模型还有一个比较直观的问题，对动态环境无能为力,但优点在于llm的泛化能力能解决很多导航问题，例如一开始没找到之后去哪里找，有障碍物的路径其障碍物能否推开等</p>
-<p>场景图对象的json表示示例:</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="punctuation">[</span></span><br><span class="line">    <span class="punctuation">&#123;</span>  </span><br><span class="line">    id<span class="punctuation">:</span> <span class="number">2</span><span class="punctuation">,</span></span><br><span class="line">    bbox_extent<span class="punctuation">:</span> <span class="punctuation">[</span><span class="number">2.0</span><span class="punctuation">,</span> <span class="number">0.7</span><span class="punctuation">,</span> <span class="number">0.6</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">    bbox_center<span class="punctuation">:</span> <span class="punctuation">[</span><span class="number">-0.6</span><span class="punctuation">,</span> <span class="number">1.1</span><span class="punctuation">,</span> <span class="number">-1.2</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">    object_tag<span class="punctuation">:</span> wooden dresser or chest of drawers<span class="punctuation">,</span></span><br><span class="line">    caption<span class="punctuation">:</span> A wooden dresser or chest of drawers </span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">]</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>简评: 无疑这个系统很实用, 但过于依赖LLM了，文本描述很可能不是最好的空间表示方式</p>
+对每对 3d 对象，计算器 3d 边界 Box 的 IoU 生成一个相似度矩阵, 并通过估计应该最小生成树 MST 来修剪矩阵, 从而得到数量可控的候选边<br />
+(可能有人好奇为什么之前的描述不进行编码直接存储, 这是因为后面还会对 LLM 会使用描述信息)<br />
+对这棵树的每条边，将边对应的一对 obj 的描述和位置信息喂给 LLM, LLM 生成其可能的关系，这个关系作为场景图的标签存储，例如 on, in<br />
+之后，对自然语言类型的查询，让 LLM 读取一个存储好相关信息的对象列表，找到最有可能的关联对象并将这个对象交给下游应用<br />
+当然还有一个很常见的思路是，为什么不舍弃描述性信息，直接使用 CLIP 之类的模型嵌入编码查询语句然后查找匹配对象呢？ 答案很简单: 实验者尝试过，但效果不如 LLM，准确地说，clip 对描述性的查找表现不错，但对于比较模糊的查询表现不佳<br />
+相比更近年的 dualmap, 这个模型还有一个比较直观的问题，对动态环境无能为力, 但优点在于 llm 的泛化能力能解决很多导航问题，例如一开始没找到之后去哪里找，有障碍物的路径其障碍物能否推开等</p>
+<p>场景图对象的 json 表示示例:</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="punctuation">[</span></span><br><span class="line">    <span class="punctuation">&#123;</span>  </span><br><span class="line">    id<span class="punctuation">:</span> <span class="number">2</span><span class="punctuation">,</span></span><br><span class="line">    bbox_extent<span class="punctuation">:</span> <span class="punctuation">[</span><span class="number">2.0</span><span class="punctuation">,</span> <span class="number">0.7</span><span class="punctuation">,</span> <span class="number">0.6</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">    bbox_center<span class="punctuation">:</span> <span class="punctuation">[</span><span class="number">-0.6</span><span class="punctuation">,</span> <span class="number">1.1</span><span class="punctuation">,</span> <span class="number">-1.2</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">    object_tag<span class="punctuation">:</span> &#x27;wooden dresser or chest of drawers&#x27;<span class="punctuation">,</span></span><br><span class="line">    caption<span class="punctuation">:</span> &#x27;A wooden dresser or chest of drawers&#x27; </span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">]</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>简评: 无疑这个系统很实用, 但过于依赖 LLM 了，文本描述很可能不是最好的空间表示方式</p>
 <div class="note info"><ul>
 <li>下采样（subsampled）: 简单地说，尽可能保留信息地压缩原数据，上采样与其相反</li>
 </ul>
 </div>
 <h3 id="hierarchical-open-vocabulary-3d-scene-graphs-for-language-grounded-robot-navigation">Hierarchical Open-Vocabulary 3D Scene Graphs for Language-Grounded Robot Navigation</h3>
-<p>本文提出的模型简称为HOVSG, 相比同行最大的特点在于它是分层结构的，我们之前提到的工作往往只是用拓扑图基于一个简单的图论空间模型表示现实空间，但对于更加复杂的现实空间例如多层建筑，其表现力就会受限，因此本文使用分层的模型增强表示能力</p>
+<p>来自 RSS 2024</p>
+<p>本文提出的模型简称为 HOVSG, 相比同行最大的特点在于它是分层结构的，我们之前提到的工作往往只是用拓扑图基于一个简单的图论空间模型表示现实空间，但对于更加复杂的现实空间例如多层建筑，其表现力就会受限，因此本文使用分层的模型增强表示能力<br />
+在地图结构上，本文类似之前的感知图选择了 3d 场景图或者说综述里取名为拓扑图, 对最常见导航任务一般有两种思路: 一是对语义信息编码，再通过和目标的相似度计算选取子目标: 二是将描述信息输入给 LLM, 由 LLM 生成子目标</p>
+<p>本模型专注于解决对有 rpgd 相机和里程计的多层环境建图问题， 其最初的3d建图和感知地图比较类似，至少在之后会增加分层信息<br />
+下面介绍其流程，和感知图类似的部分会略过</p>
+<ol type="1">
+<li>同样进行类别无关的分割，并将片段投影为3d点云, 其合并算法与感知图不同， 重叠度记作: <span class="math inline">\(R(m,n)=m a x(o\nu e r l a p(S_{m},S_{n}),o\nu e r l a p(S_{n},S_{m}))\)</span> 其中 <span class="math inline">\(overlap(S_a, S_b)\)</span> 表示Sa中的点在Sb的邻域内（在一定距离内）的比率， 但合并不是一对对进行的, 而是构建一个全连接的图，每条边存储连接的一对节点(片段)的重叠度，这样就能找到一些重叠度较高的子图，将所有子图一起合并</li>
+<li>接下来开始计算特征, 这里还是我们的老熟人CLIP, 但有一些trick, 由于之前的分割我们其实是有各个区域的掩码的, 按常识想，似乎应该只把分割出的部分用来求特征, 但也有些工作会把掩码部分和整个图像都求特征算加权和, 根据本文团队的经验, 其特征也是加权和的形式, 写作: <span class="math inline">\(f_{i}=w_{g}f_{g}+w_{l}f_{l}+w_{m}f_{m}\)</span> 其中i表示第i个2d掩码,也就是切割出的片段, g表示整个图像, l表示基于掩码的图像裁剪, m表示去除掩码的图像裁剪</li>
+<li></li>
+</ol>
+<div class="note info"><ul>
+<li>分水岭(Watershed)算法: 广泛应用于图像处理的分割技术，特别用于图像的边缘检测和区域分割</li>
+</ul>
+</div>
 <h2 id="vision-language-action-models">Vision-Language-Action Models</h2>
 <h3 id="large-vlm-based-vision-language-action-models-for-robotic-manipulation-a-survey">Large VLM-based Vision-Language-Action Models for Robotic Manipulation: A Survey</h3>
 <h4 id="前言-1">前言</h4>
@@ -1220,7 +1233,7 @@ ACT 主要创新点在于能够预测连续的, 精确的动作序列, 而一些
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">36:35</span>
+    <span title="站点阅读时长">36:37</span>
   </span>
 </div>
 <div class="busuanzi-count">
