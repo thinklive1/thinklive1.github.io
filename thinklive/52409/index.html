@@ -36,7 +36,7 @@
 <meta property="og:image" content="https://thinklive1.github.io/assets/ml/image-1.png">
 <meta property="og:image" content="https://thinklive1.github.io/assets/ml/image-2.png">
 <meta property="article:published_time" content="2025-09-09T07:53:29.848Z">
-<meta property="article:modified_time" content="2025-09-24T12:42:07.979Z">
+<meta property="article:modified_time" content="2025-09-24T12:56:36.485Z">
 <meta property="article:author" content="thinklive">
 <meta property="article:tag" content="人工智能">
 <meta property="article:tag" content="机器学习">
@@ -314,7 +314,7 @@ const darkmode = new Darkmode(options);
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-09-24 20:42:07" itemprop="dateModified" datetime="2025-09-24T20:42:07+08:00">2025-09-24</time>
+      <time title="修改时间：2025-09-24 20:56:36" itemprop="dateModified" datetime="2025-09-24T20:56:36+08:00">2025-09-24</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -636,7 +636,7 @@ NLMap(grid): 如果想直接辨别图像里的物品, 则可以使用 <code>clas
 <li>Hybrid map structure: 上文已经提到过混合结构的优点, 但如何融合或者切换也是值得研究的方面</li>
 <li>Devising evaluation metrics: 与下游任务中代理表现的评估相比, 语义地图的评估在具身 AI 研究中受到的关注较少。为了推动该领域的发展, 需要强调使用准确性、完整性、一致性和健壮性等指标对地图进行评估。</li>
 </ul>
-<h2 id="dualmap-在线开放词汇语义建图助力智能体自然语言导航"><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/GZ2vEWize3j94ti-2qJQJg">DualMap: 在线开放词汇语义建图助力智能体自然语言导航</a></h2>
+<h2 id="dualmap-在线开放词汇语义建图助力智能体自然语言导航">DualMap: 在线开放词汇语义建图助力智能体自然语言导航</h2>
 <h3 id="背景">背景</h3>
 <p>鉴于近年 ai 领域的发展, 机器人领域逐渐开始研究对于自然语言理解能力的集成, 对此可以分为 3 种任务:</p>
 <ol type="1">
@@ -658,7 +658,7 @@ NLMap(grid): 如果想直接辨别图像里的物品, 则可以使用 <code>clas
 这里补充一下对每一帧 I 的处理，事实上有三个模块会并行地使用 I，即上述的 YOLO, FastSAM 以及一个点云生成器, 点云地图和语义信息无关，只是用于提供空间布局</p></li>
 <li><p>语义特征处理<br />
 由于我们希望能让机器人做到能理解模糊的指令, 就需要让地图也携带语义信息, 这方面也有很方便的图文嵌入模型例如 CLIP, CLIP 提供对图像的编码功能, 在第一步的分割后, 对裁剪出的图像区域编码为 <span class="math inline">\(f_{image}\)</span> , 如果之前的分割给出应该类别标签，对标签编码为 <span class="math inline">\(f_{text}\)</span> , 最后通过加权求和得到总的特征<br />
-<span class="math display">\[\mathbf{f}=w_{\mathrm{image}}\mathbf{f}_{\mathrm{image}}+w_{\mathrm{tex}}\mathbf{f}_{\mathrm{iext}},\qquad\mathbf{f}_{\mathrm{fimage,~text}\}}\in\mathbb{R}^{d}\]</span><br />
+<span class="math display">\[\mathbf{f}=w_{\mathrm{image}}\mathbf{f}_{\mathrm{image}}+w_{\mathrm{text}}\mathbf{f}_{\mathrm{text}},\qquad\mathbf  {f}_{\{ {\mathrm{image,~text}\}}}   \in\mathbb{R}^{d}\]</span><br />
 对于 FastSAM 标记为“null”的对象, 用所有已知类别嵌入的归一化平均文本特征替换 <span class="math inline">\(f_{text}\)</span>  , 以消除语义偏差</p></li>
 <li><p>观察结构<br />
 摄像机拍到的一帧为 I, 每个 I 提取出一个观察集 Z, Z 由 N 个片段 <span class="math inline">\(z_i\)</span> 组成, z 称为观察 , 可表示为: <span class="math inline">\(z=(P_{z},f_{z},y_{z},t_{z})\)</span><br />
@@ -1229,7 +1229,7 @@ ACT 主要创新点在于能够预测连续的, 精确的动作序列, 而一些
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">36:37</span>
+    <span title="站点阅读时长">36:38</span>
   </span>
 </div>
 <div class="busuanzi-count">

@@ -359,7 +359,7 @@ NLMap(grid): 如果想直接辨别图像里的物品, 则可以使用 <code>clas
 <li>Hybrid map structure: 上文已经提到过混合结构的优点, 但如何融合或者切换也是值得研究的方面</li>
 <li>Devising evaluation metrics: 与下游任务中代理表现的评估相比, 语义地图的评估在具身 AI 研究中受到的关注较少。为了推动该领域的发展, 需要强调使用准确性、完整性、一致性和健壮性等指标对地图进行评估。</li>
 </ul>
-<h2 id="dualmap-在线开放词汇语义建图助力智能体自然语言导航"><a href="https://mp.weixin.qq.com/s/GZ2vEWize3j94ti-2qJQJg">DualMap: 在线开放词汇语义建图助力智能体自然语言导航</a></h2>
+<h2 id="dualmap-在线开放词汇语义建图助力智能体自然语言导航">DualMap: 在线开放词汇语义建图助力智能体自然语言导航</h2>
 <h3 id="背景">背景</h3>
 <p>鉴于近年 ai 领域的发展, 机器人领域逐渐开始研究对于自然语言理解能力的集成, 对此可以分为 3 种任务:</p>
 <ol type="1">
@@ -381,7 +381,7 @@ NLMap(grid): 如果想直接辨别图像里的物品, 则可以使用 <code>clas
 这里补充一下对每一帧 I 的处理，事实上有三个模块会并行地使用 I，即上述的 YOLO, FastSAM 以及一个点云生成器, 点云地图和语义信息无关，只是用于提供空间布局</p></li>
 <li><p>语义特征处理<br />
 由于我们希望能让机器人做到能理解模糊的指令, 就需要让地图也携带语义信息, 这方面也有很方便的图文嵌入模型例如 CLIP, CLIP 提供对图像的编码功能, 在第一步的分割后, 对裁剪出的图像区域编码为 <span class="math inline">\(f_{image}\)</span> , 如果之前的分割给出应该类别标签，对标签编码为 <span class="math inline">\(f_{text}\)</span> , 最后通过加权求和得到总的特征<br />
-<span class="math display">\[\mathbf{f}=w_{\mathrm{image}}\mathbf{f}_{\mathrm{image}}+w_{\mathrm{tex}}\mathbf{f}_{\mathrm{iext}},\qquad\mathbf{f}_{\mathrm{fimage,~text}\}}\in\mathbb{R}^{d}\]</span><br />
+<span class="math display">\[\mathbf{f}=w_{\mathrm{image}}\mathbf{f}_{\mathrm{image}}+w_{\mathrm{text}}\mathbf{f}_{\mathrm{text}},\qquad\mathbf  {f}_{\{ {\mathrm{image,~text}\}}}   \in\mathbb{R}^{d}\]</span><br />
 对于 FastSAM 标记为“null”的对象, 用所有已知类别嵌入的归一化平均文本特征替换 <span class="math inline">\(f_{text}\)</span>  , 以消除语义偏差</p></li>
 <li><p>观察结构<br />
 摄像机拍到的一帧为 I, 每个 I 提取出一个观察集 Z, Z 由 N 个片段 <span class="math inline">\(z_i\)</span> 组成, z 称为观察 , 可表示为: <span class="math inline">\(z=(P_{z},f_{z},y_{z},t_{z})\)</span><br />
@@ -894,7 +894,7 @@ ACT 主要创新点在于能够预测连续的, 精确的动作序列, 而一些
     <title>想法</title>
     <url>/thinklive/18985/</url>
     <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="縺ｫ縺ｯ繧｢繝ｪ繧ｹ縺励" data-whm="縺ｫ縺ｯ繧｢繝ｪ繧ｹ縺励">
-  <script id="hbeData" type="hbeData" data-hmacdigest="a674fa5f40354dcaae31bfb647b62c68b63ccd517a4f81e5c77528e8bd7e58e9">e834cbb106c5f9f156c5296000fb1eb3c8112485b8c915a4d7b9f425ea9480bc660e5ebac43346a7a877de6b990568924e0da84f22e5759fd81d247ba14576cbbcd73d220d0d22da614d13608db4929a24d7debf71e6f5ef623a18439ec332e26bc15bb530d5027d3a1de190350933b30bf919f20f42f1e37e0f7d496d61da8d34e5c23fcf60c58edf94e43947e4739b5db113f805a3aa0707b2c993f3570db5</script>
+  <script id="hbeData" type="hbeData" data-hmacdigest="468c18178e3c8f352f297f3f8ac6847d5a70149a79a8c560354c5104d7a28d91">e834cbb106c5f9f156c5296000fb1eb3c8112485b8c915a4d7b9f425ea9480bc660e5ebac43346a7a877de6b990568924e0da84f22e5759fd81d247ba14576cbbcd73d220d0d22da614d13608db4929a24d7debf71e6f5ef623a18439ec332e26bc15bb530d5027d3a1de190350933b30bf919f20f42f1e37e0f7d496d61da8d9c269c8bbf89e5f5be5f8620e962840a368395df02ffb7897f8e0441a2d47c7602f254b6411a6fdb283fb41a6f65e7774720431ff6bee51dbf3f398e963a3c17001b5ea32390eafb956431353613a2116050980e45b0f1235669b263856f3f0bd2ed41541735845250b0600dfd2aaa0a2f8c682b22c767558724ff1c2992f5d38789305eb594eacf8f2c6db68411d0be4464da08a5553dbfc7ff793ef7c5799b4a92c460f595a441a4b5421048f8475df4343f3bc232e6ba759c3462bf32148876eac79285da59c8dd4da76baf3b64416e3aced04b1181585ac39a3f2db6f4528c43a7d4f8b737ed5a0a2c12a0e4ff4810bde2f693e7ff3e555df1f29a35e90fc370682d9cb332fada4817a9e4dc613c212d83835024067e1957c95e24e6bceb06b2513b5e4db24a00443e4489764d75</script>
   <div class="hbe hbe-content">
     <div class="hbe hbe-input hbe-input-wave">
       <input class="hbe hbe-input-field hbe-input-field-wave" type="password" id="hbePass">
