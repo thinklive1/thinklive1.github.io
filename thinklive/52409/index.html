@@ -30,13 +30,14 @@
 <meta property="og:description" content="关于具身智能领域的论文">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://thinklive1.github.io/assets/ml/Pasted%20image%2020250911154734.png">
+<meta property="og:image" content="https://thinklive1.github.io/thinklive/assets/ml/image-7.png">
 <meta property="og:image" content="https://thinklive1.github.io/assets/ml/image.png">
 <meta property="og:image" content="https://thinklive1.github.io/assets/ml/image-5.png">
 <meta property="og:image" content="https://thinklive1.github.io/assets/ml/image-6.png">
 <meta property="og:image" content="https://thinklive1.github.io/assets/ml/image-1.png">
 <meta property="og:image" content="https://thinklive1.github.io/assets/ml/image-2.png">
 <meta property="article:published_time" content="2025-09-09T07:53:29.848Z">
-<meta property="article:modified_time" content="2025-09-24T12:57:21.464Z">
+<meta property="article:modified_time" content="2025-09-25T13:26:12.321Z">
 <meta property="article:author" content="thinklive">
 <meta property="article:tag" content="人工智能">
 <meta property="article:tag" content="机器学习">
@@ -314,7 +315,7 @@ const darkmode = new Darkmode(options);
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-09-24 20:57:21" itemprop="dateModified" datetime="2025-09-24T20:57:21+08:00">2025-09-24</time>
+      <time title="修改时间：2025-09-25 21:26:12" itemprop="dateModified" datetime="2025-09-25T21:26:12+08:00">2025-09-25</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -347,7 +348,7 @@ const darkmode = new Darkmode(options);
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1:26</span>
+      <span>1:29</span>
     </span>
 </div>
 
@@ -799,11 +800,29 @@ NLMap(grid): 如果想直接辨别图像里的物品, 则可以使用 <code>clas
 下面介绍其流程，和感知图类似的部分会略过</p>
 <ol type="1">
 <li>同样进行类别无关的分割，并将片段投影为 3d 点云, 其合并算法与感知图不同， 重叠度记作: <span class="math inline">\(R(m,n)=m a x(o\nu e r l a p(S_{m},S_{n}),o\nu e r l a p(S_{n},S_{m}))\)</span> 其中 <span class="math inline">\(overlap(S_a, S_b)\)</span> 表示 Sa 中的点在 Sb 的邻域内（在一定距离内）的比率， 但合并不是一对对进行的, 而是构建一个全连接的图，每条边存储连接的一对节点(片段)的重叠度，这样就能找到一些重叠度较高的子图，将所有子图一起合并</li>
-<li>接下来开始计算特征, 这里还是我们的老熟人 CLIP, 但有一些 trick, 由于之前的分割我们其实是有各个区域的掩码的, 按常识想，似乎应该只把分割出的部分用来求特征, 但也有些工作会把掩码部分和整个图像都求特征算加权和, 根据本文团队的经验, 其特征也是加权和的形式, 写作: <span class="math inline">\(f_{i}=w_{g}f_{g}+w_{l}f_{l}+w_{m}f_{m}\)</span> 其中 i 表示第 i 个 2d 掩码, 也就是切割出的片段, g 表示整个图像, l 表示基于掩码的图像裁剪, m 表示去除掩码的图像裁剪</li>
-<li></li>
+<li>接下来开始计算特征, 这里还是我们的老熟人 CLIP, 但有一些 trick, 由于之前的分割我们其实是有各个区域的掩码的, 按常识想，似乎应该只把分割出的部分用来求特征, 但也有些工作会把掩码部分和整个图像都求特征算加权和, 根据本文团队的经验, 其特征也是加权和的形式, 写作: <span class="math inline">\(f_{i}=w_{g}f_{g}+w_{l}f_{l}+w_{m}f_{m}\)</span> 其中 i 表示第 i 个 2d 掩码, 也就是切割出的片段, g 表示整个图像, l 表示基于掩码的图像裁剪, m 表示去除掩码的图像裁剪
+<ol type="1">
+<li>接下来考虑怎么将算出的语义和点云表示的空间相关联, 这里简单地说, hovsg采取了空间消耗最大的方法，直接用3d点云存储语义</li>
+<li>在准备阶段, 会预计算出大概的点云,这称为参考点云, 而对在之前一步中得到的掩码区域，会将其映射到3d坐标系中并计算特征,对映射后的片段，其各个点会与参考点云中的最近点匹配, 也就是语义特征会关联到那个对应点, 而对一个片段的所有映射后点群，会将其平均化(这部分是一个逐点运算)</li>
+<li>在2. 结束后，我们得到各个3d片段的平均化语义, 之后会使用DBSCAN算法进行聚类(将最密集的聚类平均值作为片段语义)达到降噪和规避模式崩溃的效果</li>
+</ol></li>
+<li>在完成语义存储后, 接下来的任务就是构建场景模型, 本文的抽象数据结构是主流的拓扑图, 但在设计上有一些trick
+<ol type="1">
+<li>其中 <span class="math inline">\({\cal N}\;=\;{\cal N}_{S}\;\cup\;{\cal N}_{F}^{\;}\;\cup{\cal N}_{R}\;\;{\cal N}_{O}\)</span> 其中s下标是根节点，其他则是floor,room,object的简称</li>
+<li>类似的，边集合定义为 <span class="math inline">\({ \mathcal{E}}={ \mathcal{E}}_{S F}\cup{\mathcal{E}}_{F R}\cup{\mathcal{E}}_{R O}\)</span></li>
+<li>以上的定义都比较常识化，接下来讨论具体的实现:
+<ol type="1">
+<li>floor: 对目前已有片段的点云画出高度上的直方图，然后寻找一些峰值(也就是找到点相对最多的高度)，具体来说，只选择超过最高峰90%或以上的峰值；用DBSCAN选择每个片段点云中排名最高的两个峰,用常识想，应该其中最密集的高度是楼层底面; 对最后得到的所有候选高度(存储为一个向量)排序，文章假设每两个连续的高度对是天花板和地板的高度</li>
+<li>room: 基于划分好的层级, 画一个2d鸟瞰直方图, 由于一般墙壁处是最密集的, 用一个阈值就可以分离出大概，然后用一个EDF加上分水岭算法完善分割;同样基于常识, 房间应该有一些语义信息，将一些观察帧用于嵌入，用k-means方法选出k个代表；推理时, 将一系列常见房间类别输入clip编码，然后将这些编码和之前的房间代表信息计算余弦相似度, 这里的代表其实是个双关，每个房间有k个代表, 这些代表每人一票投给与其最类似的房间种类, 然后根据票数或者投票分数决定房间种类</li>
+<li>object: 得到房间划分后, 我们其实就能知道之前的片段各自落在什么房间, 而对不落在任何房间里的对象，将其与欧几里得距离最小的房间相关联, 类似之前的工作，这部分也会进行重叠度高对象的合并(空间标准前文写过，语义标准是对封闭词汇表的查询,或者说分类任务，有相同标签输出), 每个对象存储自己的3d点云和片段信息，以及特征和最大得分的标签</li>
+<li>互动图</li>
+</ol></li>
+</ol></li>
 </ol>
+<p><img src="../assets/ml/image-7.png" /></p>
 <div class="note info"><ul>
 <li>分水岭(Watershed)算法: 广泛应用于图像处理的分割技术，特别用于图像的边缘检测和区域分割</li>
+<li>欧几里得距离场（Euclidean Distance Field, EDF）: 在一个给定的空间中，欧几里得距离场为每个点分配一个值，这个值是该点到某个特定形状（如物体边界或目标点）的最短距离</li>
 </ul>
 </div>
 <h1 id="vision-language-action-models">Vision-Language-Action Models</h1>
@@ -1222,14 +1241,14 @@ ACT 主要创新点在于能够预测连续的, 精确的动作序列, 而一些
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">604k</span>
+    <span title="站点总字数">605k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">36:38</span>
+    <span title="站点阅读时长">36:41</span>
   </span>
 </div>
 <div class="busuanzi-count">
