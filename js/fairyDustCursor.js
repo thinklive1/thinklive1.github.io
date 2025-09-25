@@ -38,7 +38,9 @@
         lastPosition.x = e.clientX;
         lastPosition.y = e.clientY;
 
-        addParticle(cursor.x, cursor.y, possibleColors[Math.floor(Math.random() * possibleColors.length)]);
+        if (Math.random() < 0.2) { // 调整此值以减少生成粒子的频率
+            addParticle(cursor.x, cursor.y, possibleColors[Math.floor(Math.random() * possibleColors.length)]);
+        }
     }
 
     function addParticle(x, y, color) {
@@ -73,7 +75,7 @@
     function Particle() {
 
         this.character = "*";
-        this.lifeSpan = 120; //ms
+        this.lifeSpan = 100; //ms
         this.initialStyles = {
             "position": "fixed",
             "top": "0", //必须加
@@ -125,24 +127,3 @@
 
     init();
 })();
-
-// 监听控制台输入事件
-window.addEventListener('keydown', function (event) {
-    // 获取输入的字符
-    const inputChar = event.key;
-
-    // 检查输入是否匹配特定字符串
-    const triggerString = 'hello';
-    if (inputChar === triggerString[0]) {
-        let currentIndex = 0;
-        const intervalId = setInterval(function () {
-            if (currentIndex < triggerString.length) {
-                console.log(triggerString[currentIndex]);
-                currentIndex++;
-            } else {
-                clearInterval(intervalId);
-                console.log('你发现了彩蛋!');
-            }
-        }, 300); // 每 300 毫秒打印一个字符
-    }
-});
