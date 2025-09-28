@@ -1478,30 +1478,6 @@ pre code {
   color: #999;
   font-size: 0.8125em;
 }
-.sidebar-post-related {
-  font-size: 0.8125em;
-  padding: 18px 0 0 0;
-}
-.popular-posts {
-  margin: 0;
-  padding: 1em 0;
-  text-align: left;
-}
-.popular-posts .popular-posts-item {
-  display: block;
-}
-.popular-posts .popular-posts-item .popular-posts-link {
-  border-bottom: 0;
-  display: block;
-  padding: 5px 20px;
-  transition: background 0.2s ease-in-out;
-}
-.popular-posts .popular-posts-item .popular-posts-link:hover {
-  background: var(--menu-item-bg-color);
-}
-.popular-posts .popular-posts-item .popular-posts-time {
-  color: #999;
-}
 .footer {
   color: #999;
   font-size: 0.875em;
@@ -2818,6 +2794,7 @@ body {
   --note-warning-bg-color: #fdf8ea;
   --note-info-bg-color: #eef7fa;
   --note-bg-color: #f9f9f9;
+  --aplayer-block: block;
 }
 .post-body .note.warning {
   background: var(--note-warning-bg-color);
@@ -2830,6 +2807,18 @@ body {
 }
 .post-body .note.default {
   background: var(--note-bg-color);
+}
+.aplayer {
+  background: var(--note-bg-color) !important;
+}
+.aplayer .aplayer-lrc:before {
+  background: linear-gradient(180deg, #181a1b 0, rgba(255,255,255,0));
+}
+.aplayer .aplayer-lrc:before {
+  display: none !important;
+}
+.aplayer .aplayer-lrc:after {
+  display: none !important;
 }
 @keyframes clippath {
   0%, 100% {

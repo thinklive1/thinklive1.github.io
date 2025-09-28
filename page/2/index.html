@@ -52,7 +52,10 @@
 <script type="text/javascript" async src="/js/fairyDustCursor.js"></script>
 <script type="text/javascript" async src="/js/tab-title.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
+<script src="/js/tab-title.js"></script>
 
+<!--pjax：防止跳转页面音乐暂停-->
+<script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.js"></script>
   <noscript>
     <link rel="stylesheet" href="/css/noscript.css">
   </noscript>
@@ -76,11 +79,7 @@ const darkmode = new Darkmode(options);
 </script>
 <link rel="alternate" href="/atom.xml" title="thinklive" type="application/atom+xml">
 <style>.darkmode--activated{--body-bg-color:#282828;--content-bg-color:#333;--card-bg-color:#555;--text-color:#ccc;--blockquote-color:#bbb;--link-color:#ccc;--link-hover-color:#eee;--brand-color:#ddd;--brand-hover-color:#ddd;--table-row-odd-bg-color:#282828;--table-row-hover-bg-color:#363636;--menu-item-bg-color:#555;--btn-default-bg:#222;--btn-default-color:#ccc;--btn-default-border-color:#555;--btn-default-hover-bg:#666;--btn-default-hover-color:#ccc;--btn-default-hover-border-color:#666;--highlight-background:#282b2e;--highlight-foreground:#a9b7c6;--highlight-gutter-background:#34393d;--highlight-gutter-foreground:#9ca9b6}.darkmode--activated img{opacity:.75}.darkmode--activated img:hover{opacity:.9}.darkmode--activated code{color:#69dbdc;background:0 0}button.darkmode-toggle{z-index:9999}.darkmode-ignore,img{display:flex!important}.beian img{display:inline-block!important}</style></head>
-<script src="/js/tab-title.js"></script>
-<script type="text/javascript" async src="/js/text.js"></script>
 
-<!--pjax：防止跳转页面音乐暂停-->
- <script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.js"></script>
 <body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
   <div class="headband"></div>
 <body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
@@ -118,7 +117,7 @@ const darkmode = new Darkmode(options);
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-主页-|-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>主页 | home</a></li><li class="menu-item menu-item-标签-|-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签 | tags</a></li><li class="menu-item menu-item-分类-|-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类 | categories</a></li><li class="menu-item menu-item-归档-|-archive"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档 | archive</a></li><li class="menu-item menu-item-相册-|-photo"><a href="/photos/" rel="section"><i class="fa fa-camera fa-fw"></i>相册 | photo</a></li><li class="menu-item menu-item-留言-|-guestbook"><a href="/guestbook/" rel="section"><i class="fa fa-book fa-fw"></i>留言 | guestbook</a></li><li class="menu-item menu-item-感谢-|-thank"><a href="/thanks/" rel="section"><i class="fa custom thanks fa-fw"></i>感谢 | thank</a></li><li class="menu-item menu-item-游戏-|-game"><a href="/game/bad1.html" rel="section"><i class="fa fa-gamepad fa-fw"></i>游戏 | game</a></li><li class="menu-item menu-item-神龛-|-shrine"><a href="/cyberblog/" rel="section"><i class="fa fa-microchip fa-fw"></i>神龛 | shrine</a></li><li class="menu-item menu-item-资源地图-|-resourcemap"><a href="/webstack/" rel="section"><i class="fa fa-list fa-fw"></i>资源地图 | resourcemap</a></li><li class="menu-item menu-item-思维导图-|-mindmap"><a href="/mindmap/index.html" rel="section"><i class="fa fa-map fa-fw"></i>思维导图 | mindmap</a></li><li class="menu-item menu-item-网站地图-|-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>网站地图 | sitemap</a></li><li class="menu-item menu-item-蒸汽-|-steam"><a href="/steamgames/index.html" rel="section"><i class="fa fa custum steam fa-fw"></i>蒸汽 | steam</a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-主页-|-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>主页 | home</a></li><li class="menu-item menu-item-标签-|-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签 | tags</a></li><li class="menu-item menu-item-分类-|-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类 | categories</a></li><li class="menu-item menu-item-归档-|-archive"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档 | archive</a></li><li class="menu-item menu-item-相册-|-photo"><a href="/photos/" rel="section"><i class="fa fa-camera fa-fw"></i>相册 | photo</a></li><li class="menu-item menu-item-留言-|-guestbook"><a href="/guestbook/" rel="section"><i class="fa fa-book fa-fw"></i>留言 | guestbook</a></li><li class="menu-item menu-item-感谢-|-thank"><a href="/thanks/" rel="section"><i class="fa custom thanks fa-fw"></i>感谢 | thank</a></li><li class="menu-item menu-item-游戏-|-game"><a href="/game/bad1.html" rel="section"><i class="fa fa-gamepad fa-fw"></i>游戏 | game</a></li><li class="menu-item menu-item-神龛-|-shrine"><a href="/cyberblog/" rel="section"><i class="fa fa-microchip fa-fw"></i>神龛 | shrine</a></li><li class="menu-item menu-item-资源地图-|-resourcemap"><a href="/webstack/" rel="section"><i class="fa fa-list fa-fw"></i>资源地图 | resourcemap</a></li><li class="menu-item menu-item-思维导图-|-mindmap"><a href="/mindmap/index.html" rel="section"><i class="fa fa-map fa-fw"></i>思维导图 | mindmap</a></li><li class="menu-item menu-item-网站地图-|-sitemap"><a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>网站地图 | sitemap</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索 | search
         </a>
@@ -177,7 +176,6 @@ const darkmode = new Darkmode(options);
     order="random"
     loop="all"
     preload="auto"
-    lrc-type="2"
     mutex="true">
     <div class="sidebar-inner sidebar-overview-active">
       <ul class="sidebar-nav">
@@ -248,138 +246,12 @@ const darkmode = new Darkmode(options);
     </div>
 
     
-        <div class="pjax">
-        </div>
   </aside>
 
 
     </div>
 
     <div class="main-inner index posts-expand">
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://thinklive1.github.io/thinklive/52285/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/thive.png">
-      <meta itemprop="name" content="thinklive">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="thinklive">
-      <meta itemprop="description" content="起初，世界是一团思索，它向所有的方向迈了一步，于是万物由此而生">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | thinklive">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/thinklive/52285/" class="post-title-link" itemprop="url">研distance——计算机网络</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2024-03-04 21:12:22" itemprop="dateCreated datePublished" datetime="2024-03-04T21:12:22+08:00">2024-03-04</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-09-09 15:53:29" itemprop="dateModified" datetime="2025-09-09T15:53:29+08:00">2025-09-09</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">考研笔记</span></a>
-        </span>
-          ，
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/%E7%A0%94distance/" itemprop="url" rel="index"><span itemprop="name">研distance</span></a>
-        </span>
-    </span>
-
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>40k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2:25</span>
-    </span>
-</div>
-
-        
-        </div>
-      </header>
-   
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="概论">概论</h1>
-<h2 id="概念">概念</h2>
-<p><strong>主流定义</strong>：以能够相互共享资源的方式互连起来的自治计算机系统的集合</p>
-<ol type="1">
-<li>从组成部分上看，一个完整的计算机网络主要由硬件、软件、协议三大部分组成。其中硬件主要由主机(也称端系统)、通信链路(如双绞线、光纤)、交换设备(如路由器、交换机等)和通信处理机(如网卡)等组成<br />
-</li>
-<li>从工作方式上看，计算机网络(这里主要指Internet,即因特网)可分为边缘部分和核心部分,边缘系统是由用户主机组成用于通信和资源共享；核心系统为边缘部分提供互联服务<br />
-</li>
-<li>从功能组成上看，计算机网络由通信子网和资源子网组成。通信子网由各种传输介质、通信设备和相应的网络协议组成，实现联网计算机之间的数据通信。资源子网是实现资源共享功能的设备及其软件的集合,向网络用户提供共享服务。</li>
-</ol>
-<p><img src="/assets/resources/Pasted%20image%2020240303102036.png" /><br />
-<img src="/assets/resources/Pasted%20image%2020240303101219.png" /></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/thinklive/52285/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
 
     
 
@@ -491,6 +363,130 @@ const darkmode = new Darkmode(options);
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/thinklive/47457/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://thinklive1.github.io/thinklive/52285/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/thive.png">
+      <meta itemprop="name" content="thinklive">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="thinklive">
+      <meta itemprop="description" content="起初，世界是一团思索，它向所有的方向迈了一步，于是万物由此而生">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | thinklive">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/thinklive/52285/" class="post-title-link" itemprop="url">研distance——计算机网络</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-03-04 21:12:22" itemprop="dateCreated datePublished" datetime="2024-03-04T21:12:22+08:00">2024-03-04</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-09-09 15:53:29" itemprop="dateModified" datetime="2025-09-09T15:53:29+08:00">2025-09-09</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">考研笔记</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/%E7%A0%94distance/" itemprop="url" rel="index"><span itemprop="name">研distance</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>40k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2:25</span>
+    </span>
+</div>
+
+        
+        </div>
+      </header>
+   
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="概论">概论</h1>
+<h2 id="概念">概念</h2>
+<p><strong>主流定义</strong>：以能够相互共享资源的方式互连起来的自治计算机系统的集合</p>
+<ol type="1">
+<li>从组成部分上看，一个完整的计算机网络主要由硬件、软件、协议三大部分组成。其中硬件主要由主机(也称端系统)、通信链路(如双绞线、光纤)、交换设备(如路由器、交换机等)和通信处理机(如网卡)等组成<br />
+</li>
+<li>从工作方式上看，计算机网络(这里主要指Internet,即因特网)可分为边缘部分和核心部分,边缘系统是由用户主机组成用于通信和资源共享；核心系统为边缘部分提供互联服务<br />
+</li>
+<li>从功能组成上看，计算机网络由通信子网和资源子网组成。通信子网由各种传输介质、通信设备和相应的网络协议组成，实现联网计算机之间的数据通信。资源子网是实现资源共享功能的设备及其软件的集合,向网络用户提供共享服务。</li>
+</ol>
+<p><img src="/assets/resources/Pasted%20image%2020240303102036.png" /><br />
+<img src="/assets/resources/Pasted%20image%2020240303101219.png" /></p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/thinklive/52285/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1457,14 +1453,14 @@ const darkmode = new Darkmode(options);
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">607k</span>
+    <span title="站点总字数">608k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">36:46</span>
+    <span title="站点阅读时长">36:50</span>
   </span>
 </div>
 <div class="busuanzi-count">
@@ -1655,21 +1651,31 @@ function toggleMode() {
 
     if (isLightMode) {
         // 切换到暗模式
-        root1.style.setProperty('--content-bg-color', '#000');
+        const images = document.querySelectorAll('img'); // 选择所有<img>标签
+        images.forEach(img => {
+            img.style.filter = 'brightness(50%)'; // 设置亮度为50%
+        });
+
+        root1.style.setProperty('--content-bg-color', '#333');
+        root1.style.setProperty('--link-color', '#aaa');
         root1.style.setProperty('--text-color', '#fff');
         root1.style.setProperty('--highlight-background', '#444');
         root1.style.setProperty('--highlight-foreground', '#bbb');
         root1.style.setProperty('--btn-default-bg', '#777');
         root1.style.setProperty('--menu-item-bg-color', '#777');
-        root1.style.setProperty('--note-warning-bg-color', '#777');
+        root1.style.setProperty('--note-warning-bg-color', '#555');
         root1.style.setProperty('--note-bg-color', '#555');
-        root1.style.setProperty('--note-info-bg-color', '#777');
+        root1.style.setProperty('--note-info-bg-color', '#555');
         root1.style.setProperty('--table-row-odd-bg-color', '#777');
         root1.style.transition = 'all 0.5s ease';
 
     }
 
     else {
+        const images = document.querySelectorAll('img'); // 选择所有<img>标签
+        images.forEach(img => {
+            img.style.filter = 'brightness(100%)'; // 设置亮度为50%
+        });
         root1.style.setProperty('--content-bg-color', '#fff');
         root1.style.setProperty('--text-color', '#555');
         root1.style.setProperty('--highlight-background', '#eaeef3');
