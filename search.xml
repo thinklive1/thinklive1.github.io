@@ -75,6 +75,9 @@
 增加黑夜白天模式切换(测试中)</p>
 <p>2025/9/25<br />
 减少了特效的规格(优化性能)</p>
+<p>2025/9/28<br />
+针对aplayer优化了黑夜模式<br />
+去除了steam页面(不太美观,用处也不大)</p>
 ]]></content>
   </entry>
   <entry>
@@ -128,7 +131,16 @@
 <li><a href="#open-scene-graphs-for-open-world-object-goal-navigation">Open Scene Graphs for Open-World Object-Goal Navigation</a>
 <ul>
 <li><a href="#场景图">场景图</a></li>
-<li><a href="#地图生成和定位">地图生成和定位</a></li>
+<li><a href="#地图生成和定位">地图生成和定位</a>
+<ul>
+<li><a href="#自动生成osg">自动生成OSG</a></li>
+<li><a href="#图像解析-image-parser">图像解析 Image Parser</a></li>
+<li><a href="#状态评估">状态评估</a></li>
+<li><a href="#osg-更新">OSG 更新</a></li>
+<li><a href="#基于概率的osg">基于概率的OSG</a></li>
+</ul></li>
+<li><a href="#推理和控制">推理和控制</a></li>
+<li><a href="#实验-1">实验</a></li>
 </ul></li>
 </ul></li>
 <li><a href="#vision-language-action-models">Vision-Language-Action Models</a>
@@ -533,7 +545,7 @@ NLMap(grid): 如果想直接辨别图像里的物品, 则可以使用 <code>clas
 <ol type="1">
 <li>接下来考虑怎么将算出的语义和点云表示的空间相关联, 这里简单地说, hovsg 采取了空间消耗最大的方法, 用 3d 点云存储语义, 但是会进行一定的优化</li>
 <li>在准备阶段, 会预计算出大概的点云, 这称为参考点云, 而对在之前一步中得到的掩码区域, 会计算逐点特征并将其映射到(参考点云的) 3d 坐标系中,映射中片段的各个点会与参考点云中的最近点匹配, 也就是语义特征会关联到那个对应点,称为参考点, 在映射结束后，对各个参考点关联到的语义算平均作为其最终语义</li>
-<li>在 2. 结束后, 我们得到一个有逐点语义信息的参考点云,接下来反过来从片段内的点出发匹配参考点作为语义, 之后在片段内用 DBSCAN 算法进行聚类(将最密集的聚类平均值作为片段语义)达到降噪和规避模式崩溃的效果, 以上三步可参考上图中间</li>
+<li>在 2. 结束后, 我们得到一个有逐点语义信息的参考点云,接下来反过来从片段内的点出发匹配参考点作为语义, 之后在片段内用 DBSCAN 算法进行聚类(将最密集的聚类中最接近平均值的特征作为片段语义)达到降噪和规避模式崩溃的效果, 以上三步可参考上图中间, 也就是空间上每个片段只存储一个特征</li>
 </ol></li>
 <li>在完成语义存储后, 接下来的任务就是构建场景模型, 本文的抽象数据结构是主流的拓扑图, 但在设计上有一些 trick , 准确地说应该是分层图
 <ol type="1">
@@ -561,10 +573,6 @@ NLMap(grid): 如果想直接辨别图像里的物品, 则可以使用 <code>clas
 对于房间分类，作者比较了基于使用模型预测的房间内物体分类和真实分类数据为输入的llm预测和本文方法(特权和非特权), hovsg战胜了非特权与基于gpt 3.5的特权方法，惜败于特权gpt4<br />
 对于对象语义信息, 提出一种新的度量方法 <span class="math inline">\(\mathrm{AUC}_{k}^{t o p}\)</span>, 也就是基于类别(为了通用性横坐标设置为k%形式)画出 top-k 的准确率曲线， 并计算与坐标轴围成的面积</p>
 <p><img src="/assets/ml/auc.png" /></p>
-<p>问题:</p>
-<ol type="1">
-<li>点云嵌入到底做了什么?</li>
-</ol>
 <div class="note info"><ul>
 <li>groundtruth: 一般指机器学习样本中的真实数据</li>
 </ul>
@@ -580,7 +588,7 @@ NLMap(grid): 如果想直接辨别图像里的物品, 则可以使用 <code>clas
 <li>本文将上述定义的任务视为一个物体和地点中心的POMDP(<code>Partially Observable Monte Carlo Planning 部分可观察马尔可夫决策过程</code>) 对此定义以下符号 $ s_a , s_r , s_o, s_e, o, r,  , O , $ 分别是: 代理状态，空间地点状态, 物体状态, 物体/地点的关系(edge), MOVETOOBJECT(动作), MOVETOREGION(动作), 过渡， 观察， 目标(开放词汇的描述)<br />
 </li>
 <li>对于这个问题模型，使用基础模型来对其最最大似然估计, 并由llm选取行动策略</li>
-<li>具体的模块分为: LLMs,GNMs(图神经网络模型),VFMs(视觉变换模型) for Visual Question Answering (VQA), VF for Open-set Object Detection</li>
+<li>具体的模块分为: LLMs,GNMs(图神经网络模型),VFMs(视觉基础模型, 即有完成通用性视觉任务能力的模型) for Visual Question Answering (VQA 视觉问答模型) , VF for Open-set Object Detection</li>
 <li>任务流程上: 开放场景图作为基础, 被高层模块调用进行推理，产生图像子目标来指导底层导航模块, 细节上, 映射器会从图像中提取出描写其中突出物体的文本, 这些描述数据送给LLM用于更新场景图, 推理器则使用LLM从场景图中提取子目标并规划路径, 所谓的路径其实是一个图像目标序列，也就是说其路径点就是图像的经过裁剪的部分(即图像中的某个物体), 由于这些裁剪的物体是中间路径上的, 导航区能使用这些子目标具体地产生动作指令， 同时在导航过程中会动态更新场景与导航计划</li>
 </ol>
 <p><img src="/assets/ml/image-10.png" /></p>
@@ -628,8 +636,8 @@ NLMap(grid): 如果想直接辨别图像里的物品, 则可以使用 <code>clas
 </ol></li>
 <li><code>Place</code>节点的边集包括:
 <ol type="1">
-<li><code>connects to</code> 边指向 <code>Place/Connector</code>, 表示联通关系</li>
-<li><code>contains</code> 边指向 <code>Place</code> 内的物体, 即Place的特征可表示为它<code>contains</code>的物体的特征(标签和描述)集</li>
+<li><code>connects to</code> 边(下文也称连接边)指向 <code>Place/Connector</code>, 表示联通关系</li>
+<li><code>contains</code> 边(下文也称包含边)指向 <code>Place</code> 内的物体, 即Place的特征可表示为它<code>contains</code>的物体的特征(标签和描述)集</li>
 </ol></li>
 <li><code>Connectors</code>节点不同于地点节点的是没有<code>包含边</code>指向物体节点(或者说它自己就是物体节点), 但是可以通过<code>连接边</code>指向其他地点</li>
 </ol></li>
@@ -641,7 +649,39 @@ NLMap(grid): 如果想直接辨别图像里的物品, 则可以使用 <code>clas
 </ol>
 <p><img src="/assets/ml/image-11.png" /></p>
 <h3 id="地图生成和定位">地图生成和定位</h3>
-<p><img src="/assets/ml/image-12.png" /></p>
+<p><img src="/assets/ml/image-12.png" /> Mapper职能如上图所示, 接下来分组件介绍其生成和更新OSG的方式</p>
+<h4 id="自动生成osg">自动生成OSG</h4>
+<p>为了泛化能力， 本模型的环境图结构也由模型来自动生成, 输入一个环境的简单描述， 生成器就会产生一个OSG架构<br />
+具体地说, OSG以json的形式被生成, 过程分为三个Pipeline</p>
+<ol type="1">
+<li>描述生成: 让llm生成无结构, 尽可能长, 包含典型空间抽象关系的自然语言描述</li>
+<li>规范化(Canonicalise): 让LLM将上一步的描述转化为规范图表示, 此外这一步会让LLM将节点和边定义为上面提到的类型, 形式上类似于<code>[Abstraction1, Relation, Abstraction2]</code></li>
+<li>验证: 根据OSG的结构要求检查规范图, 通过一个测试类检验其结构是否满足上一节定义的OSG， 如果不满足，将检测到的错误添加到1. 中的文字描述, 并让LLM修正生成的图, 循环直到满足条件，将其以json格式返回</li>
+</ol>
+<h4 id="图像解析-image-parser">图像解析 Image Parser</h4>
+<p>使用VFMs解析视觉输入, 开放集的物体检测模型来区分标记场景元素, 以及一个VQA把图像观察翻译为密集的语言描述(对于Places, Objects Connectors), 过程为:</p>
+<ol type="1">
+<li>解析地点: 将机器人周边的RGB图像输入VQA
+<ol type="1">
+<li>首先提问哪种地点能最好地描述观察帧</li>
+<li>得到类别后，继续提问从而获得一个更详细的标签来反映这个地点的语义信息</li>
+</ol></li>
+<li>物体/连接体解析: 探测器是区分不出本文自己定义出的两类物体的, 但可以得到基于自然语言的物体信息,将这些信息输入LLM进行分类, 然后让VQA模型产生对其图像裁剪的描述，使用 <code>is near</code> 边连接两个体积盒距离低于门槛值的一对节点</li>
+<li>目标探测: 使用VQA或者LLM处理上面得到的数据, 如果有和目标很相似的物体，则直接让代理导航过去</li>
+</ol>
+<h4 id="状态评估">状态评估</h4>
+<p><img src="/assets/ml/image-13.png" /> 输入上一步得到的文本描述与已有的OSG, 输出目前的机器人状态即占据的Place节点<br />
+流程如上图所示, 其中(P,O,C)指Places, Objects, Connectors三种对象, LLM第一次用于提取一些候选Place,这些候选对象根据和上一个s的距离被贪心地匹配, 匹配过程中也有LLM根据两者的描述等信息决定是否匹配成功(优先考虑较大的物体)</p>
+<h4 id="osg-更新">OSG 更新</h4>
+<p>将来自图像解析器的观察结果递增地集成到OSG中, 这部分的难点主要在于门槛的设定， 即更新和新建的选择, 在本文定义的OSG还有个问题就是节点间关系的选取</p>
+<p><img src="/assets/ml/image-14.png" /></p>
+<p>过程总结如下:</p>
+<ol type="1">
+<li>数据关联: 本文认为一个物体的上下文(周边的物体)是其独特的标志,</li>
+</ol>
+<h4 id="基于概率的osg">基于概率的OSG</h4>
+<h3 id="推理和控制">推理和控制</h3>
+<h3 id="实验-1">实验</h3>
 <h1 id="vision-language-action-models">Vision-Language-Action Models</h1>
 <h2 id="large-vlm-based-vision-language-action-models-for-robotic-manipulation-a-survey">Large VLM-based Vision-Language-Action Models for Robotic Manipulation: A Survey</h2>
 <h3 id="前言-1">前言</h3>
