@@ -139,8 +139,12 @@
 <li><a href="#osg-更新">OSG 更新</a></li>
 <li><a href="#基于概率的osg">基于概率的OSG</a></li>
 </ul></li>
-<li><a href="#推理和控制">推理和控制</a></li>
-<li><a href="#实验-1">实验</a></li>
+<li><a href="#推理和控制">推理和控制</a>
+<ul>
+<li><a href="#推理">推理</a></li>
+<li><a href="#控制">控制</a></li>
+</ul></li>
+<li><a href="#实验与总结">实验与总结</a></li>
 </ul></li>
 </ul></li>
 <li><a href="#vision-language-action-models">Vision-Language-Action Models</a>
@@ -186,7 +190,7 @@
 <ul>
 <li><a href="#前言-2">前言</a></li>
 <li><a href="#real-work">real work</a></li>
-<li><a href="#实验与总结">实验与总结</a></li>
+<li><a href="#实验与总结-1">实验与总结</a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -671,17 +675,62 @@ NLMap(grid): 如果想直接辨别图像里的物品, 则可以使用 <code>clas
 </ol>
 <h4 id="状态评估">状态评估</h4>
 <p><img src="/assets/ml/image-13.png" /> 输入上一步得到的文本描述与已有的OSG, 输出目前的机器人状态即占据的Place节点<br />
-流程如上图所示, 其中(P,O,C)指Places, Objects, Connectors三种对象, LLM第一次用于提取一些候选Place,这些候选对象根据和上一个s的距离被贪心地匹配, 匹配过程中也有LLM根据两者的描述等信息决定是否匹配成功(优先考虑较大的物体)</p>
+流程如上图所示, 其中(P,O,C)指Places, Objects, Connectors三种对象, LLM第一次用于提取一些候选Place,这些候选对象根据和上一个s的距离被贪心地匹配, 匹配过程中由LLM根据两者的描述等信息决定是否匹配成功(优先考虑较大的物体)</p>
 <h4 id="osg-更新">OSG 更新</h4>
-<p>将来自图像解析器的观察结果递增地集成到OSG中, 这部分的难点主要在于门槛的设定， 即更新和新建的选择, 在本文定义的OSG还有个问题就是节点间关系的选取</p>
+<p>将来自图像解析器的观察结果递增地集成到OSG中, 这部分的难点主要在于门槛的设定， 即更新和新建的选择, 在本文定义的OSG还有个问题就是节点间关系的选取<br />
+这些问题需要近似人类的"常识", 因此使用强大的LLM来处理, 见下图</p>
 <p><img src="/assets/ml/image-14.png" /></p>
-<p>过程总结如下:</p>
+<p>这部分伪代码比较抽象，这里简单总结一下:</p>
 <ol type="1">
-<li>数据关联: 本文认为一个物体的上下文(周边的物体)是其独特的标志,</li>
+<li>上一步中得到了预估的状态，于是有两种可能
+<ol type="1">
+<li>新状态之前没有见过:
+<ol type="1">
+<li>先将其添加进地点集合，并增加边关系(依靠LLM)</li>
+<li>对region层及以上遍历layer:
+<ol type="1">
+<li>贪心地让LLM推断是否是已有region还是不存在，如果是后者则新建节点</li>
+</ol></li>
+</ol></li>
+<li>新状态之前见过
+<ol type="1">
+<li>获取新状态对应的叶节点
+<ol type="1">
+<li>对本轮观察识别到的物体和连接体，让LLM匹配是否也见过，如果没见过就新建节点，否则根据LLM输出来更新边关系</li>
+</ol></li>
+</ol></li>
+</ol></li>
 </ol>
 <h4 id="基于概率的osg">基于概率的OSG</h4>
+<p>基于Online Probabilistic Topological Mapping (OPTM 2011), 也就是基于概率的拓扑图<br />
+简单地说, 这种方法基于当前的拓扑以及观察来预测之后的拓扑结构,每个观察都会被连接到一个节点(新建或已有节点), 即计算 <span class="math inline">\(p({\mathcal{T}}_{t}|{\mathcal{T}}_{t-1}{)}\)</span> 其中 T表示拓扑图结构，对本文来说就是Place &amp; Connectors层<br />
+每一轮中，实际上做的就是将新的观察链接到新建或者已有节点, 对此有两种可能比较启发性的设置:</p>
+<ol type="1">
+<li>新的观察 <span class="math inline">\(o_t\)</span> 倾向于关联到频繁访问的节点</li>
+<li>新的观察倾向于关联到最近访问的节点</li>
+</ol>
+<p>换句话说就是时空局部性原理<br />
+对于前者，使用狄利克雷过程来建模, 对于后者使用对附近节点的均匀分布建模<br />
+本模型中可以这样设置:</p>
+<p>重要性权值更新方法设置为:</p>
+<p><span class="math display">\[w_{t}^{(i)}\propto\mathcal{P}(o_{t}|\mathcal{T}_{t}^{(i)})w_{t-1}^{(i)},\,\mathrm{for \space i \space th \space particle}\]</span></p>
+<p>令 <span class="math inline">\(v&#39;\)</span> 为当前( <span class="math inline">\(o_t\)</span> )所属的节点, V为语义上类似 <span class="math inline">\(o_t\)</span> 地点的拓扑图节点,将模型定义为:</p>
+<p><span class="math display">\[p(o_{t}|T_{t}^{(i)})=p(o_{t}|v^{\prime})\prod_{v_{i}\in\mathcal{V}\backslash\{v^{\prime}\}}(1-p(o_{t}|v_{i}))\]</span></p>
+<p>这个定义可以视为一种贪心策略，也就是假设对每对匹配的观察o和节点v, o最有可能是由v处观察的, 是出自其他节点的概率则更低</p>
 <h3 id="推理和控制">推理和控制</h3>
-<h3 id="实验-1">实验</h3>
+<h4 id="推理">推理</h4>
+<p><img src="/assets/ml/image-15.png" /> <img src="/assets/ml/image-16.png" /></p>
+<p>推理器接受当前OSG,状态,目标区域(由区域提议组件生成)以及目标物体, 输出最有可能的子目标, 由3个组件组成:</p>
+<ol type="1">
+<li>区域提议: 对每一层询问LLM识别最有希望的节点, 遍历每一层的过程中，将候选地点标注为子目标区域</li>
+<li>寻路: 从OSG中提取Places和Connectors的连通性子图, 使用迪杰斯特拉规划从当前位置到子目标节点路径</li>
+<li>物体提议: 到达子目标后， 查询LLM选择其中可能接近目标的对象； 此外, 去子目标的路上也会不断寻找候选子目标, 这是因为机器人大多在地层水使用物体为导航的单位, 该组件用于不断生成<code>MOVETOOBJECT</code>行动</li>
+</ol>
+<h4 id="控制">控制</h4>
+<p>这是一个底层的目标，用于不断前进到下一个目标(有点像rts游戏里控制单位前进), 具体说就是将RGB输入和目标(图像剪切)映射为速度命令, 推理器会不断发送图像剪切目标, 而且都会在机器人传感器能看到的附近位置<br />
+本文使用ViNT GNM实现</p>
+<h3 id="实验与总结">实验与总结</h3>
+<p>OSGN目前在成熟的LLM,VQA等模型上取得了很好的成绩, 但主要问题在于，它使用的是GPT3.5这样的成熟大模型，如果想在不联网的机器人上部署接近性能的语言模型想想就不可能</p>
 <h1 id="vision-language-action-models">Vision-Language-Action Models</h1>
 <h2 id="large-vlm-based-vision-language-action-models-for-robotic-manipulation-a-survey">Large VLM-based Vision-Language-Action Models for Robotic Manipulation: A Survey</h2>
 <h3 id="前言-1">前言</h3>
@@ -1027,7 +1076,7 @@ OpenIN 的框架和大部分系统比较类似, 都可以分为场景图构建�
 <li>风格变量（Style Variable）: 生成模型中, 用于控制输出样本风格或特征的潜在变量, 能够影响生成内容的“风格”而不改变其“内容”</li>
 </ul>
 </div>
-<h3 id="实验与总结">实验与总结</h3>
+<h3 id="实验与总结-1">实验与总结</h3>
 <p>由于此部分大多是现实情况的细节, 省略这些部分, 只说结果<br />
 ACT 主要创新点在于能够预测连续的, 精确的动作序列, 而一些先前的模仿学习方法只能像分类问题一样预测离散动作, 此外端到端的训练方式对特化的任务可能有更好的效果<br />
 消融实验中, CVAE, 动作块等机制都较为有效<br />
