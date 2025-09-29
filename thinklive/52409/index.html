@@ -48,7 +48,7 @@
 <meta property="og:image" content="https://thinklive1.github.io/assets/ml/image-1.png">
 <meta property="og:image" content="https://thinklive1.github.io/assets/ml/image-2.png">
 <meta property="article:published_time" content="2025-09-09T07:53:29.848Z">
-<meta property="article:modified_time" content="2025-09-29T07:28:15.080Z">
+<meta property="article:modified_time" content="2025-09-29T09:57:05.675Z">
 <meta property="article:author" content="thinklive">
 <meta property="article:tag" content="人工智能">
 <meta property="article:tag" content="机器学习">
@@ -322,7 +322,7 @@ const darkmode = new Darkmode(options);
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-09-29 15:28:15" itemprop="dateModified" datetime="2025-09-29T15:28:15+08:00">2025-09-29</time>
+      <time title="修改时间：2025-09-29 17:57:05" itemprop="dateModified" datetime="2025-09-29T17:57:05+08:00">2025-09-29</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -1020,9 +1020,9 @@ NLMap(grid): 如果想直接辨别图像里的物品, 则可以使用 <code>clas
 <p>总结一下目前读过的四种语义地图:</p>
 <ol type="1">
 <li>概念图(ICRA 2024) : 使用类别无关的分割模型切割对象, 用点云表示空间占用, 对merge操作使用clip计算一个中间值特征, 但最后存储的是LLM生成的描述信息, 由于是早期工作比较粗糙</li>
-<li>分层图(RSS 2024): 核心想法是构建一个<code>floor-room-object</code>三层的场景树, 这其中有很多trick, 这里略过大部分细节, 实际的空间存储是优化(合并)过的点云, 语义存储是每个点云有一个特征向量以及基于封闭词汇的标签, 以占用来说是可控的, 但由于是逐点计算, 我猜想计算量应该偏大</li>
+<li>分层图(RSS 2024): 核心想法是构建一个<code>floor-room-object</code>三层的场景树, 这其中有很多trick, 这里略过大部分细节, 实际的空间存储是优化(合并)过的点云, 语义存储是每个点云有一个特征向量以及基于封闭词汇的标签, 以占用来说是可控的, 但由于是逐点计算, 我猜想计算量应该偏大, 此外这篇文章虽然确实是开放词汇表, 但其实建图和更新过程中使用了很多封闭词汇表的分类</li>
 <li>DualMap(预印): 以上两个模型都不涉及对地图的动态更新, dualmap与其区别在于使用两种地图用于节省空间和计算量, 并动态更新地图,更新过程避免昂贵的3d物体合并, 这种双图设计在节省开销方面不错，但其更新方式比较粗糙，只是单纯地取平均</li>
-<li>开放场景图(IJRR 2025): 这是一个神奇的模型, 其输入是rgb没有d, 中间数据都是显性的自然语言信息, 几乎全部的工作是云端LLM做的, 虽然有更新算法，但更新上也是通过LLM生成json格式的数据来更新拓扑图结构, 这其实可以视作马尔科夫链, 但是使用LLM来更新</li>
+<li>开放场景图(IJRR 2025): 这是一个神奇的模型, 其输入是rgb没有d,也没有里程计, 其机器人的导航实现是一个个<code>move_to_object</code> 中间数据都是显性的自然语言信息, 几乎全部的工作是云端LLM做的, 虽然有更新算法，但更新上也是通过LLM生成json格式的数据来更新拓扑图结构, 这其实可以视作马尔科夫链, 但是使用LLM来更新</li>
 <li>总结: 受限与现实场景规模和成本, 当前语义地图的语义存储主要是对每个对象存储文字描述或者单个特征向量, 更新上其实很难处理, 因为很难找到合适的对先后观察的权重分配,这点可能还需要继续搜集一些模型</li>
 </ol>
 <p>语义级别:</p>
@@ -1746,6 +1746,7 @@ function toggleMode() {
         root1.style.setProperty('--highlight-foreground', '#bbb');
         root1.style.setProperty('--btn-default-bg', '#777');
         root1.style.setProperty('--menu-item-bg-color', '#777');
+        root1.style.setProperty('--table-row-odd-bg-color', '#444');
         root1.style.setProperty('--note-warning-bg-color', '#555');
         root1.style.setProperty('--note-bg-color', '#555');
         root1.style.setProperty('--note-info-bg-color', '#555');
