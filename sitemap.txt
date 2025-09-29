@@ -1,3 +1,4 @@
+https://thinklive1.github.io/thinklive/3231/
 https://thinklive1.github.io/thinklive/16959/
 https://thinklive1.github.io/thinklive/52409/
 https://thinklive1.github.io/thinklive/3852/
@@ -17,7 +18,6 @@ https://thinklive1.github.io/thinklive/36218/
 https://thinklive1.github.io/thinklive/26286/
 https://thinklive1.github.io/thinklive/11086/
 https://thinklive1.github.io/thinklive/33908/
-https://thinklive1.github.io/thinklive/3231/
 https://thinklive1.github.io/thinklive/25833/
 https://thinklive1.github.io/thinklive/57068/
 https://thinklive1.github.io/thinklive/16615/
@@ -72,8 +72,8 @@ https://thinklive1.github.io/tags/%E9%BA%BB%E7%9C%81%E7%90%86%E5%B7%A5/
 https://thinklive1.github.io/tags/%E5%8C%97%E4%BA%AC%E5%A4%A7%E5%AD%A6/
 https://thinklive1.github.io/tags/linux/
 https://thinklive1.github.io/tags/%E7%BC%96%E7%A8%8B%E5%B7%A5%E5%85%B7/
-https://thinklive1.github.io/tags/vim/
 https://thinklive1.github.io/tags/%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86/
+https://thinklive1.github.io/tags/vim/
 https://thinklive1.github.io/tags/web/
 https://thinklive1.github.io/tags/vue/
 https://thinklive1.github.io/tags/%E8%B5%AB%E5%B0%94%E8%BE%9B%E5%9F%BA%E5%A4%A7%E5%AD%A6/
