@@ -153,6 +153,8 @@
 <li><a href="#场景对象解耦decoupling">场景/对象解耦(decoupling)</a></li>
 <li><a href="#推理与控制">推理与控制</a></li>
 </ul></li>
+<li><a href="#scene-driven-multimodal-knowledge-graph--construction-for-embodied-ai">Scene-Driven Multimodal Knowledge Graph Construction for Embodied AI</a></li>
+<li><a href="#kg构建过程">KG构建过程</a></li>
 </ul></li>
 <li><a href="#vision-language-action-models">Vision-Language-Action Models</a>
 <ul>
@@ -867,13 +869,38 @@ NLMap(grid): 如果想直接辨别图像里的物品, 则可以使用 <code>clas
 <ol type="1">
 <li>V: 可见性, bool值</li>
 <li>K：是否为里程碑, 即指令中包含的关键对象, bool值</li>
-<li>S: 对象的寓意嵌入和里程碑的语义嵌入之间的加权平均余弦相似度, 参考之前的 <span class="math inline">\({\tilde {\mathcal{G}}}_{t}\)</span> 已经抵达的里程碑权值为0, 未抵达的里程碑权值递增</li>
+<li>S: 对象的语义嵌入和里程碑的语义嵌入之间的加权平均余弦相似度, 参考之前的 <span class="math inline">\({\tilde {\mathcal{G}}}_{t}\)</span> ; 已经抵达的里程碑权值为0, 未抵达的里程碑权值递增</li>
 </ol></li>
 </ol>
-<p>对之前提及的解耦信息，它们的存储形式为附加在网格上的矩阵，对其进行concat形成一个观察解耦矩阵, 并输入一个VAE</p>
+<p>对之前提及的解耦信息，它们的存储形式为附加在网格上的矩阵，对其进行concat形成一个观察解耦矩阵, 并输入一个VAE, 这里不使用VAE的解码功能, 只使用VAE的潜空间来捕捉空间结构关系</p>
 <h3 id="推理与控制">推理与控制</h3>
-<p>在推理和导航过程中, 类似之前的过程计算自我中心地图的注意力表示, 然后将其输入一个Res-Unet来得到可以导航的路径点wp<br />
-这些wp与此前的解耦矩阵是推理模块的输入, 这个过程中会使用DD-PPO来产生动作指令</p>
+<p>在推理和导航过程中, 类似之前的过程计算自我中心地图的注意力表示, 然后将其输入一个Res-Unet来得到可以导航的路径点w(ay)p(oints)<br />
+这些wp与此前的解耦矩阵是推理模块的输入, 这个过程中会使用DD-PPO来产生动作指令(底层上只有移动和转向)</p>
+<h2 id="scene-driven-multimodal-knowledge-graph-construction-for-embodied-ai">Scene-Driven Multimodal Knowledge Graph Construction for Embodied AI</h2>
+<p><img src="/assets/ml/unnamed.jpg" /></p>
+<p>与之前的模型不同的是，这是一篇数据库刊物上的文章，也就是说，会使用知识增强方法<br />
+从数据的角度对具身智能能学习到的知识分类,可分为:</p>
+<ol type="1">
+<li>perceptual knowledge: 感官知识，也就是能由传感器检测到的知识, 由于依赖传感器输入以及物理设备的算力限制, 传感器数据很难用数据库之类的较为复杂的形式存储，一般会用yolo,sam之类的视觉模型进行处理转为可以被存储的更小的数据</li>
+<li>apperceptive knowledge: 感知知识, 也就是关系性，描述性的信息, 这些数据通用性强, 可以用知识库来存储，供机器调用</li>
+</ol>
+<p>将现存知识库里得到的知识称为符号(symbotic)知识, 由可学习的模型训练得到的知识称为参数知识(如gpt), 前者优点在于可靠性强，但成本高, 后者则相反<br />
+本文提出了一种综合性的知识图谱构建方法, 这个知识图谱称为<code>Scene-driven Multimodal Knowledge Graph (SceneMMKG)</code><br />
+常识中的知识图谱一般是服务于nlp之类的任务，但就具身智能领域而言， 知识图谱只需要存储场景及其物体与机器人交互有关的信息就可以</p>
+<h2 id="kg构建过程">KG构建过程</h2>
+<ol type="1">
+<li>prompt-based schema: 也就是解决图谱结构的问题, 一般来说可以根据不同领域手动设定, 但在机器人场景下比较难办, 这里使用万能的LLM来处理
+<ol type="1">
+<li>室内场景可以由有限个种类定义, 设场景档案集Ws为一系列场景(例如房间种类)的文本描述的集合, 如以下的流程图，将档案集和一个场景输入LLM(预训练且不会更新)得到名为concept的抽象信息，形式是文本信息的集合c</li>
+<li>Concept Expansion: 基于现用的通用KG, 将之前得到的c拓展为原有词汇与其上下位词的并集(例如color和red互为上下位词)</li>
+<li>Concept Cluster: 简单地说就是去重, 比较每对概念词，若相似度大于一个门槛值则合并</li>
+</ol></li>
+<li>Knowledge Population: 也就是知识扩充, 将通用知识库 <span class="math inline">\(K_g\)</span> 以及 <span class="math inline">\({K}_{\mathrm{scene-KG}}\)</span> (根据现有的通用知识库产生的中间知识库)融入现用的知识图谱(不冲突的前提下)
+<ol type="1">
+<li></li>
+</ol></li>
+</ol>
+<p><img src="/assets/ml/unnamed-1.jpg" /></p>
 <h1 id="vision-language-action-models">Vision-Language-Action Models</h1>
 <h2 id="large-vlm-based-vision-language-action-models-for-robotic-manipulation-a-survey">Large VLM-based Vision-Language-Action Models for Robotic Manipulation: A Survey</h2>
 <h3 id="前言-1">前言</h3>
@@ -23291,8 +23318,8 @@ Inexpensive Disk）由美国加州大学伯克利分校提出。<br />
       <tags>
         <tag>课程笔记</tag>
         <tag>数据结构与算法</tag>
-        <tag>c++</tag>
         <tag>斯坦福</tag>
+        <tag>c++</tag>
       </tags>
   </entry>
   <entry>
@@ -33091,8 +33118,8 @@ val（r1，c1）&lt; val（r1，c2）≤ val（r2，c2）&lt; val（r2，c1）<b
         <category>其他</category>
       </categories>
       <tags>
-        <tag>读书笔记</tag>
         <tag>c++</tag>
+        <tag>读书笔记</tag>
       </tags>
   </entry>
   <entry>
@@ -33153,8 +33180,8 @@ used the next time std::cin &gt;&gt; is called<br />
       </categories>
       <tags>
         <tag>课程笔记</tag>
-        <tag>c++</tag>
         <tag>斯坦福</tag>
+        <tag>c++</tag>
       </tags>
   </entry>
   <entry>
