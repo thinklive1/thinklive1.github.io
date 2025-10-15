@@ -156,7 +156,10 @@
 <li><a href="#scene-driven-multimodal-knowledge-graph--construction-for-embodied-ai">Scene-Driven Multimodal Knowledge Graph Construction for Embodied AI</a>
 <ul>
 <li><a href="#kg构建过程">KG构建过程</a></li>
-<li><a href="#知识增强">知识增强</a></li>
+<li><a href="#知识增强">知识增强</a>
+<ul>
+<li><a href="#知识注入">知识注入</a></li>
+</ul></li>
 </ul></li>
 </ul></li>
 <li><a href="#vision-language-action-models">Vision-Language-Action Models</a>
@@ -912,13 +915,19 @@ NLMap(grid): 如果想直接辨别图像里的物品, 则可以使用 <code>clas
 <p><img src="/assets/ml/unnamed-1.jpg" /></p>
 <p><img src="/assets/ml/image-18.png" /></p>
 <h3 id="知识增强">知识增强</h3>
-<p>对已有的知识，出于机器人任务需要(即导航或者操纵), 需要更详细的知识，步骤为:</p>
+<p>对已有的场景知识，出于机器人任务需要(即导航或者操纵), 需要更详细的知识，即<code>Scene-driven Knowledge Enhancement</code>, 步骤为:</p>
 <ol type="1">
 <li>知识检索: 这是通过比较查询hhehhmmkg中实体的相似度选择的， 不断取最佳候选对象，然后让SKR(Scene Knowledge Retrieval)模块返回文本与视觉知识 <span class="math inline">\(H\)</span></li>
 <li>多模态降噪: 对检索到的知识, 使用降噪模块优化, 具体则是对每个时间步的观察帧 <span class="math inline">\(O_t\)</span> 计算与检索到H的相似度，丢弃掉相似度大于一个门槛值的知识</li>
 <li>知识编码: 详细见以下的流程图，简单地说就是用clip对文本和图像编码，场景知识则用n层GCN编码</li>
 </ol>
 <p><img src="/assets/ml/image-19.png" /></p>
+<h4 id="知识注入">知识注入</h4>
+<p>即将上一节中得到的知识用于具体任务中</p>
+<ol type="1">
+<li>VLN: 最典型的机器人任务，对各个时间戳的辨别到的物体使用R-CNN编码得到Fo, 对指令使用tf encoder编码为Fi, 每个时间步的场景知识被编码为Fh,也就是我们上一节做的事, 以上这些特征被concat为m, m作为token被输入tf decoder来产生隐藏状态h_t(t为时间步), 随后可以视为一个(动作)序列生成问题，使用交叉熵训练</li>
+<li>3D Object Language Grounding: 指代理根据学习到数据辨别显式物体的能力, 是操纵等复杂任务的前置步骤,</li>
+</ol>
 <h1 id="vision-language-action-models">Vision-Language-Action Models</h1>
 <h2 id="large-vlm-based-vision-language-action-models-for-robotic-manipulation-a-survey">Large VLM-based Vision-Language-Action Models for Robotic Manipulation: A Survey</h2>
 <h3 id="前言-1">前言</h3>
