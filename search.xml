@@ -941,11 +941,16 @@ NLMap(grid): 如果想直接辨别图像里的物品, 则可以使用 <code>clas
 </ol>
 <p>接下来讨论对(多模态数据的)检索, 也可以分为 5 种范式:</p>
 <ol type="1">
-<li>Fusion Strategy-Based Retrieval: 将多模态特征融合到一个形式</li>
-<li>Representation Alignment-Based Retrieval</li>
-<li>Graph-Structure-Based Retrieval:</li>
-<li>Generation Model-Based Retrieval:</li>
-<li>Efficient Retrieval-Based Optimization:</li>
+<li>Fusion Strategy-Based Retrieval: 将多模态特征整合到一起, 与2. 的区别是会保留对不同模态的描述信息、权值信息等, 也就是对多模态数据有一个共享的语义空间，以及其各自的私有信息, 这样的好处上信息完整性高, 缺点则是难以保持一致性, 实时性, 成本较大</li>
+<li>Representation Alignment-Based Retrieval: 将多模态数据嵌入到一个统一的语义空间, 随后根据相似度检索; 这个方法的挑战是多模态之间的对齐, 但是有clip这样非常强大的基础模型, 应用上相对成熟</li>
+<li>Graph-Structure-Based Retrieval: 使用图学习来捕获数据实体以及其相互关系,其优缺点和之前的图存储类似,具体可分为:
+<ol type="1">
+<li>图嵌入: 将给定图所有节点嵌入语义空间中</li>
+<li>图索引: 对有语义信息的图, 实现索引优化</li>
+<li>图匹配: 量化查询语句和目标子图的语义一致性, 从而检索子图中的对象</li>
+</ol></li>
+<li>Generation Model-Based Retrieval: 利用生成模型将搜索任务转化为文本生成问题, 即利用已有的跨模态数据或者其中间表示, 从而直接生成检索需要的信息，同时可以用rag等方法调用外部知识来减少幻觉; 其缺点是, 幻觉或者大型模型预训练知识与eai训练中的知识不同的倾向性可能影响准确性</li>
+<li>Efficient Retrieval-Based Optimization: 使用近似最近邻算法这种高效算法或者硬件加速技术来实现高效检索</li>
 </ol>
 <h1 id="vision-language-action-models">Vision-Language-Action Models</h1>
 <h2 id="large-vlm-based-vision-language-action-models-for-robotic-manipulation-a-survey">Large VLM-based Vision-Language-Action Models for Robotic Manipulation: A Survey</h2>
