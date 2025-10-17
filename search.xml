@@ -161,6 +161,7 @@
 <li><a href="#知识注入">知识注入</a></li>
 </ul></li>
 </ul></li>
+<li><a href="#multimodal-data-storage-and-retrieval-for--embodied-ai-a-survey">Multimodal Data Storage and Retrieval for Embodied AI: A Survey</a></li>
 </ul></li>
 <li><a href="#vision-language-action-models">Vision-Language-Action Models</a>
 <ul>
@@ -883,6 +884,7 @@ NLMap(grid): 如果想直接辨别图像里的物品, 则可以使用 <code>clas
 <p>在推理和导航过程中, 类似之前的过程计算自我中心地图的注意力表示, 然后将其输入一个Res-Unet来得到可以导航的路径点w(ay)p(oints)<br />
 这些wp与此前的解耦矩阵是推理模块的输入, 这个过程中会使用DD-PPO来产生动作指令(底层上只有移动和转向)</p>
 <h2 id="scene-driven-multimodal-knowledge-graph-construction-for-embodied-ai">Scene-Driven Multimodal Knowledge Graph Construction for Embodied AI</h2>
+<p>TKDE 2024</p>
 <p><img src="/assets/ml/unnamed.jpg" /></p>
 <p>与之前的模型不同的是，这是一篇数据库刊物上的文章，也就是说，会使用知识增强方法<br />
 从数据的角度对具身智能能学习到的知识分类,可分为:</p>
@@ -898,7 +900,7 @@ NLMap(grid): 如果想直接辨别图像里的物品, 则可以使用 <code>clas
 <li>prompt-based schema: 也就是解决图谱结构的问题, 一般来说可以根据不同领域手动设定, 但在机器人场景下比较难办, 这里使用万能的LLM来处理
 <ol type="1">
 <li>室内场景可以由有限个种类定义, 设场景档案集Ws为一系列场景(例如房间种类)的文本描述的集合, 如以下的流程图，将档案集和一个场景输入LLM(预训练且不会更新)得到名为concept的抽象信息，形式是文本信息的集合c</li>
-<li>Concept Expansion: 基于现用的通用KG, 将之前得到的c拓展为原有词汇与其上下位词的并集(例如color和red互为上下位词)</li>
+<li>Concept Expansion: 基于现有的通用KG, 将之前得到的c拓展为原有词汇与其上下位词的并集(例如color和red互为上下位词)</li>
 <li>Concept Cluster: 简单地说就是去重, 比较每对概念词，若相似度大于一个门槛值则合并</li>
 </ol></li>
 <li>Knowledge Population: 也就是知识扩充, 将通用知识库 <span class="math inline">\(K_g\)</span>用于构建 <span class="math inline">\({K}_{\mathrm{scene-KG}}\)</span> (根据现有的通用知识库产生的中间知识库)融入现用的知识图谱(不冲突的前提下), 下面介绍知识来源
@@ -912,12 +914,11 @@ NLMap(grid): 如果想直接辨别图像里的物品, 则可以使用 <code>clas
 <li>Aggregation: 使用预训练的语言模型对属性对去重，达到门槛值则合并, 例如"measurement” , “size”会被这样合并</li>
 </ol></li>
 </ol>
-<p><img src="/assets/ml/unnamed-1.jpg" /></p>
-<p><img src="/assets/ml/image-18.png" /></p>
+<p><img src="/assets/ml/image-20.png" /> <img src="/assets/ml/image-18.png" /></p>
 <h3 id="知识增强">知识增强</h3>
 <p>对已有的场景知识，出于机器人任务需要(即导航或者操纵), 需要更详细的知识，即<code>Scene-driven Knowledge Enhancement</code>, 步骤为:</p>
 <ol type="1">
-<li>知识检索: 这是通过比较查询hhehhmmkg中实体的相似度选择的， 不断取最佳候选对象，然后让SKR(Scene Knowledge Retrieval)模块返回文本与视觉知识 <span class="math inline">\(H\)</span></li>
+<li>知识检索: 这是通过比较查询mmkg中实体的相似度选择的， 不断取最佳候选对象，然后让SKR(Scene Knowledge Retrieval)模块返回文本与视觉知识 <span class="math inline">\(H\)</span></li>
 <li>多模态降噪: 对检索到的知识, 使用降噪模块优化, 具体则是对每个时间步的观察帧 <span class="math inline">\(O_t\)</span> 计算与检索到H的相似度，丢弃掉相似度大于一个门槛值的知识</li>
 <li>知识编码: 详细见以下的流程图，简单地说就是用clip对文本和图像编码，场景知识则用n层GCN编码</li>
 </ol>
@@ -926,7 +927,17 @@ NLMap(grid): 如果想直接辨别图像里的物品, 则可以使用 <code>clas
 <p>即将上一节中得到的知识用于具体任务中</p>
 <ol type="1">
 <li>VLN: 最典型的机器人任务，对各个时间戳的辨别到的物体使用R-CNN编码得到Fo, 对指令使用tf encoder编码为Fi, 每个时间步的场景知识被编码为Fh,也就是我们上一节做的事, 以上这些特征被concat为m, m作为token被输入tf decoder来产生隐藏状态h_t(t为时间步), 随后可以视为一个(动作)序列生成问题，使用交叉熵训练</li>
-<li>3D Object Language Grounding: 指代理根据学习到数据辨别显式物体的能力, 是操纵等复杂任务的前置步骤,</li>
+<li>3D Object Language Grounding: 指代理根据语言描述辨别现实物体的能力, 是操纵等复杂任务的前置步骤, 其思路和VLN也差不多, 将场景、物体、指令特征拼接后用MLP计算相似度，并用交叉熵作为损失函数</li>
+</ol>
+<h2 id="multimodal-data-storage-and-retrieval-for-embodied-ai-a-survey">Multimodal Data Storage and Retrieval for Embodied AI: A Survey</h2>
+<p>这是一篇关于具身智能领域关于数据存储检索方式的综述, 前面比较水就跳过了, 主要讲的是各种领域应用的em-ai对数据系统的需求<br />
+总的来说, 具身智能领域需要的数据是多模态且能实时快速检索到的, 有五种常用范式:</p>
+<ol type="1">
+<li>图数据库：直接通过节点和边来建模复杂的关系, 其最大的优势是可以与全局数据大小无关的复杂度查询周边节点, 也就是上下文信息, 但是同样的, 对可能变化的环境, 更新图状的知识库也会非常艰难, 同样的,在图中嵌入多模态知识也很难实现</li>
+<li>多模型数据库：在单一平台上原生支持关系型、文档型、图型等多种数据模型</li>
+<li>数据湖：采用只读架构保留原始数据</li>
+<li>向量数据库：针对高维向量相似性搜索进行优化索引</li>
+<li>时序数据库：针对大量传感器数据流提供高效的写入和查询能力</li>
 </ol>
 <h1 id="vision-language-action-models">Vision-Language-Action Models</h1>
 <h2 id="large-vlm-based-vision-language-action-models-for-robotic-manipulation-a-survey">Large VLM-based Vision-Language-Action Models for Robotic Manipulation: A Survey</h2>
