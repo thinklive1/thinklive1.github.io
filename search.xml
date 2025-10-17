@@ -161,7 +161,12 @@
 <li><a href="#知识注入">知识注入</a></li>
 </ul></li>
 </ul></li>
-<li><a href="#multimodal-data-storage-and-retrieval-for--embodied-ai-a-survey">Multimodal Data Storage and Retrieval for Embodied AI: A Survey</a></li>
+<li><a href="#multimodal-data-storage-and-retrieval-for--embodied-ai-a-survey">Multimodal Data Storage and Retrieval for Embodied AI: A Survey</a>
+<ul>
+<li><a href="#数据存储">数据存储</a></li>
+<li><a href="#数据检索">数据检索</a></li>
+<li><a href="#eai-数据管理的挑战">eai 数据管理的挑战</a></li>
+</ul></li>
 </ul></li>
 <li><a href="#vision-language-action-models">Vision-Language-Action Models</a>
 <ul>
@@ -930,8 +935,9 @@ NLMap(grid): 如果想直接辨别图像里的物品, 则可以使用 <code>clas
 <li>3D Object Language Grounding: 指代理根据语言描述辨别现实物体的能力, 是操纵等复杂任务的前置步骤, 其思路和 VLN 也差不多, 将场景、物体、指令特征拼接后用 MLP 计算相似度,并用交叉熵作为损失函数</li>
 </ol>
 <h2 id="multimodal-data-storage-and-retrieval-for-embodied-ai-a-survey">Multimodal Data Storage and Retrieval for Embodied AI: A Survey</h2>
-<p>这是一篇关于具身智能领域关于数据存储检索方式的综述, 前面比较水就跳过了, 主要讲的是各种领域应用的 em-ai 对数据系统的需求<br />
-总的来说, 具身智能领域需要的数据是多模态且能实时快速检索到的, 数据存储有五种常用范式:</p>
+<p>这是一篇关于具身智能领域关于数据存储检索方式的综述, 前面比较水就跳过了, 主要讲的是各种领域应用的 em-ai 对数据系统的需求</p>
+<h3 id="数据存储">数据存储</h3>
+<p>总的来说, 具身智能领域需要的数据是多模态且能实时快速检索到的, 数据存储有五种常用范式:</p>
 <ol type="1">
 <li>图数据库 Graph Databases:直接通过节点和边来建模复杂的关系, 其最大的优势是可以与全局数据大小无关的复杂度查询周边节点, 也就是上下文信息, 但是同样的, 对可能变化的环境, 更新图状的知识库以及确保一致性也会非常艰难, 同样的, 在图中嵌入多模态知识也很难实现</li>
 <li>多模型数据库 Multi-model Databases:在单一平台上原生支持关系型、文档型、图等多种数据模型, 对此有两种思路, 1 是依旧用不同架构的数据库, 再加一层抽象来统一调用, 2 是搞一个大一统数据库, 可以存各种数据进去; 这样听起来很好,但实际表现上开销大(包括数据转化, 检索等)是不可避免的问题,对要求实时性的 eai 来说不实用</li>
@@ -939,6 +945,7 @@ NLMap(grid): 如果想直接辨别图像里的物品, 则可以使用 <code>clas
 <li>向量数据库 Vector Databases:针对高维向量相似性搜索进行优化索引; 由于目前的 eai 经常用 clip 之类的模型产生嵌入向量作为语义表示, 提供高效的近似向量检索是一种非常使用的功能,对于算力受限的情况, 可以使用带有近似最近邻检索的数据系统</li>
 <li>时序数据库 Time-Series Databases:针对大量传感器数据流提供高效的写入和查询能力: 对于 eai 常见的传感器数据来说实用性较好, 问题在于,对多模态数据的支持受限</li>
 </ol>
+<h3 id="数据检索">数据检索</h3>
 <p>接下来讨论对(多模态数据的)检索, 也可以分为 5 种范式:</p>
 <ol type="1">
 <li>Fusion Strategy-Based Retrieval: 将多模态特征整合到一起, 与2. 的区别是会保留对不同模态的描述信息、权值信息等, 也就是对多模态数据有一个共享的语义空间，以及其各自的私有信息, 这样的好处上信息完整性高, 缺点则是难以保持一致性, 实时性, 成本较大</li>
@@ -952,6 +959,10 @@ NLMap(grid): 如果想直接辨别图像里的物品, 则可以使用 <code>clas
 <li>Generation Model-Based Retrieval: 利用生成模型将搜索任务转化为文本生成问题, 即利用已有的跨模态数据或者其中间表示, 从而直接生成检索需要的信息，同时可以用rag等方法调用外部知识来减少幻觉; 其缺点是, 幻觉或者大型模型预训练知识与eai训练中的知识不同的倾向性可能影响准确性</li>
 <li>Efficient Retrieval-Based Optimization: 使用近似最近邻算法这种高效算法或者硬件加速技术来实现高效检索</li>
 </ol>
+<h3 id="eai-数据管理的挑战">eai 数据管理的挑战</h3>
+<p>eai的数据需求需要多模态、高速检索、尽可能准确、计算消耗低、高保真、动态环境中的稳定性以及更新成本可控<br />
+满足其中的一两项都很难, 更不用说综合考虑了, 本文对其的总结见下图</p>
+<p><img src="/assets/ml/image-21.png" /></p>
 <h1 id="vision-language-action-models">Vision-Language-Action Models</h1>
 <h2 id="large-vlm-based-vision-language-action-models-for-robotic-manipulation-a-survey">Large VLM-based Vision-Language-Action Models for Robotic Manipulation: A Survey</h2>
 <h3 id="前言-1">前言</h3>
