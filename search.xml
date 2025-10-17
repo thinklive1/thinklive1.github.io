@@ -167,6 +167,11 @@
 <li><a href="#数据检索">数据检索</a></li>
 <li><a href="#eai-数据管理的挑战">eai 数据管理的挑战</a></li>
 </ul></li>
+<li><a href="#embodied-rag-general-non-parametric-embodied--memory-for-retrieval-and-generation">Embodied-RAG: General Non-parametric Embodied Memory for Retrieval and Generation</a>
+<ul>
+<li><a href="#记忆构建">记忆构建</a></li>
+<li><a href="#检索">检索</a></li>
+</ul></li>
 </ul></li>
 <li><a href="#vision-language-action-models">Vision-Language-Action Models</a>
 <ul>
@@ -963,6 +968,38 @@ NLMap(grid): 如果想直接辨别图像里的物品, 则可以使用 <code>clas
 <p>eai的数据需求需要多模态、高速检索、尽可能准确、计算消耗低、高保真、动态环境中的稳定性以及更新成本可控<br />
 满足其中的一两项都很难, 更不用说综合考虑了, 本文对其的总结见下图</p>
 <p><img src="/assets/ml/image-21.png" /></p>
+<h2 id="embodied-rag-general-non-parametric-embodied-memory-for-retrieval-and-generation">Embodied-RAG: General Non-parametric Embodied Memory for Retrieval and Generation</h2>
+<p>arxiv(cmu)</p>
+<h3 id="记忆构建">记忆构建</h3>
+<p>本模型中的记忆构建是自底向上的, 由两个独立部分组成: 拓扑图和语义森林, 语义森林是分层结构, 会使用部分拓扑图的信息<br />
+拓扑图中的每个节点包含信息:</p>
+<ol type="1">
+<li>pose信息, 即拍照处的姿态信息, 根据代理的历史路径或者距离关联</li>
+<li>时间戳</li>
+<li>(自我中心的)图像</li>
+<li>图像描述(由LLM生成)</li>
+</ol>
+<p>语义森林的概念来自于对具身智能数据的启发式假设: 具身数据在空间和语义上有组织关系, 构建过程:</p>
+<ol type="1">
+<li>使用 全连接聚类(complete-linkage hierarchical clustering) 对上一步得到的(叶)节点聚类, 但是将两个节点的距离定义如下:</li>
+</ol>
+<p><span class="math display">\[S_{i j}=(1-\alpha)S_{i j}^{\mathrm{spatal}}+\alpha S_{i j}^{\mathrm{semanic}}\]</span> <span class="math display">\[S_{i j}^{\mathrm{\scriptsize{spatial}}}=\exp\left(-\frac{d_{\mathrm{haversine}}(i,j)}{\theta}\right)\]</span> <span class="math display">\[S_{i j}^{\mathrm{semantic}}={\frac{\bf e_{i}\cdot\bf e_j}{||\mathrm{e}_{i}||.||\mathrm{e}_{j}||}}\]</span></p>
+<p>其中e表示节点描述的嵌入向量</p>
+<ol start="2" type="1">
+<li>聚类完成后, 对每层的各个聚类用LLM产生一个摘要, 摘要会作为一个新节点插入(在聚类的正中), 这样的过程持续到产生根节点或者没有新聚类产生 这其实和3d场景图有点像, 但本文出于抽象户外空间的目的考虑, 只用抽象化的机器自生成层级，而不是人为规定</li>
+</ol>
+<h3 id="检索">检索</h3>
+<p>与构建相反, 检索是自顶向下的, 分为两个阶段</p>
+<ol type="1">
+<li>语义引导的层级遍历: 并行地遍历语义森林, 即 给定查询 q，在第 l 层候选节点集 Cl 上，用基于大模型的选择函数 fLLM 选择k个要查找的分支(节点) ：Nl = fLLM(q, Cl, k), 不断向下层递归, 直到叶节点, 过程中基于语义相关性进行剪枝,最后得到的叶节点形成一个集合</li>
+<li>混合重排序（Hybrid Re-ranking）
+<ol type="1">
+<li>选出一些候选叶节点后, 用另一个LLM评分并降序排行并去重</li>
+<li>如果有位置信息, 将其也作为前置条件，以类似构建过程中的空间分数与1.的语义分数加权和作为排序条件</li>
+</ol></li>
+</ol>
+<p>检索到的节点作为上下文一部分和用户查询一起传递给LLM, 然后类似一些VLN模型, 让LLM根据上下文信息寻找候选航路点</p>
+<p><img src="/assets/ml/image-22.png" /></p>
 <h1 id="vision-language-action-models">Vision-Language-Action Models</h1>
 <h2 id="large-vlm-based-vision-language-action-models-for-robotic-manipulation-a-survey">Large VLM-based Vision-Language-Action Models for Robotic Manipulation: A Survey</h2>
 <h3 id="前言-1">前言</h3>
