@@ -172,6 +172,13 @@
 <li><a href="#记忆构建">记忆构建</a></li>
 <li><a href="#检索">检索</a></li>
 </ul></li>
+<li><a href="#context-aware-graph-inference-and-generative--adversarial-imitation-learning-for-object-goal--navigation-in-unfamiliar-environment">Context-Aware Graph Inference and Generative Adversarial Imitation Learning for Object-Goal Navigation in Unfamiliar Environment</a>
+<ul>
+<li><a href="#cgi">CGI</a></li>
+<li><a href="#gat">GAT</a></li>
+<li><a href="#gail">GAIL</a></li>
+</ul></li>
+<li><a href="#stage-2-summary">stage 2 summary</a></li>
 </ul></li>
 <li><a href="#vision-language-action-models">Vision-Language-Action Models</a>
 <ul>
@@ -1000,6 +1007,35 @@ NLMap(grid): 如果想直接辨别图像里的物品, 则可以使用 <code>clas
 </ol>
 <p>检索到的节点作为上下文一部分和用户查询一起传递给LLM, 然后类似一些VLN模型, 让LLM根据上下文信息寻找候选航路点</p>
 <p><img src="/assets/ml/image-22.png" /></p>
+<p>总的来说, 目前这个rag系统速度上很快，但可以获得的信息依旧很粗糙， 例如有类似物体的个数这种数据几乎不能构建出来</p>
+<h2 id="context-aware-graph-inference-and-generative-adversarial-imitation-learning-for-object-goal-navigation-in-unfamiliar-environment">Context-Aware Graph Inference and Generative Adversarial Imitation Learning for Object-Goal Navigation in Unfamiliar Environment</h2>
+<p>RAL 2025</p>
+<p>本文提出两个主要技术:</p>
+<ol type="1">
+<li><code>context-aware graph inference (CGI)</code>: 学习上下文相关的物体关系, 动态更新, 它使用TransH(一种知识图嵌入技术)., 将物体嵌入到一个表示空间, 用这个空间统一图像, 动作, 记忆等数据</li>
+<li><code>generative adversarial imitation learning (GAIL)</code>: 从专家演示中学习动态奖励机制, 与环境奖励结合, 避免模仿学习的固有缺陷(就导航任务来说是容易陷入死锁, 找不到下一个目标点),并结合 <code>asynchronous advantage actor-critic</code> 的 rl 方法</li>
+</ol>
+<h3 id="cgi">CGI</h3>
+<p>使用DETR检测器探测物体, 产生中间特征, 这包括置信度, 碰撞箱, 语义标签, 类别标签等, 将其拼接起来作为节点特征, 并将所有节点做成一个全连接图<br />
+我们希望能在导航过程中动态更新节点的上下文关系, 于是使用TransH 将所有节点转化到一个表示空间中, 这个空间有3个维度, 图像、动作、记忆(历史状态):</p>
+<ol type="1">
+<li>图像维度: 这部分的主要目的是获取物体之间的关系, 对原有的特征集池化得到特征 <span class="math inline">\(s_t\)</span> , 使用如 <span class="math inline">\(v_{ {i};s_{t}}\,=\,v_{i}\,-\,w_{s_{t}}^{\top}v_{i}w_{s_{t}}\)</span> 的计算式将物体投影到图像超平面, 其中w是用于转化的权值向量, 投影后， 使用如下的计算式计算对每个物体对进行点积注意力与softmax: <span class="math inline">\(\alpha_{s}^{t}(i,j)=\mathrm{softmax}\left(\frac{v_{i;s_{t}}\cdot v_{j;s_{t}}^{\top}}{\sqrt{d_{v}}}\right)\)</span> 其中α表示物体间边的权重, d为物体特征的维度数</li>
+<li>动作维度: 这部分的主要目的是让代理对环境的理解对齐自己的行动(也就是考虑先前行动对环境的影响), <span class="math inline">\(v_{i;a_{t-1}}=v_{i}-w_{a_{t-1}}^{\top}v_{i}w_{a_{t-1}}\)</span> 其中a表示动作超平面中的动作特征, 类似的, 物体间关系定义为: <span class="math inline">\(\alpha_{a}^{t}(i,j)=\mathrm{softmax}\left(\frac{v_{i;a_{t-1}}\cdot v_{j;a_{t-1}}^{\top}}{ {\sqrt{d_{v}}}}\right)\)</span></li>
+<li>记忆维度: 这部分的主要目的是让代理逐渐积累经验, 且理解物体之间的关系, 这里的记忆可以视为LSTM的隐藏状态 $m_{t-1} $, 计算式类似上面的维度 <span class="math inline">\(v_{i;m_{t-1}}=v_{i}-w_{m_{t-1}}^{\top}v_{i}w_{m_{t-1}}\)</span> ; <span class="math inline">\(\alpha_{m}^{t}(i,j)=\mathrm{softmax}\left(\frac{v_{i;m_{t-1}}\cdot v_{j;m_{t-1}}^{\top}}{\sqrt{d_{v}}}\right)\)</span> ,</li>
+</ol>
+<p>得到这三个维度的特征后, 根据先前的隐藏状态 <span class="math inline">\(m_{t-1}\)</span> (即三个和为1的β值), 对α算加权和: <span class="math inline">\(\alpha^{t}(i,j)=\beta_{s}^{t}\alpha_{s}^{t}(i,j)+\beta_{a}^{t}\alpha_{a}^{t}(i,j)+\beta_{m}^{t}\alpha_{m}^{t}(i,j)\)</span><br />
+即得到了对象之间的关系<br />
+<img src="/assets/ml/3-Figure2-1.png" /></p>
+<h3 id="gat">GAT</h3>
+<p>使用一个 <code>graph attention layer (GAT)</code> 对图编码:</p>
+<p><span class="math display">\[v_{i}^{(l+1)}=\sigma\left(\sum_{j\in N(i)}\alpha^{t}(i,j)W^{(l)}v_{j}^{(l)}\right)\]</span></p>
+<p>其中 <span class="math inline">\(v_i^{(l)}\)</span> 代表l层节点i的特征向量, N表示邻居, <span class="math inline">\(\sigma\)</span> 代表ReLU激活函数, W是l层的权重矩阵</p>
+<p><img src="/assets/ml/4-Figure3-1.png" /></p>
+<h3 id="gail">GAIL</h3>
+<p>即用一个生成器G和分类器D对抗, 当D无法区分专家数据和生成数据时则训练成功, 让D生成一个奖励(也就是当前s,a与专家数据的相似度)加权与原有的奖励函数相加<br />
+最后的导航使用A3C训练</p>
+<p><img src="/assets/ml/3-Figure1-1.png" /></p>
+<h2 id="stage-2-summary">stage 2 summary</h2>
 <h1 id="vision-language-action-models">Vision-Language-Action Models</h1>
 <h2 id="large-vlm-based-vision-language-action-models-for-robotic-manipulation-a-survey">Large VLM-based Vision-Language-Action Models for Robotic Manipulation: A Survey</h2>
 <h3 id="前言-1">前言</h3>
