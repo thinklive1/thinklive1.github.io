@@ -59,7 +59,7 @@
 <meta property="og:image" content="https://thinklive1.github.io/assets/ml/image-1.png">
 <meta property="og:image" content="https://thinklive1.github.io/assets/ml/image-2.png">
 <meta property="article:published_time" content="2025-09-09T07:53:29.848Z">
-<meta property="article:modified_time" content="2025-10-18T12:17:48.532Z">
+<meta property="article:modified_time" content="2025-10-19T07:38:06.007Z">
 <meta property="article:author" content="thinklive">
 <meta property="article:tag" content="人工智能">
 <meta property="article:tag" content="机器学习">
@@ -333,7 +333,7 @@ const darkmode = new Darkmode(options);
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-10-18 20:17:48" itemprop="dateModified" datetime="2025-10-18T20:17:48+08:00">2025-10-18</time>
+      <time title="修改时间：2025-10-19 15:38:06" itemprop="dateModified" datetime="2025-10-19T15:38:06+08:00">2025-10-19</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -359,14 +359,14 @@ const darkmode = new Darkmode(options);
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>35k</span>
+      <span>36k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2:09</span>
+      <span>2:10</span>
     </span>
 </div>
 
@@ -1376,6 +1376,12 @@ NLMap(grid): 如果想直接辨别图像里的物品, 则可以使用 <code>clas
 <p>本文的推理过程类似大部分基于LLM的代理, 整个过程就是LLM不断调用工具并决定输入输出, 其中除了语义检索外的两个工具是非必须的</p>
 <p><img src="/assets/ml/method_page-0001.jpg" /></p>
 <h2 id="stage-2-summary">stage 2 summary</h2>
+<p>这阶段主要查找了一些各种各样的数据存储和检索方式, 包括一篇关于具身智能领域数据存储领域的综述。<br />
+stage1中看的文章大多是语义地图中比较常见的拓扑图形式, 拓扑图的节点存储物理位置, 嵌入向量或是文本描述以及点云信息<br />
+这样的优点是构建、检索和更新(当然其实大部分都不更新)都很快, 缺点就是信息含量很单薄, 因此只能用于导航, 对动态环境的导航都可能效果不好<br />
+这阶段看了一些使用知识图谱、数据库、rag等技术的文章, 相比上述的方法, 当然与LLM领域不同, eai领域需要与实时环境相关的数据, 因此就知识图谱来说, 如果用一些公开的知识库, 就需要选择性地构建一个和所在场景语义相似度高的知识图, 对rag来说也有类似的限制, 即确保检索和当前需求有关的数据<br />
+这样的成本应该是比单纯的拓扑图更高的, 但相应地能检索更多的上下文信息, 这些上下文信息一般用于导航以及动作生成中, 有的模型会用来问LLM, 有的模型会用作tf之类的神经网络输入<br />
+这部分的工作可能主要在于数据存储的结构, 需要满足计算和存储成本可控、 高速检索、提供细粒度的数据分类等要求, 如果希望能为导航之外更为复杂的任务, 例如操控任务等提供上下文信息, 则可能需要对原始数据更细致的处理, 将不同详尽程度的信息分层存放, 提高检索效率等</p>
 <h1 id="vision-language-action-models">Vision-Language-Action Models</h1>
 <h2 id="large-vlm-based-vision-language-action-models-for-robotic-manipulation-a-survey">Large VLM-based Vision-Language-Action Models for Robotic Manipulation: A Survey</h2>
 <h3 id="前言-1">前言</h3>
@@ -1799,7 +1805,7 @@ ACT 主要创新点在于能够预测连续的, 精确的动作序列, 而一些
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">37:22</span>
+    <span title="站点阅读时长">37:24</span>
   </span>
 </div>
 <div class="busuanzi-count">
