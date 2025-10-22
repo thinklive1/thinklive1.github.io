@@ -29,10 +29,12 @@
 <meta property="og:site_name" content="thinklive">
 <meta property="og:description" content="基础概念 强化学习和监督学习的区别：  强化学习输入的样本是序列数据,监督学习的样本之间相互独立 没有明确的监督者,通过奖励机制进行学习,但回馈可能是长期的,模糊的  一些强化学习的演示视频中,ai会做一些人类看来无意义的动作,正是这种“玄学”的回馈机制导致的  actor: 行为主体  action则可分为离散和连续,例如2d游戏中走格子迷宫就是一个典型的离散动作空间  observaton o">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://thinklive1.github.io/assets/ml/image-24.png">
+<meta property="og:image" content="https://thinklive1.github.io/assets/ml/image-23.png">
 <meta property="og:image" content="https://thinklive1.github.io/assets/ml/52243716-045d-4e27-ad0c-0e84593fee81.png">
 <meta property="og:image" content="https://datawhalechina.github.io/easy-rl/img/ch2/2.10.png">
 <meta property="article:published_time" content="2025-09-09T07:53:29.840Z">
-<meta property="article:modified_time" content="2025-10-20T12:56:25.927Z">
+<meta property="article:modified_time" content="2025-10-22T09:47:10.066Z">
 <meta property="article:author" content="thinklive">
 <meta property="article:tag" content="课程笔记">
 <meta property="article:tag" content="python">
@@ -40,7 +42,7 @@
 <meta property="article:tag" content="国立台湾大学">
 <meta property="article:tag" content="强化学习">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://thinklive1.github.io/assets/ml/52243716-045d-4e27-ad0c-0e84593fee81.png">
+<meta name="twitter:image" content="https://thinklive1.github.io/assets/ml/image-24.png">
 
 
 <link rel="canonical" href="https://thinklive1.github.io/thinklive/37185/">
@@ -309,7 +311,7 @@ const darkmode = new Darkmode(options);
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-10-20 20:56:25" itemprop="dateModified" datetime="2025-10-20T20:56:25+08:00">2025-10-20</time>
+      <time title="修改时间：2025-10-22 17:47:10" itemprop="dateModified" datetime="2025-10-22T17:47:10+08:00">2025-10-22</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -342,7 +344,7 @@ const darkmode = new Darkmode(options);
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>17 分钟</span>
+      <span>18 分钟</span>
     </span>
 </div>
 
@@ -388,15 +390,12 @@ const darkmode = new Darkmode(options);
 $\begin{array}{l}{ {p_{\theta}(\tau)} }{ { {}=p(s_{1})p_{\theta}(a_{1}|s_{1})p(s_{2}|s_{1},a_{1})p_{\theta}(a_{2}|s_{2})p(s_{3}|s_{2},a_{2})\cdots} } \\   =p(s_{1})\prod_{t=1}^{T}p_{\theta}(a_{t}|s_{t})p(s_{t+1}|s_{t},a_{t})\end{array}$  
 </p>
 <p>同一轮中每对(s,a)产生一个reward,其期望为: <span class="math inline">\(\bar{R}_{\theta}=\sum_{\tau}R(\tau)p_{\theta}(\tau)=E_{\tau\cap P_{\theta}(\tau)}[R(\tau)]\)</span></p>
-<p>取梯度</p>
-
-
-$$ \begin{align*}{r l}{\nabla{\bar{R} }_{\theta} \\ =\sum_{\tau}R(\tau)\nabla p_{\theta}(\tau)}&{\\ =\sum_{\tau}R(\tau)p_{\theta}(\tau){\frac{\nabla p_{\theta}(\tau)}{p_{\theta}(\tau)} } } \\ &=\sum_{\tau}R(\tau)p_{\theta}(\tau){\nabla}l o g p_{\theta}(\tau) \\ &=E_{\tau \sim p_{\theta}(\tau)}[R(\tau)\nabla l o g p_{\theta}(\tau)]\approx\frac{1}{N}\sum_{n=1}^{N}R(\tau^{n})\nabla \log p_{\theta}(\tau^{n}) \\ &={\frac{1}{N} }\sum_{n=1}^{N}\sum_{t=1}^{T_n}R(\tau^{n})\nabla l o g p_{\theta}(a_{t}^{n}|s_{t}^{n}) \end{align*} $$
-
-
-<p>虽然回报值一般是很难预测的,但是就梯度下降来说这只是个常数,这里取出一个log的微分形式,由于轨迹的概率可以用采样估算,接下来只需要处理log,这个轨迹概率 $ {P(|)=} {p(s_{1})p(a_{1}|s_{1},)p(r_{1},s_{2}|s_{1},a_{1})p(a_{2}|s_{2},)p(r_{2},s_{3}|s_{2},a_{2})} $ 事实上就是轨迹初始状态的概率与一连串的条件概率相乘,对其取微分,忽略与θ无关的项,可以将积转化为和,得到最后这个式子<br />
-类似于机器学习的梯度下降,我们通过梯度计算寻找最大化reward的参数,也就是总回报为正时让相关行动的概率增加,为负时相反<br />
-这里会用到log的微分,考虑其性质就知道,这会概率,也就是用来估算的采样到的频率,较低的极端值影响,如果运气不好没有采样到某个动作,还会让其他动作相对更高,因此可以考虑将总回报减去一个baseline（因为这里控制倾向性的其实是回报的正负以及大小<br />
+<p>rl的目标就是找一个最大化期望回报的策略π, 等价于找到最好的策略参数θ, 可以使用和机器学习类似的梯度下降, 只不过这个梯度比较特殊，下面引用cs285的ppt:</p>
+<p><img src="/assets/ml/image-24.png" /> <img src="/assets/ml/image-23.png" /> 上图1中的J表示根据确定的θ和π, 得到的轨迹τ对应回报的期望, 使用一个trick, 将概率的梯度转为其自身和log梯度的乘积, 这是为了凑出数学期望的形式<br />
+再看上图2, 其实τ的概率是一系列a,s概率的乘积, 对其log转为加法, 得到的项中, 终于根据s得到a的概率是和θ有关的(这也完全符合常识), 于是最后我们所求的梯度其实只有对π求微分这个计算量比较大的项<br />
+为什么我们想要数学期望的形式？ 因为对此我们可以通过大量采样的平均来估算，例如对J就可以用n个轨迹回报的均值估算, 而对J的梯度, 类似地有:</p>
+<p><span class="math display">\[\nabla_{\theta}J(\theta)\approx\frac{1}{N}\sum_{i=1}^{N}\left(\sum_{t=1}^{T}\nabla_{\theta}\log\pi_{\theta}({\bf a}_{i,t}|{\bf s}_{i,t})\right)\left(\sum_{t=1}^{T}r({\bf s}_{i,t},{\bf a}_{i,t})\right)\]</span> 这个式子看上去有点吓人，其实它只是单纯地用旧策略的log梯度乘对应的回报值, 也就是说在进行若干轮采样后, 总体上好的回报, 就加上(当然这里有一个学习率超参数)对应的好的参数, 坏的回报就减去坏的参数</p>
+<p>这里会用到log的微分,考虑其性质就知道,它会受到用来估算的采样到的频率中较低的极端值影响,如果运气不好没有采样到某个动作,还会让其他动作相对更高,因此可以考虑将总回报减去一个baseline（这里控制倾向性的其实是回报的正负以及大小<br />
 和log函数的很多应用场景一样,这里实际上可以理解为分类问题,因为模型输出的动作是有限的,策略最后产生的是动作空间中的概率分布,稍微不同的是需要乘回报值,并且要分很多轮训练</p>
 <h2 id="马尔可夫过程">马尔可夫过程</h2>
 <p>马尔可夫过程中,对一个特定状态则有一个特定的未来状态概率分布（可以理解为策略）,很容易算出之后的期望回报<br />
@@ -589,7 +588,7 @@ off-policy则有所不同,它让训练模型和互动的模型分开,从而让�
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">37:24</span>
+    <span title="站点阅读时长">37:25</span>
   </span>
 </div>
 <div class="busuanzi-count">
