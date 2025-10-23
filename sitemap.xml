@@ -568,20 +568,6 @@
   </url>
   
   <url>
-    <loc>https://thinklive1.github.io/tags/java/</loc>
-    <lastmod>2025-10-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://thinklive1.github.io/tags/web%E5%BC%80%E5%8F%91/</loc>
-    <lastmod>2025-10-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://thinklive1.github.io/tags/%E6%95%B0%E6%8D%AE%E7%A7%91%E5%AD%A6/</loc>
     <lastmod>2025-10-23</lastmod>
     <changefreq>weekly</changefreq>
@@ -590,6 +576,20 @@
   
   <url>
     <loc>https://thinklive1.github.io/tags/pandas/</loc>
+    <lastmod>2025-10-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://thinklive1.github.io/tags/java/</loc>
+    <lastmod>2025-10-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://thinklive1.github.io/tags/web%E5%BC%80%E5%8F%91/</loc>
     <lastmod>2025-10-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -764,14 +764,14 @@
   </url>
   
   <url>
-    <loc>https://thinklive1.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/</loc>
+    <loc>https://thinklive1.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/</loc>
     <lastmod>2025-10-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://thinklive1.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/</loc>
+    <loc>https://thinklive1.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/</loc>
     <lastmod>2025-10-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -871,14 +871,14 @@
   </url>
   
   <url>
-    <loc>https://thinklive1.github.io/categories/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/web%E5%BC%80%E5%8F%91/</loc>
+    <loc>https://thinklive1.github.io/categories/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%95%B0%E6%8D%AE%E7%A7%91%E5%AD%A6/</loc>
     <lastmod>2025-10-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://thinklive1.github.io/categories/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%95%B0%E6%8D%AE%E7%A7%91%E5%AD%A6/</loc>
+    <loc>https://thinklive1.github.io/categories/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/web%E5%BC%80%E5%8F%91/</loc>
     <lastmod>2025-10-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>

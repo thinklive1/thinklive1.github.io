@@ -136,7 +136,7 @@ $\begin{array}{l}{ {p_{\theta}(\tau)} }{ { {}=p(s_{1})p_{\theta}(a_{1}|s_{1})p(s
 这听起来有点绕, 举个例子, 打对战游戏的前 t 把都输了, 于是 t+1 把转变思路赢了游戏, 假如按未改进的版本, 由于前 t 把输得太多，最后所有 t+1 局游戏的回报还是负的, 因此第 t+1 把的思路也是错的, 但是 t+1 把的思路的回报是正的, 也就是说这时的思路是正确的, 对游戏策略理应有正确影响，按改进后的方法, 我们认为 t+1 局的游戏思路期望回报为正</li>
 </ol>
 <p><span class="math display">\[\nabla_{\theta}J(\theta)\approx\frac{1}{N}\sum_{i=1}^{N}\left(\sum_{t=1}^{T}\nabla_{\theta}\log\pi_{\theta}({\bf a}_{i,t}|{\bf s}_{i,t})\right)\left(\sum_{t&#39;=t}^{T}r({\bf s}_{i,t&#39;},{\bf a}_{i,t&#39;})\right)\]</span></p>
-<p>由于这里我们减少了回报的绝对值大小，因此其 θ 最后的方差必然会缩减, 但这么做对期望是无偏的, 也就是不会改变更新梯度，相当于只改变了其系数(回报和)的大小</p>
+<p>由于这里我们减少了回报的绝对值大小，因此其 θ 最后的方差必然会缩减, 但这么做对期望是无偏的(对策略梯度加减任何常数偏移值， 都会保持无偏), 也就是不会改变更新梯度，相当于只改变了其系数(回报和)的大小</p>
 <ol start="2" type="1">
 <li>baseline</li>
 </ol>
@@ -152,6 +152,40 @@ $\begin{array}{l}{ {p_{\theta}(\tau)} }{ { {}=p(s_{1})p_{\theta}(a_{1}|s_{1})p(s
 但在策略梯度中, 问题在于我们改进过程中策略的分布和原始数据时的分布是不同的， 想实现 off-policy, 就需要用来自不同策略的数据来改进当前策略, 所以我们需要重要性采样这样的技巧, 不太严谨地说， 将不同策略的数据转化为当前策略的数据并用于训练， 又或者理解为用不同策略的数据计算对当前策略的更新梯度</p>
 <p>此外对策略梯度还有的问题是, 对不同的参数 θ, 其梯度的数量级可能完全不同，需要进行一定约束, 例如约束 θ 分布前后的散度, 从而平衡不同方向的更新速率<br />
 这方面具体实现上比较复杂，暂时只需要知道大概原理即可</p>
+<h2 id="actor-critic">actor-critic</h2>
+<p>由类似我们前文提到的baseline思想, 定义A(advantage)=Q-V, 也就是状态动作对的期望奖励-状态的期望奖励, 这个标准能评估对当前状态来说, 采取的动作是好是坏<br />
+我们可以将A替代掉之前的期望回报, 但需要注意的是, 由于实际中很多时候A是估算的, 这会带来方差的优化，但很可能让更新梯度有偏; 尽管如此, 一般我们还是认为拿大量减少方差换一些偏见是划算的<br />
+Q可以写为当前(s,a)的回报加上基于未来状态分布的V的期望, 可以用直接的 <span class="math inline">\(s_{t+1}\)</span> 近似这个期望, 写成 <span class="math inline">\(Q^{\pi}(\mathbf{s}_{t},\mathbf{a}_{t})\approx r(\mathbf{s}_{t},\mathbf{a}_{t})+V^{\pi}(\mathbf{s}_{t+1})\)</span> , 于是:<br />
+<span class="math display">\[A^{\pi}(\mathbf{s}_{t},\mathbf{a}_{t})\approx r(\mathbf{s}_{t},\mathbf{a}_{t})+V^{\pi}(\mathbf{s}_{t+1})-V^{\pi}(\mathbf{s}_{t})\]</span> <span class="math display">\[\nabla_{\theta}J(\theta)\approx\frac{1}{N}\nabla_{i=1}^{N}\sum_{t=1}^{T}\Sigma_{\theta}\log\pi_{\theta}({\bf a}_{i,t}|{\bf s}_{i,t})A^{\pi}({\bf s}_{i,t},{\bf a}_{i,t})\]</span> 这种近似的好处是, 相比涉及动作空间的Q, V更好计算, 近似后我们唯一需要算的就是V了, 而之前的term:<code>J</code>, 可以视为根据初始状态s1分布的 V(s1)的期望; 此外, 由于只用一个样本估算, 也能减少方差<br />
+对V来说最方便的估算就是使用蒙特卡洛方法, 尤其在模拟环境或者电子游戏之类的场景下, 可以大量采样 <span class="math inline">\(V^{\pi}(\mathbf{s}_{t})\approx\sum_{t^{\prime}=t}^{T}r(\mathbf{s}_{t^{\prime}},\mathbf{a}_{t^{\prime}})\)</span><br />
+但也可以使用一个估算函数, 即<code>function approximation</code>, 这是个典型的监督回归问题, 可以用神经网络解决, 数据集为n轮训练中的 <span class="math inline">\(s_{i,t}\)</span> 与其对应的从t开始的回报和 <span class="math inline">\(\left\{\left({\bf s}_{i,t},r({\bf s}_{i,t},{\bf a}_{i,t})+\hat{V}_{\phi}^{\pi}({\bf s}_{i,t+1})\right)\right\}\)</span> , loss设置为平方误差和 <span class="math inline">\(\mathcal{L(\phi)}=\frac{1}{2}\sum_{i}\left|\left|\hat{V}_{\phi}^{\pi}(\mathbf{s}_{i})-y_{i}\right|\right|^{2}\)</span><br />
+基于神经网络的方法的好处是, 网络能一定程度上捕获数据间的关系, 由一定的泛化能力, 也就是可能能够平滑化输出的结果, 即类似的状态应该有类似的期望回报, 从而减少方差;缺点则是不能保证是无偏的</p>
+<p>以上我们提到的方法就是标题里的a-c, 如果我们再引入一个折扣因子，就可以表述为以下的流程:</p>
+<p><img src="/assets/ml/image-25.png" /></p>
+<p>这个版本的a-c其实非常好理解, 它就是用一个单独的神经网络预测V，用于帮助另一个训练策略π的网络<br />
+但问题在于这两个网络只有输入是相同的(s), 其特征是完全分开的, 这可能让它的性能受限, 一种改进是共享网络, 即用一个网络接受s，同时生成V和π<br />
+目前的这个版本是on-line的, 这就意味着, 每次只能用一个数据来更新网络, 如果想实现batch， 则需要并行化, 具体来说可以分为同步异步两种情况<br />
+<img src="/assets/ml/image-26.png" /> 如上图, 同步的情况很好理解, 就是每次让一群线程获取行动后的数据, 每次都同步更新<br />
+异步的情况下, 不同线程可能有不同的运行速度, 并各自用收集到的数据更新网络参数, 这样的效率更好, 但缺点是, 较慢的线程更新时可能遇上新版本的actor, 也就是说会有这种用非当前actor的数据更新它的问题, 当然一般来说因为线程之间的速度不会有特别大的差别, 影响相对不大</p>
+<h3 id="off-policy-a-c">off-policy a-c</h3>
+<p>在off-policy情况下, 存储之前的状态转移数据为 <code>replay buffer</code>, 这些数据可能来自于很久之前的策略, 这会带来两个问题:</p>
+<ol type="1">
+<li>批评家对V的评估是基于旧策略的</li>
+<li>策略更新时使用的策略梯度也是来自于旧策略的</li>
+</ol>
+<p>对此, 我们可以把V给扔掉, 转向Q函数, <span class="math inline">\({ Q}^{\pi}(\mathrm{s}_{t}, a_t)\stackrel{\_}{=}\sum_{t^{\prime}=t}^T E_{\pi_{\theta}}\ [r(\mathrm{s}_{t^{\prime}},a_{t^{\prime}})]\mathrm{s}_{t}, a_{t}]\)</span> 那么为什么要这么做? 考虑一下现在我们有什么数据, 即来自旧策略下的V函数, V函数的意义是, 各个状态的期望回报, 也就是我们知道各个状态的价值, 而这些价值相对来说不会随着策略变动而改变<br />
+新策略相比旧策略改动的只有给定s条件下a的分布, 也就是说给定旧策略的s, 可以查到在新策略在相同给定状态s下产生的动作概率分布, 从而算出新策略对应的Q函数<br />
+于是off-line方法可以写成:</p>
+<p><img src="/assets/ml/image-27.png" /> 其中, <span class="math inline">\(a_{i}&#39;\)</span> 与 <span class="math inline">\(a_{i}^{\pi}\)</span> 是根据 <span class="math inline">\(s_{i}&#39;\)</span> 从新策略中产生的动作<br />
+实际中一般用Q代替之前的A，这是因为这种方法能提供大量样本, 从而弥补方差的问题<br />
+那么offline是毫无损失的方法吗? 其实并不是, 因为对来自旧策略的旧状态s我们无能为力, 这必然会产生一些偏差, 但基本来说处于可以接受的范围内</p>
+<h3 id="更好的baseline">更好的baseline</h3>
+<p>上面提到, 基于神经网络的评论家能实现有偏下的低方差, 策略梯度则是无偏的高方差, 那么有办法得到无偏的低方差更新梯度吗?<br />
+下图展示一种估计策略梯度的方法, 它基于一个原理, 对梯度乘以任何一个值依赖状态而不依赖动作的函数，都能保持无偏, 选取价值函数作为baseline, 由于我们希望估计的就是V的期望，选择价值函数作为baseline应当能大量减少方差</p>
+<p><img src="/assets/ml/image-28.png" /> 那么如果用Q函数作为基线呢? 如果这样的话, 理论上讲我们要求的A会在0的上下浮动, 这样不是能让方差达到理想情况吗? 但问题在于, 由于这样不无偏, 那就需要加上一个误差修正项, 我们将得到一个吓人的式子:</p>
+<p><span class="math display">\[\nabla_{\theta}J(\theta)\approx\frac{1}{N}\sum_{i=1}^{N}\sum_{t=1}^{T}\nabla_{\theta}\log\pi_{\theta}({\bf a}_{i,t}|{\bf s}_{i,t})\left(\hat{Q}_{i,t}-Q_{\phi}^{\pi}({\bf s}_{i,t},{\bf a}_{i,t})\right) +\frac{1}{N}\sum_{i=1}^{N}\sum_{t=1}^{T}\nabla_{\theta}E_{\mathrm{a}\sim\pi_{\theta}({\bf a}_{t}|{\bf s}_{i,t})}\left[Q_{\phi}^{\pi}({\bf s}_{i,t},{\bf a}_{t})\right]\]</span><br />
+这个式子看起来似乎根本用不了, 但其实也有技巧能用成本可控的方式估计误差修正项</p>
+<p>还有一种比较常见的思路是取n步的回报，由于越往后数据越可能发散, 这样也能降低方差, 这里不多介绍</p>
 <h2 id="马尔可夫过程">马尔可夫过程</h2>
 <p>马尔可夫过程中, 对一个特定状态则有一个特定的未来状态概率分布（可以理解为策略）, 很容易算出之后的期望回报<br />
 即, 如果我们希望知道一个特定状态是好是坏, 可以定义状态价值 V 为其回报的期望, 即从这个状态开始, 折扣 γ 的指数与之后回报乘积的和, V 与回报 G 的区别是, V 绑定一个特定的状态 s, 即某个 s 开始的之后获取的回报的期望<br />
