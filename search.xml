@@ -201,6 +201,30 @@ Q可以写为当前(s,a)的回报加上基于未来状态分布的V的期望, �
 <p>对训练Q的神经网络来说, 应用上述的用Q估算V的思想, 步骤为:</p>
 <p><span class="math display">\[\begin{array}{l} {\mathrm{1.~collect~dataset~\{(s_{i},{\bf a}_{i},{\bf s}_{i}^{\prime},r_{i})\}~u{\mathrm{sing~some~policy}}}} \\ { {2.~\mathrm{set~yi}\leftarrow r({\bf s}_{i},{\bf a}_{i})+\gamma\mathrm{max_{a^{\prime}}}\,Q_{\phi}({\bf s}_{i}^{\prime},{\bf a}_{i}^{\prime})}} \\ { {3.~\mathrm{set~}\phi\leftarrow\mathrm{arg\,min}_{\phi}\ {\frac{1}{2}} { \Sigma_{i}|\vert{\cal Q}_{\phi}({\bf s}_{i},{\bf a}_{i})-{\bf y}_{i}}}\vert\vert^{2}}\end{array}\]</span></p>
 <p>其中2.3.可以执行k次确保其更好地迭代</p>
+<p>以上这个简单的方法就是最基础的off-policy on-line 的Q学习, 这个方法有一个非常明显的问题, 由于它的策略不包括任何概率, 是完全决定性的, 而迭代过程是贪心的, 因此在迭代中如果有一些错误或者不好的数据集，很容易就会陷入一个表现较差且无法进一步迭代的循环里<br />
+因此, 尤其是对最开始的一批数据, 我们希望能增加一些随机性, 最简单的方法就是对原来的策略加一层随机, 称为 <span class="math inline">\(\epsilon\)</span> 贪心:</p>
+<p><span class="math display">\[\pi({\bf a}_{t}|{\bf s}_{t})=\left\{\begin{array}{l}{ {1-\epsilon\mathrm{~if~}{\bf a}_{t}=\arg\mathrm{max}_{ {\bf a}_{t}}Q_{\phi}({\bf s}_{t},{\bf a}_{t})}}\\ { {\epsilon/(|A|-1)\mathrm{~otherwise}}}\end{array}\right.\]</span></p>
+<p>另一种常见方法称为<code>Boltzmann exploration（波尔兹曼探索)</code>, 即 <span class="math inline">\(\pi({\bf a}_{t}|{\bf s}_{t})\propto\exp(Q_{\phi}({\bf s}_{t},{\bf a}_{t}))\)</span> 这种策略的好处是能根据Q的好坏加权策略, 如果是Q都比较高的行动, 概率不会相差太大, 而Q很低的行动则几乎不会被采取</p>
+<h3 id="收敛性">收敛性</h3>
+<p>接下来尝试证明V-B方法是否收敛</p>
+<p><img src="/assets/ml/image-29.png" /></p>
+<p>首先问题定义如图, B(back-up)操作用于根据给定V找到一个最好的动作, V<em>则是一个最终的最优解, 也就是其回报与转移状态的价值期望之和在所有动作中最大<br />
+也就是说, 如果用B操作不断迭代, 能到达V</em>状态, 就说明v-b是收敛的<br />
+直观地, 我们有以下性质:<br />
+<span class="math display">\[{\mathrm{for~any~}}V{\mathrm{~and~}}{\bar{V}},{\mathrm{~we~have~}}||B V-B{\bar{V}}||\infty\leq\gamma||V-{\bar{V}}||\infty\]</span><br />
+于是:<br />
+<span class="math display">\[\|B V-V^{*}\|_{\infty}\leq\gamma\|V-V^{*}\|_{\infty}\]</span></p>
+<p>这样的证明省略了很多东西, 但对cs来说已经足够了, 事实上, 基于不断取最大值这个操作, 基于表格(矩阵/向量)的v-b收敛是很符合直觉的<br />
+那么对基于神经网络回归的v-b呢? 这个问题稍微有点麻烦, 将nn能产出的价值全集定义为 <span class="math inline">\(\Omega\)</span>, 事实上由于基于线性拟合与目前这个损失函数, nn做的其实是个最小二乘法, 实际产生的V'是理想V在Ω上的一个投影<br />
+对任意两个点a,b对一条直线的投影点c,d, ab,cd直接的距离l1,l2来说, 始终有l1≥l2, 我们可以简单地构建一个直角三角形证明这点, 对ab不与直线平行的情况, ab是斜边, cd是直角边<br />
+我们将投影操作定义为π, 则有 <span class="math display">\[\|\Pi V-\Pi{\bar{V}}\|^{2}\leq\|V-{\bar{V}}\|^{2}\]</span><br />
+而现在的问题是, π和B都有我们很想要的收缩性质, 但如果同时存在这两种操作, 就不保证收缩了<br />
+<img src="/assets/ml/image-30.png" /> 上图给出了一个很形象的例子, 由此我们证明基于nn的v-b不一定收敛<br />
+对于Q学习, 实际上也差不多<br />
+这有点像所谓的合成谬误, 我们有能让策略变好的贪心方法, 还有最小二乘法与梯度下降, 为什么加到一起后结果却不一定变好?<br />
+事实上, 我们训练的这个回归网络并不是真正地使用了梯度下降, 见下图<br />
+<img src="/assets/ml/image-31.png" /> 对同样和参数有关的yi, 我们并没有计算梯度, 当然也可以计算(<code>Residual Gradient</code>), 但由于计算量太大, 这么做在工程上很不实用<br />
+还有一个悲伤的消息是, 之前的a-c也不保证收敛</p>
 <h2 id="马尔可夫过程">马尔可夫过程</h2>
 <p>马尔可夫过程中, 对一个特定状态则有一个特定的未来状态概率分布（可以理解为策略）, 很容易算出之后的期望回报<br />
 即, 如果我们希望知道一个特定状态是好是坏, 可以定义状态价值 V 为其回报的期望, 即从这个状态开始, 折扣 γ 的指数与之后回报乘积的和, V 与回报 G 的区别是, V 绑定一个特定的状态 s, 即某个 s 开始的之后获取的回报的期望<br />
@@ -23605,8 +23629,8 @@ Inexpensive Disk）由美国加州大学伯克利分校提出。<br />
       <tags>
         <tag>课程笔记</tag>
         <tag>数据结构与算法</tag>
-        <tag>c++</tag>
         <tag>斯坦福</tag>
+        <tag>c++</tag>
       </tags>
   </entry>
   <entry>
@@ -33405,8 +33429,8 @@ val（r1，c1）&lt; val（r1，c2）≤ val（r2，c2）&lt; val（r2，c1）<b
         <category>其他</category>
       </categories>
       <tags>
-        <tag>读书笔记</tag>
         <tag>c++</tag>
+        <tag>读书笔记</tag>
       </tags>
   </entry>
   <entry>
@@ -33467,8 +33491,8 @@ used the next time std::cin &gt;&gt; is called<br />
       </categories>
       <tags>
         <tag>课程笔记</tag>
-        <tag>c++</tag>
         <tag>斯坦福</tag>
+        <tag>c++</tag>
       </tags>
   </entry>
   <entry>
