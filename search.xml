@@ -200,7 +200,7 @@ Q可以写为当前(s,a)的回报加上基于未来状态分布的V的期望, �
 由于没有麻烦的策略梯度, 以上的v-b有较小的方差, 但还有一个问题是, 对神经网络的方法它不保证收敛性</p>
 <p>对训练Q的神经网络来说, 应用上述的用Q估算V的思想, 步骤为:</p>
 <p><span class="math display">\[\begin{array}{l} {\mathrm{1.~collect~dataset~\{(s_{i},{\bf a}_{i},{\bf s}_{i}^{\prime},r_{i})\}~u{\mathrm{sing~some~policy}}}} \\ { {2.~\mathrm{set~yi}\leftarrow r({\bf s}_{i},{\bf a}_{i})+\gamma\mathrm{max_{a^{\prime}}}\,Q_{\phi}({\bf s}_{i}^{\prime},{\bf a}_{i}^{\prime})}} \\ { {3.~\mathrm{set~}\phi\leftarrow\mathrm{arg\,min}_{\phi}\ {\frac{1}{2}} { \Sigma_{i}|\vert{\cal Q}_{\phi}({\bf s}_{i},{\bf a}_{i})-{\bf y}_{i}}}\vert\vert^{2}}\end{array}\]</span></p>
-<p>其中2.3.可以执行k次确保其更好地迭代</p>
+<p>这种方法称为<code>full fitted Q-iteration algorithm</code>, 其中2.3.可以执行k次确保其更好地迭代</p>
 <p>以上这个简单的方法就是最基础的off-policy on-line 的Q学习, 这个方法有一个非常明显的问题, 由于它的策略不包括任何概率, 是完全决定性的, 而迭代过程是贪心的, 因此在迭代中如果有一些错误或者不好的数据集，很容易就会陷入一个表现较差且无法进一步迭代的循环里<br />
 因此, 尤其是对最开始的一批数据, 我们希望能增加一些随机性, 最简单的方法就是对原来的策略加一层随机, 称为 <span class="math inline">\(\epsilon\)</span> 贪心:</p>
 <p><span class="math display">\[\pi({\bf a}_{t}|{\bf s}_{t})=\left\{\begin{array}{l}{ {1-\epsilon\mathrm{~if~}{\bf a}_{t}=\arg\mathrm{max}_{ {\bf a}_{t}}Q_{\phi}({\bf s}_{t},{\bf a}_{t})}}\\ { {\epsilon/(|A|-1)\mathrm{~otherwise}}}\end{array}\right.\]</span></p>
@@ -208,8 +208,8 @@ Q可以写为当前(s,a)的回报加上基于未来状态分布的V的期望, �
 <h3 id="收敛性">收敛性</h3>
 <p>接下来尝试证明V-B方法是否收敛</p>
 <p><img src="/assets/ml/image-29.png" /></p>
-<p>首先问题定义如图, B(back-up)操作用于根据给定V找到一个最好的动作, V<em>则是一个最终的最优解, 也就是其回报与转移状态的价值期望之和在所有动作中最大<br />
-也就是说, 如果用B操作不断迭代, 能到达V</em>状态, 就说明v-b是收敛的<br />
+<p>首先问题定义如图, B(back-up)操作用于根据给定V找到一个最好的动作, <code>V*</code>则是一个最终的最优解, 也就是其回报与转移状态的价值期望之和在所有动作中最大<br />
+也就是说, 如果用B操作不断迭代, 能到达<code>V*</code>状态, 就说明v-b是收敛的<br />
 直观地, 我们有以下性质:<br />
 <span class="math display">\[{\mathrm{for~any~}}V{\mathrm{~and~}}{\bar{V}},{\mathrm{~we~have~}}||B V-B{\bar{V}}||\infty\leq\gamma||V-{\bar{V}}||\infty\]</span><br />
 于是:<br />
@@ -225,6 +225,22 @@ Q可以写为当前(s,a)的回报加上基于未来状态分布的V的期望, �
 事实上, 我们训练的这个回归网络并不是真正地使用了梯度下降, 见下图<br />
 <img src="/assets/ml/image-31.png" /> 对同样和参数有关的yi, 我们并没有计算梯度, 当然也可以计算(<code>Residual Gradient</code>), 但由于计算量太大, 这么做在工程上很不实用<br />
 还有一个悲伤的消息是, 之前的a-c也不保证收敛</p>
+<h3 id="局限">局限</h3>
+<p>目前版本的q学习是一个随着时间收集数据的on-line方法, 除了效率问题外, 由于数据在时间上过于接近, 很可能产生过拟合问题, 类似策略梯度, 可以对其进行离线改进, 并且由于q学习的策略不那么重要, 可以说它很适合离线学习<br />
+另一种方法称为 <code>replay buffers</code>, 简单地说就是去掉收集数据的步骤, 对一个巨大的数据池，每次随机取样用来不断进行预测和模型更新,更新若干轮后再产生一些新数据放入buffers池</p>
+<p><img src="/assets/ml/image-32.png" /></p>
+<p>上图展示了目前为止的q学习步骤, 按经验来说一般k设置很小, 而n较大, 这会带来一个问题, 即更新模型参数的周期中, 早期采样数据"落后(lag)"得少, 而随着训练进行就会有很多落后很久的数据,为了避免这个问题, 使用以下的更新方式<br />
+<span class="math inline">\(\begin{array}{c c}{ {\mathrm{update}~\phi^{\prime};~\phi^{\prime}\leftarrow\tau\phi^{\prime}+(1-\tau)\phi}}&amp;{ {\qquad\qquad\tau=0.999~\mathrm{works~well}}}\end{array}\)</span><br />
+为了减少上述伪梯度的影响, 对更新梯度, 我们用整体更新前的目标网络生成的max参数来更新临时网络参数<br />
+以上的伪代码写作单线程迭代的形式, 但其实由于目标网络在一整批数据后才更新, 上述过程可以并行进行, 也就是用于规模庞大的深度学习中, 即(DQN Deep Q-Network) 此外, 对于整个buffer的维护, 由于buffer存在上限, 那么就必然需要一个“驱逐”机制, 一个简单的思路是采用环形buffer, 使用以上机制的一个dpo流程可以表示为下图:</p>
+<p><img src="/assets/ml/image-33.png" /></p>
+<p>不同的q学习对3个process各有侧重:</p>
+<ol type="1">
+<li>online q learning: process1,2,3 have same speed</li>
+<li>DQN: process 1,3 have same speed, process 2 is slow, buffer is large</li>
+<li>fitted q-iteration: process 3 在 process 2的内循环中, process 2在process1 的内循环中</li>
+</ol>
+<h3 id="改进">改进</h3>
 <h2 id="马尔可夫过程">马尔可夫过程</h2>
 <p>马尔可夫过程中, 对一个特定状态则有一个特定的未来状态概率分布（可以理解为策略）, 很容易算出之后的期望回报<br />
 即, 如果我们希望知道一个特定状态是好是坏, 可以定义状态价值 V 为其回报的期望, 即从这个状态开始, 折扣 γ 的指数与之后回报乘积的和, V 与回报 G 的区别是, V 绑定一个特定的状态 s, 即某个 s 开始的之后获取的回报的期望<br />
@@ -462,7 +478,11 @@ off-policy 则有所不同, 它让训练模型和互动的模型分开, 从而�
 <li><a href="#记忆推理">记忆推理</a></li>
 </ul></li>
 <li><a href="#remembr-building-and-reasoning-over--long-horizon-spatio-temporal-memory-for-robot-navigation">ReMEmbR: Building and Reasoning Over Long-Horizon Spatio-Temporal Memory for Robot Navigation</a></li>
-<li><a href="#3d-mem-3d-scene-memory-for-embodied-exploration-and-reasoning">3D-Mem: 3D Scene Memory for Embodied Exploration and Reasoning</a></li>
+<li><a href="#3d-mem-3d-scene-memory-for-embodied-exploration-and-reasoning">3D-Mem: 3D Scene Memory for Embodied Exploration and Reasoning</a>
+<ul>
+<li><a href="#记忆构建-2">记忆构建</a></li>
+<li><a href="#记忆更新">记忆更新</a></li>
+</ul></li>
 <li><a href="#stage-2-summary">stage 2 summary</a></li>
 </ul></li>
 <li><a href="#vision-language-action-models">Vision-Language-Action Models</a>
@@ -551,7 +571,7 @@ off-policy 则有所不同, 它让训练模型和互动的模型分开, 从而�
 <li>探索: 类似红警 2 的探图能产生信息优势, 由于知道越多的地图信息应该是越好的, 因此设置这个模块鼓励智能探索未知区域, 优先探索哪边可以选取合适的方法, 例如图文相关型, VLM 输出的最佳方向</li>
 <li>计划: 在地图建后, 需要指定导航路径, 这部分取决于机器的运动方式等细节</li>
 </ul></li>
-<li><code>Active SLAM</code>: 强调机器人自己能选择以某种方式主动收集地图信息用于映射, 比如自己走几步, 让摄像头拍到更多画面, 也就是相比 ALAM 增加了 planning 部分。</li>
+<li><code>Active SLAM</code>: 强调机器人自己能选择以某种方式主动收集地图信息用于映射, 比如自己走几步, 让摄像头拍到更多画面, 也就是相比 ALAM 增加了 planning 部分</li>
 </ul>
 </div>
 <p>具体环节:</p>
@@ -609,7 +629,7 @@ off-policy 则有所不同, 它让训练模型和互动的模型分开, 从而�
 这样的缺点就是太依赖相机功能, 对于现实的噪声敏感, 需要额外的降噪步骤, 使用这种方法的 <code>Semantic MapNet</code> 和 <code>MOPA</code> 都各自用了一些降噪算法, 前者还发现, 先对图像编码, 然后投影, 最后执行分割会减少噪声, 甚至可以不去降噪</p>
 <p>总结: 使用 grid 能比较方便地表示空间, 也能方便 agent 学习, 但固定的宽高对于变化环境不太方便, 而且内存占用较多</p>
 <div class="note info"><ul>
-<li>密集匹配(dense matching) : 计算机视觉和图像处理中的一种技术, 用于在图像或视频序列中找到像素级别的对应关系。与稀疏匹配(只在特定特征点上进行匹配)不同, 密集匹配试图为图像中的每一个像素找到对应的像素。</li>
+<li>密集匹配(dense matching) : 计算机视觉和图像处理中的一种技术, 用于在图像或视频序列中找到像素级别的对应关系。与稀疏匹配(只在特定特征点上进行匹配)不同, 密集匹配试图为图像中的每一个像素找到对应的像素</li>
 <li>pose: 物体在三维空间中的位置和方向</li>
 <li>体素(Voxel): 是“体积像素(volume pixel)”的缩写。它是三维空间中的最小单元, 具有位置、大小和属性(如颜色、密度等)</li>
 <li>体素化(voxelized): 将三维空间中的物体或场景表示为一组 <strong>体素(voxel)</strong> 的过程</li>
@@ -697,7 +717,7 @@ NLMap(grid): 如果想直接辨别图像里的物品, 则可以使用 <code>clas
 <li>Dense yet efficient maps: 为了更好的空间推理能力, 需要高密度的地图, 但又为了计算效率, 需要其尽可能节省内存和算力, 常用方法中拓扑图过于稀疏难以捕捉细粒度信息, grid 难以处理多层面信息, 点云则过于密集, 性能消耗大, 可能需要一个更好的结构</li>
 <li>Dynamic maps: 当前的地图技术基本都是基于静态环境, 对动态环境如室外的交通, 则很难有高效地建模方法</li>
 <li>Hybrid map structure: 上文已经提到过混合结构的优点, 但如何融合或者切换也是值得研究的方面</li>
-<li>Devising evaluation metrics: 与下游任务中代理表现的评估相比, 语义地图的评估在具身 AI 研究中受到的关注较少。为了推动该领域的发展, 需要强调使用准确性、完整性、一致性和健壮性等指标对地图进行评估。</li>
+<li>Devising evaluation metrics: 与下游任务中代理表现的评估相比, 语义地图的评估在具身 AI 研究中受到的关注较少。为了推动该领域的发展, 需要强调使用准确性、完整性、一致性和健壮性等指标对地图进行评估</li>
 </ul>
 <h2 id="dualmap-在线开放词汇语义建图助力智能体自然语言导航">DualMap: 在线开放词汇语义建图助力智能体自然语言导航</h2>
 <h3 id="背景">背景</h3>
@@ -1199,7 +1219,7 @@ NLMap(grid): 如果想直接辨别图像里的物品, 则可以使用 <code>clas
 <h3 id="数据检索">数据检索</h3>
 <p>接下来讨论对(多模态数据的)检索, 也可以分为 5 种范式:</p>
 <ol type="1">
-<li>Fusion Strategy-Based Retrieval: 将多模态特征整合到一起, 与 2. 的区别是会保留对不同模态的描述信息、权值信息等, 也就是对多模态数据有一个共享的语义空间,以及其各自的私有信息, 这样的好处上信息完整性高, 缺点则是难以保持一致性, 实时性, 成本较大</li>
+<li>Fusion Strategy-Based Retrieval: 将多模态特征整合到一起, 与 2. 的区别是会保留对不同模态的描述信息、权值信息等, 也就是对多模态数据有一个共享的语义空间, 以及其各自的私有信息, 这样的好处上信息完整性高, 缺点则是难以保持一致性, 实时性, 成本较大</li>
 <li>Representation Alignment-Based Retrieval: 将多模态数据嵌入到一个统一的语义空间, 随后根据相似度检索; 这个方法的挑战是多模态之间的对齐, 但是有 clip 这样非常强大的基础模型, 应用上相对成熟</li>
 <li>Graph-Structure-Based Retrieval: 使用图学习来捕获数据实体以及其相互关系, 其优缺点和之前的图存储类似, 具体可分为:
 <ol type="1">
@@ -1207,7 +1227,7 @@ NLMap(grid): 如果想直接辨别图像里的物品, 则可以使用 <code>clas
 <li>图索引: 对有语义信息的图, 实现索引优化</li>
 <li>图匹配: 量化查询语句和目标子图的语义一致性, 从而检索子图中的对象</li>
 </ol></li>
-<li>Generation Model-Based Retrieval: 利用生成模型将搜索任务转化为文本生成问题, 即利用已有的跨模态数据或者其中间表示, 从而直接生成检索需要的信息,同时可以用 rag 等方法调用外部知识来减少幻觉; 其缺点是, 幻觉或者大型模型预训练知识与 eai 训练中的知识不同的倾向性可能影响准确性</li>
+<li>Generation Model-Based Retrieval: 利用生成模型将搜索任务转化为文本生成问题, 即利用已有的跨模态数据或者其中间表示, 从而直接生成检索需要的信息, 同时可以用 rag 等方法调用外部知识来减少幻觉; 其缺点是, 幻觉或者大型模型预训练知识与 eai 训练中的知识不同的倾向性可能影响准确性</li>
 <li>Efficient Retrieval-Based Optimization: 使用近似最近邻算法这种高效算法或者硬件加速技术来实现高效检索</li>
 </ol>
 <h3 id="eai-数据管理的挑战">eai 数据管理的挑战</h3>
@@ -1278,21 +1298,21 @@ NLMap(grid): 如果想直接辨别图像里的物品, 则可以使用 <code>clas
 <p><span class="math display">\[S_{i j}=(1-\alpha)S_{i j}^{\mathrm{spatal}}+\alpha S_{i j}^{\mathrm{semanic}}\]</span> <span class="math display">\[S_{i j}^{\mathrm{\scriptsize{spatial}}}=\exp\left(-\frac{d_{\mathrm{haversine}}(i,j)}{\theta}\right)\]</span> <span class="math display">\[S_{i j}^{\mathrm{semantic}}={\frac{\bf e_{i}\cdot\bf e_j}{||\mathrm{e}_{i}||.||\mathrm{e}_{j}||}}\]</span></p>
 <p>其中 e 表示节点描述的嵌入向量</p>
 <ol start="2" type="1">
-<li>聚类完成后, 对每层的各个聚类用 LLM 产生一个摘要, 摘要会作为一个新节点插入(在聚类的正中), 这样的过程持续到产生根节点或者没有新聚类产生 这其实和 3d 场景图有点像, 但本文出于抽象户外空间的目的考虑, 只用抽象化的机器自生成层级,而不是人为规定</li>
+<li>聚类完成后, 对每层的各个聚类用 LLM 产生一个摘要, 摘要会作为一个新节点插入(在聚类的正中), 这样的过程持续到产生根节点或者没有新聚类产生 这其实和 3d 场景图有点像, 但本文出于抽象户外空间的目的考虑, 只用抽象化的机器自生成层级, 而不是人为规定</li>
 </ol>
 <h3 id="检索">检索</h3>
 <p>与构建相反, 检索是自顶向下的, 分为两个阶段</p>
 <ol type="1">
-<li>语义引导的层级遍历: 并行地遍历语义森林, 即 给定查询 q,在第 l 层候选节点集 Cl 上,用基于大模型的选择函数 fLLM 选择 k 个要查找的分支(节点) ：Nl = fLLM(q, Cl, k), 不断向下层递归, 直到叶节点, 过程中基于语义相关性进行剪枝, 最后得到的叶节点形成一个集合</li>
+<li>语义引导的层级遍历: 并行地遍历语义森林, 即 给定查询 q, 在第 l 层候选节点集 Cl 上, 用基于大模型的选择函数 fLLM 选择 k 个要查找的分支(节点) ：Nl = fLLM(q, Cl, k), 不断向下层递归, 直到叶节点, 过程中基于语义相关性进行剪枝, 最后得到的叶节点形成一个集合</li>
 <li>混合重排序(Hybrid Re-ranking)
 <ol type="1">
 <li>选出一些候选叶节点后, 用另一个 LLM 评分并降序排行并去重</li>
-<li>如果有位置信息, 将其也作为前置条件,以类似构建过程中的空间分数与 1.的语义分数加权和作为排序条件</li>
+<li>如果有位置信息, 将其也作为前置条件, 以类似构建过程中的空间分数与 1.的语义分数加权和作为排序条件</li>
 </ol></li>
 </ol>
 <p>检索到的节点作为上下文一部分和用户查询一起传递给 LLM, 然后类似一些 VLN 模型, 让 LLM 根据上下文信息寻找候选航路点</p>
 <p><img src="/assets/ml/image-22.png" /></p>
-<p>总的来说, 目前这个 rag 系统速度上很快,但可以获得的信息依旧很粗糙, 例如有类似物体的个数这种数据几乎不能构建出来</p>
+<p>总的来说, 目前这个 rag 系统速度上很快, 但可以获得的信息依旧很粗糙, 例如有类似物体的个数这种数据几乎不能构建出来</p>
 <h2 id="context-aware-graph-inference-and-generative-adversarial-imitation-learning-for-object-goal-navigation-in-unfamiliar-environment">Context-Aware Graph Inference and Generative Adversarial Imitation Learning for Object-Goal Navigation in Unfamiliar Environment</h2>
 <p>RAL 2025</p>
 <p>本文提出两个主要技术:</p>
@@ -1333,7 +1353,7 @@ NLMap(grid): 如果想直接辨别图像里的物品, 则可以使用 <code>clas
 </ol>
 <h3 id="记忆检索">记忆检索</h3>
 <p>给定已经构造好的记忆以及一个空间查询(自然语言的), 根据语义和空间距离查找若干存储条目, 将条目合并为一个统一表示, 即所谓的认知图 cognitive map<br />
-与常见的向量相似度匹配不同, 数据库能存储更多数据, 能够根据已有数据优化查询,可分为语义查询和空间查询<br />
+与常见的向量相似度匹配不同, 数据库能存储更多数据, 能够根据已有数据优化查询, 可分为语义查询和空间查询<br />
 语义查询流程如下:</p>
 <ol type="1">
 <li>使用 LLM 提取查询目标描述, 将目标描述编码为语义向量</li>
@@ -1360,7 +1380,7 @@ NLMap(grid): 如果想直接辨别图像里的物品, 则可以使用 <code>clas
 <p><img src="/assets/ml/method_page-0001.jpg" /></p>
 <h2 id="remembr-building-and-reasoning-over-long-horizon-spatio-temporal-memory-for-robot-navigation">ReMEmbR: Building and Reasoning Over Long-Horizon Spatio-Temporal Memory for Robot Navigation</h2>
 <p>icra 2025</p>
-<p>这是一篇讨论机器人长期记忆机制的论文, 问题定义为给定传感器历史数据 H, 机器人接受数据并回答问题,生成导航目标, 传感器数据包括: 图像、位置、时间戳</p>
+<p>这是一篇讨论机器人长期记忆机制的论文, 问题定义为给定传感器历史数据 H, 机器人接受数据并回答问题, 生成导航目标, 传感器数据包括: 图像、位置、时间戳</p>
 <p><img src="/assets/ml/fig2.png" /></p>
 <p>eai 领域最大的难题就是具身智能有限的本地算力, 因此在长期任务中, 每次都输入所有历史数据来产生答案是不现实的, 本文将问题定义出找到一个 H 的子集 R, 让这个子集能产生较好答案的同时尽可能小<br />
 将机器人的存储数据定义为 V, 在本文中是一个向量数据库, 将其从中提取 R 的过程定义为 F<br />
@@ -1370,8 +1390,52 @@ NLMap(grid): 如果想直接辨别图像里的物品, 则可以使用 <code>clas
 <p>cvpr 2025</p>
 <p>这是一篇直接用图像作为语义数据来源的文章, 将多视图图片定义为“内存快照(memory snapshots)”, 直接存储这些快照用于空间推理<br />
 此外, 对于快照产生的空间负担, 引入一种预过滤(prefilter)机制, 来快速检索记忆</p>
+<h3 id="记忆构建-2">记忆构建</h3>
+<p>以下将本文的记忆系统称为 mem, mem 可视为快照的集合，其中的每个快照对象 S ={O, I}, 其中 O 是一簇对象, I 是 RGB-D 帧, 类似其他场景图, 预处理时从每个 I 中提取对象, 对每个对象 o 来说, 它必须被映射到一个唯一的 S 上, 也就是所有 O 的交集为空集</p>
+<ol type="1">
+<li>初始化:
+<ul>
+<li>创建一个初始的对象簇 C，只包含一个对象 O</li>
+<li>创建一个存储快照的集合 S，初始为空</li>
+<li>获取所有的图像候选对象 I</li>
+<li>定义一个评分函数 F</li>
+</ul></li>
+<li>主循环:
+<ul>
+<li>当 C 不为空时执行以下步骤:
+<ul>
+<li>选择 C 中最大的对象簇 O*</li>
+<li>找出所有包含 O* 的图像候选对象 I*</li>
+<li>如果 I* 不为空:
+<ul>
+<li>从 I* 中选择得分最高的对象 I*</li>
+<li>创建一个新的快照 S*，包含 O* 和 I*</li>
+<li>将 S* 添加到 S 中</li>
+</ul></li>
+<li>否则:
+<ul>
+<li>使用 K-Means 算法将 O* 分割成两个新的对象簇 O*1 和 O*2，基于 2D 水平位置 (x, y)</li>
+<li>将新的对象簇 O*1 和 O*2 添加到 C 中</li>
+</ul></li>
+<li>从 C 中移除 O*</li>
+</ul></li>
+</ul></li>
+<li>合并快照:
+<ul>
+<li>如果存在两个快照 Sj 和 Sk，它们的图像 ISj 和 ISk 相同:
+<ul>
+<li>从 S 中移除 Sj 和 Sk</li>
+<li>创建一个新的快照 Sl，其对象集合为 OSj 和 OSk 的并集，图像为 ISj</li>
+<li>将 Sl 添加到 S 中</li>
+</ul></li>
+</ul></li>
+</ol>
+<h3 id="记忆更新">记忆更新</h3>
+<ol type="1">
+<li>边界快照, 简单地说对未探索区域远远地拍一张照</li>
+</ol>
 <h2 id="stage-2-summary">stage 2 summary</h2>
-<p>这阶段主要查找了一些各种各样的数据存储和检索方式, 包括一篇关于具身智能领域数据存储领域的综述。<br />
+<p>这阶段主要查找了一些各种各样的数据存储和检索方式, 包括一篇关于具身智能领域数据存储领域的综述<br />
 stage1 中看的文章大多是语义地图中比较常见的拓扑图形式, 拓扑图的节点存储物理位置, 嵌入向量或是文本描述以及点云信息<br />
 这样的优点是构建、检索和更新(当然其实大部分都不更新)都很快, 缺点就是信息含量很单薄, 因此只能用于导航, 对动态环境的导航都可能效果不好<br />
 这阶段看了一些使用知识图谱、数据库、rag 等技术的文章, 相比上述的方法, 当然与 LLM 领域不同, eai 领域需要与实时环境相关的数据, 因此就知识图谱来说, 如果用一些公开的知识库, 就需要选择性地构建一个和所在场景语义相似度高的知识图, 对 rag 来说也有类似的限制, 即确保检索和当前需求有关的数据<br />
@@ -1400,7 +1464,7 @@ VLA 具体可以定义为:</p>
 <div class="note info"><ul>
 <li><code>Keypoint Detection</code> : 计算机视觉中的一种技术, 旨在识别图像中具有显著特征的点</li>
 <li><code>Affordance Maps</code> : 一种表示对象与环境之间交互可能性的图像或图形</li>
-<li><code>Backbone</code> : 一个神经网络结构的基础部分, 主要用于特征提取。Backbone 是整个模型的核心组件, 负责从输入数据(如图像)中提取重要的特征信息</li>
+<li><code>Backbone</code> : 一个神经网络结构的基础部分, 主要用于特征提取 Backbone 是整个模型的核心组件, 负责从输入数据(如图像)中提取重要的特征信息</li>
 <li><code>Internet-scale</code> : 表示很大的数据或者整体性能消耗的规格</li>
 </ul>
 </div>
@@ -23629,8 +23693,8 @@ Inexpensive Disk）由美国加州大学伯克利分校提出。<br />
       <tags>
         <tag>课程笔记</tag>
         <tag>数据结构与算法</tag>
-        <tag>斯坦福</tag>
         <tag>c++</tag>
+        <tag>斯坦福</tag>
       </tags>
   </entry>
   <entry>
@@ -33429,8 +33493,8 @@ val（r1，c1）&lt; val（r1，c2）≤ val（r2，c2）&lt; val（r2，c1）<b
         <category>其他</category>
       </categories>
       <tags>
-        <tag>c++</tag>
         <tag>读书笔记</tag>
+        <tag>c++</tag>
       </tags>
   </entry>
   <entry>
@@ -33491,8 +33555,8 @@ used the next time std::cin &gt;&gt; is called<br />
       </categories>
       <tags>
         <tag>课程笔记</tag>
-        <tag>斯坦福</tag>
         <tag>c++</tag>
+        <tag>斯坦福</tag>
       </tags>
   </entry>
   <entry>
