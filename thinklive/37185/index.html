@@ -43,7 +43,7 @@
 <meta property="og:image" content="https://thinklive1.github.io/assets/ml/52243716-045d-4e27-ad0c-0e84593fee81.png">
 <meta property="og:image" content="https://datawhalechina.github.io/easy-rl/img/ch2/2.10.png">
 <meta property="article:published_time" content="2025-09-09T07:53:29.840Z">
-<meta property="article:modified_time" content="2025-10-30T12:03:18.398Z">
+<meta property="article:modified_time" content="2025-10-30T12:40:33.982Z">
 <meta property="article:author" content="thinklive">
 <meta property="article:tag" content="伯克利">
 <meta property="article:tag" content="课程笔记">
@@ -322,7 +322,7 @@ const darkmode = new Darkmode(options);
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-10-30 20:03:18" itemprop="dateModified" datetime="2025-10-30T20:03:18+08:00">2025-10-30</time>
+      <time title="修改时间：2025-10-30 20:40:33" itemprop="dateModified" datetime="2025-10-30T20:40:33+08:00">2025-10-30</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -348,14 +348,14 @@ const darkmode = new Darkmode(options);
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>10k</span>
+      <span>11k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>37 分钟</span>
+      <span>39 分钟</span>
     </span>
 </div>
 
@@ -525,6 +525,14 @@ Q可以写为当前(s,a)的回报加上基于未来状态分布的V的期望, �
 <li>fitted q-iteration: process 3 在 process 2的内循环中, process 2在process1 的内循环中</li>
 </ol>
 <h3 id="改进">改进</h3>
+<p>实际的q学习中, 有一个神奇的现象, q的估计器整体性地高估q的值, 而不是在真实值的上下浮动<br />
+对任意两个随机变量x1,x2, 有如下不等式:<br />
+<span class="math inline">\(E[\operatorname*{max}(X_{1},X_{2})]\geq\operatorname*{max}(E[X_{1}],E[X_{2}])\)</span><br />
+也就是直观地说, 取max的范围越大, 这个max倾向越大的值, 而我们在取Q函数的估计时，会不断用过往的最高q值来更新模型, 而这个过往的q可能来自于某个误差, 假设这个误差来自于随机高斯分布, 有正有负, 由于我们总取最大值, 那么正误差的值就会被倾向于被用来更新<br />
+如何解决这个问题？一个想法是, 将q的评估和更新分开, 称为 <code>double q-learning</code> , 其更新步骤为: <span class="math inline">\(Q_{\phi_{A}}(\mathrm{s},\mathbf{a})\leftarrow r+\gamma Q_{\phi_{B}}(\mathrm{s}^{\prime},\mathrm{arg~max}\,Q_{\phi_{A}}(\mathrm{s}^{\prime},\mathbf{a}^{\prime}))\)</span><br />
+实际中, 我们正好有目标网络和训练网络两个网络, 可以用作这里的A和B, 当然由于这两个网络其实会经常合并, 这样理论上还有问题, 但一般来说实际中效果尚可<br />
+另一个方法称为 <code>multi-step returns</code>, 上面提到过q学习的迭代初期可能有非常糟糕的表现, 此时我们更看重采取某个动作后的回报值, 这个问题比较类似a-c, 可以用多步的回报值解决(在a-c中我们用这个办法缓解策略更新的高方差), 即将更新步骤设置为: <span class="math inline">\(y_{j,t}=\sum_{l^{\prime}=t}^{t+N-1}\gamma^{t-t^{\prime}}r_{j,t^{\prime}}+\gamma^{N}\operatorname*{max}_{\Omega_{k},t+N}Q_{\phi^{\prime}}(\mathbf{s}_{j,t+N,\,\Omega_{j,t+N}})\)</span><br />
+此外, 这种方法会让训练必须是on-policy的, 因为这n步的策略必须是被固定的, 当然, 也可以当做这个问题不存在, 毕竟理论上n不大的话策略不会改变太多, 又或者实现类似之前的重要性采样</p>
 <h2 id="马尔可夫过程">马尔可夫过程</h2>
 <p>马尔可夫过程中, 对一个特定状态则有一个特定的未来状态概率分布（可以理解为策略）, 很容易算出之后的期望回报<br />
 即, 如果我们希望知道一个特定状态是好是坏, 可以定义状态价值 V 为其回报的期望, 即从这个状态开始, 折扣 γ 的指数与之后回报乘积的和, V 与回报 G 的区别是, V 绑定一个特定的状态 s, 即某个 s 开始的之后获取的回报的期望<br />
@@ -711,14 +719,14 @@ off-policy 则有所不同, 它让训练模型和互动的模型分开, 从而�
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">623k</span>
+    <span title="站点总字数">624k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">37:47</span>
+    <span title="站点阅读时长">37:49</span>
   </span>
 </div>
 <div class="busuanzi-count">
