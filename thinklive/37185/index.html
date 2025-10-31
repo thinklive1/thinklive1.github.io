@@ -43,7 +43,7 @@
 <meta property="og:image" content="https://thinklive1.github.io/assets/ml/52243716-045d-4e27-ad0c-0e84593fee81.png">
 <meta property="og:image" content="https://datawhalechina.github.io/easy-rl/img/ch2/2.10.png">
 <meta property="article:published_time" content="2025-09-09T07:53:29.840Z">
-<meta property="article:modified_time" content="2025-10-30T12:40:33.982Z">
+<meta property="article:modified_time" content="2025-10-31T02:37:18.402Z">
 <meta property="article:author" content="thinklive">
 <meta property="article:tag" content="伯克利">
 <meta property="article:tag" content="课程笔记">
@@ -213,7 +213,7 @@ const darkmode = new Darkmode(options);
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">基础概念</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AD%96%E7%95%A5%E6%A2%AF%E5%BA%A6"><span class="nav-number">1.1.</span> <span class="nav-text">策略梯度</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E5%92%8C%E6%94%B9%E8%BF%9B"><span class="nav-number">1.1.1.</span> <span class="nav-text">问题和改进</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8D%E8%A6%81%E6%80%A7%E9%87%87%E6%A0%B7"><span class="nav-number">1.1.2.</span> <span class="nav-text">重要性采样</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#actor-critic"><span class="nav-number">1.2.</span> <span class="nav-text">actor-critic</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#off-policy-a-c"><span class="nav-number">1.2.1.</span> <span class="nav-text">off-policy a-c</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9B%B4%E5%A5%BD%E7%9A%84baseline"><span class="nav-number">1.2.2.</span> <span class="nav-text">更好的baseline</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E4%BB%B7%E5%80%BC%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">1.3.</span> <span class="nav-text">基于价值的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%94%B6%E6%95%9B%E6%80%A7"><span class="nav-number">1.3.1.</span> <span class="nav-text">收敛性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B1%80%E9%99%90"><span class="nav-number">1.3.2.</span> <span class="nav-text">局限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%94%B9%E8%BF%9B"><span class="nav-number">1.3.3.</span> <span class="nav-text">改进</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E8%BF%87%E7%A8%8B"><span class="nav-number">1.4.</span> <span class="nav-text">马尔可夫过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%B3%E7%AD%96"><span class="nav-number">1.4.1.</span> <span class="nav-text">决策</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%87%E4%BB%BD%E5%9B%BE"><span class="nav-number">1.4.2.</span> <span class="nav-text">备份图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%AD%E4%BB%A3"><span class="nav-number">1.4.3.</span> <span class="nav-text">迭代</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AD%96%E7%95%A5%E8%BF%AD%E4%BB%A3"><span class="nav-number">1.4.3.1.</span> <span class="nav-text">策略迭代</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%B7%E5%80%BC%E8%BF%AD%E4%BB%A3"><span class="nav-number">1.4.3.2.</span> <span class="nav-text">价值迭代</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%8D%E6%A8%A1%E5%9E%8B%E6%96%B9%E6%B3%95"><span class="nav-number">1.5.</span> <span class="nav-text">免模型方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%92%99%E7%89%B9%E5%8D%A1%E6%B4%9B"><span class="nav-number">1.5.1.</span> <span class="nav-text">蒙特卡洛</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%B6%E5%BA%8F%E5%B7%AE%E5%88%86"><span class="nav-number">1.5.2.</span> <span class="nav-text">时序差分</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%90%86%E8%AE%BA%E9%97%AE%E9%A2%98"><span class="nav-number">1.6.</span> <span class="nav-text">理论问题</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B"><span class="nav-number">2.</span> <span class="nav-text">模型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A8%A1%E4%BB%BF%E5%AD%A6%E4%B9%A0"><span class="nav-number">3.</span> <span class="nav-text">模仿学习</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">基础概念</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AD%96%E7%95%A5%E6%A2%AF%E5%BA%A6"><span class="nav-number">1.1.</span> <span class="nav-text">策略梯度</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E5%92%8C%E6%94%B9%E8%BF%9B"><span class="nav-number">1.1.1.</span> <span class="nav-text">问题和改进</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8D%E8%A6%81%E6%80%A7%E9%87%87%E6%A0%B7"><span class="nav-number">1.1.2.</span> <span class="nav-text">重要性采样</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#actor-critic"><span class="nav-number">1.2.</span> <span class="nav-text">actor-critic</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#off-policy-a-c"><span class="nav-number">1.2.1.</span> <span class="nav-text">off-policy a-c</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9B%B4%E5%A5%BD%E7%9A%84-baseline"><span class="nav-number">1.2.2.</span> <span class="nav-text">更好的 baseline</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E4%BB%B7%E5%80%BC%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">1.3.</span> <span class="nav-text">基于价值的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%94%B6%E6%95%9B%E6%80%A7"><span class="nav-number">1.3.1.</span> <span class="nav-text">收敛性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B1%80%E9%99%90"><span class="nav-number">1.3.2.</span> <span class="nav-text">局限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%94%B9%E8%BF%9B"><span class="nav-number">1.3.3.</span> <span class="nav-text">改进</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9E%E7%BB%AD%E5%8A%A8%E4%BD%9C"><span class="nav-number">1.3.4.</span> <span class="nav-text">连续动作</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E8%BF%87%E7%A8%8B"><span class="nav-number">1.4.</span> <span class="nav-text">马尔可夫过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%B3%E7%AD%96"><span class="nav-number">1.4.1.</span> <span class="nav-text">决策</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%87%E4%BB%BD%E5%9B%BE"><span class="nav-number">1.4.2.</span> <span class="nav-text">备份图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%AD%E4%BB%A3"><span class="nav-number">1.4.3.</span> <span class="nav-text">迭代</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AD%96%E7%95%A5%E8%BF%AD%E4%BB%A3"><span class="nav-number">1.4.3.1.</span> <span class="nav-text">策略迭代</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%B7%E5%80%BC%E8%BF%AD%E4%BB%A3"><span class="nav-number">1.4.3.2.</span> <span class="nav-text">价值迭代</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%8D%E6%A8%A1%E5%9E%8B%E6%96%B9%E6%B3%95"><span class="nav-number">1.5.</span> <span class="nav-text">免模型方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%92%99%E7%89%B9%E5%8D%A1%E6%B4%9B"><span class="nav-number">1.5.1.</span> <span class="nav-text">蒙特卡洛</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%B6%E5%BA%8F%E5%B7%AE%E5%88%86"><span class="nav-number">1.5.2.</span> <span class="nav-text">时序差分</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%90%86%E8%AE%BA%E9%97%AE%E9%A2%98"><span class="nav-number">1.6.</span> <span class="nav-text">理论问题</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B"><span class="nav-number">2.</span> <span class="nav-text">模型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A8%A1%E4%BB%BF%E5%AD%A6%E4%B9%A0"><span class="nav-number">3.</span> <span class="nav-text">模仿学习</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -322,7 +322,7 @@ const darkmode = new Darkmode(options);
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-10-30 20:40:33" itemprop="dateModified" datetime="2025-10-30T20:40:33+08:00">2025-10-30</time>
+      <time title="修改时间：2025-10-31 10:37:18" itemprop="dateModified" datetime="2025-10-31T10:37:18+08:00">2025-10-31</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -437,110 +437,113 @@ $\begin{array}{l}{ {p_{\theta}(\tau)} }{ { {}=p(s_{1})p_{\theta}(a_{1}|s_{1})p(s
 <p>此外对策略梯度还有的问题是, 对不同的参数 θ, 其梯度的数量级可能完全不同，需要进行一定约束, 例如约束 θ 分布前后的散度, 从而平衡不同方向的更新速率<br />
 这方面具体实现上比较复杂，暂时只需要知道大概原理即可</p>
 <h2 id="actor-critic">actor-critic</h2>
-<p>由类似我们前文提到的baseline思想, 定义A(advantage)=Q-V, 也就是状态动作对的期望奖励-状态的期望奖励, 这个标准能评估对当前状态来说, 采取的动作是好是坏<br />
-我们可以将A替代掉之前的期望回报, 但需要注意的是, 由于实际中很多时候A是估算的, 这会带来方差的优化，但很可能让更新梯度有偏; 尽管如此, 一般我们还是认为拿大量减少方差换一些偏见是划算的<br />
-Q可以写为当前(s,a)的回报加上基于未来状态分布的V的期望, 可以用直接的 <span class="math inline">\(s_{t+1}\)</span> 近似这个期望, 写成 <span class="math inline">\(Q^{\pi}(\mathbf{s}_{t},\mathbf{a}_{t})\approx r(\mathbf{s}_{t},\mathbf{a}_{t})+V^{\pi}(\mathbf{s}_{t+1})\)</span> , 于是:<br />
-<span class="math display">\[A^{\pi}(\mathbf{s}_{t},\mathbf{a}_{t})\approx r(\mathbf{s}_{t},\mathbf{a}_{t})+V^{\pi}(\mathbf{s}_{t+1})-V^{\pi}(\mathbf{s}_{t})\]</span> <span class="math display">\[\nabla_{\theta}J(\theta)\approx\frac{1}{N}\nabla_{i=1}^{N}\sum_{t=1}^{T}\Sigma_{\theta}\log\pi_{\theta}({\bf a}_{i,t}|{\bf s}_{i,t})A^{\pi}({\bf s}_{i,t},{\bf a}_{i,t})\]</span> 这种近似的好处是, 相比涉及动作空间的Q, V更好计算, 近似后我们唯一需要算的就是V了, 而之前的term:<code>J</code>, 可以视为根据初始状态s1分布的 V(s1)的期望; 此外, 由于只用一个样本估算, 也能减少方差<br />
-对V来说最方便的估算就是使用蒙特卡洛方法, 尤其在模拟环境或者电子游戏之类的场景下, 可以大量采样 <span class="math inline">\(V^{\pi}(\mathbf{s}_{t})\approx\sum_{t^{\prime}=t}^{T}r(\mathbf{s}_{t^{\prime}},\mathbf{a}_{t^{\prime}})\)</span><br />
-但也可以使用一个估算函数, 即<code>function approximation</code>, 这是个典型的监督回归问题, 可以用神经网络解决, 数据集为n轮训练中的 <span class="math inline">\(s_{i,t}\)</span> 与其对应的从t开始的回报和 <span class="math inline">\(\left\{\left({\bf s}_{i,t},r({\bf s}_{i,t},{\bf a}_{i,t})+\hat{V}_{\phi}^{\pi}({\bf s}_{i,t+1})\right)\right\}\)</span> , loss设置为平方误差和 <span class="math inline">\(\mathcal{L(\phi)}=\frac{1}{2}\sum_{i}\left|\left|\hat{V}_{\phi}^{\pi}(\mathbf{s}_{i})-y_{i}\right|\right|^{2}\)</span><br />
-基于神经网络的方法的好处是, 网络能一定程度上捕获数据间的关系, 由一定的泛化能力, 也就是可能能够平滑化输出的结果, 即类似的状态应该有类似的期望回报, 从而减少方差;缺点则是不能保证是无偏的</p>
-<p>以上我们提到的方法就是标题里的a-c, 如果我们再引入一个折扣因子，就可以表述为以下的流程:</p>
+<p>由类似我们前文提到的 baseline 思想, 定义 A(advantage)= Q-V, 也就是状态动作对的期望奖励-状态的期望奖励, 这个标准能评估对当前状态来说, 采取的动作是好是坏<br />
+我们可以将 A 替代掉之前的期望回报, 但需要注意的是, 由于实际中很多时候 A 是估算的, 这会带来方差的优化，但很可能让更新梯度有偏; 尽管如此, 一般我们还是认为拿大量减少方差换一些偏见是划算的<br />
+Q 可以写为当前(s, a)的回报加上基于未来状态分布的 V 的期望, 可以用直接的 <span class="math inline">\(s_{t+1}\)</span> 近似这个期望, 写成 <span class="math inline">\(Q^{\pi}(\mathbf{s}_{t},\mathbf{a}_{t})\approx r(\mathbf{s}_{t},\mathbf{a}_{t})+V^{\pi}(\mathbf{s}_{t+1})\)</span> , 于是:<br />
+<span class="math display">\[A^{\pi}(\mathbf{s}_{t},\mathbf{a}_{t})\approx r(\mathbf{s}_{t},\mathbf{a}_{t})+V^{\pi}(\mathbf{s}_{t+1})-V^{\pi}(\mathbf{s}_{t})\]</span> <span class="math display">\[\nabla_{\theta}J(\theta)\approx\frac{1}{N}\nabla_{i=1}^{N}\sum_{t=1}^{T}\Sigma_{\theta}\log\pi_{\theta}({\bf a}_{i,t}|{\bf s}_{i,t})A^{\pi}({\bf s}_{i,t},{\bf a}_{i,t})\]</span> 这种近似的好处是, 相比涉及动作空间的 Q, V 更好计算, 近似后我们唯一需要算的就是 V 了, 而之前的 term: <code>J</code>, 可以视为根据初始状态 s1 分布的 V(s1)的期望; 此外, 由于只用一个样本估算, 也能减少方差<br />
+对 V 来说最方便的估算就是使用蒙特卡洛方法, 尤其在模拟环境或者电子游戏之类的场景下, 可以大量采样 <span class="math inline">\(V^{\pi}(\mathbf{s}_{t})\approx\sum_{t^{\prime}=t}^{T}r(\mathbf{s}_{t^{\prime}},\mathbf{a}_{t^{\prime}})\)</span><br />
+但也可以使用一个估算函数, 即 <code>function approximation</code>, 这是个典型的监督回归问题, 可以用神经网络解决, 数据集为 n 轮训练中的 <span class="math inline">\(s_{i,t}\)</span> 与其对应的从 t 开始的回报和 <span class="math inline">\(\left\{\left({\bf s}_{i,t},r({\bf s}_{i,t},{\bf a}_{i,t})+\hat{V}_{\phi}^{\pi}({\bf s}_{i,t+1})\right)\right\}\)</span> , loss 设置为平方误差和 <span class="math inline">\(\mathcal{L(\phi)}=\frac{1}{2}\sum_{i}\left|\left|\hat{V}_{\phi}^{\pi}(\mathbf{s}_{i})-y_{i}\right|\right|^{2}\)</span><br />
+基于神经网络的方法的好处是, 网络能一定程度上捕获数据间的关系, 由一定的泛化能力, 也就是可能能够平滑化输出的结果, 即类似的状态应该有类似的期望回报, 从而减少方差; 缺点则是不能保证是无偏的</p>
+<p>以上我们提到的方法就是标题里的 a-c, 如果我们再引入一个折扣因子，就可以表述为以下的流程:</p>
 <p><img src="/assets/ml/image-25.png" /></p>
-<p>这个版本的a-c其实非常好理解, 它就是用一个单独的神经网络预测V，用于帮助另一个训练策略π的网络<br />
-但问题在于这两个网络只有输入是相同的(s), 其特征是完全分开的, 这可能让它的性能受限, 一种改进是共享网络, 即用一个网络接受s，同时生成V和π<br />
-目前的这个版本是on-line的, 这就意味着, 每次只能用一个数据来更新网络, 如果想实现batch， 则需要并行化, 具体来说可以分为同步异步两种情况<br />
+<p>这个版本的 a-c 其实非常好理解, 它就是用一个单独的神经网络预测 V，用于帮助另一个训练策略 π 的网络<br />
+但问题在于这两个网络只有输入是相同的(s), 其特征是完全分开的, 这可能让它的性能受限, 一种改进是共享网络, 即用一个网络接受 s，同时生成 V 和 π<br />
+目前的这个版本是 on-line 的, 这就意味着, 每次只能用一个数据来更新网络, 如果想实现 batch， 则需要并行化, 具体来说可以分为同步异步两种情况<br />
 <img src="/assets/ml/image-26.png" /> 如上图, 同步的情况很好理解, 就是每次让一群线程获取行动后的数据, 每次都同步更新<br />
-异步的情况下, 不同线程可能有不同的运行速度, 并各自用收集到的数据更新网络参数, 这样的效率更好, 但缺点是, 较慢的线程更新时可能遇上新版本的actor, 也就是说会有这种用非当前actor的数据更新它的问题, 当然一般来说因为线程之间的速度不会有特别大的差别, 影响相对不大</p>
+异步的情况下, 不同线程可能有不同的运行速度, 并各自用收集到的数据更新网络参数, 这样的效率更好, 但缺点是, 较慢的线程更新时可能遇上新版本的 actor, 也就是说会有这种用非当前 actor 的数据更新它的问题, 当然一般来说因为线程之间的速度不会有特别大的差别, 影响相对不大</p>
 <h3 id="off-policy-a-c">off-policy a-c</h3>
-<p>在off-policy情况下, 存储之前的状态转移数据为 <code>replay buffer</code>, 这些数据可能来自于很久之前的策略, 这会带来两个问题:</p>
+<p>在 off-policy 情况下, 存储之前的状态转移数据为 <code>replay buffer</code>, 这些数据可能来自于很久之前的策略, 这会带来两个问题:</p>
 <ol type="1">
-<li>批评家对V的评估是基于旧策略的</li>
+<li>批评家对 V 的评估是基于旧策略的</li>
 <li>策略更新时使用的策略梯度也是来自于旧策略的</li>
 </ol>
-<p>对此, 我们可以把V给扔掉, 转向Q函数, <span class="math inline">\({ Q}^{\pi}(\mathrm{s}_{t}, a_t)\stackrel{\_}{=}\sum_{t^{\prime}=t}^T E_{\pi_{\theta}}\ [r(\mathrm{s}_{t^{\prime}},a_{t^{\prime}})]\mathrm{s}_{t}, a_{t}]\)</span> 那么为什么要这么做? 考虑一下现在我们有什么数据, 即来自旧策略下的V函数, V函数的意义是, 各个状态的期望回报, 也就是我们知道各个状态的价值, 而这些价值相对来说不会随着策略变动而改变<br />
-新策略相比旧策略改动的只有给定s条件下a的分布, 也就是说给定旧策略的s, 可以查到在新策略在相同给定状态s下产生的动作概率分布, 从而算出新策略对应的Q函数<br />
-于是off-line方法可以写成:</p>
+<p>对此, 我们可以把 V 给扔掉, 转向 Q 函数, <span class="math inline">\({ Q}^{\pi}(\mathrm{s}_{t}, a_t)\stackrel{\_}{=}\sum_{t^{\prime}=t}^T E_{\pi_{\theta}}\ [r(\mathrm{s}_{t^{\prime}},a_{t^{\prime}})]\mathrm{s}_{t}, a_{t}]\)</span> 那么为什么要这么做? 考虑一下现在我们有什么数据, 即来自旧策略下的 V 函数, V 函数的意义是, 各个状态的期望回报, 也就是我们知道各个状态的价值, 而这些价值相对来说不会随着策略变动而改变<br />
+新策略相比旧策略改动的只有给定 s 条件下 a 的分布, 也就是说给定旧策略的 s, 可以查到在新策略在相同给定状态 s 下产生的动作概率分布, 从而算出新策略对应的 Q 函数<br />
+于是 off-line 方法可以写成:</p>
 <p><img src="/assets/ml/image-27.png" /> 其中, <span class="math inline">\(a_{i}&#39;\)</span> 与 <span class="math inline">\(a_{i}^{\pi}\)</span> 是根据 <span class="math inline">\(s_{i}&#39;\)</span> 从新策略中产生的动作<br />
-实际中一般用Q代替之前的A，这是因为这种方法能提供大量样本, 从而弥补方差的问题<br />
-那么offline是毫无损失的方法吗? 其实并不是, 因为对来自旧策略的旧状态s我们无能为力, 这必然会产生一些偏差, 但基本来说处于可以接受的范围内</p>
-<h3 id="更好的baseline">更好的baseline</h3>
+实际中一般用 Q 代替之前的 A，这是因为这种方法能提供大量样本, 从而弥补方差的问题<br />
+那么 offline 是毫无损失的方法吗? 其实并不是, 因为对来自旧策略的旧状态 s 我们无能为力, 这必然会产生一些偏差, 但基本来说处于可以接受的范围内</p>
+<h3 id="更好的-baseline">更好的 baseline</h3>
 <p>上面提到, 基于神经网络的评论家能实现有偏下的低方差, 策略梯度则是无偏的高方差, 那么有办法得到无偏的低方差更新梯度吗?<br />
-下图展示一种估计策略梯度的方法, 它基于一个原理, 对梯度乘以任何一个值依赖状态而不依赖动作的函数，都能保持无偏, 选取价值函数作为baseline, 由于我们希望估计的就是V的期望，选择价值函数作为baseline应当能大量减少方差</p>
-<p><img src="/assets/ml/image-28.png" /> 那么如果用Q函数作为基线呢? 如果这样的话, 理论上讲我们要求的A会在0的上下浮动, 这样不是能让方差达到理想情况吗? 但问题在于, 由于这样不无偏, 那就需要加上一个误差修正项, 我们将得到一个吓人的式子:</p>
+下图展示一种估计策略梯度的方法, 它基于一个原理, 对梯度乘以任何一个值依赖状态而不依赖动作的函数，都能保持无偏, 选取价值函数作为 baseline, 由于我们希望估计的就是 V 的期望，选择价值函数作为 baseline 应当能大量减少方差</p>
+<p><img src="/assets/ml/image-28.png" /> 那么如果用 Q 函数作为基线呢? 如果这样的话, 理论上讲我们要求的 A 会在 0 的上下浮动, 这样不是能让方差达到理想情况吗? 但问题在于, 由于这样不无偏, 那就需要加上一个误差修正项, 我们将得到一个吓人的式子:</p>
 <p><span class="math display">\[\nabla_{\theta}J(\theta)\approx\frac{1}{N}\sum_{i=1}^{N}\sum_{t=1}^{T}\nabla_{\theta}\log\pi_{\theta}({\bf a}_{i,t}|{\bf s}_{i,t})\left(\hat{Q}_{i,t}-Q_{\phi}^{\pi}({\bf s}_{i,t},{\bf a}_{i,t})\right) +\frac{1}{N}\sum_{i=1}^{N}\sum_{t=1}^{T}\nabla_{\theta}E_{\mathrm{a}\sim\pi_{\theta}({\bf a}_{t}|{\bf s}_{i,t})}\left[Q_{\phi}^{\pi}({\bf s}_{i,t},{\bf a}_{t})\right]\]</span><br />
 这个式子看起来似乎根本用不了, 但其实也有技巧能用成本可控的方式估计误差修正项</p>
-<p>还有一种比较常见的思路是取n步的回报，由于越往后数据越可能发散, 这样也能降低方差, 这里不多介绍</p>
+<p>还有一种比较常见的思路是取 n 步的回报，由于越往后数据越可能发散, 这样也能降低方差, 这里不多介绍</p>
 <h2 id="基于价值的方法">基于价值的方法</h2>
-<p>最直观的说, 策略就是从动作空间中选一个最佳的动作, 这个最佳一般用Q函数表示, 而Q依赖于V, 从Q或者V的角度出发, 强化学习的问题就是选择一个最佳的Q与其对应的A, 再有足够样本的情况下, 估算Q可以用V矩阵实现, 因此这称为基于价值的方法(value-based v-b)<br />
-很明显, 现实中经常有很大或者无穷的动作空间, 因此基于表格的V-B不现实, 类似之前的a-c, 可以训练一个估计Q函数的网络, 定义其loss为: <span class="math inline">\(\mathcal{L}(\phi)=\frac{1}{2}\left|\left|V_{\phi}(\mathbf{s})-\operatorname*{max}Q^{\pi}(\mathbf{s},\mathbf{a})\right|\right|^{2}\)</span><br />
-但是如果我们想迭代Q, 还有一个严峻的问题： 状态转移的概率很难得到, 因为Q由本轮回报与之后的根据未来状态分布的V(s')的期望相加组成, 而未来状态的分布, 也就是根据策略π采取行动后的s'我们是不知道的, 于是我们用其他的(a, s',a')样本来估计未来的Q期望, 也就是：<br />
+<p>最直观的说, 策略就是从动作空间中选一个最佳的动作, 这个最佳一般用 Q 函数表示, 而 Q 依赖于 V, 从 Q 或者 V 的角度出发, 强化学习的问题就是选择一个最佳的 Q 与其对应的 A, 再有足够样本的情况下, 估算 Q 可以用 V 矩阵实现, 因此这称为基于价值的方法(value-based v-b)<br />
+很明显, 现实中经常有很大或者无穷的动作空间, 因此基于表格的 V-B 不现实, 类似之前的 a-c, 可以训练一个估计 Q 函数的网络, 定义其 loss 为: <span class="math inline">\(\mathcal{L}(\phi)=\frac{1}{2}\left|\left|V_{\phi}(\mathbf{s})-\operatorname*{max}Q^{\pi}(\mathbf{s},\mathbf{a})\right|\right|^{2}\)</span><br />
+但是如果我们想迭代 Q, 还有一个严峻的问题： 状态转移的概率很难得到, 因为 Q 由本轮回报与之后的根据未来状态分布的 V(s')的期望相加组成, 而未来状态的分布, 也就是根据策略 π 采取行动后的 s'我们是不知道的, 于是我们用其他的(a, s', a')样本来估计未来的 Q 期望, 也就是：<br />
 <span class="math inline">\(Q^{\pi}({\bf s},{\bf a})\leftarrow r({\bf s},{\bf a})+\gamma E_{ {\bf s}^{\prime}\sim p({\bf s}^{\prime}|{\bf s},{\bf a})}[Q^{\pi}({\bf s}^{\prime},\pi({\bf s}^{\prime}))]\)</span><br />
-为什么可以这么做? 或者说, 为什么策略的变化在这样的学习中似乎不重要? 这是因为在这种方法下策略就是选取最大化Q的动作, 也就是说策略由Q来定义, 而不是Q受策略影响, 不严谨地说, 可以认为Q的地位高于策略</p>
-<p>稍微总结一下训练步骤, 对V来说:</p>
+为什么可以这么做? 或者说, 为什么策略的变化在这样的学习中似乎不重要? 这是因为在这种方法下策略就是选取最大化 Q 的动作, 也就是说策略由 Q 来定义, 而不是 Q 受策略影响, 不严谨地说, 可以认为 Q 的地位高于策略</p>
+<p>稍微总结一下训练步骤, 对 V 来说:</p>
 <p><span class="math display">\[\begin{array}{l}{ {1.\;\;\mathrm{set}\;{\bf{y}}_{i}\:\leftarrow\;\mathrm{max_{a_{i}}}(r({\bf{s}}_{i},{\bf{a}}_{i})+\gamma E[V_{\phi}({\bf{s}}_{i}^{\prime})])}}\\ { {2.\;\;\mathrm{set}\;\phi\:\leftarrow\;\mathrm{arg~min}_{\phi}\:\frac{1}{2}\:\sum_{i}\|V_{\phi}({\bf{s}}_{i})-{\bf{y}}_{i}\|^{2}}}\end{array}\]</span></p>
-<p>于是对Q的计算:</p>
+<p>于是对 Q 的计算:</p>
 <p><span class="math display">\[\begin{array}{l}{ {1.\;\;\mathrm{set}\;\:{\mathrm{y}}_{i}\:\leftarrow\:r(\mathrm{s}_{i},{\bf a}_{i})+\gamma{ E}[V_{\phi}(\mathrm{s}_{i}^{\prime})]}}\\ { {2.\;\;\mathrm{set}\;\:\phi\:\leftarrow\:\mathrm{arg\,min}_{\phi}\:\frac{1}{2}\:\sum_{i}||{\cal Q}_{\phi}(\mathrm{s}_{i},{\bf a}_{i})-{\bf y}_{i}||^{2}}}\end{array}\]</span></p>
-<p>也就是说, 由于我们定义策略为选择Q最大的A, 那么相应的状态s的动作空间中最佳的Q就是状态s的期望价值<br />
-由于没有麻烦的策略梯度, 以上的v-b有较小的方差, 但还有一个问题是, 对神经网络的方法它不保证收敛性</p>
-<p>对训练Q的神经网络来说, 应用上述的用Q估算V的思想, 步骤为:</p>
+<p>也就是说, 由于我们定义策略为选择 Q 最大的 A, 那么相应的状态 s 的动作空间中最佳的 Q 就是状态 s 的期望价值<br />
+由于没有麻烦的策略梯度, 以上的 v-b 有较小的方差, 但还有一个问题是, 对神经网络的方法它不保证收敛性</p>
+<p>对训练 Q 的神经网络来说, 应用上述的用 Q 估算 V 的思想, 步骤为:</p>
 <p><span class="math display">\[\begin{array}{l} {\mathrm{1.~collect~dataset~\{(s_{i},{\bf a}_{i},{\bf s}_{i}^{\prime},r_{i})\}~u{\mathrm{sing~some~policy}}}} \\ { {2.~\mathrm{set~yi}\leftarrow r({\bf s}_{i},{\bf a}_{i})+\gamma\mathrm{max_{a^{\prime}}}\,Q_{\phi}({\bf s}_{i}^{\prime},{\bf a}_{i}^{\prime})}} \\ { {3.~\mathrm{set~}\phi\leftarrow\mathrm{arg\,min}_{\phi}\ {\frac{1}{2}} { \Sigma_{i}|\vert{\cal Q}_{\phi}({\bf s}_{i},{\bf a}_{i})-{\bf y}_{i}}}\vert\vert^{2}}\end{array}\]</span></p>
-<p>这种方法称为<code>full fitted Q-iteration algorithm</code>, 其中2.3.可以执行k次确保其更好地迭代</p>
-<p>以上这个简单的方法就是最基础的off-policy on-line 的Q学习, 这个方法有一个非常明显的问题, 由于它的策略不包括任何概率, 是完全决定性的, 而迭代过程是贪心的, 因此在迭代中如果有一些错误或者不好的数据集，很容易就会陷入一个表现较差且无法进一步迭代的循环里<br />
+<p>这种方法称为 <code>full fitted Q-iteration algorithm</code>, 其中 2.3.可以执行 k 次确保其更好地迭代</p>
+<p>以上这个简单的方法就是最基础的 off-policy on-line 的 Q 学习, 这个方法有一个非常明显的问题, 由于它的策略不包括任何概率, 是完全决定性的, 而迭代过程是贪心的, 因此在迭代中如果有一些错误或者不好的数据集，很容易就会陷入一个表现较差且无法进一步迭代的循环里<br />
 因此, 尤其是对最开始的一批数据, 我们希望能增加一些随机性, 最简单的方法就是对原来的策略加一层随机, 称为 <span class="math inline">\(\epsilon\)</span> 贪心:</p>
 <p><span class="math display">\[\pi({\bf a}_{t}|{\bf s}_{t})=\left\{\begin{array}{l}{ {1-\epsilon\mathrm{~if~}{\bf a}_{t}=\arg\mathrm{max}_{ {\bf a}_{t}}Q_{\phi}({\bf s}_{t},{\bf a}_{t})}}\\ { {\epsilon/(|A|-1)\mathrm{~otherwise}}}\end{array}\right.\]</span></p>
-<p>另一种常见方法称为<code>Boltzmann exploration（波尔兹曼探索)</code>, 即 <span class="math inline">\(\pi({\bf a}_{t}|{\bf s}_{t})\propto\exp(Q_{\phi}({\bf s}_{t},{\bf a}_{t}))\)</span> 这种策略的好处是能根据Q的好坏加权策略, 如果是Q都比较高的行动, 概率不会相差太大, 而Q很低的行动则几乎不会被采取</p>
+<p>另一种常见方法称为 <code>Boltzmann exploration（波尔兹曼探索)</code>, 即 <span class="math inline">\(\pi({\bf a}_{t}|{\bf s}_{t})\propto\exp(Q_{\phi}({\bf s}_{t},{\bf a}_{t}))\)</span> 这种策略的好处是能根据 Q 的好坏加权策略, 如果是 Q 都比较高的行动, 概率不会相差太大, 而 Q 很低的行动则几乎不会被采取</p>
 <h3 id="收敛性">收敛性</h3>
-<p>接下来尝试证明V-B方法是否收敛</p>
+<p>接下来尝试证明 V-B 方法是否收敛</p>
 <p><img src="/assets/ml/image-29.png" /></p>
-<p>首先问题定义如图, B(back-up)操作用于根据给定V找到一个最好的动作, <code>V*</code>则是一个最终的最优解, 也就是其回报与转移状态的价值期望之和在所有动作中最大<br />
-也就是说, 如果用B操作不断迭代, 能到达<code>V*</code>状态, 就说明v-b是收敛的<br />
+<p>首先问题定义如图, B(back-up)操作用于根据给定 V 找到一个最好的动作, <code>V*</code> 则是一个最终的最优解, 也就是其回报与转移状态的价值期望之和在所有动作中最大<br />
+也就是说, 如果用 B 操作不断迭代, 能到达 <code>V*</code> 状态, 就说明 v-b 是收敛的<br />
 直观地, 我们有以下性质:<br />
 <span class="math display">\[{\mathrm{for~any~}}V{\mathrm{~and~}}{\bar{V}},{\mathrm{~we~have~}}||B V-B{\bar{V}}||\infty\leq\gamma||V-{\bar{V}}||\infty\]</span><br />
 于是:<br />
 <span class="math display">\[\|B V-V^{*}\|_{\infty}\leq\gamma\|V-V^{*}\|_{\infty}\]</span></p>
-<p>这样的证明省略了很多东西, 但对cs来说已经足够了, 事实上, 基于不断取最大值这个操作, 基于表格(矩阵/向量)的v-b收敛是很符合直觉的<br />
-那么对基于神经网络回归的v-b呢? 这个问题稍微有点麻烦, 将nn能产出的价值全集定义为 <span class="math inline">\(\Omega\)</span>, 事实上由于基于线性拟合与目前这个损失函数, nn做的其实是个最小二乘法, 实际产生的V'是理想V在Ω上的一个投影<br />
-对任意两个点a,b对一条直线的投影点c,d, ab,cd直接的距离l1,l2来说, 始终有l1≥l2, 我们可以简单地构建一个直角三角形证明这点, 对ab不与直线平行的情况, ab是斜边, cd是直角边<br />
-我们将投影操作定义为π, 则有 <span class="math display">\[\|\Pi V-\Pi{\bar{V}}\|^{2}\leq\|V-{\bar{V}}\|^{2}\]</span><br />
-而现在的问题是, π和B都有我们很想要的收缩性质, 但如果同时存在这两种操作, 就不保证收缩了<br />
-<img src="/assets/ml/image-30.png" /> 上图给出了一个很形象的例子, 由此我们证明基于nn的v-b不一定收敛<br />
-对于Q学习, 实际上也差不多<br />
+<p>这样的证明省略了很多东西, 但对 cs 来说已经足够了, 事实上, 基于不断取最大值这个操作, 基于表格(矩阵/向量)的 v-b 收敛是很符合直觉的<br />
+那么对基于神经网络回归的 v-b 呢? 这个问题稍微有点麻烦, 将 nn 能产出的价值全集定义为 <span class="math inline">\(\Omega\)</span>, 事实上由于基于线性拟合与目前这个损失函数, nn 做的其实是个最小二乘法, 实际产生的 V'是理想 V 在 Ω 上的一个投影<br />
+对任意两个点 a, b 对一条直线的投影点 c, d, ab, cd 直接的距离 l1, l2 来说, 始终有 l1≥l2, 我们可以简单地构建一个直角三角形证明这点, 对 ab 不与直线平行的情况, ab 是斜边, cd 是直角边<br />
+我们将投影操作定义为 π, 则有 <span class="math display">\[\|\Pi V-\Pi{\bar{V}}\|^{2}\leq\|V-{\bar{V}}\|^{2}\]</span><br />
+而现在的问题是, π 和 B 都有我们很想要的收缩性质, 但如果同时存在这两种操作, 就不保证收缩了<br />
+<img src="/assets/ml/image-30.png" /> 上图给出了一个很形象的例子, 由此我们证明基于 nn 的 v-b 不一定收敛<br />
+对于 Q 学习, 实际上也差不多<br />
 这有点像所谓的合成谬误, 我们有能让策略变好的贪心方法, 还有最小二乘法与梯度下降, 为什么加到一起后结果却不一定变好?<br />
 事实上, 我们训练的这个回归网络并不是真正地使用了梯度下降, 见下图<br />
-<img src="/assets/ml/image-31.png" /> 对同样和参数有关的yi, 我们并没有计算梯度, 当然也可以计算(<code>Residual Gradient</code>), 但由于计算量太大, 这么做在工程上很不实用<br />
-还有一个悲伤的消息是, 之前的a-c也不保证收敛</p>
+<img src="/assets/ml/image-31.png" /> 对同样和参数有关的 yi, 我们并没有计算梯度, 当然也可以计算(<code>Residual Gradient</code>), 但由于计算量太大, 这么做在工程上很不实用<br />
+还有一个悲伤的消息是, 之前的 a-c 也不保证收敛</p>
 <h3 id="局限">局限</h3>
-<p>目前版本的q学习是一个随着时间收集数据的on-line方法, 除了效率问题外, 由于数据在时间上过于接近, 很可能产生过拟合问题, 类似策略梯度, 可以对其进行离线改进, 并且由于q学习的策略不那么重要, 可以说它很适合离线学习<br />
-另一种方法称为 <code>replay buffers</code>, 简单地说就是去掉收集数据的步骤, 对一个巨大的数据池，每次随机取样用来不断进行预测和模型更新,更新若干轮后再产生一些新数据放入buffers池</p>
+<p>目前版本的 q 学习是一个随着时间收集数据的 on-line 方法, 除了效率问题外, 由于数据在时间上过于接近, 很可能产生过拟合问题, 类似策略梯度, 可以对其进行离线改进, 并且由于 q 学习的策略不那么重要, 可以说它很适合离线学习<br />
+另一种方法称为 <code>replay buffers</code>, 简单地说就是去掉收集数据的步骤, 对一个巨大的数据池，每次随机取样用来不断进行预测和模型更新, 更新若干轮后再产生一些新数据放入 buffers 池</p>
 <p><img src="/assets/ml/image-32.png" /></p>
-<p>上图展示了目前为止的q学习步骤, 按经验来说一般k设置很小, 而n较大, 这会带来一个问题, 即更新模型参数的周期中, 早期采样数据"落后(lag)"得少, 而随着训练进行就会有很多落后很久的数据,为了避免这个问题, 使用以下的更新方式<br />
+<p>上图展示了目前为止的 q 学习步骤, 按经验来说一般 k 设置很小, 而 n 较大, 这会带来一个问题, 即更新模型参数的周期中, 早期采样数据 "落后(lag)" 得少, 而随着训练进行就会有很多落后很久的数据, 为了避免这个问题, 使用以下的更新方式<br />
 <span class="math inline">\(\begin{array}{c c}{ {\mathrm{update}~\phi^{\prime};~\phi^{\prime}\leftarrow\tau\phi^{\prime}+(1-\tau)\phi}}&amp;{ {\qquad\qquad\tau=0.999~\mathrm{works~well}}}\end{array}\)</span><br />
-为了减少上述伪梯度的影响, 对更新梯度, 我们用整体更新前的目标网络生成的max参数来更新临时网络参数<br />
-以上的伪代码写作单线程迭代的形式, 但其实由于目标网络在一整批数据后才更新, 上述过程可以并行进行, 也就是用于规模庞大的深度学习中, 即(DQN Deep Q-Network) 此外, 对于整个buffer的维护, 由于buffer存在上限, 那么就必然需要一个“驱逐”机制, 一个简单的思路是采用环形buffer, 使用以上机制的一个dpo流程可以表示为下图:</p>
+为了减少上述伪梯度的影响, 对更新梯度, 我们用整体更新前的目标网络生成的 max 参数来更新临时网络参数<br />
+以上的伪代码写作单线程迭代的形式, 但其实由于目标网络在一整批数据后才更新, 上述过程可以并行进行, 也就是用于规模庞大的深度学习中, 即(DQN Deep Q-Network) 此外, 对于整个 buffer 的维护, 由于 buffer 存在上限, 那么就必然需要一个“驱逐”机制, 一个简单的思路是采用环形 buffer, 使用以上机制的一个 dpo 流程可以表示为下图:</p>
 <p><img src="/assets/ml/image-33.png" /></p>
-<p>不同的q学习对3个process各有侧重:</p>
+<p>不同的 q 学习对 3 个 process 各有侧重:</p>
 <ol type="1">
 <li>online q learning: process1,2,3 have same speed</li>
 <li>DQN: process 1,3 have same speed, process 2 is slow, buffer is large</li>
-<li>fitted q-iteration: process 3 在 process 2的内循环中, process 2在process1 的内循环中</li>
+<li>fitted q-iteration: process 3 在 process 2 的内循环中, process 2 在 process1 的内循环中</li>
 </ol>
 <h3 id="改进">改进</h3>
-<p>实际的q学习中, 有一个神奇的现象, q的估计器整体性地高估q的值, 而不是在真实值的上下浮动<br />
-对任意两个随机变量x1,x2, 有如下不等式:<br />
+<p>实际的 q 学习中, 有一个神奇的现象, q 的估计器整体性地高估 q 的值, 而不是在真实值的上下浮动<br />
+对任意两个随机变量 x1, x2, 有如下不等式:<br />
 <span class="math inline">\(E[\operatorname*{max}(X_{1},X_{2})]\geq\operatorname*{max}(E[X_{1}],E[X_{2}])\)</span><br />
-也就是直观地说, 取max的范围越大, 这个max倾向越大的值, 而我们在取Q函数的估计时，会不断用过往的最高q值来更新模型, 而这个过往的q可能来自于某个误差, 假设这个误差来自于随机高斯分布, 有正有负, 由于我们总取最大值, 那么正误差的值就会被倾向于被用来更新<br />
-如何解决这个问题？一个想法是, 将q的评估和更新分开, 称为 <code>double q-learning</code> , 其更新步骤为: <span class="math inline">\(Q_{\phi_{A}}(\mathrm{s},\mathbf{a})\leftarrow r+\gamma Q_{\phi_{B}}(\mathrm{s}^{\prime},\mathrm{arg~max}\,Q_{\phi_{A}}(\mathrm{s}^{\prime},\mathbf{a}^{\prime}))\)</span><br />
-实际中, 我们正好有目标网络和训练网络两个网络, 可以用作这里的A和B, 当然由于这两个网络其实会经常合并, 这样理论上还有问题, 但一般来说实际中效果尚可<br />
-另一个方法称为 <code>multi-step returns</code>, 上面提到过q学习的迭代初期可能有非常糟糕的表现, 此时我们更看重采取某个动作后的回报值, 这个问题比较类似a-c, 可以用多步的回报值解决(在a-c中我们用这个办法缓解策略更新的高方差), 即将更新步骤设置为: <span class="math inline">\(y_{j,t}=\sum_{l^{\prime}=t}^{t+N-1}\gamma^{t-t^{\prime}}r_{j,t^{\prime}}+\gamma^{N}\operatorname*{max}_{\Omega_{k},t+N}Q_{\phi^{\prime}}(\mathbf{s}_{j,t+N,\,\Omega_{j,t+N}})\)</span><br />
-此外, 这种方法会让训练必须是on-policy的, 因为这n步的策略必须是被固定的, 当然, 也可以当做这个问题不存在, 毕竟理论上n不大的话策略不会改变太多, 又或者实现类似之前的重要性采样</p>
+也就是直观地说, 取 max 的范围越大, 这个 max 倾向越大的值, 而我们在取 Q 函数的估计时，会不断用过往的最高 q 值来更新模型, 而这个过往的 q 可能来自于某个误差, 假设这个误差来自于随机高斯分布, 有正有负, 由于我们总取最大值, 那么正误差的值就会被倾向于被用来更新<br />
+如何解决这个问题？一个想法是, 将 q 的评估和更新分开, 称为 <code>double q-learning</code> , 其更新步骤为: <span class="math inline">\(Q_{\phi_{A}}(\mathrm{s},\mathbf{a})\leftarrow r+\gamma Q_{\phi_{B}}(\mathrm{s}^{\prime},\mathrm{arg~max}\,Q_{\phi_{A}}(\mathrm{s}^{\prime},\mathbf{a}^{\prime}))\)</span><br />
+实际中, 我们正好有目标网络和训练网络两个网络, 可以用作这里的 A 和 B, 当然由于这两个网络其实会经常合并, 这样理论上还有问题, 但一般来说实际中效果尚可<br />
+另一个方法称为 <code>multi-step returns</code>, 上面提到过 q 学习的迭代初期可能有非常糟糕的表现, 此时我们更看重采取某个动作后的回报值, 这个问题比较类似 a-c, 可以用多步的回报值解决(在 a-c 中我们用这个办法缓解策略更新的高方差), 即将更新步骤设置为: <span class="math inline">\(y_{j,t}=\sum_{l^{\prime}=t}^{t+N-1}\gamma^{t-t^{\prime}}r_{j,t^{\prime}}+\gamma^{N}\operatorname*{max}_{\Omega_{k},t+N}Q_{\phi^{\prime}}(\mathbf{s}_{j,t+N,\,\Omega_{j,t+N}})\)</span><br />
+此外, 这种方法会让训练必须是 on-policy 的, 因为这 n 步的策略必须是被固定的, 当然, 也可以当做这个问题不存在, 毕竟理论上 n 不大的话策略不会改变太多, 又或者实现类似之前的重要性采样</p>
+<h3 id="连续动作">连续动作</h3>
+<p>连续动作空间的麻烦在于, 如何处理取 Qmax 的操作, 一个基于直觉的想法是梯度下降找机制, 但这样显然计算量很大<br />
+为了提高效率, 一个简单的做法是对 Q 随机取 n 个样, 选一个最大值, 这称为 <code>stochastic optimization</code></p>
 <h2 id="马尔可夫过程">马尔可夫过程</h2>
 <p>马尔可夫过程中, 对一个特定状态则有一个特定的未来状态概率分布（可以理解为策略）, 很容易算出之后的期望回报<br />
 即, 如果我们希望知道一个特定状态是好是坏, 可以定义状态价值 V 为其回报的期望, 即从这个状态开始, 折扣 γ 的指数与之后回报乘积的和, V 与回报 G 的区别是, V 绑定一个特定的状态 s, 即某个 s 开始的之后获取的回报的期望<br />
 t 时刻后的回报为：<br />
 <span class="math display">\[G_{t}=r_{t+1}+\gamma r_{t+2}+\gamma^{2}r_{t+3}+\gamma^{3}r_{t+4}+\ldots+\gamma^{T-t-1}r_{T}\]</span> 状态 s 的价值为：<br />
 <span class="math display">\[\begin{array}{l}{ {V^{t}(s)=\mathbb{E}\left[G_{t}\mid s_{t}=s\right]} }\\ { {\ } }\\ { {=\mathbb{E}\left[r_{t+1}+\gamma r_{t+2}+\gamma^{2}r_{t+3}+.\cdot.+\gamma^{T-t-1}r_{T}\mid s_{t}=s\right]} }\end{array}\]</span><br />
-即给定 <span class="math inline">\(s_t = s\)</span> 这个条件后的 Gt 期望<br />
-实际训练中概率没法直接看出来, 符合常识的想法是靠采样估算, 也就是可以对采样的多组数据取平均值, 这称为 <code>蒙特卡洛(Monte Carlo,MC)采样</code><br />
+即给定 <span class="math inline">\(s_t = s\)</span> 这个条件后的 Gt 期望</p>
+<p>实际训练中概率没法直接看出来, 符合常识的想法是靠采样估算, 也就是可以对采样的多组数据取平均值, 这称为 <code>蒙特卡洛(Monte Carlo,MC)采样</code><br />
 另一种方法是贝尔曼方程, 这一方程常用于动态规划, 使用下个状态的价值来更新之前状态, 写作：<br />
 <span class="math display">\[ V(s)=R(s) + \gamma\sum_{s^{\prime}\in S}p\left(s^{\prime}\mid s\right)V\left(s^{\prime}\right)  \]</span> <code>s′</code> 可以看成未来的某个状态, <code>p(s′|s)</code> 是指从当前状态转移到未来状态的概率。<code>V (s′)</code> 代表的是未来某一个状态的价值, <code>R(s)</code> 为 s 的奖励组成的向量<br />
 贝尔曼方程的证明：<br />
