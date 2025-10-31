@@ -60,7 +60,7 @@
 <meta property="og:image" content="https://thinklive1.github.io/assets/ml/image-1.png">
 <meta property="og:image" content="https://thinklive1.github.io/assets/ml/image-2.png">
 <meta property="article:published_time" content="2025-09-09T07:53:29.848Z">
-<meta property="article:modified_time" content="2025-10-26T13:12:03.155Z">
+<meta property="article:modified_time" content="2025-10-31T06:15:34.316Z">
 <meta property="article:author" content="thinklive">
 <meta property="article:tag" content="人工智能">
 <meta property="article:tag" content="机器学习">
@@ -334,7 +334,7 @@ const darkmode = new Darkmode(options);
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-10-26 21:12:03" itemprop="dateModified" datetime="2025-10-26T21:12:03+08:00">2025-10-26</time>
+      <time title="修改时间：2025-10-31 14:15:34" itemprop="dateModified" datetime="2025-10-31T14:15:34+08:00">2025-10-31</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -367,7 +367,7 @@ const darkmode = new Darkmode(options);
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2:13</span>
+      <span>2:14</span>
     </span>
 </div>
 
@@ -1399,7 +1399,7 @@ NLMap(grid): 如果想直接辨别图像里的物品, 则可以使用 <code>clas
 <ol type="1">
 <li>初始化:
 <ul>
-<li>创建一个初始的对象簇 C，只包含一个对象 O</li>
+<li>创建一个初始的对象簇 C，只包含一个对象簇 O , O中有提取出的全部对象</li>
 <li>创建一个存储快照的集合 S，初始为空</li>
 <li>获取所有的图像候选对象 I</li>
 <li>定义一个评分函数 F</li>
@@ -1412,8 +1412,8 @@ NLMap(grid): 如果想直接辨别图像里的物品, 则可以使用 <code>clas
 <li>找出所有包含 O* 的图像候选对象 I*</li>
 <li>如果 I* 不为空:
 <ul>
-<li>从 I* 中选择得分最高的对象 I*</li>
-<li>创建一个新的快照 S*，包含 O* 和 I*</li>
+<li>从 I* 中选择得分最高的对象 I'</li>
+<li>创建一个新的快照 S*，包含 O* 和 I'</li>
 <li>将 S* 添加到 S 中</li>
 </ul></li>
 <li>否则:
@@ -1436,7 +1436,13 @@ NLMap(grid): 如果想直接辨别图像里的物品, 则可以使用 <code>clas
 </ol>
 <h3 id="记忆更新">记忆更新</h3>
 <ol type="1">
-<li>边界快照, 简单地说对未探索区域远远地拍一张照</li>
+<li>边界快照: 简单地说对未探索区域远远地拍一张照</li>
+<li>增量构建: 在代理实际运行的过程中, 会不断生成新的观察帧用于提取对象, 对一个距离阈值<code>maxdist</code>, 阈值内的对象会被添加到记忆中(识别的对象可以是之前见过的), 将对象和观察帧的全集根据这些动态数据更新
+<ol type="1">
+<li>记忆快照更新: 每个时间步t, 对当前的观察提取到的对象, 以及上一步的mem中的对象合并然后聚类, 对新的对象簇进行划分</li>
+<li>边界快照更新: 每个时间步检查之前的边界快照区域是否已经探索过,如果已经探索过, 就再拍一张根据当前情况的边界照片</li>
+</ol></li>
+<li>预过滤: 在问答场景下, 简单地让一个VLM对每个时间步的对象类别根据与给定问题的相关性排序, 只保留有这些类别对象的快照</li>
 </ol>
 <h2 id="stage-2-summary">stage 2 summary</h2>
 <p>这阶段主要查找了一些各种各样的数据存储和检索方式, 包括一篇关于具身智能领域数据存储领域的综述<br />
@@ -1868,7 +1874,7 @@ ACT 主要创新点在于能够预测连续的, 精确的动作序列, 而一些
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">37:49</span>
+    <span title="站点阅读时长">37:51</span>
   </span>
 </div>
 <div class="busuanzi-count">
