@@ -191,6 +191,7 @@
 <li><a href="#记忆构建-2">记忆构建</a></li>
 <li><a href="#记忆更新">记忆更新</a></li>
 </ul></li>
+<li><a href="#graphpad-inference-time-3d-scene-graph-updates-for-embodied-question">GraphPad: Inference-Time 3D Scene Graph Updates for Embodied Question</a></li>
 <li><a href="#stage-2-summary">stage 2 summary</a></li>
 </ul></li>
 <li><a href="#vision-language-action-models">Vision-Language-Action Models</a>
@@ -1147,6 +1148,45 @@ NLMap(grid): 如果想直接辨别图像里的物品, 则可以使用 <code>clas
 <li>边界快照更新: 每个时间步检查之前的边界快照区域是否已经探索过,如果已经探索过, 就再拍一张根据当前情况的边界照片</li>
 </ol></li>
 <li>预过滤: 在问答场景下, 简单地让一个VLM对每个时间步的对象类别根据与给定问题的相关性排序, 只保留有这些类别对象的快照</li>
+</ol>
+<h2 id="graphpad-inference-time-3d-scene-graph-updates-for-embodied-question">GraphPad: Inference-Time 3D Scene Graph Updates for Embodied Question</h2>
+<p>arxiv 2025</p>
+<p>本文提出了一种动态更新语义地图(3d场景图)的系统, 系统最小化存储初始信息, 针对问题来特化地查询与更新, 这样的好处是减少存储和计算的成本<br />
+其内存结构分为:</p>
+<ol type="1">
+<li>Scene Graph:
+<ol type="1">
+<li>节点存储:
+<ol type="1">
+<li>视觉嵌入</li>
+<li>语言嵌入</li>
+<li>描述</li>
+<li>房间/楼层id</li>
+<li>物品可见的关键帧</li>
+</ol></li>
+<li>边存储:
+<ol type="1">
+<li>用于细化的空间关系: on top of, subpart of, contained in, and attached to.</li>
+</ol></li>
+</ol></li>
+<li>Graphical Scratch-Pad:
+<ol type="1">
+<li>场景图节点的副本, 但新增一个notes字段用于VLM模型写入任务特化的信息</li>
+</ol></li>
+<li>Frame Memory:
+<ol type="1">
+<li>均匀间隔的关键帧, 如果回答问题时请求相关api, 会把补充的图像加入</li>
+</ol></li>
+<li>Navigation Log:
+<ol type="1">
+<li>结构化存储的索引信息, 用于让VLM查找信息</li>
+</ol></li>
+</ol>
+<p>类似其他场景图, 运行过程中会不断合并类似物体, 用VLM提示产生边缘, 描述等 提供给VLM3个api:</p>
+<ol type="1">
+<li><code>find_objects</code>: 根据查询尝试找到对应物体</li>
+<li><code>analyze_objects</code>: 根据查询分析场景图各个节点的物体信息</li>
+<li><code>analyze_frame</code>: 根据查询重新分析图像, 尝试找到之前未检测的物体</li>
 </ol>
 <h2 id="stage-2-summary">stage 2 summary</h2>
 <p>这阶段主要查找了一些各种各样的数据存储和检索方式, 包括一篇关于具身智能领域数据存储领域的综述<br />
