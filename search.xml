@@ -81,6 +81,75 @@
 ]]></content>
   </entry>
   <entry>
+    <title>基于vue文档的笔记</title>
+    <url>/thinklive/6217/</url>
+    <content><![CDATA[<h1 id="前置知识">前置知识</h1>
+<h2 id="es">ES</h2>
+<p>ES modules 是原生 JavaScript 提供的模块功能，逐渐被更多的浏览器支持<br />
+形如：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">&lt;script type=<span class="string">&quot;module&quot;</span>&gt;</span><br><span class="line">&lt;!-- something --&gt;    </span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">import &#123; x,y &#125; from &#x27;./module.js</span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h1 id="vue基础">vue基础</h1>
+<h2 id="应用">应用</h2>
+<p>每个 Vue 应用都是通过createApp函数创建一个新的应用实例，例如：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createApp &#125; <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">App</span> <span class="keyword">from</span> <span class="string">&#x27;./App.vue&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> app = <span class="title function_">createApp</span>(&#123;<span class="title class_">App</span>&#125;)</span><br></pre></td></tr></table></figure>
+<p>createApp 的对象实际上是一个组件，每个应用都需要一个“根组件”，其他组件将作为其子组件，最后得到一个树状结构</p>
+<h2 id="模板">模板</h2>
+<p>当根组件没有设置 template 选项时，Vue 将自动使用容器的 innerHTML 作为模板<br />
+模板中可以使用<a href="https://cn.vuejs.org/api/built-in-directives">指令</a>，指令由 v- 作为前缀，表明它们是一些由 Vue 提供的特殊 attribute,指令最常用的功能是绑定html属性到某个元素<br />
+双大括号会将数据解释为纯文本，而不是 HTML。若想插入 HTML，需要使用 v-html 指令：<br />
+<code>&lt;span v-html="rawHtml"&gt;&lt;/span&gt;&lt;/p&gt;</code></p>
+<p>想要响应式地绑定一个 attribute，应该使用 v-bind 指令<code>&lt;div v-bind:id="dynamicId"&gt;&lt;/div&gt;</code><br />
+简写语法为：<code>&lt;div :id="dynamicId"&gt;&lt;/div&gt;</code> 同名简写(3.4以上版本):<code>&lt;div :id&gt;&lt;/div&gt;</code> js表达式支持:<br />
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">&#123;&#123; number + <span class="number">1</span> &#125;&#125;</span><br><span class="line">&#123;&#123; ok ? <span class="string">&#x27;YES&#x27;</span> : <span class="string">&#x27;NO&#x27;</span> &#125;&#125;</span><br><span class="line">&#123;&#123; message.<span class="title function_">split</span>(<span class="string">&#x27;&#x27;</span>).<span class="title function_">reverse</span>().<span class="title function_">join</span>(<span class="string">&#x27;&#x27;</span>) &#125;&#125;</span><br><span class="line">&lt;div :id=<span class="string">&quot;`list-$&#123;id&#125;`&quot;</span>&gt;&lt;/div&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
+<h2 id="响应式">响应式</h2>
+<p>选项式api使用data 选项来声明组件的响应式状态。此选项的值应为返回一个对象的函数<br />
+在 Vue 3 中，数据是基于<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Proxy">JavaScript Proxy</a> 实现响应式的,也就是通过一个代理来更新对象状态，vue3中原始对象不会变成响应式代理<br />
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="title function_">data</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      <span class="attr">count</span>: <span class="number">0</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">methods</span>: &#123;</span><br><span class="line">    <span class="title function_">increment</span>(<span class="params"></span>) &#123;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">count</span>++</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="title function_">mounted</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="comment">// 在其他方法或是生命周期中也可以调用方法</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="title function_">increment</span>()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure> Vue 自动为 methods 中的方法绑定了<strong>永远指向组件实例</strong>的 this,且嵌套的对象变化也能相应，也就是类似json的格式可以随意修改<br />
+当你修改了响应式状态时，DOM 会被自动更新。但是需要注意的是，DOM 更新不是同步的。Vue 会在“next tick”更新周期中缓冲所有状态的修改，以确保不管你进行了多少次状态修改，每个组件都只会被更新一次</p>
+<p>创建有自己状态的方法：<br />
+如果需要多个有独立状态的方法，则要在created期间创建这样的函数：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="title function_">created</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="comment">// 每个实例都有了自己的预置防抖的处理函数</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">debouncedClick</span> = _.<span class="title function_">debounce</span>(<span class="variable language_">this</span>.<span class="property">click</span>, <span class="number">500</span>)</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="title function_">unmounted</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="comment">// 最好是在组件卸载时</span></span><br><span class="line">    <span class="comment">// 清除掉防抖计时器</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">debouncedClick</span>.<span class="title function_">cancel</span>()</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">methods</span>: &#123;</span><br><span class="line">    <span class="title function_">click</span>(<span class="params"></span>) &#123;</span><br><span class="line">      <span class="comment">// ... 对点击的响应 ...</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="常用api">常用api</h2>
+<p><a href="https://cn.vuejs.org/api/built-in-directives#v-model">vue内置指令</a> 常用的用v-bind,v-model,v-if,v-for等，语法都很符合直觉 在组合式 API 中，通过setup脚本块来初始化需要的数据和函数(包括响应式状态)，常用 <a href="https://cn.vuejs.org/api/reactivity-core.html#ref"><code>ref()</code></a> 函数来声明响应式状态：<code>const count = ref(0)</code> 脚本中访问count的值需要解包，即通过<code>count.value</code>访问，但在模板块中可以自动解包(只有顶级的 ref 属性才会被解包，被包裹在一个列表中的ref不会解包)</p>
+<div class="note info"><p>vue3提供两种声明响应式变量的方法，reactive和ref，由于响应式都是通过某种代理变量的方法实现的，因此不严谨地说,ref的代理能力更强一点，这包括：</p>
+<ul>
+<li>ref支持基本数据类型 + 引用数据类型(对象和数组) ;reactive只支持引用数据类型</li>
+<li>ref重新分配一个新对象不会失去响应;reactive会</li>
+<li>还有其他一些场合reactive会失去响应……</li>
+</ul>
+<p>因此现在的官方文档中更推荐使用ref</p>
+</div>
+<p>要在组件模板中访问 ref，需要从组件的 <code>setup()</code> 函数中声明并返回它们：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; ref &#125; <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="comment">// `setup` 是一个特殊的钩子，专门用于组合式 API。</span></span><br><span class="line">  <span class="title function_">setup</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> count = <span class="title function_">ref</span>(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 将 ref 暴露给模板</span></span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      count</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>计算属性 ref</strong>：形如以下的ref，<code>computed()</code> 方法期望接收一个 <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Functions/get#description">getter 函数</a>，返回值为一个<strong>计算属性 ref</strong>，用法类似数据的ref，与function的区别是能追踪响应式状态，且响应式状态不改变就不会重新计算</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> publishedBooksMessage = <span class="title function_">computed</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> author.<span class="property">books</span>.<span class="property">length</span> &gt; <span class="number">0</span> ? <span class="string">&#x27;Yes&#x27;</span> : <span class="string">&#x27;No&#x27;</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h2 id="路由">路由</h2>
+<p>创建： <code>history</code> 选项控制了路由和 URL 路径是如何双向映射的,详见<a href="https://router.vuejs.org/zh/guide/essentials/history-mode.html">不同的历史记录模式</a></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createMemoryHistory, createRouter &#125; <span class="keyword">from</span> <span class="string">&#x27;vue-router&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">HomeView</span> <span class="keyword">from</span> <span class="string">&#x27;./HomeView.vue&#x27;</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">AboutView</span> <span class="keyword">from</span> <span class="string">&#x27;./AboutView.vue&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> routes = [</span><br><span class="line">  &#123; <span class="attr">path</span>: <span class="string">&#x27;/&#x27;</span>, <span class="attr">component</span>: <span class="title class_">HomeView</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">path</span>: <span class="string">&#x27;/about&#x27;</span>, <span class="attr">component</span>: <span class="title class_">AboutView</span> &#125;,</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> router = <span class="title function_">createRouter</span>(&#123;</span><br><span class="line">  <span class="attr">history</span>: <span class="title function_">createMemoryHistory</span>(),</span><br><span class="line">  routes,</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>路由作为一个插件被使用： <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> app = <span class="title function_">createApp</span>(<span class="title class_">App</span>)</span><br><span class="line">app.<span class="title function_">use</span>(router)</span><br><span class="line">app.<span class="title function_">mount</span>(<span class="string">&#x27;#app&#x27;</span>)</span><br></pre></td></tr></table></figure> 组合式api中，用<code>useRouter() ;useRoute()</code>两个函数获取路由器实例和当前路由；组件 <code>RouterView</code> 和 <code>RouterLink</code> 都是<a href="https://cn.vuejs.org/guide/components/registration.html#global-registration">全局注册</a>的，可以直接调用，最简单地做法是APP.vue直接整个渲染当前路径的<code>RouterView</code> routes可以使用参数或者正则匹配，详见官网文档</p>
+<h2 id="pinia"><a href="https://pinia.vuejs.org/zh/">Pinia</a></h2>
+<p>Pinia 是 Vue 的专属状态管理库,可以帮助我们管理共享状态，也就是一些我们希望定义在组件外部，全局可用的状态<br />
+引入：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createApp &#125; <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span></span><br><span class="line"><span class="keyword">import</span> &#123; createPinia &#125; <span class="keyword">from</span> <span class="string">&#x27;pinia&#x27;</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">App</span> <span class="keyword">from</span> <span class="string">&#x27;./App.vue&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> pinia = <span class="title function_">createPinia</span>()</span><br><span class="line"><span class="keyword">const</span> app = <span class="title function_">createApp</span>(<span class="title class_">App</span>)</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">use</span>(pinia)</span><br><span class="line">app.<span class="title function_">mount</span>(<span class="string">&#x27;#app&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<h1 id="nodejs">nodejs</h1>
+<p><a href="https://juejin.cn/post/7002106372200333319">一文吃透异步I/O和事件循环</a> <a href="https://juejin.cn/post/6994224541312483336">Commonjs 和 Es Module</a></p>
+<h2 id="异步">异步</h2>
+<p>nodejs是单线程执行的, 但对于io操作一般使用异步, 也就是对常见的网络开发来说, axios等网络请求库都可以异步进行<br />
+先从最基础的文件io说起:</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//同步写法:</span></span><br><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">&#x27;fs&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> data = fs.<span class="title function_">readFilesync</span>(<span class="string">&#x27;./file.js&#x27;</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(data);</span><br><span class="line"></span><br><span class="line"><span class="comment">//异步写法:</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">&#x27;fs&#x27;</span>);</span><br><span class="line">fs.<span class="title function_">readFile</span>(<span class="string">&#x27;./file.js&#x27;</span> (err,data)=&gt;&#123;</span><br><span class="line">    <span class="variable language_">console</span>.1og(err,data) </span><br><span class="line">&#125;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>Nodejs 内部使用了线程池来处理异步 I/O 任务，线程池中会有多个 I/O 线程来同时处理异步的 I/O 操作, 流程如下图所示</p>
+<p><img src="/assets/ml/3d885c28bf5f450c97f543232b155000~tplv-k3u1fbpfcp-zoom-in-crop-mark_1512_0_0_0.webp" /></p>
+<p>node内部有一套事件系统, 不同的事件定义(也就是定时器, nectTick等操作)有不同的周期, 事件处理不断地周期进行, 例如对定时器, 在对应阶段检查最新的定时器是否到时间,若到时间则触发</p>
+]]></content>
+      <categories>
+        <category>其他</category>
+      </categories>
+      <tags>
+        <tag>web</tag>
+        <tag>vue</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>具身智能论文阅读笔记</title>
     <url>/thinklive/52409/</url>
     <content><![CDATA[<p>关于具身智能领域的论文</p>
@@ -1188,6 +1257,7 @@ NLMap(grid): 如果想直接辨别图像里的物品, 则可以使用 <code>clas
 <li><code>analyze_objects</code>: 根据查询分析场景图各个节点的物体信息</li>
 <li><code>analyze_frame</code>: 根据查询重新分析图像, 尝试找到之前未检测的物体</li>
 </ol>
+<p>VLM自己选择更新场景图直到认为自己能完成任务</p>
 <h2 id="stage-2-summary">stage 2 summary</h2>
 <p>这阶段主要查找了一些各种各样的数据存储和检索方式, 包括一篇关于具身智能领域数据存储领域的综述<br />
 stage1 中看的文章大多是语义地图中比较常见的拓扑图形式, 拓扑图的节点存储物理位置, 嵌入向量或是文本描述以及点云信息<br />
@@ -17037,67 +17107,6 @@ HTTP面向文本，报文中的每个字段都是一些ASCII码串，并且每�
 ]]></content>
   </entry>
   <entry>
-    <title>基于vue文档的笔记</title>
-    <url>/thinklive/6217/</url>
-    <content><![CDATA[<h1 id="前置知识">前置知识</h1>
-<h2 id="es">ES</h2>
-<p>ES modules 是原生 JavaScript 提供的模块功能，逐渐被更多的浏览器支持<br />
-形如：</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">&lt;script type=<span class="string">&quot;module&quot;</span>&gt;</span><br><span class="line">&lt;!-- something --&gt;    </span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">import &#123; x,y &#125; from &#x27;./module.js</span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h1 id="vue基础">vue基础</h1>
-<h2 id="应用">应用</h2>
-<p>每个 Vue 应用都是通过createApp函数创建一个新的应用实例，例如：</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createApp &#125; <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">App</span> <span class="keyword">from</span> <span class="string">&#x27;./App.vue&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> app = <span class="title function_">createApp</span>(&#123;<span class="title class_">App</span>&#125;)</span><br></pre></td></tr></table></figure>
-<p>createApp 的对象实际上是一个组件，每个应用都需要一个“根组件”，其他组件将作为其子组件，最后得到一个树状结构</p>
-<h2 id="模板">模板</h2>
-<p>当根组件没有设置 template 选项时，Vue 将自动使用容器的 innerHTML 作为模板<br />
-模板中可以使用<a href="https://cn.vuejs.org/api/built-in-directives">指令</a>，指令由 v- 作为前缀，表明它们是一些由 Vue 提供的特殊 attribute,指令最常用的功能是绑定html属性到某个元素<br />
-双大括号会将数据解释为纯文本，而不是 HTML。若想插入 HTML，需要使用 v-html 指令：<br />
-<code>&lt;span v-html="rawHtml"&gt;&lt;/span&gt;&lt;/p&gt;</code></p>
-<p>想要响应式地绑定一个 attribute，应该使用 v-bind 指令<code>&lt;div v-bind:id="dynamicId"&gt;&lt;/div&gt;</code><br />
-简写语法为：<code>&lt;div :id="dynamicId"&gt;&lt;/div&gt;</code> 同名简写(3.4以上版本):<code>&lt;div :id&gt;&lt;/div&gt;</code> js表达式支持:<br />
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">&#123;&#123; number + <span class="number">1</span> &#125;&#125;</span><br><span class="line">&#123;&#123; ok ? <span class="string">&#x27;YES&#x27;</span> : <span class="string">&#x27;NO&#x27;</span> &#125;&#125;</span><br><span class="line">&#123;&#123; message.<span class="title function_">split</span>(<span class="string">&#x27;&#x27;</span>).<span class="title function_">reverse</span>().<span class="title function_">join</span>(<span class="string">&#x27;&#x27;</span>) &#125;&#125;</span><br><span class="line">&lt;div :id=<span class="string">&quot;`list-$&#123;id&#125;`&quot;</span>&gt;&lt;/div&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
-<h2 id="响应式">响应式</h2>
-<p>选项式api使用data 选项来声明组件的响应式状态。此选项的值应为返回一个对象的函数<br />
-在 Vue 3 中，数据是基于<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Proxy">JavaScript Proxy</a> 实现响应式的,也就是通过一个代理来更新对象状态，vue3中原始对象不会变成响应式代理<br />
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="title function_">data</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      <span class="attr">count</span>: <span class="number">0</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">methods</span>: &#123;</span><br><span class="line">    <span class="title function_">increment</span>(<span class="params"></span>) &#123;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">count</span>++</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="title function_">mounted</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="comment">// 在其他方法或是生命周期中也可以调用方法</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="title function_">increment</span>()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure> Vue 自动为 methods 中的方法绑定了<strong>永远指向组件实例</strong>的 this,且嵌套的对象变化也能相应，也就是类似json的格式可以随意修改<br />
-当你修改了响应式状态时，DOM 会被自动更新。但是需要注意的是，DOM 更新不是同步的。Vue 会在“next tick”更新周期中缓冲所有状态的修改，以确保不管你进行了多少次状态修改，每个组件都只会被更新一次</p>
-<p>创建有自己状态的方法：<br />
-如果需要多个有独立状态的方法，则要在created期间创建这样的函数：</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="title function_">created</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="comment">// 每个实例都有了自己的预置防抖的处理函数</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">debouncedClick</span> = _.<span class="title function_">debounce</span>(<span class="variable language_">this</span>.<span class="property">click</span>, <span class="number">500</span>)</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="title function_">unmounted</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="comment">// 最好是在组件卸载时</span></span><br><span class="line">    <span class="comment">// 清除掉防抖计时器</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">debouncedClick</span>.<span class="title function_">cancel</span>()</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">methods</span>: &#123;</span><br><span class="line">    <span class="title function_">click</span>(<span class="params"></span>) &#123;</span><br><span class="line">      <span class="comment">// ... 对点击的响应 ...</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h2 id="常用api">常用api</h2>
-<p><a href="https://cn.vuejs.org/api/built-in-directives#v-model">vue内置指令</a> 常用的用v-bind,v-model,v-if,v-for等，语法都很符合直觉 在组合式 API 中，通过setup脚本块来初始化需要的数据和函数(包括响应式状态)，常用 <a href="https://cn.vuejs.org/api/reactivity-core.html#ref"><code>ref()</code></a> 函数来声明响应式状态：<code>const count = ref(0)</code> 脚本中访问count的值需要解包，即通过<code>count.value</code>访问，但在模板块中可以自动解包(只有顶级的 ref 属性才会被解包，被包裹在一个列表中的ref不会解包)</p>
-<div class="note info"><p>vue3提供两种声明响应式变量的方法，reactive和ref，由于响应式都是通过某种代理变量的方法实现的，因此不严谨地说,ref的代理能力更强一点，这包括：</p>
-<ul>
-<li>ref支持基本数据类型 + 引用数据类型(对象和数组) ;reactive只支持引用数据类型</li>
-<li>ref重新分配一个新对象不会失去响应;reactive会</li>
-<li>还有其他一些场合reactive会失去响应……</li>
-</ul>
-<p>因此现在的官方文档中更推荐使用ref</p>
-</div>
-<p>要在组件模板中访问 ref，需要从组件的 <code>setup()</code> 函数中声明并返回它们：</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; ref &#125; <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="comment">// `setup` 是一个特殊的钩子，专门用于组合式 API。</span></span><br><span class="line">  <span class="title function_">setup</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> count = <span class="title function_">ref</span>(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 将 ref 暴露给模板</span></span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      count</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>计算属性 ref</strong>：形如以下的ref，<code>computed()</code> 方法期望接收一个 <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Functions/get#description">getter 函数</a>，返回值为一个<strong>计算属性 ref</strong>，用法类似数据的ref，与function的区别是能追踪响应式状态，且响应式状态不改变就不会重新计算</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> publishedBooksMessage = <span class="title function_">computed</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> author.<span class="property">books</span>.<span class="property">length</span> &gt; <span class="number">0</span> ? <span class="string">&#x27;Yes&#x27;</span> : <span class="string">&#x27;No&#x27;</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<h2 id="路由">路由</h2>
-<p>创建： <code>history</code> 选项控制了路由和 URL 路径是如何双向映射的,详见<a href="https://router.vuejs.org/zh/guide/essentials/history-mode.html">不同的历史记录模式</a></p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createMemoryHistory, createRouter &#125; <span class="keyword">from</span> <span class="string">&#x27;vue-router&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">HomeView</span> <span class="keyword">from</span> <span class="string">&#x27;./HomeView.vue&#x27;</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">AboutView</span> <span class="keyword">from</span> <span class="string">&#x27;./AboutView.vue&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> routes = [</span><br><span class="line">  &#123; <span class="attr">path</span>: <span class="string">&#x27;/&#x27;</span>, <span class="attr">component</span>: <span class="title class_">HomeView</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">path</span>: <span class="string">&#x27;/about&#x27;</span>, <span class="attr">component</span>: <span class="title class_">AboutView</span> &#125;,</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> router = <span class="title function_">createRouter</span>(&#123;</span><br><span class="line">  <span class="attr">history</span>: <span class="title function_">createMemoryHistory</span>(),</span><br><span class="line">  routes,</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<p>路由作为一个插件被使用： <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> app = <span class="title function_">createApp</span>(<span class="title class_">App</span>)</span><br><span class="line">app.<span class="title function_">use</span>(router)</span><br><span class="line">app.<span class="title function_">mount</span>(<span class="string">&#x27;#app&#x27;</span>)</span><br></pre></td></tr></table></figure> 组合式api中，用<code>useRouter() ;useRoute()</code>两个函数获取路由器实例和当前路由；组件 <code>RouterView</code> 和 <code>RouterLink</code> 都是<a href="https://cn.vuejs.org/guide/components/registration.html#global-registration">全局注册</a>的，可以直接调用，最简单地做法是APP.vue直接整个渲染当前路径的<code>RouterView</code> routes可以使用参数或者正则匹配，详见官网文档</p>
-<h2 id="pinia"><a href="https://pinia.vuejs.org/zh/">Pinia</a></h2>
-<p>Pinia 是 Vue 的专属状态管理库,可以帮助我们管理共享状态，也就是一些我们希望定义在组件外部，全局可用的状态<br />
-引入：</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createApp &#125; <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span></span><br><span class="line"><span class="keyword">import</span> &#123; createPinia &#125; <span class="keyword">from</span> <span class="string">&#x27;pinia&#x27;</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">App</span> <span class="keyword">from</span> <span class="string">&#x27;./App.vue&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> pinia = <span class="title function_">createPinia</span>()</span><br><span class="line"><span class="keyword">const</span> app = <span class="title function_">createApp</span>(<span class="title class_">App</span>)</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">use</span>(pinia)</span><br><span class="line">app.<span class="title function_">mount</span>(<span class="string">&#x27;#app&#x27;</span>)</span><br></pre></td></tr></table></figure>
-<h2 id="section"></h2>
-]]></content>
-      <categories>
-        <category>其他</category>
-      </categories>
-      <tags>
-        <tag>web</tag>
-        <tag>vue</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>一些剧情向游戏杂谈</title>
     <url>/thinklive/36218/</url>
     <content><![CDATA[<p>本文是对游戏杂谈的一个汇总</p>
@@ -23754,8 +23763,8 @@ Inexpensive Disk）由美国加州大学伯克利分校提出。<br />
       <tags>
         <tag>课程笔记</tag>
         <tag>数据结构与算法</tag>
-        <tag>c++</tag>
         <tag>斯坦福</tag>
+        <tag>c++</tag>
       </tags>
   </entry>
   <entry>
@@ -33554,8 +33563,8 @@ val（r1，c1）&lt; val（r1，c2）≤ val（r2，c2）&lt; val（r2，c1）<b
         <category>其他</category>
       </categories>
       <tags>
-        <tag>读书笔记</tag>
         <tag>c++</tag>
+        <tag>读书笔记</tag>
       </tags>
   </entry>
   <entry>
@@ -33616,8 +33625,8 @@ used the next time std::cin &gt;&gt; is called<br />
       </categories>
       <tags>
         <tag>课程笔记</tag>
-        <tag>c++</tag>
         <tag>斯坦福</tag>
+        <tag>c++</tag>
       </tags>
   </entry>
   <entry>
