@@ -43,7 +43,7 @@
 <meta property="og:image" content="https://thinklive1.github.io/assets/ml/52243716-045d-4e27-ad0c-0e84593fee81.png">
 <meta property="og:image" content="https://datawhalechina.github.io/easy-rl/img/ch2/2.10.png">
 <meta property="article:published_time" content="2025-09-09T07:53:29.840Z">
-<meta property="article:modified_time" content="2025-10-31T05:04:34.308Z">
+<meta property="article:modified_time" content="2025-11-02T06:05:10.790Z">
 <meta property="article:author" content="thinklive">
 <meta property="article:tag" content="伯克利">
 <meta property="article:tag" content="课程笔记">
@@ -213,7 +213,7 @@ const darkmode = new Darkmode(options);
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">基础概念</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AD%96%E7%95%A5%E6%A2%AF%E5%BA%A6"><span class="nav-number">1.1.</span> <span class="nav-text">策略梯度</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E5%92%8C%E6%94%B9%E8%BF%9B"><span class="nav-number">1.1.1.</span> <span class="nav-text">问题和改进</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8D%E8%A6%81%E6%80%A7%E9%87%87%E6%A0%B7"><span class="nav-number">1.1.2.</span> <span class="nav-text">重要性采样</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#actor-critic"><span class="nav-number">1.2.</span> <span class="nav-text">actor-critic</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#off-policy-a-c"><span class="nav-number">1.2.1.</span> <span class="nav-text">off-policy a-c</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9B%B4%E5%A5%BD%E7%9A%84-baseline"><span class="nav-number">1.2.2.</span> <span class="nav-text">更好的 baseline</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E4%BB%B7%E5%80%BC%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">1.3.</span> <span class="nav-text">基于价值的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%94%B6%E6%95%9B%E6%80%A7"><span class="nav-number">1.3.1.</span> <span class="nav-text">收敛性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B1%80%E9%99%90"><span class="nav-number">1.3.2.</span> <span class="nav-text">局限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%94%B9%E8%BF%9B"><span class="nav-number">1.3.3.</span> <span class="nav-text">改进</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9E%E7%BB%AD%E5%8A%A8%E4%BD%9C"><span class="nav-number">1.3.4.</span> <span class="nav-text">连续动作</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E8%BF%87%E7%A8%8B"><span class="nav-number">1.4.</span> <span class="nav-text">马尔可夫过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%B3%E7%AD%96"><span class="nav-number">1.4.1.</span> <span class="nav-text">决策</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%87%E4%BB%BD%E5%9B%BE"><span class="nav-number">1.4.2.</span> <span class="nav-text">备份图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%AD%E4%BB%A3"><span class="nav-number">1.4.3.</span> <span class="nav-text">迭代</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AD%96%E7%95%A5%E8%BF%AD%E4%BB%A3"><span class="nav-number">1.4.3.1.</span> <span class="nav-text">策略迭代</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%B7%E5%80%BC%E8%BF%AD%E4%BB%A3"><span class="nav-number">1.4.3.2.</span> <span class="nav-text">价值迭代</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%8D%E6%A8%A1%E5%9E%8B%E6%96%B9%E6%B3%95"><span class="nav-number">1.5.</span> <span class="nav-text">免模型方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%92%99%E7%89%B9%E5%8D%A1%E6%B4%9B"><span class="nav-number">1.5.1.</span> <span class="nav-text">蒙特卡洛</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%B6%E5%BA%8F%E5%B7%AE%E5%88%86"><span class="nav-number">1.5.2.</span> <span class="nav-text">时序差分</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%90%86%E8%AE%BA%E9%97%AE%E9%A2%98"><span class="nav-number">1.6.</span> <span class="nav-text">理论问题</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B"><span class="nav-number">2.</span> <span class="nav-text">模型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A8%A1%E4%BB%BF%E5%AD%A6%E4%B9%A0"><span class="nav-number">3.</span> <span class="nav-text">模仿学习</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">基础概念</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AD%96%E7%95%A5%E6%A2%AF%E5%BA%A6"><span class="nav-number">1.1.</span> <span class="nav-text">策略梯度</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E5%92%8C%E6%94%B9%E8%BF%9B"><span class="nav-number">1.1.1.</span> <span class="nav-text">问题和改进</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8D%E8%A6%81%E6%80%A7%E9%87%87%E6%A0%B7"><span class="nav-number">1.1.2.</span> <span class="nav-text">重要性采样</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#actor-critic"><span class="nav-number">1.2.</span> <span class="nav-text">actor-critic</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#off-policy-a-c"><span class="nav-number">1.2.1.</span> <span class="nav-text">off-policy a-c</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9B%B4%E5%A5%BD%E7%9A%84-baseline"><span class="nav-number">1.2.2.</span> <span class="nav-text">更好的 baseline</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E4%BB%B7%E5%80%BC%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">1.3.</span> <span class="nav-text">基于价值的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%94%B6%E6%95%9B%E6%80%A7"><span class="nav-number">1.3.1.</span> <span class="nav-text">收敛性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B1%80%E9%99%90"><span class="nav-number">1.3.2.</span> <span class="nav-text">局限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%94%B9%E8%BF%9B"><span class="nav-number">1.3.3.</span> <span class="nav-text">改进</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9E%E7%BB%AD%E5%8A%A8%E4%BD%9C"><span class="nav-number">1.3.4.</span> <span class="nav-text">连续动作</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E4%BC%98%E6%8E%A7%E5%88%B6"><span class="nav-number">1.4.</span> <span class="nav-text">最优控制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E8%BF%87%E7%A8%8B"><span class="nav-number">1.5.</span> <span class="nav-text">马尔可夫过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%B3%E7%AD%96"><span class="nav-number">1.5.1.</span> <span class="nav-text">决策</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%87%E4%BB%BD%E5%9B%BE"><span class="nav-number">1.5.2.</span> <span class="nav-text">备份图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%AD%E4%BB%A3"><span class="nav-number">1.5.3.</span> <span class="nav-text">迭代</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AD%96%E7%95%A5%E8%BF%AD%E4%BB%A3"><span class="nav-number">1.5.3.1.</span> <span class="nav-text">策略迭代</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%B7%E5%80%BC%E8%BF%AD%E4%BB%A3"><span class="nav-number">1.5.3.2.</span> <span class="nav-text">价值迭代</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%8D%E6%A8%A1%E5%9E%8B%E6%96%B9%E6%B3%95"><span class="nav-number">1.6.</span> <span class="nav-text">免模型方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%92%99%E7%89%B9%E5%8D%A1%E6%B4%9B"><span class="nav-number">1.6.1.</span> <span class="nav-text">蒙特卡洛</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%B6%E5%BA%8F%E5%B7%AE%E5%88%86"><span class="nav-number">1.6.2.</span> <span class="nav-text">时序差分</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%90%86%E8%AE%BA%E9%97%AE%E9%A2%98"><span class="nav-number">1.7.</span> <span class="nav-text">理论问题</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B"><span class="nav-number">2.</span> <span class="nav-text">模型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A8%A1%E4%BB%BF%E5%AD%A6%E4%B9%A0"><span class="nav-number">3.</span> <span class="nav-text">模仿学习</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -322,7 +322,7 @@ const darkmode = new Darkmode(options);
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-10-31 13:04:34" itemprop="dateModified" datetime="2025-10-31T13:04:34+08:00">2025-10-31</time>
+      <time title="修改时间：2025-11-02 14:05:10" itemprop="dateModified" datetime="2025-11-02T14:05:10+08:00">2025-11-02</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -348,14 +348,14 @@ const darkmode = new Darkmode(options);
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>11k</span>
+      <span>12k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>40 分钟</span>
+      <span>42 分钟</span>
     </span>
 </div>
 
@@ -540,14 +540,30 @@ Q 可以写为当前(s, a)的回报加上基于未来状态分布的 V 的期望
 从而: <span class="math inline">\(\quad\arg\operatorname*{max}_{\mathbf{a}}Q_{\phi}(\mathbf{s},\mathbf{a})=\mu_{\phi}(\mathbf{s})\qquad\quad\operatorname*{max}_{\mathbf{a}}Q_{\phi}(\mathbf{s},\mathbf{a})=V_{\phi}(\mathbf{s})\)</span><br />
 这样以降低表达能力为代价, 得到了高效取max的方法<br />
 以及, 训练一个独立的网络来取max, 有点类似于a-c</p>
+<h2 id="最优控制">最优控制</h2>
+<p>这一章的目的在于为基于模型的rl做铺垫, 这里先引入几个名词:</p>
+<ol type="1">
+<li>最优控制(optimal control): 即控制一个系统达到一个最优指标, 在rl中就是回报最大化</li>
+<li>system dynamic: 即系统根据行动其状态会怎么变化</li>
+<li>closed/open-loop 闭/开环控制: 简单地说, 闭环指的是做出行动后会得到行动后的系统状态, 用于下一次行动, 开环则相反, 做出行动后并不知道之后会发生什么; 根据定义来看, 很明显rl一般是闭环的, 如果不知道采取行动后的状态, 就很难进行学习</li>
+<li>控制领域常用x,u表示rl中的s,a, 用c(cost)表示成本, 最小化成本而不是最大化回报</li>
+</ol>
+<p>本章中, 我们假设s-d完全已知, 无论状态转移是确定还是基于概率的, 基于概率的情况下需要最大化的是期望回报<br />
+最简单的做法是之前提到过的随机取k个样本取其中的最佳, 对其的改进是<code>Cross-Entropy Method(cem)</code>, cem让每次的k个取样服从一个分布例如高斯分布, 使用最大似然来拟合分布, 让分布去拟合那些有更高值的数据<br />
+基于采样的方法在工程上很实用, 但一旦遇到比较多的维度即比较复杂的情况, 效果就不行了<br />
+另一个常见方法是蒙特卡洛(<code>Monte Carlo tree search (MCTS)</code>), 也就是状态为节点, 动作与其对应回报作为边的树, 根据这个树先选择一个状态, 然后选择一个行动进行, 一路记录回报来更新树, 如此迭代<br />
+具体策略上有很多选择, 这里暂且略过<br />
+选定一个初始的(x,u)对, 最小化之后的cost, 这称为<code>shotting method(s-m)</code>, 下面引入一个经典场景: 线性的状态转移二次的c<br />
+<span class="math display">\[f(\mathbf{x}_{t},\mathbf{u}_{t})=\mathbf{F}_{t}\left[\begin{array}{l}{ {\mathbf{x}_{t}}}\\ { {\mathbf{u}_{t}}}\end{array}\right]+\mathbf{f}_{t}\]</span><br />
+<span class="math display">\[c({\bf x}_{t},{\bf u}_{t})={\frac{1}{2}}\left[\begin{array}{c}{ { {\bf x}_{t}}}\\ { { {\bf u}_{t}}}\end{array}\right]^{T}{\bf C}_{t}\left[\begin{array}{c}{ { {\bf x}_{t}}}\\ { { {\bf u}_{t}}}\end{array}\right]+\left[\begin{array}{c}{ { {\bf x}_{t}}}\\ { { {\bf u}_{t}}}\end{array}\right]^{T}{\bf c}_{t}\]</span></p>
 <h2 id="马尔可夫过程">马尔可夫过程</h2>
 <p>马尔可夫过程中, 对一个特定状态则有一个特定的未来状态概率分布（可以理解为策略）, 很容易算出之后的期望回报<br />
 即, 如果我们希望知道一个特定状态是好是坏, 可以定义状态价值 V 为其回报的期望, 即从这个状态开始, 折扣 γ 的指数与之后回报乘积的和, V 与回报 G 的区别是, V 绑定一个特定的状态 s, 即某个 s 开始的之后获取的回报的期望<br />
 t 时刻后的回报为：<br />
 <span class="math display">\[G_{t}=r_{t+1}+\gamma r_{t+2}+\gamma^{2}r_{t+3}+\gamma^{3}r_{t+4}+\ldots+\gamma^{T-t-1}r_{T}\]</span> 状态 s 的价值为：<br />
 <span class="math display">\[\begin{array}{l}{ {V^{t}(s)=\mathbb{E}\left[G_{t}\mid s_{t}=s\right]} }\\ { {\ } }\\ { {=\mathbb{E}\left[r_{t+1}+\gamma r_{t+2}+\gamma^{2}r_{t+3}+.\cdot.+\gamma^{T-t-1}r_{T}\mid s_{t}=s\right]} }\end{array}\]</span><br />
-即给定 <span class="math inline">\(s_t = s\)</span> 这个条件后的 Gt 期望</p>
-<p>实际训练中概率没法直接看出来, 符合常识的想法是靠采样估算, 也就是可以对采样的多组数据取平均值, 这称为 <code>蒙特卡洛(Monte Carlo,MC)采样</code><br />
+即给定 <span class="math inline">\(s_t = s\)</span> 这个条件后的 Gt 期望<br />
+实际训练中概率没法直接看出来, 符合常识的想法是靠采样估算, 也就是可以对采样的多组数据取平均值, 这称为 <code>蒙特卡洛(Monte Carlo,MC)采样</code><br />
 另一种方法是贝尔曼方程, 这一方程常用于动态规划, 使用下个状态的价值来更新之前状态, 写作：<br />
 <span class="math display">\[ V(s)=R(s) + \gamma\sum_{s^{\prime}\in S}p\left(s^{\prime}\mid s\right)V\left(s^{\prime}\right)  \]</span> <code>s′</code> 可以看成未来的某个状态, <code>p(s′|s)</code> 是指从当前状态转移到未来状态的概率。<code>V (s′)</code> 代表的是未来某一个状态的价值, <code>R(s)</code> 为 s 的奖励组成的向量<br />
 贝尔曼方程的证明：<br />
@@ -726,14 +742,14 @@ off-policy 则有所不同, 它让训练模型和互动的模型分开, 从而�
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">625k</span>
+    <span title="站点总字数">626k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">37:53</span>
+    <span title="站点阅读时长">37:55</span>
   </span>
 </div>
 <div class="busuanzi-count">
