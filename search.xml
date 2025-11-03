@@ -81,398 +81,6 @@
 ]]></content>
   </entry>
   <entry>
-    <title>强化学习笔记 all in one</title>
-    <url>/thinklive/37185/</url>
-    <content><![CDATA[<p><a href="https://rail.eecs.berkeley.edu/deeprlcourse/">cs285</a></p>
-<span id="more"></span>
-<h1 id="基础概念">基础概念</h1>
-<p>强化学习和监督学习的区别：</p>
-<ol type="1">
-<li>强化学习输入的样本是序列数据, 监督学习的样本之间相互独立</li>
-<li>没有明确的监督者, 通过奖励机制进行学习, 但回馈可能是长期的, 模糊的</li>
-</ol>
-<p>一些强化学习的演示视频中, ai 会做一些人类看来无意义的动作, 正是这种“玄学”的回馈机制导致的</p>
-<ul>
-<li>actor: 行为主体
-<ul>
-<li>action 则可分为离散和连续, 例如 2d 游戏中走格子迷宫就是一个典型的离散动作空间</li>
-</ul></li>
-<li>observaton o /states s: 观测与状态
-<ul>
-<li>观测到的情况 o 和现实情况（状态 s）其实有可能不同, 假设可以观察到全景, rl 则成为一个马尔科夫决策过程</li>
-</ul></li>
-<li>policy π: 行为策略
-<ul>
-<li>带有参数 θ</li>
-</ul></li>
-<li>reward：反馈
-<ul>
-<li>baseline: 避免总是正值的 reward, 增加的偏置值, 例如取期望</li>
-</ul></li>
-<li>episode: 一轮行动</li>
-<li>trajectory τ: <span class="math inline">\(\tau=\{s_{1},a_{1},s_{2},a_{2},\cdots,s_{T},a_{T}\}\)</span></li>
-<li>折扣 γ: 直觉上, 最开始的训练回馈可能更重要, 越往后则训练收益越小, 所以对每步的回馈可以乘以一个 <span class="math inline">\(\gamma^{t-1}\)</span>, t 为训练次数, 这个超参数也可以用于控制训练策略偏短期还是偏长期</li>
-</ul>
-<p>流程： env(s1)-&gt; actor(a1)-&gt; env(s2)……<br />
-
-$\begin{array}{l}{ {p_{\theta}(\tau)} }{ { {}=p(s_{1})p_{\theta}(a_{1}|s_{1})p(s_{2}|s_{1},a_{1})p_{\theta}(a_{2}|s_{2})p(s_{3}|s_{2},a_{2})\cdots} } \\   =p(s_{1})\prod_{t=1}^{T}p_{\theta}(a_{t}|s_{t})p(s_{t+1}|s_{t},a_{t})\end{array}$  
-</p>
-<p>同一轮中每对(s, a)产生一个 reward, 其期望为: <span class="math inline">\(\bar{R}_{\theta}=\sum_{\tau}R(\tau)p_{\theta}(\tau)=E_{\tau\cap P_{\theta}(\tau)}[R(\tau)]\)</span></p>
-<h2 id="策略梯度">策略梯度</h2>
-<p>rl 的目标就是找一个最大化期望回报的策略 π, 等价于找到最好的策略参数 θ, 可以使用和机器学习类似的梯度下降, 只不过这个梯度比较特殊，下面引用 cs285 的 ppt:</p>
-<p><img src="/assets/ml/image-24.png" /> <img src="/assets/ml/image-23.png" /> 上图 1 中的 J 表示根据确定的 θ 和 π, 得到的轨迹 τ 对应回报的期望, 使用一个 trick, 将概率的梯度转为其自身和 log 梯度的乘积, 这是为了凑出数学期望的形式<br />
-再看上图 2, 其实 τ 的概率是一系列 a, s 概率的乘积, 对其 log 转为加法, 得到的项中, 终于根据 s 得到 a 的概率是和 θ 有关的(这也完全符合常识), 于是最后我们所求的梯度其实只有对 π 求微分这个计算量比较大的项<br />
-为什么我们想要数学期望的形式？ 因为对此我们可以通过大量采样的平均来估算，例如对 J 就可以用 n 个轨迹回报的均值估算, 而对 J 的梯度, 类似地有:</p>
-<p><span class="math display">\[\nabla_{\theta}J(\theta)\approx\frac{1}{N}\sum_{i=1}^{N}\left(\sum_{t=1}^{T}\nabla_{\theta}\log\pi_{\theta}({\bf a}_{i,t}|{\bf s}_{i,t})\right)\left(\sum_{t=1}^{T}r({\bf s}_{i,t},{\bf a}_{i,t})\right)\]</span><br />
-这个式子看上去有点吓人，其实它只是单纯地用旧策略的 log 梯度乘对应的回报值, 也就是说在进行若干轮采样后, 总体上好的回报, 就加上(当然这里有一个学习率超参数)对应的好的参数, 坏的回报就减去坏的参数<br />
-再考虑一下这个梯度的数学性质, 首先很明显的是, 回报和的绝对值越大, 更新幅度就会越大, 这很符合常识, 但同时, 考虑 log 的性质, 对较小的值其导数的绝对值越大, 也就是说对一个策略 π 来说, 其不怎么倾向于采取的动作反而会得到更多的更新梯度, 这可以视为一种 exploration<br />
-此外，对部分可观测的马尔科夫假设, 这里不作具体推导, 但只要把上面的 s 换成 o 就能沿用梯度策略<br />
-和 log 函数的很多应用场景一样, 这里实际上可以理解为分类问题, 因为模型输出的动作是有限的, 策略最后产生的是动作空间中的概率分布, 稍微不同的是需要乘回报值, 并且要分很多轮训练</p>
-<h3 id="问题和改进">问题和改进</h3>
-<p>基于策略梯度的训练方式非常直观，但相应地也有问题, 即它结果会非常不稳定<br />
-我们寻找的策略会不断往最高的回报前进, 这取决于我们每轮采样的回报, 这里我们其实是希望得到相对最优的一个目标, 但如果假设我们得到回报的相对倾向性较稳定, 但不同采样的绝对差距较大, 就会导致虽然以最优化策略为目标，最后得到的参数却相差非常大(方差大)的情况</p>
-<ol type="1">
-<li>因果关系: 这基于一个永恒的真理, 未来不会影响过去, 在 rl 中也就是说： 时间 t'之后得到的回报无论是好是坏都不该影响 t'之前的策略，对应在之前的方法中, 就是让回报总和一项从 t 开始计算:<br />
-这听起来有点绕, 举个例子, 打对战游戏的前 t 把都输了, 于是 t+1 把转变思路赢了游戏, 假如按未改进的版本, 由于前 t 把输得太多，最后所有 t+1 局游戏的回报还是负的, 因此第 t+1 把的思路也是错的, 但是 t+1 把的思路的回报是正的, 也就是说这时的思路是正确的, 对游戏策略理应有正确影响，按改进后的方法, 我们认为 t+1 局的游戏思路期望回报为正</li>
-</ol>
-<p><span class="math display">\[\nabla_{\theta}J(\theta)\approx\frac{1}{N}\sum_{i=1}^{N}\left(\sum_{t=1}^{T}\nabla_{\theta}\log\pi_{\theta}({\bf a}_{i,t}|{\bf s}_{i,t})\right)\left(\sum_{t&#39;=t}^{T}r({\bf s}_{i,t&#39;},{\bf a}_{i,t&#39;})\right)\]</span></p>
-<p>由于这里我们减少了回报的绝对值大小，因此其 θ 最后的方差必然会缩减, 但这么做对期望是无偏的(对策略梯度加减任何常数偏移值， 都会保持无偏), 也就是不会改变更新梯度，相当于只改变了其系数(回报和)的大小</p>
-<ol start="2" type="1">
-<li>baseline</li>
-</ol>
-<p>我们的目的是找到最优化的策略参数, 实际上只要回报为正, 就会加上对应参数的梯度, 这种更新策略其实是“找到回报为正的参数”, 还是拿打游戏举例子, 如果目标是打到全国第一, 那么和低水平对手的对局, 就算赢了这局的思路也不值得学习<br />
-因此可以考虑将总回报减去一个 baseline, 简称为 b, b 一般取回报的平均值<br />
-事实上，这对梯度的期望是无偏的， 即减去 b 和不减去两者的梯度一致, 但会减少方差, 最优的 b 可以通过对方差算关于 b 的极值求出来, 由于不太常用省去过程, 最优 b 为:</p>
-<p><span class="math display">\[b={\frac{E[g(\tau)^{2}r(\tau)]}{E[g(\tau)^{2}]}}\]</span></p>
-<h3 id="重要性采样">重要性采样</h3>
-<p>策略梯度是 on-policy 的, 也就是每次需要收集数据才能更新, 数据与策略是绑定的, 这样的缺点是更新很慢，效率低<br />
-如果想用 off-policy, 则需要重要性采样</p>
-<div class="pdf-container" data-target="/assets/ml/rl_lec5.pdf" data-height="800px"></div>
-<p>暂时忽略被划掉的一项(这是因为我们不想让这种指数级别的项增大方差) 尽可能简单地说明为什么要用这种采样方法: 不谈证明, 但是重要性采样有个性质是不会改变采样的均值(期望), 只会改变方差, 一般来说会将其用于改进采样的方差, 和名字一样, 可以理解为用不同的重要性对一个分布采样, 也就是分布不变，只改变采样方式, 来获得符合要求的采样数据<br />
-但在策略梯度中, 问题在于我们改进过程中策略的分布和原始数据时的分布是不同的， 想实现 off-policy, 就需要用来自不同策略的数据来改进当前策略, 所以我们需要重要性采样这样的技巧, 不太严谨地说， 将不同策略的数据转化为当前策略的数据并用于训练， 又或者理解为用不同策略的数据计算对当前策略的更新梯度</p>
-<p>此外对策略梯度还有的问题是, 对不同的参数 θ, 其梯度的数量级可能完全不同，需要进行一定约束, 例如约束 θ 分布前后的散度, 从而平衡不同方向的更新速率<br />
-这方面具体实现上比较复杂，暂时只需要知道大概原理即可</p>
-<h2 id="actor-critic">actor-critic</h2>
-<p>由类似我们前文提到的 baseline 思想, 定义 A(advantage)= Q-V, 也就是状态动作对的期望奖励-状态的期望奖励, 这个标准能评估对当前状态来说, 采取的动作是好是坏<br />
-我们可以将 A 替代掉之前的期望回报, 但需要注意的是, 由于实际中很多时候 A 是估算的, 这会带来方差的优化，但很可能让更新梯度有偏; 尽管如此, 一般我们还是认为拿大量减少方差换一些偏见是划算的<br />
-Q 可以写为当前(s, a)的回报加上基于未来状态分布的 V 的期望, 可以用直接的 <span class="math inline">\(s_{t+1}\)</span> 近似这个期望, 写成 <span class="math inline">\(Q^{\pi}(\mathbf{s}_{t},\mathbf{a}_{t})\approx r(\mathbf{s}_{t},\mathbf{a}_{t})+V^{\pi}(\mathbf{s}_{t+1})\)</span> , 于是:<br />
-<span class="math display">\[A^{\pi}(\mathbf{s}_{t},\mathbf{a}_{t})\approx r(\mathbf{s}_{t},\mathbf{a}_{t})+V^{\pi}(\mathbf{s}_{t+1})-V^{\pi}(\mathbf{s}_{t})\]</span> <span class="math display">\[\nabla_{\theta}J(\theta)\approx\frac{1}{N}\nabla_{i=1}^{N}\sum_{t=1}^{T}\Sigma_{\theta}\log\pi_{\theta}({\bf a}_{i,t}|{\bf s}_{i,t})A^{\pi}({\bf s}_{i,t},{\bf a}_{i,t})\]</span> 这种近似的好处是, 相比涉及动作空间的 Q, V 更好计算, 近似后我们唯一需要算的就是 V 了, 而之前的 term: <code>J</code>, 可以视为根据初始状态 s1 分布的 V(s1)的期望; 此外, 由于只用一个样本估算, 也能减少方差<br />
-对 V 来说最方便的估算就是使用蒙特卡洛方法, 尤其在模拟环境或者电子游戏之类的场景下, 可以大量采样 <span class="math inline">\(V^{\pi}(\mathbf{s}_{t})\approx\sum_{t^{\prime}=t}^{T}r(\mathbf{s}_{t^{\prime}},\mathbf{a}_{t^{\prime}})\)</span><br />
-但也可以使用一个估算函数, 即 <code>function approximation</code>, 这是个典型的监督回归问题, 可以用神经网络解决, 数据集为 n 轮训练中的 <span class="math inline">\(s_{i,t}\)</span> 与其对应的从 t 开始的回报和 <span class="math inline">\(\left\{\left({\bf s}_{i,t},r({\bf s}_{i,t},{\bf a}_{i,t})+\hat{V}_{\phi}^{\pi}({\bf s}_{i,t+1})\right)\right\}\)</span> , loss 设置为平方误差和 <span class="math inline">\(\mathcal{L(\phi)}=\frac{1}{2}\sum_{i}\left|\left|\hat{V}_{\phi}^{\pi}(\mathbf{s}_{i})-y_{i}\right|\right|^{2}\)</span><br />
-基于神经网络的方法的好处是, 网络能一定程度上捕获数据间的关系, 由一定的泛化能力, 也就是可能能够平滑化输出的结果, 即类似的状态应该有类似的期望回报, 从而减少方差; 缺点则是不能保证是无偏的</p>
-<p>以上我们提到的方法就是标题里的 a-c, 如果我们再引入一个折扣因子，就可以表述为以下的流程:</p>
-<p><img src="/assets/ml/image-25.png" /></p>
-<p>这个版本的 a-c 其实非常好理解, 它就是用一个单独的神经网络预测 V，用于帮助另一个训练策略 π 的网络<br />
-但问题在于这两个网络只有输入是相同的(s), 其特征是完全分开的, 这可能让它的性能受限, 一种改进是共享网络, 即用一个网络接受 s，同时生成 V 和 π<br />
-目前的这个版本是 on-line 的, 这就意味着, 每次只能用一个数据来更新网络, 如果想实现 batch， 则需要并行化, 具体来说可以分为同步异步两种情况<br />
-<img src="/assets/ml/image-26.png" /> 如上图, 同步的情况很好理解, 就是每次让一群线程获取行动后的数据, 每次都同步更新<br />
-异步的情况下, 不同线程可能有不同的运行速度, 并各自用收集到的数据更新网络参数, 这样的效率更好, 但缺点是, 较慢的线程更新时可能遇上新版本的 actor, 也就是说会有这种用非当前 actor 的数据更新它的问题, 当然一般来说因为线程之间的速度不会有特别大的差别, 影响相对不大</p>
-<h3 id="off-policy-a-c">off-policy a-c</h3>
-<p>在 off-policy 情况下, 存储之前的状态转移数据为 <code>replay buffer</code>, 这些数据可能来自于很久之前的策略, 这会带来两个问题:</p>
-<ol type="1">
-<li>批评家对 V 的评估是基于旧策略的</li>
-<li>策略更新时使用的策略梯度也是来自于旧策略的</li>
-</ol>
-<p>对此, 我们可以把 V 给扔掉, 转向 Q 函数, <span class="math inline">\({ Q}^{\pi}(\mathrm{s}_{t}, a_t)\stackrel{\_}{=}\sum_{t^{\prime}=t}^T E_{\pi_{\theta}}\ [r(\mathrm{s}_{t^{\prime}},a_{t^{\prime}})]\mathrm{s}_{t}, a_{t}]\)</span> 那么为什么要这么做? 考虑一下现在我们有什么数据, 即来自旧策略下的 V 函数, V 函数的意义是, 各个状态的期望回报, 也就是我们知道各个状态的价值, 而这些价值相对来说不会随着策略变动而改变<br />
-新策略相比旧策略改动的只有给定 s 条件下 a 的分布, 也就是说给定旧策略的 s, 可以查到在新策略在相同给定状态 s 下产生的动作概率分布, 从而算出新策略对应的 Q 函数<br />
-于是 off-line 方法可以写成:</p>
-<p><img src="/assets/ml/image-27.png" /> 其中, <span class="math inline">\(a_{i}&#39;\)</span> 与 <span class="math inline">\(a_{i}^{\pi}\)</span> 是根据 <span class="math inline">\(s_{i}&#39;\)</span> 从新策略中产生的动作<br />
-实际中一般用 Q 代替之前的 A，这是因为这种方法能提供大量样本, 从而弥补方差的问题<br />
-那么 offline 是毫无损失的方法吗? 其实并不是, 因为对来自旧策略的旧状态 s 我们无能为力, 这必然会产生一些偏差, 但基本来说处于可以接受的范围内</p>
-<h3 id="更好的-baseline">更好的 baseline</h3>
-<p>上面提到, 基于神经网络的评论家能实现有偏下的低方差, 策略梯度则是无偏的高方差, 那么有办法得到无偏的低方差更新梯度吗?<br />
-下图展示一种估计策略梯度的方法, 它基于一个原理, 对梯度乘以任何一个值依赖状态而不依赖动作的函数，都能保持无偏, 选取价值函数作为 baseline, 由于我们希望估计的就是 V 的期望，选择价值函数作为 baseline 应当能大量减少方差</p>
-<p><img src="/assets/ml/image-28.png" /> 那么如果用 Q 函数作为基线呢? 如果这样的话, 理论上讲我们要求的 A 会在 0 的上下浮动, 这样不是能让方差达到理想情况吗? 但问题在于, 由于这样不无偏, 那就需要加上一个误差修正项, 我们将得到一个吓人的式子:</p>
-<p><span class="math display">\[\nabla_{\theta}J(\theta)\approx\frac{1}{N}\sum_{i=1}^{N}\sum_{t=1}^{T}\nabla_{\theta}\log\pi_{\theta}({\bf a}_{i,t}|{\bf s}_{i,t})\left(\hat{Q}_{i,t}-Q_{\phi}^{\pi}({\bf s}_{i,t},{\bf a}_{i,t})\right) +\frac{1}{N}\sum_{i=1}^{N}\sum_{t=1}^{T}\nabla_{\theta}E_{\mathrm{a}\sim\pi_{\theta}({\bf a}_{t}|{\bf s}_{i,t})}\left[Q_{\phi}^{\pi}({\bf s}_{i,t},{\bf a}_{t})\right]\]</span><br />
-这个式子看起来似乎根本用不了, 但其实也有技巧能用成本可控的方式估计误差修正项</p>
-<p>还有一种比较常见的思路是取 n 步的回报，由于越往后数据越可能发散, 这样也能降低方差, 这里不多介绍</p>
-<h2 id="基于价值的方法">基于价值的方法</h2>
-<p>最直观的说, 策略就是从动作空间中选一个最佳的动作, 这个最佳一般用 Q 函数表示, 而 Q 依赖于 V, 从 Q 或者 V 的角度出发, 强化学习的问题就是选择一个最佳的 Q 与其对应的 A, 再有足够样本的情况下, 估算 Q 可以用 V 矩阵实现, 因此这称为基于价值的方法(value-based v-b)<br />
-很明显, 现实中经常有很大或者无穷的动作空间, 因此基于表格的 V-B 不现实, 类似之前的 a-c, 可以训练一个估计 Q 函数的网络, 定义其 loss 为: <span class="math inline">\(\mathcal{L}(\phi)=\frac{1}{2}\left|\left|V_{\phi}(\mathbf{s})-\operatorname*{max}Q^{\pi}(\mathbf{s},\mathbf{a})\right|\right|^{2}\)</span><br />
-但是如果我们想迭代 Q, 还有一个严峻的问题： 状态转移的概率很难得到, 因为 Q 由本轮回报与之后的根据未来状态分布的 V(s')的期望相加组成, 而未来状态的分布, 也就是根据策略 π 采取行动后的 s'我们是不知道的, 于是我们用其他的(a, s', a')样本来估计未来的 Q 期望, 也就是：<br />
-<span class="math inline">\(Q^{\pi}({\bf s},{\bf a})\leftarrow r({\bf s},{\bf a})+\gamma E_{ {\bf s}^{\prime}\sim p({\bf s}^{\prime}|{\bf s},{\bf a})}[Q^{\pi}({\bf s}^{\prime},\pi({\bf s}^{\prime}))]\)</span><br />
-为什么可以这么做? 或者说, 为什么策略的变化在这样的学习中似乎不重要? 这是因为在这种方法下策略就是选取最大化 Q 的动作, 也就是说策略由 Q 来定义, 而不是 Q 受策略影响, 不严谨地说, 可以认为 Q 的地位高于策略</p>
-<p>稍微总结一下训练步骤, 对 V 来说:</p>
-<p><span class="math display">\[\begin{array}{l}{ {1.\;\;\mathrm{set}\;{\bf{y}}_{i}\:\leftarrow\;\mathrm{max_{a_{i}}}(r({\bf{s}}_{i},{\bf{a}}_{i})+\gamma E[V_{\phi}({\bf{s}}_{i}^{\prime})])}}\\ { {2.\;\;\mathrm{set}\;\phi\:\leftarrow\;\mathrm{arg~min}_{\phi}\:\frac{1}{2}\:\sum_{i}\|V_{\phi}({\bf{s}}_{i})-{\bf{y}}_{i}\|^{2}}}\end{array}\]</span></p>
-<p>于是对 Q 的计算:</p>
-<p><span class="math display">\[\begin{array}{l}{ {1.\;\;\mathrm{set}\;\:{\mathrm{y}}_{i}\:\leftarrow\:r(\mathrm{s}_{i},{\bf a}_{i})+\gamma{ E}[V_{\phi}(\mathrm{s}_{i}^{\prime})]}}\\ { {2.\;\;\mathrm{set}\;\:\phi\:\leftarrow\:\mathrm{arg\,min}_{\phi}\:\frac{1}{2}\:\sum_{i}||{\cal Q}_{\phi}(\mathrm{s}_{i},{\bf a}_{i})-{\bf y}_{i}||^{2}}}\end{array}\]</span></p>
-<p>也就是说, 由于我们定义策略为选择 Q 最大的 A, 那么相应的状态 s 的动作空间中最佳的 Q 就是状态 s 的期望价值<br />
-由于没有麻烦的策略梯度, 以上的 v-b 有较小的方差, 但还有一个问题是, 对神经网络的方法它不保证收敛性</p>
-<p>对训练 Q 的神经网络来说, 应用上述的用 Q 估算 V 的思想, 步骤为:</p>
-<p><span class="math display">\[\begin{array}{l} {\mathrm{1.~collect~dataset~\{(s_{i},{\bf a}_{i},{\bf s}_{i}^{\prime},r_{i})\}~u{\mathrm{sing~some~policy}}}} \\ { {2.~\mathrm{set~yi}\leftarrow r({\bf s}_{i},{\bf a}_{i})+\gamma\mathrm{max_{a^{\prime}}}\,Q_{\phi}({\bf s}_{i}^{\prime},{\bf a}_{i}^{\prime})}} \\ { {3.~\mathrm{set~}\phi\leftarrow\mathrm{arg\,min}_{\phi}\ {\frac{1}{2}} { \Sigma_{i}|\vert{\cal Q}_{\phi}({\bf s}_{i},{\bf a}_{i})-{\bf y}_{i}}}\vert\vert^{2}}\end{array}\]</span></p>
-<p>这种方法称为 <code>full fitted Q-iteration algorithm</code>, 其中 2.3.可以执行 k 次确保其更好地迭代</p>
-<p>以上这个简单的方法就是最基础的 off-policy on-line 的 Q 学习, 这个方法有一个非常明显的问题, 由于它的策略不包括任何概率, 是完全决定性的, 而迭代过程是贪心的, 因此在迭代中如果有一些错误或者不好的数据集，很容易就会陷入一个表现较差且无法进一步迭代的循环里<br />
-因此, 尤其是对最开始的一批数据, 我们希望能增加一些随机性, 最简单的方法就是对原来的策略加一层随机, 称为 <span class="math inline">\(\epsilon\)</span> 贪心:</p>
-<p><span class="math display">\[\pi({\bf a}_{t}|{\bf s}_{t})=\left\{\begin{array}{l}{ {1-\epsilon\mathrm{~if~}{\bf a}_{t}=\arg\mathrm{max}_{ {\bf a}_{t}}Q_{\phi}({\bf s}_{t},{\bf a}_{t})}}\\ { {\epsilon/(|A|-1)\mathrm{~otherwise}}}\end{array}\right.\]</span></p>
-<p>另一种常见方法称为 <code>Boltzmann exploration（波尔兹曼探索)</code>, 即 <span class="math inline">\(\pi({\bf a}_{t}|{\bf s}_{t})\propto\exp(Q_{\phi}({\bf s}_{t},{\bf a}_{t}))\)</span> 这种策略的好处是能根据 Q 的好坏加权策略, 如果是 Q 都比较高的行动, 概率不会相差太大, 而 Q 很低的行动则几乎不会被采取</p>
-<h3 id="收敛性">收敛性</h3>
-<p>接下来尝试证明 V-B 方法是否收敛</p>
-<p><img src="/assets/ml/image-29.png" /></p>
-<p>首先问题定义如图, B(back-up)操作用于根据给定 V 找到一个最好的动作, <code>V*</code> 则是一个最终的最优解, 也就是其回报与转移状态的价值期望之和在所有动作中最大<br />
-也就是说, 如果用 B 操作不断迭代, 能到达 <code>V*</code> 状态, 就说明 v-b 是收敛的<br />
-直观地, 我们有以下性质:<br />
-<span class="math display">\[{\mathrm{for~any~}}V{\mathrm{~and~}}{\bar{V}},{\mathrm{~we~have~}}||B V-B{\bar{V}}||\infty\leq\gamma||V-{\bar{V}}||\infty\]</span><br />
-于是:<br />
-<span class="math display">\[\|B V-V^{*}\|_{\infty}\leq\gamma\|V-V^{*}\|_{\infty}\]</span></p>
-<p>这样的证明省略了很多东西, 但对 cs 来说已经足够了, 事实上, 基于不断取最大值这个操作, 基于表格(矩阵/向量)的 v-b 收敛是很符合直觉的<br />
-那么对基于神经网络回归的 v-b 呢? 这个问题稍微有点麻烦, 将 nn 能产出的价值全集定义为 <span class="math inline">\(\Omega\)</span>, 事实上由于基于线性拟合与目前这个损失函数, nn 做的其实是个最小二乘法, 实际产生的 V'是理想 V 在 Ω 上的一个投影<br />
-对任意两个点 a, b 对一条直线的投影点 c, d, ab, cd 直接的距离 l1, l2 来说, 始终有 l1≥l2, 我们可以简单地构建一个直角三角形证明这点, 对 ab 不与直线平行的情况, ab 是斜边, cd 是直角边<br />
-我们将投影操作定义为 π, 则有 <span class="math display">\[\|\Pi V-\Pi{\bar{V}}\|^{2}\leq\|V-{\bar{V}}\|^{2}\]</span><br />
-而现在的问题是, π 和 B 都有我们很想要的收缩性质, 但如果同时存在这两种操作, 就不保证收缩了<br />
-<img src="/assets/ml/image-30.png" /> 上图给出了一个很形象的例子, 由此我们证明基于 nn 的 v-b 不一定收敛<br />
-对于 Q 学习, 实际上也差不多<br />
-这有点像所谓的合成谬误, 我们有能让策略变好的贪心方法, 还有最小二乘法与梯度下降, 为什么加到一起后结果却不一定变好?<br />
-事实上, 我们训练的这个回归网络并不是真正地使用了梯度下降, 见下图<br />
-<img src="/assets/ml/image-31.png" /> 对同样和参数有关的 yi, 我们并没有计算梯度, 当然也可以计算(<code>Residual Gradient</code>), 但由于计算量太大, 这么做在工程上很不实用<br />
-还有一个悲伤的消息是, 之前的 a-c 也不保证收敛</p>
-<h3 id="局限">局限</h3>
-<p>目前版本的 q 学习是一个随着时间收集数据的 on-line 方法, 除了效率问题外, 由于数据在时间上过于接近, 很可能产生过拟合问题, 类似策略梯度, 可以对其进行离线改进, 并且由于 q 学习的策略不那么重要, 可以说它很适合离线学习<br />
-另一种方法称为 <code>replay buffers</code>, 简单地说就是去掉收集数据的步骤, 对一个巨大的数据池，每次随机取样用来不断进行预测和模型更新, 更新若干轮后再产生一些新数据放入 buffers 池</p>
-<p><img src="/assets/ml/image-32.png" /></p>
-<p>上图展示了目前为止的 q 学习步骤, 按经验来说一般 k 设置很小, 而 n 较大, 这会带来一个问题, 即更新模型参数的周期中, 早期采样数据 "落后(lag)" 得少, 而随着训练进行就会有很多落后很久的数据, 为了避免这个问题, 使用以下的更新方式<br />
-<span class="math inline">\(\begin{array}{c c}{ {\mathrm{update}~\phi^{\prime};~\phi^{\prime}\leftarrow\tau\phi^{\prime}+(1-\tau)\phi}}&amp;{ {\qquad\qquad\tau=0.999~\mathrm{works~well}}}\end{array}\)</span><br />
-为了减少上述伪梯度的影响, 对更新梯度, 我们用整体更新前的目标网络生成的 max 参数来更新临时网络参数<br />
-以上的伪代码写作单线程迭代的形式, 但其实由于目标网络在一整批数据后才更新, 上述过程可以并行进行, 也就是用于规模庞大的深度学习中, 即(DQN Deep Q-Network) 此外, 对于整个 buffer 的维护, 由于 buffer 存在上限, 那么就必然需要一个“驱逐”机制, 一个简单的思路是采用环形 buffer, 使用以上机制的一个 dpo 流程可以表示为下图:</p>
-<p><img src="/assets/ml/image-33.png" /></p>
-<p>不同的 q 学习对 3 个 process 各有侧重:</p>
-<ol type="1">
-<li>online q learning: process1,2,3 have same speed</li>
-<li>DQN: process 1,3 have same speed, process 2 is slow, buffer is large</li>
-<li>fitted q-iteration: process 3 在 process 2 的内循环中, process 2 在 process1 的内循环中</li>
-</ol>
-<h3 id="改进">改进</h3>
-<p>实际的 q 学习中, 有一个神奇的现象, q 的估计器整体性地高估 q 的值, 而不是在真实值的上下浮动<br />
-对任意两个随机变量 x1, x2, 有如下不等式:<br />
-<span class="math inline">\(E[\operatorname*{max}(X_{1},X_{2})]\geq\operatorname*{max}(E[X_{1}],E[X_{2}])\)</span><br />
-也就是直观地说, 取 max 的范围越大, 这个 max 倾向越大的值, 而我们在取 Q 函数的估计时，会不断用过往的最高 q 值来更新模型, 而这个过往的 q 可能来自于某个误差, 假设这个误差来自于随机高斯分布, 有正有负, 由于我们总取最大值, 那么正误差的值就会被倾向于被用来更新<br />
-如何解决这个问题？一个想法是, 将 q 的评估和更新分开, 称为 <code>double q-learning</code> , 其更新步骤为: <span class="math inline">\(Q_{\phi_{A}}(\mathrm{s},\mathbf{a})\leftarrow r+\gamma Q_{\phi_{B}}(\mathrm{s}^{\prime},\mathrm{arg~max}\,Q_{\phi_{A}}(\mathrm{s}^{\prime},\mathbf{a}^{\prime}))\)</span><br />
-实际中, 我们正好有目标网络和训练网络两个网络, 可以用作这里的 A 和 B, 当然由于这两个网络其实会经常合并, 这样理论上还有问题, 但一般来说实际中效果尚可<br />
-另一个方法称为 <code>multi-step returns</code>, 上面提到过 q 学习的迭代初期可能有非常糟糕的表现, 此时我们更看重采取某个动作后的回报值, 这个问题比较类似 a-c, 可以用多步的回报值解决(在 a-c 中我们用这个办法缓解策略更新的高方差), 即将更新步骤设置为: <span class="math inline">\(y_{j,t}=\sum_{l^{\prime}=t}^{t+N-1}\gamma^{t-t^{\prime}}r_{j,t^{\prime}}+\gamma^{N}\operatorname*{max}_{\Omega_{k},t+N}Q_{\phi^{\prime}}(\mathbf{s}_{j,t+N,\,\Omega_{j,t+N}})\)</span><br />
-此外, 这种方法会让训练必须是 on-policy 的, 因为这 n 步的策略必须是被固定的, 当然, 也可以当做这个问题不存在, 毕竟理论上 n 不大的话策略不会改变太多, 又或者实现类似之前的重要性采样</p>
-<h3 id="连续动作">连续动作</h3>
-<p>连续动作空间的麻烦在于, 如何处理取 Qmax 的操作, 一个基于直觉的想法是梯度下降找机制, 但这样显然计算量很大<br />
-为了提高效率, 一个简单的做法是对 Q 随机取 n 个样, 选一个最大值, 这称为 <code>stochastic optimization</code> ; 这种方法有一些改版, 例如通过交叉熵优化采样<br />
-另一个不依赖随机的做法是, 用有数值解的函数来表示Q函数, 例如二次函数: <span class="math inline">\(Q_{\phi}({\bf s},{\bf a})=-\frac{1}{2}({\bf a}-\mu_{\phi}({\bf s}))^{T}P_{\phi}({\bf s})({\bf a}-\mu_{\phi}({\bf s}))+V_{\phi}({\bf s})\)</span><br />
-从而: <span class="math inline">\(\quad\arg\operatorname*{max}_{\mathbf{a}}Q_{\phi}(\mathbf{s},\mathbf{a})=\mu_{\phi}(\mathbf{s})\qquad\quad\operatorname*{max}_{\mathbf{a}}Q_{\phi}(\mathbf{s},\mathbf{a})=V_{\phi}(\mathbf{s})\)</span><br />
-这样以降低表达能力为代价, 得到了高效取max的方法<br />
-以及, 训练一个独立的网络来取max, 有点类似于a-c</p>
-<h2 id="最优控制">最优控制</h2>
-<p>这一章的目的在于为基于模型的rl做铺垫, 这里先引入几个名词:</p>
-<ol type="1">
-<li>最优控制(optimal control): 即控制一个系统达到一个最优指标, 在rl中就是回报最大化</li>
-<li>system dynamic: 即系统根据行动其状态会怎么变化</li>
-<li>closed/open-loop 闭/开环控制: 简单地说, 闭环指的是做出行动后会得到行动后的系统状态, 用于下一次行动, 开环则相反, 做出行动后并不知道之后会发生什么; 根据定义来看, 很明显rl一般是闭环的, 如果不知道采取行动后的状态, 就很难进行学习</li>
-<li>控制领域常用x,u表示rl中的s,a, 用c(cost)表示成本, 最小化成本而不是最大化回报</li>
-</ol>
-<p>本章中, 我们假设s-d完全已知, 无论状态转移是确定还是基于概率的, 基于概率的情况下需要最大化的是期望回报<br />
-最简单的做法是之前提到过的随机取k个样本取其中的最佳, 对其的改进是<code>Cross-Entropy Method(cem)</code>, cem让每次的k个取样服从一个分布例如高斯分布, 使用最大似然来拟合分布, 让分布去拟合那些有更高值的数据<br />
-基于采样的方法在工程上很实用, 但一旦遇到比较多的维度即比较复杂的情况, 效果就不行了<br />
-另一个常见方法是蒙特卡洛(<code>Monte Carlo tree search (MCTS)</code>), 也就是状态为节点, 动作与其对应回报作为边的树, 根据这个树先选择一个状态, 然后选择一个行动进行, 一路记录回报来更新树, 如此迭代<br />
-具体策略上有很多选择, 这里暂且略过<br />
-选定一个初始的(x,u)对, 最小化之后的cost, 这称为<code>shotting method(s-m)</code>, 下面引入一个经典场景: 线性的状态转移二次的c<br />
-<span class="math display">\[f(\mathbf{x}_{t},\mathbf{u}_{t})=\mathbf{F}_{t}\left[\begin{array}{l}{ {\mathbf{x}_{t}}}\\ { {\mathbf{u}_{t}}}\end{array}\right]+\mathbf{f}_{t}\]</span><br />
-<span class="math display">\[c({\bf x}_{t},{\bf u}_{t})={\frac{1}{2}}\left[\begin{array}{c}{ { {\bf x}_{t}}}\\ { { {\bf u}_{t}}}\end{array}\right]^{T}{\bf C}_{t}\left[\begin{array}{c}{ { {\bf x}_{t}}}\\ { { {\bf u}_{t}}}\end{array}\right]+\left[\begin{array}{c}{ { {\bf x}_{t}}}\\ { { {\bf u}_{t}}}\end{array}\right]^{T}{\bf c}_{t}\]</span></p>
-<h2 id="马尔可夫过程">马尔可夫过程</h2>
-<p>马尔可夫过程中, 对一个特定状态则有一个特定的未来状态概率分布（可以理解为策略）, 很容易算出之后的期望回报<br />
-即, 如果我们希望知道一个特定状态是好是坏, 可以定义状态价值 V 为其回报的期望, 即从这个状态开始, 折扣 γ 的指数与之后回报乘积的和, V 与回报 G 的区别是, V 绑定一个特定的状态 s, 即某个 s 开始的之后获取的回报的期望<br />
-t 时刻后的回报为：<br />
-<span class="math display">\[G_{t}=r_{t+1}+\gamma r_{t+2}+\gamma^{2}r_{t+3}+\gamma^{3}r_{t+4}+\ldots+\gamma^{T-t-1}r_{T}\]</span> 状态 s 的价值为：<br />
-<span class="math display">\[\begin{array}{l}{ {V^{t}(s)=\mathbb{E}\left[G_{t}\mid s_{t}=s\right]} }\\ { {\ } }\\ { {=\mathbb{E}\left[r_{t+1}+\gamma r_{t+2}+\gamma^{2}r_{t+3}+.\cdot.+\gamma^{T-t-1}r_{T}\mid s_{t}=s\right]} }\end{array}\]</span><br />
-即给定 <span class="math inline">\(s_t = s\)</span> 这个条件后的 Gt 期望<br />
-实际训练中概率没法直接看出来, 符合常识的想法是靠采样估算, 也就是可以对采样的多组数据取平均值, 这称为 <code>蒙特卡洛(Monte Carlo,MC)采样</code><br />
-另一种方法是贝尔曼方程, 这一方程常用于动态规划, 使用下个状态的价值来更新之前状态, 写作：<br />
-<span class="math display">\[ V(s)=R(s) + \gamma\sum_{s^{\prime}\in S}p\left(s^{\prime}\mid s\right)V\left(s^{\prime}\right)  \]</span> <code>s′</code> 可以看成未来的某个状态, <code>p(s′|s)</code> 是指从当前状态转移到未来状态的概率。<code>V (s′)</code> 代表的是未来某一个状态的价值, <code>R(s)</code> 为 s 的奖励组成的向量<br />
-贝尔曼方程的证明：<br />
-
-$$\begin{array}{l}{ {V(s)=\mathbb{E}\left[G_{t}\mid s_{t}=s\right]} }\\ { {=\mathbb{E}\left[r_{t+1}+\gamma r_{t+2}+\gamma^{2}r_{t+3}+...\mid s_{t}=s\right]} }\\ { {=\mathbb{E}\left[r_{t+1}\right|s_{t}=s]+\gamma\mathbb{E}\left[r_{t+2}+\gamma r_{t+3}+\gamma^{2}r_{t+4}+\dots\mid s_{t}=s\right]} }\\ { {=R(s)+\gamma\mathbb{E}[G_{t+1}\left|s_{t}=s\right]} }\end{array}$$
- 下面证明: <span class="math inline">\(\mathbb{E}[V(s_{t+1})|s_{t}]=\mathbb{E}[\mathbb{E}[G_{t+1}|s_{t+1}]|s_{t}]=\mathbb{E}[G_{t+1}|s_{t}]\)</span></p>
-<p>条件期望的定义为：<br />
-<span class="math display">\[\operatorname{\mathbb{E} }[X\mid Y=y]=\sum_{x}x p(X=x\mid Y=y)\]</span></p>
-<p>具体证明：<br />
-<img src="/assets/ml/52243716-045d-4e27-ad0c-0e84593fee81.png" /></p>
-<p>代入之前的等式, 得：</p>
-<p><span class="math display">\[\begin{array}{c}{ {V(s)=R(s)+\gamma\mathbb{E}[V(s_{t+1})|s_{t}=s]} }\\ { {=R(s)+\gamma{\sum\limits_{s^{\prime}\in S} } p\left(s^{\prime}\mid s\right)V\left(s^{\prime}\right)} }\end{array}\]</span></p>
-<p>对单个 s 来说, 贝尔曼方程就是一个向量乘积加上偏移值, 所有的 s 可以写成一个矩阵乘法加上奖励向量的形式:</p>
-<p><span class="math display">\[\begin{array}{c}{ {V=R+\gamma P V} }\\ { {E V=R+\gamma P V} }\\ { {(E-\gamma P)V=R} }\\ { {V=(I-\gamma P)^{-1}R} }\end{array}\]</span></p>
-<p>这个解析解看着很美好, 但涉及到逆矩阵求解, 这是个复杂度 <span class="math inline">\(O(N^3)\)</span> 的问题(单论常用算法), 因此对较大的模型并不实用</p>
-<p>得到 V 的两种方法：</p>
-<ul>
-<li>最简单直接的蒙特卡洛方法, 只需要对某个初始状态采样大量轨迹, 然后取平均值, 既可作为其价值</li>
-<li>不断迭代贝尔曼方程, 直到结果趋向收敛, 这个收敛值即可以作为价值, 即“自举”（Bootstrapping）(利用当前的估计或状态值来更新和改进自身的学习过程)</li>
-</ul>
-<h3 id="决策">决策</h3>
-<p>单纯的马尔可夫过程没有策略的空间, 也就是同时根据当前的状态和动作决定之后的状态分布, 策略可以基于概率或者直接产生特定输出, 如果策略已知, 依然可以通过计算 <span class="math inline">\(\sum_{a\in A}\pi(a\mid s)p\left(s^{\prime}\mid s,a\right)\)</span> 获取状态转移的概率<br />
-也就是说, 通过采样行动, 我们可以得到使用特定策略的特定状态的价值 由于引进了决策, 定义一个 Q 函数, 也被称为动作价值函数(action-value function)。Q 函数定义的是在某一个状态采取某一个动作, 它有可能得到的回报的一个期望 <span class="math display">\[V_{\pi}(s)=\sum_{a\in A}\pi(a\mid s)Q_{\pi}(s,a)\]</span></p>
-<p><span class="math display">\[\begin{array}{r l} {Q(s,a)} &amp;=\mathbb{E}\left[G_{t}\mid s_{t}=s,a_{t}=a\right] \\ &amp;=\mathbb{E}\left[r_{t+1}+\gamma r_{t+2}+\gamma^{2}r_{t+3}+\ldots\mid s_{t}=s,a_{t}=a\right]\\ &amp;{=R(s,a)+\gamma\mathbb{E}[G_{t+1}|s_{t}=s,a_{t}=a]}\\ &amp;{=R(s,a)+\gamma\mathbb{E}[V(s_{t+1})|s_{t}=s,a_{t}=a]}\\ &amp;{=R(s,a)+\gamma\displaystyle\sum_{s^{\prime}\in S}p(s^{\prime}\mid s,a)\,V\left(s^{\prime}\right)} \end{array}\]</span></p>
-<p>可以把状态价值函数和 Q 函数拆解成两个部分: 即时奖励和后续状态的折扣价值, 这样分解后得到一个类似于之前马尔可夫奖励过程的贝尔曼方程——贝尔曼期望方程(<code>Bellman expectation equation</code>):</p>
-<p><span class="math display">\[V_{\pi}(s)=\mathbb{E}_{\pi}\left[r_{t+1}+\gamma V_{\pi}\left(s_{t+1}\right)\mid s_{t}=s\right]\]</span> <span class="math display">\[Q_{\pi}(s,a)=\mathbb{E}_{\pi}\left[r_{t+1}+\gamma Q_{\pi}\left(s_{t+1},a_{t+1}\right)\right.\mid s_{t}=s,a_{t}=a]\]</span></p>
-<h3 id="备份图">备份图</h3>
-<p>以上我们得到了状态和动作的价值, 对某一个 s, 它可能对应多种 a, 确定一个 a 后得到下一个 state, 这其实是一种树状的关系, 因此可以用树形图表示 V 的演变, 称为备份(回溯)图<br />
-<img src="https://datawhalechina.github.io/easy-rl/img/ch2/2.10.png" /></p>
-<p>如图, 每一个空心圆圈代表一个状态, 每一个实心圆圈代表一个状态-动作对<br />
-从叶节点开始向上回溯, 可以得到叶节点上一层的 Q, 然后继续递推, 得到 a 上一层 s 的 V, 这样逐层计算就能得出整张图的状态与动作价值</p>
-<p><a href="https://cs.stanford.edu/people/karpathy/reinforcejs/gridworld_dp.html">可视化学习过程</a></p>
-<h3 id="迭代">迭代</h3>
-<h4 id="策略迭代">策略迭代</h4>
-<p>现在我们有 V 和 Q 这两个工具, 那么假设初始状态, 随便选定一套参数作为策略, 接下来随着训练过程, 不断更新轨迹中各个状态的价值, 由此再得到 Q 函数, 利用 Q 函数更新策略参数, 如此循环, 就可以让策略收敛到较优的性能<br />
-优化过程, 简单地说就是先找到所有状态的 V, 然后根据采样结果以及 V 的分布算出对于各个动作 a 的 Q, 那么对于一个特定的 s, 应该采取的策略需要让价值最高的动作有最高的概率, 如果当做分类问题做, 就可以以交叉熵为 loss 函数做梯度下降<br />
-这样的优化后, 理论上, 各个状态的 V 以及策略产生的 Q 都会更高, 而作为表现指标的初始状态的 V 也会更好<br />
-收敛后, 取让 Q 函数值最大化的动作, Q 函数就会直接变成价值函数, 这称为 <code>贝尔曼最优方程（Bellman optimality equation）</code>: <span class="math inline">\(V_{\pi}(s)=\operatorname*{max}_{a\in A}Q_{\pi}(s,a)\)</span><br />
-满足贝尔曼方程就说明, 这个策略对一个状态, 即使采取理论上的最佳行动, 也不会有更好的效果</p>
-<h4 id="价值迭代">价值迭代</h4>
-<p><code>最优性原理定理（principle of optimality theorem）</code>: 策略在状态 s 达到最优价值, 当且仅当对 s 可达的任何 s', 都已经达到了最优价值, 如果我们找到了初始状态 s 的最优价值, 那么自然就得到了最佳策略<br />
-其过程为：</p>
-<ol type="1">
-<li>初始化: 对所有状态, 设置其价值为 0</li>
-<li>循环直至收敛(k 为迭代次数)：
-<ol type="1">
-<li>对所有 s : <span class="math inline">\(Q_{k+1}(s,a)=R(s,a)+\gamma\sum_{s^{\prime}\in S}p\left(s^{\prime}\mid s,a\right)V_{k}\left(s^{\prime}\right)\)</span></li>
-<li><span class="math inline">\(V_{k+1}(s)=\operatorname*{max}_{a}Q_{k+1}(s,a)\)</span></li>
-</ol></li>
-<li>最优策略 <span class="math inline">\(\pi(s)=\arg\operatorname*{max}_{a}\left[R(s,a)+\gamma\sum_{s^{\prime}\in S}p\left(s^{\prime}\mid s,a\right)V_{H+1}\left(s^{\prime}\right)\right]\)</span></li>
-</ol>
-<p>这可以单纯视为一个规划问题, 有点类似于计网中路由器网络寻找最短跳数, 由于每个状态的最优解都依赖于能到达它的其他状态是否最优, 而我们不知道具体迭代几次所有状态都能到达最优, 所以对每个状态, 不断地计算其能采取的行动的价值, 找到一个最优的 Q 作为其 V, 如果网络中存在没有达到最优的节点, 那么在某轮迭代中它就会被优化, 直到一轮中没有任何优化发生, 才算抵达了最优解<br />
-设想一个类似“终点”的最优状态 s, s 有全局最佳的 V, 只要到达 s 就可以宣告游戏结束, 例如一个跑酷游戏的终点。那么对离 s 一步之遥的 <code>s'</code>, 迭代到它后, s'更新自己的价值为 <code>迈出最后一步(action)的回报+s的价值</code>(为了容易说明, 这里假设迈出这步到达 s 的概率是 1), 如果总共只有这两种状态, 由于 s 不会更好了, s'达到 s 也没有更好的路径, 继续迭代也不会更新, 问题解决了<br />
-再复杂化一点, 假设有若干个状态, 其中 s 是 "终点", 到达 s 的行为会得到一个及其巨大的回报, 那么每次迭代, 可以通过行动到达 s 的 s'就能达到最优解, 这样依次递推, 直到离 s 最远的状态也找到了耗费最少的到达 s 的路径<br />
-当然, 实际上, 很可能不存在这么一个方便的终点, 各个状态间会是互相传递更优解的情况, 但这种迭代的思路不会变化</p>
-<h2 id="免模型方法">免模型方法</h2>
-<h3 id="蒙特卡洛">蒙特卡洛</h3>
-<p>实际情况中有很多不满足马尔科夫条件, 过程中回报难以获得, 或者 action 连续值无法取最佳之类的问题, 也就是说很难做出系统的理论, 因此需要不通过模型进行 rl 的方法。</p>
-<ul>
-<li><code>Q表格</code>: 以采样并记录的方法, 使用平均奖励估算每个状态下每个动作的价值<br />
-</li>
-<li><code>蒙特卡洛方法</code>: 简单地说, 就是大量采样估算状态价值, 简单地列式可得到 <span class="math inline">\(\mu_t=\mu_{t-1}+{\frac{1}{t}}\left(x_{t}-\mu_{t-1}\right)\)</span> 其中 <span class="math inline">\(\mu\)</span> 是到 t 时刻为止的平均值 <span class="math inline">\(x_{t}-\mu_{t-1}\)</span> 称为残差
-<ul>
-<li><code>增量式蒙特卡洛 （incremental MC）</code> : 用增量的方法更新数据 , <span class="math inline">\(\begin{array}{l}{ {N\left(s_{t}\right)\leftarrow N\left(s_{t}\right)+1}}\\ { {V\left(s_{t}\right)\leftarrow V\left(s_{t}\right)+\frac{1}{N(s_{t})}\left(G_{t}-V\left(s_{t}\right)\right)} }\end{array}\)</span> 其中 N 为状态 s 的访问次数</li>
-</ul></li>
-</ul>
-<h3 id="时序差分">时序差分</h3>
-<p>时序差分是免模型的在线算法</p>
-<p><span class="math display">\[ V\left(s_{t}\right)\leftarrow V\left(s_{t}\right)+\alpha\left(r_{t+1}+\gamma V\left(s_{t+1}\right)-V\left(s_{t}\right)\right) \]</span></p>
-<p>其中 <span class="math inline">\(r_{t+1}+\gamma V(s_{t+1})\)</span> 是称为时序差分目标(TD target)</p>
-<p>时序差分误差（TD error）写作:</p>
-<p><span class="math display">\[V\left(s_{t}\right)\leftarrow V\left(s_{t}\right)+\alpha\left(G_{i,t}-V\left(s_{t}\right)\right)\]</span></p>
-<p>时序差分可以更改步数(走几步更新)</p>
-<h2 id="理论问题">理论问题</h2>
-<h1 id="模型">模型</h1>
-<p>可以简单地讲选择 action 理解为分类问题, 损失函数使用交叉熵, 对不同的 s, 我们可能对执行的 action 有不同的期待, 因此可以设置一个损失函数的系数用于控制倾向性<br />
-那么如何定义 reward 呢?最直接的即时 reward 肯定不是最优解, 因此设置一个 Gn 表示 an 行为之后的所有回报和, 但对之后的回报要乘上一个惩罚系数 γ, 其次数逐渐增加; 此外, 可以使用将 G 减去一个 baseline 的值来产生不同行为的倾向性<br />
-rl, 准确地说是 on-policy 的 rl 与常见监督学习不同的是, 其训练资料在更新完一次模型后就无用了, 需要再次与环境互动收集资料<br />
-off-policy 则有所不同, 它让训练模型和互动的模型分开, 从而让经验可复用, 例如 <code>Proximal Policy Optimization(PPO)</code></p>
-<p>Critic actor: 我们希望有一个跟模型参数以及当前状态有关的函数 $ V^(s) $ 表示这种情况下的'价值', 可以理解为某个状态的预期回报<br />
-为了得到这个价值函数, 可以怎么做呢:</p>
-<ul>
-<li>Monte-Carlo(MC): 较为直观的做法, 先训练大量的 s 及其 G 值, 然后用这些资料预测 V</li>
-<li>Temporal-difference (TD): V 函数有以下性质:</li>
-</ul>
-<p><span class="math display">\[\begin{array}{l}{ {V^{\theta}(s_{t})=r_{t}+\gamma r_{t+1}+\gamma^{2}r_{t+2}\ldots} }\\ { {V^{\theta}(s_{t+1})=r_{t+1}+\gamma r_{t+2}+\ldots} }\\ { {V^{\theta}(s_{t})=\gamma V^{\theta}(s_{t+1})+r_{t} } }\end{array}\]</span><br />
-那么 <span class="math display">\[V^{\theta}(s_{t})-\gamma V^{\theta}(s_{t+1})\leftrightarrow r_{t}\]</span><br />
-通过这种关系就可以训练</p>
-<p>现在我们有了 G 和 V, 两者区别是 G 有一个确定的 a, V 则假定 a 是随机的, 那么可以对每个 <span class="math inline">\(\{s_{t},a_{t}\}\)</span> 对, 可以定义一个 <span class="math inline">\(\mathrm{A}_{t}\,=\,G_{t}^{\prime}-V^{\theta}(s_{t})\)</span> , 用于表示这个行为的 "表现"<br />
-也可以用 $r_{t}+V^{}(s_{t+1}) $ 代替上式的 $ G^{'}_t $ , 此式相当于采取行为 <span class="math inline">\(a_t\)</span> 后获得一个特定 <span class="math inline">\(r_t\)</span> 后的预期收益, 这称为 <code>Advantage Actor-Critic</code></p>
-<p><code>Reward Shaping</code>: 对回馈比较模糊或者非常慢的场景来说, 想要好的表现就需要人为规定一些回报机制, 例如对游戏 ai 来说, 就需要惩罚什么都不做的行为(否则机器为了回报不为负就可能消极游戏); 其中一种机制称为 <code>Curiosity</code>, 也就是奖励机器发现新信息的情况</p>
-<p>现实中不是所有情况都可以定义 reward, 此时只能通过人类提供示范来让机器学习, 这样当然会有很多问题, 比如数据集里没有错误示范等, 因此, 可能的思路是通过机器学习来找到 reward 再进行学习<br />
-<code>Inverse Reinforcement Learning</code>: 假设老师行为是最优的, 在每次迭代中:</p>
-<ol type="1">
-<li>actor 与环境互动</li>
-<li>定义一个奖励函数, 满足老师的奖励更优这个条件</li>
-<li>actor 根据这个奖励函数进行学习</li>
-</ol>
-<h1 id="模仿学习">模仿学习</h1>
-<p>缺点:</p>
-<ol type="1">
-<li>人类演示数据可能有很多模式, 不确定性较强, 且很可能不符合马尔科夫假设</li>
-<li>演示数据往往更多倾向于成功的情况, 令模型没有从错误恢复的能力, 导致错误逐渐积累, 最终效果极差</li>
-</ol>
-<p>改进:</p>
-<ol type="1">
-<li>使用 rnn, lstm 等方法，通过上下文学习专家演示数据； 这样的缺点是, 由于 rl 很多场景都有较强的因果特征, 这种情况很可能会错误地归因</li>
-<li>对于人类的复杂行为模式，可以使用多个高斯分布模拟，或者使用潜空间捕获特征(例如标准流); 以及 autoregressive discretization(自回归离散化)</li>
-</ol>
-]]></content>
-      <categories>
-        <category>课程笔记</category>
-      </categories>
-      <tags>
-        <tag>伯克利</tag>
-        <tag>课程笔记</tag>
-        <tag>python</tag>
-        <tag>人工智能</tag>
-        <tag>国立台湾大学</tag>
-        <tag>cs285</tag>
-        <tag>强化学习</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>基于vue文档的笔记</title>
-    <url>/thinklive/6217/</url>
-    <content><![CDATA[<h1 id="前置知识">前置知识</h1>
-<h2 id="es">ES</h2>
-<p>ES modules 是原生 JavaScript 提供的模块功能，逐渐被更多的浏览器支持<br />
-形如：</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">&lt;script type=<span class="string">&quot;module&quot;</span>&gt;</span><br><span class="line">&lt;!-- something --&gt;    </span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">import &#123; x,y &#125; from &#x27;./module.js</span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h1 id="vue基础">vue基础</h1>
-<h2 id="应用">应用</h2>
-<p>每个 Vue 应用都是通过createApp函数创建一个新的应用实例，例如：</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createApp &#125; <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">App</span> <span class="keyword">from</span> <span class="string">&#x27;./App.vue&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> app = <span class="title function_">createApp</span>(&#123;<span class="title class_">App</span>&#125;)</span><br></pre></td></tr></table></figure>
-<p>createApp 的对象实际上是一个组件，每个应用都需要一个“根组件”，其他组件将作为其子组件，最后得到一个树状结构</p>
-<h2 id="模板">模板</h2>
-<p>当根组件没有设置 template 选项时，Vue 将自动使用容器的 innerHTML 作为模板<br />
-模板中可以使用<a href="https://cn.vuejs.org/api/built-in-directives">指令</a>，指令由 v- 作为前缀，表明它们是一些由 Vue 提供的特殊 attribute,指令最常用的功能是绑定html属性到某个元素<br />
-双大括号会将数据解释为纯文本，而不是 HTML。若想插入 HTML，需要使用 v-html 指令：<br />
-<code>&lt;span v-html="rawHtml"&gt;&lt;/span&gt;&lt;/p&gt;</code></p>
-<p>想要响应式地绑定一个 attribute，应该使用 v-bind 指令<code>&lt;div v-bind:id="dynamicId"&gt;&lt;/div&gt;</code><br />
-简写语法为：<code>&lt;div :id="dynamicId"&gt;&lt;/div&gt;</code> 同名简写(3.4以上版本):<code>&lt;div :id&gt;&lt;/div&gt;</code> js表达式支持:<br />
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">&#123;&#123; number + <span class="number">1</span> &#125;&#125;</span><br><span class="line">&#123;&#123; ok ? <span class="string">&#x27;YES&#x27;</span> : <span class="string">&#x27;NO&#x27;</span> &#125;&#125;</span><br><span class="line">&#123;&#123; message.<span class="title function_">split</span>(<span class="string">&#x27;&#x27;</span>).<span class="title function_">reverse</span>().<span class="title function_">join</span>(<span class="string">&#x27;&#x27;</span>) &#125;&#125;</span><br><span class="line">&lt;div :id=<span class="string">&quot;`list-$&#123;id&#125;`&quot;</span>&gt;&lt;/div&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
-<h2 id="响应式">响应式</h2>
-<p>选项式api使用data 选项来声明组件的响应式状态。此选项的值应为返回一个对象的函数<br />
-在 Vue 3 中，数据是基于<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Proxy">JavaScript Proxy</a> 实现响应式的,也就是通过一个代理来更新对象状态，vue3中原始对象不会变成响应式代理<br />
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="title function_">data</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      <span class="attr">count</span>: <span class="number">0</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">methods</span>: &#123;</span><br><span class="line">    <span class="title function_">increment</span>(<span class="params"></span>) &#123;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">count</span>++</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="title function_">mounted</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="comment">// 在其他方法或是生命周期中也可以调用方法</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="title function_">increment</span>()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure> Vue 自动为 methods 中的方法绑定了<strong>永远指向组件实例</strong>的 this,且嵌套的对象变化也能相应，也就是类似json的格式可以随意修改<br />
-当你修改了响应式状态时，DOM 会被自动更新。但是需要注意的是，DOM 更新不是同步的。Vue 会在“next tick”更新周期中缓冲所有状态的修改，以确保不管你进行了多少次状态修改，每个组件都只会被更新一次</p>
-<p>创建有自己状态的方法：<br />
-如果需要多个有独立状态的方法，则要在created期间创建这样的函数：</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="title function_">created</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="comment">// 每个实例都有了自己的预置防抖的处理函数</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">debouncedClick</span> = _.<span class="title function_">debounce</span>(<span class="variable language_">this</span>.<span class="property">click</span>, <span class="number">500</span>)</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="title function_">unmounted</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="comment">// 最好是在组件卸载时</span></span><br><span class="line">    <span class="comment">// 清除掉防抖计时器</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">debouncedClick</span>.<span class="title function_">cancel</span>()</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">methods</span>: &#123;</span><br><span class="line">    <span class="title function_">click</span>(<span class="params"></span>) &#123;</span><br><span class="line">      <span class="comment">// ... 对点击的响应 ...</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h2 id="常用api">常用api</h2>
-<p><a href="https://cn.vuejs.org/api/built-in-directives#v-model">vue内置指令</a> 常用的用v-bind,v-model,v-if,v-for等，语法都很符合直觉 在组合式 API 中，通过setup脚本块来初始化需要的数据和函数(包括响应式状态)，常用 <a href="https://cn.vuejs.org/api/reactivity-core.html#ref"><code>ref()</code></a> 函数来声明响应式状态：<code>const count = ref(0)</code> 脚本中访问count的值需要解包，即通过<code>count.value</code>访问，但在模板块中可以自动解包(只有顶级的 ref 属性才会被解包，被包裹在一个列表中的ref不会解包)</p>
-<div class="note info"><p>vue3提供两种声明响应式变量的方法，reactive和ref，由于响应式都是通过某种代理变量的方法实现的，因此不严谨地说,ref的代理能力更强一点，这包括：</p>
-<ul>
-<li>ref支持基本数据类型 + 引用数据类型(对象和数组) ;reactive只支持引用数据类型</li>
-<li>ref重新分配一个新对象不会失去响应;reactive会</li>
-<li>还有其他一些场合reactive会失去响应……</li>
-</ul>
-<p>因此现在的官方文档中更推荐使用ref</p>
-</div>
-<p>要在组件模板中访问 ref，需要从组件的 <code>setup()</code> 函数中声明并返回它们：</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; ref &#125; <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="comment">// `setup` 是一个特殊的钩子，专门用于组合式 API。</span></span><br><span class="line">  <span class="title function_">setup</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> count = <span class="title function_">ref</span>(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 将 ref 暴露给模板</span></span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      count</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>计算属性 ref</strong>：形如以下的ref，<code>computed()</code> 方法期望接收一个 <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Functions/get#description">getter 函数</a>，返回值为一个<strong>计算属性 ref</strong>，用法类似数据的ref，与function的区别是能追踪响应式状态，且响应式状态不改变就不会重新计算</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> publishedBooksMessage = <span class="title function_">computed</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> author.<span class="property">books</span>.<span class="property">length</span> &gt; <span class="number">0</span> ? <span class="string">&#x27;Yes&#x27;</span> : <span class="string">&#x27;No&#x27;</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<h2 id="路由">路由</h2>
-<p>创建： <code>history</code> 选项控制了路由和 URL 路径是如何双向映射的,详见<a href="https://router.vuejs.org/zh/guide/essentials/history-mode.html">不同的历史记录模式</a></p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createMemoryHistory, createRouter &#125; <span class="keyword">from</span> <span class="string">&#x27;vue-router&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">HomeView</span> <span class="keyword">from</span> <span class="string">&#x27;./HomeView.vue&#x27;</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">AboutView</span> <span class="keyword">from</span> <span class="string">&#x27;./AboutView.vue&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> routes = [</span><br><span class="line">  &#123; <span class="attr">path</span>: <span class="string">&#x27;/&#x27;</span>, <span class="attr">component</span>: <span class="title class_">HomeView</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">path</span>: <span class="string">&#x27;/about&#x27;</span>, <span class="attr">component</span>: <span class="title class_">AboutView</span> &#125;,</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> router = <span class="title function_">createRouter</span>(&#123;</span><br><span class="line">  <span class="attr">history</span>: <span class="title function_">createMemoryHistory</span>(),</span><br><span class="line">  routes,</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<p>路由作为一个插件被使用： <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> app = <span class="title function_">createApp</span>(<span class="title class_">App</span>)</span><br><span class="line">app.<span class="title function_">use</span>(router)</span><br><span class="line">app.<span class="title function_">mount</span>(<span class="string">&#x27;#app&#x27;</span>)</span><br></pre></td></tr></table></figure> 组合式api中，用<code>useRouter() ;useRoute()</code>两个函数获取路由器实例和当前路由；组件 <code>RouterView</code> 和 <code>RouterLink</code> 都是<a href="https://cn.vuejs.org/guide/components/registration.html#global-registration">全局注册</a>的，可以直接调用，最简单地做法是APP.vue直接整个渲染当前路径的<code>RouterView</code> routes可以使用参数或者正则匹配，详见官网文档</p>
-<h2 id="pinia"><a href="https://pinia.vuejs.org/zh/">Pinia</a></h2>
-<p>Pinia 是 Vue 的专属状态管理库,可以帮助我们管理共享状态，也就是一些我们希望定义在组件外部，全局可用的状态<br />
-引入：</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createApp &#125; <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span></span><br><span class="line"><span class="keyword">import</span> &#123; createPinia &#125; <span class="keyword">from</span> <span class="string">&#x27;pinia&#x27;</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">App</span> <span class="keyword">from</span> <span class="string">&#x27;./App.vue&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> pinia = <span class="title function_">createPinia</span>()</span><br><span class="line"><span class="keyword">const</span> app = <span class="title function_">createApp</span>(<span class="title class_">App</span>)</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">use</span>(pinia)</span><br><span class="line">app.<span class="title function_">mount</span>(<span class="string">&#x27;#app&#x27;</span>)</span><br></pre></td></tr></table></figure>
-<h1 id="nodejs">nodejs</h1>
-<p><a href="https://juejin.cn/post/7002106372200333319">一文吃透异步I/O和事件循环</a> <a href="https://juejin.cn/post/6994224541312483336">Commonjs 和 Es Module</a></p>
-<h2 id="异步">异步</h2>
-<p>nodejs是单线程执行的, 但对于io操作一般使用异步, 也就是对常见的网络开发来说, axios等网络请求库都可以异步进行<br />
-先从最基础的文件io说起:</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//同步写法:</span></span><br><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">&#x27;fs&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> data = fs.<span class="title function_">readFilesync</span>(<span class="string">&#x27;./file.js&#x27;</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(data);</span><br><span class="line"></span><br><span class="line"><span class="comment">//异步写法:</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">&#x27;fs&#x27;</span>);</span><br><span class="line">fs.<span class="title function_">readFile</span>(<span class="string">&#x27;./file.js&#x27;</span> (err,data)=&gt;&#123;</span><br><span class="line">    <span class="variable language_">console</span>.1og(err,data) </span><br><span class="line">&#125;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>Nodejs 内部使用了线程池来处理异步 I/O 任务，线程池中会有多个 I/O 线程来同时处理异步的 I/O 操作, 流程如下图所示</p>
-<p><img src="/assets/ml/3d885c28bf5f450c97f543232b155000~tplv-k3u1fbpfcp-zoom-in-crop-mark_1512_0_0_0.webp" /></p>
-<p>node内部有一套事件系统, 不同的事件定义(也就是定时器, nectTick等操作)有不同的周期, 事件处理不断地周期进行, 例如对定时器, 在对应阶段检查最新的定时器是否到时间,若到时间则触发</p>
-]]></content>
-      <categories>
-        <category>其他</category>
-      </categories>
-      <tags>
-        <tag>web</tag>
-        <tag>vue</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>具身智能论文阅读笔记</title>
     <url>/thinklive/52409/</url>
     <content><![CDATA[<p>关于具身智能领域的论文</p>
@@ -584,6 +192,7 @@ off-policy 则有所不同, 它让训练模型和互动的模型分开, 从而�
 <li><a href="#记忆更新">记忆更新</a></li>
 </ul></li>
 <li><a href="#graphpad-inference-time-3d-scene-graph-updates-for-embodied-question">GraphPad: Inference-Time 3D Scene Graph Updates for Embodied Question</a></li>
+<li><a href="#raccoon-grounding-embodied-question-answering-with-state--summaries-from-existing-robot-modules">RACCOON: Grounding Embodied Question-Answering with State Summaries from Existing Robot Modules</a></li>
 <li><a href="#stage-2-summary">stage 2 summary</a></li>
 </ul></li>
 <li><a href="#vision-language-action-models">Vision-Language-Action Models</a>
@@ -1581,6 +1190,18 @@ NLMap(grid): 如果想直接辨别图像里的物品, 则可以使用 <code>clas
 <li><code>analyze_frame</code>: 根据查询重新分析图像, 尝试找到之前未检测的物体</li>
 </ol>
 <p>VLM自己选择更新场景图直到认为自己能完成任务</p>
+<h2 id="raccoon-grounding-embodied-question-answering-with-state-summaries-from-existing-robot-modules">RACCOON: Grounding Embodied Question-Answering with State Summaries from Existing Robot Modules</h2>
+<p>ICRA 2025</p>
+<p>当前的语义地图或者更加宽泛地说, (机器人任务需要的)语义信息的表示和存储, 往往基于VLM等成熟的基础模型来编码, 然后导航等任务基于编码出的信息来检索, 这种方法较为依赖VLM等外部模型(相对于机器人来说), 从而带来了一个问题, 也就是这个编码过程和机器人无关, 则无法保证机器人能在某种程度上理解问题场景<br />
+本文提出的RACCOON, 下文简称ra, 一定程度上参考了RAG的想法, 虽然其决策依旧使用LLM, 但将机器人内部模块的状态作为增强的上下文附加到LLM上, 这产生了两个问题:</p>
+<ol type="1">
+<li>机器人的哪些模块的哪些信息应该用于查询的上下文</li>
+<li>如何将这些信息以文本形式导出</li>
+</ol>
+<p>对第一个问题, 这里简单地用一个SVM(支持向量机)解决, 换句话说这就是一个分类任务, 用一些示例数据训练, 输入的形式是查询的语义嵌入<br />
+对于使用多个模块的问题, 使用KNN(K近邻)方法解决, 也就是说SVM找到一个最重要的模块, K近邻方法找到若干相关模块<br />
+这种方法和naive RAG比较类似, 只不过增强检索的是机器人模块信息而不是文档信息<br />
+第二个问题也非常简单, 对机器人运行时产生的内部状态, 即使以列表形式直接输入给LLM, 一般也能被直接理解, 再加入一些描述性的上下文就能很好地实现</p>
 <h2 id="stage-2-summary">stage 2 summary</h2>
 <p>这阶段主要查找了一些各种各样的数据存储和检索方式, 包括一篇关于具身智能领域数据存储领域的综述<br />
 stage1 中看的文章大多是语义地图中比较常见的拓扑图形式, 拓扑图的节点存储物理位置, 嵌入向量或是文本描述以及点云信息<br />
@@ -1947,6 +1568,398 @@ ACT 主要创新点在于能够预测连续的, 精确的动作序列, 而一些
       <tags>
         <tag>人工智能</tag>
         <tag>机器学习</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>vue 与 NodeJs</title>
+    <url>/thinklive/6217/</url>
+    <content><![CDATA[<h1 id="前置知识">前置知识</h1>
+<h2 id="es">ES</h2>
+<p>ES modules 是原生 JavaScript 提供的模块功能，逐渐被更多的浏览器支持<br />
+形如：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">&lt;script type=<span class="string">&quot;module&quot;</span>&gt;</span><br><span class="line">&lt;!-- something --&gt;    </span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">import &#123; x,y &#125; from &#x27;./module.js</span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h1 id="vue基础">vue基础</h1>
+<h2 id="应用">应用</h2>
+<p>每个 Vue 应用都是通过createApp函数创建一个新的应用实例，例如：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createApp &#125; <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">App</span> <span class="keyword">from</span> <span class="string">&#x27;./App.vue&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> app = <span class="title function_">createApp</span>(&#123;<span class="title class_">App</span>&#125;)</span><br></pre></td></tr></table></figure>
+<p>createApp 的对象实际上是一个组件，每个应用都需要一个“根组件”，其他组件将作为其子组件，最后得到一个树状结构</p>
+<h2 id="模板">模板</h2>
+<p>当根组件没有设置 template 选项时，Vue 将自动使用容器的 innerHTML 作为模板<br />
+模板中可以使用<a href="https://cn.vuejs.org/api/built-in-directives">指令</a>，指令由 v- 作为前缀，表明它们是一些由 Vue 提供的特殊 attribute,指令最常用的功能是绑定html属性到某个元素<br />
+双大括号会将数据解释为纯文本，而不是 HTML。若想插入 HTML，需要使用 v-html 指令：<br />
+<code>&lt;span v-html="rawHtml"&gt;&lt;/span&gt;&lt;/p&gt;</code></p>
+<p>想要响应式地绑定一个 attribute，应该使用 v-bind 指令<code>&lt;div v-bind:id="dynamicId"&gt;&lt;/div&gt;</code><br />
+简写语法为：<code>&lt;div :id="dynamicId"&gt;&lt;/div&gt;</code> 同名简写(3.4以上版本):<code>&lt;div :id&gt;&lt;/div&gt;</code> js表达式支持:<br />
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">&#123;&#123; number + <span class="number">1</span> &#125;&#125;</span><br><span class="line">&#123;&#123; ok ? <span class="string">&#x27;YES&#x27;</span> : <span class="string">&#x27;NO&#x27;</span> &#125;&#125;</span><br><span class="line">&#123;&#123; message.<span class="title function_">split</span>(<span class="string">&#x27;&#x27;</span>).<span class="title function_">reverse</span>().<span class="title function_">join</span>(<span class="string">&#x27;&#x27;</span>) &#125;&#125;</span><br><span class="line">&lt;div :id=<span class="string">&quot;`list-$&#123;id&#125;`&quot;</span>&gt;&lt;/div&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
+<h2 id="响应式">响应式</h2>
+<p>选项式api使用data 选项来声明组件的响应式状态。此选项的值应为返回一个对象的函数<br />
+在 Vue 3 中，数据是基于<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Proxy">JavaScript Proxy</a> 实现响应式的,也就是通过一个代理来更新对象状态，vue3中原始对象不会变成响应式代理<br />
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="title function_">data</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      <span class="attr">count</span>: <span class="number">0</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">methods</span>: &#123;</span><br><span class="line">    <span class="title function_">increment</span>(<span class="params"></span>) &#123;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">count</span>++</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="title function_">mounted</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="comment">// 在其他方法或是生命周期中也可以调用方法</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="title function_">increment</span>()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure> Vue 自动为 methods 中的方法绑定了<strong>永远指向组件实例</strong>的 this,且嵌套的对象变化也能相应，也就是类似json的格式可以随意修改<br />
+当你修改了响应式状态时，DOM 会被自动更新。但是需要注意的是，DOM 更新不是同步的。Vue 会在“next tick”更新周期中缓冲所有状态的修改，以确保不管你进行了多少次状态修改，每个组件都只会被更新一次</p>
+<p>创建有自己状态的方法：<br />
+如果需要多个有独立状态的方法，则要在created期间创建这样的函数：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="title function_">created</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="comment">// 每个实例都有了自己的预置防抖的处理函数</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">debouncedClick</span> = _.<span class="title function_">debounce</span>(<span class="variable language_">this</span>.<span class="property">click</span>, <span class="number">500</span>)</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="title function_">unmounted</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="comment">// 最好是在组件卸载时</span></span><br><span class="line">    <span class="comment">// 清除掉防抖计时器</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">debouncedClick</span>.<span class="title function_">cancel</span>()</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">methods</span>: &#123;</span><br><span class="line">    <span class="title function_">click</span>(<span class="params"></span>) &#123;</span><br><span class="line">      <span class="comment">// ... 对点击的响应 ...</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="常用api">常用api</h2>
+<p><a href="https://cn.vuejs.org/api/built-in-directives#v-model">vue内置指令</a> 常用的用v-bind,v-model,v-if,v-for等，语法都很符合直觉 在组合式 API 中，通过setup脚本块来初始化需要的数据和函数(包括响应式状态)，常用 <a href="https://cn.vuejs.org/api/reactivity-core.html#ref"><code>ref()</code></a> 函数来声明响应式状态：<code>const count = ref(0)</code> 脚本中访问count的值需要解包，即通过<code>count.value</code>访问，但在模板块中可以自动解包(只有顶级的 ref 属性才会被解包，被包裹在一个列表中的ref不会解包)</p>
+<div class="note info"><p>vue3提供两种声明响应式变量的方法，reactive和ref，由于响应式都是通过某种代理变量的方法实现的，因此不严谨地说,ref的代理能力更强一点，这包括：</p>
+<ul>
+<li>ref支持基本数据类型 + 引用数据类型(对象和数组) ;reactive只支持引用数据类型</li>
+<li>ref重新分配一个新对象不会失去响应;reactive会</li>
+<li>还有其他一些场合reactive会失去响应……</li>
+</ul>
+<p>因此现在的官方文档中更推荐使用ref</p>
+</div>
+<p>要在组件模板中访问 ref，需要从组件的 <code>setup()</code> 函数中声明并返回它们：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; ref &#125; <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="comment">// `setup` 是一个特殊的钩子，专门用于组合式 API。</span></span><br><span class="line">  <span class="title function_">setup</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> count = <span class="title function_">ref</span>(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 将 ref 暴露给模板</span></span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      count</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>计算属性 ref</strong>：形如以下的ref，<code>computed()</code> 方法期望接收一个 <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Functions/get#description">getter 函数</a>，返回值为一个<strong>计算属性 ref</strong>，用法类似数据的ref，与function的区别是能追踪响应式状态，且响应式状态不改变就不会重新计算</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> publishedBooksMessage = <span class="title function_">computed</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> author.<span class="property">books</span>.<span class="property">length</span> &gt; <span class="number">0</span> ? <span class="string">&#x27;Yes&#x27;</span> : <span class="string">&#x27;No&#x27;</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h2 id="路由">路由</h2>
+<p>创建： <code>history</code> 选项控制了路由和 URL 路径是如何双向映射的,详见<a href="https://router.vuejs.org/zh/guide/essentials/history-mode.html">不同的历史记录模式</a></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createMemoryHistory, createRouter &#125; <span class="keyword">from</span> <span class="string">&#x27;vue-router&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">HomeView</span> <span class="keyword">from</span> <span class="string">&#x27;./HomeView.vue&#x27;</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">AboutView</span> <span class="keyword">from</span> <span class="string">&#x27;./AboutView.vue&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> routes = [</span><br><span class="line">  &#123; <span class="attr">path</span>: <span class="string">&#x27;/&#x27;</span>, <span class="attr">component</span>: <span class="title class_">HomeView</span> &#125;,</span><br><span class="line">  &#123; <span class="attr">path</span>: <span class="string">&#x27;/about&#x27;</span>, <span class="attr">component</span>: <span class="title class_">AboutView</span> &#125;,</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> router = <span class="title function_">createRouter</span>(&#123;</span><br><span class="line">  <span class="attr">history</span>: <span class="title function_">createMemoryHistory</span>(),</span><br><span class="line">  routes,</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>路由作为一个插件被使用： <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> app = <span class="title function_">createApp</span>(<span class="title class_">App</span>)</span><br><span class="line">app.<span class="title function_">use</span>(router)</span><br><span class="line">app.<span class="title function_">mount</span>(<span class="string">&#x27;#app&#x27;</span>)</span><br></pre></td></tr></table></figure> 组合式api中，用<code>useRouter() ;useRoute()</code>两个函数获取路由器实例和当前路由；组件 <code>RouterView</code> 和 <code>RouterLink</code> 都是<a href="https://cn.vuejs.org/guide/components/registration.html#global-registration">全局注册</a>的，可以直接调用，最简单地做法是APP.vue直接整个渲染当前路径的<code>RouterView</code> routes可以使用参数或者正则匹配，详见官网文档</p>
+<h2 id="pinia"><a href="https://pinia.vuejs.org/zh/">Pinia</a></h2>
+<p>Pinia 是 Vue 的专属状态管理库,可以帮助我们管理共享状态，也就是一些我们希望定义在组件外部，全局可用的状态<br />
+引入：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createApp &#125; <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span></span><br><span class="line"><span class="keyword">import</span> &#123; createPinia &#125; <span class="keyword">from</span> <span class="string">&#x27;pinia&#x27;</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">App</span> <span class="keyword">from</span> <span class="string">&#x27;./App.vue&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> pinia = <span class="title function_">createPinia</span>()</span><br><span class="line"><span class="keyword">const</span> app = <span class="title function_">createApp</span>(<span class="title class_">App</span>)</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">use</span>(pinia)</span><br><span class="line">app.<span class="title function_">mount</span>(<span class="string">&#x27;#app&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<h1 id="nodejs">nodejs</h1>
+<p><a href="https://juejin.cn/post/7002106372200333319">一文吃透异步I/O和事件循环</a> <a href="https://juejin.cn/post/6994224541312483336">Commonjs 和 Es Module</a></p>
+<h2 id="异步">异步</h2>
+<p>nodejs是单线程执行的, 但对于io操作一般使用异步, 也就是对常见的网络开发来说, axios等网络请求库都可以异步进行<br />
+先从最基础的文件io说起:</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//同步写法:</span></span><br><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">&#x27;fs&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> data = fs.<span class="title function_">readFilesync</span>(<span class="string">&#x27;./file.js&#x27;</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(data);</span><br><span class="line"></span><br><span class="line"><span class="comment">//异步写法:</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">&#x27;fs&#x27;</span>);</span><br><span class="line">fs.<span class="title function_">readFile</span>(<span class="string">&#x27;./file.js&#x27;</span> (err,data)=&gt;&#123;</span><br><span class="line">    <span class="variable language_">console</span>.1og(err,data) </span><br><span class="line">&#125;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>Nodejs 内部使用了线程池来处理异步 I/O 任务，线程池中会有多个 I/O 线程来同时处理异步的 I/O 操作, 流程如下图所示</p>
+<p><img src="/assets/ml/3d885c28bf5f450c97f543232b155000~tplv-k3u1fbpfcp-zoom-in-crop-mark_1512_0_0_0.webp" /></p>
+<p>node内部有一套事件系统, 不同的事件定义(也就是定时器, nectTick等操作)有不同的周期, 事件处理不断地周期进行, 例如对定时器, 在对应阶段检查最新的定时器是否到时间,若到时间则触发</p>
+]]></content>
+      <categories>
+        <category>其他</category>
+      </categories>
+      <tags>
+        <tag>web</tag>
+        <tag>vue</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>强化学习笔记 all in one</title>
+    <url>/thinklive/37185/</url>
+    <content><![CDATA[<p><a href="https://rail.eecs.berkeley.edu/deeprlcourse/">cs285</a></p>
+<span id="more"></span>
+<h1 id="基础概念">基础概念</h1>
+<p>强化学习和监督学习的区别：</p>
+<ol type="1">
+<li>强化学习输入的样本是序列数据, 监督学习的样本之间相互独立</li>
+<li>没有明确的监督者, 通过奖励机制进行学习, 但回馈可能是长期的, 模糊的</li>
+</ol>
+<p>一些强化学习的演示视频中, ai 会做一些人类看来无意义的动作, 正是这种“玄学”的回馈机制导致的</p>
+<ul>
+<li>actor: 行为主体
+<ul>
+<li>action 则可分为离散和连续, 例如 2d 游戏中走格子迷宫就是一个典型的离散动作空间</li>
+</ul></li>
+<li>observaton o /states s: 观测与状态
+<ul>
+<li>观测到的情况 o 和现实情况（状态 s）其实有可能不同, 假设可以观察到全景, rl 则成为一个马尔科夫决策过程</li>
+</ul></li>
+<li>policy π: 行为策略
+<ul>
+<li>带有参数 θ</li>
+</ul></li>
+<li>reward：反馈
+<ul>
+<li>baseline: 避免总是正值的 reward, 增加的偏置值, 例如取期望</li>
+</ul></li>
+<li>episode: 一轮行动</li>
+<li>trajectory τ: <span class="math inline">\(\tau=\{s_{1},a_{1},s_{2},a_{2},\cdots,s_{T},a_{T}\}\)</span></li>
+<li>折扣 γ: 直觉上, 最开始的训练回馈可能更重要, 越往后则训练收益越小, 所以对每步的回馈可以乘以一个 <span class="math inline">\(\gamma^{t-1}\)</span>, t 为训练次数, 这个超参数也可以用于控制训练策略偏短期还是偏长期</li>
+</ul>
+<p>流程： env(s1)-&gt; actor(a1)-&gt; env(s2)……<br />
+
+$\begin{array}{l}{ {p_{\theta}(\tau)} }{ { {}=p(s_{1})p_{\theta}(a_{1}|s_{1})p(s_{2}|s_{1},a_{1})p_{\theta}(a_{2}|s_{2})p(s_{3}|s_{2},a_{2})\cdots} } \\   =p(s_{1})\prod_{t=1}^{T}p_{\theta}(a_{t}|s_{t})p(s_{t+1}|s_{t},a_{t})\end{array}$  
+</p>
+<p>同一轮中每对(s, a)产生一个 reward, 其期望为: <span class="math inline">\(\bar{R}_{\theta}=\sum_{\tau}R(\tau)p_{\theta}(\tau)=E_{\tau\cap P_{\theta}(\tau)}[R(\tau)]\)</span></p>
+<h2 id="策略梯度">策略梯度</h2>
+<p>rl 的目标就是找一个最大化期望回报的策略 π, 等价于找到最好的策略参数 θ, 可以使用和机器学习类似的梯度下降, 只不过这个梯度比较特殊，下面引用 cs285 的 ppt:</p>
+<p><img src="/assets/ml/image-24.png" /> <img src="/assets/ml/image-23.png" /> 上图 1 中的 J 表示根据确定的 θ 和 π, 得到的轨迹 τ 对应回报的期望, 使用一个 trick, 将概率的梯度转为其自身和 log 梯度的乘积, 这是为了凑出数学期望的形式<br />
+再看上图 2, 其实 τ 的概率是一系列 a, s 概率的乘积, 对其 log 转为加法, 得到的项中, 终于根据 s 得到 a 的概率是和 θ 有关的(这也完全符合常识), 于是最后我们所求的梯度其实只有对 π 求微分这个计算量比较大的项<br />
+为什么我们想要数学期望的形式？ 因为对此我们可以通过大量采样的平均来估算，例如对 J 就可以用 n 个轨迹回报的均值估算, 而对 J 的梯度, 类似地有:</p>
+<p><span class="math display">\[\nabla_{\theta}J(\theta)\approx\frac{1}{N}\sum_{i=1}^{N}\left(\sum_{t=1}^{T}\nabla_{\theta}\log\pi_{\theta}({\bf a}_{i,t}|{\bf s}_{i,t})\right)\left(\sum_{t=1}^{T}r({\bf s}_{i,t},{\bf a}_{i,t})\right)\]</span><br />
+这个式子看上去有点吓人，其实它只是单纯地用旧策略的 log 梯度乘对应的回报值, 也就是说在进行若干轮采样后, 总体上好的回报, 就加上(当然这里有一个学习率超参数)对应的好的参数, 坏的回报就减去坏的参数<br />
+再考虑一下这个梯度的数学性质, 首先很明显的是, 回报和的绝对值越大, 更新幅度就会越大, 这很符合常识, 但同时, 考虑 log 的性质, 对较小的值其导数的绝对值越大, 也就是说对一个策略 π 来说, 其不怎么倾向于采取的动作反而会得到更多的更新梯度, 这可以视为一种 exploration<br />
+此外，对部分可观测的马尔科夫假设, 这里不作具体推导, 但只要把上面的 s 换成 o 就能沿用梯度策略<br />
+和 log 函数的很多应用场景一样, 这里实际上可以理解为分类问题, 因为模型输出的动作是有限的, 策略最后产生的是动作空间中的概率分布, 稍微不同的是需要乘回报值, 并且要分很多轮训练</p>
+<h3 id="问题和改进">问题和改进</h3>
+<p>基于策略梯度的训练方式非常直观，但相应地也有问题, 即它结果会非常不稳定<br />
+我们寻找的策略会不断往最高的回报前进, 这取决于我们每轮采样的回报, 这里我们其实是希望得到相对最优的一个目标, 但如果假设我们得到回报的相对倾向性较稳定, 但不同采样的绝对差距较大, 就会导致虽然以最优化策略为目标，最后得到的参数却相差非常大(方差大)的情况</p>
+<ol type="1">
+<li>因果关系: 这基于一个永恒的真理, 未来不会影响过去, 在 rl 中也就是说： 时间 t'之后得到的回报无论是好是坏都不该影响 t'之前的策略，对应在之前的方法中, 就是让回报总和一项从 t 开始计算:<br />
+这听起来有点绕, 举个例子, 打对战游戏的前 t 把都输了, 于是 t+1 把转变思路赢了游戏, 假如按未改进的版本, 由于前 t 把输得太多，最后所有 t+1 局游戏的回报还是负的, 因此第 t+1 把的思路也是错的, 但是 t+1 把的思路的回报是正的, 也就是说这时的思路是正确的, 对游戏策略理应有正确影响，按改进后的方法, 我们认为 t+1 局的游戏思路期望回报为正</li>
+</ol>
+<p><span class="math display">\[\nabla_{\theta}J(\theta)\approx\frac{1}{N}\sum_{i=1}^{N}\left(\sum_{t=1}^{T}\nabla_{\theta}\log\pi_{\theta}({\bf a}_{i,t}|{\bf s}_{i,t})\right)\left(\sum_{t&#39;=t}^{T}r({\bf s}_{i,t&#39;},{\bf a}_{i,t&#39;})\right)\]</span></p>
+<p>由于这里我们减少了回报的绝对值大小，因此其 θ 最后的方差必然会缩减, 但这么做对期望是无偏的(对策略梯度加减任何常数偏移值， 都会保持无偏), 也就是不会改变更新梯度，相当于只改变了其系数(回报和)的大小</p>
+<ol start="2" type="1">
+<li>baseline</li>
+</ol>
+<p>我们的目的是找到最优化的策略参数, 实际上只要回报为正, 就会加上对应参数的梯度, 这种更新策略其实是“找到回报为正的参数”, 还是拿打游戏举例子, 如果目标是打到全国第一, 那么和低水平对手的对局, 就算赢了这局的思路也不值得学习<br />
+因此可以考虑将总回报减去一个 baseline, 简称为 b, b 一般取回报的平均值<br />
+事实上，这对梯度的期望是无偏的， 即减去 b 和不减去两者的梯度一致, 但会减少方差, 最优的 b 可以通过对方差算关于 b 的极值求出来, 由于不太常用省去过程, 最优 b 为:</p>
+<p><span class="math display">\[b={\frac{E[g(\tau)^{2}r(\tau)]}{E[g(\tau)^{2}]}}\]</span></p>
+<h3 id="重要性采样">重要性采样</h3>
+<p>策略梯度是 on-policy 的, 也就是每次需要收集数据才能更新, 数据与策略是绑定的, 这样的缺点是更新很慢，效率低<br />
+如果想用 off-policy, 则需要重要性采样</p>
+<div class="pdf-container" data-target="/assets/ml/rl_lec5.pdf" data-height="800px"></div>
+<p>暂时忽略被划掉的一项(这是因为我们不想让这种指数级别的项增大方差) 尽可能简单地说明为什么要用这种采样方法: 不谈证明, 但是重要性采样有个性质是不会改变采样的均值(期望), 只会改变方差, 一般来说会将其用于改进采样的方差, 和名字一样, 可以理解为用不同的重要性对一个分布采样, 也就是分布不变，只改变采样方式, 来获得符合要求的采样数据<br />
+但在策略梯度中, 问题在于我们改进过程中策略的分布和原始数据时的分布是不同的， 想实现 off-policy, 就需要用来自不同策略的数据来改进当前策略, 所以我们需要重要性采样这样的技巧, 不太严谨地说， 将不同策略的数据转化为当前策略的数据并用于训练， 又或者理解为用不同策略的数据计算对当前策略的更新梯度</p>
+<p>此外对策略梯度还有的问题是, 对不同的参数 θ, 其梯度的数量级可能完全不同，需要进行一定约束, 例如约束 θ 分布前后的散度, 从而平衡不同方向的更新速率<br />
+这方面具体实现上比较复杂，暂时只需要知道大概原理即可</p>
+<h2 id="actor-critic">actor-critic</h2>
+<p>由类似我们前文提到的 baseline 思想, 定义 A(advantage)= Q-V, 也就是状态动作对的期望奖励-状态的期望奖励, 这个标准能评估对当前状态来说, 采取的动作是好是坏<br />
+我们可以将 A 替代掉之前的期望回报, 但需要注意的是, 由于实际中很多时候 A 是估算的, 这会带来方差的优化，但很可能让更新梯度有偏; 尽管如此, 一般我们还是认为拿大量减少方差换一些偏见是划算的<br />
+Q 可以写为当前(s, a)的回报加上基于未来状态分布的 V 的期望, 可以用直接的 <span class="math inline">\(s_{t+1}\)</span> 近似这个期望, 写成 <span class="math inline">\(Q^{\pi}(\mathbf{s}_{t},\mathbf{a}_{t})\approx r(\mathbf{s}_{t},\mathbf{a}_{t})+V^{\pi}(\mathbf{s}_{t+1})\)</span> , 于是:<br />
+<span class="math display">\[A^{\pi}(\mathbf{s}_{t},\mathbf{a}_{t})\approx r(\mathbf{s}_{t},\mathbf{a}_{t})+V^{\pi}(\mathbf{s}_{t+1})-V^{\pi}(\mathbf{s}_{t})\]</span> <span class="math display">\[\nabla_{\theta}J(\theta)\approx\frac{1}{N}\nabla_{i=1}^{N}\sum_{t=1}^{T}\Sigma_{\theta}\log\pi_{\theta}({\bf a}_{i,t}|{\bf s}_{i,t})A^{\pi}({\bf s}_{i,t},{\bf a}_{i,t})\]</span> 这种近似的好处是, 相比涉及动作空间的 Q, V 更好计算, 近似后我们唯一需要算的就是 V 了, 而之前的 term: <code>J</code>, 可以视为根据初始状态 s1 分布的 V(s1)的期望; 此外, 由于只用一个样本估算, 也能减少方差<br />
+对 V 来说最方便的估算就是使用蒙特卡洛方法, 尤其在模拟环境或者电子游戏之类的场景下, 可以大量采样 <span class="math inline">\(V^{\pi}(\mathbf{s}_{t})\approx\sum_{t^{\prime}=t}^{T}r(\mathbf{s}_{t^{\prime}},\mathbf{a}_{t^{\prime}})\)</span><br />
+但也可以使用一个估算函数, 即 <code>function approximation</code>, 这是个典型的监督回归问题, 可以用神经网络解决, 数据集为 n 轮训练中的 <span class="math inline">\(s_{i,t}\)</span> 与其对应的从 t 开始的回报和 <span class="math inline">\(\left\{\left({\bf s}_{i,t},r({\bf s}_{i,t},{\bf a}_{i,t})+\hat{V}_{\phi}^{\pi}({\bf s}_{i,t+1})\right)\right\}\)</span> , loss 设置为平方误差和 <span class="math inline">\(\mathcal{L(\phi)}=\frac{1}{2}\sum_{i}\left|\left|\hat{V}_{\phi}^{\pi}(\mathbf{s}_{i})-y_{i}\right|\right|^{2}\)</span><br />
+基于神经网络的方法的好处是, 网络能一定程度上捕获数据间的关系, 由一定的泛化能力, 也就是可能能够平滑化输出的结果, 即类似的状态应该有类似的期望回报, 从而减少方差; 缺点则是不能保证是无偏的</p>
+<p>以上我们提到的方法就是标题里的 a-c, 如果我们再引入一个折扣因子，就可以表述为以下的流程:</p>
+<p><img src="/assets/ml/image-25.png" /></p>
+<p>这个版本的 a-c 其实非常好理解, 它就是用一个单独的神经网络预测 V，用于帮助另一个训练策略 π 的网络<br />
+但问题在于这两个网络只有输入是相同的(s), 其特征是完全分开的, 这可能让它的性能受限, 一种改进是共享网络, 即用一个网络接受 s，同时生成 V 和 π<br />
+目前的这个版本是 on-line 的, 这就意味着, 每次只能用一个数据来更新网络, 如果想实现 batch， 则需要并行化, 具体来说可以分为同步异步两种情况<br />
+<img src="/assets/ml/image-26.png" /> 如上图, 同步的情况很好理解, 就是每次让一群线程获取行动后的数据, 每次都同步更新<br />
+异步的情况下, 不同线程可能有不同的运行速度, 并各自用收集到的数据更新网络参数, 这样的效率更好, 但缺点是, 较慢的线程更新时可能遇上新版本的 actor, 也就是说会有这种用非当前 actor 的数据更新它的问题, 当然一般来说因为线程之间的速度不会有特别大的差别, 影响相对不大</p>
+<h3 id="off-policy-a-c">off-policy a-c</h3>
+<p>在 off-policy 情况下, 存储之前的状态转移数据为 <code>replay buffer</code>, 这些数据可能来自于很久之前的策略, 这会带来两个问题:</p>
+<ol type="1">
+<li>批评家对 V 的评估是基于旧策略的</li>
+<li>策略更新时使用的策略梯度也是来自于旧策略的</li>
+</ol>
+<p>对此, 我们可以把 V 给扔掉, 转向 Q 函数, <span class="math inline">\({ Q}^{\pi}(\mathrm{s}_{t}, a_t)\stackrel{\_}{=}\sum_{t^{\prime}=t}^T E_{\pi_{\theta}}\ [r(\mathrm{s}_{t^{\prime}},a_{t^{\prime}})]\mathrm{s}_{t}, a_{t}]\)</span> 那么为什么要这么做? 考虑一下现在我们有什么数据, 即来自旧策略下的 V 函数, V 函数的意义是, 各个状态的期望回报, 也就是我们知道各个状态的价值, 而这些价值相对来说不会随着策略变动而改变<br />
+新策略相比旧策略改动的只有给定 s 条件下 a 的分布, 也就是说给定旧策略的 s, 可以查到在新策略在相同给定状态 s 下产生的动作概率分布, 从而算出新策略对应的 Q 函数<br />
+于是 off-line 方法可以写成:</p>
+<p><img src="/assets/ml/image-27.png" /> 其中, <span class="math inline">\(a_{i}&#39;\)</span> 与 <span class="math inline">\(a_{i}^{\pi}\)</span> 是根据 <span class="math inline">\(s_{i}&#39;\)</span> 从新策略中产生的动作<br />
+实际中一般用 Q 代替之前的 A，这是因为这种方法能提供大量样本, 从而弥补方差的问题<br />
+那么 offline 是毫无损失的方法吗? 其实并不是, 因为对来自旧策略的旧状态 s 我们无能为力, 这必然会产生一些偏差, 但基本来说处于可以接受的范围内</p>
+<h3 id="更好的-baseline">更好的 baseline</h3>
+<p>上面提到, 基于神经网络的评论家能实现有偏下的低方差, 策略梯度则是无偏的高方差, 那么有办法得到无偏的低方差更新梯度吗?<br />
+下图展示一种估计策略梯度的方法, 它基于一个原理, 对梯度乘以任何一个值依赖状态而不依赖动作的函数，都能保持无偏, 选取价值函数作为 baseline, 由于我们希望估计的就是 V 的期望，选择价值函数作为 baseline 应当能大量减少方差</p>
+<p><img src="/assets/ml/image-28.png" /> 那么如果用 Q 函数作为基线呢? 如果这样的话, 理论上讲我们要求的 A 会在 0 的上下浮动, 这样不是能让方差达到理想情况吗? 但问题在于, 由于这样不无偏, 那就需要加上一个误差修正项, 我们将得到一个吓人的式子:</p>
+<p><span class="math display">\[\nabla_{\theta}J(\theta)\approx\frac{1}{N}\sum_{i=1}^{N}\sum_{t=1}^{T}\nabla_{\theta}\log\pi_{\theta}({\bf a}_{i,t}|{\bf s}_{i,t})\left(\hat{Q}_{i,t}-Q_{\phi}^{\pi}({\bf s}_{i,t},{\bf a}_{i,t})\right) +\frac{1}{N}\sum_{i=1}^{N}\sum_{t=1}^{T}\nabla_{\theta}E_{\mathrm{a}\sim\pi_{\theta}({\bf a}_{t}|{\bf s}_{i,t})}\left[Q_{\phi}^{\pi}({\bf s}_{i,t},{\bf a}_{t})\right]\]</span><br />
+这个式子看起来似乎根本用不了, 但其实也有技巧能用成本可控的方式估计误差修正项</p>
+<p>还有一种比较常见的思路是取 n 步的回报，由于越往后数据越可能发散, 这样也能降低方差, 这里不多介绍</p>
+<h2 id="基于价值的方法">基于价值的方法</h2>
+<p>最直观的说, 策略就是从动作空间中选一个最佳的动作, 这个最佳一般用 Q 函数表示, 而 Q 依赖于 V, 从 Q 或者 V 的角度出发, 强化学习的问题就是选择一个最佳的 Q 与其对应的 A, 再有足够样本的情况下, 估算 Q 可以用 V 矩阵实现, 因此这称为基于价值的方法(value-based v-b)<br />
+很明显, 现实中经常有很大或者无穷的动作空间, 因此基于表格的 V-B 不现实, 类似之前的 a-c, 可以训练一个估计 Q 函数的网络, 定义其 loss 为: <span class="math inline">\(\mathcal{L}(\phi)=\frac{1}{2}\left|\left|V_{\phi}(\mathbf{s})-\operatorname*{max}Q^{\pi}(\mathbf{s},\mathbf{a})\right|\right|^{2}\)</span><br />
+但是如果我们想迭代 Q, 还有一个严峻的问题： 状态转移的概率很难得到, 因为 Q 由本轮回报与之后的根据未来状态分布的 V(s')的期望相加组成, 而未来状态的分布, 也就是根据策略 π 采取行动后的 s'我们是不知道的, 于是我们用其他的(a, s', a')样本来估计未来的 Q 期望, 也就是：<br />
+<span class="math inline">\(Q^{\pi}({\bf s},{\bf a})\leftarrow r({\bf s},{\bf a})+\gamma E_{ {\bf s}^{\prime}\sim p({\bf s}^{\prime}|{\bf s},{\bf a})}[Q^{\pi}({\bf s}^{\prime},\pi({\bf s}^{\prime}))]\)</span><br />
+为什么可以这么做? 或者说, 为什么策略的变化在这样的学习中似乎不重要? 这是因为在这种方法下策略就是选取最大化 Q 的动作, 也就是说策略由 Q 来定义, 而不是 Q 受策略影响, 不严谨地说, 可以认为 Q 的地位高于策略</p>
+<p>稍微总结一下训练步骤, 对 V 来说:</p>
+<p><span class="math display">\[\begin{array}{l}{ {1.\;\;\mathrm{set}\;{\bf{y}}_{i}\:\leftarrow\;\mathrm{max_{a_{i}}}(r({\bf{s}}_{i},{\bf{a}}_{i})+\gamma E[V_{\phi}({\bf{s}}_{i}^{\prime})])}}\\ { {2.\;\;\mathrm{set}\;\phi\:\leftarrow\;\mathrm{arg~min}_{\phi}\:\frac{1}{2}\:\sum_{i}\|V_{\phi}({\bf{s}}_{i})-{\bf{y}}_{i}\|^{2}}}\end{array}\]</span></p>
+<p>于是对 Q 的计算:</p>
+<p><span class="math display">\[\begin{array}{l}{ {1.\;\;\mathrm{set}\;\:{\mathrm{y}}_{i}\:\leftarrow\:r(\mathrm{s}_{i},{\bf a}_{i})+\gamma{ E}[V_{\phi}(\mathrm{s}_{i}^{\prime})]}}\\ { {2.\;\;\mathrm{set}\;\:\phi\:\leftarrow\:\mathrm{arg\,min}_{\phi}\:\frac{1}{2}\:\sum_{i}||{\cal Q}_{\phi}(\mathrm{s}_{i},{\bf a}_{i})-{\bf y}_{i}||^{2}}}\end{array}\]</span></p>
+<p>也就是说, 由于我们定义策略为选择 Q 最大的 A, 那么相应的状态 s 的动作空间中最佳的 Q 就是状态 s 的期望价值<br />
+由于没有麻烦的策略梯度, 以上的 v-b 有较小的方差, 但还有一个问题是, 对神经网络的方法它不保证收敛性</p>
+<p>对训练 Q 的神经网络来说, 应用上述的用 Q 估算 V 的思想, 步骤为:</p>
+<p><span class="math display">\[\begin{array}{l} {\mathrm{1.~collect~dataset~\{(s_{i},{\bf a}_{i},{\bf s}_{i}^{\prime},r_{i})\}~u{\mathrm{sing~some~policy}}}} \\ { {2.~\mathrm{set~yi}\leftarrow r({\bf s}_{i},{\bf a}_{i})+\gamma\mathrm{max_{a^{\prime}}}\,Q_{\phi}({\bf s}_{i}^{\prime},{\bf a}_{i}^{\prime})}} \\ { {3.~\mathrm{set~}\phi\leftarrow\mathrm{arg\,min}_{\phi}\ {\frac{1}{2}} { \Sigma_{i}|\vert{\cal Q}_{\phi}({\bf s}_{i},{\bf a}_{i})-{\bf y}_{i}}}\vert\vert^{2}}\end{array}\]</span></p>
+<p>这种方法称为 <code>full fitted Q-iteration algorithm</code>, 其中 2.3.可以执行 k 次确保其更好地迭代</p>
+<p>以上这个简单的方法就是最基础的 off-policy on-line 的 Q 学习, 这个方法有一个非常明显的问题, 由于它的策略不包括任何概率, 是完全决定性的, 而迭代过程是贪心的, 因此在迭代中如果有一些错误或者不好的数据集，很容易就会陷入一个表现较差且无法进一步迭代的循环里<br />
+因此, 尤其是对最开始的一批数据, 我们希望能增加一些随机性, 最简单的方法就是对原来的策略加一层随机, 称为 <span class="math inline">\(\epsilon\)</span> 贪心:</p>
+<p><span class="math display">\[\pi({\bf a}_{t}|{\bf s}_{t})=\left\{\begin{array}{l}{ {1-\epsilon\mathrm{~if~}{\bf a}_{t}=\arg\mathrm{max}_{ {\bf a}_{t}}Q_{\phi}({\bf s}_{t},{\bf a}_{t})}}\\ { {\epsilon/(|A|-1)\mathrm{~otherwise}}}\end{array}\right.\]</span></p>
+<p>另一种常见方法称为 <code>Boltzmann exploration（波尔兹曼探索)</code>, 即 <span class="math inline">\(\pi({\bf a}_{t}|{\bf s}_{t})\propto\exp(Q_{\phi}({\bf s}_{t},{\bf a}_{t}))\)</span> 这种策略的好处是能根据 Q 的好坏加权策略, 如果是 Q 都比较高的行动, 概率不会相差太大, 而 Q 很低的行动则几乎不会被采取</p>
+<h3 id="收敛性">收敛性</h3>
+<p>接下来尝试证明 V-B 方法是否收敛</p>
+<p><img src="/assets/ml/image-29.png" /></p>
+<p>首先问题定义如图, B(back-up)操作用于根据给定 V 找到一个最好的动作, <code>V*</code> 则是一个最终的最优解, 也就是其回报与转移状态的价值期望之和在所有动作中最大<br />
+也就是说, 如果用 B 操作不断迭代, 能到达 <code>V*</code> 状态, 就说明 v-b 是收敛的<br />
+直观地, 我们有以下性质:<br />
+<span class="math display">\[{\mathrm{for~any~}}V{\mathrm{~and~}}{\bar{V}},{\mathrm{~we~have~}}||B V-B{\bar{V}}||\infty\leq\gamma||V-{\bar{V}}||\infty\]</span><br />
+于是:<br />
+<span class="math display">\[\|B V-V^{*}\|_{\infty}\leq\gamma\|V-V^{*}\|_{\infty}\]</span></p>
+<p>这样的证明省略了很多东西, 但对 cs 来说已经足够了, 事实上, 基于不断取最大值这个操作, 基于表格(矩阵/向量)的 v-b 收敛是很符合直觉的<br />
+那么对基于神经网络回归的 v-b 呢? 这个问题稍微有点麻烦, 将 nn 能产出的价值全集定义为 <span class="math inline">\(\Omega\)</span>, 事实上由于基于线性拟合与目前这个损失函数, nn 做的其实是个最小二乘法, 实际产生的 V'是理想 V 在 Ω 上的一个投影<br />
+对任意两个点 a, b 对一条直线的投影点 c, d, ab, cd 直接的距离 l1, l2 来说, 始终有 l1≥l2, 我们可以简单地构建一个直角三角形证明这点, 对 ab 不与直线平行的情况, ab 是斜边, cd 是直角边<br />
+我们将投影操作定义为 π, 则有 <span class="math display">\[\|\Pi V-\Pi{\bar{V}}\|^{2}\leq\|V-{\bar{V}}\|^{2}\]</span><br />
+而现在的问题是, π 和 B 都有我们很想要的收缩性质, 但如果同时存在这两种操作, 就不保证收缩了<br />
+<img src="/assets/ml/image-30.png" /> 上图给出了一个很形象的例子, 由此我们证明基于 nn 的 v-b 不一定收敛<br />
+对于 Q 学习, 实际上也差不多<br />
+这有点像所谓的合成谬误, 我们有能让策略变好的贪心方法, 还有最小二乘法与梯度下降, 为什么加到一起后结果却不一定变好?<br />
+事实上, 我们训练的这个回归网络并不是真正地使用了梯度下降, 见下图<br />
+<img src="/assets/ml/image-31.png" /> 对同样和参数有关的 yi, 我们并没有计算梯度, 当然也可以计算(<code>Residual Gradient</code>), 但由于计算量太大, 这么做在工程上很不实用<br />
+还有一个悲伤的消息是, 之前的 a-c 也不保证收敛</p>
+<h3 id="局限">局限</h3>
+<p>目前版本的 q 学习是一个随着时间收集数据的 on-line 方法, 除了效率问题外, 由于数据在时间上过于接近, 很可能产生过拟合问题, 类似策略梯度, 可以对其进行离线改进, 并且由于 q 学习的策略不那么重要, 可以说它很适合离线学习<br />
+另一种方法称为 <code>replay buffers</code>, 简单地说就是去掉收集数据的步骤, 对一个巨大的数据池，每次随机取样用来不断进行预测和模型更新, 更新若干轮后再产生一些新数据放入 buffers 池</p>
+<p><img src="/assets/ml/image-32.png" /></p>
+<p>上图展示了目前为止的 q 学习步骤, 按经验来说一般 k 设置很小, 而 n 较大, 这会带来一个问题, 即更新模型参数的周期中, 早期采样数据 "落后(lag)" 得少, 而随着训练进行就会有很多落后很久的数据, 为了避免这个问题, 使用以下的更新方式<br />
+<span class="math inline">\(\begin{array}{c c}{ {\mathrm{update}~\phi^{\prime};~\phi^{\prime}\leftarrow\tau\phi^{\prime}+(1-\tau)\phi}}&amp;{ {\qquad\qquad\tau=0.999~\mathrm{works~well}}}\end{array}\)</span><br />
+为了减少上述伪梯度的影响, 对更新梯度, 我们用整体更新前的目标网络生成的 max 参数来更新临时网络参数<br />
+以上的伪代码写作单线程迭代的形式, 但其实由于目标网络在一整批数据后才更新, 上述过程可以并行进行, 也就是用于规模庞大的深度学习中, 即(DQN Deep Q-Network) 此外, 对于整个 buffer 的维护, 由于 buffer 存在上限, 那么就必然需要一个“驱逐”机制, 一个简单的思路是采用环形 buffer, 使用以上机制的一个 dpo 流程可以表示为下图:</p>
+<p><img src="/assets/ml/image-33.png" /></p>
+<p>不同的 q 学习对 3 个 process 各有侧重:</p>
+<ol type="1">
+<li>online q learning: process1,2,3 have same speed</li>
+<li>DQN: process 1,3 have same speed, process 2 is slow, buffer is large</li>
+<li>fitted q-iteration: process 3 在 process 2 的内循环中, process 2 在 process1 的内循环中</li>
+</ol>
+<h3 id="改进">改进</h3>
+<p>实际的 q 学习中, 有一个神奇的现象, q 的估计器整体性地高估 q 的值, 而不是在真实值的上下浮动<br />
+对任意两个随机变量 x1, x2, 有如下不等式:<br />
+<span class="math inline">\(E[\operatorname*{max}(X_{1},X_{2})]\geq\operatorname*{max}(E[X_{1}],E[X_{2}])\)</span><br />
+也就是直观地说, 取 max 的范围越大, 这个 max 倾向越大的值, 而我们在取 Q 函数的估计时，会不断用过往的最高 q 值来更新模型, 而这个过往的 q 可能来自于某个误差, 假设这个误差来自于随机高斯分布, 有正有负, 由于我们总取最大值, 那么正误差的值就会被倾向于被用来更新<br />
+如何解决这个问题？一个想法是, 将 q 的评估和更新分开, 称为 <code>double q-learning</code> , 其更新步骤为: <span class="math inline">\(Q_{\phi_{A}}(\mathrm{s},\mathbf{a})\leftarrow r+\gamma Q_{\phi_{B}}(\mathrm{s}^{\prime},\mathrm{arg~max}\,Q_{\phi_{A}}(\mathrm{s}^{\prime},\mathbf{a}^{\prime}))\)</span><br />
+实际中, 我们正好有目标网络和训练网络两个网络, 可以用作这里的 A 和 B, 当然由于这两个网络其实会经常合并, 这样理论上还有问题, 但一般来说实际中效果尚可<br />
+另一个方法称为 <code>multi-step returns</code>, 上面提到过 q 学习的迭代初期可能有非常糟糕的表现, 此时我们更看重采取某个动作后的回报值, 这个问题比较类似 a-c, 可以用多步的回报值解决(在 a-c 中我们用这个办法缓解策略更新的高方差), 即将更新步骤设置为: <span class="math inline">\(y_{j,t}=\sum_{l^{\prime}=t}^{t+N-1}\gamma^{t-t^{\prime}}r_{j,t^{\prime}}+\gamma^{N}\operatorname*{max}_{\Omega_{k},t+N}Q_{\phi^{\prime}}(\mathbf{s}_{j,t+N,\,\Omega_{j,t+N}})\)</span><br />
+此外, 这种方法会让训练必须是 on-policy 的, 因为这 n 步的策略必须是被固定的, 当然, 也可以当做这个问题不存在, 毕竟理论上 n 不大的话策略不会改变太多, 又或者实现类似之前的重要性采样</p>
+<h3 id="连续动作">连续动作</h3>
+<p>连续动作空间的麻烦在于, 如何处理取 Qmax 的操作, 一个基于直觉的想法是梯度下降找机制, 但这样显然计算量很大<br />
+为了提高效率, 一个简单的做法是对 Q 随机取 n 个样, 选一个最大值, 这称为 <code>stochastic optimization</code> ; 这种方法有一些改版, 例如通过交叉熵优化采样<br />
+另一个不依赖随机的做法是, 用有数值解的函数来表示Q函数, 例如二次函数: <span class="math inline">\(Q_{\phi}({\bf s},{\bf a})=-\frac{1}{2}({\bf a}-\mu_{\phi}({\bf s}))^{T}P_{\phi}({\bf s})({\bf a}-\mu_{\phi}({\bf s}))+V_{\phi}({\bf s})\)</span><br />
+从而: <span class="math inline">\(\quad\arg\operatorname*{max}_{\mathbf{a}}Q_{\phi}(\mathbf{s},\mathbf{a})=\mu_{\phi}(\mathbf{s})\qquad\quad\operatorname*{max}_{\mathbf{a}}Q_{\phi}(\mathbf{s},\mathbf{a})=V_{\phi}(\mathbf{s})\)</span><br />
+这样以降低表达能力为代价, 得到了高效取max的方法<br />
+以及, 训练一个独立的网络来取max, 有点类似于a-c</p>
+<h2 id="最优控制">最优控制</h2>
+<p>这一章的目的在于为基于模型的rl做铺垫, 这里先引入几个名词:</p>
+<ol type="1">
+<li>最优控制(optimal control): 即控制一个系统达到一个最优指标, 在rl中就是回报最大化</li>
+<li>system dynamic: 即系统根据行动其状态会怎么变化</li>
+<li>closed/open-loop 闭/开环控制: 简单地说, 闭环指的是做出行动后会得到行动后的系统状态, 用于下一次行动, 开环则相反, 做出行动后并不知道之后会发生什么; 根据定义来看, 很明显rl一般是闭环的, 如果不知道采取行动后的状态, 就很难进行学习</li>
+<li>控制领域常用x,u表示rl中的s,a, 用c(cost)表示成本, 最小化成本而不是最大化回报</li>
+</ol>
+<p>本章中, 我们假设s-d完全已知, 无论状态转移是确定还是基于概率的, 基于概率的情况下需要最大化的是期望回报<br />
+最简单的做法是之前提到过的随机取k个样本取其中的最佳, 对其的改进是<code>Cross-Entropy Method(cem)</code>, cem让每次的k个取样服从一个分布例如高斯分布, 使用最大似然来拟合分布, 让分布去拟合那些有更高值的数据<br />
+基于采样的方法在工程上很实用, 但一旦遇到比较多的维度即比较复杂的情况, 效果就不行了<br />
+另一个常见方法是蒙特卡洛(<code>Monte Carlo tree search (MCTS)</code>), 也就是状态为节点, 动作与其对应回报作为边的树, 根据这个树先选择一个状态, 然后选择一个行动进行, 一路记录回报来更新树, 如此迭代<br />
+具体策略上有很多选择, 这里暂且略过<br />
+选定一个初始的(x,u)对, 最小化之后的cost, 这称为<code>shotting method(s-m)</code>, 下面引入一个经典场景: 线性的状态转移二次的c<br />
+<span class="math display">\[f(\mathbf{x}_{t},\mathbf{u}_{t})=\mathbf{F}_{t}\left[\begin{array}{l}{ {\mathbf{x}_{t}}}\\ { {\mathbf{u}_{t}}}\end{array}\right]+\mathbf{f}_{t}\]</span><br />
+<span class="math display">\[c({\bf x}_{t},{\bf u}_{t})={\frac{1}{2}}\left[\begin{array}{c}{ { {\bf x}_{t}}}\\ { { {\bf u}_{t}}}\end{array}\right]^{T}{\bf C}_{t}\left[\begin{array}{c}{ { {\bf x}_{t}}}\\ { { {\bf u}_{t}}}\end{array}\right]+\left[\begin{array}{c}{ { {\bf x}_{t}}}\\ { { {\bf u}_{t}}}\end{array}\right]^{T}{\bf c}_{t}\]</span></p>
+<h2 id="马尔可夫过程">马尔可夫过程</h2>
+<p>马尔可夫过程中, 对一个特定状态则有一个特定的未来状态概率分布（可以理解为策略）, 很容易算出之后的期望回报<br />
+即, 如果我们希望知道一个特定状态是好是坏, 可以定义状态价值 V 为其回报的期望, 即从这个状态开始, 折扣 γ 的指数与之后回报乘积的和, V 与回报 G 的区别是, V 绑定一个特定的状态 s, 即某个 s 开始的之后获取的回报的期望<br />
+t 时刻后的回报为：<br />
+<span class="math display">\[G_{t}=r_{t+1}+\gamma r_{t+2}+\gamma^{2}r_{t+3}+\gamma^{3}r_{t+4}+\ldots+\gamma^{T-t-1}r_{T}\]</span> 状态 s 的价值为：<br />
+<span class="math display">\[\begin{array}{l}{ {V^{t}(s)=\mathbb{E}\left[G_{t}\mid s_{t}=s\right]} }\\ { {\ } }\\ { {=\mathbb{E}\left[r_{t+1}+\gamma r_{t+2}+\gamma^{2}r_{t+3}+.\cdot.+\gamma^{T-t-1}r_{T}\mid s_{t}=s\right]} }\end{array}\]</span><br />
+即给定 <span class="math inline">\(s_t = s\)</span> 这个条件后的 Gt 期望<br />
+实际训练中概率没法直接看出来, 符合常识的想法是靠采样估算, 也就是可以对采样的多组数据取平均值, 这称为 <code>蒙特卡洛(Monte Carlo,MC)采样</code><br />
+另一种方法是贝尔曼方程, 这一方程常用于动态规划, 使用下个状态的价值来更新之前状态, 写作：<br />
+<span class="math display">\[ V(s)=R(s) + \gamma\sum_{s^{\prime}\in S}p\left(s^{\prime}\mid s\right)V\left(s^{\prime}\right)  \]</span> <code>s′</code> 可以看成未来的某个状态, <code>p(s′|s)</code> 是指从当前状态转移到未来状态的概率。<code>V (s′)</code> 代表的是未来某一个状态的价值, <code>R(s)</code> 为 s 的奖励组成的向量<br />
+贝尔曼方程的证明：<br />
+
+$$\begin{array}{l}{ {V(s)=\mathbb{E}\left[G_{t}\mid s_{t}=s\right]} }\\ { {=\mathbb{E}\left[r_{t+1}+\gamma r_{t+2}+\gamma^{2}r_{t+3}+...\mid s_{t}=s\right]} }\\ { {=\mathbb{E}\left[r_{t+1}\right|s_{t}=s]+\gamma\mathbb{E}\left[r_{t+2}+\gamma r_{t+3}+\gamma^{2}r_{t+4}+\dots\mid s_{t}=s\right]} }\\ { {=R(s)+\gamma\mathbb{E}[G_{t+1}\left|s_{t}=s\right]} }\end{array}$$
+ 下面证明: <span class="math inline">\(\mathbb{E}[V(s_{t+1})|s_{t}]=\mathbb{E}[\mathbb{E}[G_{t+1}|s_{t+1}]|s_{t}]=\mathbb{E}[G_{t+1}|s_{t}]\)</span></p>
+<p>条件期望的定义为：<br />
+<span class="math display">\[\operatorname{\mathbb{E} }[X\mid Y=y]=\sum_{x}x p(X=x\mid Y=y)\]</span></p>
+<p>具体证明：<br />
+<img src="/assets/ml/52243716-045d-4e27-ad0c-0e84593fee81.png" /></p>
+<p>代入之前的等式, 得：</p>
+<p><span class="math display">\[\begin{array}{c}{ {V(s)=R(s)+\gamma\mathbb{E}[V(s_{t+1})|s_{t}=s]} }\\ { {=R(s)+\gamma{\sum\limits_{s^{\prime}\in S} } p\left(s^{\prime}\mid s\right)V\left(s^{\prime}\right)} }\end{array}\]</span></p>
+<p>对单个 s 来说, 贝尔曼方程就是一个向量乘积加上偏移值, 所有的 s 可以写成一个矩阵乘法加上奖励向量的形式:</p>
+<p><span class="math display">\[\begin{array}{c}{ {V=R+\gamma P V} }\\ { {E V=R+\gamma P V} }\\ { {(E-\gamma P)V=R} }\\ { {V=(I-\gamma P)^{-1}R} }\end{array}\]</span></p>
+<p>这个解析解看着很美好, 但涉及到逆矩阵求解, 这是个复杂度 <span class="math inline">\(O(N^3)\)</span> 的问题(单论常用算法), 因此对较大的模型并不实用</p>
+<p>得到 V 的两种方法：</p>
+<ul>
+<li>最简单直接的蒙特卡洛方法, 只需要对某个初始状态采样大量轨迹, 然后取平均值, 既可作为其价值</li>
+<li>不断迭代贝尔曼方程, 直到结果趋向收敛, 这个收敛值即可以作为价值, 即“自举”（Bootstrapping）(利用当前的估计或状态值来更新和改进自身的学习过程)</li>
+</ul>
+<h3 id="决策">决策</h3>
+<p>单纯的马尔可夫过程没有策略的空间, 也就是同时根据当前的状态和动作决定之后的状态分布, 策略可以基于概率或者直接产生特定输出, 如果策略已知, 依然可以通过计算 <span class="math inline">\(\sum_{a\in A}\pi(a\mid s)p\left(s^{\prime}\mid s,a\right)\)</span> 获取状态转移的概率<br />
+也就是说, 通过采样行动, 我们可以得到使用特定策略的特定状态的价值 由于引进了决策, 定义一个 Q 函数, 也被称为动作价值函数(action-value function)。Q 函数定义的是在某一个状态采取某一个动作, 它有可能得到的回报的一个期望 <span class="math display">\[V_{\pi}(s)=\sum_{a\in A}\pi(a\mid s)Q_{\pi}(s,a)\]</span></p>
+<p><span class="math display">\[\begin{array}{r l} {Q(s,a)} &amp;=\mathbb{E}\left[G_{t}\mid s_{t}=s,a_{t}=a\right] \\ &amp;=\mathbb{E}\left[r_{t+1}+\gamma r_{t+2}+\gamma^{2}r_{t+3}+\ldots\mid s_{t}=s,a_{t}=a\right]\\ &amp;{=R(s,a)+\gamma\mathbb{E}[G_{t+1}|s_{t}=s,a_{t}=a]}\\ &amp;{=R(s,a)+\gamma\mathbb{E}[V(s_{t+1})|s_{t}=s,a_{t}=a]}\\ &amp;{=R(s,a)+\gamma\displaystyle\sum_{s^{\prime}\in S}p(s^{\prime}\mid s,a)\,V\left(s^{\prime}\right)} \end{array}\]</span></p>
+<p>可以把状态价值函数和 Q 函数拆解成两个部分: 即时奖励和后续状态的折扣价值, 这样分解后得到一个类似于之前马尔可夫奖励过程的贝尔曼方程——贝尔曼期望方程(<code>Bellman expectation equation</code>):</p>
+<p><span class="math display">\[V_{\pi}(s)=\mathbb{E}_{\pi}\left[r_{t+1}+\gamma V_{\pi}\left(s_{t+1}\right)\mid s_{t}=s\right]\]</span> <span class="math display">\[Q_{\pi}(s,a)=\mathbb{E}_{\pi}\left[r_{t+1}+\gamma Q_{\pi}\left(s_{t+1},a_{t+1}\right)\right.\mid s_{t}=s,a_{t}=a]\]</span></p>
+<h3 id="备份图">备份图</h3>
+<p>以上我们得到了状态和动作的价值, 对某一个 s, 它可能对应多种 a, 确定一个 a 后得到下一个 state, 这其实是一种树状的关系, 因此可以用树形图表示 V 的演变, 称为备份(回溯)图<br />
+<img src="https://datawhalechina.github.io/easy-rl/img/ch2/2.10.png" /></p>
+<p>如图, 每一个空心圆圈代表一个状态, 每一个实心圆圈代表一个状态-动作对<br />
+从叶节点开始向上回溯, 可以得到叶节点上一层的 Q, 然后继续递推, 得到 a 上一层 s 的 V, 这样逐层计算就能得出整张图的状态与动作价值</p>
+<p><a href="https://cs.stanford.edu/people/karpathy/reinforcejs/gridworld_dp.html">可视化学习过程</a></p>
+<h3 id="迭代">迭代</h3>
+<h4 id="策略迭代">策略迭代</h4>
+<p>现在我们有 V 和 Q 这两个工具, 那么假设初始状态, 随便选定一套参数作为策略, 接下来随着训练过程, 不断更新轨迹中各个状态的价值, 由此再得到 Q 函数, 利用 Q 函数更新策略参数, 如此循环, 就可以让策略收敛到较优的性能<br />
+优化过程, 简单地说就是先找到所有状态的 V, 然后根据采样结果以及 V 的分布算出对于各个动作 a 的 Q, 那么对于一个特定的 s, 应该采取的策略需要让价值最高的动作有最高的概率, 如果当做分类问题做, 就可以以交叉熵为 loss 函数做梯度下降<br />
+这样的优化后, 理论上, 各个状态的 V 以及策略产生的 Q 都会更高, 而作为表现指标的初始状态的 V 也会更好<br />
+收敛后, 取让 Q 函数值最大化的动作, Q 函数就会直接变成价值函数, 这称为 <code>贝尔曼最优方程（Bellman optimality equation）</code>: <span class="math inline">\(V_{\pi}(s)=\operatorname*{max}_{a\in A}Q_{\pi}(s,a)\)</span><br />
+满足贝尔曼方程就说明, 这个策略对一个状态, 即使采取理论上的最佳行动, 也不会有更好的效果</p>
+<h4 id="价值迭代">价值迭代</h4>
+<p><code>最优性原理定理（principle of optimality theorem）</code>: 策略在状态 s 达到最优价值, 当且仅当对 s 可达的任何 s', 都已经达到了最优价值, 如果我们找到了初始状态 s 的最优价值, 那么自然就得到了最佳策略<br />
+其过程为：</p>
+<ol type="1">
+<li>初始化: 对所有状态, 设置其价值为 0</li>
+<li>循环直至收敛(k 为迭代次数)：
+<ol type="1">
+<li>对所有 s : <span class="math inline">\(Q_{k+1}(s,a)=R(s,a)+\gamma\sum_{s^{\prime}\in S}p\left(s^{\prime}\mid s,a\right)V_{k}\left(s^{\prime}\right)\)</span></li>
+<li><span class="math inline">\(V_{k+1}(s)=\operatorname*{max}_{a}Q_{k+1}(s,a)\)</span></li>
+</ol></li>
+<li>最优策略 <span class="math inline">\(\pi(s)=\arg\operatorname*{max}_{a}\left[R(s,a)+\gamma\sum_{s^{\prime}\in S}p\left(s^{\prime}\mid s,a\right)V_{H+1}\left(s^{\prime}\right)\right]\)</span></li>
+</ol>
+<p>这可以单纯视为一个规划问题, 有点类似于计网中路由器网络寻找最短跳数, 由于每个状态的最优解都依赖于能到达它的其他状态是否最优, 而我们不知道具体迭代几次所有状态都能到达最优, 所以对每个状态, 不断地计算其能采取的行动的价值, 找到一个最优的 Q 作为其 V, 如果网络中存在没有达到最优的节点, 那么在某轮迭代中它就会被优化, 直到一轮中没有任何优化发生, 才算抵达了最优解<br />
+设想一个类似“终点”的最优状态 s, s 有全局最佳的 V, 只要到达 s 就可以宣告游戏结束, 例如一个跑酷游戏的终点。那么对离 s 一步之遥的 <code>s'</code>, 迭代到它后, s'更新自己的价值为 <code>迈出最后一步(action)的回报+s的价值</code>(为了容易说明, 这里假设迈出这步到达 s 的概率是 1), 如果总共只有这两种状态, 由于 s 不会更好了, s'达到 s 也没有更好的路径, 继续迭代也不会更新, 问题解决了<br />
+再复杂化一点, 假设有若干个状态, 其中 s 是 "终点", 到达 s 的行为会得到一个及其巨大的回报, 那么每次迭代, 可以通过行动到达 s 的 s'就能达到最优解, 这样依次递推, 直到离 s 最远的状态也找到了耗费最少的到达 s 的路径<br />
+当然, 实际上, 很可能不存在这么一个方便的终点, 各个状态间会是互相传递更优解的情况, 但这种迭代的思路不会变化</p>
+<h2 id="免模型方法">免模型方法</h2>
+<h3 id="蒙特卡洛">蒙特卡洛</h3>
+<p>实际情况中有很多不满足马尔科夫条件, 过程中回报难以获得, 或者 action 连续值无法取最佳之类的问题, 也就是说很难做出系统的理论, 因此需要不通过模型进行 rl 的方法。</p>
+<ul>
+<li><code>Q表格</code>: 以采样并记录的方法, 使用平均奖励估算每个状态下每个动作的价值<br />
+</li>
+<li><code>蒙特卡洛方法</code>: 简单地说, 就是大量采样估算状态价值, 简单地列式可得到 <span class="math inline">\(\mu_t=\mu_{t-1}+{\frac{1}{t}}\left(x_{t}-\mu_{t-1}\right)\)</span> 其中 <span class="math inline">\(\mu\)</span> 是到 t 时刻为止的平均值 <span class="math inline">\(x_{t}-\mu_{t-1}\)</span> 称为残差
+<ul>
+<li><code>增量式蒙特卡洛 （incremental MC）</code> : 用增量的方法更新数据 , <span class="math inline">\(\begin{array}{l}{ {N\left(s_{t}\right)\leftarrow N\left(s_{t}\right)+1}}\\ { {V\left(s_{t}\right)\leftarrow V\left(s_{t}\right)+\frac{1}{N(s_{t})}\left(G_{t}-V\left(s_{t}\right)\right)} }\end{array}\)</span> 其中 N 为状态 s 的访问次数</li>
+</ul></li>
+</ul>
+<h3 id="时序差分">时序差分</h3>
+<p>时序差分是免模型的在线算法</p>
+<p><span class="math display">\[ V\left(s_{t}\right)\leftarrow V\left(s_{t}\right)+\alpha\left(r_{t+1}+\gamma V\left(s_{t+1}\right)-V\left(s_{t}\right)\right) \]</span></p>
+<p>其中 <span class="math inline">\(r_{t+1}+\gamma V(s_{t+1})\)</span> 是称为时序差分目标(TD target)</p>
+<p>时序差分误差（TD error）写作:</p>
+<p><span class="math display">\[V\left(s_{t}\right)\leftarrow V\left(s_{t}\right)+\alpha\left(G_{i,t}-V\left(s_{t}\right)\right)\]</span></p>
+<p>时序差分可以更改步数(走几步更新)</p>
+<h2 id="理论问题">理论问题</h2>
+<h1 id="模型">模型</h1>
+<p>可以简单地讲选择 action 理解为分类问题, 损失函数使用交叉熵, 对不同的 s, 我们可能对执行的 action 有不同的期待, 因此可以设置一个损失函数的系数用于控制倾向性<br />
+那么如何定义 reward 呢?最直接的即时 reward 肯定不是最优解, 因此设置一个 Gn 表示 an 行为之后的所有回报和, 但对之后的回报要乘上一个惩罚系数 γ, 其次数逐渐增加; 此外, 可以使用将 G 减去一个 baseline 的值来产生不同行为的倾向性<br />
+rl, 准确地说是 on-policy 的 rl 与常见监督学习不同的是, 其训练资料在更新完一次模型后就无用了, 需要再次与环境互动收集资料<br />
+off-policy 则有所不同, 它让训练模型和互动的模型分开, 从而让经验可复用, 例如 <code>Proximal Policy Optimization(PPO)</code></p>
+<p>Critic actor: 我们希望有一个跟模型参数以及当前状态有关的函数 $ V^(s) $ 表示这种情况下的'价值', 可以理解为某个状态的预期回报<br />
+为了得到这个价值函数, 可以怎么做呢:</p>
+<ul>
+<li>Monte-Carlo(MC): 较为直观的做法, 先训练大量的 s 及其 G 值, 然后用这些资料预测 V</li>
+<li>Temporal-difference (TD): V 函数有以下性质:</li>
+</ul>
+<p><span class="math display">\[\begin{array}{l}{ {V^{\theta}(s_{t})=r_{t}+\gamma r_{t+1}+\gamma^{2}r_{t+2}\ldots} }\\ { {V^{\theta}(s_{t+1})=r_{t+1}+\gamma r_{t+2}+\ldots} }\\ { {V^{\theta}(s_{t})=\gamma V^{\theta}(s_{t+1})+r_{t} } }\end{array}\]</span><br />
+那么 <span class="math display">\[V^{\theta}(s_{t})-\gamma V^{\theta}(s_{t+1})\leftrightarrow r_{t}\]</span><br />
+通过这种关系就可以训练</p>
+<p>现在我们有了 G 和 V, 两者区别是 G 有一个确定的 a, V 则假定 a 是随机的, 那么可以对每个 <span class="math inline">\(\{s_{t},a_{t}\}\)</span> 对, 可以定义一个 <span class="math inline">\(\mathrm{A}_{t}\,=\,G_{t}^{\prime}-V^{\theta}(s_{t})\)</span> , 用于表示这个行为的 "表现"<br />
+也可以用 $r_{t}+V^{}(s_{t+1}) $ 代替上式的 $ G^{'}_t $ , 此式相当于采取行为 <span class="math inline">\(a_t\)</span> 后获得一个特定 <span class="math inline">\(r_t\)</span> 后的预期收益, 这称为 <code>Advantage Actor-Critic</code></p>
+<p><code>Reward Shaping</code>: 对回馈比较模糊或者非常慢的场景来说, 想要好的表现就需要人为规定一些回报机制, 例如对游戏 ai 来说, 就需要惩罚什么都不做的行为(否则机器为了回报不为负就可能消极游戏); 其中一种机制称为 <code>Curiosity</code>, 也就是奖励机器发现新信息的情况</p>
+<p>现实中不是所有情况都可以定义 reward, 此时只能通过人类提供示范来让机器学习, 这样当然会有很多问题, 比如数据集里没有错误示范等, 因此, 可能的思路是通过机器学习来找到 reward 再进行学习<br />
+<code>Inverse Reinforcement Learning</code>: 假设老师行为是最优的, 在每次迭代中:</p>
+<ol type="1">
+<li>actor 与环境互动</li>
+<li>定义一个奖励函数, 满足老师的奖励更优这个条件</li>
+<li>actor 根据这个奖励函数进行学习</li>
+</ol>
+<h1 id="模仿学习">模仿学习</h1>
+<p>缺点:</p>
+<ol type="1">
+<li>人类演示数据可能有很多模式, 不确定性较强, 且很可能不符合马尔科夫假设</li>
+<li>演示数据往往更多倾向于成功的情况, 令模型没有从错误恢复的能力, 导致错误逐渐积累, 最终效果极差</li>
+</ol>
+<p>改进:</p>
+<ol type="1">
+<li>使用 rnn, lstm 等方法，通过上下文学习专家演示数据； 这样的缺点是, 由于 rl 很多场景都有较强的因果特征, 这种情况很可能会错误地归因</li>
+<li>对于人类的复杂行为模式，可以使用多个高斯分布模拟，或者使用潜空间捕获特征(例如标准流); 以及 autoregressive discretization(自回归离散化)</li>
+</ol>
+]]></content>
+      <categories>
+        <category>课程笔记</category>
+      </categories>
+      <tags>
+        <tag>伯克利</tag>
+        <tag>课程笔记</tag>
+        <tag>python</tag>
+        <tag>人工智能</tag>
+        <tag>国立台湾大学</tag>
+        <tag>cs285</tag>
+        <tag>强化学习</tag>
       </tags>
   </entry>
   <entry>
