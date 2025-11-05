@@ -11,6 +11,6 @@ document.addEventListener('visibilitychange', function () {
         document.title = '被发现了被发现了被发现了被发现了';
         titleTime = setTimeout(() => {
             document.title = OriginTitle;
-        }, 800);
+        }, 500);
     }
 });
