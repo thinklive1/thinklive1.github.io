@@ -62,7 +62,7 @@
 <meta property="og:image" content="https://thinklive1.github.io/assets/ml/image-1.png">
 <meta property="og:image" content="https://thinklive1.github.io/assets/ml/image-2.png">
 <meta property="article:published_time" content="2025-09-09T07:53:29.848Z">
-<meta property="article:modified_time" content="2025-11-05T12:00:08.500Z">
+<meta property="article:modified_time" content="2025-11-05T12:27:28.654Z">
 <meta property="article:author" content="thinklive">
 <meta property="article:tag" content="人工智能">
 <meta property="article:tag" content="机器学习">
@@ -336,7 +336,7 @@ const darkmode = new Darkmode(options);
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-11-05 20:00:08" itemprop="dateModified" datetime="2025-11-05T20:00:08+08:00">2025-11-05</time>
+      <time title="修改时间：2025-11-05 20:27:28" itemprop="dateModified" datetime="2025-11-05T20:27:28+08:00">2025-11-05</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -369,7 +369,7 @@ const darkmode = new Darkmode(options);
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2:18</span>
+      <span>2:20</span>
     </span>
 </div>
 
@@ -1504,7 +1504,31 @@ NLMap(grid): 如果想直接辨别图像里的物品, 则可以使用 <code>clas
 <h2 id="unleashing-cognitive-map-through-linguistic-visual-synergy-for-embodied-visual-reasoning">Unleashing Cognitive Map through Linguistic-Visual Synergy for Embodied Visual Reasoning</h2>
 <p>Arxiv 2025</p>
 <p>一般基于基础模型的方法是, 使用图像描述和语言指令作为 LLM 输入来推理, 或者直接用观察帧/视频与语言指令作为 VLM 输入来推理<br />
-为了最大程度上利用两种模型的优势, 使用语义地图作为 LLM 和 VLM 交互的中间层,</p>
+为了最大程度上利用两种模型的优势, 本文使用语义地图作为 LLM 和 VLM 交互的中间层, 流程可以概况如下:</p>
+<ol type="1">
+<li>对第一人称视频输入, 切割成固定长度片段
+<ol type="1">
+<li>每个片段让VLM生成粗粒度描述, LLM提取其实体与其之间关系</li>
+<li>基于指令, LLM找出最相关的实体, 初始化一个认知图</li>
+</ol></li>
+<li>迭代过程中, LLM结合已有信息决定何时能回答问题
+<ol type="1">
+<li>如果LLM认为证据不足, LLM生成指令让VLM针对性分析对应视频</li>
+</ol></li>
+<li>如果LLM认为足够回答问题或者达到最大迭代次数, 让LLM生成答案</li>
+</ol>
+<p>具体地说, 这里的认知图分为两个图:</p>
+<ol type="1">
+<li>导航图: 每个节点对应一个独立的时间片段; 边对应片段之间的时间(先后)关系</li>
+<li>关系图: 包含一些细粒度的语义信息, 节点可以是实体或动作, 边则是节点之间的语义关系</li>
+</ol>
+<p>认知图以外, 再定义一个 <code>Evidence Memory(E)</code> 存储LLM-VLM的缓冲数据, 例如LLM要求VLM分析一段视频, VLM的响应将放入E中, 这些证据和对认知图的迭代无关, 只用于辅助推理(也就是问答)任务<br />
+也就是说总体程度里模型和数据的交互是:</p>
+<ol type="1">
+<li>VLM生成描述</li>
+<li>LLM初始化认知图并产生任务流让VLM不断解析对应视频, 中间信息放入E</li>
+<li>认知图和E不断更新, 每更新一轮让LLM决定产生新任务还是回答问题</li>
+</ol>
 <p><img src="/assets/ml/4-Figure2-1.png" /> <img src="/assets/ml/5-Figure3-1.png" /></p>
 <h2 id="stage-2-summary">stage 2 summary</h2>
 <p>这阶段主要查找了一些各种各样的数据存储和检索方式, 包括一篇关于具身智能领域数据存储领域的综述<br />
@@ -1891,13 +1915,13 @@ ACT 主要创新点在于能够预测连续的, 精确的动作序列, 而一些
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/thinklive/23089/" rel="prev" title="pdfs">
-                  <i class="fa fa-angle-left"></i> pdfs
+                <a href="/thinklive/44308/" rel="prev" title="计算机专业英语术语表">
+                  <i class="fa fa-angle-left"></i> 计算机专业英语术语表
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/thinklive/44308/" rel="next" title="计算机专业英语术语表">
-                  计算机专业英语术语表 <i class="fa fa-angle-right"></i>
+                <a href="/thinklive/18985/" rel="next" title="想法">
+                  想法 <i class="fa fa-angle-right"></i>
                 </a>
             </div>
           </div>
@@ -1938,7 +1962,7 @@ ACT 主要创新点在于能够预测连续的, 精确的动作序列, 而一些
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">37:59</span>
+    <span title="站点阅读时长">38:01</span>
   </span>
 </div>
 <div class="busuanzi-count">
