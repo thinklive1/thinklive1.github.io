@@ -1233,6 +1233,7 @@ NLMap(grid): 如果想直接辨别图像里的物品, 则可以使用 <code>clas
 </ol>
 <p><img src="/assets/ml/4-Figure2-1.png" /> <img src="/assets/ml/5-Figure3-1.png" /></p>
 <h2 id="stage-2-summary">stage 2 summary</h2>
+<p><img src="/assets/ml/20-Figure13-1.png" /></p>
 <p>这阶段主要查找了一些各种各样的数据存储和检索方式, 包括一篇关于具身智能领域数据存储领域的综述<br />
 stage1 中看的文章大多是语义地图中比较常见的拓扑图形式, 拓扑图的节点存储物理位置, 嵌入向量或是文本描述以及点云信息<br />
 这样的优点是构建、检索和更新(当然其实大部分都不更新)都很快, 缺点就是信息含量很单薄, 因此只能用于导航, 对动态环境的导航都可能效果不好<br />
