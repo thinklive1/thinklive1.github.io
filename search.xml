@@ -347,7 +347,17 @@ m ## 最优控制 这一章的目的在于为基于模型的rl做铺垫, 这里�
 第三种方法是, 定义 <span class="math inline">\({\mathrm I G}(z,y|a)=E_{y}[{\mathcal H}({\hat{p}}(z))-\mathcal A({\hat{p}}(z)|y)|a]\)</span> 其中IG( information gain)指的是从给定y中得到的额外信息, H则是概率分布的熵<br />
 例如, <span class="math inline">\(\Delta(a)=E[r(a^{\star})-r(a)]-expected~suboptimality~of~a\)</span> <span class="math inline">\(y=r_{a},\;z=\theta_{a}\)</span>(θ为模型参数), 从而选择的a满足 <span class="math inline">\({\frac{\Delta(a)^{2}}{g(a)}}\)</span><br />
 当然, 也有基于概率(分类器)的方法, 也就是训练一个模型, 或者使用某种启发式方法, 估计一个状态是否是值得探索的<br />
-这个模型可以不那么精确, 从而用模型与实际奖励的误差值作为novel(新颖)程度</p>
+这个模型可以不那么精确, 从而用模型与实际奖励的误差值作为novel(新颖)程度<br />
+还有类似之前的贪婪 <span class="math inline">\(\epsilon\)</span> 的方法, 也就是使用一个不同的Q函数buffer, 每次采样一批, 将其视为正确的, 进行探索来得到一些数据, 再放入池子, 这么做的问题在于, 每次的一批数据可能不够让模型学到一些长期决策的方法<br />
+模型参数θ也可以作为IG(信息增益)的计算对象, 也就是选择那些能让模型参数变化较大的数据进行探索, 这实际上可以用给定模型更新条件前后的θ分布之间的KL散度来衡量</p>
+<h3 id="基于信息论的情况">基于信息论的情况</h3>
+<p>首先引入一些信息论的概念: <span class="math display">\[{\mathcal{p}}{(}\mathbf{x}{\big)}\qquad{\mathrm{distribution~}}\left(\operatorname{e.g.,~over~oloservations~x}\right)\]</span><br />
+<span class="math display">\[{\mathcal{H}}(p(\mathbf{x}))=-E_{\mathbf{x}\sim p(\mathbf{x})}[\log p(\mathbf{x})]\]</span><br />
+直观地说, 熵H可以衡量一个概率分布的“宽度”, 熵越大, 分布越宽, 不确定性越大<br />
+<span class="math display">\[\begin{array}{r l}{\mathbb{I}(\mathbf{x};\mathbf{y})=D_{\mathrm{KL}}(p(\mathbf{x},\mathbf{y})||p(\mathbf{x})p(\mathbf{y}))}\\ {=E_{(\mathbf{x},\mathbf{y})\sim p(\mathbf{x},\mathbf{y})}\left[\log{\frac{p(\mathbf{x},\mathbf{y})}{p(\mathbf{x})p(y)}}\right]}\\ {=\ H(p(\mathbf{y}))-H(p(\mathbf{y}|\mathbf{x}))}\end{array}\]</span></p>
+<p>那么在强化学习中变量分布的熵及其互信息有什么用呢, 举一个例子, 以下的互信息被称为empowerment(赋能):</p>
+<p><span class="math display">\[\mathcal{I}(\mathbf{s}_{t+1};\mathbf{a}_{t})=\mathcal{H}(\mathbf{s}_{t+1}){-}\mathcal{H}(\mathbf{s}_{t+1}|a_{t})\]</span></p>
+<p>直观地说, 它衡量了在状态s下, 采取不同动作a能让下一个状态s′的熵(混乱程度)变化多少, 而在rl中, 一个理想的状态是: 这个状态有很多种选择, 也就是熵比较大; 但采取不同的动作能极大地限制未来状态的分布, 从而互信息较大的(s,a)对就是理想的</p>
 <h2 id="马尔可夫过程">马尔可夫过程</h2>
 <p>马尔可夫过程中, 对一个特定状态则有一个特定的未来状态概率分布（可以理解为策略）, 很容易算出之后的期望回报<br />
 即, 如果我们希望知道一个特定状态是好是坏, 可以定义状态价值 V 为其回报的期望, 即从这个状态开始, 折扣 γ 的指数与之后回报乘积的和, V 与回报 G 的区别是, V 绑定一个特定的状态 s, 即某个 s 开始的之后获取的回报的期望<br />
