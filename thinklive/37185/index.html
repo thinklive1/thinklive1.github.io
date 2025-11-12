@@ -47,10 +47,11 @@
 <meta property="og:image" content="https://thinklive1.github.io/assets/ml/image-38.png">
 <meta property="og:image" content="https://thinklive1.github.io/assets/ml/image-39.png">
 <meta property="og:image" content="https://thinklive1.github.io/assets/ml/image-40.png">
+<meta property="og:image" content="https://thinklive1.github.io/assets/ml/image-41.png">
 <meta property="og:image" content="https://thinklive1.github.io/assets/ml/52243716-045d-4e27-ad0c-0e84593fee81.png">
 <meta property="og:image" content="https://datawhalechina.github.io/easy-rl/img/ch2/2.10.png">
 <meta property="article:published_time" content="2025-09-09T07:53:29.840Z">
-<meta property="article:modified_time" content="2025-11-12T03:16:46.078Z">
+<meta property="article:modified_time" content="2025-11-12T10:03:44.831Z">
 <meta property="article:author" content="thinklive">
 <meta property="article:tag" content="伯克利">
 <meta property="article:tag" content="课程笔记">
@@ -220,7 +221,7 @@ const darkmode = new Darkmode(options);
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">基础概念</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E4%BB%BF%E5%AD%A6%E4%B9%A0"><span class="nav-number">1.1.</span> <span class="nav-text">模仿学习</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#hw1"><span class="nav-number">1.1.1.</span> <span class="nav-text">hw1</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AD%96%E7%95%A5%E6%A2%AF%E5%BA%A6"><span class="nav-number">1.2.</span> <span class="nav-text">策略梯度</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E5%92%8C%E6%94%B9%E8%BF%9B"><span class="nav-number">1.2.1.</span> <span class="nav-text">问题和改进</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8D%E8%A6%81%E6%80%A7%E9%87%87%E6%A0%B7"><span class="nav-number">1.2.2.</span> <span class="nav-text">重要性采样</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#actor-critic"><span class="nav-number">1.3.</span> <span class="nav-text">actor-critic</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#off-policy-a-c"><span class="nav-number">1.3.1.</span> <span class="nav-text">off-policy a-c</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9B%B4%E5%A5%BD%E7%9A%84-baseline"><span class="nav-number">1.3.2.</span> <span class="nav-text">更好的 baseline</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E4%BB%B7%E5%80%BC%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">1.4.</span> <span class="nav-text">基于价值的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%94%B6%E6%95%9B%E6%80%A7"><span class="nav-number">1.4.1.</span> <span class="nav-text">收敛性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B1%80%E9%99%90"><span class="nav-number">1.4.2.</span> <span class="nav-text">局限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%94%B9%E8%BF%9B"><span class="nav-number">1.4.3.</span> <span class="nav-text">改进</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9E%E7%BB%AD%E5%8A%A8%E4%BD%9C"><span class="nav-number">1.4.4.</span> <span class="nav-text">连续动作</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#model-based-rl"><span class="nav-number">1.5.</span> <span class="nav-text">model-based rl</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E5%9B%BE%E5%83%8F%E7%9A%84%E4%BB%BB%E5%8A%A1"><span class="nav-number">1.5.1.</span> <span class="nav-text">基于图像的任务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E7%AD%96%E7%95%A5%E7%9A%84m-b-rl"><span class="nav-number">1.5.2.</span> <span class="nav-text">基于策略的m-b rl</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%A2%E7%B4%A2"><span class="nav-number">1.6.</span> <span class="nav-text">探索</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E8%87%82%E8%80%81%E8%99%8E%E6%9C%BA"><span class="nav-number">1.6.1.</span> <span class="nav-text">多臂老虎机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E4%BF%A1%E6%81%AF%E8%AE%BA%E7%9A%84%E6%83%85%E5%86%B5"><span class="nav-number">1.6.2.</span> <span class="nav-text">基于信息论的情况</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E8%BF%87%E7%A8%8B"><span class="nav-number">1.7.</span> <span class="nav-text">马尔可夫过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%B3%E7%AD%96"><span class="nav-number">1.7.1.</span> <span class="nav-text">决策</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%87%E4%BB%BD%E5%9B%BE"><span class="nav-number">1.7.2.</span> <span class="nav-text">备份图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%AD%E4%BB%A3"><span class="nav-number">1.7.3.</span> <span class="nav-text">迭代</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AD%96%E7%95%A5%E8%BF%AD%E4%BB%A3"><span class="nav-number">1.7.3.1.</span> <span class="nav-text">策略迭代</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%B7%E5%80%BC%E8%BF%AD%E4%BB%A3"><span class="nav-number">1.7.3.2.</span> <span class="nav-text">价值迭代</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%8D%E6%A8%A1%E5%9E%8B%E6%96%B9%E6%B3%95"><span class="nav-number">1.8.</span> <span class="nav-text">免模型方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%92%99%E7%89%B9%E5%8D%A1%E6%B4%9B"><span class="nav-number">1.8.1.</span> <span class="nav-text">蒙特卡洛</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%B6%E5%BA%8F%E5%B7%AE%E5%88%86"><span class="nav-number">1.8.2.</span> <span class="nav-text">时序差分</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%90%86%E8%AE%BA%E9%97%AE%E9%A2%98"><span class="nav-number">1.9.</span> <span class="nav-text">理论问题</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B"><span class="nav-number">2.</span> <span class="nav-text">模型</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">基础概念</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E4%BB%BF%E5%AD%A6%E4%B9%A0"><span class="nav-number">1.1.</span> <span class="nav-text">模仿学习</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#hw1"><span class="nav-number">1.1.1.</span> <span class="nav-text">hw1</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AD%96%E7%95%A5%E6%A2%AF%E5%BA%A6"><span class="nav-number">1.2.</span> <span class="nav-text">策略梯度</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E5%92%8C%E6%94%B9%E8%BF%9B"><span class="nav-number">1.2.1.</span> <span class="nav-text">问题和改进</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8D%E8%A6%81%E6%80%A7%E9%87%87%E6%A0%B7"><span class="nav-number">1.2.2.</span> <span class="nav-text">重要性采样</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#actor-critic"><span class="nav-number">1.3.</span> <span class="nav-text">actor-critic</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#off-policy-a-c"><span class="nav-number">1.3.1.</span> <span class="nav-text">off-policy a-c</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9B%B4%E5%A5%BD%E7%9A%84-baseline"><span class="nav-number">1.3.2.</span> <span class="nav-text">更好的 baseline</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E4%BB%B7%E5%80%BC%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">1.4.</span> <span class="nav-text">基于价值的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%94%B6%E6%95%9B%E6%80%A7"><span class="nav-number">1.4.1.</span> <span class="nav-text">收敛性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B1%80%E9%99%90"><span class="nav-number">1.4.2.</span> <span class="nav-text">局限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%94%B9%E8%BF%9B"><span class="nav-number">1.4.3.</span> <span class="nav-text">改进</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9E%E7%BB%AD%E5%8A%A8%E4%BD%9C"><span class="nav-number">1.4.4.</span> <span class="nav-text">连续动作</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#model-based-rl"><span class="nav-number">1.5.</span> <span class="nav-text">model-based rl</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E5%9B%BE%E5%83%8F%E7%9A%84%E4%BB%BB%E5%8A%A1"><span class="nav-number">1.5.1.</span> <span class="nav-text">基于图像的任务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E7%AD%96%E7%95%A5%E7%9A%84-m-b-rl"><span class="nav-number">1.5.2.</span> <span class="nav-text">基于策略的 m-b rl</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%A2%E7%B4%A2"><span class="nav-number">1.6.</span> <span class="nav-text">探索</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E8%87%82%E8%80%81%E8%99%8E%E6%9C%BA"><span class="nav-number">1.6.1.</span> <span class="nav-text">多臂老虎机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E4%BF%A1%E6%81%AF%E8%AE%BA%E7%9A%84%E6%83%85%E5%86%B5"><span class="nav-number">1.6.2.</span> <span class="nav-text">基于信息论的情况</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%9F%E6%88%90%E5%BC%8F"><span class="nav-number">1.6.3.</span> <span class="nav-text">生成式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#intrinsic-motivation"><span class="nav-number">1.6.4.</span> <span class="nav-text">intrinsic motivation</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#off-policy-rl"><span class="nav-number">1.7.</span> <span class="nav-text">off-policy rl</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E8%BF%87%E7%A8%8B"><span class="nav-number">1.8.</span> <span class="nav-text">马尔可夫过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%B3%E7%AD%96"><span class="nav-number">1.8.1.</span> <span class="nav-text">决策</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%87%E4%BB%BD%E5%9B%BE"><span class="nav-number">1.8.2.</span> <span class="nav-text">备份图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%AD%E4%BB%A3"><span class="nav-number">1.8.3.</span> <span class="nav-text">迭代</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AD%96%E7%95%A5%E8%BF%AD%E4%BB%A3"><span class="nav-number">1.8.3.1.</span> <span class="nav-text">策略迭代</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%B7%E5%80%BC%E8%BF%AD%E4%BB%A3"><span class="nav-number">1.8.3.2.</span> <span class="nav-text">价值迭代</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%8D%E6%A8%A1%E5%9E%8B%E6%96%B9%E6%B3%95"><span class="nav-number">1.9.</span> <span class="nav-text">免模型方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%92%99%E7%89%B9%E5%8D%A1%E6%B4%9B"><span class="nav-number">1.9.1.</span> <span class="nav-text">蒙特卡洛</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%B6%E5%BA%8F%E5%B7%AE%E5%88%86"><span class="nav-number">1.9.2.</span> <span class="nav-text">时序差分</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%90%86%E8%AE%BA%E9%97%AE%E9%A2%98"><span class="nav-number">1.10.</span> <span class="nav-text">理论问题</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B"><span class="nav-number">2.</span> <span class="nav-text">模型</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -329,7 +330,7 @@ const darkmode = new Darkmode(options);
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-11-12 11:16:46" itemprop="dateModified" datetime="2025-11-12T11:16:46+08:00">2025-11-12</time>
+      <time title="修改时间：2025-11-12 18:03:44" itemprop="dateModified" datetime="2025-11-12T18:03:44+08:00">2025-11-12</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -355,14 +356,14 @@ const darkmode = new Darkmode(options);
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>15k</span>
+      <span>16k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>54 分钟</span>
+      <span>57 分钟</span>
     </span>
 </div>
 
@@ -420,18 +421,18 @@ $\begin{array}{l}{ {p_{\theta}(\tau)} }{ { {}=p(s_{1})p_{\theta}(a_{1}|s_{1})p(s
 <li>使用 rnn, lstm 等方法，通过上下文学习专家演示数据； 这样的缺点是, 由于 rl 很多场景都有较强的因果特征, 这种情况很可能会错误地归因</li>
 <li>对于人类的复杂行为模式，可以使用多个高斯分布模拟，或者使用潜空间捕获特征(例如标准流); 以及 autoregressive discretization(自回归离散化)</li>
 </ol>
-<p>一个比较常见的算法称为<code>Dagger</code> , 其流程可以写作如下:</p>
+<p>一个比较常见的算法称为 <code>Dagger</code> , 其流程可以写作如下:</p>
 <ol type="1">
 <li>首先使用专家演示的行为来训练一个初始策略</li>
-<li>然后让该策略在环境中执行,并记录下其在整个状态空间中访问过的状态-动作对</li>
+<li>然后让该策略在环境中执行, 并记录下其在整个状态空间中访问过的状态-动作对</li>
 <li>这些状态-动作对让专家进行标注, 将得到的新数据放入数据池</li>
-<li>使用这个新的训练集,再次训练出一个更加接近专家的策略</li>
-<li>重复上述过程,直到策略收敛</li>
+<li>使用这个新的训练集, 再次训练出一个更加接近专家的策略</li>
+<li>重复上述过程, 直到策略收敛</li>
 </ol>
 <h3 id="hw1">hw1</h3>
 <p>训练目标可以表示为以下不等式:</p>
 <p><span class="math display">\[\mathbb{E}_{p_{\pi}*(s)}\pi_{\theta}(a\not=\pi^{*}(s)\mid s)={\frac{1}{T}}\sum_{t=1}^{T}\mathbb{E}_{p_{\pi}*(s_{t})}\pi_{\theta}(a_{t} \not =\pi^{*}(s_{t})\mid s_{t})\leq\varepsilon,\]</span></p>
-<p>即: 给定随机专家轨迹与其状态分布, 在相同状态下训练策略产生的动作期望和专家策略产生的动作期望差值小于 <span class="math inline">\(\epsilon\)</span> , 其中 <span class="math inline">\(p_{\pi}(s_{t})\)</span> 表示给定π在时间t的状态分布</p>
+<p>即: 给定随机专家轨迹与其状态分布, 在相同状态下训练策略产生的动作期望和专家策略产生的动作期望差值小于 <span class="math inline">\(\epsilon\)</span> , 其中 <span class="math inline">\(p_{\pi}(s_{t})\)</span> 表示给定 π 在时间 t 的状态分布</p>
 <h2 id="策略梯度">策略梯度</h2>
 <p>rl 的目标就是找一个最大化期望回报的策略 π, 等价于找到最好的策略参数 θ, 可以使用和机器学习类似的梯度下降, 只不过这个梯度比较特殊，下面引用 cs285 的 ppt:</p>
 <p><img src="/assets/ml/image-24.png" /> <img src="/assets/ml/image-23.png" /> 上图 1 中的 J 表示根据确定的 θ 和 π, 得到的轨迹 τ 对应回报的期望, 使用一个 trick, 将概率的梯度转为其自身和 log 梯度的乘积, 这是为了凑出数学期望的形式<br />
@@ -566,89 +567,105 @@ Q 可以写为当前(s, a)的回报加上基于未来状态分布的 V 的期望
 <h3 id="连续动作">连续动作</h3>
 <p>连续动作空间的麻烦在于, 如何处理取 Qmax 的操作, 一个基于直觉的想法是梯度下降找机制, 但这样显然计算量很大<br />
 为了提高效率, 一个简单的做法是对 Q 随机取 n 个样, 选一个最大值, 这称为 <code>stochastic optimization</code> ; 这种方法有一些改版, 例如通过交叉熵优化采样<br />
-另一个不依赖随机的做法是, 用有数值解的函数来表示Q函数, 例如二次函数: <span class="math inline">\(Q_{\phi}({\bf s},{\bf a})=-\frac{1}{2}({\bf a}-\mu_{\phi}({\bf s}))^{T}P_{\phi}({\bf s})({\bf a}-\mu_{\phi}({\bf s}))+V_{\phi}({\bf s})\)</span><br />
+另一个不依赖随机的做法是, 用有数值解的函数来表示 Q 函数, 例如二次函数: <span class="math inline">\(Q_{\phi}({\bf s},{\bf a})=-\frac{1}{2}({\bf a}-\mu_{\phi}({\bf s}))^{T}P_{\phi}({\bf s})({\bf a}-\mu_{\phi}({\bf s}))+V_{\phi}({\bf s})\)</span><br />
 从而: <span class="math inline">\(\quad\arg\operatorname*{max}_{\mathbf{a}}Q_{\phi}(\mathbf{s},\mathbf{a})=\mu_{\phi}(\mathbf{s})\qquad\quad\operatorname*{max}_{\mathbf{a}}Q_{\phi}(\mathbf{s},\mathbf{a})=V_{\phi}(\mathbf{s})\)</span><br />
-这样以降低表达能力为代价, 得到了高效取max的方法<br />
-以及, 训练一个独立的网络来取max, 有点类似于a-c<br />
-m ## 最优控制 这一章的目的在于为基于模型的rl做铺垫, 这里先引入几个名词:</p>
+这样以降低表达能力为代价, 得到了高效取 max 的方法<br />
+以及, 训练一个独立的网络来取 max, 有点类似于 a-c<br />
+m ## 最优控制 这一章的目的在于为基于模型的 rl 做铺垫, 这里先引入几个名词:</p>
 <ol type="1">
-<li>最优控制(optimal control): 即控制一个系统达到一个最优指标, 在rl中就是回报最大化</li>
+<li>最优控制(optimal control): 即控制一个系统达到一个最优指标, 在 rl 中就是回报最大化</li>
 <li>system dynamic: 即系统根据行动其状态会怎么变化</li>
-<li>closed/open-loop 闭/开环控制: 简单地说, 闭环指的是做出行动后会得到行动后的系统状态, 用于下一次行动, 开环则相反, 做出行动后并不知道之后会发生什么; 根据定义来看, 很明显rl一般是闭环的, 如果不知道采取行动后的状态, 就很难进行学习</li>
-<li>控制领域常用x,u表示rl中的s,a, 用c(cost)表示成本, 最小化成本而不是最大化回报</li>
+<li>closed/open-loop 闭/开环控制: 简单地说, 闭环指的是做出行动后会得到行动后的系统状态, 用于下一次行动, 开环则相反, 做出行动后并不知道之后会发生什么; 根据定义来看, 很明显 rl 一般是闭环的, 如果不知道采取行动后的状态, 就很难进行学习</li>
+<li>控制领域常用 x, u 表示 rl 中的 s, a, 用 c(cost)表示成本, 最小化成本而不是最大化回报</li>
 </ol>
-<p>本章中, 我们假设s-d完全已知, 无论状态转移是确定还是基于概率的, 目标都是最大化回报, 基于概率的情况下需要最大化的是期望回报<br />
-最简单的做法是之前提到过的随机取k个样本取其中的最佳, 对其的改进是<code>Cross-Entropy Method(cem)</code>, cem让每次的k个取样服从一个分布例如高斯分布, 使用最大似然来拟合分布, 让分布去拟合那些有更高值的数据<br />
+<p>本章中, 我们假设 s-d 完全已知, 无论状态转移是确定还是基于概率的, 目标都是最大化回报, 基于概率的情况下需要最大化的是期望回报<br />
+最简单的做法是之前提到过的随机取 k 个样本取其中的最佳, 对其的改进是 <code>Cross-Entropy Method(cem)</code>, cem 让每次的 k 个取样服从一个分布例如高斯分布, 使用最大似然来拟合分布, 让分布去拟合那些有更高值的数据<br />
 基于采样的方法在工程上很实用, 但一旦遇到比较多的维度即比较复杂的情况, 效果就不行了<br />
 另一个常见方法是蒙特卡洛(<code>Monte Carlo tree search (MCTS)</code>), 也就是状态为节点, 动作与其对应回报作为边的树, 根据这个树先选择一个状态, 然后选择一个行动进行, 一路记录回报来更新树, 如此迭代<br />
 具体策略上有很多选择, 这里暂且略过<br />
-选定一个初始的(x,u)对, 最小化之后的cost, 这称为<code>shotting method(s-m)</code>, 下面引入一个经典场景: 线性的状态转移与二次的c函数<br />
+选定一个初始的(x, u)对, 最小化之后的 cost, 这称为 <code>shotting method(s-m)</code>, 下面引入一个经典场景: 线性的状态转移与二次的 c 函数<br />
 <span class="math display">\[f(\mathbf{x}_{t},\mathbf{u}_{t})=\mathbf{F}_{t}\left[\begin{array}{l}{ {\mathbf{x}_{t}}}\\ { {\mathbf{u}_{t}}}\end{array}\right]+\mathbf{f}_{t}\]</span><br />
 <span class="math display">\[c({\bf x}_{t},{\bf u}_{t})={\frac{1}{2}}\left[\begin{array}{c}{ { {\bf x}_{t}}}\\ { { {\bf u}_{t}}}\end{array}\right]^{T}{\bf C}_{t}\left[\begin{array}{c}{ { {\bf x}_{t}}}\\ { { {\bf u}_{t}}}\end{array}\right]+\left[\begin{array}{c}{ { {\bf x}_{t}}}\\ { { {\bf u}_{t}}}\end{array}\right]^{T}{\bf c}_{t}\]</span><br />
 目标表示为 <span class="math display">\[\operatorname*{min}_{\mathbf{u}_{1},\ldots,\mathbf{u}_{T}} c({\bf x}_{1},{\bf u}_{1})+c(f({\bf x}_{1},{\bf u}_{1}),{\bf u}_{2}){ {+\;\cdot\;\cdot\;+\;c}}(f(f(\cdot\cdot\cdot)\;\cdot\;\cdot\;\cdot),\,{\bf u}_{T})\]</span></p>
 <p><span class="math display">\[c_T = \left[\begin{array}{l}{ {\mathbf{c_{x_{T}}}}}\\ { {\mathbf{c_{u_{T}}}}}\end{array}\right]\]</span><br />
 <span class="math display">\[C_T= \begin {pmatrix} C_{X_T,X_T} &amp; C_{X_T,U_T} \\ C_{U_T,X_T} &amp; C_{U_T,U_T} \end{pmatrix}\]</span> <span class="math display">\[Q({\bf x}_{T},{\bf u}_{T})=\mathrm{const}+\frac{1}{2}\left[\begin{array}{c}{ { {\bf x}_{T}}}\\ { { {\bf u}_{T}}}\end{array}\right]^{T}{\bf C}_{T}\left[\begin{array}{c}{ { {\bf x}_{T}}}\\ { { {\bf u}_{T}}}\end{array}\right]+\left[\begin{array}{c}{ { {\bf x}_{T}}}\\ { { {\bf u}_{T}}}\end{array}\right]^{T}{\bf c}_{T}\]</span></p>
-<p>通过对u求导, 很容易能算出这个二次函数的极值, 也就是最优动作, 省略这些让人头疼的推导, 我们需要知道的是, 这个最佳的u依赖我们不知道的x<br />
-将这个最佳的u代入, 则可以消除u， 得到对一个特定x的V值<br />
-在以上这些推导后, 我们会得到一个用T时刻的(u,x)及其Q,V推导T-1时刻的(u,x)的Q,V的方式, 从而可以不断进行迭代<br />
-在基于概率的情况, 例如状态转移服从一个均值为确定性转移的高斯分布的情况下, 此时的u最优解其实保持不变,从而可以进行类似确定情况的迭代<br />
-在LQR(iLQR)方法中, 通过泰勒展开式局部展开来估计状态转移, 也就是:<br />
+<p>通过对 u 求导, 很容易能算出这个二次函数的极值, 也就是最优动作, 省略这些让人头疼的推导, 我们需要知道的是, 这个最佳的 u 依赖我们不知道的 x<br />
+将这个最佳的 u 代入, 则可以消除 u， 得到对一个特定 x 的 V 值<br />
+在以上这些推导后, 我们会得到一个用 T 时刻的(u, x)及其 Q, V 推导 T-1 时刻的(u, x)的 Q, V 的方式, 从而可以不断进行迭代<br />
+在基于概率的情况, 例如状态转移服从一个均值为确定性转移的高斯分布的情况下, 此时的 u 最优解其实保持不变, 从而可以进行类似确定情况的迭代<br />
+在 LQR(iLQR)方法中, 通过泰勒展开式局部展开来估计状态转移, 也就是:<br />
 <span class="math display">\[f({\bf x}_{t},{\bf u}_{t})\approx f({\hat{\bf x}}_{t},{\hat{\bf u}}_{t})+\nabla_{ {\bf x}_{t},{\bf u}_{t}}f({\hat{\bf x}}_{t},{\hat{\bf u}}_{t})\left[\begin{array}{c}{ {\delta{\bf x}_{t}}}\\ { {\delta{\bf u}_{t}}}\end{array}\right]\]</span> 著名的牛顿法也是类似的原理, 只不过多展开了一项二次项</p>
 <h2 id="model-based-rl">model-based rl</h2>
-<p>虽然我们之前并没有讲模型方法, 但其实这和ml很像, ml中代理努力去拟合专家的数据, 在神经网络的典型任务例如回归、分类中, 网络也努力地拟合训练数据, 因此在rl常常面临的场景下, 如果训练一个预测状态转移的模型, 这会产生类似的问题, 也就是实际场景中概率分布会和训练数据时的不同, 这个问题的原因之前也遇到过, 就是因为不同的策略会产生不同的状态分布<br />
-如果以之前的思路, 可以用一个buffer来缓解这个问题, 也就是现实应用中每执行一次或者一轮动作, 将数据放入buffer, 定期重新学习, 这和dagger几乎完全一样<br />
-这个过程中错误数据也是很重要的, 因此事实上, 每个学习周期中下图的第3. 步经常执行很多次<br />
+<p>虽然我们之前并没有讲模型方法, 但其实这和 ml 很像, ml 中代理努力去拟合专家的数据, 在神经网络的典型任务例如回归、分类中, 网络也努力地拟合训练数据, 因此在 rl 常常面临的场景下, 如果训练一个预测状态转移的模型, 这会产生类似的问题, 也就是实际场景中概率分布会和训练数据时的不同, 这个问题的原因之前也遇到过, 就是因为不同的策略会产生不同的状态分布<br />
+如果以之前的思路, 可以用一个 buffer 来缓解这个问题, 也就是现实应用中每执行一次或者一轮动作, 将数据放入 buffer, 定期重新学习, 这和 dagger 几乎完全一样<br />
+这个过程中错误数据也是很重要的, 因此事实上, 每个学习周期中下图的第 3. 步经常执行很多次<br />
 <img src="/assets/ml/image-34.png" /></p>
-<p>很微妙的是, 在伯克利的实验中, m-b(model-based)方法效果比无模型方法差很多, 其可能的主要原因是, 由于模型很难彻底拟合rl场景中的状态转移(例如一些变化很陡峭的情况), 对风险很大的一部分, 模型都会悲观地估计它, 举个例子来说, 例如在悬崖边有很高的回报, m-b方法在掉下去一次后, 很难找到一个悬崖边得到高回报但不会掉下去的状态, 只会悲观地把周边一大片都给出一个较低的价值<br />
-如果有足够的数据, 可能最终模型还是能收敛到一个较好的表现, 因此我们可能需要一个<code>explore</code>机制<br />
-很显然对大部分rl场景中的不确定因素, 不能用标准正态分布这样简单的想法来看待, 那么如何处理呢？ 例如我们上文中曾经提过基于交叉熵优化采样的方法?<br />
+<p>很微妙的是, 在伯克利的实验中, m-b(model-based)方法效果比无模型方法差很多, 其可能的主要原因是, 由于模型很难彻底拟合 rl 场景中的状态转移(例如一些变化很陡峭的情况), 对风险很大的一部分, 模型都会悲观地估计它, 举个例子来说, 例如在悬崖边有很高的回报, m-b 方法在掉下去一次后, 很难找到一个悬崖边得到高回报但不会掉下去的状态, 只会悲观地把周边一大片都给出一个较低的价值<br />
+如果有足够的数据, 可能最终模型还是能收敛到一个较好的表现, 因此我们可能需要一个 <code>explore</code> 机制<br />
+很显然对大部分 rl 场景中的不确定因素, 不能用标准正态分布这样简单的想法来看待, 那么如何处理呢？ 例如我们上文中曾经提过基于交叉熵优化采样的方法?<br />
 基于熵的优化是行不通的, 这是因为熵只能用于估计不确定性, 不能用于估计不确定性的类型, 例如如果我们将不确定性用高斯分布建模, 均值和方差的选取就是个难题, 很可能有过拟合的现象出现<br />
 另一个思路是, 既然不知道环境的不确定性, 那么就去关注模型的不确定性, 也就是说, 一般来说假设 <span class="math inline">\(\operatorname{arg\,max\,log}p(\theta|D)=\operatorname{arg\,max\,log}p(D|\theta)\)</span> , 如果这个假设不对, 怎么得到 <span class="math inline">\(p(\theta|D)\)</span> 的估计<br />
 常见的方法有: 边缘概率乘积, 估计高斯分布等<br />
-此外有一种称为<code>bootstrap ensembles</code>的方法: 直观地说, 即训练很多个模型, 用它们的均值减少不确定性</p>
+此外有一种称为 <code>bootstrap ensembles</code> 的方法: 直观地说, 即训练很多个模型, 用它们的均值减少不确定性</p>
 <h3 id="基于图像的任务">基于图像的任务</h3>
-<p>基于图像的rl的难点在于, 观察和状态是分开的, 知道观察(图像)并不能知道状态, 当然可能直接用观察也能训练, 但就马尔科夫假设来说, 应当是状态转移到新的状态, 而不是观察<br />
+<p>基于图像的 rl 的难点在于, 观察和状态是分开的, 知道观察(图像)并不能知道状态, 当然可能直接用观察也能训练, 但就马尔科夫假设来说, 应当是状态转移到新的状态, 而不是观察<br />
 也就是说这种任务满足部分可观察的马尔科夫假设, 将其状态空间称为(latent space 潜空间)<br />
 这种情况下将问题分解为求观察-状态, 状态转移， 状态动作-回报， 三对关系:<br />
 <span class="math display">\[\begin{array}{c}{ {p(\mathbf{O}_{t}|\mathbf{S}_{t})}}\\ { {p(\mathbf{S}_{t+1}|\mathbf{S}_{t},\mathbf{a}_{t})}}\\ { {p(r_{t}|\mathbf{s}_{t},\mathbf{a}_{t})}}\end{array}\]</span></p>
 <p><img src="/assets/ml/image-35.png" /></p>
-<h3 id="基于策略的m-b-rl">基于策略的m-b rl</h3>
-<p>这章中提及的1.5版方法, 其实就是控制论中的<code>MPC(model predictive control 模型预测控制)</code>, 也就是不断预测未来状态并以此优化控制问题<br />
+<h3 id="基于策略的-m-b-rl">基于策略的 m-b rl</h3>
+<p>这章中提及的 1.5 版方法, 其实就是控制论中的 <code>MPC(model predictive control 模型预测控制)</code>, 也就是不断预测未来状态并以此优化控制问题<br />
 此前我们通过对状态转移的局部估计来不断迭代选择最佳动作, 从而作为策略, 那么有没有办法让模型直接生成策略呢？<br />
-这看上去应该很简单, 我们先训练状态转移预测模型, 然后用这个模型跑数据, 不断反向传播来优化一个基于模型的策略πθ<br />
-<img src="/assets/ml/image-36.png" /> 类似shooting method(不断从前往后确定一个决策), 这样的问题是前面的决策会有更大的重要性和敏感性, 于是就会产生神经网络的常见问题, 要么梯度爆炸, 要么梯度消失<br />
+这看上去应该很简单, 我们先训练状态转移预测模型, 然后用这个模型跑数据, 不断反向传播来优化一个基于模型的策略 πθ<br />
+<img src="/assets/ml/image-36.png" /> 类似 shooting method(不断从前往后确定一个决策), 这样的问题是前面的决策会有更大的重要性和敏感性, 于是就会产生神经网络的常见问题, 要么梯度爆炸, 要么梯度消失<br />
 如果用二阶优化器来解决这种不对称, 又会造成时间序列性的消失, 此外也会有更大的计算量<br />
-那么在神经网络里如何解决这种问题呢？常见的思路是使用LSTM, 但由于rl中状态转移是由外部环境决定的, LSTM以及大部分深度学习的trick则一般自己选择“状态”的转化, 所以也不是那么方便<br />
+那么在神经网络里如何解决这种问题呢？常见的思路是使用 LSTM, 但由于 rl 中状态转移是由外部环境决定的, LSTM 以及大部分深度学习的 trick 则一般自己选择“状态”的转化, 所以也不是那么方便<br />
 因此, 放弃反向传播, 改用基于采样的策略梯度:</p>
 <p><img src="/assets/ml/image-37.png" /></p>
 <p>下一个问题依然是, 如何处理这种理论最优和实际情况的差距, 换句话说, 我们训练的是一个在给定状态转移模型下最优的策略, 而这个状态转移模型也是拟合出来而不是真实的, 因此真实情况下这个策略模型也会不断积累错误<br />
-事实上, 这种实际情况下的误差是随着时间快速增长的, 但由于rl的场景限制, 不可能缩短horizon, 这样会让一些后期状态无法被学习, 因此我们找一个折中的方法:<br />
+事实上, 这种实际情况下的误差是随着时间快速增长的, 但由于 rl 的场景限制, 不可能缩短 horizon, 这样会让一些后期状态无法被学习, 因此我们找一个折中的方法:<br />
 收集一些真实环境下的轨迹, 随机选择这些轨迹中的随机状态, 从随机状态开始执行较短的迭代并更新策略梯度, 这样的好处是能兼顾不同时间步下的数据, 且避免误差随着时间无法抑制地增长<br />
-显然, 如果更新策略, 之前的轨迹数据就和当前不符合了, 类似之前的Q学习或者a-c, 实际中我们一般在一定范围内忽略这种策略更新带来的误差<br />
+显然, 如果更新策略, 之前的轨迹数据就和当前不符合了, 类似之前的 Q 学习或者 a-c, 实际中我们一般在一定范围内忽略这种策略更新带来的误差<br />
 <img src="/assets/ml/image-38.png" /> <img src="/assets/ml/image-39.png" /></p>
-<p>将这种方法用到之前的基于buffer的方法上, 就能得到:</p>
-<p><img src="/assets/ml/image-40.png" /> 相比之前方法的改进是: 用真实数据训练模型, 再将模型生成的数据也作为数据池用来Q学习</p>
+<p>将这种方法用到之前的基于 buffer 的方法上, 就能得到:</p>
+<p><img src="/assets/ml/image-40.png" /> 相比之前方法的改进是: 用真实数据训练模型, 再将模型生成的数据也作为数据池用来 Q 学习</p>
 <h2 id="探索">探索</h2>
 <h3 id="多臂老虎机">多臂老虎机</h3>
-<p>教授举了一个很有趣的例子, 多臂老虎机问题就是rl中的果蝇, 是非常经典的示例问题<br />
+<p>教授举了一个很有趣的例子, 多臂老虎机问题就是 rl 中的果蝇, 是非常经典的示例问题<br />
 所谓的多臂老虎机, 就是一个有多个可选拉杆的老虎机, 也就是说它的性质是: 离散有限的动作空间且没有状态<br />
 在探索这个问题中, 定义遗憾值(regert)为理论最佳策略期望收益与实际策略期望收益的差值<br />
 最简单地策略就是一直选取平均收益较高的动作, 如果想兼顾一些探索, 则可以加上一个带权重的收益标准差： <span class="math inline">\(a=\arg\operatorname*{max}{\hat{\mu}}_{a}+C\sigma_{a}\)</span> 因为可以认为标准差高的动作有较大的不确定性, 需要更多探索<br />
-还有一个问题是什么时候终止探索, 这应该有两个参数: 随着时间探索的权重应该减少；且随着次数增加探索也应该减少: <span class="math inline">\(a=\operatorname{arg\,max}{\hat{\mu}}_{a}+{\sqrt{\frac{2\ln T}{N(a)}}}\)</span> (UCB)这种方法理论上能将遗憾控制在O(logT)<br />
-第三种方法是, 定义 <span class="math inline">\({\mathrm I G}(z,y|a)=E_{y}[{\mathcal H}({\hat{p}}(z))-\mathcal A({\hat{p}}(z)|y)|a]\)</span> 其中IG( information gain)指的是从给定y中得到的额外信息, H则是概率分布的熵<br />
-例如, <span class="math inline">\(\Delta(a)=E[r(a^{\star})-r(a)]-expected~suboptimality~of~a\)</span> <span class="math inline">\(y=r_{a},\;z=\theta_{a}\)</span>(θ为模型参数), 从而选择的a满足 <span class="math inline">\({\frac{\Delta(a)^{2}}{g(a)}}\)</span><br />
+还有一个问题是什么时候终止探索, 这应该有两个参数: 随着时间探索的权重应该减少；且随着次数增加探索也应该减少: <span class="math inline">\(a=\operatorname{arg\,max}{\hat{\mu}}_{a}+{\sqrt{\frac{2\ln T}{N(a)}}}\)</span> (UCB)这种方法理论上能将遗憾控制在 O(logT)<br />
+第三种方法是, 定义 <span class="math inline">\({\mathrm I G}(z,y|a)=E_{y}[{\mathcal H}({\hat{p}}(z))-\mathcal A({\hat{p}}(z)|y)|a]\)</span> 其中 IG( information gain)指的是从给定 y 中得到的额外信息, H 则是概率分布的熵<br />
+例如, <span class="math inline">\(\Delta(a)=E[r(a^{\star})-r(a)]-expected~suboptimality~of~a\)</span> <span class="math inline">\(y=r_{a},\;z=\theta_{a}\)</span>(θ 为模型参数), 从而选择的 a 满足 <span class="math inline">\({\frac{\Delta(a)^{2}}{g(a)}}\)</span><br />
 当然, 也有基于概率(分类器)的方法, 也就是训练一个模型, 或者使用某种启发式方法, 估计一个状态是否是值得探索的<br />
-这个模型可以不那么精确, 从而用模型与实际奖励的误差值作为novel(新颖)程度<br />
-还有类似之前的贪婪 <span class="math inline">\(\epsilon\)</span> 的方法, 也就是使用一个不同的Q函数buffer, 每次采样一批, 将其视为正确的, 进行探索来得到一些数据, 再放入池子, 这么做的问题在于, 每次的一批数据可能不够让模型学到一些长期决策的方法<br />
-模型参数θ也可以作为IG(信息增益)的计算对象, 也就是选择那些能让模型参数变化较大的数据进行探索, 这实际上可以用给定模型更新条件前后的θ分布之间的KL散度来衡量</p>
+这个模型可以不那么精确, 从而用模型与实际奖励的误差值作为 novel(新颖)程度<br />
+还有类似之前的贪婪 <span class="math inline">\(\epsilon\)</span> 的方法, 也就是使用一个不同的 Q 函数 buffer, 每次采样一批, 将其视为正确的, 进行探索来得到一些数据, 再放入池子, 这么做的问题在于, 每次的一批数据可能不够让模型学到一些长期决策的方法<br />
+模型参数 θ 也可以作为 IG(信息增益)的计算对象, 也就是选择那些能让模型参数变化较大的数据进行探索, 这实际上可以用给定模型更新条件前后的 θ 分布之间的 KL 散度来衡量</p>
 <h3 id="基于信息论的情况">基于信息论的情况</h3>
 <p>首先引入一些信息论的概念: <span class="math display">\[{\mathcal{p}}{(}\mathbf{x}{\big)}\qquad{\mathrm{distribution~}}\left(\operatorname{e.g.,~over~oloservations~x}\right)\]</span><br />
 <span class="math display">\[{\mathcal{H}}(p(\mathbf{x}))=-E_{\mathbf{x}\sim p(\mathbf{x})}[\log p(\mathbf{x})]\]</span><br />
-直观地说, 熵H可以衡量一个概率分布的“宽度”, 熵越大, 分布越宽, 不确定性越大<br />
+直观地说, 熵 H 可以衡量一个概率分布的“宽度”, 熵越大, 分布越宽, 不确定性越大<br />
 <span class="math display">\[\begin{array}{r l}{\mathbb{I}(\mathbf{x};\mathbf{y})=D_{\mathrm{KL}}(p(\mathbf{x},\mathbf{y})||p(\mathbf{x})p(\mathbf{y}))}\\ {=E_{(\mathbf{x},\mathbf{y})\sim p(\mathbf{x},\mathbf{y})}\left[\log{\frac{p(\mathbf{x},\mathbf{y})}{p(\mathbf{x})p(y)}}\right]}\\ {=\ H(p(\mathbf{y}))-H(p(\mathbf{y}|\mathbf{x}))}\end{array}\]</span></p>
-<p>那么在强化学习中变量分布的熵及其互信息有什么用呢, 举一个例子, 以下的互信息被称为empowerment(赋能):</p>
+<p>那么在强化学习中变量分布的熵及其互信息有什么用呢, 举一个例子, 以下的互信息被称为 empowerment(赋能):</p>
 <p><span class="math display">\[\mathcal{I}(\mathbf{s}_{t+1};\mathbf{a}_{t})=\mathcal{H}(\mathbf{s}_{t+1}){-}\mathcal{H}(\mathbf{s}_{t+1}|a_{t})\]</span></p>
-<p>直观地说, 它衡量了在状态s下, 采取不同动作a能让下一个状态s′的熵(混乱程度)变化多少, 而在rl中, 一个理想的状态是: 这个状态有很多种选择, 也就是熵比较大; 但采取不同的动作能极大地限制未来状态的分布, 从而互信息较大的(s,a)对就是理想的</p>
+<p>直观地说, 它衡量了在状态 s 下, 采取不同动作 a 能让下一个状态 s′的熵(混乱程度)变化多少, 而在 rl 中, 一个理想的状态是: 这个状态有很多种选择, 也就是熵比较大; 但采取不同的动作能极大地限制未来状态的分布, 从而互信息较大的(s, a)对就是理想的</p>
+<h3 id="生成式">生成式</h3>
+<p>在探索问题中, 生成模型可以用来产生新的训练数据, 一般来说我们使用最大似然估计, 也就是让生成的数据分布和真实数据分布尽可能接近, 产生真实数据的概率最大, 但为了探索, 我们希望生成一些和真实数据分布不太一样的数据, 也就是让生成数据的熵更大一些, 这可以通过将最大似然估计改为加权似然估计来实现, 也就是对生成真实数据的概率加权, 如果是一个熟悉的状态, 则降低其权重, 反之增加权重</p>
+<h3 id="intrinsic-motivation">intrinsic motivation</h3>
+<p>简单地说就是一些小窍门, 例如将奖励设为: <span class="math inline">\(\tilde{r}(\mathbf{s})=r(\mathbf{s})-\log p_{\pi}(\mathbf{s})\)</span><br />
+这样的好处是, 能均匀地探索所有状态空间, 而且实现也相对简单<br />
+那么, 为什么要探索整个状态空间, 这样是正确的吗？ 事实上有一个符合常识的定理: 如果你想最大化代理在最糟糕情况下的表现, 那么你就必须探索所有可能的状态空间</p>
+<h2 id="off-policy-rl">off-policy rl</h2>
+<p>课程此前提到过的 off-policyrl, 例如 Q 学习实质上依旧依赖一个数据 buffer, 执行有偏的策略或者 Q 函数更新, 因此必须每隔一段时间更新数据或者让一个子进程来不断更新 buffer<br />
+而对所谓互联网规模的模型, 例如 cv, nlp 领域中, 那些性能强大的大模型往往是直接用互联网上的极大规模数据来训练的, 那么对于需要和环境互动得到 reward 的 rl 来说, 能否通过彻底的 off-policy 方法实现完全基于数据的学习呢?<br />
+<img src="/assets/ml/image-41.png" /> 首先明确 o-p 的定义, 上图的 d 指的是给定策略和初始状态的状态边缘分布<br />
+o-p rl 的目标是, 给定一个数据集 D, 只用这个数据集来学习, 用于得到数据集的策略和要学习的策略 π 完全无关, 找到一个策略 π 最优化 J 函数, 也就是初始状态的期望总回报<br />
+由于学习策略无法与环境互动, 按直觉想, 其策略空间，或者说策略参数 θ 的空间大小取决于数据集, 于是这个最佳策略的定义也会取决于给定数据集<br />
+由此产生了一个问题, 是否学习策略最好的情况就是等于数据集里最佳的策略呢?<br />
+事实上, o-p 理想的情况下比较像裁缝, 能把不同数据中局部的最优策略学过来, 因此理论上能超越数据集中的最佳策略<br />
+先不论理论最优的情况, 由于 o-p 情况下策略无法在实际情况下被验证并修复错误, 很可能会非常糟糕地错误估计某些情况, 从而表现很差<br />
+这种糟糕地表现往往来自于数据集中一些特定情况下数据的缺失, 也就是所谓的 <code>"out-of-distribution" actions</code> , 而问题在于, 想增强模型的泛化能力就必须假设模型理解了这些动作, 但如果模型没有真正理解, 则可能出现灾难性后果</p>
 <h2 id="马尔可夫过程">马尔可夫过程</h2>
 <p>马尔可夫过程中, 对一个特定状态则有一个特定的未来状态概率分布（可以理解为策略）, 很容易算出之后的期望回报<br />
 即, 如果我们希望知道一个特定状态是好是坏, 可以定义状态价值 V 为其回报的期望, 即从这个状态开始, 折扣 γ 的指数与之后回报乘积的和, V 与回报 G 的区别是, V 绑定一个特定的状态 s, 即某个 s 开始的之后获取的回报的期望<br />
@@ -824,14 +841,14 @@ off-policy 则有所不同, 它让训练模型和互动的模型分开, 从而�
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">630k</span>
+    <span title="站点总字数">631k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">38:11</span>
+    <span title="站点阅读时长">38:15</span>
   </span>
 </div>
 <div class="busuanzi-count">
