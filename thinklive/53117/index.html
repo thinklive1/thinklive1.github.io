@@ -30,8 +30,10 @@
 <meta property="og:description" content="主要存放机器人技术等相关工程技术，如ros的学习笔记">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://thinklive1.github.io/assets/ml/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F.jpg">
+<meta property="og:image" content="https://thinklive1.github.io/assets/ml/%E4%BB%80%E4%B9%88%E6%98%AF%E7%9B%B8%E6%9C%BA%E7%9A%84%E4%BD%8D%E5%A7%BF-20210508233035.png">
+<meta property="og:image" content="https://thinklive1.github.io/assets/ml/image-42.png">
 <meta property="article:published_time" content="2025-11-15T11:04:27.128Z">
-<meta property="article:modified_time" content="2025-11-15T11:05:13.140Z">
+<meta property="article:modified_time" content="2025-11-16T05:53:58.837Z">
 <meta property="article:author" content="thinklive">
 <meta property="article:tag" content="人工智能">
 <meta property="article:tag" content="机器学习">
@@ -196,7 +198,7 @@ const darkmode = new Darkmode(options);
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ros"><span class="nav-number">1.</span> <span class="nav-text">ros</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ros"><span class="nav-number">1.</span> <span class="nav-text">ros</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#slam"><span class="nav-number">2.</span> <span class="nav-text">slam</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#fast-livo2-fast-direct-lidar-inertial-visual-odometry"><span class="nav-number">2.1.</span> <span class="nav-text">FAST-LIVO2: Fast, Direct LiDAR-Inertial-Visual Odometry</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -297,9 +299,15 @@ const darkmode = new Darkmode(options);
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2025-11-15 19:04:27 / 修改时间：19:05:13" itemprop="dateCreated datePublished" datetime="2025-11-15T19:04:27+08:00">2025-11-15</time>
+      <time title="创建时间：2025-11-15 19:04:27" itemprop="dateCreated datePublished" datetime="2025-11-15T19:04:27+08:00">2025-11-15</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-11-16 13:53:58" itemprop="dateModified" datetime="2025-11-16T13:53:58+08:00">2025-11-16</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -325,14 +333,14 @@ const darkmode = new Darkmode(options);
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>312</span>
+      <span>714</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
+      <span>3 分钟</span>
     </span>
 </div>
 
@@ -350,7 +358,27 @@ const darkmode = new Darkmode(options);
 <p>ros是专门为机器人设计的操作系统, 但是需要在宿主操作系统上运行, 例如支持最完善的linux<br />
 <img src="/assets/ml/文件系统.jpg" /></p>
 <p>就一个简单的项目来说, ors的目录树如上所述, 可以描述为:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">WorkSpace --- 自定义的工作空间</span><br><span class="line"></span><br><span class="line">    |--- build:编译空间，用于存放CMake和catkin的缓存信息、配置信息和其他中间文件。</span><br><span class="line"></span><br><span class="line">    |--- devel:开发空间，用于存放编译后生成的目标文件，包括头文件、动态&amp;静态链接库、可执行文件等。</span><br><span class="line"></span><br><span class="line">    |--- src: 源码</span><br><span class="line"></span><br><span class="line">        |-- package：功能包(ROS基本单元)包含多个节点、库与配置文件，包名所有字母小写，只能由字母、数字与下划线组成</span><br><span class="line"></span><br><span class="line">            |-- CMakeLists.txt 配置编译规则，比如源文件、依赖项、目标文件</span><br><span class="line"></span><br><span class="line">            |-- package.xml 包信息，比如:包名、版本、作者、依赖项...(以前版本是 manifest.xml)</span><br><span class="line"></span><br><span class="line">            |-- scripts 存储python文件</span><br><span class="line"></span><br><span class="line">            |-- src 存储C++源文件</span><br><span class="line"></span><br><span class="line">            |-- include 头文件</span><br><span class="line"></span><br><span class="line">            |-- msg 消息通信格式文件</span><br><span class="line"></span><br><span class="line">            |-- srv 服务通信格式文件</span><br><span class="line"></span><br><span class="line">            |-- action 动作格式文件</span><br><span class="line"></span><br><span class="line">            |-- launch 可一次性运行多个节点 </span><br><span class="line"></span><br><span class="line">            |-- config 配置信息</span><br><span class="line"></span><br><span class="line">        |-- CMakeLists.txt: 编译的基本配置</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">WorkSpace --- 自定义的工作空间</span><br><span class="line"></span><br><span class="line">    |--- build:编译空间，用于存放CMake和catkin的缓存信息、配置信息和其他中间文件。</span><br><span class="line"></span><br><span class="line">    |--- devel:开发空间，用于存放编译后生成的目标文件，包括头文件、动态&amp;静态链接库、可执行文件等。</span><br><span class="line"></span><br><span class="line">    |--- src: 源码</span><br><span class="line"></span><br><span class="line">        |-- package：功能包(ROS基本单元)包含多个节点、库与配置文件，包名所有字母小写，只能由字母、数字与下划线组成</span><br><span class="line"></span><br><span class="line">            |-- CMakeLists.txt 配置编译规则，比如源文件、依赖项、目标文件</span><br><span class="line"></span><br><span class="line">            |-- package.xml 包信息，比如:包名、版本、作者、依赖项...(以前版本是 manifest.xml)</span><br><span class="line"></span><br><span class="line">            |-- scripts 存储python文件</span><br><span class="line"></span><br><span class="line">            |-- src 存储C++源文件</span><br><span class="line"></span><br><span class="line">            |-- include 头文件</span><br><span class="line"></span><br><span class="line">            |-- msg 消息通信格式文件</span><br><span class="line"></span><br><span class="line">            |-- srv 服务通信格式文件</span><br><span class="line"></span><br><span class="line">            |-- action 动作格式文件</span><br><span class="line"></span><br><span class="line">            |-- launch 可一次性运行多个节点 </span><br><span class="line"></span><br><span class="line">            |-- config 配置信息</span><br><span class="line"></span><br><span class="line">        |-- CMakeLists.txt: 编译的基本配置</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>相关的命令大部分都很直接, 例如<code>roscd</code>,<code>rosls</code>, <code>rosrun</code>, <code>roslaunch</code>等,除了操作单位是功能包以外和linux系统命令几乎一样, 具体可以参考<a target="_blank" rel="noopener" href="http://wiki.ros.org/ROS/Tutorials">ROS官方文档</a><br />
+一些独特的命令有:</p>
+<ol type="1">
+<li><code>roscore</code>: 启动ros的核心服务</li>
+<li><code>rosrun</code>: 运行某个功能包中的节点</li>
+<li><code>roslaunch</code>: 根据配置启动某个功能包中的多个节点</li>
+<li><code>rqt_graph</code>: 查看多个节点之间的关系</li>
+</ol>
+<div class="note info"><p>在视觉 slam 领域里, 简单来说，相机的位姿（pose）就是相机的位置和姿态的合称，它描述了世界坐标系与相机坐标系之间的转换关系。</p>
+<p><img src="/assets/ml/什么是相机的位姿-20210508233035.png" /></p>
+<p>如上图所示：点 P 的世界坐标为 P_{w}，可以通过相机的位姿矩阵 T 转换到相机坐标系下为 P_{c} ： <span class="math display">\[P_c=T_{cw}P_w\]</span></p>
+<p>可以将点 P 从相机坐标系转换到世界坐标系中： <span class="math display">\[P_w=T_{wc}P_c\]</span></p>
+<p>其中 <span class="math inline">\(T_{cw}\)</span> 为该点从世界坐标系变换到相机坐标系的变换矩阵， <span class="math inline">\(T_{wc}\)</span> 为该点从相机坐标系变换到世界坐标系的变换矩阵。它们二者都可以用来表示相机的位姿，前者称为相机的外参。</p>
+</div>
+<h1 id="slam">slam</h1>
+<h2 id="fast-livo2-fast-direct-lidar-inertial-visual-odometry">FAST-LIVO2: Fast, Direct LiDAR-Inertial-Visual Odometry</h2>
+<p>以下简称f-l, f-l同时使用激光雷达和rgb摄像头作为输入, 激光提供深度信息, 在rosbag中其输入格式如下:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">types:       livox_ros_driver/CustomMsg [e4d6829bdfe657cb6c21a746c86b21a6]</span><br><span class="line">             sensor_msgs/Image          [060021388200f6f0f447d0fcd9c64743]</span><br><span class="line">             sensor_msgs/Imu            [6a62c6daae103f4ff57a132d6f95cec2]</span><br><span class="line">topics:      /left_camera/image    1355 msgs    : sensor_msgs/Image         </span><br><span class="line">             /livox/imu           27447 msgs    : sensor_msgs/Imu           </span><br><span class="line">             /livox/lidar          1355 msgs    : livox_ros_driver/CustomMsg</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>f-l的整体框架如下:</p>
+<p><img src="/assets/ml/image-42.png" /></p>
 
     </div>
 
@@ -412,14 +440,14 @@ const darkmode = new Darkmode(options);
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">631k</span>
+    <span title="站点总字数">632k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">38:16</span>
+    <span title="站点阅读时长">38:17</span>
   </span>
 </div>
 <div class="busuanzi-count">

@@ -89,7 +89,27 @@
 <p>ros是专门为机器人设计的操作系统, 但是需要在宿主操作系统上运行, 例如支持最完善的linux<br />
 <img src="/assets/ml/文件系统.jpg" /></p>
 <p>就一个简单的项目来说, ors的目录树如上所述, 可以描述为:</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">WorkSpace --- 自定义的工作空间</span><br><span class="line"></span><br><span class="line">    |--- build:编译空间，用于存放CMake和catkin的缓存信息、配置信息和其他中间文件。</span><br><span class="line"></span><br><span class="line">    |--- devel:开发空间，用于存放编译后生成的目标文件，包括头文件、动态&amp;静态链接库、可执行文件等。</span><br><span class="line"></span><br><span class="line">    |--- src: 源码</span><br><span class="line"></span><br><span class="line">        |-- package：功能包(ROS基本单元)包含多个节点、库与配置文件，包名所有字母小写，只能由字母、数字与下划线组成</span><br><span class="line"></span><br><span class="line">            |-- CMakeLists.txt 配置编译规则，比如源文件、依赖项、目标文件</span><br><span class="line"></span><br><span class="line">            |-- package.xml 包信息，比如:包名、版本、作者、依赖项...(以前版本是 manifest.xml)</span><br><span class="line"></span><br><span class="line">            |-- scripts 存储python文件</span><br><span class="line"></span><br><span class="line">            |-- src 存储C++源文件</span><br><span class="line"></span><br><span class="line">            |-- include 头文件</span><br><span class="line"></span><br><span class="line">            |-- msg 消息通信格式文件</span><br><span class="line"></span><br><span class="line">            |-- srv 服务通信格式文件</span><br><span class="line"></span><br><span class="line">            |-- action 动作格式文件</span><br><span class="line"></span><br><span class="line">            |-- launch 可一次性运行多个节点 </span><br><span class="line"></span><br><span class="line">            |-- config 配置信息</span><br><span class="line"></span><br><span class="line">        |-- CMakeLists.txt: 编译的基本配置</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">WorkSpace --- 自定义的工作空间</span><br><span class="line"></span><br><span class="line">    |--- build:编译空间，用于存放CMake和catkin的缓存信息、配置信息和其他中间文件。</span><br><span class="line"></span><br><span class="line">    |--- devel:开发空间，用于存放编译后生成的目标文件，包括头文件、动态&amp;静态链接库、可执行文件等。</span><br><span class="line"></span><br><span class="line">    |--- src: 源码</span><br><span class="line"></span><br><span class="line">        |-- package：功能包(ROS基本单元)包含多个节点、库与配置文件，包名所有字母小写，只能由字母、数字与下划线组成</span><br><span class="line"></span><br><span class="line">            |-- CMakeLists.txt 配置编译规则，比如源文件、依赖项、目标文件</span><br><span class="line"></span><br><span class="line">            |-- package.xml 包信息，比如:包名、版本、作者、依赖项...(以前版本是 manifest.xml)</span><br><span class="line"></span><br><span class="line">            |-- scripts 存储python文件</span><br><span class="line"></span><br><span class="line">            |-- src 存储C++源文件</span><br><span class="line"></span><br><span class="line">            |-- include 头文件</span><br><span class="line"></span><br><span class="line">            |-- msg 消息通信格式文件</span><br><span class="line"></span><br><span class="line">            |-- srv 服务通信格式文件</span><br><span class="line"></span><br><span class="line">            |-- action 动作格式文件</span><br><span class="line"></span><br><span class="line">            |-- launch 可一次性运行多个节点 </span><br><span class="line"></span><br><span class="line">            |-- config 配置信息</span><br><span class="line"></span><br><span class="line">        |-- CMakeLists.txt: 编译的基本配置</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>相关的命令大部分都很直接, 例如<code>roscd</code>,<code>rosls</code>, <code>rosrun</code>, <code>roslaunch</code>等,除了操作单位是功能包以外和linux系统命令几乎一样, 具体可以参考<a href="http://wiki.ros.org/ROS/Tutorials">ROS官方文档</a><br />
+一些独特的命令有:</p>
+<ol type="1">
+<li><code>roscore</code>: 启动ros的核心服务</li>
+<li><code>rosrun</code>: 运行某个功能包中的节点</li>
+<li><code>roslaunch</code>: 根据配置启动某个功能包中的多个节点</li>
+<li><code>rqt_graph</code>: 查看多个节点之间的关系</li>
+</ol>
+<div class="note info"><p>在视觉 slam 领域里, 简单来说，相机的位姿（pose）就是相机的位置和姿态的合称，它描述了世界坐标系与相机坐标系之间的转换关系。</p>
+<p><img src="/assets/ml/什么是相机的位姿-20210508233035.png" /></p>
+<p>如上图所示：点 P 的世界坐标为 P_{w}，可以通过相机的位姿矩阵 T 转换到相机坐标系下为 P_{c} ： <span class="math display">\[P_c=T_{cw}P_w\]</span></p>
+<p>可以将点 P 从相机坐标系转换到世界坐标系中： <span class="math display">\[P_w=T_{wc}P_c\]</span></p>
+<p>其中 <span class="math inline">\(T_{cw}\)</span> 为该点从世界坐标系变换到相机坐标系的变换矩阵， <span class="math inline">\(T_{wc}\)</span> 为该点从相机坐标系变换到世界坐标系的变换矩阵。它们二者都可以用来表示相机的位姿，前者称为相机的外参。</p>
+</div>
+<h1 id="slam">slam</h1>
+<h2 id="fast-livo2-fast-direct-lidar-inertial-visual-odometry">FAST-LIVO2: Fast, Direct LiDAR-Inertial-Visual Odometry</h2>
+<p>以下简称f-l, f-l同时使用激光雷达和rgb摄像头作为输入, 激光提供深度信息, 在rosbag中其输入格式如下:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">types:       livox_ros_driver/CustomMsg [e4d6829bdfe657cb6c21a746c86b21a6]</span><br><span class="line">             sensor_msgs/Image          [060021388200f6f0f447d0fcd9c64743]</span><br><span class="line">             sensor_msgs/Imu            [6a62c6daae103f4ff57a132d6f95cec2]</span><br><span class="line">topics:      /left_camera/image    1355 msgs    : sensor_msgs/Image         </span><br><span class="line">             /livox/imu           27447 msgs    : sensor_msgs/Imu           </span><br><span class="line">             /livox/lidar          1355 msgs    : livox_ros_driver/CustomMsg</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>f-l的整体框架如下:</p>
+<p><img src="/assets/ml/image-42.png" /></p>
 ]]></content>
       <categories>
         <category>课程笔记</category>
@@ -1620,9 +1640,6 @@ OpenIN 的框架和大部分系统比较类似, 都可以分为场景图构建�
 ACT 主要创新点在于能够预测连续的, 精确的动作序列, 而一些先前的模仿学习方法只能像分类问题一样预测离散动作, 此外端到端的训练方式对特化的任务可能有更好的效果<br />
 消融实验中, CVAE, 动作块等机制都较为有效<br />
 相比先前方法, ACT 大部分任务都取得了更好的表现, 但是会在对比度低图像难以捕捉特征的场景表现不佳</p>
-<h1 id="slam">slam</h1>
-<h2 id="fast-livo2-fast-direct-lidar-inertial-visual-odometry">FAST-LIVO2: Fast, Direct LiDAR-Inertial-Visual Odometry</h2>
-<p>以下简称f-l, f-l同时使用激光雷达和rgb摄像头作为输入, 激光提供深度信息,</p>
 <div class="note info">
 </div>
 ]]></content>
