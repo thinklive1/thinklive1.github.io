@@ -81,45 +81,6 @@
 ]]></content>
   </entry>
   <entry>
-    <title>具身智能工程领域all in one</title>
-    <url>/thinklive/53117/</url>
-    <content><![CDATA[<p>主要存放机器人技术等相关工程技术，如<a href="http://www.autolabor.com.cn/book/ROSTutorials/chapter1/15-ben-zhang-xiao-jie/151-roswen-jian-xi-tong.html">ros</a>的学习笔记</p>
-<span id="more"></span>
-<h1 id="ros">ros</h1>
-<p>ros是专门为机器人设计的操作系统, 但是需要在宿主操作系统上运行, 例如支持最完善的linux<br />
-<img src="/assets/ml/文件系统.jpg" /></p>
-<p>就一个简单的项目来说, ors的目录树如上所述, 可以描述为:</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">WorkSpace --- 自定义的工作空间</span><br><span class="line"></span><br><span class="line">    |--- build:编译空间，用于存放CMake和catkin的缓存信息、配置信息和其他中间文件。</span><br><span class="line"></span><br><span class="line">    |--- devel:开发空间，用于存放编译后生成的目标文件，包括头文件、动态&amp;静态链接库、可执行文件等。</span><br><span class="line"></span><br><span class="line">    |--- src: 源码</span><br><span class="line"></span><br><span class="line">        |-- package：功能包(ROS基本单元)包含多个节点、库与配置文件，包名所有字母小写，只能由字母、数字与下划线组成</span><br><span class="line"></span><br><span class="line">            |-- CMakeLists.txt 配置编译规则，比如源文件、依赖项、目标文件</span><br><span class="line"></span><br><span class="line">            |-- package.xml 包信息，比如:包名、版本、作者、依赖项...(以前版本是 manifest.xml)</span><br><span class="line"></span><br><span class="line">            |-- scripts 存储python文件</span><br><span class="line"></span><br><span class="line">            |-- src 存储C++源文件</span><br><span class="line"></span><br><span class="line">            |-- include 头文件</span><br><span class="line"></span><br><span class="line">            |-- msg 消息通信格式文件</span><br><span class="line"></span><br><span class="line">            |-- srv 服务通信格式文件</span><br><span class="line"></span><br><span class="line">            |-- action 动作格式文件</span><br><span class="line"></span><br><span class="line">            |-- launch 可一次性运行多个节点 </span><br><span class="line"></span><br><span class="line">            |-- config 配置信息</span><br><span class="line"></span><br><span class="line">        |-- CMakeLists.txt: 编译的基本配置</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>相关的命令大部分都很直接, 例如<code>roscd</code>,<code>rosls</code>, <code>rosrun</code>, <code>roslaunch</code>等,除了操作单位是功能包以外和linux系统命令几乎一样, 具体可以参考<a href="http://wiki.ros.org/ROS/Tutorials">ROS官方文档</a><br />
-一些独特的命令有:</p>
-<ol type="1">
-<li><code>roscore</code>: 启动ros的核心服务</li>
-<li><code>rosrun</code>: 运行某个功能包中的节点</li>
-<li><code>roslaunch</code>: 根据配置启动某个功能包中的多个节点</li>
-<li><code>rqt_graph</code>: 查看多个节点之间的关系</li>
-</ol>
-<div class="note info"><p>在视觉 slam 领域里, 简单来说，相机的位姿（pose）就是相机的位置和姿态的合称，它描述了世界坐标系与相机坐标系之间的转换关系。</p>
-<p><img src="/assets/ml/什么是相机的位姿-20210508233035.png" /></p>
-<p>如上图所示：点 P 的世界坐标为 P_{w}，可以通过相机的位姿矩阵 T 转换到相机坐标系下为 P_{c} ： <span class="math display">\[P_c=T_{cw}P_w\]</span></p>
-<p>可以将点 P 从相机坐标系转换到世界坐标系中： <span class="math display">\[P_w=T_{wc}P_c\]</span></p>
-<p>其中 <span class="math inline">\(T_{cw}\)</span> 为该点从世界坐标系变换到相机坐标系的变换矩阵， <span class="math inline">\(T_{wc}\)</span> 为该点从相机坐标系变换到世界坐标系的变换矩阵。它们二者都可以用来表示相机的位姿，前者称为相机的外参。</p>
-</div>
-<h1 id="slam">slam</h1>
-<h2 id="fast-livo2-fast-direct-lidar-inertial-visual-odometry">FAST-LIVO2: Fast, Direct LiDAR-Inertial-Visual Odometry</h2>
-<p>以下简称f-l, f-l同时使用激光雷达和rgb摄像头作为输入, 激光提供深度信息, 在rosbag中其输入格式如下:</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">types:       livox_ros_driver/CustomMsg [e4d6829bdfe657cb6c21a746c86b21a6]</span><br><span class="line">             sensor_msgs/Image          [060021388200f6f0f447d0fcd9c64743]</span><br><span class="line">             sensor_msgs/Imu            [6a62c6daae103f4ff57a132d6f95cec2]</span><br><span class="line">topics:      /left_camera/image    1355 msgs    : sensor_msgs/Image         </span><br><span class="line">             /livox/imu           27447 msgs    : sensor_msgs/Imu           </span><br><span class="line">             /livox/lidar          1355 msgs    : livox_ros_driver/CustomMsg</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>f-l的整体框架如下:</p>
-<p><img src="/assets/ml/image-42.png" /></p>
-]]></content>
-      <categories>
-        <category>课程笔记</category>
-      </categories>
-      <tags>
-        <tag>人工智能</tag>
-        <tag>机器学习</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>具身智能论文阅读笔记</title>
     <url>/thinklive/52409/</url>
     <content><![CDATA[<p>关于具身智能领域的论文</p>
@@ -233,6 +194,7 @@
 <li><a href="#graphpad-inference-time-3d-scene-graph-updates-for-embodied-question">GraphPad: Inference-Time 3D Scene Graph Updates for Embodied Question</a></li>
 <li><a href="#raccoon-grounding-embodied-question-answering-with-state--summaries-from-existing-robot-modules">RACCOON: Grounding Embodied Question-Answering with State Summaries from Existing Robot Modules</a></li>
 <li><a href="#unleashing-cognitive-map-through-linguistic-visual-synergy-for-embodied-visual-reasoning">Unleashing Cognitive Map through Linguistic-Visual Synergy for Embodied Visual Reasoning</a></li>
+<li><a href="#robomemory-a-brain-inspired-multi-memory-agentic-framework-for-interactive-environmental-learning-in-physical-embodied-systems">RoboMemory: A Brain-inspired Multi-memory Agentic Framework for Interactive Environmental Learning in Physical Embodied Systems</a></li>
 <li><a href="#stage-2-summary">stage 2 summary</a></li>
 </ul></li>
 <li><a href="#vision-language-action-models">Vision-Language-Action Models</a>
@@ -280,10 +242,6 @@
 <li><a href="#real-work">real work</a></li>
 <li><a href="#实验与总结-1">实验与总结</a></li>
 </ul></li>
-</ul></li>
-<li><a href="#slam">slam</a>
-<ul>
-<li><a href="#fast-livo2-fast-direct-lidar-inertial-visual--odometry">FAST-LIVO2: Fast, Direct LiDAR-Inertial-Visual Odometry</a></li>
 </ul></li>
 </ul>
 <p>具身智能: 集成了物理上的机械以及 ai(一般是常用的机器学习模型)的一种智能体, 这个词与 robotics(机器人学)的区别是, 后者较为关心硬件上的很多问题, 以及操作系统等偏底层的问题; 而具身智能较为关注抽象层面的智能, 暂时屏蔽掉底层的一些细节</p>
@@ -1253,28 +1211,42 @@ NLMap(grid): 如果想直接辨别图像里的物品, 则可以使用 <code>clas
 <ol type="1">
 <li>对第一人称视频输入, 切割成固定长度片段
 <ol type="1">
-<li>每个片段让VLM生成粗粒度描述, LLM提取其实体与其之间关系</li>
-<li>基于指令, LLM找出最相关的实体, 初始化一个认知图</li>
+<li>每个片段让 VLM 生成粗粒度描述, LLM 提取其实体与其之间关系</li>
+<li>基于指令, LLM 找出最相关的实体, 初始化一个认知图</li>
 </ol></li>
-<li>迭代过程中, LLM结合已有信息决定何时能回答问题
+<li>迭代过程中, LLM 结合已有信息决定何时能回答问题
 <ol type="1">
-<li>如果LLM认为证据不足, LLM生成指令让VLM针对性分析对应视频</li>
+<li>如果 LLM 认为证据不足, LLM 生成指令让 VLM 针对性分析对应视频</li>
 </ol></li>
-<li>如果LLM认为足够回答问题或者达到最大迭代次数, 让LLM生成答案</li>
+<li>如果 LLM 认为足够回答问题或者达到最大迭代次数, 让 LLM 生成答案</li>
 </ol>
 <p>具体地说, 这里的认知图分为两个图:</p>
 <ol type="1">
 <li>导航图: 每个节点对应一个独立的时间片段; 边对应片段之间的时间(先后)关系</li>
 <li>关系图: 包含一些细粒度的语义信息, 节点可以是实体或动作, 边则是节点之间的语义关系</li>
 </ol>
-<p>认知图以外, 再定义一个 <code>Evidence Memory(E)</code> 存储LLM-VLM的缓冲数据, 例如LLM要求VLM分析一段视频, VLM的响应将放入E中, 这些证据和对认知图的迭代无关, 只用于辅助推理(也就是问答)任务<br />
+<p>认知图以外, 再定义一个 <code>Evidence Memory(E)</code> 存储 LLM-VLM 的缓冲数据, 例如 LLM 要求 VLM 分析一段视频, VLM 的响应将放入 E 中, 这些证据和对认知图的迭代无关, 只用于辅助推理(也就是问答)任务<br />
 也就是说总体程度里模型和数据的交互是:</p>
 <ol type="1">
-<li>VLM生成描述</li>
-<li>LLM初始化认知图并产生任务流让VLM不断解析对应视频, 中间信息放入E</li>
-<li>认知图和E不断更新, 每更新一轮让LLM决定产生新任务还是回答问题</li>
+<li>VLM 生成描述</li>
+<li>LLM 初始化认知图并产生任务流让 VLM 不断解析对应视频, 中间信息放入 E</li>
+<li>认知图和 E 不断更新, 每更新一轮让 LLM 决定产生新任务还是回答问题</li>
 </ol>
 <p><img src="/assets/ml/4-Figure2-1.png" /> <img src="/assets/ml/5-Figure3-1.png" /></p>
+<h2 id="robomemory-a-brain-inspired-multi-memory-agentic-framework-for-interactive-environmental-learning-in-physical-embodied-systems">RoboMemory: A Brain-inspired Multi-memory Agentic Framework for Interactive Environmental Learning in Physical Embodied Systems</h2>
+<p>这篇文章的亮点是, 参考人类大脑机制, 使用四个可以并行运行的模块来分模块构建语义地图<br />
+其记忆机制分为三个模块: <code>historical interaction logs</code>, <code>dynamically updated spatial layouts</code>,<code>accumulated task knowledge</code> 整体流程为:</p>
+<ol type="1">
+<li><code>Information Preprocessor</code>: 处理传感器数据, 具体来说就是rgb图像或者视频, 使用VLM产生描述S和查询Q, 两者形式上都是文本描述, 前者用于当下任务, 后者用于长期记忆</li>
+<li><code>Comprehensive Embodied Memory System</code>: 使用RAG,KG技术来提供可靠的存储和检索, 具体分为:
+<ol type="1">
+<li><code>Spatial-Temporal Memory System</code>: 分为空间和时间存储, 时间存储由一个环形缓冲实现, 其中的元素是代理的高级计划、低级指令以及环境反馈, 到达上限后会将整个环用VLM压缩为一个摘要再压入环中；空间存储上, 由于我们不需要点云这么详细的地图表示, 使用一个增量更新的KG实现, 更新过程大致为不断搜索位置相关的子KG并插入节点, 让VLM生成边(关系)</li>
+<li><code>Interactive Environmental Learning System</code>: 参考脑科学的相关研究, 将记忆分为情景记忆和语义记忆(episodic and semantic memory), 前者存储历史上和环境的交互信息, 后者存储经验性技能型的知识, 实现上两者由RAG实现并不断更新</li>
+</ol></li>
+<li><code>Closed-Loop Planning Module for Dynamic Environment</code>: 通过<code>Planner-Critic</code>机制来实现闭环控制, 为了避免无限循环, 第一步行动不受批评家影响</li>
+<li><code>Low-level Executor</code></li>
+</ol>
+<p><img src="/assets/ml/image-45.png" /></p>
 <h2 id="stage-2-summary">stage 2 summary</h2>
 <p><img src="/assets/ml/20-Figure13-1.png" /></p>
 <p>这阶段主要查找了一些各种各样的数据存储和检索方式, 包括一篇关于具身智能领域数据存储领域的综述<br />
@@ -1282,12 +1254,12 @@ stage1 中看的文章大多是语义地图中比较常见的拓扑图形式, �
 这样的优点是构建、检索和更新(当然其实大部分都不更新)都很快, 缺点就是信息含量很单薄, 因此只能用于导航, 对动态环境或者一些比较抽象的指令可能语义信息的粒度不够 这阶段看了一些使用知识图谱、数据库、rag 等技术的文章, 与 NLP 领域不同, eai 领域需要与实时环境相关的数据, 因此就知识图谱来说, 如果用一些公开的知识库, 就需要选择性地构建一个和所在场景语义相似度高的知识图, 对 rag 来说也有类似的限制, 即确保检索和当前需求有关的数据<br />
 这样的成本应该是比单纯的拓扑图更高的, 但相应地能检索更多的上下文信息, 这些上下文信息一般用于导航以及动作生成中, 有的模型会用来问 LLM/VLM, 有的模型会用作 tf 之类的神经网络输入<br />
 这部分的工作可能主要在于数据存储的结构, 需要满足计算和存储成本可控、 高速检索、提供细粒度的数据分类等要求, 如果希望能为导航之外更为复杂的任务, 例如操控任务等提供上下文信息, 则可能需要对原始数据更细致的处理, 将不同详尽程度的信息分层存放, 提高检索效率等<br />
-此外, 用于机器人具体任务的语义信息, 例如一些操纵任务, 最简单的情况下需要抓握点之类的 keypoint等信息, 这种信息可能需要一个比较复杂的神经网络来计算, 并且及其依赖具体的任务场景, 所以很难在探索过程中集成到地图信息中去<br />
+此外, 用于机器人具体任务的语义信息, 例如一些操纵任务, 最简单的情况下需要抓握点之类的 keypoint 等信息, 这种信息可能需要一个比较复杂的神经网络来计算, 并且及其依赖具体的任务场景, 所以很难在探索过程中集成到地图信息中去<br />
 关于语义信息存储更新的一些主要问题:</p>
 <ol type="1">
 <li>在线还是离线构建语义地图? 如果想要能动态更新的在线, 就需要解决计算和存储检索效率的问题</li>
 <li>用什么形式存储语义信息? 显式的文字描述还是隐式的嵌入向量?</li>
-<li>给定问题或指令, 怎么检索相应语义信息? 是用余弦相似度还是问LLM?</li>
+<li>给定问题或指令, 怎么检索相应语义信息? 是用余弦相似度还是问 LLM?</li>
 <li>怎么更新语义地图, 包括更正错误, 对动态环境的更新， 合并重复节点……</li>
 </ol>
 <h1 id="vision-language-action-models">Vision-Language-Action Models</h1>
@@ -1645,6 +1617,61 @@ ACT 主要创新点在于能够预测连续的, 精确的动作序列, 而一些
 ]]></content>
       <categories>
         <category>科研</category>
+      </categories>
+      <tags>
+        <tag>人工智能</tag>
+        <tag>机器学习</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>具身智能工程领域all in one</title>
+    <url>/thinklive/53117/</url>
+    <content><![CDATA[<p>主要存放机器人技术等相关工程技术，如<a href="http://www.autolabor.com.cn/book/ROSTutorials/chapter1/15-ben-zhang-xiao-jie/151-roswen-jian-xi-tong.html">ros</a>的学习笔记</p>
+<span id="more"></span>
+<h1 id="ros">ros</h1>
+<p>ros是专门为机器人设计的操作系统, 但是需要在宿主操作系统上运行, 例如支持最完善的linux<br />
+<img src="/assets/ml/文件系统.jpg" /></p>
+<p>就一个简单的项目来说, ors的目录树如上所述, 可以描述为:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">WorkSpace --- 自定义的工作空间</span><br><span class="line"></span><br><span class="line">    |--- build:编译空间，用于存放CMake和catkin的缓存信息、配置信息和其他中间文件。</span><br><span class="line"></span><br><span class="line">    |--- devel:开发空间，用于存放编译后生成的目标文件，包括头文件、动态&amp;静态链接库、可执行文件等。</span><br><span class="line"></span><br><span class="line">    |--- src: 源码</span><br><span class="line"></span><br><span class="line">        |-- package：功能包(ROS基本单元)包含多个节点、库与配置文件，包名所有字母小写，只能由字母、数字与下划线组成</span><br><span class="line"></span><br><span class="line">            |-- CMakeLists.txt 配置编译规则，比如源文件、依赖项、目标文件</span><br><span class="line"></span><br><span class="line">            |-- package.xml 包信息，比如:包名、版本、作者、依赖项...(以前版本是 manifest.xml)</span><br><span class="line"></span><br><span class="line">            |-- scripts 存储python文件</span><br><span class="line"></span><br><span class="line">            |-- src 存储C++源文件</span><br><span class="line"></span><br><span class="line">            |-- include 头文件</span><br><span class="line"></span><br><span class="line">            |-- msg 消息通信格式文件</span><br><span class="line"></span><br><span class="line">            |-- srv 服务通信格式文件</span><br><span class="line"></span><br><span class="line">            |-- action 动作格式文件</span><br><span class="line"></span><br><span class="line">            |-- launch 可一次性运行多个节点 </span><br><span class="line"></span><br><span class="line">            |-- config 配置信息</span><br><span class="line"></span><br><span class="line">        |-- CMakeLists.txt: 编译的基本配置</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>相关的命令大部分都很直接, 例如<code>roscd</code>,<code>rosls</code>, <code>rosrun</code>, <code>roslaunch</code>等,除了操作单位是功能包以外和linux系统命令几乎一样, 具体可以参考<a href="http://wiki.ros.org/ROS/Tutorials">ROS官方文档</a><br />
+一些独特的命令有:</p>
+<ol type="1">
+<li><code>roscore</code>: 启动ros的核心服务</li>
+<li><code>rosrun</code>: 运行某个功能包中的节点</li>
+<li><code>roslaunch</code>: 根据配置启动某个功能包中的多个节点</li>
+<li><code>rqt_graph</code>: 查看多个节点之间的关系</li>
+</ol>
+<div class="note info"><p>在视觉 slam 领域里, 简单来说，相机的位姿（pose）就是相机的位置和姿态的合称，它描述了世界坐标系与相机坐标系之间的转换关系。</p>
+<p><img src="/assets/ml/什么是相机的位姿-20210508233035.png" /></p>
+<p>如上图所示：点 P 的世界坐标为 P_{w}，可以通过相机的位姿矩阵 T 转换到相机坐标系下为 P_{c} ： <span class="math display">\[P_c=T_{cw}P_w\]</span></p>
+<p>可以将点 P 从相机坐标系转换到世界坐标系中： <span class="math display">\[P_w=T_{wc}P_c\]</span></p>
+<p>其中 <span class="math inline">\(T_{cw}\)</span> 为该点从世界坐标系变换到相机坐标系的变换矩阵， <span class="math inline">\(T_{wc}\)</span> 为该点从相机坐标系变换到世界坐标系的变换矩阵。它们二者都可以用来表示相机的位姿，前者称为相机的外参。</p>
+</div>
+<h1 id="slam">slam</h1>
+<h2 id="fast-livo2-fast-direct-lidar-inertial-visual-odometry">FAST-LIVO2: Fast, Direct LiDAR-Inertial-Visual Odometry</h2>
+<p>以下简称f-l, f-l同时使用激光雷达和rgb摄像头作为输入, 激光提供点云信息, 在rosbag中其输入格式如下:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">types:       livox_ros_driver/CustomMsg [e4d6829bdfe657cb6c21a746c86b21a6]</span><br><span class="line">             sensor_msgs/Image          [060021388200f6f0f447d0fcd9c64743]</span><br><span class="line">             sensor_msgs/Imu            [6a62c6daae103f4ff57a132d6f95cec2]</span><br><span class="line">topics:      /left_camera/image    1355 msgs    : sensor_msgs/Image         </span><br><span class="line">             /livox/imu           27447 msgs    : sensor_msgs/Imu           </span><br><span class="line">             /livox/lidar          1355 msgs    : livox_ros_driver/CustomMsg</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>f-l的整体框架如下:</p>
+<p><img src="/assets/ml/image-42.png" /></p>
+<p>输入数据的示意图:</p>
+<p><img src="/assets/ml/image-43.png" /></p>
+<p>因为看不懂细节, 这里只记录大致的流程, 三种数据中雷达(点云)是采样频率最高的, 因此会让它配合最慢的图像数据频率, 过程中不断使用这三种数据进行前向传播和反向优化来生成地图(点云)<br />
+下面介绍地图的格式, 地图的抽象格式为八叉树体素地图, 存储上使用哈希表存储根节点, 每个根节点体素是一个0.5m边长的正方体, 其中的叶节点则代表局部平面, 局部平面上存储雷达的原始点, 部分叶节点可以存储视觉补丁(patch), 这里不介绍细节, 地图构建过程中会在到达最大深度或者划分出的子体素代表一个平坦的面前不断划分体素, 并选择合适的体素加入视觉补丁<br />
+其构建和更新过程为:</p>
+<ol type="1">
+<li>起初以雷达中心为形心, 将周边的一个方块划为局部地图区域Mc</li>
+<li>以雷达中心p为原点，在一个半径内制图</li>
+<li>当p中心的圆碰到Mc的边缘后, 以p为中心重新划分局部地图区域Mc</li>
+<li>由于Mc划定了存储在内存里的地图, 丢弃掉不属于当前范围的部分地图</li>
+</ol>
+<p><img src="/assets/ml/image-44.png" /></p>
+<div class="note info"><ul>
+<li>patch: 图像的局部区域</li>
+</ul>
+</div>
+]]></content>
+      <categories>
+        <category>课程笔记</category>
       </categories>
       <tags>
         <tag>人工智能</tag>
