@@ -31,11 +31,14 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://thinklive1.github.io/assets/ml/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F.jpg">
 <meta property="og:image" content="https://thinklive1.github.io/assets/ml/%E4%BB%80%E4%B9%88%E6%98%AF%E7%9B%B8%E6%9C%BA%E7%9A%84%E4%BD%8D%E5%A7%BF-20210508233035.png">
+<meta property="og:image" content="https://thinklive1.github.io/assets/ml/01%E8%AF%9D%E9%A2%98%E9%80%9A%E4%BF%A1%E6%A8%A1%E5%9E%8B.jpg">
+<meta property="og:image" content="https://thinklive1.github.io/assets/ml/02_%E6%9C%8D%E5%8A%A1%E9%80%9A%E4%BF%A1%E6%A8%A1%E5%9E%8B.jpg">
+<meta property="og:image" content="https://thinklive1.github.io/assets/ml/03ROS%E9%80%9A%E4%BF%A1%E6%9C%BA%E5%88%B603_%E5%8F%82%E6%95%B0%E6%9C%8D%E5%8A%A1%E5%99%A8.jpg">
 <meta property="og:image" content="https://thinklive1.github.io/assets/ml/image-42.png">
 <meta property="og:image" content="https://thinklive1.github.io/assets/ml/image-43.png">
 <meta property="og:image" content="https://thinklive1.github.io/assets/ml/image-44.png">
 <meta property="article:published_time" content="2025-11-15T11:04:27.128Z">
-<meta property="article:modified_time" content="2025-11-16T07:30:39.162Z">
+<meta property="article:modified_time" content="2025-11-18T02:36:25.955Z">
 <meta property="article:author" content="thinklive">
 <meta property="article:tag" content="人工智能">
 <meta property="article:tag" content="机器学习">
@@ -200,7 +203,7 @@ const darkmode = new Darkmode(options);
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ros"><span class="nav-number">1.</span> <span class="nav-text">ros</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#slam"><span class="nav-number">2.</span> <span class="nav-text">slam</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#fast-livo2-fast-direct-lidar-inertial-visual-odometry"><span class="nav-number">2.1.</span> <span class="nav-text">FAST-LIVO2: Fast, Direct LiDAR-Inertial-Visual Odometry</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ros"><span class="nav-number">1.</span> <span class="nav-text">ros</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%9A%E4%BF%A1"><span class="nav-number">1.1.</span> <span class="nav-text">通信</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#slam"><span class="nav-number">2.</span> <span class="nav-text">slam</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#fast-livo2-fast-direct-lidar-inertial-visual-odometry"><span class="nav-number">2.1.</span> <span class="nav-text">FAST-LIVO2: Fast, Direct LiDAR-Inertial-Visual Odometry</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -309,7 +312,7 @@ const darkmode = new Darkmode(options);
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-11-16 15:30:39" itemprop="dateModified" datetime="2025-11-16T15:30:39+08:00">2025-11-16</time>
+      <time title="修改时间：2025-11-18 10:36:25" itemprop="dateModified" datetime="2025-11-18T10:36:25+08:00">2025-11-18</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -335,14 +338,14 @@ const darkmode = new Darkmode(options);
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>1.1k</span>
+      <span>1.3k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>4 分钟</span>
+      <span>5 分钟</span>
     </span>
 </div>
 
@@ -375,6 +378,15 @@ const darkmode = new Darkmode(options);
 <p>可以将点 P 从相机坐标系转换到世界坐标系中： <span class="math display">\[P_w=T_{wc}P_c\]</span></p>
 <p>其中 <span class="math inline">\(T_{cw}\)</span> 为该点从世界坐标系变换到相机坐标系的变换矩阵， <span class="math inline">\(T_{wc}\)</span> 为该点从相机坐标系变换到世界坐标系的变换矩阵。它们二者都可以用来表示相机的位姿，前者称为相机的外参。</p>
 </div>
+<h2 id="通信">通信</h2>
+<p>对一个机器人来说, 其功能模块可能非常繁杂, 且内部实现差异很大, 因此ros采取了耦合度低的分布式实现, 各个功能都有自己的进程, 准确地说ROS是进程（也称为Nodes）的分布式框架<br />
+ros的通信机制有三种实现策略:</p>
+<ul>
+<li>话题通信(发布订阅模式): 在这个模式下有三个角色: 管理者，发布者，订阅者；以名字来说很好理解其结构</li>
+<li>服务通信(请求响应模式): 类似网络请求, 以请求响应模式服务和客户端互相通信</li>
+<li>参数服务器(参数共享模式): 相当于一个全局状态/数据库, 所有节点都可以访问和修改</li>
+</ul>
+<p><img src="/assets/ml/01话题通信模型.jpg" /> <img src="/assets/ml/02_服务通信模型.jpg" /> <img src="/assets/ml/03ROS通信机制03_参数服务器.jpg" /></p>
 <h1 id="slam">slam</h1>
 <h2 id="fast-livo2-fast-direct-lidar-inertial-visual-odometry">FAST-LIVO2: Fast, Direct LiDAR-Inertial-Visual Odometry</h2>
 <p>以下简称f-l, f-l同时使用激光雷达和rgb摄像头作为输入, 激光提供点云信息, 在rosbag中其输入格式如下:</p>
@@ -465,7 +477,7 @@ const darkmode = new Darkmode(options);
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">38:20</span>
+    <span title="站点阅读时长">38:21</span>
   </span>
 </div>
 <div class="busuanzi-count">
