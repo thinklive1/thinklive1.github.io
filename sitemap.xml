@@ -137,7 +137,7 @@
   </url>
   
   <url>
-    <loc>https://thinklive1.github.io/thinklive/52285/</loc>
+    <loc>https://thinklive1.github.io/thinklive/47457/</loc>
     
     <lastmod>2025-09-09</lastmod>
     
@@ -146,7 +146,7 @@
   </url>
   
   <url>
-    <loc>https://thinklive1.github.io/thinklive/47457/</loc>
+    <loc>https://thinklive1.github.io/thinklive/52285/</loc>
     
     <lastmod>2025-09-09</lastmod>
     
@@ -668,6 +668,13 @@
   </url>
   
   <url>
+    <loc>https://thinklive1.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/</loc>
+    <lastmod>2025-11-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://thinklive1.github.io/tags/wrpg/</loc>
     <lastmod>2025-11-22</lastmod>
     <changefreq>weekly</changefreq>
@@ -704,13 +711,6 @@
   
   <url>
     <loc>https://thinklive1.github.io/tags/%E6%AD%A5%E8%A1%8C%E6%A8%A1%E6%8B%9F%E5%99%A8/</loc>
-    <lastmod>2025-11-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://thinklive1.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/</loc>
     <lastmod>2025-11-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -794,14 +794,14 @@
   </url>
   
   <url>
-    <loc>https://thinklive1.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</loc>
+    <loc>https://thinklive1.github.io/tags/%E8%AE%A1%E7%BB%84/</loc>
     <lastmod>2025-11-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://thinklive1.github.io/tags/%E8%AE%A1%E7%BB%84/</loc>
+    <loc>https://thinklive1.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</loc>
     <lastmod>2025-11-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
