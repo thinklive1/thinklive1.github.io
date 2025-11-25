@@ -88,7 +88,7 @@
 <h1 id="ros">ros</h1>
 <p>ros是专门为机器人设计的操作系统, 但是需要在宿主操作系统上运行, 例如支持最完善的linux<br />
 <img src="/assets/ml/文件系统.jpg" /></p>
-<p>就一个简单的项目来说, ors的目录树如上所述, 可以描述为:</p>
+<p>就一个简单的项目来说, ros的目录树如上所述, 可以描述为:</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">WorkSpace --- 自定义的工作空间</span><br><span class="line"></span><br><span class="line">    |--- build:编译空间，用于存放CMake和catkin的缓存信息、配置信息和其他中间文件。</span><br><span class="line"></span><br><span class="line">    |--- devel:开发空间，用于存放编译后生成的目标文件，包括头文件、动态&amp;静态链接库、可执行文件等。</span><br><span class="line"></span><br><span class="line">    |--- src: 源码</span><br><span class="line"></span><br><span class="line">        |-- package：功能包(ROS基本单元)包含多个节点、库与配置文件，包名所有字母小写，只能由字母、数字与下划线组成</span><br><span class="line"></span><br><span class="line">            |-- CMakeLists.txt 配置编译规则，比如源文件、依赖项、目标文件</span><br><span class="line"></span><br><span class="line">            |-- package.xml 包信息，比如:包名、版本、作者、依赖项...(以前版本是 manifest.xml)</span><br><span class="line"></span><br><span class="line">            |-- scripts 存储python文件</span><br><span class="line"></span><br><span class="line">            |-- src 存储C++源文件</span><br><span class="line"></span><br><span class="line">            |-- include 头文件</span><br><span class="line"></span><br><span class="line">            |-- msg 消息通信格式文件</span><br><span class="line"></span><br><span class="line">            |-- srv 服务通信格式文件</span><br><span class="line"></span><br><span class="line">            |-- action 动作格式文件</span><br><span class="line"></span><br><span class="line">            |-- launch 可一次性运行多个节点 </span><br><span class="line"></span><br><span class="line">            |-- config 配置信息</span><br><span class="line"></span><br><span class="line">        |-- CMakeLists.txt: 编译的基本配置</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <p>相关的命令大部分都很直接, 例如<code>roscd</code>,<code>rosls</code>, <code>rosrun</code>, <code>roslaunch</code>等,除了操作单位是功能包以外和linux系统命令几乎一样, 具体可以参考<a href="http://wiki.ros.org/ROS/Tutorials">ROS官方文档</a><br />
 一些独特的命令有:</p>
@@ -154,6 +154,355 @@ ros的通信机制有三种实现策略:</p>
 将常见的功能合并到有详细文档的函数或宏中：函数往往是更好的选择。
 使用小写的函数名： CMake 的函数和宏的名字可以定义为大写或小写，但是一般都使用小写，变量名用大写。
 使用 cmake_policy 和/或 限定版本号范围： 每次改变版本特性 (policy) 都要有据可依。应该只有不得不使用旧特性时才降低特性 (policy) 版本。</code></pre>
+<h3 id="ros的cmake实例">ros的cmake实例</h3>
+<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">cmake_minimum_required</span>(VERSION <span class="number">2.8</span>.<span class="number">3</span>)</span><br><span class="line"><span class="keyword">project</span>(fast_livo)</span><br><span class="line"></span><br><span class="line"><span class="keyword">set</span>(CMAKE_BUILD_TYPE <span class="string">&quot;Release&quot;</span>)</span><br><span class="line"><span class="keyword">message</span>(STATUS <span class="string">&quot;Build Type: $&#123;CMAKE_BUILD_TYPE&#125;&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">set</span>(CMAKE_CXX_STANDARD <span class="number">17</span>)</span><br><span class="line"><span class="keyword">set</span>(CMAKE_CXX_STANDARD_REQUIRED <span class="keyword">ON</span>)</span><br><span class="line"><span class="keyword">set</span>(CMAKE_CXX_EXTENSIONS <span class="keyword">OFF</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Set common compile options</span></span><br><span class="line"><span class="keyword">set</span>(CMAKE_CXX_FLAGS <span class="string">&quot;$&#123;CMAKE_CXX_FLAGS&#125; -pthread -fexceptions&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Specific settings for Debug build</span></span><br><span class="line"><span class="keyword">set</span>(CMAKE_CXX_FLAGS_DEBUG <span class="string">&quot;$&#123;CMAKE_CXX_FLAGS_DEBUG&#125; -O0 -g&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Detect CPU architecture</span></span><br><span class="line"><span class="keyword">message</span>(STATUS <span class="string">&quot;Current CPU architecture: $&#123;CMAKE_SYSTEM_PROCESSOR&#125;&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Specific settings for Release build</span></span><br><span class="line"><span class="keyword">if</span>(CMAKE_SYSTEM_PROCESSOR <span class="keyword">MATCHES</span> <span class="string">&quot;^(arm|aarch64|ARM|AARCH64)&quot;</span>)</span><br><span class="line">  <span class="keyword">if</span>(CMAKE_SYSTEM_PROCESSOR <span class="keyword">MATCHES</span> <span class="string">&quot;aarch64&quot;</span>)</span><br><span class="line">    <span class="comment"># 64-bit ARM optimizations (e.g., RK3588 and Jetson Orin NX)</span></span><br><span class="line">    <span class="keyword">set</span>(CMAKE_CXX_FLAGS_RELEASE <span class="string">&quot;$&#123;CMAKE_CXX_FLAGS_RELEASE&#125; -O3 -mcpu=native -mtune=native -ffast-math&quot;</span>)</span><br><span class="line">    <span class="keyword">message</span>(STATUS <span class="string">&quot;Using 64-bit ARM optimizations: -O3 -mcpu=native -mtune=native -ffast-math&quot;</span>)</span><br><span class="line">  <span class="keyword">else</span>()</span><br><span class="line">    <span class="comment"># 32-bit ARM optimizations with NEON support</span></span><br><span class="line">    <span class="keyword">set</span>(CMAKE_CXX_FLAGS_RELEASE <span class="string">&quot;$&#123;CMAKE_CXX_FLAGS_RELEASE&#125; -O3 -mcpu=native -mtune=native -mfpu=neon -ffast-math&quot;</span>)</span><br><span class="line">    <span class="keyword">message</span>(STATUS <span class="string">&quot;Using 32-bit ARM optimizations: -O3 -mcpu=native -mtune=native -mfpu=neon -ffast-math&quot;</span>)</span><br><span class="line">  <span class="keyword">endif</span>()</span><br><span class="line">  <span class="keyword">add_definitions</span>(-DARM_ARCH)</span><br><span class="line"><span class="keyword">else</span>()</span><br><span class="line">  <span class="comment"># x86-64 (Intel/AMD) optimizations</span></span><br><span class="line">  <span class="keyword">set</span>(CMAKE_CXX_FLAGS_RELEASE <span class="string">&quot;$&#123;CMAKE_CXX_FLAGS_RELEASE&#125; -O3 -march=native -mtune=native -funroll-loops&quot;</span>) <span class="comment">#-flto</span></span><br><span class="line">  <span class="keyword">message</span>(STATUS <span class="string">&quot;Using general x86 optimizations: -O3 -march=native -mtune=native -funroll-loops&quot;</span>) </span><br><span class="line">  <span class="keyword">add_definitions</span>(-DX86_ARCH)</span><br><span class="line"><span class="keyword">endif</span>()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Define project root directory</span></span><br><span class="line"><span class="keyword">add_definitions</span>(-DROOT_DIR=\<span class="string">&quot;$&#123;CMAKE_CURRENT_SOURCE_DIR&#125;/\&quot;)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># Detect CPU core count for potential multithreading optimization</span></span><br><span class="line"><span class="string">include(ProcessorCount)</span></span><br><span class="line"><span class="string">ProcessorCount(N)</span></span><br><span class="line"><span class="string">message(STATUS &quot;</span>Processor count: <span class="variable">$&#123;N&#125;</span><span class="string">&quot;)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># Set the number of cores for multithreading</span></span><br><span class="line"><span class="string">if(N GREATER 4)</span></span><br><span class="line"><span class="string">  math(EXPR PROC_NUM &quot;</span><span class="number">4</span><span class="string">&quot;)</span></span><br><span class="line"><span class="string">  add_definitions(-DMP_EN -DMP_PROC_NUM=$&#123;PROC_NUM&#125;)</span></span><br><span class="line"><span class="string">  message(STATUS &quot;</span>Multithreading enabled. Cores: <span class="variable">$&#123;PROC_NUM&#125;</span><span class="string">&quot;)</span></span><br><span class="line"><span class="string">elseif(N GREATER 1)</span></span><br><span class="line"><span class="string">  math(EXPR PROC_NUM &quot;</span><span class="variable">$&#123;N&#125;</span><span class="string">&quot;)</span></span><br><span class="line"><span class="string">  add_definitions(-DMP_EN -DMP_PROC_NUM=$&#123;PROC_NUM&#125;)</span></span><br><span class="line"><span class="string">  message(STATUS &quot;</span>Multithreading enabled. Cores: <span class="variable">$&#123;PROC_NUM&#125;</span><span class="string">&quot;)</span></span><br><span class="line"><span class="string">else()</span></span><br><span class="line"><span class="string">  add_definitions(-DMP_PROC_NUM=1)</span></span><br><span class="line"><span class="string">  message(STATUS &quot;</span>Single core detected. Multithreading disabled.<span class="string">&quot;)</span></span><br><span class="line"><span class="string">endif()</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># Check for OpenMP support</span></span><br><span class="line"><span class="string">find_package(OpenMP QUIET)</span></span><br><span class="line"><span class="string">if(OpenMP_CXX_FOUND)</span></span><br><span class="line"><span class="string">  message(STATUS &quot;</span>OpenMP found<span class="string">&quot;)</span></span><br><span class="line"><span class="string">  add_compile_options($&#123;OpenMP_CXX_FLAGS&#125;)</span></span><br><span class="line"><span class="string">else()</span></span><br><span class="line"><span class="string">  message(STATUS &quot;</span>OpenMP <span class="keyword">not</span> found, proceeding without it<span class="string">&quot;)</span></span><br><span class="line"><span class="string">endif()</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># Check for mimalloc support</span></span><br><span class="line"><span class="string">find_package(mimalloc QUIET)</span></span><br><span class="line"><span class="string">if(mimalloc_FOUND)</span></span><br><span class="line"><span class="string">  message(STATUS &quot;</span>mimalloc found<span class="string">&quot;)</span></span><br><span class="line"><span class="string">else()</span></span><br><span class="line"><span class="string">  message(STATUS &quot;</span>mimalloc <span class="keyword">not</span> found, proceeding without it<span class="string">&quot;)</span></span><br><span class="line"><span class="string">endif()</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># Find catkin and required dependencies</span></span><br><span class="line"><span class="string">find_package(catkin REQUIRED COMPONENTS</span></span><br><span class="line"><span class="string">  geometry_msgs</span></span><br><span class="line"><span class="string">  nav_msgs</span></span><br><span class="line"><span class="string">  sensor_msgs</span></span><br><span class="line"><span class="string">  roscpp</span></span><br><span class="line"><span class="string">  rospy</span></span><br><span class="line"><span class="string">  std_msgs</span></span><br><span class="line"><span class="string">  pcl_ros</span></span><br><span class="line"><span class="string">  tf</span></span><br><span class="line"><span class="string">  message_generation</span></span><br><span class="line"><span class="string">  eigen_conversions</span></span><br><span class="line"><span class="string">  vikit_common</span></span><br><span class="line"><span class="string">  vikit_ros</span></span><br><span class="line"><span class="string">  cv_bridge</span></span><br><span class="line"><span class="string">  image_transport</span></span><br><span class="line"><span class="string">)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">find_package(Eigen3 REQUIRED)</span></span><br><span class="line"><span class="string">find_package(PCL REQUIRED)</span></span><br><span class="line"><span class="string">find_package(OpenCV REQUIRED)</span></span><br><span class="line"><span class="string">find_package(Sophus REQUIRED)</span></span><br><span class="line"><span class="string">find_package(Boost REQUIRED COMPONENTS thread)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">set(Sophus_LIBRARIES libSophus.so)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># Define the catkin package</span></span><br><span class="line"><span class="string">catkin_package(</span></span><br><span class="line"><span class="string">  CATKIN_DEPENDS geometry_msgs nav_msgs roscpp rospy std_msgs message_runtime cv_bridge vikit_common vikit_ros image_transport</span></span><br><span class="line"><span class="string">  DEPENDS EIGEN3 PCL OpenCV Sophus</span></span><br><span class="line"><span class="string">)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># Include directories for dependencies</span></span><br><span class="line"><span class="string">include_directories(</span></span><br><span class="line"><span class="string">  $&#123;catkin_INCLUDE_DIRS&#125;</span></span><br><span class="line"><span class="string">  $&#123;EIGEN3_INCLUDE_DIR&#125;</span></span><br><span class="line"><span class="string">  $&#123;PCL_INCLUDE_DIRS&#125;</span></span><br><span class="line"><span class="string">  $&#123;OpenCV_INCLUDE_DIRS&#125;</span></span><br><span class="line"><span class="string">  $&#123;Sophus_INCLUDE_DIRS&#125;</span></span><br><span class="line"><span class="string">  include</span></span><br><span class="line"><span class="string">)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># Add libraries</span></span><br><span class="line"><span class="string">add_library(vio src/vio.cpp src/frame.cpp src/visual_point.cpp)</span></span><br><span class="line"><span class="string">add_library(lio src/voxel_map.cpp)</span></span><br><span class="line"><span class="string">add_library(pre src/preprocess.cpp)</span></span><br><span class="line"><span class="string">add_library(imu_proc src/IMU_Processing.cpp)</span></span><br><span class="line"><span class="string">add_library(laser_mapping src/LIVMapper.cpp)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># Add the main executable</span></span><br><span class="line"><span class="string">add_executable(fastlivo_mapping src/main.cpp)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># Link libraries to the executable</span></span><br><span class="line"><span class="string">target_link_libraries(fastlivo_mapping</span></span><br><span class="line"><span class="string">  laser_mapping</span></span><br><span class="line"><span class="string">  vio</span></span><br><span class="line"><span class="string">  lio</span></span><br><span class="line"><span class="string">  pre</span></span><br><span class="line"><span class="string">  imu_proc</span></span><br><span class="line"><span class="string">  $&#123;catkin_LIBRARIES&#125;</span></span><br><span class="line"><span class="string">  $&#123;PCL_LIBRARIES&#125;</span></span><br><span class="line"><span class="string">  $&#123;OpenCV_LIBRARIES&#125;</span></span><br><span class="line"><span class="string">  $&#123;Sophus_LIBRARIES&#125;</span></span><br><span class="line"><span class="string">  $&#123;Boost_LIBRARIES&#125;</span></span><br><span class="line"><span class="string">)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># Link mimalloc if found</span></span><br><span class="line"><span class="string">if(mimalloc_FOUND)</span></span><br><span class="line"><span class="string">  target_link_libraries(fastlivo_mapping mimalloc)</span></span><br><span class="line"><span class="string">endif()</span></span><br><span class="line"><span class="string"></span></span><br></pre></td></tr></table></figure>
+<h4 id="文件结构分析">文件结构分析</h4>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">CMakeLists.txt 文件结构</span><br><span class="line">├── 1. 基础配置 (行 1-5)</span><br><span class="line">│   ├── CMake 最低版本要求</span><br><span class="line">│   └── 项目名称和构建类型</span><br><span class="line">│</span><br><span class="line">├── 2. 编译器配置 (行 7-48)</span><br><span class="line">│   ├── C++ 标准设置</span><br><span class="line">│   ├── 基础编译选项</span><br><span class="line">│   ├── CPU 架构检测</span><br><span class="line">│   └── 平台特定优化</span><br><span class="line">│</span><br><span class="line">├── 3. 多线程配置 (行 50-72)</span><br><span class="line">│   ├── CPU 核心数检测</span><br><span class="line">│   ├── OpenMP 支持</span><br><span class="line">│   └── mimalloc 内存分配器</span><br><span class="line">│</span><br><span class="line">├── 4. 依赖管理 (行 74-104)</span><br><span class="line">│   ├── ROS (Catkin) 依赖</span><br><span class="line">│   ├── 第三方库 (Eigen, PCL, OpenCV, Sophus)</span><br><span class="line">│   └── Catkin 包配置</span><br><span class="line">│</span><br><span class="line">├── 5. 编译目标 (行 106-130)</span><br><span class="line">│   ├── 库文件定义</span><br><span class="line">│   ├── 可执行文件定义</span><br><span class="line">│   └── 链接配置</span><br><span class="line">│</span><br><span class="line">└── 6. 条件编译 (行 132-135)</span><br><span class="line">    └── mimalloc 可选链接</span><br></pre></td></tr></table></figure>
+<hr />
+<h4 id="逐行解析">逐行解析</h4>
+<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line"><span class="keyword">cmake_minimum_required</span>(VERSION <span class="number">2.8</span>.<span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>作用</strong>：指定 CMake 的最低版本要求</li>
+<li><strong>解释</strong>：确保使用的 CMake 版本支持后续的语法和功能</li>
+<li><strong>版本 2.8.3</strong>：较老的版本，保证在旧系统上的兼容性</li>
+</ul>
+<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line"><span class="keyword">project</span>(fast_livo)</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>关键字</strong>：<code>project(项目名称)</code></li>
+<li><strong>作用</strong>：定义项目名称，会自动设置以下变量：
+<ul>
+<li><code>PROJECT_NAME</code>：项目名称（fast_livo）</li>
+<li><code>PROJECT_SOURCE_DIR</code>：项目源代码根目录</li>
+<li><code>PROJECT_BINARY_DIR</code>：构建输出目录</li>
+</ul></li>
+</ul>
+<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line"><span class="keyword">set</span>(CMAKE_BUILD_TYPE <span class="string">&quot;Release&quot;</span>)</span><br><span class="line"><span class="keyword">message</span>(STATUS <span class="string">&quot;Build Type: $&#123;CMAKE_BUILD_TYPE&#125;&quot;</span>)</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong><code>set(变量名 值)</code></strong>：设置 CMake 变量</li>
+<li><strong>CMAKE_BUILD_TYPE</strong>：构建类型，常用值：
+<ul>
+<li><code>Debug</code>：包含调试信息，无优化（适合开发调试）</li>
+<li><code>Release</code>：高度优化，无调试信息（适合发布）</li>
+<li><code>RelWithDebInfo</code>：优化 + 调试信息</li>
+<li><code>MinSizeRel</code>：最小化体积</li>
+</ul></li>
+<li><strong><code>message()</code></strong>：输出信息到控制台
+<ul>
+<li><code>STATUS</code>：普通信息（绿色）</li>
+<li><code>WARNING</code>：警告（黄色）</li>
+<li><code>FATAL_ERROR</code>：致命错误，停止配置</li>
+</ul></li>
+</ul>
+<hr />
+<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line"><span class="keyword">set</span>(CMAKE_CXX_STANDARD <span class="number">17</span>)</span><br><span class="line"><span class="keyword">set</span>(CMAKE_CXX_STANDARD_REQUIRED <span class="keyword">ON</span>)</span><br><span class="line"><span class="keyword">set</span>(CMAKE_CXX_EXTENSIONS <span class="keyword">OFF</span>)</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>CMAKE_CXX_STANDARD</strong>：C++ 标准版本
+<ul>
+<li><code>17</code>：使用 C++17 标准（支持 <code>std::optional</code>、结构化绑定等）</li>
+</ul></li>
+<li><strong>CMAKE_CXX_STANDARD_REQUIRED</strong>：是否强制要求
+<ul>
+<li><code>ON</code>：如果编译器不支持 C++17，报错</li>
+<li><code>OFF</code>：降级到编译器支持的最高版本</li>
+</ul></li>
+<li><strong>CMAKE_CXX_EXTENSIONS</strong>：是否允许编译器扩展
+<ul>
+<li><code>OFF</code>：禁用 GNU 扩展（如 <code>-std=gnu++17</code>），使用纯标准 <code>-std=c++17</code></li>
+</ul></li>
+</ul>
+<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line"><span class="keyword">set</span>(CMAKE_CXX_FLAGS <span class="string">&quot;$&#123;CMAKE_CXX_FLAGS&#125; -pthread -fexceptions&quot;</span>)</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>CMAKE_CXX_FLAGS</strong>：全局 C++ 编译选项</li>
+<li><strong><code>-pthread</code></strong>：启用 POSIX 线程支持（必需，因为代码使用 <code>std::thread</code>）</li>
+<li><strong><code>-fexceptions</code></strong>：启用 C++ 异常处理</li>
+</ul>
+<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line"><span class="keyword">set</span>(CMAKE_CXX_FLAGS_DEBUG <span class="string">&quot;$&#123;CMAKE_CXX_FLAGS_DEBUG&#125; -O0 -g&quot;</span>)</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>CMAKE_CXX_FLAGS_DEBUG</strong>：Debug 模式特定的编译选项</li>
+<li><strong><code>-O0</code></strong>：关闭所有优化（方便调试）</li>
+<li><strong><code>-g</code></strong>：生成调试符号（GDB 可以设置断点、查看变量）</li>
+</ul>
+<hr />
+<h5 id="cpu-架构检测与优化">CPU 架构检测与优化</h5>
+<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line"><span class="keyword">message</span>(STATUS <span class="string">&quot;Current CPU architecture: $&#123;CMAKE_SYSTEM_PROCESSOR&#125;&quot;</span>)</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>CMAKE_SYSTEM_PROCESSOR</strong>：自动检测的 CPU 架构
+<ul>
+<li>x86_64：Intel/AMD 64 位处理器</li>
+<li>aarch64：ARM 64 位（如树莓派 4、Jetson Orin）</li>
+<li>armv7l：ARM 32 位（如树莓派 3）</li>
+</ul></li>
+</ul>
+<h5 id="arm-架构优化">ARM 架构优化</h5>
+<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>(CMAKE_SYSTEM_PROCESSOR <span class="keyword">MATCHES</span> <span class="string">&quot;^(arm|aarch64|ARM|AARCH64)&quot;</span>)</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong><code>if(条件)</code></strong>：条件判断</li>
+<li><strong>MATCHES</strong>：正则表达式匹配</li>
+<li><strong><code>^(arm|aarch64|ARM|AARCH64)</code></strong>：匹配任何以 arm 或 aarch64 开头的字符串</li>
+</ul>
+<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>(CMAKE_SYSTEM_PROCESSOR <span class="keyword">MATCHES</span> <span class="string">&quot;aarch64&quot;</span>)</span><br><span class="line">  <span class="keyword">set</span>(CMAKE_CXX_FLAGS_RELEASE <span class="string">&quot;$&#123;CMAKE_CXX_FLAGS_RELEASE&#125; -O3 -mcpu=native -mtune=native -ffast-math&quot;</span>)</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>64 位 ARM 优化选项</strong>：
+<ul>
+<li><strong><code>-O3</code></strong>：最高级别优化（激进，可能增加代码体积）</li>
+<li><strong><code>-mcpu=native</code></strong>：针对当前 CPU 生成代码（如利用 RK3588 的特殊指令）</li>
+<li><strong><code>-mtune=native</code></strong>：调度优化，适应当前 CPU 的流水线特性</li>
+<li><strong><code>-ffast-math</code></strong>：放松浮点运算标准，提升速度（可能损失精度）</li>
+</ul></li>
+</ul>
+<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line"><span class="keyword">else</span>()</span><br><span class="line">  <span class="keyword">set</span>(CMAKE_CXX_FLAGS_RELEASE <span class="string">&quot;$&#123;CMAKE_CXX_FLAGS_RELEASE&#125; -O3 -mcpu=native -mtune=native -mfpu=neon -ffast-math&quot;</span>)</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>32 位 ARM 额外选项</strong>：
+<ul>
+<li><strong><code>-mfpu=neon</code></strong>：启用 ARM NEON SIMD 指令集（向量化加速）</li>
+</ul></li>
+</ul>
+<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line"><span class="keyword">add_definitions</span>(-DARM_ARCH)</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong><code>add_definitions()</code></strong>：添加预处理器宏定义</li>
+<li><strong>效果</strong>：代码中可以使用 <code>#ifdef ARM_ARCH</code> 进行条件编译</li>
+</ul>
+<h5 id="x86-64-架构优化">x86-64 架构优化</h5>
+<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line"><span class="keyword">else</span>()</span><br><span class="line">  <span class="keyword">set</span>(CMAKE_CXX_FLAGS_RELEASE <span class="string">&quot;$&#123;CMAKE_CXX_FLAGS_RELEASE&#125; -O3 -march=native -mtune=native -funroll-loops&quot;</span>)</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>x86-64 优化选项</strong>：
+<ul>
+<li><strong><code>-march=native</code></strong>：使用当前 CPU 的指令集（如 AVX2、AVX-512）</li>
+<li><strong><code>-funroll-loops</code></strong>：循环展开，减少跳转指令</li>
+</ul></li>
+</ul>
+<hr />
+<h5 id="项目根目录定义">项目根目录定义</h5>
+<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line"><span class="keyword">add_definitions</span>(-DROOT_DIR=\<span class="string">&quot;$&#123;CMAKE_CURRENT_SOURCE_DIR&#125;/\&quot;)</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>CMAKE_CURRENT_SOURCE_DIR</strong>：当前 CMakeLists.txt 所在目录</li>
+<li><strong>效果</strong>：代码中可以使用 <code>ROOT_DIR</code> 宏访问项目根目录</li>
+<li><strong>用途</strong>：加载配置文件（如 <code>ROOT_DIR/config/params.yaml</code>）</li>
+</ul>
+<hr />
+<h5 id="多线程配置">多线程配置</h5>
+<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line"><span class="keyword">include</span>(ProcessorCount)</span><br><span class="line">ProcessorCount(N)</span><br><span class="line"><span class="keyword">message</span>(STATUS <span class="string">&quot;Processor count: $&#123;N&#125;&quot;</span>)</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong><code>include(模块名)</code></strong>：加载 CMake 内置模块</li>
+<li><strong>ProcessorCount</strong>：检测 CPU 核心数，结果存入变量 <code>N</code></li>
+</ul>
+<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>(N <span class="keyword">GREATER</span> <span class="number">4</span>)</span><br><span class="line">  <span class="keyword">math</span>(EXPR PROC_NUM <span class="string">&quot;4&quot;</span>)</span><br><span class="line">  <span class="keyword">add_definitions</span>(-DMP_EN -DMP_PROC_NUM=<span class="variable">$&#123;PROC_NUM&#125;</span>)</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>逻辑</strong>：
+<ul>
+<li>如果 CPU 核心 &gt; 4，使用 4 个核心（避免过度并行开销）</li>
+<li>如果 CPU 核心 ≤ 4，使用全部核心</li>
+</ul></li>
+<li><strong><code>math(EXPR 变量 表达式)</code></strong>：数学运算</li>
+<li><strong>宏定义</strong>：
+<ul>
+<li><code>-DMP_EN</code>：启用多线程模式</li>
+<li><code>-DMP_PROC_NUM=4</code>：定义线程数为 4</li>
+</ul></li>
+</ul>
+<h5 id="openmp-支持">OpenMP 支持</h5>
+<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line"><span class="keyword">find_package</span>(OpenMP QUIET)</span><br><span class="line"><span class="keyword">if</span>(OpenMP_CXX_FOUND)</span><br><span class="line">  <span class="keyword">message</span>(STATUS <span class="string">&quot;OpenMP found&quot;</span>)</span><br><span class="line">  <span class="keyword">add_compile_options</span>(<span class="variable">$&#123;OpenMP_CXX_FLAGS&#125;</span>)</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong><code>find_package(包名 [QUIET] [REQUIRED])</code></strong>：查找第三方库
+<ul>
+<li><code>QUIET</code>：找不到时不报错</li>
+<li><code>REQUIRED</code>：找不到时停止配置</li>
+</ul></li>
+<li><strong>OpenMP</strong>：并行计算框架（自动并行化 for 循环）</li>
+<li><strong>OpenMP_CXX_FOUND</strong>：布尔变量，表示是否找到</li>
+<li><strong><code>add_compile_options()</code></strong>：添加编译选项到所有目标</li>
+</ul>
+<h5 id="mimalloc-内存分配器">mimalloc 内存分配器</h5>
+<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line"><span class="keyword">find_package</span>(mimalloc QUIET)</span><br><span class="line"><span class="keyword">if</span>(mimalloc_FOUND)</span><br><span class="line">  <span class="keyword">message</span>(STATUS <span class="string">&quot;mimalloc found&quot;</span>)</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>mimalloc</strong>：微软开源的高性能内存分配器</li>
+<li><strong>用途</strong>：替代系统默认的 malloc/free，提升内存分配速度</li>
+</ul>
+<hr />
+<h5 id="依赖管理">依赖管理</h5>
+<p>ROS Catkin 依赖<br />
+<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line"><span class="keyword">find_package</span>(catkin REQUIRED COMPONENTS</span><br><span class="line">  geometry_msgs</span><br><span class="line">  nav_msgs</span><br><span class="line">  sensor_msgs</span><br><span class="line">  roscpp</span><br><span class="line">  rospy</span><br><span class="line">  std_msgs</span><br><span class="line">  pcl_ros</span><br><span class="line">  tf</span><br><span class="line">  message_generation</span><br><span class="line">  eigen_conversions</span><br><span class="line">  vikit_common</span><br><span class="line">  vikit_ros</span><br><span class="line">  cv_bridge</span><br><span class="line">  image_transport</span><br><span class="line">)</span><br></pre></td></tr></table></figure> - <strong>catkin</strong>：ROS 的构建系统 - <strong>COMPONENTS</strong>：指定需要的 ROS 包 - <code>roscpp</code>：ROS C++ 客户端库 - <code>sensor_msgs</code>：传感器消息类型（点云、图像） - <code>pcl_ros</code>：PCL 与 ROS 的桥接 - <code>cv_bridge</code>：OpenCV 与 ROS 图像消息转换</p>
+<p>第三方库<br />
+<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line"><span class="keyword">find_package</span>(Eigen3 REQUIRED)</span><br><span class="line"><span class="keyword">find_package</span>(PCL REQUIRED)</span><br><span class="line"><span class="keyword">find_package</span>(OpenCV REQUIRED)</span><br><span class="line"><span class="keyword">find_package</span>(Sophus REQUIRED)</span><br><span class="line"><span class="keyword">find_package</span>(Boost REQUIRED COMPONENTS thread)</span><br></pre></td></tr></table></figure> - <strong>Eigen3</strong>：线性代数库（矩阵运算） - <strong>PCL (Point Cloud Library)</strong>：点云处理库 - <strong>OpenCV</strong>：计算机视觉库 - <strong>Sophus</strong>：李群/李代数库（SO(3)、SE(3) 旋转表示） - <strong>Boost</strong>：C++ 通用库，这里只需要 <code>thread</code> 组件</p>
+<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line"><span class="keyword">set</span>(Sophus_LIBRARIES libSophus.so)</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>手动设置库名</strong>：覆盖 <code>find_package</code> 的默认设置</li>
+</ul>
+<hr />
+<h5 id="catkin-包配置">Catkin 包配置</h5>
+<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line">catkin_package(</span><br><span class="line">  CATKIN_DEPENDS geometry_msgs nav_msgs roscpp rospy std_msgs message_runtime cv_bridge vikit_common vikit_ros image_transport</span><br><span class="line">  DEPENDS EIGEN3 PCL OpenCV Sophus</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong><code>catkin_package()</code></strong>：声明当前包的依赖关系</li>
+<li><strong>CATKIN_DEPENDS</strong>：依赖的 ROS 包</li>
+<li><strong>DEPENDS</strong>：依赖的非 ROS 库</li>
+<li><strong>作用</strong>：其他包依赖本包时，会自动链接这些库</li>
+</ul>
+<hr />
+<h5 id="头文件目录">头文件目录</h5>
+<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line"><span class="keyword">include_directories</span>(</span><br><span class="line">  <span class="variable">$&#123;catkin_INCLUDE_DIRS&#125;</span></span><br><span class="line">  <span class="variable">$&#123;EIGEN3_INCLUDE_DIR&#125;</span></span><br><span class="line">  <span class="variable">$&#123;PCL_INCLUDE_DIRS&#125;</span></span><br><span class="line">  <span class="variable">$&#123;OpenCV_INCLUDE_DIRS&#125;</span></span><br><span class="line">  <span class="variable">$&#123;Sophus_INCLUDE_DIRS&#125;</span></span><br><span class="line">  <span class="keyword">include</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong><code>include_directories(目录列表)</code></strong>：添加头文件搜索路径</li>
+<li><strong><code>$&#123;变量名&#125;</code></strong>：引用变量（CMake 语法）</li>
+<li><strong>效果</strong>：编译器可以找到 <code>#include &lt;eigen3/Eigen/Dense&gt;</code></li>
+</ul>
+<hr />
+<h5 id="库目标定义">库目标定义</h5>
+<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line"><span class="keyword">add_library</span>(vio src/vio.cpp src/frame.cpp src/visual_point.cpp)</span><br><span class="line"><span class="keyword">add_library</span>(lio src/voxel_map.cpp)</span><br><span class="line"><span class="keyword">add_library</span>(pre src/preprocess.cpp)</span><br><span class="line"><span class="keyword">add_library</span>(imu_proc src/IMU_Processing.cpp)</span><br><span class="line"><span class="keyword">add_library</span>(laser_mapping src/LIVMapper.cpp)</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong><code>add_library(库名 源文件列表)</code></strong>：创建库目标</li>
+<li><strong>默认</strong>：生成静态库（.a 文件）</li>
+<li><strong>可选参数</strong>：
+<ul>
+<li><code>SHARED</code>：动态库（.so 文件）</li>
+<li><code>STATIC</code>：静态库（默认）</li>
+</ul></li>
+<li><strong>模块化</strong>：将不同功能编译为独立的库，便于管理</li>
+</ul>
+<hr />
+<h5 id="可执行文件定义">可执行文件定义</h5>
+<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line"><span class="keyword">add_executable</span>(fastlivo_mapping src/main.cpp)</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong><code>add_executable(可执行文件名 源文件)</code></strong>：创建可执行目标</li>
+<li><strong>输出</strong>：<code>devel/lib/fast_livo/fastlivo_mapping</code></li>
+</ul>
+<hr />
+<h5 id="链接配置">链接配置</h5>
+<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line"><span class="keyword">target_link_libraries</span>(fastlivo_mapping</span><br><span class="line">  laser_mapping</span><br><span class="line">  vio</span><br><span class="line">  lio</span><br><span class="line">  pre</span><br><span class="line">  imu_proc</span><br><span class="line">  <span class="variable">$&#123;catkin_LIBRARIES&#125;</span></span><br><span class="line">  <span class="variable">$&#123;PCL_LIBRARIES&#125;</span></span><br><span class="line">  <span class="variable">$&#123;OpenCV_LIBRARIES&#125;</span></span><br><span class="line">  <span class="variable">$&#123;Sophus_LIBRARIES&#125;</span></span><br><span class="line">  <span class="variable">$&#123;Boost_LIBRARIES&#125;</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong><code>target_link_libraries(目标 依赖库列表)</code></strong>：链接库</li>
+<li><strong>链接顺序</strong>：
+<ol type="1">
+<li>自定义库（laser_mapping、vio 等）</li>
+<li>第三方库（PCL、OpenCV 等）</li>
+</ol></li>
+<li><strong>自动传递依赖</strong>：链接 <code>laser_mapping</code> 时，会自动链接其依赖的库</li>
+</ul>
+<hr />
+<h5 id="条件链接">条件链接</h5>
+<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>(mimalloc_FOUND)</span><br><span class="line">  <span class="keyword">target_link_libraries</span>(fastlivo_mapping mimalloc)</span><br><span class="line"><span class="keyword">endif</span>()</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>条件编译</strong>：只有在找到 mimalloc 时才链接</li>
+<li><strong>可选依赖</strong>：不影响基础功能，但能提升性能</li>
+</ul>
+<hr />
+<h3 id="关键语法与关键字">关键语法与关键字</h3>
+<h4 id="变量操作">变量操作</h4>
+<table>
+<thead>
+<tr class="header">
+<th>命令</th>
+<th>语法</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>设置变量</strong></td>
+<td><code>set(变量 值)</code></td>
+<td><code>set(MY_VAR "hello")</code></td>
+</tr>
+<tr class="even">
+<td><strong>引用变量</strong></td>
+<td><code>$&#123;变量&#125;</code></td>
+<td><code>message("$&#123;MY_VAR&#125;")</code></td>
+</tr>
+<tr class="odd">
+<td><strong>列表操作</strong></td>
+<td><code>list(APPEND 变量 值)</code></td>
+<td><code>list(APPEND SOURCES main.cpp)</code></td>
+</tr>
+<tr class="even">
+<td><strong>字符串操作</strong></td>
+<td><code>string(TOUPPER $&#123;变量&#125; 输出变量)</code></td>
+<td><code>string(TOUPPER "abc" RESULT)</code></td>
+</tr>
+</tbody>
+</table>
+<h4 id="控制流">控制流</h4>
+<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 条件判断</span></span><br><span class="line"><span class="keyword">if</span>(条件)</span><br><span class="line">  <span class="comment"># ...</span></span><br><span class="line"><span class="keyword">elseif</span>(条件)</span><br><span class="line">  <span class="comment"># ...</span></span><br><span class="line"><span class="keyword">else</span>()</span><br><span class="line">  <span class="comment"># ...</span></span><br><span class="line"><span class="keyword">endif</span>()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 循环</span></span><br><span class="line"><span class="keyword">foreach</span>(变量 IN LISTS 列表)</span><br><span class="line">  <span class="comment"># ...</span></span><br><span class="line"><span class="keyword">endforeach</span>()</span><br><span class="line"></span><br><span class="line"><span class="comment"># while 循环</span></span><br><span class="line"><span class="keyword">while</span>(条件)</span><br><span class="line">  <span class="comment"># ...</span></span><br><span class="line"><span class="keyword">endwhile</span>()</span><br></pre></td></tr></table></figure>
+<h4 id="常用命令">常用命令</h4>
+<table>
+<thead>
+<tr class="header">
+<th>命令</th>
+<th>作用</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>project()</code></td>
+<td>定义项目</td>
+<td><code>project(MyProject)</code></td>
+</tr>
+<tr class="even">
+<td><code>add_executable()</code></td>
+<td>创建可执行文件</td>
+<td><code>add_executable(app main.cpp)</code></td>
+</tr>
+<tr class="odd">
+<td><code>add_library()</code></td>
+<td>创建库</td>
+<td><code>add_library(mylib lib.cpp)</code></td>
+</tr>
+<tr class="even">
+<td><code>target_link_libraries()</code></td>
+<td>链接库</td>
+<td><code>target_link_libraries(app mylib)</code></td>
+</tr>
+<tr class="odd">
+<td><code>find_package()</code></td>
+<td>查找第三方库</td>
+<td><code>find_package(OpenCV REQUIRED)</code></td>
+</tr>
+<tr class="even">
+<td><code>include_directories()</code></td>
+<td>添加头文件路径</td>
+<td><code>include_directories(include)</code></td>
+</tr>
+<tr class="odd">
+<td><code>add_definitions()</code></td>
+<td>添加宏定义</td>
+<td><code>add_definitions(-DDEBUG)</code></td>
+</tr>
+</tbody>
+</table>
+<h4 id="内置变量">内置变量</h4>
+<table>
+<thead>
+<tr class="header">
+<th>变量</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>CMAKE_SOURCE_DIR</code></td>
+<td>顶层 CMakeLists.txt 所在目录</td>
+</tr>
+<tr class="even">
+<td><code>CMAKE_BINARY_DIR</code></td>
+<td>构建目录</td>
+</tr>
+<tr class="odd">
+<td><code>CMAKE_CURRENT_SOURCE_DIR</code></td>
+<td>当前处理的 CMakeLists.txt 所在目录</td>
+</tr>
+<tr class="even">
+<td><code>PROJECT_NAME</code></td>
+<td>项目名称</td>
+</tr>
+<tr class="odd">
+<td><code>CMAKE_CXX_COMPILER</code></td>
+<td>C++ 编译器路径</td>
+</tr>
+<tr class="even">
+<td><code>CMAKE_SYSTEM_PROCESSOR</code></td>
+<td>CPU 架构</td>
+</tr>
+</tbody>
+</table>
+<hr />
 ]]></content>
       <categories>
         <category>课程笔记</category>
