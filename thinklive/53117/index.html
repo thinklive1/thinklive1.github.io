@@ -39,11 +39,12 @@
 <meta property="og:image" content="https://thinklive1.github.io/assets/ml/image-44.png">
 <meta property="og:image" content="https://thinklive1.github.io/assets/ml/image-48.png">
 <meta property="og:image" content="https://thinklive1.github.io/assets/ml/image-47.png">
+<meta property="og:image" content="https://thinklive1.github.io/assets/ml/image-52.png">
 <meta property="og:image" content="https://thinklive1.github.io/assets/ml/image-49.png">
 <meta property="og:image" content="https://thinklive1.github.io/assets/ml/image-51.png">
 <meta property="og:image" content="https://thinklive1.github.io/assets/ml/image-50.png">
 <meta property="article:published_time" content="2025-11-15T11:04:27.128Z">
-<meta property="article:modified_time" content="2025-12-16T13:43:06.440Z">
+<meta property="article:modified_time" content="2025-12-17T11:32:46.676Z">
 <meta property="article:author" content="thinklive">
 <meta property="article:tag" content="人工智能">
 <meta property="article:tag" content="机器学习">
@@ -317,7 +318,7 @@ const darkmode = new Darkmode(options);
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2025-12-16 21:43:06" itemprop="dateModified" datetime="2025-12-16T21:43:06+08:00">2025-12-16</time>
+      <time title="修改时间：2025-12-17 19:32:46" itemprop="dateModified" datetime="2025-12-17T19:32:46+08:00">2025-12-17</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -442,6 +443,7 @@ ros的通信机制有三种实现策略:</p>
 <li>3d蒸馏: 此前的一步能得到来源于2d图像的特征点云, 并可以用于基于图像的导航, 但是如果想在非图像输入的任务中保留场景语义，就需要一个可以直接用3d点位置得到语义的编码器(网络), 也就是让一个接受点云输入的网络去学习我们上一步得到的特征点云, 例如使用MinkowskiNet18A卷积模型训练, 以余弦相似度为损失函数(L = 1 − cos(F2D, F3D)) , 使得3d点云的特征嵌入和2d图像的特征嵌入尽可能接近，从而实现对3d点云的语义理解，此外，这个训练过程也能一定程度上减少噪声</li>
 <li>2D-3D 特征融合: 实验中发现, 2d特征对小物品和形状模糊的物品比较准确，而3d特征对大的，形状明确的物品比较准确，因此考虑将两者的优点融合，对两种特征以及一段预定义的文本提示词嵌入计算cos相似度, 选择得分更高的作为最终的语义标签</li>
 </ol>
+<p><img src="/assets/ml/image-52.png" /></p>
 <p>对于推理任务, 使用余弦相似度作为推断标准</p>
 <h3 id="unim-ov3d">UniM-OV3D</h3>
 <p>单就以点云、图像(rgb/rgbd)、文本等模态为数据的3d空间感知问题来说, 目前主流的问题是，语义信息(例如嵌入向量)的产生比较依赖clip这种视觉模型, 因此要么将点云转化为图片输入clip， 要么用图像和深度信息生成点云，或者将语义灌输到点云中， 也就是把点云和图像对齐<br />
