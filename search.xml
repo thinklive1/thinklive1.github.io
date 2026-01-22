@@ -197,7 +197,12 @@
 <li><a href="#robomemory-a-brain-inspired-multi-memory-agentic-framework-for-interactive-environmental-learning-in-physical-embodied-systems">RoboMemory: A Brain-inspired Multi-memory Agentic Framework for Interactive Environmental Learning in Physical Embodied Systems</a></li>
 <li><a href="#e2map-experience-and-emotion-map--for-self-reflective-robot-navigation-with-language-models">E2Map: Experience-and-Emotion Map for Self-Reflective Robot Navigation with Language Models</a></li>
 <li><a href="#stage-2-summary">stage 2 summary</a></li>
-<li><a href="#doraemon-decentralized-ontology-aware-reliable-agent-with-enhanced-memory-oriented-navigation">DORAEMON: Decentralized Ontology-aware Reliable Agent with Enhanced Memory Oriented Navigation</a></li>
+<li><a href="#doraemon-decentralized-ontology-aware-reliable-agent-with-enhanced-memory-oriented-navigation">DORAEMON: Decentralized Ontology-aware Reliable Agent with Enhanced Memory Oriented Navigation</a>
+<ul>
+<li><a href="#背侧工作流">背侧工作流</a></li>
+<li><a href="#腹侧工作流">腹侧工作流</a></li>
+</ul></li>
+<li><a href="#language-extended-indoor-slam-lexis--a-versatile-system-for-real-time-visual-scene-understanding">Language-EXtended Indoor SLAM (LEXIS): A Versatile System for Real-time Visual Scene Understanding</a></li>
 </ul></li>
 <li><a href="#vision-language-action-models">Vision-Language-Action Models</a>
 <ul>
@@ -1269,10 +1274,26 @@ stage1 中看的文章大多是语义地图中比较常见的拓扑图形式, �
 <li>怎么更新语义地图, 包括更正错误, 对动态环境的更新， 合并重复节点……</li>
 </ol>
 <h2 id="doraemon-decentralized-ontology-aware-reliable-agent-with-enhanced-memory-oriented-navigation">DORAEMON: Decentralized Ontology-aware Reliable Agent with Enhanced Memory Oriented Navigation</h2>
-<p>由于目前技术上的限制，当前的语义地图往往无法表示实际时空中的连续性，本文提出了一种基于背侧、腹侧的分层机制来实现基于语义地图的导航任务的方式，具体而言，背侧提供语义图的生成和检索接口，腹侧使用相关信息与已有知识，通过vlm进行推理和决策<br />
-<img src="/assets/ml/image-54.png" /> 背侧地图如上图所示, 每个结点存储时间戳、位姿、观察、观察嵌入与描述，经过一定时间或欧氏距离超过阈值时创建新节点<br />
+<p>由于目前技术上的限制，当前的语义地图往往无法表示实际时空中的连续性，本文提出了一种基于背侧、腹侧的分层机制来实现基于语义地图的导航任务的方式，具体而言，背侧提供语义图的生成和检索接口，腹侧使用相关信息与已有知识，通过vlm进行推理和决策</p>
+<h3 id="背侧工作流">背侧工作流</h3>
+<p><img src="/assets/ml/image-54.png" /> 背侧地图如上图所示, 每个结点存储时间戳、位姿、观察、观察嵌入与描述，经过一定时间或欧氏距离超过阈值时创建新节点<br />
 节点间有层级关系，一共4层，自底向上构建，自顶向下检索，检索使用以下得分函数:</p>
 <p><span class="math display">\[S(h_{i})=\alpha_{\mathrm{sem}}S_{\mathrm{sem}}(h_{i},T)+\alpha_{\mathrm{spa}}S_{\mathrm{spa}}(h_{i})+\alpha_{\mathrm{key}}S_{\mathrm{key}}(h_{i},T)+\alpha_{\mathrm{time}}S_{\mathrm{time}}(h_{i}),\]</span></p>
+<p>即节点任务相关性得分、距离得分、关键字重叠度得分与最近时间得分的加权和</p>
+<p>构建过程中，先不断生成观察节点，然后运行聚类算法，达到门槛值后产生一个区域节点，区域节点会根据vlm产生一个类型信息，综合考虑空间距离和类型信息再产生更高的层级节点，层级节点被链接到根节点</p>
+<h3 id="腹侧工作流">腹侧工作流</h3>
+<p>简单地说，使用code-vlm将任务处理为Kg，随后用exec-vlm进行推理决策,使用思想链 Chain-of-Thought(CoT) 来引导这一推理过程。CoT指导exec-vlm将复杂的导航任务分解为可解释的子步骤 即首先生成不受约束的动作建议，随后根据探索价值、安全性、历史信息等信息过滤建议，直至产生最终动作，也就是其输出时离散的动作流</p>
+<h2 id="language-extended-indoor-slam-lexis-a-versatile-system-for-real-time-visual-scene-understanding">Language-EXtended Indoor SLAM (LEXIS): A Versatile System for Real-time Visual Scene Understanding</h2>
+<p>本文提出了一种语义slam, 也就是在slam定位建图的过程中, 对其产生的位姿轨迹，根据其视觉信息计算语义信息，产生语义位姿轨迹，具体来说，其语义就是clip嵌入与房间类别标签<br />
+当然，这种分类很明显会遇到边界情况难以处理以及难以收敛的问题，对此，本文提出了一种聚类算法，以及一种闭环检测机制<br />
+对房间标签的生成，使用经典的clip对齐视觉语言，即匹配视觉clip嵌入和房间类别的嵌入相似度，边界使用<code>label prop-agation</code>算法的变种, 对每个节点的c个邻居，若其中最常见的标签与该节点不同，则更新节点，每k个帧只进行一次这样的算法<br />
+此外，对于同一个类型的房间，可能有多个实例，或者误判为不同、相同实例，为此:</p>
+<ol type="1">
+<li>对一个新的未遇到过的节点类别，设置一个新簇</li>
+<li>对一个新节点，若它是已有的房间类并且在簇的平均距离的一个范围内，则将其添加到群集</li>
+<li>若一个房间内有多个簇，合并没有中间空间(如走廊)的簇</li>
+</ol>
+<p>对闭环检测，新的帧计算其房间类别，根据当前定位估计其附近是否有已有的房间簇，比对语义嵌入，视觉相似度(使用pnp)而辅助slam进行位姿优化</p>
 <h1 id="vision-language-action-models">Vision-Language-Action Models</h1>
 <h2 id="large-vlm-based-vision-language-action-models-for-robotic-manipulation-a-survey">Large VLM-based Vision-Language-Action Models for Robotic Manipulation: A Survey</h2>
 <h3 id="前言-1">前言</h3>
