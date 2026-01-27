@@ -46,7 +46,7 @@
 <meta property="og:image" content="https://thinklive1.github.io/assets/ml/image-53.png">
 <meta property="og:image" content="https://thinklive1.github.io/assets/ml/image-56.png">
 <meta property="article:published_time" content="2025-11-15T11:04:27.128Z">
-<meta property="article:modified_time" content="2026-01-27T04:53:56.012Z">
+<meta property="article:modified_time" content="2026-01-27T07:09:39.660Z">
 <meta property="article:author" content="thinklive">
 <meta property="article:tag" content="人工智能">
 <meta property="article:tag" content="机器学习">
@@ -320,7 +320,7 @@ const darkmode = new Darkmode(options);
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2026-01-27 12:53:56" itemprop="dateModified" datetime="2026-01-27T12:53:56+08:00">2026-01-27</time>
+      <time title="修改时间：2026-01-27 15:09:39" itemprop="dateModified" datetime="2026-01-27T15:09:39+08:00">2026-01-27</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -346,14 +346,14 @@ const darkmode = new Darkmode(options);
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>7.3k</span>
+      <span>7.7k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>26 分钟</span>
+      <span>28 分钟</span>
     </span>
 </div>
 
@@ -485,11 +485,15 @@ ros的通信机制有三种实现策略:</p>
 <p><img src="/assets/ml/image-53.png" /></p>
 <h3 id="openfusion">openfusion++</h3>
 <p><img src="/assets/ml/image-56.png" /></p>
-<p>这篇文章主要解决的是从2d掩码建立实例分割时遇到的边缘模糊问题, 它假设每个(小)体素只对应最多一个实例, 因此对每个体素计算关联到它位置点云的平均置信度, 将最高的一个实例点云关联到这个体素<br />
-此外, 为了解决动态环境更新实例的问题, 通过投射2d掩码的深度得到其在平面上的面积, 以这个面积作为判断实例准确性的标准, 将其作为key维护一个最小堆, 堆里存储各个view里的嵌入语义<br />
-查询时, 使用一个关键词提取模型提取查询的关键词，再对其编码得到语义向量, 以余弦相似度匹配点云图语义</p>
+<p>输入为rgbd, 使用输入数据实时构建基于tsdf的3d场景表示, 数据结构上是体素图, 每个体素块除了存储表面距离外还保存rgb数据(加权平均)<br />
+语义理解上, 从rgb帧提取实例掩码和嵌入, 此外对每次2d检测，和已有的3d实例的2d投影计算IoU, 得到一个代价矩阵, 使用匈牙利匹配法解决新实例分配问题, 也就是检测的新实例为点集A,已有且能投影到相机帧上的实例为点集B, 匹配这两者，若A中有不能成功匹配的则为新实例进行注册, 反投影点云,并关联体素, 体素内存储点云坐标与逐点置信度<br />
+为优化空间占用，体素(cm级)内点数固定为N, 新建实例通过采样保留N个点, 每个体素只分给一个实例类别, 对于有多个实例点的体素, 选择有最高平均置信度的类别保留对应点云<br />
+以上是对语义点云的初始化，为了在后续建图过程中动态更新, 对每个实例维护一个容量有限的最小堆, 以观察完整性的负数为key, 也就是 <span class="math inline">\(A_{t}^{k}=\sum_{p\in M_{t}^{k}}\frac{f_{x}f_{y}}{D_{t}(p)^{2}},\)</span> , fxfy为焦距,D为深度, M为掩码, 即优先选取离相机近且像素面积最大的实例<br />
+实例的整体语义以最小堆中的语义嵌入以面积Aj加权表示: <span class="math inline">\(\mathbf{e}_{j}\iff{\frac{\sum_{i=1}^{N}{A}_{j}^{i}\cdot\mathbf{e}_{j}^{i}}{\sum_{i=1}^{M}{A}_{j}^{i}+\epsilon}},\)</span> , <span class="math inline">\(\epsilon\)</span> 为随机噪声<br />
+对于检索部分, 综合使用类别敏感的文本编码器seem与泛化能力强的clip, seem提取查询语句的关键词并计算嵌入，然后计算与地图实例的余弦相似度, 随后将最高相似度得分向下浮动出一个范围，对处于范围内的对象，计算clip嵌入并检索最高相似度对象</p>
 <div class="note info"><ul>
 <li>tsdf: 一种3d表面重建技术, 简单地说就是将空间划分为体素, 每个体素存储一个距离值, 代表该体素到最近表面的距离, 通过融合多个视图的深度信息, 可以得到一个连续的3d表面</li>
+<li>Hungarian match: 用于处理二分图最大匹配(在二分图中最多能找到多少条没有公共端点的边)或者最小点覆盖(找到最少的一些点，使二分图所有的边都至少有一个端点在这些点之中)问题, 二分图就是有两个点集，且各个点集内部的点互不相连的图</li>
 </ul>
 </div>
 <h2 id="cmake">cmake</h2>
@@ -928,7 +932,7 @@ ros的通信机制有三种实现策略:</p>
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">38:53</span>
+    <span title="站点阅读时长">38:55</span>
   </span>
 </div>
 <div class="busuanzi-count">
