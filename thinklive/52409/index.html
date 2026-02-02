@@ -67,7 +67,7 @@
 <meta property="og:image" content="https://thinklive1.github.io/assets/ml/image-1.png">
 <meta property="og:image" content="https://thinklive1.github.io/assets/ml/image-2.png">
 <meta property="article:published_time" content="2025-09-09T07:53:29.848Z">
-<meta property="article:modified_time" content="2026-02-02T05:13:42.734Z">
+<meta property="article:modified_time" content="2026-02-02T12:15:27.822Z">
 <meta property="article:author" content="thinklive">
 <meta property="article:tag" content="人工智能">
 <meta property="article:tag" content="机器学习">
@@ -341,7 +341,7 @@ const darkmode = new Darkmode(options);
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2026-02-02 13:13:42" itemprop="dateModified" datetime="2026-02-02T13:13:42+08:00">2026-02-02</time>
+      <time title="修改时间：2026-02-02 20:15:27" itemprop="dateModified" datetime="2026-02-02T20:15:27+08:00">2026-02-02</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -367,14 +367,14 @@ const darkmode = new Darkmode(options);
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>42k</span>
+      <span>43k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2:34</span>
+      <span>2:36</span>
     </span>
 </div>
 
@@ -1666,8 +1666,17 @@ stage1 中看的文章大多是语义地图中比较常见的拓扑图形式, �
 <li>直接用imu估计相机位姿, 从而区分动静特征</li>
 </ol>
 <p>即使想办法解决这些问题, 但就动态环境建图这个问题而言, 本身就有很多麻烦之处, 例如存在较多遮挡关系, 或者变化过大导致无法追踪特征<br />
-那么如果引入语义信息呢？例如通过实例检测模型提供物体级别的语义，这样的静态检测是可行的，但如果想用于slam, 也就是定位过程中, 不同帧之间物体的运动追踪就是一个难题, 如何维持一个物体在slam运行过程中的稳定性(特别是在被遮挡一段时间的情况下), 以及如何通过这个物体优化相机位姿不出现累积误差, 都是难点<br />
-这也是为什么动态语义地图几乎不会考虑动态slam,</p>
+那么如果引入语义信息呢？例如通过实例检测模型提供物体级别的语义，这样的静态检测是可行的，但如果想用于slam, 也就是定位过程中, 不同帧之间物体的运动追踪就是一个难题, 这部分的难点有: 如何维持一个物体在slam运行过程中的稳定性(特别是在被遮挡一段时间的情况下), 以及如何通过这个物体优化相机位姿不出现累积误差<br />
+此外, 也可以将语义信息用于特征点选择, 也就是通过语义分类排除动态物体, 只选取静态物体的特征点, 这样的问题在于, 一些模糊的划分反而会减少用于建图的几何信息，例如停着的车仍然可能会被划分为动态物体, 但它实际上可以作为特征点用于定位<br />
+还有一个致命的问题是, 由于slam依赖传感器信息, 经常直接运行于机器人本体, 而语义信息检测往往基于一些算力较大的模型, 产生实时性问题<br />
+一个折中的办法是，使用三维几何体级别的语义, 也就是在slam层面匹配物体框架, 例如长方体或者几何曲面<br />
+目前来说, 比较实用的相关方法依旧基于传统的常用slam方法, 例如orb3, 然后使用基于模型/算法的方法检测出动态物体滤除，从而用于slam定位与建图, 举一个近年的例子(2025IROS NGD-SLAM)<br />
+该方法试图避免使用昂贵的gpu算力, 从而能在直接部署于机器人本体的同时保持动态环境定位能力, 使用运算简单的算法来进行动态区域排除, 具体来说:</p>
+<ol type="1">
+<li>另外设一个子线程, 接受一个时间点的视觉帧t0, 使用算力要求低的yolo和分割模型提取物体边框与掩码, 在之后的时间点t1, 将掩码M交给异步运行的主进程(我们希望yt,t0的时间差尽可能小)</li>
+<li>接收到掩码(也有可能模型检测失败，那么直接使用上一次的计算结果)后, 过滤深度错误的部分, 使用光流法追踪动态区域的变化并运行聚类算法, 得到一个更新后的掩码区域M'</li>
+<li>排除M'区域的特征点, 此外使用更适合这个常见的光流法而不是orb3原来的特征点法来运行slam, 追踪静态的部分来更新定位, 此外在关键帧中保留原先orb3的特征点与对应关系，也就是混合使用光流和特征点方法</li>
+</ol>
 <h4 id="场景拓扑图视角">场景(拓扑)图视角</h4>
 <p>主流类似于dualmap的方法是, 使用实例检测和分类模型等检测出场景实例, 对一个特定实例, 如果满足一些特定的动态条件则进行合并/删除/拆分等更新操作, 这样的缺点是依赖于预设的逻辑, 无法保证不出现误判, 此外由于边缘可能很模糊，很可能无法做到清晰的划分</p>
 <h1 id="vision-language-action-models">Vision-Language-Action Models</h1>
@@ -2086,14 +2095,14 @@ ACT 主要创新点在于能够预测连续的, 精确的动作序列, 而一些
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">643k</span>
+    <span title="站点总字数">644k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">38:59</span>
+    <span title="站点阅读时长">39:01</span>
   </span>
 </div>
 <div class="busuanzi-count">
