@@ -67,7 +67,7 @@
 <meta property="og:image" content="https://thinklive1.github.io/assets/ml/image-1.png">
 <meta property="og:image" content="https://thinklive1.github.io/assets/ml/image-2.png">
 <meta property="article:published_time" content="2025-09-09T07:53:29.848Z">
-<meta property="article:modified_time" content="2026-02-02T12:15:27.822Z">
+<meta property="article:modified_time" content="2026-02-03T03:55:12.618Z">
 <meta property="article:author" content="thinklive">
 <meta property="article:tag" content="人工智能">
 <meta property="article:tag" content="机器学习">
@@ -341,7 +341,7 @@ const darkmode = new Darkmode(options);
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2026-02-02 20:15:27" itemprop="dateModified" datetime="2026-02-02T20:15:27+08:00">2026-02-02</time>
+      <time title="修改时间：2026-02-03 11:55:12" itemprop="dateModified" datetime="2026-02-03T11:55:12+08:00">2026-02-03</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -1674,8 +1674,8 @@ stage1 中看的文章大多是语义地图中比较常见的拓扑图形式, �
 该方法试图避免使用昂贵的gpu算力, 从而能在直接部署于机器人本体的同时保持动态环境定位能力, 使用运算简单的算法来进行动态区域排除, 具体来说:</p>
 <ol type="1">
 <li>另外设一个子线程, 接受一个时间点的视觉帧t0, 使用算力要求低的yolo和分割模型提取物体边框与掩码, 在之后的时间点t1, 将掩码M交给异步运行的主进程(我们希望yt,t0的时间差尽可能小)</li>
-<li>接收到掩码(也有可能模型检测失败，那么直接使用上一次的计算结果)后, 过滤深度错误的部分, 使用光流法追踪动态区域的变化并运行聚类算法, 得到一个更新后的掩码区域M'</li>
-<li>排除M'区域的特征点, 此外使用更适合这个常见的光流法而不是orb3原来的特征点法来运行slam, 追踪静态的部分来更新定位, 此外在关键帧中保留原先orb3的特征点与对应关系，也就是混合使用光流和特征点方法</li>
+<li>接收到掩码(也有可能模型检测失败，那么直接使用上一次的计算结果)后, 过滤深度错误的部分, 使用光流法追踪区域内特征点的变化并运行基于深度的聚类算法, 得到一个更新后的动态对象的掩码区域M'及其内部被标记为动态的特征点的聚类</li>
+<li>排除M'区域的特征点, 此外使用更适合这个场景的光流法而不是orb3原来的特征点法来运行slam, 追踪静态的部分来更新定位, 此外在关键帧中保留原先orb3的特征点与对应关系，也就是混合使用光流和特征点方法</li>
 </ol>
 <h4 id="场景拓扑图视角">场景(拓扑)图视角</h4>
 <p>主流类似于dualmap的方法是, 使用实例检测和分类模型等检测出场景实例, 对一个特定实例, 如果满足一些特定的动态条件则进行合并/删除/拆分等更新操作, 这样的缺点是依赖于预设的逻辑, 无法保证不出现误判, 此外由于边缘可能很模糊，很可能无法做到清晰的划分</p>
