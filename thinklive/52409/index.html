@@ -61,13 +61,15 @@
 <meta property="og:image" content="https://thinklive1.github.io/assets/ml/20-Figure13-1.png">
 <meta property="og:image" content="https://thinklive1.github.io/assets/ml/image-54.png">
 <meta property="og:image" content="https://thinklive1.github.io/assets/ml/image-55.png">
+<meta property="og:image" content="https://thinklive1.github.io/assets/ml/image-58.png">
+<meta property="og:image" content="https://thinklive1.github.io/assets/ml/image-57.png">
 <meta property="og:image" content="https://thinklive1.github.io/assets/ml/image.png">
 <meta property="og:image" content="https://thinklive1.github.io/assets/ml/image-5.png">
 <meta property="og:image" content="https://thinklive1.github.io/assets/ml/image-6.png">
 <meta property="og:image" content="https://thinklive1.github.io/assets/ml/image-1.png">
 <meta property="og:image" content="https://thinklive1.github.io/assets/ml/image-2.png">
 <meta property="article:published_time" content="2025-09-09T07:53:29.848Z">
-<meta property="article:modified_time" content="2026-02-04T06:24:47.067Z">
+<meta property="article:modified_time" content="2026-02-04T09:46:24.497Z">
 <meta property="article:author" content="thinklive">
 <meta property="article:tag" content="人工智能">
 <meta property="article:tag" content="机器学习">
@@ -341,7 +343,7 @@ const darkmode = new Darkmode(options);
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2026-02-04 14:24:47" itemprop="dateModified" datetime="2026-02-04T14:24:47+08:00">2026-02-04</time>
+      <time title="修改时间：2026-02-04 17:46:24" itemprop="dateModified" datetime="2026-02-04T17:46:24+08:00">2026-02-04</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -367,14 +369,14 @@ const darkmode = new Darkmode(options);
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>43k</span>
+      <span>44k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2:36</span>
+      <span>2:39</span>
     </span>
 </div>
 
@@ -1669,17 +1671,29 @@ stage1 中看的文章大多是语义地图中比较常见的拓扑图形式, �
 <p>即使想办法解决这些问题, 但就动态环境建图这个问题而言, 本身就有很多麻烦之处, 例如存在较多遮挡关系, 或者变化过大导致无法追踪特征<br />
 那么如果引入语义信息呢？例如通过实例检测模型提供物体级别的语义， 实现对动态特征点的追踪, 这样的静态检测是可行的，但如果想用于slam, 也就是定位过程中, 不同帧之间物体的运动追踪就是一个难题, 这部分的难点有: 如何维持一个物体在slam运行过程中的稳定性(特别是在被遮挡一段时间的情况下), 以及如何通过这个物体优化相机位姿不出现累积误差<br />
 此外, 也可以将语义信息用于特征点选择, 也就是通过语义分类排除动态物体, 只选取静态物体的特征点, 这样的问题在于, 一些模糊的划分反而会减少用于建图的几何信息，例如停着的车仍然可能会被划分为动态物体, 但它实际上可以作为特征点用于定位<br />
-还有一个致命的问题是, 由于slam依赖传感器信息, 经常直接运行于机器人本体, 而语义信息检测往往基于一些算力较大的模型, 产生实时性问题<br />
+还有一个致命的问题是, 由于slam依赖传感器信息, 经常直接运行于机器人本体, 而语义信息检测往往基于一些算力较大的模型, 这会产生实时性问题<br />
 一个折中的办法是，使用三维几何体级别的语义, 也就是在slam层面匹配物体框架, 例如长方体或者几何曲面<br />
 目前来说, 比较实用的相关方法依旧基于传统的常用slam方法, 例如orb3, 然后使用基于模型/算法的方法检测出动态物体滤除，从而用于slam定位与建图, 举一个近年的例子(2025IROS NGD-SLAM)<br />
 该方法试图避免使用昂贵的gpu算力, 从而能在直接部署于机器人本体的同时保持动态环境定位能力, 使用运算简单的算法来进行动态区域排除, 具体来说:</p>
 <ol type="1">
 <li>另外设一个子线程, 接受一个时间点的视觉帧t0, 使用算力要求低的yolo和分割模型提取物体边框与掩码, 在之后的时间点t1, 将掩码M交给异步运行的主进程(我们希望yt,t0的时间差尽可能小)</li>
-<li>接收到掩码(也有可能模型检测失败，那么直接使用上一次的计算结果)后, 过滤深度错误的部分, 使用光流法追踪区域内特征点的变化并运行基于深度的聚类算法, 得到一个更新后的动态对象的掩码区域M'及其内部被标记为动态的特征点的聚类</li>
-<li>排除M'区域的特征点, 此外使用更适合这个场景的光流法而不是orb3原来的特征点法来运行slam, 追踪静态的部分来更新定位, 此外在关键帧中保留原先orb3的特征点与对应关系，也就是混合使用光流和特征点方法</li>
+<li>接收到掩码(也有可能模型检测失败，那么直接使用上一次的计算结果)后, 使用光流法追踪区域内特征点的变化并运行基于深度的聚类算法, 得到一个更新后的动态对象的掩码区域M'及其内部被标记为动态的特征点的聚类</li>
+<li>排除M'区域的特征点, 此外使用更适合这个场景的光流法而不是orb3原来的特征点法来运行slam, 追踪静态的部分来更新定位, 此外在关键帧中保留原先orb3的特征点与对应关系， 用于维护orb3的原有数据结构, 也就是混合使用光流和特征点方法</li>
 </ol>
 <h4 id="场景拓扑图视角">场景(拓扑)图视角</h4>
-<p>主流类似于dualmap的方法是, 使用实例检测和分类模型等检测出场景实例, 对一个特定实例, 如果满足一些特定的动态条件则进行合并/删除/拆分等更新操作, 这样的缺点是依赖于预设的逻辑, 无法保证不出现误判, 此外由于边缘可能很模糊，很可能无法做到清晰的划分</p>
+<p>对场景图, 或者说主流的语义地图来说, 定位可以不那么重要, 只有建图是重点, 但就建图而言不需要做到cm级别的精度, 只需要大体上的拓扑关系, 因此可以维护对象级别的语义拓扑图, 用实例检测进程来维护<br />
+主流类似于dualmap的方法是, 在运行中使用实例检测和分类模型等检测出场景实例, 对一个特定实例, 如果满足一些特定的动态条件则进行合并/删除/拆分等更新操作, 这样的更新本质上是半动态的, 假设场景的变化只占用很少的时间且占据不大的比例, 这个假设符合大部分实际场景, 如果不需要通过视觉进行精准定位, 应该是可行的 接下来介绍一篇类似dualmap的实现半动态建图的方法(Where Did I Leave My Glasses? Open-Vocabulary Semantic Exploration in Real-World Semi-Static Environments 2026 RAL)</p>
+<p><img src="/assets/ml/image-58.png" /></p>
+<p>这篇文章假设能通过imu信息直接得到相机位姿, 也就是不考虑用视觉信息修正定位</p>
+<ol type="1">
+<li>初始化: 类似dualmap, 用sam,clip等模型检测实例, 维护其嵌入, 类别标签等语义信息, 此外还维护一个没有检测到实例的背景点云<br />
+</li>
+<li>对象合并: 运行过程中, 目前已有且在相机fov内的对象,过滤深度后进行反投影映射到相机的像素坐标系上, 若投影后可见部分超过一定门槛，设置为候选对象, 对其与当前帧检测到的对象进行匹配, 分数设置为语义嵌入相似度和几何重叠度(两个对象点云中距离在阈值内的点/两者点数的最小值), 伪代码见下图，其中Y为新检测对象，O为已有对象</li>
+<li>稳定性评分: 虽然不能实时追踪运动, 但对于已经维护好的动态对象, 可以对其变化的程度进行评分, 标准为 几何移动距离+对位置变化的“信念”, 文中使用贝叶斯概率模型建立对物体类别先验信念、历史移动距离、当前观察等变量之间的模型, 对很久没有观察到的对象, 让其不变的信念自然衰减到一个阈值</li>
+<li>用整体对象集合的两个子集区分最近可见与不可见的对象, 若静止信念过低, 视为不可见对象, 被标记为不可见的对象后的一段窗口内, 可以在可见对象里查询匹配对象, 防止错误标记为不可见</li>
+<li>任务: 简单地说, 每个对象根据自身信念产生一个探索优先级的分布, 将任务分为维护和导航, 维护任务根据探索优先级来生成路线； 导航则使用LLM产生候选对象</li>
+</ol>
+<p><img src="/assets/ml/image-57.png" /></p>
 <h1 id="vision-language-action-models">Vision-Language-Action Models</h1>
 <h2 id="large-vlm-based-vision-language-action-models-for-robotic-manipulation-a-survey">Large VLM-based Vision-Language-Action Models for Robotic Manipulation: A Survey</h2>
 <h3 id="前言-1">前言</h3>
@@ -2103,7 +2117,7 @@ ACT 主要创新点在于能够预测连续的, 精确的动作序列, 而一些
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">39:01</span>
+    <span title="站点阅读时长">39:03</span>
   </span>
 </div>
 <div class="busuanzi-count">
