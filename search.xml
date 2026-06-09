@@ -619,17 +619,22 @@ ros的通信机制有三种实现策略:</p>
 找到树里离随机点最近的节点可以用kd-tree<br />
 对于非完整约束的运动系统，常见方法是采样控制输入，对状态进行前向积分，得到满足约束的候选轨迹；或者使用 Dubins(只能前进，有最小转弯半径)、Reeds-Shepp( 可以前进和倒车，有最小转弯半径) 这类局部连接器(给定两个端点，生成一个局部运动连接两点)。<br />
 对关节空间, 机械臂 RRT 的节点是关节向量 q。 碰撞检测时先对 q 做正运动学，得到每个 link 的位姿，再用 link 的 collision geometry 检查环境碰撞和自碰撞。 扩展边时需要在关节空间做离散插值，对每个中间 q 都检查碰撞。</p>
-<h4 id="rrt-1">RRT*</h4>
-<p>为了解决RRT的性能问题, RRT*增加了两步:</p>
+<p>RRT*:<br />
+为了解决RRT的性能问题, RRT*增加了两步:</p>
 <ol type="1">
 <li>choose parent：给 x_new 选择代价最低的父节点, 一般用一个球形范围实现</li>
 <li>rewiring：检查 x_new 能不能让附近节点的代价更低，如果能，就把它们的父节点改成 x_new。</li>
 </ol>
 <p>RRT*相比RRT, 拥有渐近最优性: 当采样次数趋向于无穷大时，算法结果会收敛到最优解</p>
-<h4 id="informed-rrt">Informed RRT*</h4>
+<p>Informed RRT*:</p>
 <p>如果我们想优化导航算法的路径选取, 其实选取空间是存在一个限制, 计c_best为当前已知最短路径长度, 可优化的路径点满足<code>distance(start, x) + distance(x, goal) &lt; c_best</code>, 在二维上是一个椭圆区域<br />
 Informed RRT* 流程为:</p>
 <figure class="highlight text"><table><tr><td class="code"><pre><span class="line">1. 没找到路径前，和 RRT* 一样全局采样。</span><br><span class="line">2. 找到第一条可行路径后，得到 c_best。</span><br><span class="line">3. 后续只在以 start 和 goal 为焦点的椭圆区域内采样。</span><br><span class="line">4. 每次找到更短路径，c_best 变小，椭圆也随之收缩。</span><br></pre></td></tr></table></figure>
+<p>RRT 路径通常需要后处理:</p>
+<ul>
+<li>shortcut smoothing，随机选路径上两个点，如果直连无碰撞就删除中间节点。</li>
+<li>也可以用样条曲线如B-spline 或轨迹优化方法让路径满足平滑性、曲率、速度、加速度和碰撞约束。</li>
+</ul>
 <div class="note info"><ul>
 <li>AABB：Axis-Aligned Bounding Box 轴对齐包围盒，盒子的边永远和世界坐标轴平行。 优点是计算特别快。 缺点是物体旋转后可能包得很松。</li>
 <li>OBB：Oriented Bounding Box 有向包围盒，盒子可以跟着物体一起旋转。 优点是包得更紧。 缺点是碰撞检测更复杂，通常要用 SAT。</li>
