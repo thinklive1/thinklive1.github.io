@@ -1,4 +1,15 @@
 (function fairyDustCursor() {
+    const EFFECTS_STORAGE_KEY = 'site-effects-disabled';
+
+    function effectsDisabled() {
+        try {
+            return localStorage.getItem(EFFECTS_STORAGE_KEY) === 'true';
+        } catch (error) {
+            return false;
+        }
+    }
+
+    if (effectsDisabled()) return;
 
     var possibleColors = ["#000", "#AAA", "#FFF"]
     var width = window.innerWidth;
@@ -6,6 +17,9 @@
     var cursor = { x: width / 2, y: width / 2 };
     var particles = [];
     let lastPosition = { x: 0, y: 0 };
+    let animationFrameId;
+    let active = true;
+
     function init() {
         bindEvents();
         loop();
@@ -18,6 +32,25 @@
         document.addEventListener('touchstart', onTouchMove);
 
         window.addEventListener('resize', onWindowResize);
+        window.addEventListener('site-effects-change', onEffectsChange);
+    }
+
+    function unbindEvents() {
+        document.removeEventListener('mousemove', onMouseMove);
+        document.removeEventListener('touchmove', onTouchMove);
+        document.removeEventListener('touchstart', onTouchMove);
+        window.removeEventListener('resize', onWindowResize);
+        window.removeEventListener('site-effects-change', onEffectsChange);
+    }
+
+    function onEffectsChange(event) {
+        if (!event.detail || !event.detail.disabled) return;
+
+        active = false;
+        cancelAnimationFrame(animationFrameId);
+        unbindEvents();
+        particles.forEach(particle => particle.die());
+        particles = [];
     }
     function onWindowResize(e) {
         width = window.innerWidth;
@@ -25,6 +58,8 @@
     }
 
     function onTouchMove(e) {
+        if (!active || effectsDisabled()) return;
+
         if (e.touches.length > 0) {
             for (var i = 0; i < e.touches.length; i++) {
                 addParticle(e.touches[i].clientX, e.touches[i].clientY, possibleColors[Math.floor(Math.random() * possibleColors.length)]);
@@ -33,6 +68,8 @@
     }
 
     function onMouseMove(e) {
+        if (!active || effectsDisabled()) return;
+
         cursor.x = e.clientX;
         cursor.y = e.clientY;
         lastPosition.x = e.clientX;
@@ -65,7 +102,9 @@
     }
 
     function loop() {
-        requestAnimationFrame(loop);
+        if (!active || effectsDisabled()) return;
+
+        animationFrameId = requestAnimationFrame(loop);
         updateParticles();
         if (Math.random() > 0.9) {
             addParticle(lastPosition.x, lastPosition.y);
@@ -114,7 +153,9 @@
         }
 
         this.die = function () {
-            this.element.parentNode.removeChild(this.element);
+            if (this.element && this.element.parentNode) {
+                this.element.parentNode.removeChild(this.element);
+            }
         }
 
     }
