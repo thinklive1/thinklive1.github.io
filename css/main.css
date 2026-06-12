@@ -1208,7 +1208,7 @@ pre code {
     transition: all 0.2s ease-in-out;
   }
   .links-of-author a::before {
-    background: #a62bff;
+    background: #ccff2b;
     display: inline-block;
     margin-right: 3px;
     transform: translateY(-2px);
@@ -1557,6 +1557,30 @@ pre code {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+.sidebar-post-related {
+  font-size: 0.8125em;
+  padding: 18px 0 0 0;
+}
+.popular-posts {
+  margin: 0;
+  padding: 1em 0;
+  text-align: left;
+}
+.popular-posts .popular-posts-item {
+  display: block;
+}
+.popular-posts .popular-posts-item .popular-posts-link {
+  border-bottom: 0;
+  display: block;
+  padding: 5px 20px;
+  transition: background 0.2s ease-in-out;
+}
+.popular-posts .popular-posts-item .popular-posts-link:hover {
+  background: var(--menu-item-bg-color);
+}
+.popular-posts .popular-posts-item .popular-posts-time {
+  color: #999;
 }
 .footer {
   color: #999;
@@ -2835,6 +2859,16 @@ body {
   isolation: isolate;
   position: relative;
 }
+html.effects-disabled,
+html.effects-disabled body {
+  background: var(--body-bg-color, #f5f5f5) !important;
+}
+html.effects-disabled.darkmode--activated,
+html.effects-disabled.darkmode--activated body,
+html.effects-disabled body.darkmode--activated,
+body.effects-disabled.darkmode--activated {
+  background: #17191d !important;
+}
 .site-bg-video {
   display: block !important;
   height: 100vh !important;
@@ -3217,16 +3251,24 @@ body .menu-item img {
   display: inline-block !important;
 }
 body button.darkmode-toggle {
+  align-items: center;
   background: var(--theme-toggle-bg) !important;
   border: 1px solid var(--theme-toggle-border) !important;
+  border-radius: 50% !important;
   bottom: var(--theme-toggle-bottom) !important;
   box-shadow: var(--theme-toggle-shadow);
   color: var(--theme-toggle-fg) !important;
+  cursor: pointer;
+  display: flex !important;
   font-size: 0 !important;
+  height: 3rem !important;
+  justify-content: center;
   left: auto !important;
   overflow: hidden;
+  padding: 0 !important;
   position: fixed !important;
   right: var(--theme-toggle-right) !important;
+  width: 3rem !important;
   z-index: 9999 !important;
 }
 body .darkmode-layer--button {
