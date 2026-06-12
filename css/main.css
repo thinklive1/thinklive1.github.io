@@ -1208,7 +1208,7 @@ pre code {
     transition: all 0.2s ease-in-out;
   }
   .links-of-author a::before {
-    background: #ccff2b;
+    background: #8eff53;
     display: inline-block;
     margin-right: 3px;
     transform: translateY(-2px);
@@ -1557,30 +1557,6 @@ pre code {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-}
-.sidebar-post-related {
-  font-size: 0.8125em;
-  padding: 18px 0 0 0;
-}
-.popular-posts {
-  margin: 0;
-  padding: 1em 0;
-  text-align: left;
-}
-.popular-posts .popular-posts-item {
-  display: block;
-}
-.popular-posts .popular-posts-item .popular-posts-link {
-  border-bottom: 0;
-  display: block;
-  padding: 5px 20px;
-  transition: background 0.2s ease-in-out;
-}
-.popular-posts .popular-posts-item .popular-posts-link:hover {
-  background: var(--menu-item-bg-color);
-}
-.popular-posts .popular-posts-item .popular-posts-time {
-  color: #999;
 }
 .footer {
   color: #999;
