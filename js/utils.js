@@ -309,6 +309,7 @@ NexT.utils = {
       const target = document.getElementById(decodeURI(element.getAttribute('href')).replace('#', ''));
       // TOC item animation navigate.
       element.addEventListener('click', event => {
+        if (!target) return;
         event.preventDefault();
         const offset = target.getBoundingClientRect().top + window.scrollY;
         window.anime({
@@ -323,6 +324,7 @@ NexT.utils = {
       });
       return target;
     });
+
     this.updateActiveNav();
   },
 
@@ -366,7 +368,8 @@ NexT.utils = {
 
     // Scrolling to center active TOC element if TOC content is taller then viewport.
     const tocElement = document.querySelector(CONFIG.scheme === 'Pisces' || CONFIG.scheme === 'Gemini' ? '.sidebar-panel-container' : '.sidebar');
-    if (!document.querySelector('.sidebar-toc-active')) return;
+    if (!tocElement || !document.querySelector('.sidebar-toc-active')) return;
+
     window.anime({
       targets  : tocElement,
       duration : 200,

@@ -25,6 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const init = function(trigger) {
     // Create a link element
     const link = document.querySelector('.book-mark-link');
+    if (!link) return;
     // Scroll event
     window.addEventListener('scroll', () => link.classList.toggle('book-mark-link-fixed', window.scrollY === 0), { passive: true });
     // Register beforeunload event when the trigger is auto

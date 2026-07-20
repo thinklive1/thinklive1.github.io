@@ -1208,7 +1208,7 @@ pre code {
     transition: all 0.2s ease-in-out;
   }
   .links-of-author a::before {
-    background: #8eff53;
+    background: #c96563;
     display: inline-block;
     margin-right: 3px;
     transform: translateY(-2px);
@@ -1619,12 +1619,6 @@ pre code {
   display: inline-block;
   margin: 0 5px;
   animation: icon-animate 1.33s ease-in-out infinite;
-}
-.busuanzi-count #busuanzi_container_site_uv {
-  display: none;
-}
-.busuanzi-count #busuanzi_container_site_pv {
-  display: none;
 }
 @keyframes icon-animate {
   0%, 100% {
@@ -2061,9 +2055,6 @@ pre code {
 .post-meta-break {
   flex-basis: 100%;
   height: 0;
-}
-#busuanzi_container_page_pv {
-  display: none;
 }
 .post-nav {
   border-top: 1px solid #eee;
@@ -3417,6 +3408,12 @@ html.theme-transition .aplayer * {
 .use-motion .sidebar-inner,
 .use-motion .footer {
   animation: motionVisibilityFallback 0s 1.2s forwards;
+}
+@media (min-width: 992px) {
+  .sidebar-inner,
+  .sidebar-panel-container {
+    min-height: 0;
+  }
 }
 @media (prefers-reduced-motion: reduce) {
   html.theme-transition *,
