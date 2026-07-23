@@ -1208,7 +1208,7 @@ pre code {
     transition: all 0.2s ease-in-out;
   }
   .links-of-author a::before {
-    background: #a1ff88;
+    background: #61ff3e;
     display: inline-block;
     margin-right: 3px;
     transform: translateY(-2px);
@@ -1458,10 +1458,6 @@ pre code {
   border: 1px solid #eee;
   max-width: 120px;
   padding: 2px;
-  transition: transform 1s ease-out;
-}
-.site-author-image:hover {
-  transform: rotateZ(360deg);
 }
 .site-author-name {
   color: var(--text-color);
@@ -3216,6 +3212,29 @@ body img.logo {
 body .beian img,
 body .menu-item img {
   display: inline-block !important;
+}
+.site-author-avatar {
+  display: inline-block;
+  line-height: 0;
+  position: relative;
+}
+.site-author-avatar .site-author-image {
+  display: block;
+}
+.site-author-avatar-frame {
+  height: 124%;
+  left: -12%;
+  pointer-events: none;
+  position: absolute;
+  top: -12%;
+  width: 124%;
+  z-index: 1;
+}
+.site-author-avatar-frame img {
+  display: block;
+  height: 100%;
+  max-width: none;
+  width: 100%;
 }
 body button.darkmode-toggle {
   align-items: center;

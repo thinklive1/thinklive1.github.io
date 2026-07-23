@@ -317,8 +317,14 @@
 
         <div class="site-overview-wrap sidebar-panel">
           <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <img class="site-author-image" itemprop="image" alt="thinklive"
-      src="/images/thive.png">
+    <span class="site-author-avatar">
+      <img class="site-author-image" itemprop="image" alt="thinklive"
+        src="/images/thive.png">
+      <picture class="site-author-avatar-frame" aria-hidden="true">
+        <source media="(prefers-reduced-motion: reduce)" srcset="/images/steam-avatar-frame-static.png">
+        <img class="darkmode-ignore" src="/images/steam-avatar-frame.png" alt="">
+      </picture>
+    </span>
   <p class="site-author-name" itemprop="name">thinklive</p>
   <div class="site-description" itemprop="description">起初，世界是一团思索，它向所有的方向迈了一步，于是万物由此而生</div>
 </div>
